@@ -7,7 +7,6 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
-import java.util.ResourceBundle;
 import java.util.MissingResourceException;
 
 abstract public class BaseDAO {
@@ -15,7 +14,6 @@ abstract public class BaseDAO {
     protected Connection getConnection() throws SQLException, ClassNotFoundException, MissingResourceException {
 
         Connection con = null;
-        ResourceBundle bundle;
         String url;
         String host;
         String db;
@@ -23,12 +21,11 @@ abstract public class BaseDAO {
         String user;
         String pass;
 
-        bundle   = ResourceBundle.getBundle("TakeoutSite");
-        host     = bundle.getString("Host");
-        db       = bundle.getString("DBname");
-        encoding = bundle.getString("Encoding");
-        user     = bundle.getString("DBuser");
-        pass     = bundle.getString("Password");
+        host     = "localhost";
+        db       =	"salescube";
+        encoding =  "UTF-8";
+        user     =  "root";
+        pass     =  "root";
 
         url = "jdbc:mysql://" + host + "/" + db + "?useUnicode=true&characterEncoding=" + encoding;
 
