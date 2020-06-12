@@ -10,8 +10,6 @@ import java.sql.SQLException;
 import java.util.ResourceBundle;
 import java.util.MissingResourceException;
 
-import beans.*;
-
 abstract public class BaseDAO {
 
     protected Connection getConnection() throws SQLException, ClassNotFoundException, MissingResourceException {
