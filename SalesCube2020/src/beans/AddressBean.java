@@ -15,6 +15,9 @@ package beans;
   * —X•Ö”Ô†‹y‚ÑZŠ‚É•t‚·‚éƒT[ƒrƒX‚ğ’ñ‹Ÿ‚·‚é<br>
   * E—X•Ö”Ô†‚ğæ“¾‚·‚é<br>
   * EZŠ1‚ğæ“¾‚·‚é<br>
+  * EZŠ2‚ğæ“¾‚·‚é<br> 
+  * E—X•Ö”Ô†‚ğİ’è‚·‚é<br>
+  * EZŠ1‚ğİ’è‚·‚é<br>
   * EZŠ2‚ğİ’è‚·‚é<br>
   * 
   * @author ‹v–ì
@@ -26,10 +29,10 @@ public class AddressBean {
 	private int zipCode;
 
 	/** ZŠ1@F@ZŠ1‚ğ•Û‚·‚é */
-	private String ZipAddress1;
+	private String zipAddress1;
 	
 	/** ZŠ2@F@ZŠ2(Ú×‚ÈZŠ)‚ğ•Û‚·‚é */
-	private String ZipAddress2;
+	private String zipAddress2;
 
 	/**
 	 * —X•Ö”Ô†‚ğæ“¾‚·‚é
@@ -55,7 +58,7 @@ public class AddressBean {
 	 * @return the zipAddress1 ZŠ1‚ğ•Ô‚·
 	 */
 	public String getZipAddress1() {
-		return ZipAddress1;
+		return zipAddress1;
 	}
 
 	/**
@@ -64,7 +67,7 @@ public class AddressBean {
 	 * @param zipAddress1 the zipAddress1 to set İ’è‚·‚éZŠ1
 	 */
 	public void setZipAddress1(String zipAddress1) {
-		ZipAddress1 = zipAddress1;
+		this.zipAddress1 = zipAddress1;
 	}
 
 	/**
@@ -73,7 +76,7 @@ public class AddressBean {
 	 * @return the zipAddress2 ZŠ2‚ğ•Ô‚·
 	 */
 	public String getZipAddress2() {
-		return ZipAddress2;
+		return zipAddress2;
 	}
 
 	/**
@@ -82,11 +85,7 @@ public class AddressBean {
 	 * @param zipAddress2 the zipAddress2 to set İ’è‚·‚éZŠ2
 	 */
 	public void setZipAddress2(String zipAddress2) {
-		ZipAddress2 = zipAddress2;
+		this.zipAddress2 = zipAddress2;
 	}
-	
-	
-	
-	
-	
+
 }
