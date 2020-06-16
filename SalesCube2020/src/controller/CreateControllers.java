@@ -7,44 +7,49 @@ public class CreateControllers {
 	public HashMap<String, BaseController> newControllers()  {
 
         HashMap<String, BaseController> map = new HashMap<String, BaseController>();
-/*
-        BaseController userObj    = new UserController();
-		BaseController topObj = new TopController();
-		BaseController salesObj = new SalesController();
-		BaseController mainObj = new MainController();
-		BaseController itemObj = new ItemController();
-		BaseController categoryObj = new CategoryController();
-		BaseController orderObj = new OrderController();
 
-		map.put( "top", topObj);
+        BaseController customerObj    = new CustomerController();
+		BaseController setProductObj = new SetProductController();
+		BaseController menuObj = new MenuController();
+		BaseController productObj = new ProductController();
+		BaseController userObj = new UserController();
 
-		map.put( "main", mainObj);
 
+		map.put( "moveAddCustomer", customerObj);
+		map.put( "moveModifyCustomer", customerObj);
+		map.put( "initCustomer", customerObj);
+		map.put( "updateCustomer", customerObj);
+		map.put( "searchAddress", customerObj);
+		map.put( "searchCustomer", customerObj);
+		map.put( "deleteCustomer", customerObj);
+		map.put( "addCustomer", customerObj);
+		map.put( "modifyCustomer", customerObj);
+		map.put( "customerExcelOutput", customerObj);
+		
+		map.put( "moveModifySetProduct", setProductObj);
+		map.put( "searchSetProduct", setProductObj);
+		map.put( "deleteSetProduct", setProductObj);
+		map.put( "modifySetProduct", setProductObj);
+		
+		map.put( "customer", menuObj);
+		map.put( "setProduct", menuObj);
+		map.put( "product", menuObj);
+		map.put( "menu", menuObj);
+		
+		map.put( "moveAddProduct", productObj);
+		map.put( "moveModifyProduct", productObj);
+		map.put( "productExcelInput", productObj);
+		map.put( "productExcelOutput", productObj);
+		map.put( "initProduct", productObj);
+		map.put( "quantityDiscount", productObj);
+		map.put( "searchProduct", productObj);
+		map.put( "deleteProduct", productObj);
+		map.put( "addProduct", productObj);
+		map.put( "modifyProduct", productObj);
+		
 		map.put( "login", userObj);
 		map.put( "logout", userObj);
-
-		map.put( "showMonthSales", salesObj);
-
-		map.put( "list", itemObj);
-		map.put( "searchItem", itemObj);
-		map.put( "itemList", itemObj);
-		map.put( "addItem", itemObj);
-		map.put( "modifyItem", itemObj);
-		map.put( "deleteItem", itemObj);
-		map.put( "showDetail", itemObj);
-
-		map.put( "category", categoryObj);
-		map.put( "addCategory", categoryObj);
-		map.put( "modifyCategory", categoryObj);
-		map.put( "deleteCategory", categoryObj);
-
-		map.put( "showCart", orderObj);
-		map.put( "addCart", orderObj);
-		map.put( "deleteCart", orderObj);
-		map.put( "customerInfo", orderObj);
-		map.put( "confirm", orderObj);
-		map.put( "order", orderObj);
-*/		
+		
         return map;
 
     }
