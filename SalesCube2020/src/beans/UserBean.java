@@ -27,7 +27,6 @@ public class UserBean {
 		this.userID = userID;
 	}
 	
-	//PASSWORD
 	/**
 	 * password‚ðŽæ“¾‚·‚é
 	 * @return (String)password‚ð•Ô‚·
