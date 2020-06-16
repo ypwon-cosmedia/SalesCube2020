@@ -7,6 +7,7 @@ import java.util.Date;
  * @author komori
  *
  */
+
 public class ProductHistoryBean {
 	/** —š—ğIDF —š—ğ‚Ìî•ñ‚ğ•Û‚·‚é*/
 	private int histID;
