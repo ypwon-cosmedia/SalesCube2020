@@ -87,9 +87,5 @@ public class AddressBean {
 	public void setZipAddress2(String zipAddress2) {
 		this.zipAddress2 = zipAddress2;
 	}
-	
-	
-	
-	
-	
+
 }
