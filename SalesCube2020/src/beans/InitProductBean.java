@@ -4,8 +4,7 @@ public class InitProductBean {
 	
 	//’PˆÊ
 	private String unitCategory;
-	
-	
+		
 	//’PˆÊ‚ðŽæ“¾‚·‚é
 	public String getUnitCategory() {
 		return unitCategory;
