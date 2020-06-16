@@ -1,4 +1,4 @@
-package servlet;
+package common.servlet;
 
 import java.io.*;
 import javax.servlet.*;
