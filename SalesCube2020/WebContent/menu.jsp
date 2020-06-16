@@ -14,6 +14,7 @@
 
     <title>Hello, world!</title>
     <style type="text/css">
+    
       .menuGroup {
           -moz-border-bottom-colors: none;
           -moz-border-left-colors: none;
@@ -52,7 +53,7 @@
         <ul class="navbar-nav mr-auto">
           <li class="nav-item dropdown">
             <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-              マスター
+              	マスター
             </a>
             <div class="dropdown-menu" aria-labelledby="navbarDropdown">
               <a class="dropdown-item" href="#">商品</a>
