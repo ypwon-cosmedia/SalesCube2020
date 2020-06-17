@@ -34,6 +34,15 @@
 	   max-width: none !important;
 	   }
 	   </style>
+	   <script>
+	   function initForm() {
+   	   	if(!confirm("入力内容を初期化してよろしいですか？")){
+          	   	return;
+   	  	}
+   	   	document.sampleform.reset();
+       	}
+   
+	   </script>
   </head>
   <body style="background-color: gainsboro;">
 	<!-- Optional JavaScript -->
@@ -81,7 +90,7 @@
       <div class="btn-toolbar float-right" role="toolbar" aria-label="Toolbar with button groups">
         
         <div class="btn-group mr-2 " role="group" aria-label="First group">
-          <button type="button" class="btn btn-secondary" style="font-size: 12px;">F1<br>初期化</button>
+          <button type="button" class="btn btn-secondary" style="font-size: 12px;" onclick="initForm();">F1<br>初期化</button>
           <button type="button" class="btn btn-secondary" style="font-size: 12px;">F2<br>戻る</button>
           <button type="button" class="btn btn-secondary" style="font-size: 12px;">F3<br>登録</button>
           <button type="button" class="btn btn-secondary" style="font-size: 12px;">F4<br>削除</button>
@@ -103,7 +112,7 @@
 			</div>
 			<hr>
 			<div class="panel-body">
-				<form action="" method="post">
+				<form action="" name="sampleform" method="post">
 					<div class="row">
 						<div class="col-4">
 							<label class="sr-only" for="inlineFormInputGroup"></label>
@@ -302,7 +311,7 @@
 		<th style="cursor: pointer; height: 30px;">&nbsp;</th>
 	</tr>
 		</thead>
-	<c:forEach items="${customerList} var="customer">
+
 		<input type="hidden" name="customer" value="${customer.cutomerCode} }">
     		<tr>
 				<th scope="row">1</td>
