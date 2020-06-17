@@ -6,10 +6,7 @@ import javax.servlet.http.*;
 
 import common.controller.BaseController;
 import common.controller.CreateControllers;
-<<<<<<< HEAD
-import sun.font.CreatedFontTracker;
-=======
->>>>>>> branch 'master' of https://github.com/ypwon-cosmedia/SalesCube2020.git
+
 
 import java.util.*;
 import java.sql.SQLException;
