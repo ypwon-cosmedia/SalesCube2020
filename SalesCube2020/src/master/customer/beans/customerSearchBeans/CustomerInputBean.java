@@ -38,7 +38,7 @@ package master.customer.beans.customerSearchBeans;
 public class CustomerInputBean {
 
 	/** 顧客コード  ： 顧客コードを保存する　 */
-	private String customerCode;
+	private int customerCode;
 	
 	/** 顧客名 ：　顧客名を保存する */
 	private String customerName;
@@ -80,14 +80,14 @@ public class CustomerInputBean {
 	/**
 	 * @return the customerCode
 	 */
-	public String getCustomerCode() {
+	public int getCustomerCode() {
 		return customerCode;
 	}
 
 	/**
 	 * @param customerCode the customerCode to set
 	 */
-	public void setCustomerCode(String customerCode) {
+	public void setCustomerCode(int customerCode) {
 		this.customerCode = customerCode;
 	}
 
