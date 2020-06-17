@@ -20,7 +20,7 @@ import java.util.Date;
  * 
  */
 
-public class DeliverlyBean {
+public class DeliveryBean {
 
 	/** 納入先コード　：　納入先コードを保持する */
 	private int deliveryCode;
