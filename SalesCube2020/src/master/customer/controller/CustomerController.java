@@ -1,4 +1,4 @@
-package product.controller;
+package master.customer.controller;
 
 import java.io.*;
 import javax.servlet.*;
@@ -13,9 +13,9 @@ import java.lang.*;
 import user.DAO.*;
 import user.beans.*;
 
-public class ProductController extends BaseController{
+public class CustomerController extends BaseController{
 	
-	public ProductController() {
+	public CustomerController() {
 	}
 	
 	public String execService(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {

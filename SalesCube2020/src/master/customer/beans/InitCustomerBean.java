@@ -1,4 +1,4 @@
-package customer.beans;
+package master.customer.beans;
 
 public class InitCustomerBean {
 	

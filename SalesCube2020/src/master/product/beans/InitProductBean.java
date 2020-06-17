@@ -1,4 +1,4 @@
-package product.beans;
+package master.product.beans;
 
 public class InitProductBean {
 	

@@ -9,7 +9,7 @@
 
 */
 
-package product.beans;
+package master.product.beans;
 
 import java.sql.*;
 import java.math.*;

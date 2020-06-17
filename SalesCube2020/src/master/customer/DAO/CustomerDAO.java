@@ -1,4 +1,4 @@
-package setProduct.DAO;
+package master.customer.DAO;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -12,6 +12,6 @@ import java.util.List;
 import common.dao.BaseDAO;
 import user.beans.*;
 
-public class SetProductDAO extends BaseDAO {
+public class CustomerDAO extends BaseDAO {
 
 }

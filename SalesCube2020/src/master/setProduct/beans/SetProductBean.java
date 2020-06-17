@@ -1,4 +1,4 @@
-package setProduct.beans;
+package master.setProduct.beans;
 
 /*
  * セット商品に関した情報を保存するBeanクラスです。
