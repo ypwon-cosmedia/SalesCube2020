@@ -655,15 +655,14 @@
 			<br> 
 			
 		<script>
-        	function initForm() {
+        function initForm() {
     	   		if(!confirm("入力内容を初期化してよろしいですか？")){
            	   		return;
     	  		}
     	   	document.sampleform.reset();
         	
         	}
-    	</script>
-    	<script>
+
     	function backForm() {
     		if(!confirm("商品検索画面に戻ります。よろしいですか？")) {
     				return;

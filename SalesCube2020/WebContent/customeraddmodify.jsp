@@ -282,13 +282,12 @@
                         <div class="input-group mb-2 form-inline">
                             <div class="input-group-prepend">
                                 <div class="input-group-text">顧客ランク</div>
-                            </div>
-                            <select class="custom-select" name="">
-                                <option selected></option>
-                                <c:forEach items="${}" value="">
-                                    <option value="${}">${}</option>
-                                </c:forEach>
-                            </select>
+								<select class="custom-select" name="rankCategory">
+									<option selected></option>
+									<c:forEach items="${rank}" var="rank">
+										<option value="${rank.rankName}">${rank.rankName}</option>
+									</c:forEach>
+								</select>
                         &emsp;<label><input type="checkbox" name="" value="1" >&ensp;顧客ランク適用</label>
                         </div>
                     </div>
