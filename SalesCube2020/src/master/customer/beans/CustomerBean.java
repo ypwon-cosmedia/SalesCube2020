@@ -94,7 +94,7 @@ package master.customer.beans;
 import java.util.Date;
 import java.math.BigDecimal;
 
-public class CustomerBean {
+public class CustomerAddBean {
 
 	/** 顧客コード  ： 顧客コードを保存する　 */
 	private String customerCode;
