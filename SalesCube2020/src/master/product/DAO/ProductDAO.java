@@ -39,6 +39,6 @@ public class ProductDAO extends BaseDAO {
 	 		list.add(bean);
 	 	}
 	 	
-		return null;
+		return list;
 	}
 }
