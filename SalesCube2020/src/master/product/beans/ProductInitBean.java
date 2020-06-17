@@ -1,6 +1,6 @@
 package master.product.beans;
 
-public class InitProductBean {
+public class ProductInitBean {
 	
 	//’PˆÊ
 	private String unitCategory;
