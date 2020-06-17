@@ -8,7 +8,7 @@
  * •ÏX—š—ğF2020.06.16@V‹Kì¬
  *
  */
-package beans;
+package customer.beans;
 
  /**
   * —X•Ö”Ô†‹y‚ÑZŠî•ñ

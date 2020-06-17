@@ -1,4 +1,4 @@
-package beans;
+package user.beans;
 
 /**
  * ƒƒOƒCƒ“î•ñ

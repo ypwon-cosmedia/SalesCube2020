@@ -1,4 +1,4 @@
-package beans;
+package customer.beans;
 /**
  * 顧客情報
  * 顧客に付随するサービスを提供する<br>

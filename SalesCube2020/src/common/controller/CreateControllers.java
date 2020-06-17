@@ -1,6 +1,11 @@
-package controller;
+package common.controller;
 
 import java.util.*;
+
+import customer.controller.CustomerController;
+import product.controller.ProductController;
+import setProduct.controller.SetProductController;
+import user.controller.UserController;
 
 public class CreateControllers {
 

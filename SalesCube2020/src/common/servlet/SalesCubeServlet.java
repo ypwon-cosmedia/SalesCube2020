@@ -3,12 +3,16 @@ package common.servlet;
 import java.io.*;
 import javax.servlet.*;
 import javax.servlet.http.*;
+
+import common.controller.BaseController;
+import common.controller.CreateControllers;
+
 import java.util.*;
 import java.sql.SQLException;
 
-import controller.*;
-import beans.*;
-import dao.*;
+import user.DAO.*;
+import user.beans.*;
+import user.controller.*;
 
 public class SalesCubeServlet extends HttpServlet {
 

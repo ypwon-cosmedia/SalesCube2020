@@ -1,7 +1,7 @@
 /**
  * 
  */
-package beans;
+package customer.beans;
 
 import java.util.Date;
 

@@ -1,4 +1,4 @@
-package controller;
+package common.controller;
 
 import java.io.*;
 import javax.servlet.*;
@@ -7,13 +7,12 @@ import java.util.*;
 import java.sql.SQLException;
 import java.lang.*;
 
-import beans.*;
-import dao.*;
+import user.DAO.*;
+import user.beans.*;
 
-
-public class SetProductController extends BaseController{
+public class MenuController extends BaseController{
 	
-	protected SetProductController() {
+	protected MenuController() {
 	}
 	
 	public String execService(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
