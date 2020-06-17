@@ -64,7 +64,7 @@
             </div>
             <hr>
             <br>
-          <form name="loginData" method="POST" action="login">
+          <form name="loginData" method="POST" action="/SalesCube2020/SalesCube?action="login">
               <table class="forms" style="width: 250px;margin-left: auto; margin-right: auto;text-align: left;" summary="login_form">
                 <colgroup>
                    <col span="1" style="width: 40%">
@@ -81,7 +81,7 @@
               </table>
               <br>
               <div style="text-align: center; width: 200px;margin-left : auto ; margin-right : auto ;">
-                 <input type="button" name="resetButton" tabindex="150" value="初期化" onclick="initForm();" class="btn btn-outline-success">&emsp;
+                 <input type="button" name="resetButton" tabindex="150" value="初期化" onclick="initForm()" class="btn btn-outline-success">&emsp;
 				 <input type="submit" name="login" tabindex="151" value="ログイン" id="login" class="btn btn-outline-success">
 			  </div>
               

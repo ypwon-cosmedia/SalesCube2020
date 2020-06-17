@@ -5,7 +5,7 @@ package user.beans;
  * @author komori
  *
  */
-public class UserBean {
+public class LoginBean {
 	/**ID: ID‚ğ•Û‚·‚é*/
 	private String userID;
 	/**password: password‚ğ•Û‚·‚é*/
