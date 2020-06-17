@@ -21,7 +21,7 @@ public class CustomerHistoryBean {
 	private String userID;
 	
 	/** 顧客コード  ： 顧客コードを保存する　 */
-	private String customerCode;
+	private int customerCode;
 	
 	/** 顧客名 ：　顧客名を保存する */
 	private String customerName;
@@ -183,11 +183,11 @@ public class CustomerHistoryBean {
 		this.userID = userID;
 	}
 
-	public String getCustomerCode() {
+	public int getCustomerCode() {
 		return customerCode;
 	}
 
-	public void setCustomerCode(String customerCode) {
+	public void setCustomerCode(int customerCode) {
 		this.customerCode = customerCode;
 	}
 

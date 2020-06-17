@@ -19,7 +19,7 @@ import java.util.Date;
 public class CustomerDeleteBean {
 
 	/** 顧客コード  ： 顧客コードを保存する　 */
-	private String customerCode;
+	private int customerCode;
 	
 	/** 削除日時 ：  削除日時を保存する */
 	private Date delDate;
@@ -30,14 +30,14 @@ public class CustomerDeleteBean {
 	/**
 	 * @return the customerCode
 	 */
-	public String getCustomerCode() {
+	public int getCustomerCode() {
 		return customerCode;
 	}
 
 	/**
 	 * @param customerCode the customerCode to set
 	 */
-	public void setCustomerCode(String customerCode) {
+	public void setCustomerCode(int customerCode) {
 		this.customerCode = customerCode;
 	}
 	
