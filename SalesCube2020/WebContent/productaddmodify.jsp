@@ -82,8 +82,8 @@
 		<div class="btn-toolbar float-right" role="toolbar" aria-label="Toolbar with button groups">
 		  
 		  <div class="btn-group mr-2 " role="group" aria-label="First group">
-			<button type="button" class="btn btn-secondary" style="font-size: 12px;">F1<br>初期化</button>
-			<button type="button" class="btn btn-secondary" style="font-size: 12px;">F2<br>戻る</button>
+			<button type="button" class="btn btn-secondary" style="font-size: 12px;" onclick="initForm()">F1<br>初期化</button>
+			<button type="button" class="btn btn-secondary" style="font-size: 12px;" onclick="backForm()">F2<br>戻る</button>
 			<button type="button" class="btn btn-secondary" style="font-size: 12px;">F3<br>登録</button>
 			<button type="button" class="btn btn-secondary" style="font-size: 12px;">F4<br>削除</button>
 			<button type="button" class="btn btn-secondary" style="font-size: 12px;">F5<br>初期値</button>
@@ -105,7 +105,7 @@
 			</div>
 			<hr>
 			<div class="panel-body">
-				<form action="" method="post">
+				<form action="addProduct" name="sampleform" method="post">
 					<div class="row">
 						<div class="col-4">
 							<label class="sr-only" for="inlineFormInputGroup">productCode</label>
@@ -138,7 +138,7 @@
 					</div>
 					<div class="row">
 						<div class="col-4">
-							<label class="sr-only" for="inlineFormInputGroup">onlinePcode</label>
+							<label class="sr-only" for="inlineFormInputGroup">productPcode</label>
 							<div class="input-group mb-2">
 								<div class="input-group-prepend">
 									<div class="input-group-text">オンライン品番</div>
@@ -157,7 +157,7 @@
 							</div>
 						</div>
 						<div class="col-4">
-							<label class="sr-only" for="inlineFormInputGroup">discordDate</label>
+							<label class="sr-only" for="inlineFormInputGroup">discardDate</label>
 							<div class="input-group mb-2">
 								<div class="input-group-prepend">
 									<div class="input-group-text">廃番予定日</div>
@@ -188,10 +188,10 @@
 							</div>
 						</div>
 						<div class="col-4">
-							<label class="sr-only" for="inlineFormInputGroup">supplierProductCode</label>
+							<label class="sr-only" for="inlineFormInputGroup">supplierPcode</label>
 							<div class="input-group mb-2">
 								<div class="input-group-prepend">
-									<div class="input-group-text">仕入先商品コード</div>
+									<div class="input-group-text">仕入先品番</div>
 								</div>
 							<input type="text"  class="form-control" id="inlineFormInputGroup">
 							</div>
@@ -219,16 +219,15 @@
 					</div>
 					<div class="row">
 						<div class="col-4">
-							<label class="sr-only" for="inlineFormInputGroup"></label>
+							<label class="sr-only" for="inlineFormInputGroup">stockCtlCategory</label>
 							<div class="input-group mb-2">
 								<div class="input-group-prepend">
 									<div class="input-group-text">在庫管理</div>
 								</div>
-							<select class="custom-select" name="productStatusCategory">
+							<select class="custom-select" name="stockCtlCategory">
 								<option selected></option>
-								<c:forEach items="${}" value="">
-									<option value="${}">${}</option>
-								</c:forEach>
+								<option value="0" selected="selected">しない</option>
+								<option value="1">する</option>
 							</select>
 							</div>
 						</div>
@@ -262,7 +261,7 @@
 							</div>
 						</div>
 						<div class="col-4">
-							<label class="sr-only" for="inlineFormInputGroup">rackCode</label>
+							<label class="sr-only" for="inlineFormInputGroup">rackName</label>
 							<div class="input-group mb-2">
 								<div class="input-group-prepend">
 									<div class="input-group-text">棚番</div>
@@ -274,7 +273,7 @@
 					</div>
 					<div class="row">
 						<div class="col-4">
-							<label class="sr-only" for="inlineFormInputGroup">readTime</label>
+							<label class="sr-only" for="inlineFormInputGroup">leadTime</label>
 							<div class="input-group mb-2">
 								<div class="input-group-prepend">
 									<div class="input-group-text">リードタイム</div>
@@ -292,7 +291,7 @@
 							</div>
 						</div>
 						<div class="col-4">
-							<label class="sr-only" for="inlineFormInputGroup">safetyStock</label>
+							<label class="sr-only" for="inlineFormInputGroup">mineSafetvStock</label>
 							<div class="input-group mb-2">
 								<div class="input-group-prepend">
 									<div class="input-group-text">安全在庫数</div>
@@ -360,7 +359,7 @@
 							</div>
 						</div>
 					</div>
-				</form>
+				
 			</div>
 		</div><br></div>
 			<br><br>
@@ -371,68 +370,66 @@
 				</div>
 				<hr>
 				<div class="panel-body">
-					<form action="" method="post">
+					
 						<div class="row">
 							<div class="col-4">
-								<label class="sr-only" for="inlineFormInputGroup"></label>
+								<label class="sr-only" for="inlineFormInputGroup">productStatusCategory</label>
 								<div class="input-group mb-2">
 									<div class="input-group-prepend">
 										<div class="input-group-text">状況</div>
 									</div>
 								<select class="custom-select" name="productStatusCategory">
 									<option selected></option>
-									<c:forEach items="${}" value="">
-										<option value="${}">${}</option>
-									</c:forEach>
+									<option value="1" selected="selected">販売中</option>
+									<option value="2">販売中止</option>
+									<option value="3">準備中</option>
 								</select>
 								</div>
 							</div>
 							<div class="col-4">	
-								<label class="sr-only" for="inlineFormInputGroup"></label>
+								<label class="sr-only" for="inlineFormInputGroup">productStockCategory</label>
 								<div class="input-group mb-2">
 									<div class="input-group-prepend">
 										<div class="input-group-text">保管</div>
 									</div>
 								<select class="custom-select" name="productStockCategory">
 									<option selected></option>
-									<c:forEach items="${}" value="">
-										<option value="${}">${}</option>
-									</c:forEach>
+									<option value="1" selected="selected">自社在庫品</option>
+									<option value="2">他社在庫品</option>
+									<option value="3">取り寄せ品</option>
 								</select>
 								</div>
 							</div>
 							<div class="col-4">
-								<label class="sr-only" for="inlineFormInputGroup"></label>
+								<label class="sr-only" for="inlineFormInputGroup">productPurvayCategory</label>
 								<div class="input-group mb-2">
 									<div class="input-group-prepend">
 										<div class="input-group-text">調達</div>
 									</div>
 								<select class="custom-select" name="productPurvayCategory">
 									<option selected></option>
-									<c:forEach items="${}" value="">
-										<option value="${}">${}</option>
-									</c:forEach>
+									<option value="1" selected="selected">国内調達</option>
+									<option value="2">海外調達</option>
 								</select>
 								</div>
 							</div>
 						</div>
 						<div class="row">
 							<div class="col-4">
-								<label class="sr-only" for="inlineFormInputGroup"></label>
+								<label class="sr-only" for="inlineFormInputGroup">productStandardCategory</label>
 								<div class="input-group mb-2">
 									<div class="input-group-prepend">
 										<div class="input-group-text">標準化</div>
 									</div>
-								<select class="custom-select" name="standardizationCategory">
+								<select class="custom-select" name="productStandardCategory">
 									<option selected></option>
-									<c:forEach items="${}" value="">
-										<option value="${}">${}</option>
-									</c:forEach>
+									<option value="0" selected="selected">標準品</option>
+									<option value="1">特注品</option>
 								</select>
 								</div>
 							</div>
 							<div class="col-4">
-								<label class="sr-only" for="inlineFormInputGroup"></label>
+								<label class="sr-only" for="inlineFormInputGroup">soRate</label>
 								<div class="input-group mb-2">
 									<div class="input-group-prepend">
 										<div class="input-group-text">特注計算掛率</div>
@@ -441,16 +438,15 @@
 								</div>
 							</div>
 							<div class="col-4">
-								<label class="sr-only" for="inlineFormInputGroup"></label>
+								<label class="sr-only" for="inlineFormInputGroup">setTypeCategory</label>
 								<div class="input-group mb-2">
 									<div class="input-group-prepend">
 										<div class="input-group-text">セット</div>
 									</div>
-								<select class="custom-select" name="productSetCategory">
+								<select class="custom-select" name="setTypeCategory">
 									<option selected></option>
-									<c:forEach items="${}" value="">
-										<option value="${}">${}</option>
-									</c:forEach>
+									<option value="0" selected="selected">単品</option>
+									<option value="1">セット品</option>
 								</select>
 								</div>
 							</div>
@@ -464,9 +460,9 @@
 									</div>
 									<select class="custom-select" name="product1">
 										<option selected></option>
-										<c:forEach items="${}" value="">
-											<option value="${}">${}</option>
-										</c:forEach>
+										<option value="1">食品</option>
+										<option value="10">本</option>
+										<option value="100">家</option>
 									</select>
 								</div>
 							</div>
@@ -480,9 +476,7 @@
 									</div>
 									<select class="custom-select" name="product2">
 										<option selected></option>
-										<c:forEach items="${}" value="">
-											<option value="${}">${}</option>
-										</c:forEach>
+										
 									</select>
 								</div>
 							</div>
@@ -496,14 +490,11 @@
 									</div>
 									<select class="custom-select" name="product3">
 										<option selected></option>
-										<c:forEach items="${}" value="">
-											<option value="${}">${}</option>
-										</c:forEach>
+										
 									</select>
 								</div>
 							</div>
 						</div>
-					</form>
 				</div>
 			</div><br></div><br><br>
 			<div class="container" style="background-color: white;"><div class="panel panel-default" >
@@ -512,19 +503,18 @@
 				</div>
 				<hr>
 				<div class="panel-body">
-					<form action="" method="post">
 						<div class="row">
 							<div class="col-4">
-								<label class="sr-only" for="inlineFormInputGroup"></label>
+								<label class="sr-only" for="inlineFormInputGroup">unitCategory</label>
 								<div class="input-group mb-2">
 									<div class="input-group-prepend">
 										<div class="input-group-text">単位</div>
 									</div>
 								<select class="custom-select" name="unitCategory">
 									<option selected></option>
-									<c:forEach items="${}" value="">
-										<option value="${}">${}</option>
-									</c:forEach>
+									<option value="1">本</option>
+									<option value="2">個</option>
+									<option value="3" selected="selected">箱</option>
 								</select>
 								</div>
 							</div>
@@ -537,78 +527,79 @@
 								<input type="text"  class="form-control" id="inlineFormInputGroup">
 								<select class="custom-select" name="wightCategory">
 									<option selected></option>
-									<c:forEach items="${}" value="">
-										<option value="${}">${}</option>
-									</c:forEach>
+									<option value="1">mg</option>
+									<option value="2">g</option>
+									<option value="3">kg</option>
+									<option value="4">t</option>
 								</select>
 								</div>
 							</div>
 							<div class="col-4">
-								<label class="sr-only" for="inlineFormInputGroup"></label>
+								<label class="sr-only" for="inlineFormInputGroup">lengthUnitSizeCategory</label>
 								<div class="input-group mb-2">
 									<div class="input-group-prepend">
 										<div class="input-group-text">長さ</div>
 									</div>
 								<input type="text"  class="form-control" id="inlineFormInputGroup">
-								<select class="custom-select" name="lengthCategory">
+								<select class="custom-select" name="lengthUnitSizeCategory">
 									<option selected></option>
-									<c:forEach items="${}" value="">
-										<option value="${}">${}</option>
-									</c:forEach>
+									<option value="1">mm</option>
+									<option value="2">cm</option>
+									<option value="3">m</option>
 								</select>
 								</div>
 							</div>
 						</div>
 						<div class="row">
 							<div class="col-4">
-								<label class="sr-only" for="inlineFormInputGroup"></label>
+								<label class="sr-only" for="inlineFormInputGroup">widthUnitSizeCategory</label>
 								<div class="input-group mb-2">
 									<div class="input-group-prepend">
 										<div class="input-group-text">サイズ(幅)</div>
 									</div>
 								<input type="text"  class="form-control" id="inlineFormInputGroup">
-								<select class="custom-select" name="widthCategory">
+								<select class="custom-select" name="widthUnitSizeCategory">
 									<option selected></option>
-									<c:forEach items="${}" value="">
-										<option value="${}">${}</option>
-									</c:forEach>
+									<option value="1">mm</option>
+									<option value="2">cm</option>
+									<option value="3">m</option>
 								</select>
 								</div>
 							</div>
 							<div class="col-4">
-								<label class="sr-only" for="inlineFormInputGroup"></label>
+								<label class="sr-only" for="inlineFormInputGroup">depthUnitSizeCategory</label>
 								<div class="input-group mb-2">
 									<div class="input-group-prepend">
 										<div class="input-group-text">サイズ(奥)</div>
 									</div>
 									<input type="text"  class="form-control" id="inlineFormInputGroup">
-								<select class="custom-select" name="depthCategory">
+								<select class="custom-select" name="depthUnitSizeCategory">
 									<option selected></option>
-									<c:forEach items="${}" value="">
-										<option value="${}">${}</option>
-									</c:forEach>
+									<option value="1">mm</option>
+									<option value="2">cm</option>
+									<option value="3">m</option>
 								</select>
 								</div>
 							</div>
 							<div class="col-4">
-								<label class="sr-only" for="inlineFormInputGroup"></label>
+								<label class="sr-only" for="inlineFormInputGroup">heightUnitSizeCategory</label>
 								<div class="input-group mb-2">
 									<div class="input-group-prepend">
 										<div class="input-group-text">サイズ(高)</div>
 									</div>
 									<input type="text"  class="form-control" id="inlineFormInputGroup">
-								<select class="custom-select" name="heightCategory">
+								<select class="custom-select" name="heightUnitSizeCategory">
 									<option selected></option>
-									<c:forEach items="${}" value="">
-										<option value="${}">${}</option>
-									</c:forEach>
+									<option value="1">mm</option>
+									<option value="2">cm</option>
+									<option value="3">m</option>
 								</select>
 								</div>
 							</div>
 						</div>
 						<div class="row">
 							<div class="col-4">
-								<label class="sr-only" for="inlineFormInputGroup"></label>
+								<label class="sr-only" for="inlineFormInputGroup">coreNum</label>
 								<div class="input-group mb-2">
 									<div class="input-group-prepend">
 										<div class="input-group-text">芯数</div>
@@ -616,8 +607,7 @@
 									<input type="text"  class="form-control" id="inlineFormInputGroup">
 								</div>
 							</div>
-						</div>
-					</form>		
+						</div>	
 				</div>
 			</div><br></div>
 			<br><br>
@@ -628,7 +618,6 @@
 				<hr>
 	
 				<div class="panel-body">
-					<form action="" method="post">
 						<div class="row">
 							<div class="col-8">
 								<div class="input-group-prepend">
@@ -653,16 +642,34 @@
 								</div>
 							</div>
 						</div>
-					</form>
+			</form>
 				</div><br><br>
 				
 			</div>
 			<br><br>
 			<div align="right">
-				<input type="submit" value="初期化" class="btn btn-outline-secondary">&emsp;
+				<input type="submit"  value="初期化" class="btn btn-outline-secondary" onclick="initForm()" >&emsp;
 				<input type="submit" value="登録" class="btn btn-outline-secondary">&emsp;
 				<input type="submit" value="削除" class="btn btn-outline-secondary">&emsp;
 			</div>
-			<br>
+			<br> 
+			
+		<script>
+        	function initForm() {
+    	   		if(!confirm("入力内容を初期化してよろしいですか？")){
+           	   		return;
+    	  		}
+    	   	document.sampleform.reset();
+        	
+        	}
+    	</script>
+    	<script>
+    	function backForm() {
+    		if(!confirm("商品検索画面に戻ります。よろしいですか？")) {
+    				return;
+    		}
+    		
+    	}
+    	</script>
 	</body>
 </html>
