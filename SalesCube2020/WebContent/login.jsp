@@ -56,14 +56,14 @@
 				 <span class="action_errors" style="color: red">ユーザーIDとパスワードの入力は必須です。<br></span>
        </div>
        -->
-	   <div class="container">
+	  <div class="container">
       <div class="loginGroup" style="margin-left: auto; margin-right: auto; width: 65%;">
             <div class="loginGroup" style="margin-left: auto; margin-right: auto; text-align: center;">
                 <h2>Welcome to SalesCube</h2>
             </div>
             <hr>
             <br>
-          <form name="loginData" method="POST" action="">
+          <form name="loginData" method="POST" action="login">
               <table class="forms" style="width: 250px;margin-left: auto; margin-right: auto;text-align: left;" summary="login_form">
                 <colgroup>
                    <col span="1" style="width: 40%">
@@ -71,18 +71,18 @@
                 </colgroup>
                 <tr>
                     <th><div class="col_title_right">ユーザーID</div></th><!-- ユーザーID -->
-                    <td><input type="text" name="userId" tabindex="100" value="" style="width: 120%; ime-mode: disabled; background-color: #FFFFFF;"class="form-control"></td>
+                    <td><input type="text" name="userId" tabindex="100" value="" style="width: 120%; ime-mode: disabled; background-color: #FFFFFF;"class="form-control" required></td>
                 </tr>
                 <tr>
                     <th><div class="col_title_right">パスワード</div></th><!-- パスワード -->
-                    <td><input type="password" name="password" tabindex="101" value="" id="password" style="width: 120%; ime-mode: disabled; background-color: #FFFFFF;"class="form-control"></td>
+                    <td><input type="password" name="password" tabindex="101" value="" id="password" style="width: 120%; ime-mode: disabled; background-color: #FFFFFF;"class="form-control" required></td>
                 </tr>
               </table>
               <br>
               <div style="text-align: center; width: 200px;margin-left : auto ; margin-right : auto ;">
                  <input type="button" name="resetButton" tabindex="150" value="初期化" onclick="initForm();" class="btn btn-outline-success">&emsp;
-				         <input type="submit" name="login" tabindex="151" value="ログイン" id="login" class="btn btn-outline-success">
-			        </div>
+				 <input type="submit" name="login" tabindex="151" value="ログイン" id="login" class="btn btn-outline-success">
+			  </div>
               
           </form>
         <br>
