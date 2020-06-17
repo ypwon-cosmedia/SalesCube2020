@@ -199,18 +199,7 @@ public class CustomerAddBean {
 	/** 作成者 ：  作成者を保存する */
 	private String creUser;	
 	
-	/** 更新日時 ： 更新日時 を保存する */
-	private Date updDate;
 	
-	/** 更新者 ： 更新者を保存する */
-	private String updUser;
-	
-	/** 削除日時 ：  削除日時を保存する */
-	private Date delDate;
-	
-	/** 削除者 ： 削除者 を保存する */
-	private String delUser;
-
 	/**
 	 * @return the customerCode
 	 */
@@ -728,61 +717,4 @@ public class CustomerAddBean {
 	public void setCreUser(String creUser) {
 		this.creUser = creUser;
 	}
-
-	/**
-	 * @return the updDate
-	 */
-	public Date getUpdDate() {
-		return updDate;
-	}
-
-	/**
-	 * @param updDate the updDate to set
-	 */
-	public void setUpdDate(Date updDate) {
-		this.updDate = updDate;
-	}
-
-	/**
-	 * @return the updUser
-	 */
-	public String getUpdUser() {
-		return updUser;
-	}
-
-	/**
-	 * @param updUser the updUser to set
-	 */
-	public void setUpdUser(String updUser) {
-		this.updUser = updUser;
-	}
-
-	/**
-	 * @return the delDate
-	 */
-	public Date getDelDate() {
-		return delDate;
-	}
-
-	/**
-	 * @param delDate the delDate to set
-	 */
-	public void setDelDate(Date delDate) {
-		this.delDate = delDate;
-	}
-
-	/**
-	 * @return the delUser
-	 */
-	public String getDelUser() {
-		return delUser;
-	}
-
-	/**
-	 * @param delUser the delUser to set
-	 */
-	public void setDelUser(String delUser) {
-		this.delUser = delUser;
-	}
-
 }
