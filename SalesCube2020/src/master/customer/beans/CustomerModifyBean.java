@@ -170,7 +170,7 @@ public class CustomerModifyBean {
 	private String salesCMCategory;
 
 	/** 支払い条件 ： 支払い条件を保存する */
-	private String paybackCycleCategory;
+	private String cutoffGroup;
 
 	/** 回収方法 ： 回収方法 を保存する */
 	private String paybackTypeCategory;
@@ -580,15 +580,15 @@ public class CustomerModifyBean {
 	/**
 	 * @return the paybackCycleCategory
 	 */
-	public String getPaybackCycleCategory() {
-		return paybackCycleCategory;
+	public String getCutoffGroup() {
+		return cutoffGroup;
 	}
 
 	/**
 	 * @param paybackCycleCategory the paybackCycleCategory to set
 	 */
-	public void setPaybackCycleCategory(String paybackCycleCategory) {
-		this.paybackCycleCategory = paybackCycleCategory;
+	public void setCutoffGroup(String cutoffGroup) {
+		this.cutoffGroup = cutoffGroup;
 	}
 
 	/**

@@ -68,7 +68,7 @@ public class CustomerInputBean {
 	private String rankCategory;
 
 	/** x•¥‚¢ğŒ F x•¥‚¢ğŒ‚ğ•Û‘¶‚·‚é */
-	private String paybackCycleCategory;
+	private String cutoffGroup;
 
 	/** U–¼‹` F U–¼‹`‚ğ•Û‘¶‚·‚é */
 	private String paymentName;
@@ -220,15 +220,15 @@ public class CustomerInputBean {
 	/**
 	 * @return the paybackCycleCategory
 	 */
-	public String getPaybackCycleCategory() {
-		return paybackCycleCategory;
+	public String getCutoffGroup() {
+		return cutoffGroup;
 	}
 
 	/**
 	 * @param paybackCycleCategory the paybackCycleCategory to set
 	 */
-	public void setPaybackCycleCategory(String paybackCycleCategory) {
-		this.paybackCycleCategory = paybackCycleCategory;
+	public void setCutoffGroup(String cutoffGroup) {
+		this.cutoffGroup = cutoffGroup;
 	}
 
 	/**

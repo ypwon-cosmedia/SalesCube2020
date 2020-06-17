@@ -6,7 +6,7 @@ public class CustomerInitBean {
 	private String PCPreCategory;
 	
 	//éxï•Ç¢èåè
-	private String paybackCycleCategory;
+	private String cutoffGroup;
 
 	//ê≈í[êîèàóù
 	private String taxFractCategory;
@@ -40,15 +40,15 @@ public class CustomerInitBean {
 	/**
 	 * @return the paybackCycleCategory
 	 */
-	public String getPaybackCycleCategory() {
-		return paybackCycleCategory;
+	public String getCutoffGroup() {
+		return cutoffGroup;
 	}
 
 	/**
 	 * @param paybackCycleCategory the paybackCycleCategory to set
 	 */
-	public void setPaybackCycleCategory(String paybackCycleCategory) {
-		this.paybackCycleCategory = paybackCycleCategory;
+	public void setCutoffGroup(String cutoffGroup) {
+		this.cutoffGroup = cutoffGroup;
 	}
 
 	/**
