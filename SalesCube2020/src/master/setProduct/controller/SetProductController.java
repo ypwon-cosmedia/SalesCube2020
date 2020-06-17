@@ -14,13 +14,41 @@ import user.DAO.*;
 import user.beans.*;
 
 
-public class SetProductController extends BaseController{
+final public class SetProductController extends BaseController{
 	
 	public SetProductController() {
 	}
 	
 	public String execService(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
-      		return "";
-      	}
+		String forwardURL = "/menu.jsp";
+		String action = request.getParameter("action");
+		
+		if(action.equals("moveModifySetProduct")) forwardURL = moveModifySetProduct(request, response);
+		else if(action.equals("searchSetProduct")) forwardURL = searchSetProduct(request, response);
+		else if(action.equals("deleteSetProduct")) forwardURL = deleteSetProduct(request, response);
+		else if(action.equals("modifySetProduct")) forwardURL = modifySetProduct(request, response);
+		
+  		return forwardURL;
+    }
+	
+	private String moveModifySetProduct (HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		
+		return "/setproductmodify.jsp";
+	}
+	
+	private String searchSetProduct (HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		
+		return "/setproduct.jsp";
+	}
+	
+	private String deleteSetProduct (HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		
+		return "/setproduct.jsp";
+	}
+	
+	private String modifySetProduct (HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		
+		return "/setproductmodify.jsp";
+	}
 }

@@ -28,13 +28,6 @@ public class SalesCubeServlet extends HttpServlet {
         // リクエストパラメータの読み込み
         String action = request.getParameter("action");
 
-        if ( action == null ) {									// actionパラメタが取得できない場合は
-            action = "top";										// top画面を表示する
-        }
-
-		if (request.getAttribute("user") == null){
-			action = "login";
-		}
 
         // 業務の振り分け
         if  ( controllerList.containsKey(action) )  {							// actionに該当する業務コントローラがある場合
