@@ -41,6 +41,7 @@
 	   width: 1120px;
 	   max-width: none !important;
 	   }
+	   
     </style>
     <body style="background-color: gainsboro;">
        <!-- Optional JavaScript -->
@@ -51,11 +52,11 @@
        <br><br>
        
        <!-- <div style="padding-left: 20px"> -->
-       <!--
+       <!-- エラーメッセージを表示 -->
        <div style="width:100%; text-align:center; margin-bottom:20px;">
-				 <span class="action_errors" style="color: red">ユーザーIDとパスワードの入力は必須です。<br></span>
+				 <span class="action_errors" style="color: red">${loginError}<br></span>
        </div>
-       -->
+       
 	  <div class="container">
       <div class="loginGroup" style="margin-left: auto; margin-right: auto; width: 65%;">
             <div class="loginGroup" style="margin-left: auto; margin-right: auto; text-align: center;">
