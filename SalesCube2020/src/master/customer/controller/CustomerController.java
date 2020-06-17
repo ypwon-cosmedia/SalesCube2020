@@ -20,6 +20,21 @@ public class CustomerController extends BaseController{
 	
 	public String execService(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
-      		return "";
-      	}
+		String forwardURL = "/menu.jsp";
+		String action = request.getParameter("action");
+/*		
+		if(action.equals("moveModifySetProduct")) forwardURL = moveModifySetProduct(request, response);
+		else if(action.equals("searchSetProduct")) forwardURL = searchSetProduct(request, response);
+		else if(action.equals("deleteSetProduct")) forwardURL = deleteSetProduct(request, response);
+		else if(action.equals("modifySetProduct")) forwardURL = modifySetProduct(request, response);
+		else if(action.equals("searchSetProduct")) forwardURL = searchSetProduct(request, response);
+		else if(action.equals("deleteSetProduct")) forwardURL = deleteSetProduct(request, response);
+		else if(action.equals("modifySetProduct")) forwardURL = modifySetProduct(request, response);
+		else if(action.equals("searchSetProduct")) forwardURL = searchSetProduct(request, response);
+		else if(action.equals("deleteSetProduct")) forwardURL = deleteSetProduct(request, response);
+		else if(action.equals("modifySetProduct")) forwardURL = modifySetProduct(request, response);
+*/
+		
+  		return forwardURL;
+	}
 }

@@ -16,6 +16,7 @@ import user.beans.*;
 public class ProductController extends BaseController{
 	
 	public ProductController() {
+		
 	}
 	
 	public String execService(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
