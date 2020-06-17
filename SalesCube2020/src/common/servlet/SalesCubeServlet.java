@@ -17,26 +17,28 @@ import user.controller.*;
 
 public class SalesCubeServlet extends HttpServlet {
 
+
 	private HashMap<String, BaseController> controllerList;
 
 	public void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		System.out.println("hello");
-        String  forwardURL;
 
-        request.setCharacterEncoding("Windows-31J");
+        String  forwardURL;
+        System.out.println("test1");
 
         // リクエストパラメータの読み込み
         String action = request.getParameter("action");
-
+        System.out.println(action);
 
         // 業務の振り分け
         if  ( controllerList.containsKey(action) )  {							// actionに該当する業務コントローラがある場合
-            BaseController controller = controllerList.get(action);			//   該当する業務コントローラを取得
+        	System.out.println("test2");
+        	BaseController controller = controllerList.get(action);			//   該当する業務コントローラを取得
             forwardURL = controller.execService(request, response);				//   業務コントローラに処理を委譲しフォワードするJSPのURLを取得する
             RequestDispatcher rd = request.getRequestDispatcher(forwardURL);	//   ディスパッチャーを取得
             rd.forward(request, response);										//   出力処理をJSPに委譲（フォワード）
 
         } else {
+        	System.out.println("test3");
             RequestDispatcher rd = request.getRequestDispatcher("/login.jsp");	// actionパラメタ値が見つからない場合は遷移エラーページを表示
             rd.forward(request, response);
         }

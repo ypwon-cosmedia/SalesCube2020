@@ -56,9 +56,9 @@
               	マスター
             </a>
             <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-              <a class="dropdown-item" href="#">商品</a>
-              <a class="dropdown-item" href="#">セット商品</a>
-              <a class="dropdown-item" href="#">顧客</a>
+              <a class="dropdown-item" href="/SalesCube2020/SalesCube?action=product">商品</a>
+              <a class="dropdown-item" href="/SalesCube2020/SalesCube?action=setProduct">セット商品</a>
+              <a class="dropdown-item" href="/SalesCube2020/SalesCube?action=customer">顧客</a>
             </div>
           </li>
         </ul>
@@ -84,13 +84,13 @@
           <table class="table borderless">
               <tr>
                   <td rowspan="3" style="width: 50%">マスタ機能</td>
-                  <td><a href="#">商品</a></td>
+                  <td><a href="/SalesCube2020/SalesCube?action=product">商品</a></td>
               </tr>
               <tr>
-                  <td><a href="#">セット商品</a></td>
+                  <td><a href="/SalesCube2020/SalesCube?action=setProduct">セット商品</a></td>
               </tr>
               <tr>
-                  <td><a href="#">顧客</a></td>
+                  <td><a href="/SalesCube2020/SalesCube?action=customer">顧客</a></td>
               </tr>
           </table>
         </div>
