@@ -29,7 +29,7 @@
     <div class="form-group container">
     <br><h5>商品マスタExcel取込</h5>
     <hr>
-    <form action="/SalesCube2020/SalesCube?action="productexcelinput">
+    <form action="/SalesCube2020/SalesCube?action=productexcelinput">
         <label for="file1"></label>
         <input type="file" id="file1" class="form-control-file"><br>
         <input type="submit" value="取込" class="btn btn-outline-secondary" onClick="CloseWindow();">
