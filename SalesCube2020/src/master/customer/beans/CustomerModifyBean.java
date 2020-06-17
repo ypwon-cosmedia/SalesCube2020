@@ -89,7 +89,7 @@ import java.math.BigDecimal;
 public class CustomerModifyBean {
 
 	/** 顧客コード  ： 顧客コードを保存する　 */
-	private String customerCode;
+	private int customerCode;
 	
 	/** 顧客名 ：　顧客名を保存する */
 	private String customerName;
@@ -170,7 +170,7 @@ public class CustomerModifyBean {
 	private String salesCMCategory;
 
 	/** 支払い条件 ： 支払い条件を保存する */
-	private String paybackCycleCategory;
+	private String cutoffGroup;
 
 	/** 回収方法 ： 回収方法 を保存する */
 	private String paybackTypeCategory;
@@ -202,14 +202,14 @@ public class CustomerModifyBean {
 	/**
 	 * @return the customerCode
 	 */
-	public String getCustomerCode() {
+	public int getCustomerCode() {
 		return customerCode;
 	}
 
 	/**
 	 * @param customerCode the customerCode to set
 	 */
-	public void setCustomerCode(String customerCode) {
+	public void setCustomerCode(int customerCode) {
 		this.customerCode = customerCode;
 	}
 
@@ -580,15 +580,15 @@ public class CustomerModifyBean {
 	/**
 	 * @return the paybackCycleCategory
 	 */
-	public String getPaybackCycleCategory() {
-		return paybackCycleCategory;
+	public String getCutoffGroup() {
+		return cutoffGroup;
 	}
 
 	/**
 	 * @param paybackCycleCategory the paybackCycleCategory to set
 	 */
-	public void setPaybackCycleCategory(String paybackCycleCategory) {
-		this.paybackCycleCategory = paybackCycleCategory;
+	public void setCutoffGroup(String cutoffGroup) {
+		this.cutoffGroup = cutoffGroup;
 	}
 
 	/**

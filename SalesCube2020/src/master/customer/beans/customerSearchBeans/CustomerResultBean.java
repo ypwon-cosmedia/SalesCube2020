@@ -43,7 +43,7 @@ public class CustomerResultBean {
 	private String salesCMCategory;
 
 	/** éxï•Ç¢èåè ÅF éxï•Ç¢èåèÇï€ë∂Ç∑ÇÈ */
-	private String paybackCycleCategory;
+	private String cutoffGroup;
 	
 	/** éñã∆èäñº ÅF éñã∆èäñºÇï€ë∂Ç∑ÇÈ */
 	private String officeName;
@@ -124,15 +124,15 @@ public class CustomerResultBean {
 	/**
 	 * @return the paybackCycleCategory
 	 */
-	public String getPaybackCycleCategory() {
-		return paybackCycleCategory;
+	public String getCutoffGroup() {
+		return cutoffGroup;
 	}
 
 	/**
 	 * @param paybackCycleCategory the paybackCycleCategory to set
 	 */
-	public void setPaybackCycleCategory(String paybackCycleCategory) {
-		this.paybackCycleCategory = paybackCycleCategory;
+	public void setCutoffGroup(String cutoffGroup) {
+		this.cutoffGroup = cutoffGroup;
 	}
 
 	/**
