@@ -37,12 +37,8 @@ package master.customer.beans;
  * 振込名義を取得する<br>
  * 備考を取得する<br>
  * コメントを取得する<br>
- * 作成日時を取得する<br>
- * 作成者を取得する<br>
  * 更新日時を取得する<br>
  * 更新者を取得する<br>
- * 削除日時を取得する<br>
- * 削除者を取得する<br>
  * 
  * 顧客コードを設定する<br>
  * 顧客名を設定する<br>
@@ -79,12 +75,8 @@ package master.customer.beans;
  * 振込名義を設定する<br>
  * 備考を設定する<br>
  * コメントを設定する<br>
- * 作成日時を設定する<br>
- * 作成者を設定する<br>
  * 更新日時を設定する<br>
  * 更新者を設定する<br>
- * 削除日時を設定する<br>
- * 削除者を設定する<br>
  * 
  * @author 久野
  * @version 1.0
@@ -201,23 +193,11 @@ public class CustomerModifyBean {
 	/** コメント ：  コメントを保存する */
 	private String comment;
 	
-	/** 作成日時 ： 作成日時 を保存する */
-	private Date creDate;
-	
-	/** 作成者 ：  作成者を保存する */
-	private String creUser;	
-	
 	/** 更新日時 ： 更新日時 を保存する */
 	private Date updDate;
 	
 	/** 更新者 ： 更新者を保存する */
 	private String updUser;
-	
-	/** 削除日時 ：  削除日時を保存する */
-	private Date delDate;
-	
-	/** 削除者 ： 削除者 を保存する */
-	private String delUser;
 
 	/**
 	 * @return the customerCode
@@ -710,34 +690,6 @@ public class CustomerModifyBean {
 	}
 
 	/**
-	 * @return the creDate
-	 */
-	public Date getCreDate() {
-		return creDate;
-	}
-
-	/**
-	 * @param creDate the creDate to set
-	 */
-	public void setCreDate(Date creDate) {
-		this.creDate = creDate;
-	}
-
-	/**
-	 * @return the creUser
-	 */
-	public String getCreUser() {
-		return creUser;
-	}
-
-	/**
-	 * @param creUser the creUser to set
-	 */
-	public void setCreUser(String creUser) {
-		this.creUser = creUser;
-	}
-
-	/**
 	 * @return the updDate
 	 */
 	public Date getUpdDate() {
@@ -763,34 +715,6 @@ public class CustomerModifyBean {
 	 */
 	public void setUpdUser(String updUser) {
 		this.updUser = updUser;
-	}
-
-	/**
-	 * @return the delDate
-	 */
-	public Date getDelDate() {
-		return delDate;
-	}
-
-	/**
-	 * @param delDate the delDate to set
-	 */
-	public void setDelDate(Date delDate) {
-		this.delDate = delDate;
-	}
-
-	/**
-	 * @return the delUser
-	 */
-	public String getDelUser() {
-		return delUser;
-	}
-
-	/**
-	 * @param delUser the delUser to set
-	 */
-	public void setDelUser(String delUser) {
-		this.delUser = delUser;
 	}
 
 }

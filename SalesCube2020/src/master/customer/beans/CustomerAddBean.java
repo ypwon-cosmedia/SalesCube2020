@@ -81,10 +81,6 @@ package master.customer.beans;
  * コメントを設定する<br>
  * 作成日時を設定する<br>
  * 作成者を設定する<br>
- * 更新日時を設定する<br>
- * 更新者を設定する<br>
- * 削除日時を設定する<br>
- * 削除者を設定する<br>
  * 
  * @author 久野
  * @version 1.0
