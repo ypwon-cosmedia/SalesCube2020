@@ -2,7 +2,8 @@ package master.customer.beans;
 /**
  * 顧客情報
  * 顧客削除に付随するサービスを提供する<br>
- * 顧客コードを取得する<br>
+ * ・顧客コードを設定する<br>
+ * ・顧客コードを取得する<br>
  *
  * @author 久野
  * @version 1.0
