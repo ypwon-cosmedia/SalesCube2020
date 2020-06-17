@@ -17,12 +17,11 @@
             max-width: none !important;
         }
     </style>
-<<<<<<< HEAD
     <script type="text/javascript">
-        function CloseWindow() {
-          window.close();
-        }
-    </script>
+    	function CloseWindow() {
+     		 window.close();
+    	}
+  	</script>
   </head>
   <body style="background-color: gainsboro;">
     <br>
@@ -30,25 +29,11 @@
     <div class="form-group container">
     <br><h5>商品マスタExcel取込</h5>
     <hr>
-    <form name="excelInput" method="POST" action="SalesCube2020/SalesCube?action="productexcelinput">
+    <form action="/SalesCube2020/SalesCube?action="productexcelinput">
         <label for="file1"></label>
         <input type="file" id="file1" class="form-control-file"><br>
-        <input type="submit" name="excelinput" value="取込" class="btn btn-outline-secondary" onClick="CloseWindow()">
-        <input type="button" value="閉じる" class="btn btn-outline-secondary" onClick="CloseWindow()">       
-=======
-  </head>
-  <body style="background-color: gainsboro;">
-    <br>
-    <div class="container panel panel-default" style="background-color: white;">
-    <div class="form-group container">
-    <br><h5>商品マスタExcel取込</h5>
-    <hr>
-    <form action="">
-        <label for="file1"></label>
-        <input type="file" id="file1" class="form-control-file"><br>
-        <input type="submit" name="excelInput" value="取込" class="btn btn-outline-secondary">
-        <input type="button" value="閉じる" class="btn btn-outline-secondary" onclick="window.close()">
->>>>>>> branch 'master' of https://github.com/ypwon-cosmedia/SalesCube2020.git
+        <input type="submit" value="取込" class="btn btn-outline-secondary" onClick="CloseWindow();">
+        <input type="button" value="閉じる" class="btn btn-outline-secondary" onClick="CloseWindow();">
     </form>
     </div><br>
     </div>
