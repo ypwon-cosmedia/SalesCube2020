@@ -1,6 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
+
 <!doctype html>
 <html lang="en">
   <head>
@@ -85,12 +87,12 @@
 	<br>
     <div class="container" id="main_function">
       <h3 class="float-left">顧客検索</h3>
-   
-      
+    
       <div class="btn-toolbar float-right" role="toolbar" aria-label="Toolbar with button groups">
         
         <div class="btn-group mr-2 " role="group" aria-label="First group">
-          <button type="button" class="btn btn-secondary" style="font-size: 12px;" onclick="initForm();">F1<br>初期化</button>
+
+		  <button type="button" class="btn btn-secondary" style="font-size: 12px;" onclick="initForm()">F1<br>初期化</button>
           <button type="button" class="btn btn-secondary" style="font-size: 12px;">F2<br>戻る</button>
           <button type="button" class="btn btn-secondary" style="font-size: 12px;">F3<br>登録</button>
           <button type="button" class="btn btn-secondary" style="font-size: 12px;">F4<br>削除</button>
@@ -113,6 +115,7 @@
 			<hr>
 			<div class="panel-body">
 				<form action="" name="sampleform" method="post">
+				<form action="/SalesCube2020/SalesCube?action=searchProduct" name="sampleform" method="post">
 					<div class="row">
 						<div class="col-4">
 							<label class="sr-only" for="inlineFormInputGroup"></label>
@@ -246,7 +249,7 @@
 								<div class="input-group-prepend">
 									<div class="input-group-text">振込名義</div>
 								</div>
-							<input type="text" name="paymentName" class="form-control" id="inlineFormInputGroup">
+								<input type="text" name="paymentName" class="form-control" id="inlineFormInputGroup">
 							</div>
 						</div>
 						<div class="col-4">
@@ -255,10 +258,9 @@
 								<div class="input-group-prepend">
 									<div class="input-group-text">備考</div>
 								</div>
-							<input type="text" name="remarks" class="form-control" id="inlineFormInputGroup">
+								<input type="text" name="remarks" class="form-control" id="inlineFormInputGroup">
 							</div>
 						</div>
-						
 					</div>
 				</form>	
 			</div>
@@ -269,31 +271,29 @@
 			
 			
 			<div class="panel-body">
-				<form action="" method="post">
-					
-					
-					
-				
+
 					<div align="right">
-						<input type="submit" value="初期化" class="btn btn-outline-secondary">
+						<button type="button" class="btn btn-outline-secondary" onclick="initForm()">初期化</button>
+						<input type="hidden" value="10" id="rowCount">
 						<input type="submit" value="検索" class="btn btn-outline-secondary">
 					</div>
-				</form>
 			</div>
 		<!-- </div><br></div><br> --><br><br>
 		<div class="container">
-            <div class="float-left" style="position:static; left: 0px;">検索結果件数： 3件</div>
+            <div class="float-left" style="position:static; left: 0px;">検索結果件数： ${fn:length(customerList)}件</div>
   
          	<div class="rounded float-right">
                 ページあたりの表示件数
-                <select id="rowCount" name="rowCount">
+                <select id="rowCount" name="rowCount" onchange="moveRowCount(this)">
                     <option value="10">10</option>
                     <option value="50">50</option>
                     <option value="100">100</option>
                 </select>
 			</div>
 		</div>
+    </div></div><br><br>
     
+<<<<<<< HEAD
     </div></div>
 <br><br>
 <div class="container" style="background-color: rgb(255, 255, 255);">
@@ -322,17 +322,62 @@
 				<td style="white-space: normal; text-align: left;">&nbsp;${customer.customerCode}&nbsp;</td>
 				<td style="white-space: normal; text-align: left;">&nbsp;${customer.customerCode}&nbsp;</td>
 				<td style="white-space: normal; text-align: left;">&nbsp;${customer.customerCode}&nbsp;</td>
+=======
+		<div class="container" style="background-color: rgb(255, 255, 255);">
+  			<table id="order_detail_info" class="table table-bordered">
+				<thead class="thead-dark">
+    				<tr>
+						<th style="cursor: pointer; height: 30px;" onclick="sort('customerCode');">顧客コード</th>
+						<th style="cursor: pointer; height: 30px;" onclick="sort('customerName');">顧客名</th>
+						<th style="cursor: pointer; height: 30px;" onclick="sort('tel');">TEL</th>
+						<th style="cursor: pointer; height: 30px;" onclick="sort('PCName');">担当者</th>
+						<th style="cursor: pointer; height: 30px;" onclick="sort('salesCMCategory');">取引区分</th>
+						<th style="cursor: pointer; height: 30px;" onclick="sort('cutoffGroup');">支払条件</th>
+						<th style="cursor: pointer; height: 30px;" onclick="sort('officeName');">事業所名</th>
+						<th style="cursor: pointer; height: 30px;" onclick="sort('deptName');">部署名</th>
+						<th style="cursor: pointer; height: 30px;">&nbsp;</th>
+					</tr>
+				</thead>
+				<c:forEach items="${customerList}" var="customer">
+    				<tr>
+						<th scope="row">${customer.customerCode}</th>
+						<td style="white-space: normal; text-align: left;">&nbsp;${customer.customerName}&nbsp;</td>
+						<td style="white-space: normal; text-align: left;">&nbsp;${customer.tel}&nbsp;</td>
+						<td style="white-space: normal; text-align: left;">&nbsp;${customer.PCName}&nbsp;</td>
+						<td style="white-space: normal; text-align: left;">&nbsp;${customer.salesCMCategory}&nbsp;</td>
+						<td style="white-space: normal; text-align: left;">&nbsp;${customer.cutoffGroup}&nbsp;</td>
+						<td style="white-space: normal; text-align: left;">&nbsp;${customer.officeName}&nbsp;</td>
+						<td style="white-space: normal; text-align: left;">&nbsp;${customer.deptName}&nbsp;</td>
+>>>>>>> branch 'master' of https://github.com/ypwon-cosmedia/SalesCube2020.git
 
-				<td style="text-align: center">
-					<button type="button" class="btn btn-outline-secondary" onclick="editCustomer('1');">編集</button>
-					<button type="button" class="btn btn-outline-secondary" onclick="deleteCustomer('1', '2015/09/28 13:16:24.0');">削除</button>
-				</td>
-   			 </tr>
-   			 
-	</table>
+						<td style="text-align: center">
+							<div style="display:inline-flex">
+								<form action="/SalesCube2020/SalesCube?action=moveModifyCustomer">
+									<input type="hidden" name="customer" value="${customer.cutomerCode}">	
+									<input type="submit" class="btn btn-outline-secondary" value="編集">
+								</form>
+								<form action="/SalesCube2020/SalesCube?action=deleteCustomer">
+									<input type="hidden" name="customer" value="${customer.cutomerCode}">	
+									<input type="submit" class="btn btn-outline-secondary" value="削除">
+								</form>
+							</div>
+						</td>
+   					</tr>
+   				</c:forEach> 
+			</table>
+		</div>
+<script type="text/javascript">
+function moveRowCount(rowCount) {
+	const rowCount = rowCount.value;
+	document.getElementById("rowCount").value = rowCount;
+}
 
-</div>
-
-		
+function initForm() {
+	if(!confirm("入力内容を初期化してもよろしいですか？")){
+		return;
+	}
+	document.sampleform.reset();
+}
+</script>
 	</body>
 </html>
