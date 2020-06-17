@@ -4,7 +4,7 @@ import java.util.Date;
 
 /**
  * 納入先情報
- * 納入先情報追加に付随するサービスを提供する<br>
+ * 納入先情報変更に付随するサービスを提供する<br>
  * ・納入先コードを取得する<br>
  * ・納入先名を取得する<br>
  * ・納入先名カナを取得する<br> 
@@ -20,8 +20,8 @@ import java.util.Date;
  * ・FAXを取得する<br>
  * ・E-MAILを取得する<br>
  * ・FAXを取得する<br>
- * ・作成日時を取得する<br>
- * ・作成者を取得する<br>
+ * ・更新日時を取得する<br>
+ * ・更新者を取得する<br>
  * 
  * ・納入先コードを設定する<br>
  * ・納入先名を設定する<br>
@@ -38,15 +38,15 @@ import java.util.Date;
  * ・FAXを設定する<br>
  * ・E-MAIL設定する<br>
  * ・FAXを設定する<br>
- * ・作成日時を設定する<br>
- * ・作成者を設定する<br>
+ * ・更新日時を設定する<br>
+ * ・更新者を設定する<br>
  * 
  * @author 久野
  * @version 1.0
  * 
  */
 
-public class DeliveryAddBean {
+public class DeliveryModifyBean {
 
 	/** 納入先コード　：　納入先コードを保持する */
 	private int deliveryCode;
@@ -93,12 +93,12 @@ public class DeliveryAddBean {
 	/** E-MAIL ：　E-MAILを保持する */
 	private String email;
 	
-	/** 作成日時 ： 作成日時を保存する */
-	private Date creDate;
+	/** 更新日時 ： 更新日時 を保存する */
+	private Date updDate;
 	
-	/** 作成者 ：  作成者を保存する */
-	private String creUser;	
-	
+	/** 更新者 ： 更新者を保存する */
+	private String updUser;
+
 	/**
 	 * @return the deliveryCode
 	 */
@@ -310,30 +310,30 @@ public class DeliveryAddBean {
 	}
 
 	/**
-	 * @return the creDate
+	 * @return the updDate
 	 */
-	public Date getCreDate() {
-		return creDate;
+	public Date getUpdDate() {
+		return updDate;
 	}
 
 	/**
-	 * @param creDate the creDate to set
+	 * @param updDate the updDate to set
 	 */
-	public void setCreDate(Date creDate) {
-		this.creDate = creDate;
+	public void setUpdDate(Date updDate) {
+		this.updDate = updDate;
 	}
 
 	/**
-	 * @return the creUser
+	 * @return the updUser
 	 */
-	public String getCreUser() {
-		return creUser;
+	public String getUpdUser() {
+		return updUser;
 	}
 
 	/**
-	 * @param creUser the creUser to set
+	 * @param updUser the updUser to set
 	 */
-	public void setCreUser(String creUser) {
-		this.creUser = creUser;
+	public void setUpdUser(String updUser) {
+		this.updUser = updUser;
 	}
 }
