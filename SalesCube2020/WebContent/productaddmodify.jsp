@@ -179,7 +179,7 @@
 								<div class="input-group-prepend">
 									<div class="input-group-text">仕入先コード</div>
 								</div>
-							<input type="text"  class="form-control" id="inlineFormInputGroup">
+							<input type="text"  class="form-control" id="inlineFormInputGroup" name="supplierCode">
 							
 							</div>
 						</div>
@@ -189,7 +189,7 @@
 								<div class="input-group-prepend">
 									<div class="input-group-text">仕入先名</div>
 								</div>
-							<input type="text"  class="form-control" id="inlineFormInputGroup">
+							<input type="text"  class="form-control" id="inlineFormInputGroup" name="supplierName">
 							</div>
 						</div>
 						<div class="col-4">
@@ -198,7 +198,7 @@
 								<div class="input-group-prepend">
 									<div class="input-group-text">仕入先品番</div>
 								</div>
-							<input type="text"  class="form-control" id="inlineFormInputGroup">
+							<input type="text"  class="form-control" id="inlineFormInputGroup" name="supplierPcode">
 							</div>
 						</div>
 					</div>
@@ -209,7 +209,7 @@
 								<div class="input-group-prepend">
 									<div class="input-group-text" style = "background-color: pink;">仕入れ単価(円)※</div>
 								</div>
-							<input type="text"  class="form-control" id="inlineFormInputGroup">
+							<input type="text"  class="form-control" id="inlineFormInputGroup" name="supplierPriceYen">
 							</div>
 						</div>
 						<div class="col-4">
@@ -218,7 +218,7 @@
 								<div class="input-group-prepend">
 									<div class="input-group-text">仕入単価(外貨)</div>
 								</div>
-							<input type="text"  class="form-control" id="inlineFormInputGroup">
+							<input type="text"  class="form-control" id="inlineFormInputGroup" name="supplierPriceDol">
 							</div>
 						</div>
 					</div>
@@ -242,7 +242,7 @@
 								<div class="input-group-prepend">
 									<div class="input-group-text">入数</div>
 								</div>
-							<input type="text"  class="form-control" id="inlineFormInputGroup">
+							<input type="text"  class="form-control" id="inlineFormInputGroup" name="packQuantity">
 							</div>
 						</div>
 					</div>
@@ -253,7 +253,7 @@
 								<div class="input-group-prepend">
 									<div class="input-group-text">月平均出荷数</div>
 								</div>
-							<input type="text"  class="form-control" id="inlineFormInputGroup">
+							<input type="text"  class="form-control" id="inlineFormInputGroup" name="avgShipCount" >
 							</div>
 						</div>
 						<div class="col-4">
@@ -262,7 +262,7 @@
 								<div class="input-group-prepend">
 									<div class="input-group-text">倉庫名</div>
 								</div>
-							<input type="text"  class="form-control" id="inlineFormInputGroup">
+							<input type="text"  class="form-control" id="inlineFormInputGroup" name="warehouseName">
 							</div>
 						</div>
 						<div class="col-4">
@@ -271,7 +271,7 @@
 								<div class="input-group-prepend">
 									<div class="input-group-text">棚番</div>
 								</div>
-							<input type="text"  class="form-control" id="inlineFormInputGroup">
+							<input type="text"  class="form-control" id="inlineFormInputGroup" name="rackName">
 							
 							</div>
 						</div>
@@ -283,7 +283,7 @@
 								<div class="input-group-prepend">
 									<div class="input-group-text">リードタイム</div>
 								</div>
-							<input type="text"  class="form-control" id="inlineFormInputGroup">日
+							<input type="text"  class="form-control" id="inlineFormInputGroup" name="leadTime">日
 							</div>
 						</div>
 						<div class="col-4">
@@ -292,16 +292,16 @@
 								<div class="input-group-prepend">
 									<div class="input-group-text">発注点</div>
 								</div>
-							<input type="text"  class="form-control" id="inlineFormInputGroup">
+							<input type="text"  class="form-control" id="inlineFormInputGroup" name="poNum">
 							</div>
 						</div>
 						<div class="col-4">
-							<label class="sr-only" for="inlineFormInputGroup">mineSafetvStock</label>
+							<label class="sr-only" for="inlineFormInputGroup">mineSafetyStock</label>
 							<div class="input-group mb-2">
 								<div class="input-group-prepend">
 									<div class="input-group-text">安全在庫数</div>
 								</div>
-							<input type="text"  class="form-control" id="inlineFormInputGroup">
+							<input type="text"  class="form-control" id="inlineFormInputGroup" name="mineSafety">
 							</div>
 						</div>
 					</div>
@@ -312,7 +312,7 @@
 								<div class="input-group-prepend">
 									<div class="input-group-text">発注ロット</div>
 								</div>
-							<input type="text"  class="form-control" id="inlineFormInputGroup">
+							<input type="text"  class="form-control" id="inlineFormInputGroup" name="poLot">
 							</div>
 						</div>
 						<div class="col-4">
@@ -321,16 +321,16 @@
 								<div class="input-group-prepend">
 									<div class="input-group-text">最大保有数</div>
 								</div>
-							<input type="text"  class="form-control" id="inlineFormInputGroup">
+							<input type="text"  class="form-control" id="inlineFormInputGroup" name="maxStockNum">
 							</div>
 						</div>
 						<div class="col-4">
-							<label class="sr-only" for="inlineFormInputGroup">maxPoNum</label>
+							<label class="sr-only" for="inlineFormInputGroup">maxPoNummaxPoNum</label>
 							<div class="input-group mb-2">
 								<div class="input-group-prepend">
 									<div class="input-group-text">単位発注限度数</div>
 								</div>
-							<input type="text"  class="form-control" id="inlineFormInputGroup">
+							<input type="text"  class="form-control" id="inlineFormInputGroup" name="maxPoNum">
 							</div>
 						</div>
 					</div>
@@ -341,7 +341,7 @@
 								<div class="input-group-prepend">
 									<div class="input-group-text">受注限度数</div>
 								</div>
-							<input type="text"  class="form-control" id="inlineFormInputGroup">
+							<input type="text"  class="form-control" id="inlineFormInputGroup" name="roMaxNum">
 							</div>
 						</div>
 						<div class="col-4">
@@ -350,7 +350,7 @@
 								<div class="input-group-prepend">
 									<div class="input-group-text">売単価</div>
 								</div>
-							<input type="text"  class="form-control" id="inlineFormInputGroup">
+							<input type="text"  class="form-control" id="inlineFormInputGroup" name="salesPrice">
 							</div>
 						</div>
 						<div class="col-4">
@@ -439,7 +439,7 @@
 									<div class="input-group-prepend">
 										<div class="input-group-text">特注計算掛率</div>
 									</div>
-								<input type="text"  class="form-control" id="inlineFormInputGroup">
+								<input type="text"  class="form-control" id="inlineFormInputGroup" name="soRate">
 								</div>
 							</div>
 							<div class="col-4">
@@ -609,7 +609,7 @@
 									<div class="input-group-prepend">
 										<div class="input-group-text">芯数</div>
 									</div>
-									<input type="text"  class="form-control" id="inlineFormInputGroup">
+									<input type="text"  class="form-control" id="inlineFormInputGroup" name="coreNum">
 								</div>
 							</div>
 						</div>	
