@@ -110,7 +110,7 @@
 			</div>
 			<hr>
 			<div class="panel-body">
-				<form action="/SalesCube2020/SalesCube?action=searchproduct" name="main" method="post">
+				<form action="/SalesCube2020/SalesCube?action=searchProduct" name="main" method="post">
 					<div class="row">
 						<div class="col-4">
 							<label class="sr-only" for="inlineFormInputGroup">productCode</label>
@@ -329,11 +329,11 @@
 						<td style="white-space: normal; text-align: left;">${prdct.remarks}</td>
 						<td style="text-align: center">
 							<div style="display:inline-flex">
-								<form action="/SalesCube2020/SalesCube?action=movemodifyproduct" method="post">
+								<form action="/SalesCube2020/SalesCube?action=moveModifyProduct" method="post">
 									<input type="submit" value="編集" class="btn btn-outline-secondary">
 									<input type="hidden" id="productCode" name="productCode">
 								</form>
-								<form action="/SalesCube2020/SalesCube?action=deleteproduct" method="post">
+								<form action="/SalesCube2020/SalesCube?action=deleteProduct" method="post">
 									<input type="submit" value="削除" class="btn btn-outline-secondary">
 									<input type="hidden" id="productCode" name="productCode">
 								</form>
