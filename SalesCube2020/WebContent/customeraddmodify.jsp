@@ -77,29 +77,24 @@
 	<br>
     <div class="container" id="main_function">
       <h3 class="float-left">顧客</h3>
-   <script>
-   
-   </script>
+
       
       <div class="btn-toolbar float-right" role="toolbar" aria-label="Toolbar with button groups">
-        
         <div class="btn-group mr-2 " role="group" aria-label="First group">
-         <form action="/SalesCube2020/SalesCube?action=moveAddCustomer">
-          <button type="button" class="btn btn-secondary" style="font-size: 12px;">F1<br>初期化</button>
-         </form>
-         <form action="/SalesCube2020/SalesCube?action=customer">
-          <button type="button" class="btn btn-secondary" style="font-size: 12px;">F2<br>戻る</button>
-         </form>
-          <button type="button" class="btn btn-secondary" style="font-size: 12px;">F3<br>登録</button>
-          <button type="button" class="btn btn-secondary" style="font-size: 12px;">F4<br>削除</button>
-          <button type="button" class="btn btn-secondary" style="font-size: 12px;">F5<br>初期値</button>
-          <button type="button" class="btn btn-secondary" style="font-size: 12px;">F6<br></button>
-          <button type="button" class="btn btn-secondary" style="font-size: 12px;">F7<br></button>
-          <button type="button" class="btn btn-secondary" style="font-size: 12px;">F8<br>履歴出力</button>
-          <button type="button" class="btn btn-secondary" style="font-size: 12px;">F9<br></button>
-          <button type="button" class="btn btn-secondary" style="font-size: 12px;">F10<br></button>
-          <button type="button" class="btn btn-secondary" style="font-size: 12px;">F11<br></button>
-          <button type="button" class="btn btn-secondary" style="font-size: 12px;">F12<br></button>
+          <button type="button" class="btn btn-secondary" style="font-size: 12px;" onclick="initForm()" >F1<br>初期化</button>
+			<button type="button" class="btn btn-secondary" style="font-size: 12px;" onclick="backForm()">F2<br>戻る</button>
+			<button type="button" class="btn btn-secondary" style="font-size: 12px;" onclick="registrationForm()" >F3<br>${status eq 'add' ? "登録" : "更新"}</button>
+			<button type="button" class="btn btn-secondary" style="font-size: 12px;" onclick= "delete()" ${status eq 'add' ? "disabled" :''}>F4 <br>削除</button>
+			<button type="button" class="btn btn-secondary" style="font-size: 12px;">F5<br>初期値</button>
+			<button type="button" class="btn btn-secondary" style="font-size: 12px;" disabled>F6<br></button>
+			<button type="button" class="btn btn-secondary" style="font-size: 12px;" disabled>F7<br></button>
+			<form action="/SalesCube2020/SalesCube? action=producthistoryoutput">
+				<button type="button" class="btn btn-secondary" style="font-size: 12px;" onclick= "productHistoryOutPut()" ${status eq 'add' ? "disabled" :''}>F8<br>履歴出力</button>
+			</form>
+			<button type="button" class="btn btn-secondary" style="font-size: 12px;" disabled>F9<br></button>
+			<button type="button" class="btn btn-secondary" style="font-size: 12px;" disabled>F10<br></button>
+			<button type="button" class="btn btn-secondary" style="font-size: 12px;" disabled>F11<br></button>
+			<button type="button" class="btn btn-secondary" style="font-size: 12px;" disabled>F12<br></button>
         </div>
       </div>
       
@@ -112,7 +107,7 @@
         </div>
         <hr>
         <div class="panel-body">
-<form action="" method="post">
+	<form action="" method="post">
                 <div class="row">
                     <div class="col-4">
                         <label class="sr-only" for="inlineFormInputGroup">productCode</label>
@@ -331,10 +326,7 @@
                                 <div class="input-group-text">業種</div>
                             </div>
                             <select class="custom-select" name="">
-                                <option selected></option>
-                                <c:forEach items="${}" value="">
-                                    <option value="${}">${}</option>
-                                </c:forEach>
+
                             </select>
                         </div>
                     </div>
@@ -345,10 +337,7 @@
                                 <div class="input-group-text">職種</div>
                             </div>
                             <select class="custom-select" name="">
-                                <option selected></option>
-                                <c:forEach items="${}" value="">
-                                    <option value="${}">${}</option>
-                                </c:forEach>
+
                             </select>
                         </div>
                     </div>
@@ -361,10 +350,7 @@
                                 <div class="input-group-text" style="background-color: pink;">fractCategory</div>
                             </div>
                             <select class="custom-select" name="">
-                                <option selected></option>
-                                <c:forEach items="${}" value="">
-                                    <option value="${}">${}</option>
-                                </c:forEach>
+
                             </select>
                         </div>
                     </div>
@@ -375,10 +361,7 @@
                                 <div class="input-group-text" style="background-color: pink;">税転嫁</div>
                             </div>
                             <select class="custom-select" name="">
-                                <option selected></option>
-                                <c:forEach items="${}" value="">
-                                    <option value="${}">${}</option>
-                                </c:forEach>
+
                             </select>
                         </div>
                     </div>
@@ -401,9 +384,8 @@
                             </div>
                             <select class="custom-select" name="">
                                 <option selected></option>
-                                <c:forEach items="${}" value="">
-                                    <option value="${}">${}</option>
-                                </c:forEach>
+
+
                             </select>
                         </div>
                     </div>
@@ -415,9 +397,8 @@
                             </div>
                             <select class="custom-select" name="">
                                 <option selected></option>
-                                <c:forEach items="${}" value="">
-                                    <option value="${}">${}</option>
-                                </c:forEach>
+
+
                             </select>
                         </div>
                     </div>
@@ -428,10 +409,8 @@
                                 <div class="input-group-text" style="background-color: pink;">回収方法</div>
                             </div>
                             <select class="custom-select" name="">
-                                <option selected></option>
-                                <c:forEach items="${}" value="">
-                                    <option value="${}">${}</option>
-                                </c:forEach>
+
+
                             </select>
                         </div>
                     </div>
@@ -444,10 +423,8 @@
                                 <div class="input-group-text" style="background-color: pink;">請求書発行単位</div>
                             </div>
                             <select class="custom-select" name="">
-                                <option selected></option>
-                                <c:forEach items="${}" value="">
-                                    <option value="${}">${}</option>
-                                </c:forEach>
+
+
                             </select>
                         </div>
                     </div>
@@ -458,10 +435,8 @@
                                 <div class="input-group-text" style="background-color: pink;">請求書日付有無</div>
                             </div>
                             <select class="custom-select" name="">
-                                <option selected></option>
-                                <c:forEach items="${}" value="">
-                                    <option value="${}">${}</option>
-                                </c:forEach>
+
+
                             </select>
                         </div>
                     </div>
@@ -520,7 +495,7 @@
     </div>
     <hr>
     <div class="panel-body">
-        <form action="" method="post">
+
             <div class="row">
                 <div class="col-4">
                     <label class="sr-only" for="inlineFormInputGroup">productCode</label>
@@ -640,10 +615,7 @@
                             <div class="input-group-text">敬称</div>
                         </div>
                         <select class="custom-select" name="">
-                            <option selected></option>
-                            <c:forEach items="${}" value="">
-                                <option value="${}">${}</option>
-                            </c:forEach>
+
                         </select>
                     </div>
 　　　　　　    　　　</div>
@@ -680,7 +652,7 @@
                 </div>
             </div>            
         
-        </form>    
+        
     </div>
         
     
@@ -693,7 +665,7 @@
     </div>
     <hr>
     <div class="panel-body">
-        <form action="" method="post">
+      
             <div class="row">
                 <div class="col-4">
                     <label class="sr-only" for="inlineFormInputGroup">productName</label>
@@ -800,10 +772,7 @@
                             <div class="input-group-text">敬称</div>
                         </div>
                         <select class="custom-select" name="">
-                            <option selected></option>
-                            <c:forEach items="${}" value="">
-                                <option value="${}">${}</option>
-                            </c:forEach>
+
                         </select>
                     </div>
 　　　　　　    　　　</div>
@@ -857,9 +826,39 @@
 
 
 <script>
-
-
-
+	function initForm() {
+		if(!confirm("入力内容を初期化してよろしいですか？")){
+			return;
+		}
+		window.location.href = '/SalesCube2020/customeraddmodify.jsp';
+	}
+    	
+	function backForm() {
+		if(!confirm("顧客検索画面に戻ります。よろしいですか？")) {
+			return;
+		}
+		window.location.href = '/SalesCube2020/searchCustomer.jsp';
+	}
+    		
+	function registrationForm() {
+		if(!confirm("入力内容を登録します。よろしいですか？")) {
+			return;
+		}
+    			
+	}
+    		
+	function deleteForm() {
+		if(!confirm("このデータを削除しますか？")) {
+			return;
+		}
+    			
+	}
+    		
+	function customerHistoryOutPut() {
+		if(!confirm("履歴をExcel出力しますか？")) {
+			return;
+		}		
+	}
 </script>
 	
 	</body>
