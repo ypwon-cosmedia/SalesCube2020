@@ -79,7 +79,7 @@ public class SetProductDAO extends BaseDAO {
 	 	
 	 	con = super.getConnection();	
 	 	stmt = con.createStatement();	
-	 	sql = "select PRODUCT_CODE, PRODUCT_NAME from product_mst_xxxxx where SET_TYPE_CATEGORY = 1 AND ;";	//追加必要	
+	 	sql = "select PRODUCT_CODE, PRODUCT_NAME from product_mst_xxxxx where SET_TYPE_CATEGORY = 1;";	//追加必要	
 	 	result = stmt.executeQuery(sql);	
 		
 	 	while (result.next()) {
@@ -92,44 +92,31 @@ public class SetProductDAO extends BaseDAO {
 	}
 	
 	
-	public void setInfo (List<SetProductBean> inputList) throws ClassNotFoundException, MissingResourceException, SQLException {
+	public void setInfo (List<SetProductBean> inputList, String setProductCode) throws ClassNotFoundException, MissingResourceException, SQLException {
 		
 
 		Connection con;
 	 	Statement stmt = null;
 	 	int result;	
-	 	String  sql;
+	 	String  sql1;
+	 	String  sql2;
 		
 	 	con = super.getConnection();	
 	 	stmt = con.createStatement();
+	 	
+	 	sql1 = "DELETE FROM product_set_mst_xxxxx WHERE SET_PRODUCT_CODE = " + setProductCode;
+	 	result = stmt.executeUpdate(sql1);
+	 	
 	 	for(SetProductBean bean : inputList) {
-	 		sql = "insert into product_set_mst_xxxxx(SET_PRODUCT_CODE, PRODUCT_CODE, QUANTITY) values(" 
+	 		sql2 = "INSERT INTO (SET_PRODUCT_CODE, PRODUCT_CODE, QUANTITY) product_set_mst_xxxxx"
+	 				+ "VALUES("
 	 				+ bean.getSetProductCode() + ","
 	 				+ bean.getProductCode() + ","
-	 				+ bean.getQuantity() + ")" 
-	 				+ "on duplicate key update SET_PRODUCT_KEY = values(" 
-	 				+ bean.getSetProductCode() + ") and PRODUCT_KEY = values("
-	 				+ bean.getProductCode() + ");";	//追加必要	
+	 				+ bean.getQuantity() + ");";
 	 		
-		 	result = stmt.executeUpdate(sql);
+		 	result = stmt.executeUpdate(sql2);
 	 	}
 	
 	}
-	
-	public void deleteInfo (int[] code) throws ClassNotFoundException, MissingResourceException, SQLException {
 		
-		Connection con;
-	 	Statement stmt = null;
-	 	int result;	
-	 	String  sql;
-	 	
-	 	con = super.getConnection();	
-	 	stmt = con.createStatement();
-	 	for(int i = 0; i<code.length; i++) {
-	 		sql = "delete from product_set_mst_xxxxx where PRODUCT_CODE = " + code[i] + ";";	//追加必要	
-		 	result = stmt.executeUpdate(sql);		
-	 	}
-
-	}
-	
 }

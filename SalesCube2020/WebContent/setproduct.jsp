@@ -188,12 +188,7 @@
     <tr>
 		<th scope="col" class="rd_top_left th_back_black" style="cursor: pointer; height: 30px;" onclick="sort('customerCode');">顧客コード</th>
 		<th scope="col" class="th_back_black" style="cursor: pointer; height: 30px;" onclick="sort('customerName');">顧客名</th>
-		<th scope="col" class="th_back_black" style="cursor: pointer; height: 30px;" onclick="sort('customerTel');">TEL</th>
-		<th scope="col" class="th_back_black" style="cursor: pointer; height: 30px;" onclick="sort('customerPcName');">担当者</th>
-		<th scope="col" class="th_back_black" style="cursor: pointer; height: 30px;" onclick="sort('salesCmCategory');">取引区分</th>
-		<th scope="col" class="th_back_black" style="cursor: pointer; height: 30px;" onclick="sort('cutoffGroup');">支払条件</th>
-		<th scope="col" class="th_back_black" style="cursor: pointer; height: 30px;" onclick="sort('customerOfficeName');">事業所名</th>
-		<th scope="col" class="th_back_black" style="cursor: pointer; height: 30px;" onclick="sort('customerDeptName');">部署名</th>
+
 		<th scope="col" class="rd_top_right th_back_black" style="cursor: pointer; height: 30px;">&nbsp;</th>
 	</tr>
 		</thead>
@@ -201,31 +196,20 @@
     <tr>
 		<th scope="row">1</th>
 		<td style="white-space: normal; text-align: left;">&nbsp;かるぴす&nbsp;</td>
-		<td style="white-space: normal; text-align: left;">&nbsp;03-0000-0000&nbsp;</td>
-		<td style="white-space: normal; text-align: left;">&nbsp;くまちゃん&nbsp;</td>
-		<td style="white-space: normal; text-align: left;">&nbsp;通販サイト1経由&nbsp;</td>
-		<td style="white-space: normal; text-align: left;">&nbsp;&nbsp;</td>
-		<td style="white-space: normal; text-align: left;">&nbsp;カルピス&nbsp;</td>
-		<td style="white-space: normal; text-align: left;">&nbsp;人事部&nbsp;</td>
 
 		<td style="text-align: center">
-				<button type="button" class="btn btn-outline-secondary" onclick="editCustomer('1');">編集</button>
-				<button type="button" class="btn btn-outline-secondary" onclick="deleteCustomer('1', '2015/09/28 13:16:24.0');">削除</button>
+			<form action="/SalesCube2020/SalesCube?action=moveModifySetProduct" method="post" >
+				<input type="submit" class="btn btn-outline-secondary" value="編集">
+			</form>	
 		</td>
     </tr>
     <tr>
 		<th scope="row">2</th>
 		<td style="white-space: normal; text-align: left;">&nbsp;かるぴす&nbsp;</td>
-		<td style="white-space: normal; text-align: left;">&nbsp;03-0000-0000&nbsp;</td>
-		<td style="white-space: normal; text-align: left;">&nbsp;くまちゃん&nbsp;</td>
-		<td style="white-space: normal; text-align: left;">&nbsp;通販サイト1経由&nbsp;</td>
-		<td style="white-space: normal; text-align: left;">&nbsp;&nbsp;</td>
-		<td style="white-space: normal; text-align: left;">&nbsp;カルピス&nbsp;</td>
-		<td style="white-space: normal; text-align: left;">&nbsp;人事部&nbsp;</td>
 
 		<td style="text-align: center">
-			<form action="SalesCube2020/SalesCube?action=moveModifyCustomer" >
-				<button type="button" class="btn btn-outline-secondary" onclick="editCustomer('1');">編集</button>
+			<form action="/SalesCube2020/SalesCube?action=moveModifySetProduct" method="post" >
+				<input type="submit" class="btn btn-outline-secondary" value="編集">
 			</form>	
 		</td>
 	</tr>
@@ -233,16 +217,11 @@
 	<tr>
 		<th scope="row">3</th>
 		<td style="white-space: normal; text-align: left;">&nbsp;かるぴす&nbsp;</td>
-		<td style="white-space: normal; text-align: left;">&nbsp;03-0000-0000&nbsp;</td>
-		<td style="white-space: normal; text-align: left;">&nbsp;くまちゃん&nbsp;</td>
-		<td style="white-space: normal; text-align: left;">&nbsp;通販サイト1経由&nbsp;</td>
-		<td style="white-space: normal; text-align: left;">&nbsp;&nbsp;</td>
-		<td style="white-space: normal; text-align: left;">&nbsp;カルピス&nbsp;</td>
-		<td style="white-space: normal; text-align: left;">&nbsp;人事部&nbsp;</td>
 
 		<td style="text-align: center">
-				<button type="button" class="btn btn-outline-secondary " onclick="editCustomer('1');">編集</button>
-				<button type="button" class="btn btn-outline-secondary " onclick="deleteCustomer('1', '2015/09/28 13:16:24.0');">削除</button>
+			<form action="/SalesCube2020/SalesCube?action=moveModifySetProduct" method="post" >
+				<input type="submit" class="btn btn-outline-secondary" value="編集">
+			</form>	
 		</td>
     </tr>
 
