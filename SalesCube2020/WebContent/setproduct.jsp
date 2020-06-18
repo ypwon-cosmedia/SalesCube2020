@@ -92,12 +92,13 @@
       </div>
       <br><br><br>
       </div>
+      <form action="" method="post">
 		<div class="container" style="background-color: white;"><div class="panel panel-default" >
 			<div class="panel-heading row mb-2 col-4">
 				<h5><br>セット商品情報</h5>
 			</div>
 			<hr>
-			<form action="" method="post">
+			
 				<div class="panel-body">
 					<div class="row">
 						<div class="col-4">
@@ -122,7 +123,7 @@
 					</div>
 					
 					</div>
-			</form>
+
 		</div><br></div>
 		<br>
 		<br>
@@ -131,7 +132,7 @@
 				<h5><br>セット内容</h5>
 			</div>
 			<hr>
-			<form action="" method="post">
+
 				<div class="panel-body">	
 					<div class="row">
 						<div class="col-4">
@@ -162,9 +163,10 @@
 					<input type="submit" value="初期化" class="btn btn-outline-secondary">
 					<input type="submit" value="検索" class="btn btn-outline-secondary">
 				</div>
-			</form>
+			
 			
 		</div><br></div><br>
+		</form>
 		<div class="container">
             <div class="float-left" style="position:static; left: 0px;">検索結果件数： 3件</div>
   
@@ -222,8 +224,9 @@
 		<td style="white-space: normal; text-align: left;">&nbsp;人事部&nbsp;</td>
 
 		<td style="text-align: center">
+			<form action="SalesCube2020/SalesCube?action=moveModifyCustomer" >
 				<button type="button" class="btn btn-outline-secondary" onclick="editCustomer('1');">編集</button>
-				<button type="button" class="btn btn-outline-secondary" onclick="deleteCustomer('1', '2015/09/28 13:16:24.0');">削除</button>
+			</form>	
 		</td>
 	</tr>
 	

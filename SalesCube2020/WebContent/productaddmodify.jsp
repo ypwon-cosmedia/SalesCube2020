@@ -82,18 +82,20 @@
 		<div class="btn-toolbar float-right" role="toolbar" aria-label="Toolbar with button groups">
 		  
 		  <div class="btn-group mr-2 " role="group" aria-label="First group">
-			<button type="button" class="btn btn-secondary" style="font-size: 12px;" onclick="initForm()">F1<br>初期化</button>
+          <button type="button" class="btn btn-secondary" style="font-size: 12px;" onclick="initForm()" >F1<br>初期化</button>
 			<button type="button" class="btn btn-secondary" style="font-size: 12px;" onclick="backForm()">F2<br>戻る</button>
-			<button type="button" class="btn btn-secondary" style="font-size: 12px;">F3<br>登録</button>
-			<button type="button" class="btn btn-secondary" style="font-size: 12px;">F4<br>削除</button>
+			<button type="button" class="btn btn-secondary" style="font-size: 12px;" onclick="registrationForm()" >F3<br>${status eq 'add' ? "登録" : "更新"}</button>
+			<button type="button" class="btn btn-secondary" style="font-size: 12px;" onclick= "deleteForm()" ${status eq 'add' ? "disabled" :''}>F4 <br>削除</button>
 			<button type="button" class="btn btn-secondary" style="font-size: 12px;">F5<br>初期値</button>
-			<button type="button" class="btn btn-secondary" style="font-size: 12px;">F6<br></button>
-			<button type="button" class="btn btn-secondary" style="font-size: 12px;">F7<br></button>
-			<button type="button" class="btn btn-secondary" style="font-size: 12px;">F8<br>履歴出力</button>
-			<button type="button" class="btn btn-secondary" style="font-size: 12px;">F9<br></button>
-			<button type="button" class="btn btn-secondary" style="font-size: 12px;">F10<br></button>
-			<button type="button" class="btn btn-secondary" style="font-size: 12px;">F11<br></button>
-			<button type="button" class="btn btn-secondary" style="font-size: 12px;">F12<br></button>
+			<button type="button" class="btn btn-secondary" style="font-size: 12px;" disabled>F6<br></button>
+			<button type="button" class="btn btn-secondary" style="font-size: 12px;" disabled>F7<br></button>
+			<form action="/SalesCube2020/SalesCube? action=producthistoryoutput">
+				<button type="button" class="btn btn-secondary" style="font-size: 12px;" onclick= "productHistoryOutPut()" ${status eq 'add' ? "disabled" :''}>F8<br>履歴出力</button>
+			</form>
+			<button type="button" class="btn btn-secondary" style="font-size: 12px;" disabled>F9<br></button>
+			<button type="button" class="btn btn-secondary" style="font-size: 12px;" disabled>F10<br></button>
+			<button type="button" class="btn btn-secondary" style="font-size: 12px;" disabled>F11<br></button>
+			<button type="button" class="btn btn-secondary" style="font-size: 12px;" disabled>F12<br></button>
 		  </div>
 		</div>
 		<br><br><br>
@@ -105,7 +107,7 @@
 			</div>
 			<hr>
 			<div class="panel-body">
-				<form action="addProduct" name="sampleform" method="post">
+				<form action=/SalesCube2020/productSearch.jsp"  method="post">
 					<div class="row">
 						<div class="col-4">
 							<label class="sr-only" for="inlineFormInputGroup">productCode</label>
@@ -649,26 +651,46 @@
 			<br><br>
 			<div align="right">
 				<input type="submit"  value="初期化" class="btn btn-outline-secondary" onclick="initForm()" >&emsp;
-				<input type="submit" value="登録" class="btn btn-outline-secondary">&emsp;
-				<input type="submit" value="削除" class="btn btn-outline-secondary">&emsp;
+				<input type="submit" value="登録" class="btn btn-outline-secondary" onclick="registrationForm()">&emsp;
+				<input type="submit" value="削除" class="btn btn-outline-secondary" onclick= "deleteForm()">&emsp;
 			</div>
 			<br> 
 			
 		<script>
-        function initForm() {
+        	function initForm() {
     	   		if(!confirm("入力内容を初期化してよろしいですか？")){
            	   		return;
     	  		}
-    	   	document.sampleform.reset();
-        	
+        		window.location.href = '/SalesCube2020/productaddmodify.jsp';
         	}
-
-    	function backForm() {
-    		if(!confirm("商品検索画面に戻ります。よろしいですか？")) {
+    	
+    		function backForm() {
+    			if(!confirm("商品検索画面に戻ります。よろしいですか？")) {
     				return;
+    			}
+    			window.location.href = '/SalesCube2020/productSearch.jsp';
     		}
     		
-    	}
+    		function registrationForm() {
+    			if(!confirm("入力内容を登録します。よろしいですか？")) {
+    				return;
+    			}
+    			
+    		}
+    		
+    		function deleteForm() {
+    			if(!confirm("このデータを削除しますか？")) {
+    				return;
+    			}
+    			
+    		}
+    		
+    		function productHistoryOutPut() {
+    			if(!confirm("履歴をExcel出力しますか？")) {
+    				return;
+    			}
+    			
+    		}
     	</script>
 	</body>
 </html>

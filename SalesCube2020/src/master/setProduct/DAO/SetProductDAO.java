@@ -79,7 +79,7 @@ public class SetProductDAO extends BaseDAO {
 	 	
 	 	con = super.getConnection();	
 	 	stmt = con.createStatement();	
-	 	sql = "select PRODUCT_CODE, PRODUCT_NAME from product_mst_xxxxx;";	//追加必要	
+	 	sql = "select PRODUCT_CODE, PRODUCT_NAME from product_mst_xxxxx where SET_TYPE_CATEGORY = 1 AND ;";	//追加必要	
 	 	result = stmt.executeQuery(sql);	
 		
 	 	while (result.next()) {
@@ -97,7 +97,7 @@ public class SetProductDAO extends BaseDAO {
 
 		Connection con;
 	 	Statement stmt = null;
-	 	ResultSet result = null;	
+	 	int result;	
 	 	String  sql;
 		
 	 	con = super.getConnection();	
@@ -106,8 +106,12 @@ public class SetProductDAO extends BaseDAO {
 	 		sql = "insert into product_set_mst_xxxxx(SET_PRODUCT_CODE, PRODUCT_CODE, QUANTITY) values(" 
 	 				+ bean.getSetProductCode() + ","
 	 				+ bean.getProductCode() + ","
-	 				+ bean.getQuantity() + ")" ;	//追加必要	
-		 	result = stmt.executeQuery(sql);
+	 				+ bean.getQuantity() + ")" 
+	 				+ "on duplicate key update SET_PRODUCT_KEY = values(" 
+	 				+ bean.getSetProductCode() + ") and PRODUCT_KEY = values("
+	 				+ bean.getProductCode() + ");";	//追加必要	
+	 		
+		 	result = stmt.executeUpdate(sql);
 	 	}
 	
 	}
@@ -116,14 +120,14 @@ public class SetProductDAO extends BaseDAO {
 		
 		Connection con;
 	 	Statement stmt = null;
-	 	ResultSet result = null;	
+	 	int result;	
 	 	String  sql;
 	 	
 	 	con = super.getConnection();	
 	 	stmt = con.createStatement();
 	 	for(int i = 0; i<code.length; i++) {
 	 		sql = "delete from product_set_mst_xxxxx where PRODUCT_CODE = " + code[i] + ";";	//追加必要	
-		 	result = stmt.executeQuery(sql);		
+		 	result = stmt.executeUpdate(sql);		
 	 	}
 
 	}
