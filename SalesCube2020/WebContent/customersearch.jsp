@@ -219,7 +219,7 @@
 								<select class="custom-select" name="rankCategory">
 									<option selected></option>
 									<c:forEach items="${rank}" var="rank">
-										<option value="${rank.rankName}">${rank.rankName}</option>
+										<option value="0">${rank.rankName}</option>
 									</c:forEach>
 								</select>
 							</div>
@@ -230,13 +230,14 @@
 								<div class="input-group-prepend">
 									<div class="input-group-text">支払条件</div>
 								</div>
-								<select class="custom-select" name="paybackCycleCategory">
+								<select class="custom-select" name="cutoffGroup">
 									<option value="null"></option>
-									<option value="20日締め翌月20日">20日締め翌月20日</option>
-									<option value="25日締め翌月末">25日締め翌月末</option>
-									<option value="月末締め翌月末日">月末締め翌月末日</option>
-									<option value="月末締め翌々月5日">月末締め翌々月5日</option>
-									<option value="その他">その他</option>
+									<option value="1">10日締め翌月10日</option>
+									<option value="2">20日締め翌月20日</option>
+									<option value="3">25日締め翌月末</option>
+									<option value="4">月末締め翌月末日</option>
+									<option value="5">月末締め翌々月5日</option>
+									<option value="6">その他</option>
 								</select>
                             </div>
 						</div>

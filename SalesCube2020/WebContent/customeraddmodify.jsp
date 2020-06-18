@@ -1,3 +1,7 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+
 <!doctype html>
 <html lang="en">
   <head>
@@ -216,11 +220,11 @@
                             <div class="input-group-prepend">
                                 <div class="input-group-text">敬称</div>
                             </div>
-                            <select class="custom-select" name="">
-                                <option selected></option>
-                                <c:forEach items="${}" value="">
-                                    <option value="${}">${}</option>
-                                </c:forEach>
+                            <select class="custom-select" name="PCPreCategory">
+                            	<option value="null"></option>
+                            	<option value="0">御中</option>
+                                <option value="1">様</option>
+                                <option value="2">殿</option>
                             </select>
                         </div>
 　　　　　　    　　　</div>
