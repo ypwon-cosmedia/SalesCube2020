@@ -336,17 +336,17 @@
    				</c:forEach> 
 			</table>
 		</div>
-<script type="text/javascript">
-function moveRowCount(rowCount) {
+<script>
+<%--function moveRowCount(rowCount) {
 	const rowCount = rowCount.value;
 	document.getElementById("rowCount").value = rowCount;
-}
+} --%>
 
 function initForm() {
 	if(!confirm("入力内容を初期化してよろしいですか？")){
 		return;
 	}
-	window.location.href = '/SalesCube2020/customerserach.jsp';
+	window.location.href = '/SalesCube2020/customersearch.jsp';
 }
    	
 function backForm() {
