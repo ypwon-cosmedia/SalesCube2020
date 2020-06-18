@@ -5,6 +5,8 @@ import javax.servlet.*;
 import javax.servlet.http.*;
 
 import common.controller.BaseController;
+import master.product.DAO.ProductDAO;
+import master.product.beans.ProductCategoryBean;
 
 import java.util.*;
 import java.sql.SQLException;
@@ -28,7 +30,9 @@ public class ProductController extends BaseController{
 		else if(action.equals("moveModifyProduct")) forwardURL = moveModifyProduct(request, response);
 		else if(action.equals("productExcelInput")) forwardURL = productExcelInput(request, response);
 		else if(action.equals("productExcelOutput")) forwardURL = productExcelOutput(request, response);
+		else if(action.equals("productHistoryOutput")) forwardURL = productHistoryOutput(request, response);
 		else if(action.equals("initProduct")) forwardURL = initProduct(request, response);
+		else if(action.equals("updateInitProduct")) forwardURL = updateInitProduct(request, response);
 		else if(action.equals("quantityDiscount")) forwardURL = quantityDiscount(request, response);
 		else if(action.equals("searchProduct")) forwardURL = searchProduct(request, response);
 		else if(action.equals("deleteProduct")) forwardURL = deleteProduct(request, response);
@@ -41,6 +45,13 @@ public class ProductController extends BaseController{
 
 	private String getCategory(HttpServletRequest request, HttpServletResponse response) {
 		// TODO Auto-generated method stub
+		List<ProductCategoryBean> list = new ArrayList<>();
+		
+		ProductDAO dao = new ProductDAO();
+		
+		list = dao.getCategory();
+		
+		request.setAttribute("category", list);
 		
 		return "/productsearch.jsp";
 	}
@@ -57,32 +68,74 @@ public class ProductController extends BaseController{
 
 	private String deleteProduct(HttpServletRequest request, HttpServletResponse response) {
 		// TODO Auto-generated method stub
+		List<ProductCategoryBean> list = new ArrayList<>();
+		
+		ProductDAO dao = new ProductDAO();
+		
+		list = dao.getCategory();
+		
+		request.setAttribute("category", list);
+		
 		return "/productsearch.jsp";
 	}
 
 	private String searchProduct(HttpServletRequest request, HttpServletResponse response) {
 		// TODO Auto-generated method stub
+		List<ProductCategoryBean> list = new ArrayList<>();
+		
+		ProductDAO dao = new ProductDAO();
+		
+		list = dao.getCategory();
+		
+		request.setAttribute("category", list);
+		
 		return "/productsearch.jsp";
 	}
 
 	private String quantityDiscount(HttpServletRequest request, HttpServletResponse response) {
 		// TODO Auto-generated method stub
-		return "/.jsp";
+		return "/productaddmodify.jsp";
 	}
 
 	private String initProduct(HttpServletRequest request, HttpServletResponse response) {
 		// TODO Auto-generated method stub
 		return "/productinit.jsp";
 	}
+	
+	private String updateInitProduct(HttpServletRequest request, HttpServletResponse response) {
+		// TODO Auto-generated method stub
+		return "/productaddmodify.jsp";
+	}
 
 	private String productExcelOutput(HttpServletRequest request, HttpServletResponse response) {
 		// TODO Auto-generated method stub
-		return "/.jsp";
+		List<ProductCategoryBean> list = new ArrayList<>();
+		
+		ProductDAO dao = new ProductDAO();
+		
+		list = dao.getCategory();
+		
+		request.setAttribute("category", list);
+		
+		return "/productsearch.jsp";
 	}
 
 	private String productExcelInput(HttpServletRequest request, HttpServletResponse response) {
 		// TODO Auto-generated method stub
-		return "/.jsp";
+		List<ProductCategoryBean> list = new ArrayList<>();
+		
+		ProductDAO dao = new ProductDAO();
+		
+		list = dao.getCategory();
+		
+		request.setAttribute("category", list);
+		
+		return "/productsearch.jsp";
+	}
+	
+	private String productHistoryOutput(HttpServletRequest request, HttpServletResponse response) {
+		// TODO Auto-generated method stub
+		return "/productaddmodify.jsp";
 	}
 
 	private String moveModifyProduct(HttpServletRequest request, HttpServletResponse response) {

@@ -30,6 +30,7 @@ public class CreateControllers {
 		map.put( "addCustomer", customerObj);
 		map.put( "modifyCustomer", customerObj);
 		map.put( "customerExcelOutput", customerObj);
+		map.put( "customerHistoryOutput", customerObj);
 		
 		map.put( "moveModifySetProduct", setProductObj);
 		map.put( "searchSetProduct", setProductObj);
@@ -51,6 +52,7 @@ public class CreateControllers {
 		map.put( "deleteProduct", productObj);
 		map.put( "addProduct", productObj);
 		map.put( "modifyProduct", productObj);
+		map.put( "productHistoryOutput", productObj);
 		
 		map.put( "login", userObj);
 		map.put( "logout", userObj);
