@@ -57,16 +57,16 @@
                     <div class="input-group-prepend">
                         <div class="input-group-text" >割引コード</div>
                     </div>
-                <input type="text"  class="form-control" id="inlineFormInputGroup">
+                <input type="text"  class="form-control" id="inlineFormInputGroup" name="discountCode" >
                 </div>
             </div>
             <div class="col-6">
-                <label class="sr-only" for="inlineFormInputGroup">discountEffective</label>
+                <label class="sr-only" for="inlineFormInputGroup">useFlag</label>
                 <div class="input-group mb-2">
                     <div class="input-group-prepend">
                         <div class="input-group-text" >割引有効</div>
                     </div>
-                    <select class="custom-select" name="discountEffective">
+                    <select class="custom-select" name="useFlag">
                         <option selected></option>                        
                         <option value="0">無効</option>
                         <option value="1">有効</option>
@@ -81,7 +81,7 @@
                     <div class="input-group-prepend">
                         <div class="input-group-text" >割引名</div>
                     </div>
-                <input type="text"  class="form-control" id="inlineFormInputGroup">
+                <input type="text"  class="form-control" id="inlineFormInputGroup" name="discountNmae">
                 </div>
             </div>
         </div>
@@ -92,7 +92,7 @@
                     <div class="input-group-prepend">
                         <div class="input-group-text" >備考</div>
                     </div>
-                <input type="text"  class="form-control" id="inlineFormInputGroup">
+                <input type="text"  class="form-control" id="inlineFormInputGroup" name="remarks">
                 </div>
             </div>
         </div>
@@ -107,7 +107,7 @@
 
     <div class="container">
         <div class="float-left" style="position:static; left: 0px;">
-            検索結果件数：${quantitydiscount.serchCount}件
+            検索結果件数：${quantitydiscountserchresult.serchCount}件
         </div>
         <div class="rounded float-right">
             ページあたりの表示件数

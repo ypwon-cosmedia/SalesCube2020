@@ -85,7 +85,10 @@
           <button type="button" class="btn btn-secondary" style="font-size: 12px;" onclick="initForm()" >F1<br>初期化</button>
 			<button type="button" class="btn btn-secondary" style="font-size: 12px;" onclick="backForm()">F2<br>戻る</button>
 			<button type="button" class="btn btn-secondary" style="font-size: 12px;" onclick="registrationForm()" >F3<br>${status eq 'add' ? "登録" : "更新"}</button>
-			<button type="button" class="btn btn-secondary" style="font-size: 12px;" onclick= "deleteForm()" ${status eq 'add' ? "disabled" :''}>F4 <br>削除</button>
+			<form action="/SalesCube2020/SalesCube? action=deleteProduct"> 
+				<input type="hidden" name="productCode" value="${product.productCode}">
+				<button type="button" class="btn btn-secondary" style="font-size: 12px;" onclick= "deleteForm()" ${status eq 'add' ? "disabled" :''}>F4 <br>削除</button>
+			</form>
 			<button type="button" class="btn btn-secondary" style="font-size: 12px;">F5<br>初期値</button>
 			<button type="button" class="btn btn-secondary" style="font-size: 12px;" disabled>F6<br></button>
 			<button type="button" class="btn btn-secondary" style="font-size: 12px;" disabled>F7<br></button>
@@ -115,7 +118,7 @@
 								<div class="input-group-prepend">
 									<div class="input-group-text" style = "background-color: pink;">商品コード※</div>
 								</div>
-							<input type="text"  class="form-control" id="inlineFormInputGroup">
+							<input type="text"  class="form-control" id="inlineFormInputGroup" name="productCode" oncange="checkProductCode(this)">
 				
 							</div>
 						</div>
@@ -125,7 +128,7 @@
 								<div class="input-group-prepend">
 									<div class="input-group-text" style = "background-color: pink;">商品名※</div>
 								</div>
-							<input type="text"  class="form-control" id="inlineFormInputGroup">
+							<input type="text"  class="form-control" id="inlineFormInputGroup" name="productName">
 							</div>
 						</div>
 						<div class="col-4">
@@ -134,7 +137,7 @@
 								<div class="input-group-prepend">
 									<div class="input-group-text">商品カナ</div>
 								</div>
-							<input type="text"  class="form-control" id="inlineFormInputGroup">
+							<input type="text"  class="form-control" id="inlineFormInputGroup" name="productKana">
 							</div>
 						</div>
 					</div>
@@ -145,7 +148,7 @@
 								<div class="input-group-prepend">
 									<div class="input-group-text">オンライン品番</div>
 								</div>
-							<input type="text"  class="form-control" id="inlineFormInputGroup">
+							<input type="text"  class="form-control" id="inlineFormInputGroup" name="productPcode">
 							</div>
 						</div>
 
@@ -155,7 +158,7 @@
 								<div class="input-group-prepend">
 									<div class="input-group-text">JANコード</div>
 								</div>
-							<input type="text"  class="form-control" id="inlineFormInputGroup">
+							<input type="text"  class="form-control" id="inlineFormInputGroup" name="janPcode">
 							</div>
 						</div>
 						<div class="col-4">
