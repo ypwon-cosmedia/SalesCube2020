@@ -43,6 +43,7 @@ public class SetProductDAO extends BaseDAO {
 		return list;
 	}
 	
+	//編集ページ表示用（オーバーライド）
 	public SetProductSearchResultBean getProductInfo (int code) throws ClassNotFoundException, MissingResourceException, SQLException {
 
 		
@@ -65,6 +66,32 @@ public class SetProductDAO extends BaseDAO {
 	 	return bean;
 	}
 	
+	//検索ページ表示用（オーバーライド）
+	public List<SetProductSearchResultBean> getProductInfo (SetProductSearchBean input) throws ClassNotFoundException, MissingResourceException, SQLException {
+
+		List<SetProductSearchResultBean> list = new ArrayList<SetProductSearchResultBean>();
+		
+		Connection con;
+	 	Statement stmt = null;
+	 	ResultSet result = null;	
+	 	String  sql;
+	 	SetProductSearchResultBean bean = new SetProductSearchResultBean();
+	 	
+	 	con = super.getConnection();	
+	 	stmt = con.createStatement();	
+	 	sql = "select PRODUCT_CODE, PRODUCT_NAME from product_mst_xxxxx;";	//追加必要	
+	 	result = stmt.executeQuery(sql);	
+		
+	 	while (result.next()) {
+	 		bean.setProductCode(result.getString("PRODUCT_NAME"));
+	 		bean.setProductName(result.getString("PRODUCT_CODE"));
+	 		list.add(bean);
+	 	}
+	 	
+	 	return list;
+	}
+	
+	
 	public void setInfo (List<SetProductBean> inputList) throws ClassNotFoundException, MissingResourceException, SQLException {
 		
 
@@ -85,6 +112,20 @@ public class SetProductDAO extends BaseDAO {
 	
 	}
 	
-	
+	public void deleteInfo (int[] code) throws ClassNotFoundException, MissingResourceException, SQLException {
+		
+		Connection con;
+	 	Statement stmt = null;
+	 	ResultSet result = null;	
+	 	String  sql;
+	 	
+	 	con = super.getConnection();	
+	 	stmt = con.createStatement();
+	 	for(int i = 0; i<code.length; i++) {
+	 		sql = "delete from product_set_mst_xxxxx where PRODUCT_CODE = " + code[i] + ";";	//追加必要	
+		 	result = stmt.executeQuery(sql);		
+	 	}
+
+	}
 	
 }
