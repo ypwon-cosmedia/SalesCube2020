@@ -18,7 +18,7 @@ import master.setProduct.beans.SetProductSearchResultBean;
 
 public class SetProductDAO extends BaseDAO {
 
-	public List<SetProductBean> getModifyInfo () throws ClassNotFoundException, MissingResourceException, SQLException {
+	public List<SetProductBean> getInfo () throws ClassNotFoundException, MissingResourceException, SQLException {
 		
 		List<SetProductBean> list = new ArrayList<SetProductBean>();
 		
@@ -42,32 +42,30 @@ public class SetProductDAO extends BaseDAO {
 
 		return list;
 	}
+	
+	public SetProductSearchResultBean getProductInfo (int code) throws ClassNotFoundException, MissingResourceException, SQLException {
 
-	public List<SetProductSearchResultBean> getSearchInfo (SetProductSearchBean searchBean) throws ClassNotFoundException, MissingResourceException, SQLException {
-		
-		List<SetProductSearchResultBean> list = new ArrayList<SetProductSearchResultBean>();
 		
 		Connection con;
 	 	Statement stmt = null;
 	 	ResultSet result = null;	
 	 	String  sql;
-		
+	 	SetProductSearchResultBean bean = new SetProductSearchResultBean();
+	 	
 	 	con = super.getConnection();	
 	 	stmt = con.createStatement();	
-	 	sql = "select PRODUCT_CODE, PRODUCT_CODE, QUANTITY from product_mst_xxxxx where SET_TYPE_CATEGORY = 1 AND ";	//追加必要	
+	 	sql = "select PRODUCT_CODE, PRODUCT_NAME from product_mst_xxxxx where PRODUCT_CODE = " + code + ";";	//追加必要	
 	 	result = stmt.executeQuery(sql);	
 		
 	 	while (result.next()) {
-	 		SetProductSearchResultBean bean = new SetProductSearchResultBean();
 	 		bean.setProductCode(result.getString("PRODUCT_NAME"));
 	 		bean.setProductName(result.getString("PRODUCT_CODE"));
-	 		list.add(bean);
 	 	}
-
-		return list;
+	 	
+	 	return bean;
 	}
 	
-	public void setDetailInfo (List<SetProductBean> inputList) throws ClassNotFoundException, MissingResourceException, SQLException {
+	public void setInfo (List<SetProductBean> inputList) throws ClassNotFoundException, MissingResourceException, SQLException {
 		
 
 		Connection con;
@@ -86,4 +84,7 @@ public class SetProductDAO extends BaseDAO {
 	 	}
 	
 	}
+	
+	
+	
 }
