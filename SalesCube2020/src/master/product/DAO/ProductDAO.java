@@ -38,7 +38,7 @@ public class ProductDAO extends BaseDAO {
 	 		bean.setProductName(result.getString("CLASS_NAME"));
 	 		list.add(bean);
 	 	}
-	 	System.out.println("done");
+
 		return list;
 	}
 }
