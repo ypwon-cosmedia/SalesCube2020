@@ -34,9 +34,16 @@ public class ProductController extends BaseController{
 		else if(action.equals("deleteProduct")) forwardURL = deleteProduct(request, response);
 		else if(action.equals("addProduct")) forwardURL = addProduct(request, response);
 		else if(action.equals("modifyProduct")) forwardURL = modifyProduct(request, response);
+		else if(action.equals("getCategory")) forwardURL = getCategory(request, response);
 		
   		return forwardURL;
       	}
+
+	private String getCategory(HttpServletRequest request, HttpServletResponse response) {
+		// TODO Auto-generated method stub
+		
+		return "/productsearch.jsp";
+	}
 
 	private String modifyProduct(HttpServletRequest request, HttpServletResponse response) {
 		// TODO Auto-generated method stub
