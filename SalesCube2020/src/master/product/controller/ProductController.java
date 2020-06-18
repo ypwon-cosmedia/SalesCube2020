@@ -40,12 +40,12 @@ public class ProductController extends BaseController{
 
 	private String modifyProduct(HttpServletRequest request, HttpServletResponse response) {
 		// TODO Auto-generated method stub
-		return "/productmodify.jsp";
+		return "/productaddmodify.jsp";
 	}
 
 	private String addProduct(HttpServletRequest request, HttpServletResponse response) {
 		// TODO Auto-generated method stub
-		return "/.jsp";
+		return "/productaddmodify.jsp";
 	}
 
 	private String deleteProduct(HttpServletRequest request, HttpServletResponse response) {
@@ -65,7 +65,7 @@ public class ProductController extends BaseController{
 
 	private String initProduct(HttpServletRequest request, HttpServletResponse response) {
 		// TODO Auto-generated method stub
-		return "/.jsp";
+		return "/productinit.jsp";
 	}
 
 	private String productExcelOutput(HttpServletRequest request, HttpServletResponse response) {
@@ -80,12 +80,12 @@ public class ProductController extends BaseController{
 
 	private String moveModifyProduct(HttpServletRequest request, HttpServletResponse response) {
 		// TODO Auto-generated method stub
-		return "/.jsp";
+		return "/productaddmodify.jsp";
 	}
 
 	private String moveAddProduct(HttpServletRequest request, HttpServletResponse response) {
 		// TODO Auto-generated method stub
-		return "/.jsp";
+		return "/productaddmodify.jsp";
 	}
 
 }

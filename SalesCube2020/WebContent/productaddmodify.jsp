@@ -668,7 +668,7 @@
     			if(!confirm("商品検索画面に戻ります。よろしいですか？")) {
     				return;
     			}
-    			window.location.href = '/SalesCube2020/productSearch.jsp';
+    			window.location.href = '/SalesCube2020/productsearch.jsp';
     		}
     		
     		function registrationForm() {
