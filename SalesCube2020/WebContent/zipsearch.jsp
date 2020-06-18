@@ -46,13 +46,13 @@
         <!-- 検索結果の表示 -->
         <div class="container">
             <div class="float-left" style="position:static; left: 0px;">
-                検索結果件数：${fn.length()}件
+		                検索結果件数：${fn.length()}件
             </div>
             <div class="float-right" style="position:static; right: 0px;">
                 <c:if test="${fn.length() ge 100}">
                     <font color="red"><b>
-                        該当件数が100件以上あるため表示できません。
-                        検索条件を追加して絞り込んでください。
+			                        該当件数が100件以上あるため表示できません。
+			                        検索条件を追加して絞り込んでください。
                     </b></font>
                 </c:if>
             </div>
@@ -69,13 +69,13 @@
                         <th scope="col" class="th_back_black" style="cursor: pointer; height: 30px;">住所2</th>
                     </tr>
                 </thead>
-                <c:forEach items="${}" var="">
+                <c:forEach items="${customer}" var="cus">              
                     <tr>
-                        <td style="white-space: normal; text-align: left; cursor: pointer;" id="inputData" onClick="clickData">${}</td>
-                        <td style="white-space: normal; text-align: left;">${}</td>
-                        <td style="white-space: normal; text-align: left;">${}</td>
+                        <td style="white-space: normal; text-align: left; cursor: pointer;" id="inputData" onClick="clickData()">${cus.zipCode}</td>
+                        <td style="white-space: normal; text-align: left;">${cus.address1}</td>
+                        <td style="white-space: normal; text-align: left;">${cus.address2}</td>
                     </tr>
-                </c:forEach>
+                </c:forEach>                
             </table>
         </div>
         <div class="container">
@@ -96,7 +96,7 @@
 
         //子窓を閉じる
         function closeWindow(){
-            window.open('about:blank','_self').close();
+            window.close();
         }
 
         //郵便番号をクリックしたとき親窓にデータを渡し、子窓を閉じる
