@@ -21,6 +21,71 @@ public class ProductController extends BaseController{
 	
 	public String execService(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
-      		return "";
+		String forwardURL = "/menu.jsp";
+		String action = request.getParameter("action");
+
+		if(action.equals("moveAddProduct")) forwardURL = moveAddProduct(request, response);
+		else if(action.equals("moveModifyProduct")) forwardURL = moveModifyProduct(request, response);
+		else if(action.equals("productExcelInput")) forwardURL = productExcelInput(request, response);
+		else if(action.equals("productExcelOutput")) forwardURL = productExcelOutput(request, response);
+		else if(action.equals("initProduct")) forwardURL = initProduct(request, response);
+		else if(action.equals("quantityDiscount")) forwardURL = quantityDiscount(request, response);
+		else if(action.equals("searchProduct")) forwardURL = searchProduct(request, response);
+		else if(action.equals("deleteProduct")) forwardURL = deleteProduct(request, response);
+		else if(action.equals("addProduct")) forwardURL = addProduct(request, response);
+		else if(action.equals("modifyProduct")) forwardURL = modifyProduct(request, response);
+		
+  		return forwardURL;
       	}
+
+	private String modifyProduct(HttpServletRequest request, HttpServletResponse response) {
+		// TODO Auto-generated method stub
+		return "/productmodify.jsp";
+	}
+
+	private String addProduct(HttpServletRequest request, HttpServletResponse response) {
+		// TODO Auto-generated method stub
+		return "/.jsp";
+	}
+
+	private String deleteProduct(HttpServletRequest request, HttpServletResponse response) {
+		// TODO Auto-generated method stub
+		return "/productsearch.jsp";
+	}
+
+	private String searchProduct(HttpServletRequest request, HttpServletResponse response) {
+		// TODO Auto-generated method stub
+		return "/productsearch.jsp";
+	}
+
+	private String quantityDiscount(HttpServletRequest request, HttpServletResponse response) {
+		// TODO Auto-generated method stub
+		return "/.jsp";
+	}
+
+	private String initProduct(HttpServletRequest request, HttpServletResponse response) {
+		// TODO Auto-generated method stub
+		return "/.jsp";
+	}
+
+	private String productExcelOutput(HttpServletRequest request, HttpServletResponse response) {
+		// TODO Auto-generated method stub
+		return "/.jsp";
+	}
+
+	private String productExcelInput(HttpServletRequest request, HttpServletResponse response) {
+		// TODO Auto-generated method stub
+		return "/.jsp";
+	}
+
+	private String moveModifyProduct(HttpServletRequest request, HttpServletResponse response) {
+		// TODO Auto-generated method stub
+		return "/.jsp";
+	}
+
+	private String moveAddProduct(HttpServletRequest request, HttpServletResponse response) {
+		// TODO Auto-generated method stub
+		return "/.jsp";
+	}
+
 }
