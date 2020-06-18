@@ -5,6 +5,8 @@ import javax.servlet.*;
 import javax.servlet.http.*;
 
 import common.controller.BaseController;
+import master.product.DAO.ProductDAO;
+import master.product.beans.ProductCategoryBean;
 
 import java.util.*;
 import java.sql.SQLException;
@@ -43,6 +45,13 @@ public class ProductController extends BaseController{
 
 	private String getCategory(HttpServletRequest request, HttpServletResponse response) {
 		// TODO Auto-generated method stub
+		List<ProductCategoryBean> list = new ArrayList<>();
+		
+		ProductDAO dao = new ProductDAO();
+		
+		list = dao.getCategory();
+		
+		request.setAttribute("category", list);
 		
 		return "/productsearch.jsp";
 	}
@@ -59,11 +68,27 @@ public class ProductController extends BaseController{
 
 	private String deleteProduct(HttpServletRequest request, HttpServletResponse response) {
 		// TODO Auto-generated method stub
+		List<ProductCategoryBean> list = new ArrayList<>();
+		
+		ProductDAO dao = new ProductDAO();
+		
+		list = dao.getCategory();
+		
+		request.setAttribute("category", list);
+		
 		return "/productsearch.jsp";
 	}
 
 	private String searchProduct(HttpServletRequest request, HttpServletResponse response) {
 		// TODO Auto-generated method stub
+		List<ProductCategoryBean> list = new ArrayList<>();
+		
+		ProductDAO dao = new ProductDAO();
+		
+		list = dao.getCategory();
+		
+		request.setAttribute("category", list);
+		
 		return "/productsearch.jsp";
 	}
 
@@ -84,11 +109,27 @@ public class ProductController extends BaseController{
 
 	private String productExcelOutput(HttpServletRequest request, HttpServletResponse response) {
 		// TODO Auto-generated method stub
+		List<ProductCategoryBean> list = new ArrayList<>();
+		
+		ProductDAO dao = new ProductDAO();
+		
+		list = dao.getCategory();
+		
+		request.setAttribute("category", list);
+		
 		return "/productsearch.jsp";
 	}
 
 	private String productExcelInput(HttpServletRequest request, HttpServletResponse response) {
 		// TODO Auto-generated method stub
+		List<ProductCategoryBean> list = new ArrayList<>();
+		
+		ProductDAO dao = new ProductDAO();
+		
+		list = dao.getCategory();
+		
+		request.setAttribute("category", list);
+		
 		return "/productsearch.jsp";
 	}
 	
