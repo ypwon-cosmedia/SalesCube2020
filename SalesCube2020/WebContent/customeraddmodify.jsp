@@ -837,7 +837,7 @@
 		if(!confirm("顧客検索画面に戻ります。よろしいですか？")) {
 			return;
 		}
-		window.location.href = '/SalesCube2020/customerSearch.jsp';
+		window.location.href = '/SalesCube2020/searchCustomer.jsp';
 	}
     		
 	function registrationForm() {
