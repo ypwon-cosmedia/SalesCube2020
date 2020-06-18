@@ -27,6 +27,11 @@
   			}
 			window.location.href = '/SalesCube2020/quantitydiscount.jsp';
 		}
+    	
+    	function CloseWindow() {
+    		 <!--alert();-->
+    		 window.close();
+   	}
     </script>
     
   </head>
@@ -172,7 +177,7 @@
 
     </div><br>
         <div align="right">
-        <input type="button" value="閉じる" class="btn btn-outline-secondary" onClick="CloseWindow()">&emsp;
+        <input type="button" value="閉じる" class="btn btn-outline-secondary" onClick="CloseWindow();">&emsp;
     	</div><br>
     </div><br>
   </body>
