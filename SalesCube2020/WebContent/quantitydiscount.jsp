@@ -81,7 +81,7 @@
             </div>
         </div>
         <div align="right">
-        <form action="/SalesCube2020/SalesCube?acyion=quantitydisount">
+<>        <form action="/SalesCube2020/SalesCube?acyion=quantitydisount">
         <button type="button" class="btn btn-outline-secondary">初期化</button>&emsp;
         </form>
         <input type="submit" value="検索" class="btn btn-outline-secondary">&emsp;
@@ -138,9 +138,10 @@
                                         <tr><th>No</th><th>数量範囲</th><th>掛率</th></tr>
                                         <c:forEach items="${quantitydiscountdetailserchresult}" var="discountdetail">
                                         <tr>
-                                        	<td>${discountdetail.}</td>
-                                        	<td>${discountdetail.}</td>
-                                        	<td>${discountdetail.}</td>
+                                        	<td>${discountdetail.lineNo}</td>
+                                        	<td>${discountdetail.dataFrom}</td>
+                                        	<td>${discountdetail.dataTo}</td>
+                                        	<td>${discountdetail.discountRate}</td>
                                         </tr>
                                         </c:forEach>
                                       </table>
@@ -152,9 +153,9 @@
                             </div>
                           </div>
                     </td>
-                    <td style="white-space: normal; text-align: left;">${discount.}</td>
-                    <td style="white-space: normal; text-align: left;">${discount.}</td>
-                    <td style="white-space: normal; text-align: left;">${discount.}</td>
+                    <td style="white-space: normal; text-align: left;">${discount.discountID}</td>
+                    <td style="white-space: normal; text-align: left;">${discount.discountName}</td>
+                    <td style="white-space: normal; text-align: left;">${discount.useFrag}</td>
                 </tr>
             </c:forEach>
         </table>
