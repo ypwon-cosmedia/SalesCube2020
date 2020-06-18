@@ -12,12 +12,23 @@
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
 
     <title>SalesBean 数量割引</title>
+    
     <style type="text/css">
         .container {
             width: 1120px;
             max-width: none !important;
         }
     </style>
+    
+    <script type="text/javascript">
+    	function initForm() {
+   			if(!confirm("入力内容を初期化してよろしいですか？")){
+   	   			return;
+  			}
+			window.location.href = '/SalesCube2020/quantitydiscount.jsp';
+		}
+    </script>
+    
   </head>
   <body style="background-color: gainsboro;">
    	<!-- Optional JavaScript -->
@@ -81,9 +92,7 @@
             </div>
         </div>
         <div align="right">
-<>        <form action="/SalesCube2020/SalesCube?acyion=quantitydisount">
-        <button type="button" class="btn btn-outline-secondary">初期化</button>&emsp;
-        </form>
+        <button type="button" class="btn btn-outline-secondary" onclick="initForm()">初期化</button>&emsp;
         <input type="submit" value="検索" class="btn btn-outline-secondary">&emsp;
         </div>
     </form>
@@ -111,10 +120,10 @@
         <table id="order_detail_info" class="table table-bordered">
             <thead class="thead-dark">
                 <tr>
-                    <th scope="col" class="rd_top_left th_back_black" height: 30px;>割引詳細</th>
-                    <th scope="col" class="th_back_black" height: 30px; >割引コード</th>
-                    <th scope="col" class="th_back_black" height: 30px; >割引名</th>
-                    <th scope="col" class="th_back_black" height: 30px; >割引有効</th>
+                    <th scope="col" class="rd_top_left th_back_black" >割引詳細</th>
+                    <th scope="col" class="th_back_black"  >割引コード</th>
+                    <th scope="col" class="th_back_black" >割引名</th>
+                    <th scope="col" class="th_back_black"  >割引有効</th>
                 </tr>
             </thead>
             <c:forEach items="${quantitydiscountserchresult}" var="discount">
