@@ -70,7 +70,7 @@
           </svg>
           システム管理者　
         </span>
-        <form class="form-inline">
+        <form class="form-inline" action="/SalesCube2020/SalesCube?action=logout" method="post">
           <button class="btn btn-outline-success my-2 my-sm-0" type="submit">ログアウト</button>
         </form>
       </div>
