@@ -26,7 +26,6 @@ final public class SetProductController extends BaseController{
 		
 		if(action.equals("moveModifySetProduct")) forwardURL = moveModifySetProduct(request, response);
 		else if(action.equals("searchSetProduct")) forwardURL = searchSetProduct(request, response);
-		else if(action.equals("deleteSetProduct")) forwardURL = deleteSetProduct(request, response);
 		else if(action.equals("modifySetProduct")) forwardURL = modifySetProduct(request, response);
 		
   		return forwardURL;
@@ -38,11 +37,6 @@ final public class SetProductController extends BaseController{
 	}
 	
 	private String searchSetProduct (HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		
-		return "/setproduct.jsp";
-	}
-	
-	private String deleteSetProduct (HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
 		return "/setproduct.jsp";
 	}

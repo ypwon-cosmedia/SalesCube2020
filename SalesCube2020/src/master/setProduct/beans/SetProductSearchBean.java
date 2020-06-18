@@ -2,7 +2,6 @@ package master.setProduct.beans;
 
 public class SetProductSearchBean {
 
-	private String setTypeCategory;
 	private String setProductCode;
 	private String setProductName;
 	private String productCode;
@@ -40,12 +39,5 @@ public class SetProductSearchBean {
 		this.productName = productName;
 	}
 
-	public String getSetTypeCategory() {
-		return setTypeCategory;
-	}
-
-	public void setSetTypeCategory(String setTypeCategory) {
-		this.setTypeCategory = setTypeCategory;
-	}
 	
 }
