@@ -265,7 +265,7 @@
 					</div>
 				</form>	
 			</div>
-		<!-- </div><br></div> --> 
+		
 		<br>
 		<br>
 		<!-- <div class="container" style="background-color: white;"><div class="panel panel-default" > -->
@@ -294,36 +294,10 @@
 		</div>
     </div></div><br><br>
     
-<<<<<<< HEAD
+
     </div></div>
 <br><br>
-<div class="container" style="background-color: rgb(255, 255, 255);">
-    <table id="order_detail_info" class="table table-bordered">
-		<thead class="thead-dark">
-    <tr>
-		<th style="cursor: pointer; height: 30px;" onclick="sort('customerCode');">顧客コード</th>
-		<th style="cursor: pointer; height: 30px;" onclick="sort('customerName');">顧客名</th>
-		<th style="cursor: pointer; height: 30px;" onclick="sort('tel');">TEL</th>
-		<th style="cursor: pointer; height: 30px;" onclick="sort('PCName');">担当者</th>
-		<th style="cursor: pointer; height: 30px;" onclick="sort('salesCMCategory');">取引区分</th>
-		<th style="cursor: pointer; height: 30px;" onclick="sort('cutoffGroup');">支払条件</th>
-		<th style="cursor: pointer; height: 30px;" onclick="sort('customerOfficeName');">事業所名</th>
-		<th style="cursor: pointer; height: 30px;" onclick="sort('customerDeptName');">部署名</th>
-		<th style="cursor: pointer; height: 30px;">&nbsp;</th>
-	</tr>
-		</thead>
 
-		<input type="hidden" name="customer" value="${customer.cutomerCode} }">
-    		<tr>
-				<th scope="row">1</td>
-				<td style="white-space: normal; text-align: left;">&nbsp;${customer.customerCode}&nbsp;</td>
-				<td style="white-space: normal; text-align: left;">&nbsp;${customer.customerCode}&nbsp;</td>
-				<td style="white-space: normal; text-align: left;">&nbsp;${customer.customerCode}&nbsp;</td>
-				<td style="white-space: normal; text-align: left;">&nbsp;${customer.customerCode}&nbsp;</td>
-				<td style="white-space: normal; text-align: left;">&nbsp;${customer.customerCode}&nbsp;</td>
-				<td style="white-space: normal; text-align: left;">&nbsp;${customer.customerCode}&nbsp;</td>
-				<td style="white-space: normal; text-align: left;">&nbsp;${customer.customerCode}&nbsp;</td>
-=======
 		<div class="container" style="background-color: rgb(255, 255, 255);">
   			<table id="order_detail_info" class="table table-bordered">
 				<thead class="thead-dark">
@@ -349,8 +323,6 @@
 						<td style="white-space: normal; text-align: left;">&nbsp;${customer.cutoffGroup}&nbsp;</td>
 						<td style="white-space: normal; text-align: left;">&nbsp;${customer.officeName}&nbsp;</td>
 						<td style="white-space: normal; text-align: left;">&nbsp;${customer.deptName}&nbsp;</td>
->>>>>>> branch 'master' of https://github.com/ypwon-cosmedia/SalesCube2020.git
-
 						<td style="text-align: center">
 							<div style="display:inline-flex">
 								<form action="/SalesCube2020/SalesCube?action=moveModifyCustomer">
