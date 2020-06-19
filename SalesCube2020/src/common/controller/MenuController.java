@@ -5,7 +5,7 @@ import javax.servlet.*;
 import javax.servlet.http.*;
 
 import master.product.DAO.ProductDAO;
-import master.product.beans.ProductCategoryBean;
+import master.product.beans.ProductBigCategoryBean;
 
 import java.util.*;
 import java.sql.SQLException;
@@ -45,7 +45,7 @@ final public class MenuController extends BaseController{
 	
 	private String moveProduct (HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException, ClassNotFoundException, SQLException {
 		
-		List<ProductCategoryBean> list = new ArrayList<>();
+		List<ProductBigCategoryBean> list = new ArrayList<>();
 		
 		ProductDAO dao = new ProductDAO();
 		

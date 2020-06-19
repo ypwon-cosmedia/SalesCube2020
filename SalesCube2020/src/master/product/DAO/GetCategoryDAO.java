@@ -10,14 +10,14 @@ import java.util.ArrayList;
 import java.util.List;
 
 import common.dao.BaseDAO;
-import master.product.beans.ProductCategoryBean;
+import master.product.beans.ProductBigCategoryBean;
 
 public class GetCategoryDAO extends BaseDAO {
 
-	/* カテゴリー情報の取得　*/
-	public List<ProductCategoryBean> getCategory() throws SQLException, ClassNotFoundException{
+	
+	public List<ProductBigCategoryBean> getBigCategory() throws SQLException, ClassNotFoundException{
 
-		List<ProductCategoryBean> list = new ArrayList<ProductCategoryBean>();
+		List<ProductBigCategoryBean> list = new ArrayList<ProductBigCategoryBean>();
 
 		Connection con;
 	 	Statement stmt = null;
@@ -26,12 +26,11 @@ public class GetCategoryDAO extends BaseDAO {
 
 	 	con = super.getConnection();	
 	 	stmt = con.createStatement();	
-	 	sql = "select CLASS_CODE_1, CLASS_CODE_2, CLASS_CODE_3, CLASS_NAME from product_class_mst_xxxxx";	
+	 	sql = "select CLASS_CODE_1, CLASS_NAME from product_class_mst_xxxxx縲where CLASS_CODE_1 IS NOT NULL AND CLASS_CODE_2 IS NULL AND CLASS_CODE_3 IS NULL";	
 	 	result = stmt.executeQuery(sql);	
 
 	 	while (result.next()) {
-	 		//1レコードずつItemBeanセットする
-	 		ProductCategoryBean bean = new ProductCategoryBean();
+	 		ProductBigCategoryBean bean = new ProductBigCategoryBean();
 	 		bean.setProduct1(result.getString("CLASS_CODE_1"));
 	 		bean.setProduct2(result.getString("CLASS_CODE_2"));
 	 		bean.setProduct3(result.getString("CLASS_CODE_3"));

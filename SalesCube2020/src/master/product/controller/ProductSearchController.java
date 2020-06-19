@@ -7,7 +7,7 @@ import javax.servlet.http.*;
 import common.controller.BaseController;
 import master.customer.beans.customerSearchBeans.CustomerResultBean;
 import master.product.DAO.ProductDAO;
-import master.product.beans.ProductCategoryBean;
+import master.product.beans.ProductBigCategoryBean;
 import master.product.beans.ProductSearchBean;
 
 import java.util.*;
@@ -36,7 +36,7 @@ public class ProductSearchController extends BaseController{
 	
 	private String searchProduct(HttpServletRequest request, HttpServletResponse response)  throws ServletException, IOException{
 		// TODO Auto-generated method stub
-		List<ProductCategoryBean> list = new ArrayList<>();
+		List<ProductBigCategoryBean> list = new ArrayList<>();
 		
 		ProductDAO dao = new ProductDAO();
 		

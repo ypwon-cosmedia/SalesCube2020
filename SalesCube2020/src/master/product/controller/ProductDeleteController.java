@@ -6,7 +6,7 @@ import javax.servlet.http.*;
 
 import common.controller.BaseController;
 import master.product.DAO.ProductDAO;
-import master.product.beans.ProductCategoryBean;
+import master.product.beans.ProductBigCategoryBean;
 
 import java.util.*;
 import java.sql.SQLException;
@@ -36,7 +36,7 @@ public class ProductDeleteController extends BaseController{
 		// TODO Auto-generated method stub
 		String forwardURL = "/productsearch.jsp";	
 		
-		List<ProductCategoryBean> list = new ArrayList<>();		
+		List<ProductBigCategoryBean> list = new ArrayList<>();		
 		ProductDAO dao = new ProductDAO();
 		try {
 			list = dao.getCategory();
