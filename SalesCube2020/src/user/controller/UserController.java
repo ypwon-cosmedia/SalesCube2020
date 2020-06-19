@@ -47,6 +47,7 @@ public class UserController extends BaseController{
 		LoginBean user = new LoginBean();
 		UserDAO userdao = new UserDAO();
 		
+		//JSP‚©‚çî•ñ‚ğæ“¾
 		String userID = request.getParameter("userId");
 		String password = request.getParameter("password");
 		
