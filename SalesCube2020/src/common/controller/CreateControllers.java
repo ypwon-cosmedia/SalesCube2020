@@ -3,8 +3,9 @@ package common.controller;
 import java.util.*;
 
 import master.customer.controller.CustomerController;
+import master.product.controller.GetCategoryController;
 import master.product.controller.ProductAddController;
-import master.product.controller.ProductController;
+import master.product.controller.ProductDeleteController;
 import master.product.controller.ProductDiscountController;
 import master.product.controller.ProductExcelController;
 import master.product.controller.ProductInitController;
@@ -28,6 +29,8 @@ public class CreateControllers {
 		BaseController productExcelObj = new ProductExcelController();
 		BaseController productInitObj = new ProductInitController();
 		BaseController productAddObj = new ProductAddController();
+		BaseController productDeleteObj = new ProductDeleteController();
+		BaseController getCategoryObj = new GetCategoryController();
 		BaseController userObj = new UserController();
 
 
@@ -69,8 +72,10 @@ public class CreateControllers {
 		map.put( "productHistoryOutput", productExcelObj);
 		
 		map.put( "searchProduct", productSearchObj);
-		map.put( "deleteProduct", productSearchObj);
-		map.put( "getCategory", productSearchObj);
+		
+		map.put( "deleteProduct", productDeleteObj);
+		
+		map.put( "getCategory", getCategoryObj);
 		
 		map.put( "login", userObj);
 		map.put( "logout", userObj);

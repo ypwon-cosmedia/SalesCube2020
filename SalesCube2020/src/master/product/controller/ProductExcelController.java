@@ -46,20 +46,20 @@ public class ProductExcelController extends BaseController{
 		List<ProductModifyBean> list = new ArrayList<>();
 		list = request.getAttribute("product");
 		
-		//DAO‚ğŒÄ‚Ô
+		//DAOï¿½ï¿½ï¿½Ä‚ï¿½
 		
 		try {
-			//ŒŸõŒ‹‰Ê‚ÌExcelo—Í
-			PrintWriter p = new PrintWriter( new BufferedWriter( new OutputStreamWriter( new FileOutputStream("//ƒtƒ@ƒCƒ‹‚ÌêŠ//", false),"utf-8")));
+			//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ê‚ï¿½Excelï¿½oï¿½ï¿½
+			PrintWriter p = new PrintWriter( new BufferedWriter( new OutputStreamWriter( new FileOutputStream("//ï¿½tï¿½@ï¿½Cï¿½ï¿½ï¿½ÌêŠ//", false),"utf-8")));
 			
-			//ƒwƒbƒ_
+			//ï¿½wï¿½bï¿½_
 			p.print();
 			p.print(",");
 			
 			
 			p.println();)
 			
-			//ŒŸõŒ‹‰Ê
+			//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 			for(int i = 0; i < .length; i++) {
 				p.print( getProductCode() );
 				p.print(",");
@@ -71,9 +71,9 @@ public class ProductExcelController extends BaseController{
 				p.println();
 				
 			}
-			//•Â‚¶‚é
+			//ï¿½Â‚ï¿½ï¿½ï¿½
 			p.close();
-			System.out.println("Excelo—ÍŠ®—¹");
+			System.out.println("Excelï¿½oï¿½ÍŠï¿½ï¿½ï¿½");
 			
 		}catch (IOException e) {
 			e.printStackTrace();
