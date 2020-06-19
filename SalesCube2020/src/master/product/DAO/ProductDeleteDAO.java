@@ -1,30 +1,29 @@
 package master.product.DAO;
 
 import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
+
+import java.util.MissingResourceException;
 
 import common.dao.BaseDAO;
 import master.product.beans.ProductDeleteBean;
 
+/* çÌèúÅ@*/
 public class ProductDeleteDAO extends BaseDAO {
 
-	/* çÌèúèÓïÒÇÃéÊìæÅ@*/
-	public String deleteProduct(ProductDeleteBean bean) throws SQLException, ClassNotFoundException{
+	public String deleteProduct(ProductDeleteBean bean, String productCode) throws SQLException, ClassNotFoundException{
 
 		Connection con;
-	 	PreparedStatement stmt = null;
-	 	ResultSet result = null;	
+	 	Statement stmt = null;
 	 	String  sql;
 
 	 	con = super.getConnection();
-	 	sql = "DELETE * from product_mst_xxxxx WHERE PRODUCT_CODE = ?";	
-	 	stmt = con.prepareStatement(sql);
-	 	result = stmt.executeQuery(sql);
-	 	stmt.setString(1, bean.getProductCode());
+	 	sql = "DELETE * from product_mst_xxxxx WHERE PRODUCT_CODE = " + productCode;	
+	 	stmt = con.createStatement();
+	 	stmt.executeUpdate(sql);
 
-	 	super.releaseDB(con, stmt, result);
+	 	super.releaseDB(con, stmt);
 	 	
 		return sql;
 
