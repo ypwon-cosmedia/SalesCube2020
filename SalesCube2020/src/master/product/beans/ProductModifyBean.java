@@ -111,7 +111,7 @@ public class ProductModifyBean {
 	private String warehouseName;
 	
 	/** 棚番：棚番を保持する */
-	private String rankName;
+	private String rackCode;
 
 	/** リードタイム：リードタイムを保持する */
 	private int leadTime;
@@ -347,12 +347,12 @@ public class ProductModifyBean {
 		this.warehouseName = warehouseName;
 	}
 
-	public String getRankName() {
-		return rankName;
+	public String getRackCode() {
+		return rackCode;
 	}
 
-	public void setRankName(String rankName) {
-		this.rankName = rankName;
+	public void setRackCode(String rackCode) {
+		this.rackCode = rackCode;
 	}
 
 	public int getLeadTime() {

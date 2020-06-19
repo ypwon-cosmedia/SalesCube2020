@@ -11,6 +11,7 @@ import java.util.List;
 
 import common.dao.BaseDAO;
 import master.product.beans.ProductBean;
+import master.product.beans.ProductModifyBean;
 import master.product.beans.ProductResultBean;
 import master.product.beans.ProductSearchBean;
 
@@ -67,9 +68,9 @@ public class ProductSearchDAO extends BaseDAO{
 	}
 	
 	/* è§ïiåüçıèÓïÒÇÃéÊìæ(åüçıâÊñ óp) */
-	public List<ProductBean> searchAllProduct(ProductSearchBean bean) throws SQLException, ClassNotFoundException {
+	public List<ProductModifyBean> searchAllProduct(ProductSearchBean bean) throws SQLException, ClassNotFoundException {
 
-		List<ProductBean> listAll = new ArrayList<ProductBean>();
+		List<ProductModifyBean> listAll = new ArrayList<ProductModifyBean>();
 
 		Connection con;
 	 	PreparedStatement stmt = null;
@@ -102,7 +103,7 @@ public class ProductSearchDAO extends BaseDAO{
 	 		result = stmt.executeQuery();
 	 		
 	 		while( result.next() ) {
-		 		ProductBean pb = new ProductBean();
+		 		ProductModifyBean pb = new ProductModifyBean();
 		 		pb.setProductCode(result.getString("pmx.PRODUCT_CODE"));
 		 		pb.setProductName(result.getString("pmx.PRODUCT_NAME"));
 		 		pb.set(result.getString("pmx.PRODUCT_KANA"));
@@ -162,10 +163,30 @@ public class ProductSearchDAO extends BaseDAO{
 		 		pb.set(result.getString("pmx.DEC_1"));
 		 		pb.set(result.getString("pmx.DEC_2"));
 		 		pb.set(result.getString("pmx.DEC_3"));
-		 		
-		 		
+		 		pb.set(result.getString("pmx.DEC_4"));
+		 		pb.set(result.getString("pmx.DEC_5"));
+		 		pb.set(result.getString("pmx.DISCARD_DATE"));
+		 		pb.set(result.getString("pmx.REMARKS"));
+		 		pb.set(result.getString("pmx.EAD_REMARKS"));
+		 		pb.set(result.getString("pmx.COMMENT_DATA"));
+		 		pb.set(result.getString("pmx.LAST_RO_DATE"));
+		 		pb.set(result.getString("pmx.SALES_STANDARD_DEVIATION"));
+		 		pb.set(result.getString("pmx.MINE_SAFETY_STOCK"));
+		 		pb.set(result.getString("pmx.MINE_SAFETY_STOCK_UPD_FLAG"));
+		 		pb.set(result.getString("pmx.ENTRUST_SAFETY_STOCK"));
+		 		pb.set(result.getString("pmx.CRE_FUNC"));
+		 		pb.set(result.getString("pmx.CRE_DATETM"));
+		 		pb.set(result.getString("pmx.CRE_USER"));
+		 		pb.set(result.getString("pmx.UPD_FUNC"));
+		 		pb.set(result.getString("pmx.UPD_DATETM"));		 		
+		 		pb.set(result.getString("pmx.UPD_USER"));
+		 		pb.set(result.getString("pmx.DEL_FUNC"));
+		 		pb.set(result.getString("pmx.DEL_DATETM"));
+		 		pb.set(result.getString("pmx.DEL_USER"));		 		
+
 		 		listAll.add(pb);
 		 	}
+	 		
 		 	super.releaseDB(con, stmt, result);
 		 	return listAll;
 
