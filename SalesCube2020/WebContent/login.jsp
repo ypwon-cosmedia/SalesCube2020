@@ -64,7 +64,7 @@
             </div>
             <hr>
             <br>
-          <form name="loginData" method="POST" action="/SalesCube2020/SalesCube?action=menu">
+          <form name="loginData" method="POST" action="/SalesCube2020/SalesCube?action=login">
               <table class="forms" style="width: 250px;margin-left: auto; margin-right: auto;text-align: left;" summary="login_form">
                 <colgroup>
                    <col span="1" style="width: 40%">

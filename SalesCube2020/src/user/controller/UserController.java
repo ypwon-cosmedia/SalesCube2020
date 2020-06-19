@@ -26,9 +26,9 @@ public class UserController extends BaseController{
 		
 		try {
 		
+		//action値による
 		if(action.equals("login")) 			forwardURL = login(request, response);
 		else if(action.equals("logout")) 	forwardURL = logout(request, response);
-		
 		
 		}catch (ServletException e) {
 			e.printStackTrace();
@@ -50,10 +50,11 @@ public class UserController extends BaseController{
 		//JSPから情報を取得
 		String userID = request.getParameter("userId");
 		String password = request.getParameter("password");
-		
+		//DBにIDとパスワードが一致する情報があるかを探す
 		user = userdao.login(userID, password);
 		
-		if(user.getUserID() == null) {
+		//ログインの可否の設定
+		if(user == null ) {
 			message = "IDとパスワードが正しくありません";
 			request.setAttribute("loginError", message);
 			
@@ -73,6 +74,11 @@ public class UserController extends BaseController{
 	
 	public String logout(HttpServletRequest request, HttpServletResponse response) {
 		
+		//セッション領域の取得
+		HttpSession session = request.getSession();
+		//セッション情報をすべて削除
+		session.invalidate();
+
 		return "/login.jsp";
 	}
 }
