@@ -35,12 +35,21 @@ public class ProductSearchBean {
 	/** 仕入先名：仕入先名を保持する */
 	private String supplierName;
 	
+	/** 分類標準：分類標準を保持する */
+	private String productStandardCategory;
+	
 	/** 分類状況：分類状況を保持する */
 	private String productStatusCategory;
 		
 	/** 分類保管：分類保管を保持する */
 	private String productStockCategory;
-		
+	
+	/** セット商品フラグ：セット商品フラグを保持する */
+	private int setTypeCategory;
+	
+	/** 備考：備考を保持する */
+	private String remarks;	
+	
 	/** 商品分類１：商品分類１を保持する */
 	private String product1;
 	
@@ -128,6 +137,30 @@ public class ProductSearchBean {
 	
 	public void setProduct3(String product3) {
 		this.product3 = product3;
+	}
+
+	public String getProductStandardCategory() {
+		return productStandardCategory;
+	}
+
+	public void setProductStandardCategory(String productStandardCategory) {
+		this.productStandardCategory = productStandardCategory;
+	}
+
+	public int getSetTypeCategory() {
+		return setTypeCategory;
+	}
+
+	public void setSetTypeCategory(int setTypeCategory) {
+		this.setTypeCategory = setTypeCategory;
+	}
+
+	public String getRemarks() {
+		return remarks;
+	}
+
+	public void setRemarks(String remarks) {
+		this.remarks = remarks;
 	}
 
 }

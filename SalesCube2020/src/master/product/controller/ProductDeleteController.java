@@ -26,9 +26,7 @@ public class ProductDeleteController extends BaseController{
 		String forwardURL = "/menu.jsp";
 		String action = request.getParameter("action");
 
-		
 		 if(action.equals("deleteProduct")) forwardURL = deleteProduct(request, response);
-		
 		
 		return forwardURL;
 	}
@@ -36,20 +34,27 @@ public class ProductDeleteController extends BaseController{
 	
 	private String deleteProduct(HttpServletRequest request, HttpServletResponse response)  throws ServletException, IOException{
 		// TODO Auto-generated method stub
-		List<ProductCategoryBean> list = new ArrayList<>();
+		String forwardURL = "/productsearch.jsp";	
 		
+		List<ProductCategoryBean> list = new ArrayList<>();		
 		ProductDAO dao = new ProductDAO();
-		
 		try {
 			list = dao.getCategory();
 		} catch (ClassNotFoundException | SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		
 		request.setAttribute("category", list);
 		
-		return "/productsearch.jsp";
+		
+		String code = request.getParameter("productCode");
+		int productCode = Integer.parseInt(code);
+		
+		ProductDAO dao = new ProductDAO();
+		
+		
+		
+		return forwardURL;
 	}
 
 }
