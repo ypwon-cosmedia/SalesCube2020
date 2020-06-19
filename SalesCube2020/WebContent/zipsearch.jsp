@@ -23,7 +23,7 @@
 							<div class="input-group-prepend">
 								<div class="input-group-text">郵便番号</div>
 							</div>
-							<input type="text"  class="form-control" id="inlineFormInputGroup" value="${}">
+							<input type="text"  class="form-control" id="inlineFormInputGroup" value="${zipCode}">
 						</div>
     				</div>
                     <div class="col-4">
@@ -32,7 +32,7 @@
 	    					<div class="input-group-prepend">
 		    					<div class="input-group-text">住所1</div>
 							</div>
-	    					<input type="text"  class="form-control" id="inlineFormInputGroup" value="${}">
+	    					<input type="text"  class="form-control" id="inlineFormInputGroup" value="${Address1}">
 						</div>
     				</div>
 				</div>

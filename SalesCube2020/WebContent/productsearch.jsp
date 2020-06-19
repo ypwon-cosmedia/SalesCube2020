@@ -320,7 +320,7 @@
 						<th scope="col" class="rd_top_right th_back_black" style="cursor: pointer; height: 30px;">&nbsp;</th>
 					</tr>
 				</thead>
-				<c:forEach items="${search.prosearch}" var="prdct">
+				<%-- <c:forEach items="${search.prosearch}" var="prdct">--%>
 					<tr>
 						<td style="white-space: normal; text-align: left;">${prdct.productCode}</td>
 						<td style="white-space: normal; text-align: left;">${prdct.productName}</td>
@@ -340,12 +340,13 @@
 							</div>
 						</td>
 					</tr>
-				</c:forEach>
+				<%-- </c:forEach>--%>
 			</table>
 		</div>
 	
 	
 	</body>
+	
 	<script>
 		//入力値の初期化
 		function initForm(){
@@ -354,11 +355,6 @@
     	  	}
     		document.main.reset();
 		}
-
-		var options = {
-			valueNames: [ 'name', 'born' ]
-		};
-		var userList = new List('users', options);
 
 	</script>
 	
