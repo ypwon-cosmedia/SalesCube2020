@@ -44,7 +44,7 @@ public class ProductExcelController extends BaseController{
 	private String productExcelOutput(HttpServletRequest request, HttpServletResponse response) {
 		// TODO Auto-generated method stub
 		List<ProductModifyBean> list = new ArrayList<>();
-		list = request.getAttribute("product");
+		list = request.getParameter("product");
 		
 		//DAO���Ă�
 		

@@ -5,6 +5,7 @@ import javax.servlet.*;
 import javax.servlet.http.*;
 
 import common.controller.BaseController;
+import master.product.DAO.GetCategoryDAO;
 import master.product.DAO.ProductDAO;
 import master.product.beans.ProductBigCategoryBean;
 
@@ -37,9 +38,9 @@ public class ProductDeleteController extends BaseController{
 		String forwardURL = "/productsearch.jsp";	
 		
 		List<ProductBigCategoryBean> list = new ArrayList<>();		
-		ProductDAO dao = new ProductDAO();
+		GetCategoryDAO dao = new GetCategoryDAO();
 		try {
-			list = dao.getCategory();
+			list = dao.getBigCategory();
 		} catch (ClassNotFoundException | SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -50,7 +51,7 @@ public class ProductDeleteController extends BaseController{
 		String code = request.getParameter("productCode");
 		int productCode = Integer.parseInt(code);
 		
-		ProductDAO dao = new ProductDAO();
+
 		
 		
 		
