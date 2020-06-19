@@ -25,21 +25,21 @@ public class SalesCubeServlet extends HttpServlet {
 		request.setCharacterEncoding("utf-8");
 		
         String  forwardURL;
-        System.out.println("test1");
+;
 
         String action = request.getParameter("action");
         System.out.println(action);
 
         // �Ɩ��̐U�蕪��
         if  ( controllerList.containsKey(action) )  {							// action�ɊY������Ɩ��R���g���[��������ꍇ
-        	System.out.println("test2");
+
         	BaseController controller = controllerList.get(action);			//   �Y������Ɩ��R���g���[�����擾
             forwardURL = controller.execService(request, response);				//   �Ɩ��R���g���[���ɏ������Ϗ����t�H���[�h����JSP��URL���擾����
             RequestDispatcher rd = request.getRequestDispatcher(forwardURL);	//   �f�B�X�p�b�`���[���擾
             rd.forward(request, response);										//   �o�͏�����JSP�ɈϏ��i�t�H���[�h�j
 
         } else {
-        	System.out.println("test3");
+
             RequestDispatcher rd = request.getRequestDispatcher("/login.jsp");	// action�p�����^�l��������Ȃ��ꍇ�͑J�ڃG���[�y�[�W��\��
             rd.forward(request, response);
         }

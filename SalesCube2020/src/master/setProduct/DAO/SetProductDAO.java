@@ -18,7 +18,7 @@ import master.setProduct.beans.SetProductSearchResultBean;
 
 public class SetProductDAO extends BaseDAO {
 
-	public List<SetProductBean> getInfo () throws ClassNotFoundException, MissingResourceException, SQLException {
+	public List<SetProductBean> getInfo (String code) throws ClassNotFoundException, MissingResourceException, SQLException {
 		
 		List<SetProductBean> list = new ArrayList<SetProductBean>();
 		
@@ -29,12 +29,18 @@ public class SetProductDAO extends BaseDAO {
 		
 	 	con = super.getConnection();	
 	 	stmt = con.createStatement();	
-	 	sql = "select SET_PRODUCT_CODE, PRODUCT_CODE, QUANTITY from product_set_mst_xxxxx";	
+	 	sql = "select distinct product_set_mst_xxxxx.PRODUCT_CODE " + 
+	 			",product_mst_xxxxx.PRODUCT_NAME " + 
+	 			",product_set_mst_xxxxx.QUANTITY " + 
+	 			"from " + 
+	 			"product_mst_xxxxx " + 
+	 			"left outer join product_set_mst_xxxxx on product_mst_xxxxx.PRODUCT_CODE = product_set_mst_xxxxx.PRODUCT_CODE " + 
+	 			"where product_set_mst_xxxxx.SET_PRODUCT_CODE = " + code;	
 	 	result = stmt.executeQuery(sql);	
 		
 	 	while (result.next()) {
 	 		SetProductBean bean = new SetProductBean();
-	 		bean.setSetProductCode(result.getString("SET_PRODUCT_CODE"));
+	 		bean.setProductName(result.getString("PRODUCT_NAME"));
 	 		bean.setProductCode(result.getString("PRODUCT_CODE"));
 	 		bean.setQuantity(result.getInt("QUANTITY"));
 	 		list.add(bean);
@@ -66,7 +72,7 @@ public class SetProductDAO extends BaseDAO {
 	 	return bean;
 	}
 	
-	//�����y�[�W�\���p�i�I�[�o�[���C�h�j
+
 	public List<SetProductSearchResultBean> getProductInfo (SetProductSearchBean input) throws ClassNotFoundException, MissingResourceException, SQLException {
 
 		List<SetProductSearchResultBean> list = new ArrayList<SetProductSearchResultBean>();
@@ -75,10 +81,11 @@ public class SetProductDAO extends BaseDAO {
 	 	Statement stmt = null;
 	 	ResultSet result = null;	
 	 	String  sql;
-	 	 	
+	 		
 	 	con = super.getConnection();	
 	 	stmt = con.createStatement();	
-	 	sql = "select PRODUCT_CODE, PRODUCT_NAME from product_mst_xxxxx where SET_TYPE_CATEGORY = 1;";	//�ǉ��K�v	
+	 	sql = "select PRODUCT_CODE, PRODUCT_NAME from product_mst_xxxxx where SET_TYPE_CATEGORY = 1"
+	 		;	//�ǉ��K�v	
 	 	result = stmt.executeQuery(sql);	
 		
 	 	while (result.next()) {
@@ -110,7 +117,7 @@ public class SetProductDAO extends BaseDAO {
 	 	for(SetProductBean bean : inputList) {
 	 		sql2 = "INSERT INTO (SET_PRODUCT_CODE, PRODUCT_CODE, QUANTITY) product_set_mst_xxxxx"
 	 				+ "VALUES("
-	 				+ bean.getSetProductCode() + ","
+	 				+ bean.getProductName() + ","
 	 				+ bean.getProductCode() + ","
 	 				+ bean.getQuantity() + ");";
 	 		
@@ -118,5 +125,7 @@ public class SetProductDAO extends BaseDAO {
 	 	}
 	
 	}
-		
+
+
+	
 }

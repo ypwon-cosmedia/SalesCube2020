@@ -67,7 +67,7 @@
             <path fill-rule="evenodd" d="M8 9a3 3 0 1 0 0-6 3 3 0 0 0 0 6z"/>
             <path fill-rule="evenodd" d="M8 1a7 7 0 1 0 0 14A7 7 0 0 0 8 1zM0 8a8 8 0 1 1 16 0A8 8 0 0 1 0 8z"/>
           </svg>
-          システム管理者　
+          	${userInfo.nameKNJ}　
         </span>
         <form class="form-inline">
           <button class="btn btn-outline-success my-2 my-sm-0" type="submit">ログアウト</button>
@@ -148,30 +148,36 @@
 			</tr>
 				</thead>
 		
+			<c:forEach var="res" items="${result}" varStatus="status">   
 			<tr>
-				<td scope="row">1</th>
+				<td scope="row">${status.count}</td>
 				<td style="white-space: normal; text-align: left;" nowrap> 
 					<div class="input-group mb-3">
-						<input type="text" class="form-control" >
-						<!-- <div class="input-group-append">
-							<input type="image" name="" src="btn_search.png" tabindex="101" onclick="" style="vertical-align: middle; cursor: pointer; width: 32px;">
-						</div> -->
+						<input type="text" class="form-control" value="${res.productCode}">
 					  </div>
 				</td>
 
-				<td style="white-space: normal; text-align: left;"><input type="text"  class="form-control" id="inlineFormInputGroup"></td>
-				<td style="white-space: normal; text-align: left;"><input type="text"  class="form-control" id="inlineFormInputGroup"></td>
+				<td style="white-space: normal; text-align: left;"><input type="text"  class="form-control" id="inlineFormInputGroup" value="${res.productName}"></td>
+				<td style="white-space: normal; text-align: left;"><input type="text"  class="form-control" id="inlineFormInputGroup" value="${res.quantity}"></td>
 
 		
 				<td style="text-align: center">
-						<button type="button" class="btn btn-outline-secondary" onclick="editCustomer('1');">編集</button>
+						<button type="button" class="btn btn-outline-secondary" onclick="editCustomer('1');">削除</button>
+				</td>
+			</tr>
+			</c:forEach>
+			<tr>
+				<td scope="row" colspan=4></td>
+
+				<td style="text-align: center">
+						<button type="button" class="btn btn-outline-secondary">行追加</button>
 				</td>
 			</tr>
 			</table>
 				
 			<div align="right">
 				<input type="submit" value="リセット" class="btn btn-outline-secondary">
-				<input type="submit" value="検索" class="btn btn-outline-secondary">
+				<input type="submit" value="更新" class="btn btn-outline-secondary">
 			</div>
 			</form>
 		</div><br></div><br>

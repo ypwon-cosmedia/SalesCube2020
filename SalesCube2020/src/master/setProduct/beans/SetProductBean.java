@@ -1,37 +1,38 @@
 package master.setProduct.beans;
 
-/*
- * セット商品に関した情報を保存するBeanクラスです。
- */
+
 
 public class SetProductBean {
 	
-	/*商品コードを保存するメンバー変数*/
-	private String setProductCode;
 	
-	/*商品の中の商品コードを保存するメンバー変数」*/
+	private String productName;
+		
 	private String productCode;
 	
-	/*商品の数量を保存するメンバー変数*/
 	private int quantity;
-	
-	
-	public String getSetProductCode() {
-		return setProductCode;
+
+	public String getProductName() {
+		return productName;
 	}
-	public void setSetProductCode(String setProductCode) {
-		this.setProductCode = setProductCode;
+
+	public void setProductName(String productName) {
+		this.productName = productName;
 	}
+
 	public String getProductCode() {
 		return productCode;
 	}
+
 	public void setProductCode(String productCode) {
 		this.productCode = productCode;
 	}
+
 	public int getQuantity() {
 		return quantity;
 	}
+
 	public void setQuantity(int quantity) {
 		this.quantity = quantity;
 	}
+	
 }

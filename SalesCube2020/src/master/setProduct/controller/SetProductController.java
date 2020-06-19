@@ -36,16 +36,22 @@ final public class SetProductController extends BaseController{
 		
 		String pCode;
 		String pName;
+		List<SetProductBean> list = new ArrayList<SetProductBean>();
+		SetProductDAO dao = new SetProductDAO();
 		
 		pCode = (String) request.getParameter("productCode");
 		pName = (String) request.getParameter("productName");
 		
+		try {
+			list = dao.getInfo(pCode);
+		} catch (ClassNotFoundException | MissingResourceException | SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
 		request.setAttribute("productCode", pCode);
 		request.setAttribute("productName", pName);
-		
-		System.out.println(pCode);
-		System.out.println(pName);
-		
+		request.setAttribute("result", list);
 
 		return "/setproductmodify.jsp";
 	}
