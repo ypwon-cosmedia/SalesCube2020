@@ -5,6 +5,7 @@ import javax.servlet.*;
 import javax.servlet.http.*;
 
 import common.controller.BaseController;
+import master.customer.beans.customerSearchBeans.CustomerResultBean;
 
 import java.util.*;
 import java.sql.SQLException;
@@ -49,6 +50,35 @@ public class CustomerController extends BaseController{
 		
 		String forwardURL = "/customersearch.jsp";
 		
+		ArrayList<CustomerResultBean> list = new ArrayList<CustomerResultBean>();
+		
+		CustomerResultBean bean = new CustomerResultBean();
+	    	bean.setCustomerCode(22);
+	    	bean.setCustomerName("‚Ä‚·‚ÆŒÚ‹q");
+	  		bean.setTel("090-111-111");
+	   		bean.setPCName("‚È‚Ü‚¦");
+	  		bean.setSalesCMCategory("1");
+	  		bean.setCutoffGroup("3");
+	   		bean.setOfficeName("‚Ä‚·‚Æ‚¨‚Ó‚¡‚·");
+	   		bean.setDeptName("‚Ä‚·‚Æ•”");
+			list.add(bean);
+			
+			CustomerResultBean bean2 = new CustomerResultBean();
+			
+			bean2.setCustomerCode(11);
+	    	bean2.setCustomerName("‚Ä‚·‚ÆŒÚ‹q2");
+	  		bean2.setTel("090-111-222");
+	   		bean2.setPCName("‚È‚Ü‚¦22");
+	  		bean2.setSalesCMCategory("3");
+	  		bean2.setCutoffGroup("4");
+	   		bean2.setOfficeName("‚Ä‚·‚Æ‚¨‚Ó‚¡‚·22");
+	   		bean2.setDeptName("‚Ä‚·‚Æ•”22");
+			list.add(bean2);
+
+			request.setAttribute("customerList",list);
+		
+		
+			
 		return forwardURL;
 		
 	}

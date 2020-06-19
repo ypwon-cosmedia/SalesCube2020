@@ -109,12 +109,12 @@
       <br><br><br>
       </div>
 		<div class="container" style="background-color: white;"><div class="panel panel-default" >
+			<form action="/SalesCube2020/SalesCube?action=searchCustomer" name="sampleform" method="post">
 			<div class="panel-heading row mb-2 col-4">
 				<h5><br>顧客情報</h5>
 			</div>
 			<hr>
 			<div class="panel-body">
-				<form action="/SalesCube2020/SalesCube?action=searchProduct" name="sampleform" method="post">
 					<div class="row">
 						<div class="col-4">
 							<label class="sr-only" for="inlineFormInputGroup"></label>
@@ -126,7 +126,7 @@
 							</div>
 						</div>
 						<div class="col-4">
-							<label class="sr-only" for="inlineFormInputGroup">productKana</label>
+							<label class="sr-only" for="inlineFormInputGroup"></label>
 							<div class="input-group mb-2">
 								<div class="input-group-prepend">
 									<div class="input-group-text">顧客名</div>
@@ -136,7 +136,7 @@
 						</div>
 
                         <div class="col-4">
-							<label class="sr-only" for="inlineFormInputGroup">productKana</label>
+							<label class="sr-only" for="inlineFormInputGroup"></label>
 							<div class="input-group mb-2">
 								<div class="input-group-prepend">
 									<div class="input-group-text">顧客名カナ</div>
@@ -157,7 +157,7 @@
 							</div>
 						</div>
 						<div class="col-4">
-							<label class="sr-only" for="inlineFormInputGroup">productKana</label>
+							<label class="sr-only" for="inlineFormInputGroup"></label>
 							<div class="input-group mb-2">
 								<div class="input-group-prepend">
 									<div class="input-group-text">事業所名カナ</div>
@@ -167,7 +167,7 @@
 						</div>
 
                         <div class="col-4">
-							<label class="sr-only" for="inlineFormInputGroup">productKana</label>
+							<label class="sr-only" for="inlineFormInputGroup"></label>
 							<div class="input-group mb-2">
 								<div class="input-group-prepend">
 									<div class="input-group-text">TEL</div>
@@ -188,7 +188,7 @@
 							</div>
 						</div>
 						<div class="col-4">
-							<label class="sr-only" for="inlineFormInputGroup">productKana</label>
+							<label class="sr-only" for="inlineFormInputGroup"></label>
 							<div class="input-group mb-2">
 								<div class="input-group-prepend">
 									<div class="input-group-text">担当者カナ</div>
@@ -198,7 +198,7 @@
 						</div>
 
                         <div class="col-4">
-							<label class="sr-only" for="inlineFormInputGroup">productKana</label>
+							<label class="sr-only" for="inlineFormInputGroup"></label>
 							<div class="input-group mb-2">
 								<div class="input-group-prepend">
 									<div class="input-group-text">FAX</div>
@@ -224,7 +224,7 @@
 							</div>
 						</div>
 						<div class="col-6">
-							<label class="sr-only" for="inlineFormInputGroup">productKana</label>
+							<label class="sr-only" for="inlineFormInputGroup"></label>
 							<div class="input-group mb-2">
 								<div class="input-group-prepend">
 									<div class="input-group-text">支払条件</div>
@@ -253,7 +253,7 @@
 							</div>
 						</div>
 						<div class="col-4">
-							<label class="sr-only" for="inlineFormInputGroup">productKana</label>
+							<label class="sr-only" for="inlineFormInputGroup"></label>
 							<div class="input-group mb-2">
 								<div class="input-group-prepend">
 									<div class="input-group-text">備考</div>
@@ -262,12 +262,11 @@
 							</div>
 						</div>
 					</div>
-				</form>	
 			</div>
 		
 		<br>
 		<br>
-		<!-- <div class="container" style="background-color: white;"><div class="panel panel-default" > -->
+		
 			
 			
 			<div class="panel-body">
@@ -284,58 +283,70 @@
   
          	<div class="rounded float-right">
                 ページあたりの表示件数
-                <select id="rowCount" name="rowCount" onchange="moveRowCount(this)">
+                <select id="rowCount" name="rowCount" onclick="moveRowCount(this)">
                     <option value="10">10</option>
                     <option value="50">50</option>
                     <option value="100">100</option>
                 </select>
 			</div>
 		</div>
+		</form>	
     </div></div><br><br>
     
 <br><br>
 
-		<div class="container" style="background-color: rgb(255, 255, 255);">
+		<div class="container" style="background-color: rgb(255, 255, 255);" id="customerList">
   			<table id="order_detail_info" class="table table-bordered">
 				<thead class="thead-dark">
     				<tr>
-						<th style="cursor: pointer; height: 30px;" onclick="sort('customerCode');">顧客コード</th>
-						<th style="cursor: pointer; height: 30px;" onclick="sort('customerName');">顧客名</th>
-						<th style="cursor: pointer; height: 30px;" onclick="sort('tel');">TEL</th>
-						<th style="cursor: pointer; height: 30px;" onclick="sort('PCName');">担当者</th>
-						<th style="cursor: pointer; height: 30px;" onclick="sort('salesCMCategory');">取引区分</th>
-						<th style="cursor: pointer; height: 30px;" onclick="sort('cutoffGroup');">支払条件</th>
-						<th style="cursor: pointer; height: 30px;" onclick="sort('officeName');">事業所名</th>
-						<th style="cursor: pointer; height: 30px;" onclick="sort('deptName');">部署名</th>
+						<th style="cursor: pointer; height: 30px;" class="sort" data-sort="customerCode">顧客コード</th>
+						<th style="cursor: pointer; height: 30px;" class="sort" data-sort="customerName">顧客名</th>
+						<th style="cursor: pointer; height: 30px;" class="sort" data-sort="tel">TEL</th>
+						<th style="cursor: pointer; height: 30px;" class="sort" data-sort="PCName">担当者</th>
+						<th style="cursor: pointer; height: 30px;" class="sort" data-sort="salesCMCategory">取引区分</th>
+						<th style="cursor: pointer; height: 30px;" class="sort" data-sort="cutoffGroup">支払条件</th>
+						<th style="cursor: pointer; height: 30px;" class="sort" data-sort="officeName">事業所名</th>
+						<th style="cursor: pointer; height: 30px;" class="sort" data-sort="deptName">部署名</th>
 						<th style="cursor: pointer; height: 30px;">&nbsp;</th>
 					</tr>
 				</thead>
-				<c:forEach items="${customerList}" var="customer">
+				<tbody class="list">
+				<c:forEach var="customer" items="${customerList}">
     				<tr>
-						<th scope="row">${customer.customerCode}</th>
-						<td style="white-space: normal; text-align: left;">&nbsp;${customer.customerName}&nbsp;</td>
-						<td style="white-space: normal; text-align: left;">&nbsp;${customer.tel}&nbsp;</td>
-						<td style="white-space: normal; text-align: left;">&nbsp;${customer.PCName}&nbsp;</td>
-						<td style="white-space: normal; text-align: left;">&nbsp;${customer.salesCMCategory}&nbsp;</td>
-						<td style="white-space: normal; text-align: left;">&nbsp;${customer.cutoffGroup}&nbsp;</td>
-						<td style="white-space: normal; text-align: left;">&nbsp;${customer.officeName}&nbsp;</td>
-						<td style="white-space: normal; text-align: left;">&nbsp;${customer.deptName}&nbsp;</td>
+						<th class="customerCode" scope="row">${customer.customerCode}</th>
+						<td class="customerName" style="white-space: normal; text-align: left;">&nbsp;${customer.customerName}&nbsp;</td>
+						<td class="tel" style="white-space: normal; text-align: left;">&nbsp;${customer.tel}&nbsp;</td>
+						<td class="PCName" style="white-space: normal; text-align: left;">&nbsp;${customer.PCName}&nbsp;</td>
+						<td class="salesCMCategory" style="white-space: normal; text-align: left;">&nbsp;${customer.salesCMCategory}&nbsp;</td>
+						<td class="cutoffGroup" style="white-space: normal; text-align: left;">&nbsp;${customer.cutoffGroup}&nbsp;</td>
+						<td class="officeName" style="white-space: normal; text-align: left;">&nbsp;${customer.officeName}&nbsp;</td>
+						<td class="deptName" style="white-space: normal; text-align: left;">&nbsp;${customer.deptName}&nbsp;</td>
 						<td style="text-align: center">
 							<div style="display:inline-flex">
 								<form action="/SalesCube2020/SalesCube?action=moveModifyCustomer">
-									<input type="hidden" name="customer" value="${customer.cutomerCode}">	
+									<input type="hidden" name="customer" value="${customer.customerCode}">	
 									<input type="submit" class="btn btn-outline-secondary" value="編集">
 								</form>
 								<form action="/SalesCube2020/SalesCube?action=deleteCustomer">
-									<input type="hidden" name="customer" value="${customer.cutomerCode}">	
+									<input type="hidden" name="customer" value="${customer.customerCode}">	
 									<input type="submit" class="btn btn-outline-secondary" value="削除">
 								</form>
 							</div>
 						</td>
    					</tr>
-   				</c:forEach> 
+   				</c:forEach></tbody>
 			</table>
 		</div>
+		
+<script src="//cdnjs.cloudflare.com/ajax/libs/list.js/1.5.0/list.min.js"></script>
+<script>
+var options = {
+  valueNames: [ 'customerCode', 'customerName' , 'tel' , 'PCName' , 'salesCMCategory' , 'cutoffGroup' , 'officeName' , 'deptName' ]
+};
+var customerList = new List('customerList', options);
+</script>
+
+
 <script>
 <%--function moveRowCount(rowCount) {
 	const rowCount = rowCount.value;
