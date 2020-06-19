@@ -89,7 +89,7 @@ import java.math.BigDecimal;
 public class CustomerAddBean {
 
 	/** ŒÚ‹qƒR[ƒh  F ŒÚ‹qƒR[ƒh‚ğ•Û‘¶‚·‚é@ */
-	private int customerCode;
+	private String customerCode;
 	
 	/** ŒÚ‹q–¼ F@ŒÚ‹q–¼‚ğ•Û‘¶‚·‚é */
 	private String customerName;
@@ -107,7 +107,7 @@ public class CustomerAddBean {
 	private String customerAbbr;
 
 	/** —X•Ö”Ô† F —X•Ö”Ô†‚ğ•Û‘¶‚·‚é */
-	private int zipCode;
+	private String zipCode;
 
 	/** ZŠ1 F ZŠ1 ‚ğ•Û‘¶‚·‚é*/
 	private String zipAddress1;
@@ -203,14 +203,14 @@ public class CustomerAddBean {
 	/**
 	 * @return the customerCode
 	 */
-	public int getCustomerCode() {
+	public String getCustomerCode() {
 		return customerCode;
 	}
 
 	/**
 	 * @param customerCode the customerCode to set
 	 */
-	public void setCustomerCode(int customerCode) {
+	public void setCustomerCode(String customerCode) {
 		this.customerCode = customerCode;
 	}
 
@@ -287,14 +287,14 @@ public class CustomerAddBean {
 	/**
 	 * @return the zipCode
 	 */
-	public int getZipCode() {
+	public String getZipCode() {
 		return zipCode;
 	}
 
 	/**
 	 * @param zipCode the zipCode to set
 	 */
-	public void setZipCode(int zipCode) {
+	public void setZipCode(String zipCode) {
 		this.zipCode = zipCode;
 	}
 

@@ -5,6 +5,8 @@ import javax.servlet.*;
 import javax.servlet.http.*;
 
 import common.controller.BaseController;
+import master.customer.DAO.CustomerDAO;
+import master.customer.beans.customerSearchBeans.CustomerInputBean;
 import master.customer.beans.customerSearchBeans.CustomerResultBean;
 
 import java.util.*;
@@ -48,36 +50,51 @@ public class CustomerController extends BaseController{
 	private String searchCustomer(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException, ClassNotFoundException, SQLException {
 		
-		String forwardURL = "/customersearch.jsp";
+		String forwardURL     = "/customersearch.jsp";
+		String customerCode   = request.getParameter("customerCode");
+		// int iCustomerCode 	  = Integer.parseInt(customerCode);
+		String customerName   = request.getParameter("customerName");
+		String customerKana   = request.getParameter("customerKana");
+		String officeName 	  = request.getParameter("officeName");
+		String officeNameKana = request.getParameter("officeNameKana");
+		String tel			  = request.getParameter("tel");
+		String PCName 		  = request.getParameter("PCName");
+		String PCNameKana 	  = request.getParameter("PCNameKana");
+		String fax 			  = request.getParameter("fax");
+		String rankCategory   = request.getParameter("rankCategory");
+		String cutoffGroup 	  = request.getParameter("cutoffGroup");
+		String paymentName 	  = request.getParameter("paymentName");
+		String remarks 		  = request.getParameter("remarks");
 		
-		ArrayList<CustomerResultBean> list = new ArrayList<CustomerResultBean>();
 		
-		CustomerResultBean bean = new CustomerResultBean();
-	    	bean.setCustomerCode(22);
-	    	bean.setCustomerName("‚Ä‚·‚ÆŒÚ‹q");
-	  		bean.setTel("090-111-111");
-	   		bean.setPCName("‚È‚Ü‚¦");
-	  		bean.setSalesCMCategory("1");
-	  		bean.setCutoffGroup("3");
-	   		bean.setOfficeName("‚Ä‚·‚Æ‚¨‚Ó‚¡‚·");
-	   		bean.setDeptName("‚Ä‚·‚Æ•”");
-			list.add(bean);
-			
-			CustomerResultBean bean2 = new CustomerResultBean();
-			
-			bean2.setCustomerCode(11);
-	    	bean2.setCustomerName("‚Ä‚·‚ÆŒÚ‹q2");
-	  		bean2.setTel("090-111-222");
-	   		bean2.setPCName("‚È‚Ü‚¦22");
-	  		bean2.setSalesCMCategory("3");
-	  		bean2.setCutoffGroup("4");
-	   		bean2.setOfficeName("‚Ä‚·‚Æ‚¨‚Ó‚¡‚·22");
-	   		bean2.setDeptName("‚Ä‚·‚Æ•”22");
-			list.add(bean2);
+		
+		CustomerInputBean bean = new CustomerInputBean();
+		//bean.setCustomerCode(iCustomerCode);
+		bean.setCustomerCode(customerCode);
+		bean.setCustomerName(customerName);
+		bean.setCustomerKana(customerKana);
+		bean.setOfficeName(officeName);
+		bean.setOfficeNameKana(officeNameKana);
+		bean.setTel(tel);
+		bean.setPCName(PCName);
+		bean.setPCNameKana(PCNameKana);
+		bean.setFax(fax);
+		bean.setRankCategory(rankCategory);
+		bean.setCutoffGroup(cutoffGroup);
+		bean.setPaymentName(paymentName);
+		bean.setRemarks(remarks);
+		
+		CustomerDAO dao =  new CustomerDAO();
 
-			request.setAttribute("customerList",list);
+		List<CustomerResultBean> list = dao.searchCustomer(bean);
 		
-		
+		/*if(result == 0 ) {
+			request.setAttribute("message","ŒŸõ’†‚ÉƒGƒ‰[‚ª¶‚¶‚Ü‚µ‚½");
+		} else {
+			//request.setAttribute( "message", "ŒŸõ‚ªŠ®—¹‚µ‚Ü‚µ‚½B");
+		} */
+			    
+		request.setAttribute("customerList",list);
 			
 		return forwardURL;
 		

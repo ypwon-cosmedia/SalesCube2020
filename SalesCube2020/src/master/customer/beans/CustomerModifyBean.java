@@ -89,7 +89,7 @@ import java.math.BigDecimal;
 public class CustomerModifyBean {
 
 	/** 顧客コード  ： 顧客コードを保存する　 */
-	private int customerCode;
+	private String customerCode;
 	
 	/** 顧客名 ：　顧客名を保存する */
 	private String customerName;
@@ -107,7 +107,7 @@ public class CustomerModifyBean {
 	private String customerAbbr;
 
 	/** 郵便番号 ： 郵便番号を保存する */
-	private int zipCode;
+	private String zipCode;
 
 	/** 住所1 ： 住所1 を保存する*/
 	private String zipAddress1;
@@ -198,18 +198,21 @@ public class CustomerModifyBean {
 	
 	/** 更新者 ： 更新者を保存する */
 	private String updUser;
+	
+	/** 作成日時 ： 作成日時 を保存する */
+	private Date creDate;
 
 	/**
 	 * @return the customerCode
 	 */
-	public int getCustomerCode() {
+	public String getCustomerCode() {
 		return customerCode;
 	}
 
 	/**
 	 * @param customerCode the customerCode to set
 	 */
-	public void setCustomerCode(int customerCode) {
+	public void setCustomerCode(String customerCode) {
 		this.customerCode = customerCode;
 	}
 
@@ -286,14 +289,14 @@ public class CustomerModifyBean {
 	/**
 	 * @return the zipCode
 	 */
-	public int getZipCode() {
+	public String getZipCode() {
 		return zipCode;
 	}
 
 	/**
 	 * @param zipCode the zipCode to set
 	 */
-	public void setZipCode(int zipCode) {
+	public void setZipCode(String zipCode) {
 		this.zipCode = zipCode;
 	}
 
@@ -715,6 +718,20 @@ public class CustomerModifyBean {
 	 */
 	public void setUpdUser(String updUser) {
 		this.updUser = updUser;
+	}
+	
+	/**
+	 * @return the creDate
+	 */
+	public Date getCreDate() {
+		return creDate;
+	}
+
+	/**
+	 * @param creDate the creDate to set
+	 */
+	public void setCreDate(Date creDate) {
+		this.creDate = creDate;
 	}
 
 }

@@ -230,7 +230,7 @@
 									<div class="input-group-text">支払条件</div>
 								</div>
 								<select class="custom-select" name="cutoffGroup">
-									<option value="null"></option>
+									<option value=""></option>
 									<option value="1">10日締め翌月10日</option>
 									<option value="2">20日締め翌月20日</option>
 									<option value="3">25日締め翌月末</option>
