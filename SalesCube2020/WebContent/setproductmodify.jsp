@@ -1,12 +1,12 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
+<%@ page language="java" contentType="text/html;charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %> 
 <!doctype html>
-<html lang="en">
+<html>
   <head>
     <!-- Required meta tags -->
-    <meta charset="utf-8">
+    <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
     <!-- Bootstrap CSS -->
@@ -104,7 +104,7 @@
 			</div>
 			<hr>
 			<div class="panel-body">
-				<form action="" method="post">
+
 					<div class="row">
 						<div class="col-4">
 							<label class="sr-only" for="inlineFormInputGroup"></label>
@@ -125,9 +125,9 @@
 							</div>
 						</div>
 					</div>
-					
+
 					</div>
-			</form>
+			
 		</div><br></div>
 		<br>
 		<br>

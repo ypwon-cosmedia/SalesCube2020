@@ -4,6 +4,7 @@ import java.util.*;
 
 import master.customer.controller.CustomerController;
 import master.product.controller.ProductController;
+import master.product.controller.ProductSearchController;
 import master.setProduct.controller.SetProductController;
 import user.controller.UserController;
 
@@ -17,6 +18,7 @@ public class CreateControllers {
 		BaseController setProductObj = new SetProductController();
 		BaseController menuObj = new MenuController();
 		BaseController productObj = new ProductController();
+		BaseController productSearchObj = new ProductSearchController();
 		BaseController userObj = new UserController();
 
 
@@ -43,16 +45,18 @@ public class CreateControllers {
 		map.put( "menu", menuObj);
 		
 		map.put( "moveAddProduct", productObj);
-		map.put( "moveModifyProduct", productObj);
 		map.put( "productExcelInput", productObj);
 		map.put( "productExcelOutput", productObj);
 		map.put( "initProduct", productObj);
 		map.put( "quantityDiscount", productObj);
-		map.put( "searchProduct", productObj);
-		map.put( "deleteProduct", productObj);
 		map.put( "addProduct", productObj);
 		map.put( "modifyProduct", productObj);
 		map.put( "productHistoryOutput", productObj);
+		
+		map.put( "moveModifyProduct", productSearchObj);
+		map.put( "searchProduct", productSearchObj);
+		map.put( "deleteProduct", productSearchObj);
+		map.put( "getCategory", productSearchObj);
 		
 		map.put( "login", userObj);
 		map.put( "logout", userObj);

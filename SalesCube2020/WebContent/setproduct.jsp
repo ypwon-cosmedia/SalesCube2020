@@ -1,4 +1,4 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
+<%@ page language="java" contentType="text/html;charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %> 
@@ -197,15 +197,14 @@
 	</tr>
 		</thead>
 
-	<c:forEach var="product" items="${searchData}" varStatus="status">
-	    
+	<c:forEach var="product" items="${searchData}" varStatus="status">   
 	    <tr>	      
 			<th scope="row">${product.productCode}</th>
 			<td style="white-space: normal; text-align: left;">&nbsp;${product.productName}&nbsp;</td>	
 			<td style="text-align: center">
-			  <form action="/SalesCube2020/SalesCube?action=moveModifySetProduct" method="post" >
-			  	<input type="hidden" value="${product.productCode}" name="productCode">
-				<input type="hidden" value="${product.productName}" name="productName">
+			  <form action="/SalesCube2020/SalesCube?action=moveModifySetProduct" method="post" accept-charset="UTF-8">
+			  	<input type="hidden" name="productCode" value="${product.productCode}">
+				<input type="hidden" name="productName" value="${product.productName}">
 				<input type="submit" class="btn btn-outline-secondary" value="編集">
 			  </form>
 			</td>		  

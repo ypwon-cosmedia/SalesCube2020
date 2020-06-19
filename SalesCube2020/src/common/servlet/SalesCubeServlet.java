@@ -22,24 +22,26 @@ public class SalesCubeServlet extends HttpServlet {
 
 	public void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
+		request.setCharacterEncoding("utf-8");
+		
         String  forwardURL;
         System.out.println("test1");
 
-        // ƒŠƒNƒGƒXƒgƒpƒ‰ƒ[ƒ^‚Ì“Ç‚İ‚İ
+        // ï¿½ï¿½ï¿½Nï¿½Gï¿½Xï¿½gï¿½pï¿½ï¿½ï¿½ï¿½ï¿½[ï¿½^ï¿½Ì“Ç‚İï¿½ï¿½ï¿½
         String action = request.getParameter("action");
         System.out.println(action);
 
-        // ‹Æ–±‚ÌU‚è•ª‚¯
-        if  ( controllerList.containsKey(action) )  {							// action‚ÉŠY“–‚·‚é‹Æ–±ƒRƒ“ƒgƒ[ƒ‰‚ª‚ ‚éê‡
+        // ï¿½Æ–ï¿½ï¿½ÌUï¿½è•ªï¿½ï¿½
+        if  ( controllerList.containsKey(action) )  {							// actionï¿½ÉŠYï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Æ–ï¿½ï¿½Rï¿½ï¿½ï¿½gï¿½ï¿½ï¿½[ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ê‡
         	System.out.println("test2");
-        	BaseController controller = controllerList.get(action);			//   ŠY“–‚·‚é‹Æ–±ƒRƒ“ƒgƒ[ƒ‰‚ğæ“¾
-            forwardURL = controller.execService(request, response);				//   ‹Æ–±ƒRƒ“ƒgƒ[ƒ‰‚Éˆ—‚ğˆÏ÷‚µƒtƒHƒ[ƒh‚·‚éJSP‚ÌURL‚ğæ“¾‚·‚é
-            RequestDispatcher rd = request.getRequestDispatcher(forwardURL);	//   ƒfƒBƒXƒpƒbƒ`ƒƒ[‚ğæ“¾
-            rd.forward(request, response);										//   o—Íˆ—‚ğJSP‚ÉˆÏ÷iƒtƒHƒ[ƒhj
+        	BaseController controller = controllerList.get(action);			//   ï¿½Yï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Æ–ï¿½ï¿½Rï¿½ï¿½ï¿½gï¿½ï¿½ï¿½[ï¿½ï¿½ï¿½ï¿½ï¿½æ“¾
+            forwardURL = controller.execService(request, response);				//   ï¿½Æ–ï¿½ï¿½Rï¿½ï¿½ï¿½gï¿½ï¿½ï¿½[ï¿½ï¿½ï¿½Éï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ïï¿½ï¿½ï¿½ï¿½tï¿½Hï¿½ï¿½ï¿½[ï¿½hï¿½ï¿½ï¿½ï¿½JSPï¿½ï¿½URLï¿½ï¿½ï¿½æ“¾ï¿½ï¿½ï¿½ï¿½
+            RequestDispatcher rd = request.getRequestDispatcher(forwardURL);	//   ï¿½fï¿½Bï¿½Xï¿½pï¿½bï¿½`ï¿½ï¿½ï¿½[ï¿½ï¿½ï¿½æ“¾
+            rd.forward(request, response);										//   ï¿½oï¿½Íï¿½ï¿½ï¿½ï¿½ï¿½JSPï¿½ÉˆÏï¿½ï¿½iï¿½tï¿½Hï¿½ï¿½ï¿½[ï¿½hï¿½j
 
         } else {
         	System.out.println("test3");
-            RequestDispatcher rd = request.getRequestDispatcher("/login.jsp");	// actionƒpƒ‰ƒƒ^’l‚ªŒ©‚Â‚©‚ç‚È‚¢ê‡‚Í‘JˆÚƒGƒ‰[ƒy[ƒW‚ğ•\¦
+            RequestDispatcher rd = request.getRequestDispatcher("/login.jsp");	// actionï¿½pï¿½ï¿½ï¿½ï¿½ï¿½^ï¿½lï¿½ï¿½ï¿½ï¿½ï¿½Â‚ï¿½ï¿½ï¿½È‚ï¿½ï¿½ê‡ï¿½Í‘Jï¿½ÚƒGï¿½ï¿½ï¿½[ï¿½yï¿½[ï¿½Wï¿½ï¿½\ï¿½ï¿½
             rd.forward(request, response);
         }
     }
@@ -49,7 +51,7 @@ public class SalesCubeServlet extends HttpServlet {
     }
 
 	public void init() throws ServletException {
-    	// ‹Æ–±ƒRƒ“ƒgƒ[ƒ‰‚ğmap‚É“o˜^
+    	// ï¿½Æ–ï¿½ï¿½Rï¿½ï¿½ï¿½gï¿½ï¿½ï¿½[ï¿½ï¿½ï¿½ï¿½mapï¿½É“oï¿½^
 		
 		controllerList = new CreateControllers().newControllers();
     }

@@ -34,18 +34,19 @@ final public class SetProductController extends BaseController{
 	
 	private String moveModifySetProduct (HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
-		String productCode;
-		String productName;
+		String pCode;
+		String pName;
 		
-		productCode = (String) request.getAttribute("productCode");
-		productName = (String) request.getAttribute("productName");
+		pCode = (String) request.getParameter("productCode");
+		pName = (String) request.getParameter("productName");
 		
-		request.setAttribute("productCode", productCode);
-		request.setAttribute("productName", productName);
+		request.setAttribute("productCode", pCode);
+		request.setAttribute("productName", pName);
 		
-		System.out.println(productCode);
-		System.out.println(productName);
+		System.out.println(pCode);
+		System.out.println(pName);
 		
+
 		return "/setproductmodify.jsp";
 	}
 	
@@ -84,7 +85,7 @@ final public class SetProductController extends BaseController{
 		String setProductCode = null;
 		
 		setProductCode = (String) request.getAttribute("setProductCode");
-		//	for(int i = 0; èåè; i++){
+		//	for(int i = 0; ÔøΩÔøΩÔøΩÔøΩ; i++){
 		//		SetProductBean bean = new SetProductBean();
 		//		bean.setSetProductCode((String)request.getArribute(""));
 		//		bean.setProductCode((String)request.getArribute(""));

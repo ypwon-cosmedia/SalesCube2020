@@ -43,7 +43,7 @@ public class SetProductDAO extends BaseDAO {
 		return list;
 	}
 	
-	//•ÒWƒy[ƒW•\¦—piƒI[ƒo[ƒ‰ƒCƒhj
+	
 	public SetProductSearchResultBean getProductInfo (int code) throws ClassNotFoundException, MissingResourceException, SQLException {
 
 		
@@ -55,7 +55,7 @@ public class SetProductDAO extends BaseDAO {
 	 	
 	 	con = super.getConnection();	
 	 	stmt = con.createStatement();	
-	 	sql = "select PRODUCT_CODE, PRODUCT_NAME from product_mst_xxxxx where PRODUCT_CODE = " + code + ";";	//’Ç‰Á•K—v	
+	 	sql = "select PRODUCT_CODE, PRODUCT_NAME from product_mst_xxxxx where PRODUCT_CODE = " + code + ";";	
 	 	result = stmt.executeQuery(sql);	
 		
 	 	while (result.next()) {
@@ -66,7 +66,7 @@ public class SetProductDAO extends BaseDAO {
 	 	return bean;
 	}
 	
-	//ŒŸõƒy[ƒW•\¦—piƒI[ƒo[ƒ‰ƒCƒhj
+	//ï¿½ï¿½ï¿½ï¿½ï¿½yï¿½[ï¿½Wï¿½\ï¿½ï¿½ï¿½pï¿½iï¿½Iï¿½[ï¿½oï¿½[ï¿½ï¿½ï¿½Cï¿½hï¿½j
 	public List<SetProductSearchResultBean> getProductInfo (SetProductSearchBean input) throws ClassNotFoundException, MissingResourceException, SQLException {
 
 		List<SetProductSearchResultBean> list = new ArrayList<SetProductSearchResultBean>();
@@ -78,7 +78,7 @@ public class SetProductDAO extends BaseDAO {
 	 	 	
 	 	con = super.getConnection();	
 	 	stmt = con.createStatement();	
-	 	sql = "select PRODUCT_CODE, PRODUCT_NAME from product_mst_xxxxx where SET_TYPE_CATEGORY = 1;";	//’Ç‰Á•K—v	
+	 	sql = "select PRODUCT_CODE, PRODUCT_NAME from product_mst_xxxxx where SET_TYPE_CATEGORY = 1;";	//ï¿½Ç‰ï¿½ï¿½Kï¿½v	
 	 	result = stmt.executeQuery(sql);	
 		
 	 	while (result.next()) {
