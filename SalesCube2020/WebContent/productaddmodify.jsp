@@ -229,10 +229,7 @@
 								<div class="input-group-prepend">
 									<div class="input-group-text">在庫管理</div>
 								</div>
-							<select class="custom-select" name="stockCtlCategory">
-								<option selected></option>
-								<option value="0" selected="selected">しない</option>
-								<option value="1">する</option>
+							<select class="custom-select" name="stockCtlCategory" value="${product.stockCtlCategory}">
 							</select>
 							</div>
 						</div>
@@ -383,11 +380,7 @@
 									<div class="input-group-prepend">
 										<div class="input-group-text">状況</div>
 									</div>
-								<select class="custom-select" name="productStatusCategory">
-									<option selected></option>
-									<option value="1" selected="selected">販売中</option>
-									<option value="2">販売中止</option>
-									<option value="3">準備中</option>
+								<select class="custom-select" name="productStatusCategory" value="${product.productStasCategory}">
 								</select>
 								</div>
 							</div>
@@ -397,11 +390,7 @@
 									<div class="input-group-prepend">
 										<div class="input-group-text">保管</div>
 									</div>
-								<select class="custom-select" name="productStockCategory">
-									<option selected></option>
-									<option value="1" selected="selected">自社在庫品</option>
-									<option value="2">他社在庫品</option>
-									<option value="3">取り寄せ品</option>
+								<select class="custom-select" name="productStockCategory" value="${product.productStockCategory}">
 								</select>
 								</div>
 							</div>
@@ -411,10 +400,7 @@
 									<div class="input-group-prepend">
 										<div class="input-group-text">調達</div>
 									</div>
-								<select class="custom-select" name="productPurvayCategory">
-									<option selected></option>
-									<option value="1" selected="selected">国内調達</option>
-									<option value="2">海外調達</option>
+								<select class="custom-select" name="productPurvayCategory" value="${product.productPurvayCategory}">
 								</select>
 								</div>
 							</div>
@@ -426,10 +412,7 @@
 									<div class="input-group-prepend">
 										<div class="input-group-text">標準化</div>
 									</div>
-								<select class="custom-select" name="productStandardCategory">
-									<option selected></option>
-									<option value="0" selected="selected">標準品</option>
-									<option value="1">特注品</option>
+								<select class="custom-select" name="productStandardCategory" value="${product.productStandardCategory}">
 								</select>
 								</div>
 							</div>
@@ -448,10 +431,7 @@
 									<div class="input-group-prepend">
 										<div class="input-group-text">セット</div>
 									</div>
-								<select class="custom-select" name="setTypeCategory">
-									<option selected></option>
-									<option value="0" selected="selected">単品</option>
-									<option value="1">セット品</option>
+								<select class="custom-select" name="setTipeCategory" value="${product.setTypeCategory}">
 								</select>
 								</div>
 							</div>
@@ -515,27 +495,18 @@
 									<div class="input-group-prepend">
 										<div class="input-group-text">単位</div>
 									</div>
-								<select class="custom-select" name="unitCategory">
-									<option selected></option>
-									<option value="1">本</option>
-									<option value="2">個</option>
-									<option value="3" selected="selected">箱</option>
+								<select class="custom-select" name="unitCategory" value="${product.unitCategory}">
 								</select>
 								</div>
 							</div>
 							<div class="col-4">
-								<label class="sr-only" for="inlineFormInputGroup"></label>
+								<label class="sr-only" for="inlineFormInputGroup">weightUnitCategory</label>
 								<div class="input-group mb-2">
 									<div class="input-group-prepend">
 										<div class="input-group-text">重量</div>
 									</div>
 								<input type="text"  class="form-control" id="inlineFormInputGroup">
-								<select class="custom-select" name="wightCategory">
-									<option selected></option>
-									<option value="1">mg</option>
-									<option value="2">g</option>
-									<option value="3">kg</option>
-									<option value="4">t</option>
+								<select class="custom-select" name="weightUnitCategory" value="${product.weightUnitCategory}">
 								</select>
 								</div>
 							</div>
@@ -546,11 +517,7 @@
 										<div class="input-group-text">長さ</div>
 									</div>
 								<input type="text"  class="form-control" id="inlineFormInputGroup">
-								<select class="custom-select" name="lengthUnitSizeCategory">
-									<option selected></option>
-									<option value="1">mm</option>
-									<option value="2">cm</option>
-									<option value="3">m</option>
+								<select class="custom-select" name="lengthUnitSizeCategory" value="${product.lengthUnitSizeCategory}">
 								</select>
 								</div>
 							</div>
@@ -563,11 +530,7 @@
 										<div class="input-group-text">サイズ(幅)</div>
 									</div>
 								<input type="text"  class="form-control" id="inlineFormInputGroup">
-								<select class="custom-select" name="widthUnitSizeCategory">
-									<option selected></option>
-									<option value="1">mm</option>
-									<option value="2">cm</option>
-									<option value="3">m</option>
+								<select class="custom-select" name="widthUnitSizeCategory" value="${product.widthUnitSizeCategory}">
 								</select>
 								</div>
 							</div>
@@ -578,11 +541,7 @@
 										<div class="input-group-text">サイズ(奥)</div>
 									</div>
 									<input type="text"  class="form-control" id="inlineFormInputGroup">
-								<select class="custom-select" name="depthUnitSizeCategory">
-									<option selected></option>
-									<option value="1">mm</option>
-									<option value="2">cm</option>
-									<option value="3">m</option>
+								<select class="custom-select" name="depthUnitSizeCategory" value="${product.depthUnitSizeCategory}">
 								</select>
 								</div>
 							</div>
@@ -593,16 +552,11 @@
 										<div class="input-group-text">サイズ(高)</div>
 									</div>
 									<input type="text"  class="form-control" id="inlineFormInputGroup">
-								<select class="custom-select" name="heightUnitSizeCategory">
-									<option selected></option>
-									<option value="1">mm</option>
-									<option value="2">cm</option>
-									<option value="3">m</option>
+								<select class="custom-select" name="heightUnitSizeCategory" value="${product.heightUnitSizeCategory}">
 								</select>
 								</div>
 							</div>
 						</div>
-						<div class="row">
 							<div class="col-4">
 								<label class="sr-only" for="inlineFormInputGroup">coreNum</label>
 								<div class="input-group mb-2">
@@ -611,6 +565,7 @@
 									</div>
 									<input type="text"  class="form-control" id="inlineFormInputGroup" name="coreNum">
 								</div>
+								<br>
 							</div>
 						</div>	
 				</div>
