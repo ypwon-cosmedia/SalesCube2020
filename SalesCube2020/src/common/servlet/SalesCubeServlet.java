@@ -27,7 +27,6 @@ public class SalesCubeServlet extends HttpServlet {
         String  forwardURL;
         System.out.println("test1");
 
-        // ���N�G�X�g�p�����[�^�̓ǂݍ���
         String action = request.getParameter("action");
         System.out.println(action);
 

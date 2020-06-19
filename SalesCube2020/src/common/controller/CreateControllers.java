@@ -3,7 +3,12 @@ package common.controller;
 import java.util.*;
 
 import master.customer.controller.CustomerController;
+import master.product.controller.ProductAddController;
 import master.product.controller.ProductController;
+import master.product.controller.ProductDiscountController;
+import master.product.controller.ProductExcelController;
+import master.product.controller.ProductInitController;
+import master.product.controller.ProductModifyController;
 import master.product.controller.ProductSearchController;
 import master.setProduct.controller.SetProductController;
 import user.controller.UserController;
@@ -17,8 +22,12 @@ public class CreateControllers {
         BaseController customerObj    = new CustomerController();
 		BaseController setProductObj = new SetProductController();
 		BaseController menuObj = new MenuController();
-		BaseController productObj = new ProductController();
+		BaseController productModifyObj = new ProductModifyController();
 		BaseController productSearchObj = new ProductSearchController();
+		BaseController productDiscountObj = new ProductDiscountController();
+		BaseController productExcelObj = new ProductExcelController();
+		BaseController productInitObj = new ProductInitController();
+		BaseController productAddObj = new ProductAddController();
 		BaseController userObj = new UserController();
 
 
@@ -44,16 +53,21 @@ public class CreateControllers {
 		map.put( "product", menuObj);
 		map.put( "menu", menuObj);
 		
-		map.put( "moveAddProduct", productObj);
-		map.put( "productExcelInput", productObj);
-		map.put( "productExcelOutput", productObj);
-		map.put( "initProduct", productObj);
-		map.put( "quantityDiscount", productObj);
-		map.put( "addProduct", productObj);
-		map.put( "modifyProduct", productObj);
-		map.put( "productHistoryOutput", productObj);
+		map.put( "moveAddProduct", productAddObj);
+		map.put( "addProduct", productAddObj);
 		
-		map.put( "moveModifyProduct", productSearchObj);
+		map.put( "quantityDiscount", productDiscountObj);
+		
+		map.put( "initProduct", productInitObj);
+		map.put( "updateInitProduct", productInitObj);
+		
+		map.put( "modifyProduct", productModifyObj);
+		map.put( "moveModifyProduct", productModifyObj);
+		
+		map.put( "productExcelInput", productExcelObj);
+		map.put( "productExcelOutput", productExcelObj);
+		map.put( "productHistoryOutput", productExcelObj);
+		
 		map.put( "searchProduct", productSearchObj);
 		map.put( "deleteProduct", productSearchObj);
 		map.put( "getCategory", productSearchObj);

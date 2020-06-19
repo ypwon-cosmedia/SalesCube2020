@@ -30,6 +30,12 @@
 	   width: 1120px;
 	   max-width: none !important;
 	   }
+	   .sort.desc:after {
+		  content:"▼";
+		}
+		.sort.asc:after {
+		  content:"▲";
+		}
     </style>
 <title>Insert title here</title>
 </head>
@@ -186,34 +192,39 @@
     
     </div>
 <br><br>
-<div class="container" style="background-color: rgb(255, 255, 255);">
+<div class="container" style="background-color: rgb(255, 255, 255);" id="setProductList">
     <table id="order_detail_info" class="table table-bordered">
 		<thead class="thead-dark">
-    <tr>
-		<th scope="col" class="rd_top_left th_back_black" style="cursor: pointer; height: 30px;" onclick="sort('customerCode');">セット商品コード</th>
-		<th scope="col" class="th_back_black" style="cursor: pointer; height: 30px;" onclick="sort('customerName');">セット商品名</th>
-
-		<th scope="col" class="rd_top_right th_back_black" style="cursor: pointer; height: 30px;">&nbsp;</th>
-	</tr>
+    		<tr>
+				<th scope="col" class="sort rd_top_left th_back_black" style="cursor: pointer; height: 30px;" data-sort="productCode">セット商品コード</th>
+				<th scope="col" class="sort th_back_black" style="cursor: pointer; height: 30px;" data-sort="productName">セット商品名</th>
+				<th scope="col" class="rd_top_right th_back_black" style="cursor: pointer; height: 30px;">&nbsp;</th>
+			</tr>
 		</thead>
-
-	<c:forEach var="product" items="${searchData}" varStatus="status">   
-	    <tr>	      
-			<th scope="row">${product.productCode}</th>
-			<td style="white-space: normal; text-align: left;">&nbsp;${product.productName}&nbsp;</td>	
-			<td style="text-align: center">
-			  <form action="/SalesCube2020/SalesCube?action=moveModifySetProduct" method="post" accept-charset="UTF-8">
-			  	<input type="hidden" name="productCode" value="${product.productCode}">
-				<input type="hidden" name="productName" value="${product.productName}">
-				<input type="submit" class="btn btn-outline-secondary" value="編集">
-			  </form>
-			</td>		  
-	    </tr>
-	</c:forEach>
-
+		<tbody class="list">
+			<c:forEach var="product" items="${searchData}" varStatus="status">   
+			    <tr>	      
+					<th class="productCode" scope="row">${product.productCode}</th>
+					<td class="productName" style="white-space: normal; text-align: left;">&nbsp;${product.productName}&nbsp;</td>	
+					<td style="text-align: center">
+					  <form action="/SalesCube2020/SalesCube?action=moveModifySetProduct" method="post" accept-charset="UTF-8">
+					  	<input type="hidden" name="productCode" value="${product.productCode}">
+						<input type="hidden" name="productName" value="${product.productName}">
+						<input type="submit" class="btn btn-outline-secondary" value="編集">
+					  </form>
+					</td>		  
+			    </tr>
+			</c:forEach>
+		</tbody>
 	</table>
 
 </div>
-
+<script src="//cdnjs.cloudflare.com/ajax/libs/list.js/1.5.0/list.min.js"></script>
+<script>
+var options = {
+  valueNames: [ 'productCode', 'productName' ]
+};
+var setProductList = new List('setProductList', options);
+</script>
 </body>
 </html>
