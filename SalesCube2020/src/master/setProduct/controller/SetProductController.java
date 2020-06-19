@@ -62,11 +62,32 @@ final public class SetProductController extends BaseController{
 		SetProductDAO dao = new SetProductDAO();
 		SetProductSearchBean bean = new SetProductSearchBean();
 		
-		bean.setSetProductCode((String) request.getAttribute("data1"));
-		bean.setSetProductName((String) request.getAttribute("data2"));
-		bean.setProductCode((String) request.getAttribute("data3"));
-		bean.setProductName((String) request.getAttribute("data4"));
+		bean.setSetProductCode((String) request.getParameter("data1"));
+		bean.setSetProductName((String) request.getParameter("data2"));
+		bean.setProductCode((String) request.getParameter("data3"));
+		bean.setProductName((String) request.getParameter("data4"));
 		
+
+		if(bean.getSetProductCode() == "") {
+			bean.setSetProductCode(null);
+		}
+		
+		if(bean.getSetProductName() == "") {
+			bean.setSetProductName(null);
+		}
+		
+		if(bean.getProductCode() == "") {
+			bean.setProductCode(null);
+		}
+		
+		if(bean.getProductName() == "") {
+			bean.setProductName(null);
+		}
+		
+		System.out.println(bean.getSetProductCode());
+		System.out.println(bean.getSetProductName());
+		System.out.println(bean.getProductCode());
+		System.out.println(bean.getProductName());
 		
 		try {
 			list = dao.getProductInfo(bean);

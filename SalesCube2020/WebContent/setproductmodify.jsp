@@ -136,36 +136,35 @@
 				<h5><br>セット内容</h5>
 			</div>
 			<hr>
-			<table id="order_detail_info" class="table table-bordered">
-				<thead class="thead-dark">
-			<tr>
-				<th scope="col" class="rd_top_left th_back_black" style="cursor: pointer; height: 30px;" onclick="sort('customerCode');">No</th>
-				<th scope="col" class="th_back_black" style="cursor: pointer; height: 30px;" onclick="sort('customerName');">商品コード</th>
-
-				<th scope="col" class="th_back_black" style="cursor: pointer; height: 30px;" onclick="sort('customerTel');">商品名</th>
-				<th scope="col" class="th_back_black" style="cursor: pointer; height: 30px;" onclick="sort('customerPcName');">数量</th>
-				<th scope="col" class="rd_top_right th_back_black" style="cursor: pointer; height: 30px;">&nbsp;</th>
-			</tr>
-				</thead>
+				<table id="mytable" class="table table-bordered">
+					<thead class="thead-dark">
+						<tr>
+						<th scope="col" class="rd_top_left th_back_black" style="cursor: pointer; height: 30px;" onclick="sort('customerCode');">No</th>
+						<th scope="col" class="th_back_black" style="cursor: pointer; height: 30px;" onclick="sort('customerName');">商品コード</th>
 		
-			<c:forEach var="res" items="${result}" varStatus="status">   
-			<tr>
-				<td scope="row">${status.count}</td>
-				<td style="white-space: normal; text-align: left;" nowrap> 
-					<div class="input-group mb-3">
-						<input type="text" class="form-control" value="${res.productCode}">
-					  </div>
-				</td>
-
-				<td style="white-space: normal; text-align: left;"><input type="text"  class="form-control" id="inlineFormInputGroup" value="${res.productName}"></td>
-				<td style="white-space: normal; text-align: left;"><input type="text"  class="form-control" id="inlineFormInputGroup" value="${res.quantity}"></td>
-
-		
-				<td style="text-align: center">
-						<button type="button" class="btn btn-outline-secondary" onclick="editCustomer('1');">削除</button>
-				</td>
-			</tr>
-			</c:forEach>
+						<th scope="col" class="th_back_black" style="cursor: pointer; height: 30px;" onclick="sort('customerTel');">商品名</th>
+						<th scope="col" class="th_back_black" style="cursor: pointer; height: 30px;" onclick="sort('customerPcName');">数量</th>
+						<th scope="col" class="rd_top_right th_back_black" style="cursor: pointer; height: 30px;">&nbsp;</th>
+						</tr>
+					</thead>
+					<tbody>
+						<c:forEach var="res" items="${result}" varStatus="status">   
+							<tr>
+								<td scope="row">${status.count}</td>
+								<td style="white-space: normal; text-align: left;" nowrap> 
+									<div class="input-group mb-3">
+										<input type="text" class="form-control" value="${res.productCode}">
+									  </div>
+								</td>
+								<td style="white-space: normal; text-align: left;"><input type="text"  class="form-control" id="inlineFormInputGroup" value="${res.productName}"></td>
+								<td style="white-space: normal; text-align: left;"><input type="text"  class="form-control" id="inlineFormInputGroup" value="${res.quantity}"></td>
+								<td style="text-align: center">
+										<button type="button" class="btn btn-outline-secondary">削除</button>
+								</td>
+							</tr>
+						</c:forEach>
+					</tbody>
+					
 			<tr>
 				<td scope="row" colspan=4></td>
 
@@ -181,6 +180,6 @@
 			</div>
 			</form>
 		</div><br></div><br>
-		
+
 	</body>
 </html>

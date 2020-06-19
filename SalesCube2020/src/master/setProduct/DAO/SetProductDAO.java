@@ -83,9 +83,50 @@ public class SetProductDAO extends BaseDAO {
 	 	String  sql;
 	 		
 	 	con = super.getConnection();	
-	 	stmt = con.createStatement();	
-	 	sql = "select PRODUCT_CODE, PRODUCT_NAME from product_mst_xxxxx where SET_TYPE_CATEGORY = 1"
-	 		;	//�ǉ��K�v	
+	 	stmt = con.createStatement();
+	 	
+	 	if(input.getSetProductCode() == null) {
+	 		input.setSetProductCode("%");
+	 	}
+	 	
+	 	if(input.getSetProductName() == null) {
+	 		input.setSetProductName("%");
+	 	}
+	 	
+	 	if(input.getProductName() == null) {
+	 		input.setProductName("%' or b.PRODUCT_CODE IS NULL");
+	 	}
+	 	else {
+	 		input.setProductName(input.getProductName().concat("'"));
+	 	}
+	 	
+	 	if(input.getProductCode() == null) {
+	 		input.setProductCode("%' or a.PRODUCT_NAME IS NULL");
+	 	}
+	 	else {
+	 		input.setProductCode(input.getProductCode().concat("'"));
+	 	}
+	 	
+	 	
+	 	
+	 	sql = "select distinct " + 
+	 			"c.PRODUCT_CODE " + 
+	 			",c.PRODUCT_NAME " + 
+	 			"from " + 
+	 			"(select " + 
+	 			"PRODUCT_CODE " + 
+	 			",PRODUCT_NAME " + 
+	 			"from " + 
+	 			"product_mst_xxxxx pmx  where pmx.SET_TYPE_CATEGORY = 1) c " + 
+	 			"left join (select SET_PRODUCT_CODE, PRODUCT_CODE, QUANTITY from product_set_mst_xxxxx) b on c.PRODUCT_CODE = b.SET_PRODUCT_CODE " + 
+	 			"left join (select PRODUCT_NAME, PRODUCT_CODE from product_mst_xxxxx) a on a.PRODUCT_CODE = b.PRODUCT_CODE " + 
+	 			"where " + 
+	 			"c.PRODUCT_CODE LIKE '" + input.getSetProductCode() + 
+	 			"' and c.PRODUCT_NAME LIKE '" + input.getSetProductName() +
+	 			"' and (b.PRODUCT_CODE LIKE '" + input.getProductCode() +
+	 			") and (a.PRODUCT_NAME LIKE '" + input.getProductName() + ");";
+	 			
+	 				 	
 	 	result = stmt.executeQuery(sql);	
 		
 	 	while (result.next()) {

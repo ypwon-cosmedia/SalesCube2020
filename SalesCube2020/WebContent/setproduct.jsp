@@ -116,7 +116,7 @@
 								<div class="input-group-prepend">
 									<div class="input-group-text">セット商品コード</div>
 								</div>
-							<input type="text"  class="form-control" id="inlineFormInputGroup">
+							<input type="text"  class="form-control" id="inlineFormInputGroup" name="data1">
 							<!-- <input type="image" name="" src="btn_search.png" tabindex="101" onclick="" style="vertical-align: middle; cursor: pointer; width: 32px;"> -->
 							</div>
 						</div>
@@ -126,7 +126,7 @@
 								<div class="input-group-prepend">
 									<div class="input-group-text">セット商品名</div>
 								</div>
-							<input type="text"  class="form-control" id="inlineFormInputGroup">
+							<input type="text"  class="form-control" id="inlineFormInputGroup" name="data2">
 							</div>
 						</div>
 					</div>
@@ -150,7 +150,7 @@
 								<div class="input-group-prepend">
 									<div class="input-group-text">商品コード</div>
 								</div>
-							<input type="text"  class="form-control" id="inlineFormInputGroup">				<!--<input type="image" name="" src="btn_search.png" tabindex="101" onclick="" style="vertical-align: middle; cursor: pointer; width: 32px;"> -->
+							<input type="text"  class="form-control" id="inlineFormInputGroup" name="data3">				<!--<input type="image" name="" src="btn_search.png" tabindex="101" onclick="" style="vertical-align: middle; cursor: pointer; width: 32px;"> -->
 							</div>
 						</div>
 						
@@ -162,7 +162,7 @@
 							<div class="input-group-prepend">
 								<div class="input-group-text">商品名</div>
 							</div>
-						<input type="text"  class="form-control" id="inlineFormInputGroup">
+						<input type="text"  class="form-control" id="inlineFormInputGroup" name="data4">
 						</div>
 					</div>
 				</div>
