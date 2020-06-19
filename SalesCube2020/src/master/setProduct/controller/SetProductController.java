@@ -34,6 +34,18 @@ final public class SetProductController extends BaseController{
 	
 	private String moveModifySetProduct (HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
+		String productCode;
+		String productName;
+		
+		productCode = (String) request.getAttribute("productCode");
+		productName = (String) request.getAttribute("productName");
+		
+		request.setAttribute("productCode", productCode);
+		request.setAttribute("productName", productName);
+		
+		System.out.println(productCode);
+		System.out.println(productName);
+		
 		return "/setproductmodify.jsp";
 	}
 	
@@ -52,6 +64,9 @@ final public class SetProductController extends BaseController{
 		try {
 			list = dao.getProductInfo(bean);
 			request.setAttribute("searchData", list);
+			
+		
+			
 			return "/setproduct.jsp";
 			
 		} catch (ClassNotFoundException | MissingResourceException | SQLException e) {

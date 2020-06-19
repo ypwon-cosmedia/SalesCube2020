@@ -75,16 +75,16 @@ public class SetProductDAO extends BaseDAO {
 	 	Statement stmt = null;
 	 	ResultSet result = null;	
 	 	String  sql;
-	 	SetProductSearchResultBean bean = new SetProductSearchResultBean();
-	 	
+	 	 	
 	 	con = super.getConnection();	
 	 	stmt = con.createStatement();	
 	 	sql = "select PRODUCT_CODE, PRODUCT_NAME from product_mst_xxxxx where SET_TYPE_CATEGORY = 1;";	//’Ç‰Á•K—v	
 	 	result = stmt.executeQuery(sql);	
 		
 	 	while (result.next()) {
-	 		bean.setProductCode(result.getString("PRODUCT_NAME"));
-	 		bean.setProductName(result.getString("PRODUCT_CODE"));
+	 		SetProductSearchResultBean bean = new SetProductSearchResultBean();
+	 		bean.setProductName(result.getString("PRODUCT_NAME"));
+	 		bean.setProductCode(result.getString("PRODUCT_CODE"));
 	 		list.add(bean);
 	 	}
 	 	

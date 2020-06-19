@@ -1,5 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %> 
+    
 <!DOCTYPE html>
 <html>
 <head>
@@ -92,7 +95,7 @@
       </div>
       <br><br><br>
       </div>
-      <form action="" method="post">
+      <form action="/SalesCube2020/SalesCube?action=searchSetProduct" method="post">
 		<div class="container" style="background-color: white;"><div class="panel panel-default" >
 			<div class="panel-heading row mb-2 col-4">
 				<h5><br>セット商品情報</h5>
@@ -160,15 +163,16 @@
 			</div>
 				
 				<div align="right">
-					<input type="submit" value="初期化" class="btn btn-outline-secondary">
+					<input type="button" value="初期化" class="btn btn-outline-secondary">
 					<input type="submit" value="検索" class="btn btn-outline-secondary">
 				</div>
 			
 			
 		</div><br></div><br>
 		</form>
+		
 		<div class="container">
-            <div class="float-left" style="position:static; left: 0px;">検索結果件数： 3件</div>
+            <div class="float-left" style="position:static; left: 0px;">検索結果件数：${fn:length(searchData)} 件</div>
   
          	<div class="rounded float-right">
                 ページあたりの表示件数
@@ -186,44 +190,27 @@
     <table id="order_detail_info" class="table table-bordered">
 		<thead class="thead-dark">
     <tr>
-		<th scope="col" class="rd_top_left th_back_black" style="cursor: pointer; height: 30px;" onclick="sort('customerCode');">顧客コード</th>
-		<th scope="col" class="th_back_black" style="cursor: pointer; height: 30px;" onclick="sort('customerName');">顧客名</th>
+		<th scope="col" class="rd_top_left th_back_black" style="cursor: pointer; height: 30px;" onclick="sort('customerCode');">セット商品コード</th>
+		<th scope="col" class="th_back_black" style="cursor: pointer; height: 30px;" onclick="sort('customerName');">セット商品名</th>
 
 		<th scope="col" class="rd_top_right th_back_black" style="cursor: pointer; height: 30px;">&nbsp;</th>
 	</tr>
 		</thead>
 
-    <tr>
-		<th scope="row">1</th>
-		<td style="white-space: normal; text-align: left;">&nbsp;かるぴす&nbsp;</td>
-
-		<td style="text-align: center">
-			<form action="/SalesCube2020/SalesCube?action=moveModifySetProduct" method="post" >
+	<c:forEach var="product" items="${searchData}" varStatus="status">
+	    
+	    <tr>	      
+			<th scope="row">${product.productCode}</th>
+			<td style="white-space: normal; text-align: left;">&nbsp;${product.productName}&nbsp;</td>	
+			<td style="text-align: center">
+			  <form action="/SalesCube2020/SalesCube?action=moveModifySetProduct" method="post" >
+			  	<input type="hidden" value="${product.productCode}" name="productCode">
+				<input type="hidden" value="${product.productName}" name="productName">
 				<input type="submit" class="btn btn-outline-secondary" value="編集">
-			</form>	
-		</td>
-    </tr>
-    <tr>
-		<th scope="row">2</th>
-		<td style="white-space: normal; text-align: left;">&nbsp;かるぴす&nbsp;</td>
-
-		<td style="text-align: center">
-			<form action="/SalesCube2020/SalesCube?action=moveModifySetProduct" method="post" >
-				<input type="submit" class="btn btn-outline-secondary" value="編集">
-			</form>	
-		</td>
-	</tr>
-	
-	<tr>
-		<th scope="row">3</th>
-		<td style="white-space: normal; text-align: left;">&nbsp;かるぴす&nbsp;</td>
-
-		<td style="text-align: center">
-			<form action="/SalesCube2020/SalesCube?action=moveModifySetProduct" method="post" >
-				<input type="submit" class="btn btn-outline-secondary" value="編集">
-			</form>	
-		</td>
-    </tr>
+			  </form>
+			</td>		  
+	    </tr>
+	</c:forEach>
 
 	</table>
 

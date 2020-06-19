@@ -1,5 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %> 
 <!doctype html>
 <html lang="en">
   <head>
@@ -110,7 +112,7 @@
 								<div class="input-group-prepend">
 									<div class="input-group-text">セット商品コード</div>
 								</div>
-							<input type="text"  class="form-control" id="inlineFormInputGroup" readonly>
+							<input type="text"  class="form-control" id="inlineFormInputGroup" value="${productCode}" readonly>
 							</div>
 						</div>
 						<div class="col-8">
@@ -119,7 +121,7 @@
 								<div class="input-group-prepend">
 									<div class="input-group-text">セット商品名</div>
 								</div>
-							<input type="text"  class="form-control" id="inlineFormInputGroup" readonly>
+							<input type="text"  class="form-control" id="inlineFormInputGroup" value="${productName}" readonly>
 							</div>
 						</div>
 					</div>
