@@ -84,7 +84,7 @@
 		  <div class="btn-group mr-2 " role="group" aria-label="First group">
           <button type="button" class="btn btn-secondary" style="font-size: 12px;" onclick="initForm()" >F1<br>初期化</button>
 			<button type="button" class="btn btn-secondary" style="font-size: 12px;" onclick="backForm()">F2<br>戻る</button>
-			<button type="button" class="btn btn-secondary" style="font-size: 12px;" onclick="registrationForm()" >F3<br>${status eq 'add' ? "登録" : "更新"}</button>
+			<button type="button" class="btn btn-secondary" style="font-size: 12px;" onclick="registrationEditForm()" >F3<br>${status eq 'add' ? "登録" : "更新"}</button>
 			<form action="/SalesCube2020/SalesCube? action=deleteProduct"> 
 				<input type="hidden" name="productCode" value="${product.productCode}">
 				<button type="button" class="btn btn-secondary" style="font-size: 12px;" onclick= "deleteForm()" ${status eq 'add' ? "disabled" :''}>F4 <br>削除</button>
@@ -118,7 +118,7 @@
 								<div class="input-group-prepend">
 									<div class="input-group-text" style = "background-color: pink;">商品コード※</div>
 								</div>
-							<input type="text"  class="form-control" id="inlineFormInputGroup" name="productCode" oncange="checkProductCode(this)">
+							<input type="text"  class="form-control" id="inlineFormInputGroup" name="productCode" value="${product.productCode}">
 				
 							</div>
 						</div>
@@ -128,7 +128,7 @@
 								<div class="input-group-prepend">
 									<div class="input-group-text" style = "background-color: pink;">商品名※</div>
 								</div>
-							<input type="text"  class="form-control" id="inlineFormInputGroup" name="productName">
+							<input type="text"  class="form-control" id="inlineFormInputGroup" name="productName" value="${product.productName}">
 							</div>
 						</div>
 						<div class="col-4">
@@ -137,7 +137,7 @@
 								<div class="input-group-prepend">
 									<div class="input-group-text">商品カナ</div>
 								</div>
-							<input type="text"  class="form-control" id="inlineFormInputGroup" name="productKana">
+							<input type="text"  class="form-control" id="inlineFormInputGroup" name="productKana" value="${product.productKana}">
 							</div>
 						</div>
 					</div>
@@ -148,7 +148,7 @@
 								<div class="input-group-prepend">
 									<div class="input-group-text">オンライン品番</div>
 								</div>
-							<input type="text"  class="form-control" id="inlineFormInputGroup" name="productPcode">
+							<input type="text"  class="form-control" id="inlineFormInputGroup" name="productPcode" value="${product.productPcode}">
 							</div>
 						</div>
 
@@ -158,7 +158,7 @@
 								<div class="input-group-prepend">
 									<div class="input-group-text">JANコード</div>
 								</div>
-							<input type="text"  class="form-control" id="inlineFormInputGroup" name="janPcode">
+							<input type="text"  class="form-control" id="inlineFormInputGroup" name="janPcode" value="${product.janPcode}">
 							</div>
 						</div>
 						<div class="col-4">
@@ -167,7 +167,7 @@
 								<div class="input-group-prepend">
 									<div class="input-group-text">廃番予定日</div>
 								</div>
-							<input type="date">
+							<input type="date" name="discardDate" value="${product.janPcode}">
 							</div>
 						</div>
 					</div>
@@ -179,7 +179,7 @@
 								<div class="input-group-prepend">
 									<div class="input-group-text">仕入先コード</div>
 								</div>
-							<input type="text"  class="form-control" id="inlineFormInputGroup" name="supplierCode">
+							<input type="text"  class="form-control" id="inlineFormInputGroup" name="supplierCode" value="${product.supplierCode}">
 							
 							</div>
 						</div>
@@ -189,7 +189,7 @@
 								<div class="input-group-prepend">
 									<div class="input-group-text">仕入先名</div>
 								</div>
-							<input type="text"  class="form-control" id="inlineFormInputGroup" name="supplierName">
+							<input type="text"  class="form-control" id="inlineFormInputGroup" name="supplierName" value="${product.supplierName}">
 							</div>
 						</div>
 						<div class="col-4">
@@ -198,7 +198,7 @@
 								<div class="input-group-prepend">
 									<div class="input-group-text">仕入先品番</div>
 								</div>
-							<input type="text"  class="form-control" id="inlineFormInputGroup" name="supplierPcode">
+							<input type="text"  class="form-control" id="inlineFormInputGroup" name="supplierPcode" value="${product.supplierPcode}">
 							</div>
 						</div>
 					</div>
@@ -209,7 +209,7 @@
 								<div class="input-group-prepend">
 									<div class="input-group-text" style = "background-color: pink;">仕入れ単価(円)※</div>
 								</div>
-							<input type="text"  class="form-control" id="inlineFormInputGroup" name="supplierPriceYen">
+							<input type="text"  class="form-control" id="inlineFormInputGroup" name="supplierPriceYen" value="${product.supplierPriceYen}">
 							</div>
 						</div>
 						<div class="col-4">
@@ -218,7 +218,7 @@
 								<div class="input-group-prepend">
 									<div class="input-group-text">仕入単価(外貨)</div>
 								</div>
-							<input type="text"  class="form-control" id="inlineFormInputGroup" name="supplierPriceDol">
+							<input type="text"  class="form-control" id="inlineFormInputGroup" name="supplierPriceDol" value="${product.supplierPriceDol}">
 							</div>
 						</div>
 					</div>
@@ -239,7 +239,7 @@
 								<div class="input-group-prepend">
 									<div class="input-group-text">入数</div>
 								</div>
-							<input type="text"  class="form-control" id="inlineFormInputGroup" name="packQuantity">
+							<input type="text"  class="form-control" id="inlineFormInputGroup" name="packQuantity" value="${product.packQuantity}">
 							</div>
 						</div>
 					</div>
@@ -250,7 +250,7 @@
 								<div class="input-group-prepend">
 									<div class="input-group-text">月平均出荷数</div>
 								</div>
-							<input type="text"  class="form-control" id="inlineFormInputGroup" name="avgShipCount" >
+							<input type="text"  class="form-control" id="inlineFormInputGroup" name="avgShipCount"  value="${product.avgShipCount}">
 							</div>
 						</div>
 						<div class="col-4">
@@ -259,7 +259,7 @@
 								<div class="input-group-prepend">
 									<div class="input-group-text">倉庫名</div>
 								</div>
-							<input type="text"  class="form-control" id="inlineFormInputGroup" name="warehouseName">
+							<input type="text"  class="form-control" id="inlineFormInputGroup" name="warehouseName" value="${product.warehouseName}">
 							</div>
 						</div>
 						<div class="col-4">
@@ -268,7 +268,7 @@
 								<div class="input-group-prepend">
 									<div class="input-group-text">棚番</div>
 								</div>
-							<input type="text"  class="form-control" id="inlineFormInputGroup" name="rackName">
+							<input type="text"  class="form-control" id="inlineFormInputGroup" name="rackName" value="${product.rackName}">
 							
 							</div>
 						</div>
@@ -280,7 +280,7 @@
 								<div class="input-group-prepend">
 									<div class="input-group-text">リードタイム</div>
 								</div>
-							<input type="text"  class="form-control" id="inlineFormInputGroup" name="leadTime">日
+							<input type="text"  class="form-control" id="inlineFormInputGroup" name="leadTime" value="${product.leadTime}">日
 							</div>
 						</div>
 						<div class="col-4">
@@ -289,7 +289,7 @@
 								<div class="input-group-prepend">
 									<div class="input-group-text">発注点</div>
 								</div>
-							<input type="text"  class="form-control" id="inlineFormInputGroup" name="poNum">
+							<input type="text"  class="form-control" id="inlineFormInputGroup" name="poNum" value="${product.poNum}">
 							</div>
 						</div>
 						<div class="col-4">
@@ -298,7 +298,7 @@
 								<div class="input-group-prepend">
 									<div class="input-group-text">安全在庫数</div>
 								</div>
-							<input type="text"  class="form-control" id="inlineFormInputGroup" name="mineSafety">
+							<input type="text"  class="form-control" id="inlineFormInputGroup" name="mineSafetyStock" value="${product.mineSafetyStock}">
 							</div>
 						</div>
 					</div>
@@ -309,7 +309,7 @@
 								<div class="input-group-prepend">
 									<div class="input-group-text">発注ロット</div>
 								</div>
-							<input type="text"  class="form-control" id="inlineFormInputGroup" name="poLot">
+							<input type="text"  class="form-control" id="inlineFormInputGroup" name="poLot" value="${product.poLot}">
 							</div>
 						</div>
 						<div class="col-4">
@@ -318,7 +318,7 @@
 								<div class="input-group-prepend">
 									<div class="input-group-text">最大保有数</div>
 								</div>
-							<input type="text"  class="form-control" id="inlineFormInputGroup" name="maxStockNum">
+							<input type="text"  class="form-control" id="inlineFormInputGroup" name="maxStockNum" value="${product.maxStockNum}">
 							</div>
 						</div>
 						<div class="col-4">
@@ -327,7 +327,7 @@
 								<div class="input-group-prepend">
 									<div class="input-group-text">単位発注限度数</div>
 								</div>
-							<input type="text"  class="form-control" id="inlineFormInputGroup" name="maxPoNum">
+							<input type="text"  class="form-control" id="inlineFormInputGroup" name="maxPoNum" value="${product.maxPoNum}">
 							</div>
 						</div>
 					</div>
@@ -338,7 +338,7 @@
 								<div class="input-group-prepend">
 									<div class="input-group-text">受注限度数</div>
 								</div>
-							<input type="text"  class="form-control" id="inlineFormInputGroup" name="roMaxNum">
+							<input type="text"  class="form-control" id="inlineFormInputGroup" name="roMaxNum" value="${product.roMaxNum}">
 							</div>
 						</div>
 						<div class="col-4">
@@ -347,7 +347,7 @@
 								<div class="input-group-prepend">
 									<div class="input-group-text">売単価</div>
 								</div>
-							<input type="text"  class="form-control" id="inlineFormInputGroup" name="salesPrice">
+							<input type="text"  class="form-control" id="inlineFormInputGroup" name="salesPrice" value="${product.salesPrice}">
 							</div>
 						</div>
 						<div class="col-4">
@@ -356,7 +356,7 @@
 								<div class="input-group-prepend">
 									<div class="input-group-text">数量割引</div>
 								</div>
-							<input type="text"  class="form-control" id="inlineFormInputGroup">
+							<input type="text"  class="form-control" id="inlineFormInputGroup" name="quantityDiscount" value="${product.quantityDiscount}">
 							<input type="image" name="" src="btn_search.png" tabindex="101" onclick="" style="vertical-align: middle; cursor: pointer; width: 32px;">
 							</div>
 						</div>
@@ -422,7 +422,7 @@
 									<div class="input-group-prepend">
 										<div class="input-group-text">特注計算掛率</div>
 									</div>
-								<input type="text"  class="form-control" id="inlineFormInputGroup" name="soRate">
+								<input type="text"  class="form-control" id="inlineFormInputGroup" name="soRate" value="${product.soRate}">
 								</div>
 							</div>
 							<div class="col-4">
@@ -563,7 +563,7 @@
 									<div class="input-group-prepend">
 										<div class="input-group-text">芯数</div>
 									</div>
-									<input type="text"  class="form-control" id="inlineFormInputGroup" name="coreNum">
+									<input type="text"  class="form-control" id="inlineFormInputGroup" name="coreNum" value="${product.coreNum}">
 								</div>
 								<br>
 							</div>
@@ -609,8 +609,8 @@
 			<br><br>
 			<div align="right">
 				<input type="submit"  value="初期化" class="btn btn-outline-secondary" onclick="initForm()" >&emsp;
-				<input type="submit" value="登録" class="btn btn-outline-secondary" onclick="registrationForm()">&emsp;
-				<input type="submit" value="削除" class="btn btn-outline-secondary" onclick= "deleteForm()">&emsp;
+				<input type="submit" value="${status eq 'add' ? "登録" : "更新"}" class="btn btn-outline-secondary" onclick="registrationEditForm()">&emsp;
+				<input type="submit" value="削除" class="btn btn-outline-secondary" onclick= "deleteForm()" ${status eq 'add' ? "disabled" :''}>&emsp;
 			</div>
 			<br> 
 			
@@ -629,7 +629,7 @@
     			window.location.href = '/SalesCube2020/productsearch.jsp';
     		}
     		
-    		function registrationForm() {
+    		function registrationEditForm() {
     			if(!confirm("入力内容を登録します。よろしいですか？")) {
     				return;
     			}
