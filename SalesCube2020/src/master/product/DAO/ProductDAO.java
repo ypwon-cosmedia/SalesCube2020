@@ -16,19 +16,19 @@ import master.product.beans.ProductCategoryBean;
 public class ProductDAO extends BaseDAO {
 
 	public List<ProductCategoryBean> getCategory() throws SQLException, ClassNotFoundException{
-	 	
+
 		List<ProductCategoryBean> list = new ArrayList<ProductCategoryBean>();
-		
+
 		Connection con;
 	 	Statement stmt = null;
 	 	ResultSet result = null;	
 	 	String  sql;
-	 	
+
 	 	con = super.getConnection();	
 	 	stmt = con.createStatement();	
 	 	sql = "select CLASS_CODE_1, CLASS_CODE_2, CLASS_CODE_3, CLASS_NAME from product_class_mst_xxxxx";	
 	 	result = stmt.executeQuery(sql);	
-		
+
 	 	while (result.next()) {
 	 		//1レコードずつItemBeanセットする
 	 		ProductCategoryBean bean = new ProductCategoryBean();
@@ -41,7 +41,20 @@ public class ProductDAO extends BaseDAO {
 
 		return list;
 	}
-	
-	
-	
+
+	public List<> searchProduct() throws SQLException, ClassNotFoundException{
+
+		List<> list = new ArrayList<>();
+
+		Connection con;
+	 	Statement stmt = null;
+	 	ResultSet result = null;	
+	 	String  sql;
+
+	 	con = super.getConnection();	
+	 	stmt = con.createStatement();	
+	 	sql = "select CLASS_CODE_1, CLASS_CODE_2, CLASS_CODE_3, CLASS_NAME from product_class_mst_xxxxx";	
+	 	result = stmt.executeQuery(sql);
+
+
 }

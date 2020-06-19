@@ -17,9 +17,9 @@ import java.lang.*;
 import user.DAO.*;
 import user.beans.*;
 
-public class ProductSearchController extends BaseController{
+public class GetCategoryController extends BaseController {
 	
-	public ProductSearchController() {
+	public GetCategoryController() {
 		
 	}
 	
@@ -28,13 +28,13 @@ public class ProductSearchController extends BaseController{
 		String forwardURL = "/menu.jsp";
 		String action = request.getParameter("action");
 
-		if(action.equals("searchProduct")) forwardURL = searchProduct(request, response);
-		else if(action.equals("moveModifyProduct")) forwardURL = moveModifyProduct(request, response);
+		if(action.equals("getCategory")) forwardURL = getCategory(request, response);
 		
 		return forwardURL;
 	}
+
 	
-	private String searchProduct(HttpServletRequest request, HttpServletResponse response)  throws ServletException, IOException{
+	private String getCategory(HttpServletRequest request, HttpServletResponse response)  throws ServletException, IOException {
 		// TODO Auto-generated method stub
 		List<ProductCategoryBean> list = new ArrayList<>();
 		
@@ -52,16 +52,4 @@ public class ProductSearchController extends BaseController{
 		return "/productsearch.jsp";
 	}
 
-	private String moveModifyProduct(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
-		String productCode;
-		
-		productCode = (String) request.getParameter("productCode");
-		
-		request.setAttribute("productCode", productCode);
-		
-		//System.out.println(productCode);
-		
-		return "/productaddmodify.jsp";
-	}
 }

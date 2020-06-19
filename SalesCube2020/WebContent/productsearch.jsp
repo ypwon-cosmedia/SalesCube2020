@@ -308,7 +308,7 @@
 
 		<!--商品検索結果テーブル-->
 		<br><br>
-		<div class="container" style="background-color: rgb(255, 255, 255);">
+		<div class="container" style="background-color: rgb(255, 255, 255);"　id="prosort">
 			<table id="order_detail_info" class="table table-bordered">
 				<thead class="thead-dark">
 					<tr>
@@ -320,6 +320,7 @@
 						<th scope="col" class="rd_top_right th_back_black" style="cursor: pointer; height: 30px;">&nbsp;</th>
 					</tr>
 				</thead>
+				<tbody class="list">
 				<%-- <c:forEach items="${search.prosearch}" var="prdct">--%>
 					<tr>
 						<td style="white-space: normal; text-align: left;">${prdct.productCode}</td>
@@ -341,6 +342,7 @@
 						</td>
 					</tr>
 				<%-- </c:forEach>--%>
+				</tbody>
 			</table>
 		</div>
 	
@@ -356,6 +358,12 @@
     		document.main.reset();
 		}
 
+		var options = {
+			 valueNames: [ 'productCode', 'productName' , 'supplierName' , 'product1' ]
+		};
+		var prosortList = new List('prosortList', options);
+
+		
 	</script>
 	
 </html>
