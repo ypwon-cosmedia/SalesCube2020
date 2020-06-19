@@ -61,7 +61,7 @@ public class UserDAO extends BaseDAO {
 			
 			con=super.getConnection();
 			stmt=con.createStatement();
-			sql = "select * from user_mst_xxxxx where user_id = '"+ id;
+			sql = "select * from user_mst_xxxxx where user_id = '"+ id + "'";
 			
 			rs = stmt.executeQuery(sql);
 
@@ -69,9 +69,9 @@ public class UserDAO extends BaseDAO {
 				return null;
 			else{
 				while(rs.next()){
-					userInfo=new UserInfoBean();
+					userInfo = new UserInfoBean();
 					userInfo.setUserID(rs.getString("user_id"));
-					userInfo.setNameKNJ(rs.getString("NameKNJ"));
+					userInfo.setNameKNJ(rs.getString("name_knj"));
 				}
 			}
 			return userInfo;
