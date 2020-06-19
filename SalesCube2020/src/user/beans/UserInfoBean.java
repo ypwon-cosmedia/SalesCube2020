@@ -1,6 +1,6 @@
 package user.beans;
 
-public class UserInfo {
+public class UserInfoBean {
 	/**ID: ID‚ğ•Û‚·‚é*/
 	private String userID;
 	/**nameKNJ: Š¿š–¼‚ğ•Û‚·‚é*/
