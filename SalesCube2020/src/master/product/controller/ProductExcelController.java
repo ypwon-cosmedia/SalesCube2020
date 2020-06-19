@@ -39,7 +39,7 @@ public class ProductExcelController extends BaseController{
 		
 		ProductDAO dao = new ProductDAO();
 		
-		list = dao.getCategory();
+		//list = dao.getCategory();
 		
 		request.setAttribute("category", list);
 		
@@ -52,7 +52,7 @@ public class ProductExcelController extends BaseController{
 		
 		ProductDAO dao = new ProductDAO();
 		
-		list = dao.getCategory();
+		//list = dao.getCategory();
 		
 		request.setAttribute("category", list);
 		
