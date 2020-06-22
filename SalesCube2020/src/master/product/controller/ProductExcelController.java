@@ -6,6 +6,7 @@ import javax.servlet.http.*;
 
 import common.controller.BaseController;
 import master.product.DAO.ProductDAO;
+import master.product.DAO.ProductSearchDAO;
 import master.product.beans.ProductModifyBean;
 import master.product.beans.ProductSearchBean;
 
@@ -44,6 +45,17 @@ public class ProductExcelController extends BaseController{
 	private String productExcelOutput(HttpServletRequest request, HttpServletResponse response) {
 		// TODO Auto-generated method stub
 		List<ProductModifyBean> list = new ArrayList<>();
+		
+		
+		//DAOを呼び出す
+		ProductSearchDAO psd = new ProductSearchDAO();
+		//検索条件の取得
+		ProductSearchBean bean = new ProductSearchBean();
+		request.setCharacterEncoding(utf-8);
+		bean.setProductCode( request.getParameter() );
+		
+		list = searchAllProduct( bean );
+		
 		
 		try {
 			
@@ -195,13 +207,8 @@ public class ProductExcelController extends BaseController{
 			p.println();
 
 			///ボディ部
-			
-			//DAOを呼び出す
-			ProductSearchBean bean = new ProductSearchBean();
-			
-			list = new SearchAllProduct( bean );
-			
-			for(int i = 0; i < list.length; i++) {
+
+			for(int i = 0; i < list.size(); i++) {
 				
 				p.print( list.get(i).getProductCode() );
 				p.print(",");

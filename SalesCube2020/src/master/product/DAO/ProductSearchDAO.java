@@ -28,11 +28,34 @@ public class ProductSearchDAO extends BaseDAO{
 	 	String  sql;
 
 	 	con = super.getConnection();	
-	 	sql = "SELECT pmx.PRODUCT_CODE, pmx.PRODUCT_NAME, A.SUPPLIER_NAME, B.CLASS_NAME, pmx.REMARKS FROM product_mst_xxxxx pmx"
-	 			+ "LEFT OUTER JOIN (SELECT SUPPLIER_CODE ,SUPPLIER_NAME FROM supplier_mst_xxxxx AS smx) A on pmx.SUPPLIER_CODE = A.SUPPLIER_CODE"
-	 			+ "LEFT OUTER JOIN (SELECT pcm.CLASS_CODE_1, pcm.CLASS_CODE_2, pcm.CLASS_NAME FROM product_class_mst_xxxxx pcm, product_mst_xxxxx pmx) B ON pmx.PRODUCT_1 = B.CLASS_CODE_1 AND CLASS_CODE_2 ='' "
-	 			+ "WHERE pmx.PRODUCT_CODE LIKE '%' AND pmx.PRODUCT_NAME LIKE '%' AND pmx.PRODUCT_KANA LIKE '%' AND pmx.SUPPLIER_CODE LIKE '%' AND A.SUPPLIER_NAME LIKE '%' AND pmx.PRODUCT_STANDARD_CATEGORY LIKE '%' AND pmx.PRODUCT_STATUS_CATEGORY LIKE '%' AND pmx.PRODUCT_STOCK_CATEGORY LIKE '%' AND pmx.SET_TYPE_CATEGORY LIKE '%' AND pmx.REMARKS LIKE '%' AND pmx.PRODUCT_1 LIKE '%' AND pmx.PRODUCT_2 LIKE '%' AND pmx.PRODUCT_3 LIKE '%'"
-	 			+ "GROUP BY pmx.PRODUCT_CODE ORDER BY pmx.PRODUCT_CODE";
+	 	sql = "SELECT"
+	 			+"pmx.PRODUCT_CODE,"
+	 			+"pmx.PRODUCT_NAME,"
+	 			+"A.SUPPLIER_NAME,"
+	 			+"B.CLASS_NAME,"
+	 			+"pmx.REMARKS"
+	 		  +"FROM"
+	 			+"product_mst_xxxxx pmx"
+	 			+"LEFT OUTER JOIN (SELECT SUPPLIER_CODE ,SUPPLIER_NAME FROM supplier_mst_xxxxx AS smx) A on pmx.SUPPLIER_CODE = A.SUPPLIER_CODE"
+	 			+"LEFT OUTER JOIN (SELECT pcm.CLASS_CODE_1, pcm.CLASS_CODE_2, pcm.CLASS_NAME FROM product_class_mst_xxxxx pcm, product_mst_xxxxx pmx) B ON pmx.PRODUCT_1 = B.CLASS_CODE_1 AND CLASS_CODE_2 ='' "
+	 		  +"WHERE"
+	 			+"pmx.PRODUCT_CODE LIKE '%'"
+	 		  +"AND 	pmx.PRODUCT_NAME LIKE '%'"
+	 		  +"AND 	(pmx.PRODUCT_KANA LIKE '%' OR pmx.PRODUCT_KANA IS NULL)"
+	 		  +"AND 	(pmx.SUPPLIER_CODE LIKE '%' OR pmx.SUPPLIER_CODE IS NULL)"
+	 		  +"AND 	(A.SUPPLIER_NAME LIKE '%' OR A.SUPPLIER_NAME IS NULL)"
+	 		  +"AND 	(pmx.PRODUCT_STANDARD_CATEGORY LIKE '%' OR pmx.PRODUCT_STANDARD_CATEGORY IS NULL)"
+	 		  +"AND 	(pmx.PRODUCT_STATUS_CATEGORY LIKE '%' OR pmx.PRODUCT_STATUS_CATEGORY IS NULL)"
+	 		  +"AND 	(pmx.PRODUCT_STOCK_CATEGORY LIKE '%' OR pmx.PRODUCT_STOCK_CATEGORY IS NULL)"
+	 		  +"AND 	(pmx.SET_TYPE_CATEGORY LIKE '%' OR pmx.SET_TYPE_CATEGORY IS NULL)"
+	 		  +"AND 	(pmx.REMARKS LIKE '%' OR pmx.REMARKS IS NULL)"
+	 		  +"AND 	(pmx.PRODUCT_1 LIKE '%' OR pmx.PRODUCT_1 IS NULL)"
+	 		  +"AND 	(pmx.PRODUCT_2 LIKE '%' OR pmx.PRODUCT_2 IS NULL)"
+	 		  +"AND 	(pmx.PRODUCT_3 LIKE '%' OR pmx.PRODUCT_3 IS NULL)"
+	 		  +"GROUP BY"
+	 			+"pmx.PRODUCT_CODE"
+	 		  +"ORDER BY"
+	 			+"pmx.PRODUCT_CODE";
 	 	
 	 	stmt = con.prepareStatement(sql);
 	 	
@@ -78,11 +101,30 @@ public class ProductSearchDAO extends BaseDAO{
 	 	String  sql;
 
 	 	con = super.getConnection();	
-	 	sql = "SELECT * FROM product_mst_xxxxx pmx"
-	 			+ "LEFT OUTER JOIN (SELECT SUPPLIER_CODE ,SUPPLIER_NAME FROM supplier_mst_xxxxx AS smx) A on pmx.SUPPLIER_CODE = A.SUPPLIER_CODE"
-	 			+ "LEFT OUTER JOIN (SELECT pcm.CLASS_CODE_1, pcm.CLASS_CODE_2, pcm.CLASS_NAME FROM product_class_mst_xxxxx pcm, product_mst_xxxxx pmx) B ON pmx.PRODUCT_1 = B.CLASS_CODE_1 AND CLASS_CODE_2 ='' "
-	 			+ "WHERE pmx.PRODUCT_CODE LIKE '%' AND pmx.PRODUCT_NAME LIKE '%' AND pmx.PRODUCT_KANA LIKE '%' AND pmx.SUPPLIER_CODE LIKE '%' AND A.SUPPLIER_NAME LIKE '%' AND pmx.PRODUCT_STANDARD_CATEGORY LIKE '%' AND pmx.PRODUCT_STATUS_CATEGORY LIKE '%' AND pmx.PRODUCT_STOCK_CATEGORY LIKE '%' AND pmx.SET_TYPE_CATEGORY LIKE '%' AND pmx.REMARKS LIKE '%' AND pmx.PRODUCT_1 LIKE '%' AND pmx.PRODUCT_2 LIKE '%' AND pmx.PRODUCT_3 LIKE '%'"
-	 			+ "GROUP BY pmx.PRODUCT_CODE ORDER BY pmx.PRODUCT_CODE";
+	 	sql = "SELECT"
+	 			+"*"
+	 		  +"FROM"
+	 			+"product_mst_xxxxx pmx"
+	 			+"LEFT OUTER JOIN (SELECT SUPPLIER_CODE ,SUPPLIER_NAME FROM supplier_mst_xxxxx AS smx) A on pmx.SUPPLIER_CODE = A.SUPPLIER_CODE"
+	 			+"LEFT OUTER JOIN (SELECT pcm.CLASS_CODE_1, pcm.CLASS_CODE_2, pcm.CLASS_NAME FROM product_class_mst_xxxxx pcm, product_mst_xxxxx pmx) B ON pmx.PRODUCT_1 = B.CLASS_CODE_1 AND CLASS_CODE_2 ='' "
+	 		  +"WHERE"
+	 			+"pmx.PRODUCT_CODE LIKE '%'"
+	 		  +"AND 	pmx.PRODUCT_NAME LIKE '%'"
+	 		  +"AND 	(pmx.PRODUCT_KANA LIKE '%' OR pmx.PRODUCT_KANA IS NULL)"
+	 		  +"AND 	(pmx.SUPPLIER_CODE LIKE '%' OR pmx.SUPPLIER_CODE IS NULL)"
+	 		  +"AND 	(A.SUPPLIER_NAME LIKE '%' OR A.SUPPLIER_NAME IS NULL)"
+	 		  +"AND 	(pmx.PRODUCT_STANDARD_CATEGORY LIKE '%' OR pmx.PRODUCT_STANDARD_CATEGORY IS NULL)"
+	 		  +"AND 	(pmx.PRODUCT_STATUS_CATEGORY LIKE '%' OR pmx.PRODUCT_STATUS_CATEGORY IS NULL)"
+	 		  +"AND 	(pmx.PRODUCT_STOCK_CATEGORY LIKE '%' OR pmx.PRODUCT_STOCK_CATEGORY IS NULL)"
+	 		  +"AND 	(pmx.SET_TYPE_CATEGORY LIKE '%' OR pmx.SET_TYPE_CATEGORY IS NULL)"
+	 		  +"AND 	(pmx.REMARKS LIKE '%' OR pmx.REMARKS IS NULL)"
+	 		  +"AND 	(pmx.PRODUCT_1 LIKE '%' OR pmx.PRODUCT_1 IS NULL)"
+	 		  +"AND 	(pmx.PRODUCT_2 LIKE '%' OR pmx.PRODUCT_2 IS NULL)"
+	 		  +"AND 	(pmx.PRODUCT_3 LIKE '%' OR pmx.PRODUCT_3 IS NULL)"
+	 		  +"GROUP BY"
+	 			+"pmx.PRODUCT_CODE"
+	 		  +"ORDER BY"
+	 			+"pmx.PRODUCT_CODE";
 	 	
 	 	stmt = con.prepareStatement(sql);
 	 	
