@@ -12,7 +12,7 @@ import java.util.List;
 import common.dao.BaseDAO;
 import master.product.beans.ProductBigCategoryBean;
 import master.product.beans.ProductMiddleCategoryBean;
-import master.product.beans.ProductSmailCategoryBean;
+import master.product.beans.ProductSmallCategoryBean;
 
 public class GetCategoryDAO extends BaseDAO {
 
@@ -41,7 +41,7 @@ public class GetCategoryDAO extends BaseDAO {
 		return list;
 	}
 	
-	public List<ProductMiddleCategoryBean> getMiddleCategory(String bigCode) throws SQLException, ClassNotFoundException{
+	public List<ProductMiddleCategoryBean> getMiddleCategory(String product1) throws SQLException, ClassNotFoundException{
 
 		List<ProductMiddleCategoryBean> list = new ArrayList<ProductMiddleCategoryBean>();
 
@@ -52,7 +52,7 @@ public class GetCategoryDAO extends BaseDAO {
 
 	 	con = super.getConnection();	
 	 	stmt = con.createStatement();	
-	 	sql = "select CLASS_CODE_2, CLASS_NAME from product_class_mst_xxxxx where CLASS_CODE_1 = " + bigCode + " AND CLASS_CODE_2 != '' AND CLASS_CODE_3 = '';";	
+	 	sql = "select CLASS_CODE_2, CLASS_NAME from product_class_mst_xxxxx where CLASS_CODE_1 = " + product1 + " AND CLASS_CODE_2 != '' AND CLASS_CODE_3 = '';";	
 	 	result = stmt.executeQuery(sql);	
 
 	 	while (result.next()) {
@@ -65,9 +65,9 @@ public class GetCategoryDAO extends BaseDAO {
 		return list;
 	}
 	
-	public List<ProductSmailCategoryBean> getSmailCategory(String bigCode, String smailCode) throws SQLException, ClassNotFoundException{
+	public List<ProductSmallCategoryBean> getSmailCategory(String product1, String product2) throws SQLException, ClassNotFoundException{
 
-		List<ProductSmailCategoryBean> list = new ArrayList<ProductSmailCategoryBean>();
+		List<ProductSmallCategoryBean> list = new ArrayList<ProductSmallCategoryBean>();
 
 		Connection con;
 	 	Statement stmt = null;
@@ -76,11 +76,11 @@ public class GetCategoryDAO extends BaseDAO {
 
 	 	con = super.getConnection();	
 	 	stmt = con.createStatement();	
-	 	sql = "select CLASS_CODE_3, CLASS_NAME from product_class_mst_xxxxx where CLASS_CODE_1 = " + bigCode + " AND CLASS_CODE_2 = " + smailCode + " AND CLASS_CODE_3 != '';";	
+	 	sql = "select CLASS_CODE_3, CLASS_NAME from product_class_mst_xxxxx where CLASS_CODE_1 = " + product1 + " AND CLASS_CODE_2 = " + product2 + " AND CLASS_CODE_3 != '';";	
 	 	result = stmt.executeQuery(sql);	
 
 	 	while (result.next()) {
-	 		ProductSmailCategoryBean bean = new ProductSmailCategoryBean();
+	 		ProductSmallCategoryBean bean = new ProductSmallCategoryBean();
 	 		bean.setProduct3(result.getString("CLASS_CODE_3"));
 	 		bean.setProductName(result.getString("CLASS_NAME"));
 	 		list.add(bean);

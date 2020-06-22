@@ -254,7 +254,7 @@
 								</div>
 								<select class="custom-select" name="product2" id="pro1" onClick="selectPro1();">
 									<option selected></option>
-									<c:forEach var="cat" items="${category}">
+									<c:forEach var="cat" items="${category2}">
 										<option value="${cat.product2}">${cat.productName}</option>
 									</c:forEach>
 								</select>
@@ -270,7 +270,7 @@
 								</div>
 								<select class="custom-select" name="product3" id="pro1" onClick="selectPro1();">
 									<option selected></option>
-									<c:forEach var="cat" items="${category}">
+									<c:forEach var="cat" items="${category3}">
 										<option value="${cat.product3}">${cat.productName}</option>
 									</c:forEach>
 								</select>
