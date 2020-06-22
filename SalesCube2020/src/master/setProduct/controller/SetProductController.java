@@ -62,33 +62,66 @@ final public class SetProductController extends BaseController{
 		SetProductDAO dao = new SetProductDAO();
 		SetProductSearchBean bean = new SetProductSearchBean();
 		
-		bean.setSetProductCode((String) request.getParameter("data1"));
-		bean.setSetProductName((String) request.getParameter("data2"));
-		bean.setProductCode((String) request.getParameter("data3"));
-		bean.setProductName((String) request.getParameter("data4"));
-		
-
-		if(bean.getSetProductCode() == "") {
-			bean.setSetProductCode(null);
-		}
-		
-		if(bean.getSetProductName() == "") {
-			bean.setSetProductName(null);
-		}
-		
-		if(bean.getProductCode() == "") {
-			bean.setProductCode(null);
-		}
-		
-		if(bean.getProductName() == "") {
-			bean.setProductName(null);
-		}
-				
-		try {
-			list = dao.getProductInfo(bean);
-			request.setAttribute("searchData", list);
+		String tmp;
+		int count;
+		int totalCount;
+		int totalPage;
+		int currentPage;
 			
-		
+		try {
+			
+			totalCount = dao.getCount();
+			
+			tmp = (String) request.getParameter("rowCount");
+			count = Integer.parseInt(tmp);
+
+			totalPage = totalCount/count;
+			
+			if(totalCount%count != 0) {
+				totalPage++;
+			}
+
+			tmp = (String) request.getParameter("currentPage");
+				
+			if(tmp == null) {
+				currentPage=1;
+			}else {
+				currentPage = Integer.parseInt(tmp);
+			}
+
+			bean.setSetProductCode((String) request.getParameter("data1"));
+			bean.setSetProductName((String) request.getParameter("data2"));
+			bean.setProductCode((String) request.getParameter("data3"));
+			bean.setProductName((String) request.getParameter("data4"));
+							
+			if(bean.getSetProductCode() == "") {
+				bean.setSetProductCode(null);
+			}
+			
+			if(bean.getSetProductName() == "") {
+				bean.setSetProductName(null);
+			}
+			
+			if(bean.getProductCode() == "") {
+				bean.setProductCode(null);
+			}
+			
+			if(bean.getProductName() == "") {
+				bean.setProductName(null);
+			}
+						
+			list = dao.getProductInfo(bean, count, currentPage);
+			
+			int[] totalPageArr= new int[totalPage];
+			
+			for(int i = 0; i<totalPageArr.length; i++) {
+				totalPageArr[i] = i+1;
+			}
+			
+			request.setAttribute("searchData", list);
+			request.setAttribute("totalPage", totalPageArr);
+			request.setAttribute("currentPage", currentPage);
+			request.setAttribute("rowCount", count);
 			
 			return "/setproduct.jsp";
 			
@@ -139,5 +172,7 @@ final public class SetProductController extends BaseController{
 
 		return "/setproductmodify.jsp";
 	}
+	
+	
 	
 }

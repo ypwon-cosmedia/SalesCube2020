@@ -174,7 +174,7 @@
 			
 			
 		</div><br></div><br>
-		</form>
+		
 		
 		<div class="container">
             <div class="float-left" style="position:static; left: 0px;">検索結果件数：${fn:length(searchData)} 件</div>
@@ -188,9 +188,13 @@
                 </select>
 			</div>
 		</div>
+    </form>
     
-    </div>
-<br><br>
+<br>
+	<c:forEach var="pageCount" items="${totalPage}">
+		<a onclick="selectPage();" href="http://localhost:8080/SalesCube2020/SalesCube?action=searchSetProduct&rowCount=100&currentPage=${pageCount}" >${pageCount}</a>
+	</c:forEach>
+<br>
 <div class="container" style="background-color: rgb(255, 255, 255);" id="setProductList">
     <table id="order_detail_info" class="table table-bordered">
 		<thead class="thead-dark">
@@ -224,6 +228,11 @@ var options = {
   valueNames: [ 'productCode', 'productName' ]
 };
 var setProductList = new List('setProductList', options);
+</script>
+<script type="text/javascript">
+function selectedPage(){
+	var selectedpage = <%= request.getParameter("no") %>;
+}
 </script>
 </body>
 </html>

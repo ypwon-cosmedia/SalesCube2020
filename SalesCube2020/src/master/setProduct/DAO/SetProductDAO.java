@@ -75,7 +75,7 @@ public class SetProductDAO extends BaseDAO {
 	}
 	
 
-	public List<SetProductSearchResultBean> getProductInfo (SetProductSearchBean input) throws ClassNotFoundException, MissingResourceException, SQLException {
+	public List<SetProductSearchResultBean> getProductInfo (SetProductSearchBean input, int count, int currentPage) throws ClassNotFoundException, MissingResourceException, SQLException {
 
 		List<SetProductSearchResultBean> list = new ArrayList<SetProductSearchResultBean>();
 		
@@ -126,11 +126,12 @@ public class SetProductDAO extends BaseDAO {
 	 			"c.PRODUCT_CODE LIKE '" + input.getSetProductCode() + 
 	 			"' and c.PRODUCT_NAME LIKE '" + input.getSetProductName() +
 	 			"' and (b.PRODUCT_CODE LIKE '" + input.getProductCode() +
-	 			") and (a.PRODUCT_NAME LIKE '" + input.getProductName() + ");";
+	 			") and (a.PRODUCT_NAME LIKE '" + input.getProductName() + ") " +
+	 			"LIMIT " + count + " OFFSET " + count*(currentPage-1);
 	 			
 	 				 	
-	 	result = stmt.executeQuery(sql);	
-		
+	 	result = stmt.executeQuery(sql);
+	 			
 	 	while (result.next()) {
 	 		SetProductSearchResultBean bean = new SetProductSearchResultBean();
 	 		bean.setProductName(result.getString("PRODUCT_NAME"));
@@ -169,6 +170,34 @@ public class SetProductDAO extends BaseDAO {
 	 	}
 	 	
 	 	super.releaseDB(con, stmt);
+	
+	}
+	
+	public int getCount() throws ClassNotFoundException, MissingResourceException, SQLException {
+		
+
+		Connection con;
+	 	Statement stmt = null;
+	 	ResultSet result = null;
+	 	String  sql1;
+
+	 	int count = 0;
+	 	
+	 	con = super.getConnection();	
+	 	stmt = con.createStatement();
+	 	
+	 	sql1 = "select COUNT(*) from product_set_mst_xxxxx";
+	 	result = stmt.executeQuery(sql1);
+
+	 	while(result.next()) {
+	 		count = result.getInt("COUNT(*)");
+	 	}
+
+	 	
+	 	
+	 	super.releaseDB(con, stmt);
+	 	
+	 	return count;
 	
 	}
 	
