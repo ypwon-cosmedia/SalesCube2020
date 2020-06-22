@@ -328,7 +328,7 @@
 									<input type="submit" class="btn btn-outline-secondary" value="編集">
 								</form>
 								<form action="/SalesCube2020/SalesCube?action=deleteCustomer">
-									<input type="hidden" name="customer" value="${customer.customerCode}">	
+									<input type="hidden" name="customerCode" value="${customer.customerCode}">	
 									<input type="submit" class="btn btn-outline-secondary" value="削除">
 								</form>
 							</div>

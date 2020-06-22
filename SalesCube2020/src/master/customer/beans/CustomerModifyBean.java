@@ -164,7 +164,7 @@ public class CustomerModifyBean {
 	private String shiftCategory;
 
 	/** 最終処理日 ： 最終処理日 を保存する */
-	private Date lastCutoffDate;
+	private String lastCutoffDate;
 
 	/** 取引区分 ：  取引区分を保存する */
 	private String salesCMCategory;
@@ -194,13 +194,13 @@ public class CustomerModifyBean {
 	private String comment;
 	
 	/** 更新日時 ： 更新日時 を保存する */
-	private Date updDate;
+	private String updDate;
 	
 	/** 更新者 ： 更新者を保存する */
 	private String updUser;
 	
 	/** 作成日時 ： 作成日時 を保存する */
-	private Date creDate;
+	private String creDate;
 
 	/**
 	 * @return the customerCode
@@ -555,14 +555,14 @@ public class CustomerModifyBean {
 	/**
 	 * @return the lastCutoffDate
 	 */
-	public Date getLastCutoffDate() {
+	public String getLastCutoffDate() {
 		return lastCutoffDate;
 	}
 
 	/**
 	 * @param lastCutoffDate the lastCutoffDate to set
 	 */
-	public void setLastCutoffDate(Date lastCutoffDate) {
+	public void setLastCutoffDate(String lastCutoffDate) {
 		this.lastCutoffDate = lastCutoffDate;
 	}
 
@@ -695,14 +695,14 @@ public class CustomerModifyBean {
 	/**
 	 * @return the updDate
 	 */
-	public Date getUpdDate() {
+	public String getUpdDate() {
 		return updDate;
 	}
 
 	/**
 	 * @param updDate the updDate to set
 	 */
-	public void setUpdDate(Date updDate) {
+	public void setUpdDate(String updDate) {
 		this.updDate = updDate;
 	}
 
@@ -723,14 +723,14 @@ public class CustomerModifyBean {
 	/**
 	 * @return the creDate
 	 */
-	public Date getCreDate() {
+	public String getCreDate() {
 		return creDate;
 	}
 
 	/**
 	 * @param creDate the creDate to set
 	 */
-	public void setCreDate(Date creDate) {
+	public void setCreDate(String creDate) {
 		this.creDate = creDate;
 	}
 
