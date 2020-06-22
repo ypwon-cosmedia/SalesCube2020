@@ -118,7 +118,7 @@
 								<div class="input-group-prepend">
 										<div class="input-group-text">商品コード</div>
 								</div>
-								<input type="text"  class="form-control" id="inlineFormInputGroup">
+								<input type="text"  class="form-control" id="inlineFormInputGroup" name="productCode">
 							</div>
 						</div>
 						<div class="col-4">
@@ -127,7 +127,7 @@
 								<div class="input-group-prepend">
 									<div class="input-group-text">商品名</div>
 								</div>
-								<input type="text"  class="form-control" id="inlineFormInputGroup">
+								<input type="text"  class="form-control" id="inlineFormInputGroup" name="productName">
 							</div>
 						</div>
 						<div class="col-4">
@@ -136,7 +136,7 @@
 								<div class="input-group-prepend">
 									<div class="input-group-text">商品カナ</div>
 								</div>
-								<input type="text" class="form-control" id="inlineFormInputGroup">
+								<input type="text" class="form-control" id="inlineFormInputGroup" name="productKana">
 							</div>
 						</div>
 					</div>
@@ -147,7 +147,7 @@
 								<div class="input-group-prepend">
 									<div class="input-group-text">仕入先コード</div>
 								</div>
-								<input type="text" class="form-control" id="inlineFormInputGroup">
+								<input type="text" class="form-control" id="inlineFormInputGroup" name="supplierCode">
 							</div>
 						</div>
 						<div class="col-4">
@@ -156,7 +156,7 @@
 								<div class="input-group-prepend">
 									<div class="input-group-text">仕入先名</div>
 								</div>
-								<input type="text" class="form-control" id="inlineFormInputGroup">
+								<input type="text" class="form-control" id="inlineFormInputGroup" name="supplierName">
 							</div>
 						</div>
 						<div class="col-4">
@@ -225,7 +225,7 @@
 								<div class="input-group-prepend">
 									<div class="input-group-text">備考</div>
 								</div>
-								<input type="text" class="form-control" id="inlineFormInputGroup">
+								<input type="text" class="form-control" id="inlineFormInputGroup" name="remarks">
 							</div>
 						</div>
 					</div>
@@ -252,10 +252,10 @@
 								<div class="input-group-prepend">
 									<div class="input-group-text">分類（中）</div>
 								</div>
-								<select class="custom-select" name="product1" id="pro1" onClick="selectPro1();">
+								<select class="custom-select" name="product2" id="pro1" onClick="selectPro1();">
 									<option selected></option>
 									<c:forEach var="cat" items="${category}">
-										<option value="${cat.product1}">${cat.productName}</option>
+										<option value="${cat.product2}">${cat.productName}</option>
 									</c:forEach>
 								</select>
 							</div>
@@ -268,10 +268,10 @@
 								<div class="input-group-prepend">
 									<div class="input-group-text">分類（小）</div>
 								</div>
-								<select class="custom-select" name="product1" id="pro1" onClick="selectPro1();">
+								<select class="custom-select" name="product3" id="pro1" onClick="selectPro1();">
 									<option selected></option>
 									<c:forEach var="cat" items="${category}">
-										<option value="${cat.product1}">${cat.productName}</option>
+										<option value="${cat.product3}">${cat.productName}</option>
 									</c:forEach>
 								</select>
 							</div>
@@ -302,7 +302,7 @@
 
 		<!--商品検索結果テーブル-->
 		<br><br>
-		<div class="container" style="background-color: rgb(255, 255, 255);"　id="prosort">
+		<div class="container" style="background-color: rgb(255, 255, 255);" id="prosort">
 			<table id="order_detail_info" class="table table-bordered">
 				<thead class="thead-dark">
 					<tr>
