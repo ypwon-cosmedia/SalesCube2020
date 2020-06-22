@@ -109,8 +109,8 @@ public class ProductModifyDAO extends BaseDAO {
 		 	stmt.setString(7, bean.getRackCode());
 		 	stmt.setInt(8, bean.getSupplierPriceYen());
 		 	stmt.setInt(9, bean.getSupplierPriceDol());
-		 	stmt.setBigDecimal(10, bean.getRetailPrice());
-		 	stmt.setBigDecimal(11, bean.getSoRate());
+		 	stmt.setInt(10, bean.getRetailPrice());
+		 	stmt.setInt(11, bean.getSoRate());
 		 	stmt.setString(12, bean.getUnitCategory());
 		 	stmt.setInt(13, bean.getPackQuantity());
 		 	stmt.setString(14, bean.getJanPcode());
@@ -124,7 +124,7 @@ public class ProductModifyDAO extends BaseDAO {
 		 	stmt.setString(22, bean.getWeightUnitSizeCategory());
 		 	stmt.setDouble(23, bean.getLength());
 		 	stmt.setString(24, bean.getLengthUnitSizeCategory());
-		 	stmt.setBigDecimal(25, bean.getPoLot());
+		 	stmt.setInt(25, bean.getPoLot());
 		 	stmt.setInt(26, bean.getLotUpdFlag());
 		 	stmt.setInt(27, bean.getLeadTime());
 		 	stmt.setInt(28, bean.getPoNum());
@@ -166,7 +166,7 @@ public class ProductModifyDAO extends BaseDAO {
 		 	stmt.setString(64, bean.getEndRemarks());
 		 	stmt.setString(65, bean.getCommentData());
 		 	stmt.setDate(66, bean.getLastRoDate());
-		 	stmt.setBigDecimal(67, bean.getSalesStandardDeviation());
+		 	stmt.setInt(67, bean.getSalesStandardDeviation());
 		 	stmt.setInt(68, bean.getMineSafetyStock());
 		 	stmt.setInt(69, bean.getMineSafetyStockUpdFlag());
 		 	stmt.setInt(70, bean.getEntrustSafetyStock());

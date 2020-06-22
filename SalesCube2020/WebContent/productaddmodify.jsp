@@ -582,7 +582,7 @@
 							<div class="col-8">
 								<div class="input-group-prepend">
 									<div class="input-group-text">備考</div>
-									<textarea id="textarea1" class="form-control"></textarea>
+									<textarea id="textarea1" class="form-control" name="remarks"></textarea>
 								</div>
 							</div>
 						</div><br>
@@ -590,7 +590,7 @@
 							<div class="col-8">
 								<div class="input-group-prepend">
 									<div class="input-group-text">ピッキング備考</div>
-									<textarea id="textarea1" class="form-control"></textarea>
+									<textarea id="textarea1" class="form-control" name="eadRemarks"></textarea>
 								</div>
 							</div>
 						</div><br>
@@ -598,7 +598,7 @@
 							<div class="col-8">
 								<div class="input-group-prepend">
 									<div class="input-group-text">コメント</div>
-									<textarea id="textarea1" class="form-control"></textarea>
+									<textarea id="textarea1" class="form-control" name="commentData"></textarea>
 								</div>
 							</div>
 						</div>

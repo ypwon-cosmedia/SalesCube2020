@@ -129,7 +129,7 @@ public class ProductAddBean {
 	private short mineSafetyStockUpdFlag;
 
 	/** 発注ロット：発注ロットを保持する */
-	private BigDecimal poLot;
+	private int poLot;
 	
 	/** 発注ロット自動更新：発注ロット自動更新を保持する */
 	private short lotUpdFlag;
@@ -150,7 +150,7 @@ public class ProductAddBean {
 	private short roMaxNum;
 	
 	/** 上代：上代を保持する */
-	private BigDecimal retailPrice;
+	private int retailPrice;
 	
 	/** 割引コード：割引コードを保持する */
 	private String discountId;
@@ -168,7 +168,7 @@ public class ProductAddBean {
 	private String productStandardCategory;
 	
 	/** 特注品掛率：特注品掛率を保持する */
-	private BigDecimal soRate;
+	private int soRate;
 
 	/** セット商品フラグ：セット商品フラグを保持する */
 	private String setTypeCategory;
@@ -247,7 +247,7 @@ public class ProductAddBean {
 	private double dec5;
 	private String endRemarks;
 	private Date lastRoDate;
-	private BigDecimal salesStandardDeviation;
+	private int salesStandardDeviation;
 	private int entrustSafetyStock;
 	private String creFunc;
 	private Timestamp creDatetm;
@@ -434,11 +434,11 @@ public class ProductAddBean {
 		this.mineSafetyStockUpdFlag = mineSafetyStockUpdFlag;
 	}
 
-	public BigDecimal getPoLot() {
+	public int getPoLot() {
 		return poLot;
 	}
 
-	public void setPoLot(BigDecimal poLot) {
+	public void setPoLot(int poLot) {
 		this.poLot = poLot;
 	}
 
@@ -490,11 +490,11 @@ public class ProductAddBean {
 		this.roMaxNum = roMaxNum;
 	}
 
-	public BigDecimal getRetailPrice() {
+	public int getRetailPrice() {
 		return retailPrice;
 	}
 
-	public void setRetailPrice(BigDecimal retailPrice) {
+	public void setRetailPrice(int retailPrice) {
 		this.retailPrice = retailPrice;
 	}
 
@@ -538,11 +538,11 @@ public class ProductAddBean {
 		this.productStandardCategory = productStandardCategory;
 	}
 
-	public BigDecimal getSoRate() {
+	public int getSoRate() {
 		return soRate;
 	}
 
-	public void setSoRate(BigDecimal soRate) {
+	public void setSoRate(int soRate) {
 		this.soRate = soRate;
 	}
 
@@ -866,11 +866,11 @@ public class ProductAddBean {
 		this.lastRoDate = lastRoDate;
 	}
 
-	public BigDecimal getSalesStandardDeviation() {
+	public int getSalesStandardDeviation() {
 		return salesStandardDeviation;
 	}
 
-	public void setSalesStandardDeviation(BigDecimal salesStandardDeviation) {
+	public void setSalesStandardDeviation(int salesStandardDeviation) {
 		this.salesStandardDeviation = salesStandardDeviation;
 	}
 
