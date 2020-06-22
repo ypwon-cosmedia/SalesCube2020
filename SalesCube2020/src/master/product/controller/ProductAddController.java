@@ -6,7 +6,7 @@ import javax.servlet.http.*;
 
 import common.controller.BaseController;
 import master.product.DAO.ProductDAO;
-import master.product.beans.ProductBigCategoryBean;
+import master.product.beans.ProductCategoryBean;
 
 import java.util.*;
 import java.sql.SQLException;
@@ -37,11 +37,21 @@ public class ProductAddController extends BaseController{
 		// TODO Auto-generated method stub
 		return "/productaddmodify.jsp";
 	}
+		String productCode;
 
 
 	private String moveAddProduct(HttpServletRequest request, HttpServletResponse response) {
 		// TODO Auto-generated method stub
+	
+		String productCode;
+	
+		productCode = (String) request.getParameter("productCode");
+	
+		request.setAttribute("productCode", productCode);
+	
+		//System.out.println(productCode);
+	
 		return "/productaddmodify.jsp";
 	}
-
 }
+
