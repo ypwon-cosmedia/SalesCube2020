@@ -66,7 +66,32 @@ public class CustomerController extends BaseController{
 		String paymentName 	  = request.getParameter("paymentName");
 		String remarks 		  = request.getParameter("remarks");
 		
+		CustomerDAO dao =  new CustomerDAO();
 		
+		String tmp;
+		int count;
+		int totalCount;
+		int totalPage;
+		int currentPage;
+		
+		totalCount = dao.getCount();
+		
+		tmp = (String) request.getParameter("rowCount");
+		count = Integer.parseInt(tmp);
+
+		totalPage = totalCount/count;
+		
+		if(totalCount%count != 0) {
+			totalPage++;
+		}
+
+		tmp = (String) request.getParameter("currentPage");
+			
+		if(tmp == null) {
+			currentPage=1;
+		}else {
+			currentPage = Integer.parseInt(tmp);
+		}
 		
 		CustomerInputBean bean = new CustomerInputBean();
 		bean.setCustomerCode(customerCode);
@@ -82,18 +107,26 @@ public class CustomerController extends BaseController{
 		bean.setCutoffGroup(cutoffGroup);
 		bean.setPaymentName(paymentName);
 		bean.setRemarks(remarks);
-		
-		CustomerDAO dao =  new CustomerDAO();
 
-		List<CustomerResultBean> list = dao.searchCustomer(bean);
+		List<CustomerResultBean> list = dao.searchCustomer(bean, count, currentPage);
 		
 		/*if(result == 0 ) {
-			request.setAttribute("message","ŒŸõ’†‚ÉƒGƒ‰[‚ª¶‚¶‚Ü‚µ‚½");
+			request.setAttribute("message","ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ÉƒGï¿½ï¿½ï¿½[ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ü‚ï¿½ï¿½ï¿½");
 		} else {
-			//request.setAttribute( "message", "ŒŸõ‚ªŠ®—¹‚µ‚Ü‚µ‚½B");
+			//request.setAttribute( "message", "ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ü‚ï¿½ï¿½ï¿½ï¿½B");
 		} */
-			    
+		
+		int[] totalPageArr= new int[totalPage];
+		
+		for(int i = 0; i<totalPageArr.length; i++) {
+			totalPageArr[i] = i+1;
+		}
+		
 		request.setAttribute("customerList",list);
+		request.setAttribute("totalPage", totalPageArr);
+		request.setAttribute("currentPage", currentPage);
+		request.setAttribute("rowCount", count);
+		request.setAttribute("totalCount", totalCount);
 			
 		return forwardURL;
 		

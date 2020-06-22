@@ -3,6 +3,15 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
 
+<% int rowCount;
+
+	if((String) request.getParameter("rowCount")==null){
+		rowCount = 100;
+	} else{
+		rowCount =Integer.parseInt((String) request.getParameter("rowCount"));
+	}
+%>    
+
 <!doctype html>
 <html lang="en">
   <head>
@@ -273,13 +282,17 @@
 
 					<div align="right">
 						<button type="button" class="btn btn-outline-secondary" onclick="initForm()">初期化</button>
-						<input type="hidden" value="10" id="rowCount">
+						<input type="hidden" value="${rowCount}" id="rowCount">
 						<input type="submit" value="検索" class="btn btn-outline-secondary">
 					</div>
 			</div>
-<br><br>
+<br>
+	<c:forEach var="pageCount" items="${totalPage}">
+		<a id='MySelect' href="http://localhost:8080/SalesCube2020/SalesCube?action=searchCustomer&rowCount=${rowCount}&currentPage=${pageCount}" >${pageCount}</a>
+	</c:forEach>
+<br>
 		<div class="container">
-            <div class="float-left" style="position:static; left: 0px;">検索結果件数： ${fn:length(customerList)}件</div>
+            <div class="float-left" style="position:static; left: 0px;">検索結果件数： ${totalCount}件</div>
   
          	<div class="rounded float-right">
                 ページあたりの表示件数
@@ -386,6 +399,12 @@ function customerHistoryOutPut() {
 		return;
 	}		
 }
+</script>
+<script>
+$(function() {
+    var temp = "<%= rowCount %>"; 
+    $("#rowCount").val(temp);
+});
 </script>
 	</body>
 </html>

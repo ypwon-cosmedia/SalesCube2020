@@ -3,6 +3,8 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %> 
     
+<% int rowCount =Integer.parseInt((String) request.getParameter("rowCount")); %>    
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -192,7 +194,7 @@
     
 <br>
 	<c:forEach var="pageCount" items="${totalPage}">
-		<a onclick="selectPage();" href="http://localhost:8080/SalesCube2020/SalesCube?action=searchSetProduct&rowCount=100&currentPage=${pageCount}" >${pageCount}</a>
+		<a id='MySelect' href="http://localhost:8080/SalesCube2020/SalesCube?action=searchSetProduct&rowCount=100&currentPage=${pageCount}" >${pageCount}</a>
 	</c:forEach>
 <br>
 <div class="container" style="background-color: rgb(255, 255, 255);" id="setProductList">
@@ -220,7 +222,6 @@
 			</c:forEach>
 		</tbody>
 	</table>
-
 </div>
 <script src="//cdnjs.cloudflare.com/ajax/libs/list.js/1.5.0/list.min.js"></script>
 <script>
@@ -229,10 +230,11 @@ var options = {
 };
 var setProductList = new List('setProductList', options);
 </script>
-<script type="text/javascript">
-function selectedPage(){
-	var selectedpage = <%= request.getParameter("no") %>;
-}
+<script>
+$(function() {
+    var temp = "<%= rowCount %>"; 
+    $("#rowCount").val(temp);
+});
 </script>
 </body>
 </html>
