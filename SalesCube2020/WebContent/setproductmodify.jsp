@@ -98,13 +98,14 @@
       </div>
       <br><br><br>
       </div>
+      <form action="/SalesCube2020/SalesCube?action=modifySetProduct" method="post">
 		<div class="container" style="background-color: white;"><div class="panel panel-default" >
 			<div class="panel-heading row mb-2 col-4">
 				<h5><br>セット商品情報</h5>
 			</div>
 			<hr>
 			<div class="panel-body">
-
+				
 					<div class="row">
 						<div class="col-4">
 							<label class="sr-only" for="inlineFormInputGroup"></label>
@@ -112,7 +113,7 @@
 								<div class="input-group-prepend">
 									<div class="input-group-text">セット商品コード</div>
 								</div>
-							<input type="text"  class="form-control" id="inlineFormInputGroup" value="${productCode}" readonly>
+							<input type="text"  class="form-control" id="inlineFormInputGroup" name="productCode" value="${productCode}" readonly>
 							</div>
 						</div>
 						<div class="col-8">
@@ -121,7 +122,7 @@
 								<div class="input-group-prepend">
 									<div class="input-group-text">セット商品名</div>
 								</div>
-							<input type="text"  class="form-control" id="inlineFormInputGroup" value="${productName}" readonly>
+							<input type="text"  class="form-control" id="inlineFormInputGroup" name="productName" value="${productName}" readonly>
 							</div>
 						</div>
 					</div>
@@ -136,6 +137,7 @@
 				<h5><br>セット内容</h5>
 			</div>
 			<hr>
+			
 				<table id="mytable" class="table table-bordered">
 					<thead class="thead-dark">
 						<tr>
@@ -147,39 +149,53 @@
 						<th scope="col" class="rd_top_right th_back_black" style="cursor: pointer; height: 30px;">&nbsp;</th>
 						</tr>
 					</thead>
-					<tbody>
-						<c:forEach var="res" items="${result}" varStatus="status">   
-							<tr>
-								<td scope="row">${status.count}</td>
-								<td style="white-space: normal; text-align: left;" nowrap> 
-									<div class="input-group mb-3">
-										<input type="text" class="form-control" value="${res.productCode}">
-									  </div>
-								</td>
-								<td style="white-space: normal; text-align: left;"><input type="text"  class="form-control" id="inlineFormInputGroup" value="${res.productName}"></td>
-								<td style="white-space: normal; text-align: left;"><input type="text"  class="form-control" id="inlineFormInputGroup" value="${res.quantity}"></td>
-								<td style="text-align: center">
-										<button type="button" class="btn btn-outline-secondary">削除</button>
-								</td>
-							</tr>
-						</c:forEach>
-					</tbody>
-					
-			<tr>
-				<td scope="row" colspan=4></td>
-
-				<td style="text-align: center">
-						<button type="button" class="btn btn-outline-secondary">行追加</button>
-				</td>
-			</tr>
-			</table>
+						
+							<tbody>
+								<c:forEach var="res" items="${result}" varStatus="status">   
+									<tr>
+										<td scope="row">${status.count}</td>
+										<td style="white-space: normal; text-align: left;" nowrap> 
+											<div class="input-group mb-3">
+												<input type="text" class="form-control" value="${res.productCode}" name="code">
+											  </div>
+										</td>
+										<td style="white-space: normal; text-align: left;"><input type="text"  class="form-control" id="inlineFormInputGroup" name="name" value="${res.productName}"></td>
+										<td style="white-space: normal; text-align: left;"><input type="text"  class="form-control" id="inlineFormInputGroup" name="quantity" value="${res.quantity}"></td>
+										<td style="text-align: center">
+												<button type="button" class="btn btn-outline-secondary" onclick="deleteLine(this);">削除</button>
+										</td>
+									</tr>
+								</c:forEach>
+							</tbody>
+						
+					</table>
 				
-			<div align="right">
-				<input type="submit" value="リセット" class="btn btn-outline-secondary">
-				<input type="submit" value="更新" class="btn btn-outline-secondary">
-			</div>
-			</form>
-		</div><br></div><br>
+				<button type="button" class="btn btn-outline-secondary float-right" id='btn-add-row'>行追加</button>
+				<br>
+				<br>
 
+				
+				<div align="right">
+					<input type="submit" value="リセット" class="btn btn-outline-secondary">
+					<input type="submit" value="更新" class="btn btn-outline-secondary">
+				</div>
+			
+		</div><br></div><br>
+		</form>
 	</body>
+		<script src="//code.jquery.com/jquery.min.js"></script>
+		<script>
+		  $('#btn-add-row').click(function() {
+			  var tableNo = $("#mytable tr").length
+		    $('#mytable > tbody:last').append('<tr><td scope="row">' + tableNo + '</td><td style="white-space: normal; text-align: left;" nowrap> <div class="input-group mb-3"><input type="text" class="form-control" value="${res.productCode}" name="code"></div></td><td style="white-space: normal; text-align: left;"><input type="text"  class="form-control" id="inlineFormInputGroup" name="name" value="${res.productName}"></td><td style="white-space: normal; text-align: left;"><input type="text"  class="form-control" id="inlineFormInputGroup" name="quantity" value="${res.quantity}"></td><td style="text-align: center"><button type="button" class="btn btn-outline-secondary" onclick="deleteLine(this);">削除</button></td></tr>');});
+		</script>
+		<script type="text/javascript">
+		function deleteLine(obj){
+			var tr = $(obj).parent().parent();
+			
+			tr.remove();
+		}
+		
+		</script>
+		
 </html>

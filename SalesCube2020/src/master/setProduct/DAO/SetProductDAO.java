@@ -46,6 +46,7 @@ public class SetProductDAO extends BaseDAO {
 	 		list.add(bean);
 	 	}
 
+	 	super.releaseDB(con, stmt, result);
 		return list;
 	}
 	
@@ -69,6 +70,7 @@ public class SetProductDAO extends BaseDAO {
 	 		bean.setProductName(result.getString("PRODUCT_CODE"));
 	 	}
 	 	
+	 	super.releaseDB(con, stmt, result);
 	 	return bean;
 	}
 	
@@ -136,6 +138,7 @@ public class SetProductDAO extends BaseDAO {
 	 		list.add(bean);
 	 	}
 	 	
+	 	super.releaseDB(con, stmt, result);
 	 	return list;
 	}
 	
@@ -144,29 +147,29 @@ public class SetProductDAO extends BaseDAO {
 		
 
 		Connection con;
-	 	Statement stmt = null;
-	 	int result;	
+	 	Statement stmt = null;	
 	 	String  sql1;
 	 	String  sql2;
-		
+	 	
 	 	con = super.getConnection();	
 	 	stmt = con.createStatement();
 	 	
 	 	sql1 = "DELETE FROM product_set_mst_xxxxx WHERE SET_PRODUCT_CODE = " + setProductCode;
-	 	result = stmt.executeUpdate(sql1);
+	 	int result = stmt.executeUpdate(sql1);
+	 	con.commit();
+
 	 	
 	 	for(SetProductBean bean : inputList) {
-	 		sql2 = "INSERT INTO (SET_PRODUCT_CODE, PRODUCT_CODE, QUANTITY) product_set_mst_xxxxx"
-	 				+ "VALUES("
-	 				+ bean.getProductName() + ","
-	 				+ bean.getProductCode() + ","
-	 				+ bean.getQuantity() + ");";
-	 		
-		 	result = stmt.executeUpdate(sql2);
+	 		sql2 = "insert into product_set_mst_xxxxx(SET_PRODUCT_CODE, PRODUCT_CODE, QUANTITY) values( '"
+	 				+ setProductCode + "' , '"
+	 				+ bean.getProductCode() + "', "
+	 				+ bean.getQuantity() + ")";
+	 		int result2 = stmt.executeUpdate(sql2);
+	 		con.commit();
 	 	}
+	 	
+	 	super.releaseDB(con, stmt);
 	
 	}
-
-
 	
 }
