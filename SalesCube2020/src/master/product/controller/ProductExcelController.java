@@ -72,7 +72,7 @@ public class ProductExcelController extends BaseController{
 			}
 
 			//CSVファイルの指定
-			PrintWriter p = new PrintWriter( new BufferedWriter( new OutputStreamWriter( new FileOutputStream("C:\\Users\\cosmedia\\Desktop\\SalesCubeテスト用/商品マスタ.csv", false),"utf-8")));
+			PrintWriter p = new PrintWriter( new BufferedWriter( new OutputStreamWriter( new FileOutputStream("C:\\Users\\cosmedia\\Desktop\\SalesCubeテスト用", false),"utf-8")));
 			
 			//ヘッダ部
 			p.print("商品コード");
