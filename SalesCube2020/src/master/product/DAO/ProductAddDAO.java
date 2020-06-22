@@ -87,7 +87,7 @@ public class ProductAddDAO extends BaseDAO {
 		 	stmt.setDate(66, bean.getLastRoDate());
 		 	stmt.setBigDecimal(67, bean.getSalesStandardDevia());
 		 	stmt.setInt(68, bean.getMineSafetyStock());
-		 	stmt.setInt(69, bean.getMineSafetyStockUp());
+		 	stmt.setInt(69, bean.getMineSafetyStockUpdFlag());
 		 	stmt.setInt(70, bean.getEntrustSafetyStock());
 		 	stmt.setString(71, bean.getCreFunc());
 		 	stmt.setTimestamp(72, bean.getCreDatetm());

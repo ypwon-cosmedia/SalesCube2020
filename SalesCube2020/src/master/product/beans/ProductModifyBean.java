@@ -714,12 +714,12 @@ public class ProductModifyBean {
 		this.height = height;
 	}
 
-	public int getTeamShipNum() {
+	public int getTermShipNum() {
 		return termShipNum;
 	}
 
-	public void setTeamShipNum(int teamShipNum) {
-		this.termShipNum = teamShipNum;
+	public void setTermShipNum(int termShipNum) {
+		this.termShipNum = termShipNum;
 	}
 
 	public int getMaxPoUpdNum() {
@@ -866,12 +866,12 @@ public class ProductModifyBean {
 		this.lastRoDate = lastRoDate;
 	}
 
-	public BigDecimal getSalesStandardDevia() {
+	public BigDecimal getSalesStandardDeviation() {
 		return salesStandardDeviation;
 	}
 
-	public void setSalesStandardDevia(BigDecimal salesStandardDevia) {
-		this.salesStandardDeviation = salesStandardDevia;
+	public void setSalesStandardDeviation(BigDecimal salesStandardDeviation) {
+		this.salesStandardDeviation = salesStandardDeviation;
 	}
 
 
