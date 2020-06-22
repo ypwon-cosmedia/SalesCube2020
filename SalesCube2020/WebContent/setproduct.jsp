@@ -204,6 +204,8 @@
 		<a id='MySelect' href="http://localhost:8080/SalesCube2020/SalesCube?action=searchSetProduct&rowCount=${rowCount}&currentPage=${pageCount}" >${pageCount}</a>
 	</c:forEach>
 <br>
+<select onclick="location.href='http://localhost:8080/SalesCube2020/SalesCube?action=searchSetProduct&rowCount=${rowCount}&currentPage=${pageCount}'">
+</select>
 <div class="container" style="background-color: rgb(255, 255, 255);" id="setProductList">
     <table id="order_detail_info" class="table table-bordered">
 		<thead class="thead-dark">
