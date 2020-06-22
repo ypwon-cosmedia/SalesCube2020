@@ -228,7 +228,7 @@ public class ProductAddBean {
 	private String commentData;
 	
 	
-	private int teamShipNum;
+	private int termShipNum;
 	private int maxPoUpdNum;
 	private String fractCategory;
 	private	String taxCategory;
@@ -247,8 +247,7 @@ public class ProductAddBean {
 	private double dec5;
 	private String endRemarks;
 	private Date lastRoDate;
-	private BigDecimal salesStandardDevia;
-	private int mineSafetyStockUp;
+	private BigDecimal salesStandardDeviation;
 	private int entrustSafetyStock;
 	private String creFunc;
 	private Timestamp creDatetm;
@@ -716,11 +715,11 @@ public class ProductAddBean {
 	}
 
 	public int getTeamShipNum() {
-		return teamShipNum;
+		return termShipNum;
 	}
 
 	public void setTeamShipNum(int teamShipNum) {
-		this.teamShipNum = teamShipNum;
+		this.termShipNum = teamShipNum;
 	}
 
 	public int getMaxPoUpdNum() {
@@ -868,20 +867,13 @@ public class ProductAddBean {
 	}
 
 	public BigDecimal getSalesStandardDevia() {
-		return salesStandardDevia;
+		return salesStandardDeviation;
 	}
 
 	public void setSalesStandardDevia(BigDecimal salesStandardDevia) {
-		this.salesStandardDevia = salesStandardDevia;
+		this.salesStandardDeviation = salesStandardDevia;
 	}
 
-	public int getMineSafetyStockUp() {
-		return mineSafetyStockUp;
-	}
-
-	public void setMineSafetyStockUp(int mineSafetyStockUp) {
-		this.mineSafetyStockUp = mineSafetyStockUp;
-	}
 
 	public int getEntrustSafetyStock() {
 		return entrustSafetyStock;
