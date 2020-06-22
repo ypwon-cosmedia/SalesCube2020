@@ -4,7 +4,7 @@ import java.io.*;
 import javax.servlet.*;
 import javax.servlet.http.*;
 
-import master.product.DAO.ProductDAO;
+import master.product.DAO.GetCategoryDAO;
 import master.product.beans.ProductBigCategoryBean;
 
 import java.util.*;
@@ -47,9 +47,9 @@ final public class MenuController extends BaseController{
 		
 		List<ProductBigCategoryBean> list = new ArrayList<>();
 		
-		ProductDAO dao = new ProductDAO();
+		GetCategoryDAO dao = new GetCategoryDAO();
 		
-		list = dao.getCategory();
+		list = dao.getBigCategory();
 		
 		request.setAttribute("category", list);
 		

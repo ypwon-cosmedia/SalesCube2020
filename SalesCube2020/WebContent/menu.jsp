@@ -68,7 +68,7 @@
             <path fill-rule="evenodd" d="M8 9a3 3 0 1 0 0-6 3 3 0 0 0 0 6z"/>
             <path fill-rule="evenodd" d="M8 1a7 7 0 1 0 0 14A7 7 0 0 0 8 1zM0 8a8 8 0 1 1 16 0A8 8 0 0 1 0 8z"/>
           </svg>
-        	${userInfo.nameKNJ} &nbsp     	
+        	${userInfo.nameKNJ} &nbsp;     	
         </span>
         <form class="form-inline" action="/SalesCube2020/SalesCube?action=logout" method="post">
           <button class="btn btn-outline-success my-2 my-sm-0" type="submit">ログアウト</button>
