@@ -614,7 +614,7 @@ public class ProductAddBean {
 		return lengthUnitSizeCategory;
 	}
 
-	public void setLengthtUnitSizeCategory(String lengthUnitSizeCategory) {
+	public void setLengthUnitSizeCategory(String lengthUnitSizeCategory) {
 		this.lengthUnitSizeCategory = lengthUnitSizeCategory;
 	}
 
