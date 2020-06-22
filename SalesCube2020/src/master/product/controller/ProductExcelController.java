@@ -30,7 +30,7 @@ public class ProductExcelController extends BaseController{
 
 		if(action.equals("productExcelOutput")) 	forwardURL = productExcelOutput(request, response);
 		
-		/**本来のもの
+		/**SalesCubeの全機能
 			if(action.equals("productExcelInput")) 			forwardURL = productExcelInput(request, response);
 			else if(action.equals("productExcelOutput")) 	forwardURL = productExcelOutput(request, response);
 			else if(action.equals("productHistoryOutput"))  forwardURL = productHistoryOutput(request, response);
@@ -58,7 +58,7 @@ public class ProductExcelController extends BaseController{
 		bean.setProductStandardCategory( request.getParameter("productStandardCategory") );
 		bean.setProductStatusCategory( request.getParameter("productStatusCategory") );
 		bean.setProductStockCategory( request.getParameter("productStockCategory") );
-		bean.setSetTypeCategory(  Integer.parseInt( request.getParameter("setTypeCategory") )  );
+		bean.setSetTypeCategory(  request.getParameter("setTypeCategory") );
 		bean.setRemarks( request.getParameter("remarks") );
 		bean.setProduct1( request.getParameter("product1") );
 		bean.setProduct2( request.getParameter("product2") );
@@ -386,12 +386,14 @@ public class ProductExcelController extends BaseController{
 			}
 			//フッター部
 			p.close();
-			System.out.println("Excel出力が完了しました");
+			System.out.println("Excel出力が完了しましたよ");
 			
 		}catch (IOException e) {
 			e.printStackTrace();
+			System.out.println("IOException");
 		} catch (ClassNotFoundException e) {
 			e.printStackTrace();
+			System.out.println("ClassNotFoundException");
 		}
 		return "/productsearch.jsp";
 	}
