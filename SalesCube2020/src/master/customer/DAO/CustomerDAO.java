@@ -24,26 +24,8 @@ public class CustomerDAO extends BaseDAO {
 		List<CustomerResultBean> list = new ArrayList<> ();
 		Connection con;
 	 	PreparedStatement pstmt=null;
-		//Statement stmt= null;
 	 	ResultSet result=null;	
 	 	String  sql;
-	 	
-	 	
-//	 	String customer[] = new String[13];
-//	 	customer[0] = bean.getCustomerCode();
-//	 	customer[1] = bean.getCustomerName();
-//	 	customer[2] = bean.getCustomerKana();
-//	 	customer[3] = bean.getOfficeName();
-//	 	customer[4] = bean.getOfficeNameKana();
-//	 	customer[5] = bean.getTel();
-//	 	customer[6] = bean.getPCName();
-//	 	customer[7] = bean.getPaymentName();
-//	 	customer[8] = bean.getFax();
-//	 	customer[9] = bean.getRankCategory();
-//	 	customer[10] = bean.getCutoffGroup();
-//	 	customer[11] = bean.getPaymentName();
-//	 	customer[12] = bean.getRemarks();
-	 	
 	 	
 	 	String customerCode      = bean.getCustomerCode();
 	 	String customerName   = bean.getCustomerName();
@@ -58,22 +40,6 @@ public class CustomerDAO extends BaseDAO {
 	 	String cutoffGroup    = bean.getCutoffGroup();
 	 	String paymentName    = bean.getPaymentName();
 	 	String remarks        = bean.getRemarks();
-	 	
-	 	
-	 /*	sql="select * from CUSTOMER_MST where CUSTOMER_CODE = "          + customerCode +
-					" and CUSTOMER_NAME = "          + customerName +
-					" and CUSTOMER_KANA = "          + customerKana + 
-					" and CUSTOMER_OFFICE_NAME = "   + officeName +
-              	" and CUSTOMER_OFFICE_KANA = "   + officeNameKana +
-               	" and CUSTOMER_TEL = "           + tel +
-              	" and CUSTOMER_PC_NAME = "       + PCName +
-               	" and CUSTOMER_PC_KANA = "       + PCNameKana +
-              	" and CUSTOMER_FAX = "           + fax +
-               	" and CUSTOMER_RANK_CATEGORY = " + rankCategory + 
-              	" and PAYBACK_TYPE_CATEGORY = "  + cutoffGroup +
-              	" and PAYMENT_NAME = "           + paymentName + 
-              	" and REMARKS = "                + remarks + ";" ;
-	 	*/
 	 	
 	 	String customerCodeSQL;
 	 	String customerNameSQL;
@@ -133,7 +99,7 @@ public class CustomerDAO extends BaseDAO {
 	 	}
 	 	
 	 	if(PCNameKana == null || PCNameKana == "") {
-	 		PCNameKanaSQL = "LIKE '%' OR CUSTOMER_PC_KANA";
+	 		PCNameKanaSQL = "LIKE '%' OR CUSTOMER_PC_KANA IS NULL";
 	 	} else {
 	 		PCNameKanaSQL = "LIKE '" + PCNameKana + "%'";
 	 	}
@@ -168,15 +134,14 @@ public class CustomerDAO extends BaseDAO {
 	 		remarksSQL = "LIKE '" + remarks + "%'";
 	 	}
 	 	
-	 	
-	 	
+
 	 	con = super.getConnection();
 	 	sql="select * from customer_mst_xxxxx where ( CUSTOMER_CODE " + customerCodeSQL + 
 	 										" ) and ( CUSTOMER_NAME " + customerNameSQL + 
 	 										" ) and ( CUSTOMER_KANA " + customerKanaSQL + 
 	 										" ) and ( CUSTOMER_OFFICE_NAME " + officeNameSQL + 
 	 										" ) and ( CUSTOMER_OFFICE_KANA " + officeNameKanaSQL + 
-	 										" ) and (CUSTOMER_TEL  " + telSQL + 
+	 										" ) and ( CUSTOMER_TEL " + telSQL + 
 	 										" ) and ( CUSTOMER_PC_NAME " + PCNameSQL + 
 	 										" ) and ( CUSTOMER_PC_KANA " + PCNameKanaSQL + 
 	 										" ) and ( CUSTOMER_FAX " + faxSQL + 
@@ -186,19 +151,9 @@ public class CustomerDAO extends BaseDAO {
 	 										" ) and ( REMARKS " + remarksSQL + " )";
 
 	 	pstmt = con.prepareStatement(sql);
-	 	//stmt = con.prepareStatement(sql);
-	 	//pstmt.setString(1, "%'");
-	 	
-	 	
-	 	
 
-	 	 
-	 	
-
-	 	
 	 	result = pstmt.executeQuery(sql);
-	 	//result = stmt.executeQuery(sql);
-	 	
+
 	 	while (result.next()) {
 		 	
 	 		CustomerResultBean rbean = new CustomerResultBean();
@@ -214,19 +169,12 @@ public class CustomerDAO extends BaseDAO {
 	 	}
 	 	
 	 	super.releaseDB(con,pstmt,result);
-	 	//super.releaseDB(con,stmt,result);
 	 	
 	 	return list;
 	}
 
-//	private void setString(int i, String string) {
-//		// TODO Auto-generated method stub
-//		
-//	}
-	
-	
-	
-	public CustomerModifyBean selectCustomer(int customerCode) throws SQLException, ClassNotFoundException {
+
+	public CustomerModifyBean getCustomer(String customerCode) throws SQLException, ClassNotFoundException {
 
 		Connection con;
 		Statement stmt= null;
@@ -236,7 +184,7 @@ public class CustomerDAO extends BaseDAO {
 	 	
 	 	con = super.getConnection();
 	 	stmt = con.createStatement();
-	 	sql = "select * from CUSTOMER_MST where CUSTOMER_CODE = " + customerCode;
+	 	sql = "select * from customer_mst_xxxxx where CUSTOMER_CODE = " + customerCode;
 	 	result = stmt.executeQuery(sql);
 	 	
 	 	CustomerModifyBean bean = new CustomerModifyBean();
@@ -244,7 +192,6 @@ public class CustomerDAO extends BaseDAO {
 	 	bean.setBillPrintUnit(result.getString("BILL_PRINT_UNIT"));
 	 	bean.setBusinessCategory(result.getString("CUSTOMER_BUSINESS_CATEGORY"));
 	 	bean.setComment(result.getString("COMMENT_DATA"));
-	 	bean.setCreDate(result.getDate("CRE_DATETM"));
 	 	bean.setCustomerAbbr(result.getString("CUSTOMER_ABBR"));
 	 	bean.setCustomerCode(result.getString("CUSTOMER_CODE"));
 	 	bean.setCustomerKana(result.getString("CUSTOMER_KANA"));
@@ -255,7 +202,7 @@ public class CustomerDAO extends BaseDAO {
 	 	bean.setFax(result.getString("CUSTOMER_FAX"));
 	 	bean.setFractCategory(result.getString("TAX_FRACT_CATEGORY"));
 	 	bean.setJobCategory(result.getString("CUSTOMER_JOB_CATEGORY"));
-	 	bean.setLastCutoffDate(result.getDate("LAST_CUTOFF_DATE"));
+	 	//bean.setLastCutoffDate(result.getDate("LAST_CUTOFF_DATE"));
 	 	bean.setMaxCreditLimit(result.getBigDecimal("MAX_CREDIT_LIMIT"));
 	 	bean.setOfficeName(result.getString("CUSTOMER_OFFICE_NAME"));
 	 	bean.setOfficeNameKana(result.getString("CUSTOMER_OFFICE_KANA"));
@@ -266,6 +213,7 @@ public class CustomerDAO extends BaseDAO {
 	 	bean.setPCPost(result.getString("CUSTOMER_PC_POST"));
 	 	bean.setPCPreCategory(result.getString("CUSTOMER_PC_PRE_CATEGORY"));
 	 	bean.setRankCategory(result.getString("CUSTOMER_RANK_CATEGORY"));
+	 	bean.setRemarks("REMARKS");
 	 	bean.setROCategory(result.getString("CUSTOMER_RO_CATEGORY"));
 	 	bean.setSalesCMCategory(result.getString("SALES_CM_CATEGORY"));
 	 	bean.setShiftCategory(result.getString("TAX_SHIFT_CATEGORY"));
@@ -275,11 +223,15 @@ public class CustomerDAO extends BaseDAO {
 	 	bean.setZipAddress1(result.getString("CUSTOMER_ADDRESS_1"));
 	 	bean.setZipAddress2(result.getString("CUSTOMER_ADDRESS_2"));
 	 	bean.setZipCode(result.getString("CUSTOMER_ZIP_CODE"));
+	 	//bean.setCreDate("CRE_DATETM");
+	 	//bean.setUpdDate("UPD_DATETM");
+	 	
 	 	
 	 	super.releaseDB(con,stmt,result);
 	 	
 	 	return bean;
 	 	
 	}
+	
 
 }

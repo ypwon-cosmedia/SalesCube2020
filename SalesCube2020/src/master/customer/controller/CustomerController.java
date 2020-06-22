@@ -6,6 +6,7 @@ import javax.servlet.http.*;
 
 import common.controller.BaseController;
 import master.customer.DAO.CustomerDAO;
+import master.customer.beans.CustomerModifyBean;
 import master.customer.beans.customerSearchBeans.CustomerInputBean;
 import master.customer.beans.customerSearchBeans.CustomerResultBean;
 
@@ -52,7 +53,6 @@ public class CustomerController extends BaseController{
 		
 		String forwardURL     = "/customersearch.jsp";
 		String customerCode   = request.getParameter("customerCode");
-		// int iCustomerCode 	  = Integer.parseInt(customerCode);
 		String customerName   = request.getParameter("customerName");
 		String customerKana   = request.getParameter("customerKana");
 		String officeName 	  = request.getParameter("officeName");
@@ -69,7 +69,6 @@ public class CustomerController extends BaseController{
 		
 		
 		CustomerInputBean bean = new CustomerInputBean();
-		//bean.setCustomerCode(iCustomerCode);
 		bean.setCustomerCode(customerCode);
 		bean.setCustomerName(customerName);
 		bean.setCustomerKana(customerKana);
@@ -103,7 +102,7 @@ public class CustomerController extends BaseController{
 	private String moveAddCustomer(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException, ClassNotFoundException, SQLException {
 		
-		String forwardURL = "/customeraddmodify.jsp";
+		String forwardURL = "/customeraddmodify.jsp";		
 		
 		return forwardURL;
 		
@@ -113,6 +112,12 @@ public class CustomerController extends BaseController{
 			throws ServletException, IOException, ClassNotFoundException, SQLException {
 		
 		String forwardURL = "/customeraddmodify.jsp";
+		String customerCode   = request.getParameter("customerCode");
+	
+		CustomerDAO dao =  new CustomerDAO();
+		CustomerModifyBean bean = dao.getCustomer(customerCode);
+		
+		request.setAttribute("customer",bean);
 		
 		return forwardURL;
 		

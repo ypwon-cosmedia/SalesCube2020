@@ -75,7 +75,7 @@ public class ProductAddBean {
 	private String productKana;
 	
 	/** オンライン品番：オンライン品番を保持する */
-	private String productPcode;
+	private String onlinePcode;
 	
 	/** JANコード：JANコードを保持する */
 	private String janPcode;
@@ -102,7 +102,7 @@ public class ProductAddBean {
 	private String stockCtlCategory;
 	
 	/** 入数：入数を保持する */
-	private String packQuantity;
+	private int packQuantity;
 	
 	/** 平均出荷数：平均出荷数を保持する */
 	private int avgShipCount;
@@ -111,7 +111,7 @@ public class ProductAddBean {
 	private String warehouseName;
 	
 	/** 棚番：棚番を保持する */
-	private String rankName;
+	private String rackCode;
 
 	/** リードタイム：リードタイムを保持する */
 	private int leadTime;
@@ -171,7 +171,7 @@ public class ProductAddBean {
 	private BigDecimal soRate;
 
 	/** セット商品フラグ：セット商品フラグを保持する */
-	private int setTypeCategory;
+	private String setTypeCategory;
 
 	/** 商品分類１：商品分類１を保持する */
 	private String product1;
@@ -189,13 +189,13 @@ public class ProductAddBean {
 	private double weight;
 	
 	/** 重量単位：重量単位を保持する */
-	private double weightUnitSizeCategory;
+	private String weightUnitSizeCategory;
 
 	/** 長さ：長さを保持する */
 	private double length;
 	
 	/** 長さ単位：長さ単位を保持する */
-	private double lengthtUnitSizeCategory;
+	private String lengthUnitSizeCategory;
 
 	/** サイズ（幅）：サイズ（幅）を保持する */
 	private double width;
@@ -210,10 +210,10 @@ public class ProductAddBean {
 	private String depthUnitSizeCategory;	
 	
 	/** サイズ（高）：サイズ（高）を保持する */
-	private double hight;
+	private double height;
 	
 	/** サイズ（高）単位：サイズ（高）単位を保持する */
-	private String hightUnitSizeCategory;
+	private String heightUnitSizeCategory;
 
 	/** 芯数：芯数を保持する */
 	private String coreNum;
@@ -226,6 +226,45 @@ public class ProductAddBean {
 	
 	/** コメント：コメントを保持する */
 	private String commentData;
+	
+	
+	private int termShipNum;
+	private int maxPoUpdNum;
+	private String fractCategory;
+	private	String taxCategory;
+	private String stockAssesCategory;
+	private String productCategory;
+	private String productRank;
+	private int num1;
+	private int num2;
+	private int num3;
+	private int num4;
+	private int num5;
+	private double dec1;
+	private double dec2;
+	private double dec3;
+	private double dec4;
+	private double dec5;
+	private String endRemarks;
+	private Date lastRoDate;
+	private BigDecimal salesStandardDeviation;
+	private int entrustSafetyStock;
+	private String creFunc;
+	private Timestamp creDatetm;
+	private String creUser;
+	private String updFunc;
+	private Timestamp updDatetm;
+	private String updUser;
+	private String delFunc;
+	private Timestamp delDatetm;
+	private String delUser;
+	
+	
+	
+	
+	
+	
+	
 
 	public String getProductCode() {
 		return productCode;
@@ -252,11 +291,11 @@ public class ProductAddBean {
 	}
 
 	public String getProductPcode() {
-		return productPcode;
+		return onlinePcode;
 	}
 
 	public void setProductPcode(String productPcode) {
-		this.productPcode = productPcode;
+		this.onlinePcode = productPcode;
 	}
 
 	public String getJanPcode() {
@@ -323,11 +362,11 @@ public class ProductAddBean {
 		this.stockCtlCategory = stockCtlCategory;
 	}
 
-	public String getPackQuantity() {
+	public int getPackQuantity() {
 		return packQuantity;
 	}
 
-	public void setPackQuantity(String packQuantity) {
+	public void setPackQuantity(int packQuantity) {
 		this.packQuantity = packQuantity;
 	}
 
@@ -347,12 +386,12 @@ public class ProductAddBean {
 		this.warehouseName = warehouseName;
 	}
 
-	public String getRankName() {
-		return rankName;
+	public String getRackCode() {
+		return rackCode;
 	}
 
-	public void setRankName(String rankName) {
-		this.rankName = rankName;
+	public void setRackCode(String rackCode) {
+		this.rackCode = rackCode;
 	}
 
 	public int getLeadTime() {
@@ -507,11 +546,11 @@ public class ProductAddBean {
 		this.soRate = soRate;
 	}
 
-	public int getSetTypeCategory() {
+	public String getSetTypeCategory() {
 		return setTypeCategory;
 	}
 
-	public void setSetTypeCategory(int setTypeCategory) {
+	public void setSetTypeCategory(String setTypeCategory) {
 		this.setTypeCategory = setTypeCategory;
 	}
 
@@ -555,11 +594,11 @@ public class ProductAddBean {
 		this.weight = weight;
 	}
 
-	public double getWeightUnitSizeCategory() {
+	public String getWeightUnitSizeCategory() {
 		return weightUnitSizeCategory;
 	}
 
-	public void setWeightUnitSizeCategory(double weightUnitSizeCategory) {
+	public void setWeightUnitSizeCategory(String weightUnitSizeCategory) {
 		this.weightUnitSizeCategory = weightUnitSizeCategory;
 	}
 
@@ -571,12 +610,12 @@ public class ProductAddBean {
 		this.length = length;
 	}
 
-	public double getLengthtUnitSizeCategory() {
-		return lengthtUnitSizeCategory;
+	public String getLengthUnitSizeCategory() {
+		return lengthUnitSizeCategory;
 	}
 
-	public void setLengthtUnitSizeCategory(double lengthtUnitSizeCategory) {
-		this.lengthtUnitSizeCategory = lengthtUnitSizeCategory;
+	public void setLengthtUnitSizeCategory(String lengthUnitSizeCategory) {
+		this.lengthUnitSizeCategory = lengthUnitSizeCategory;
 	}
 
 	public double getWidth() {
@@ -612,19 +651,19 @@ public class ProductAddBean {
 	}
 
 	public double getHight() {
-		return hight;
+		return height;
 	}
 
-	public void setHight(double hight) {
-		this.hight = hight;
+	public void setHight(double height) {
+		this.height = height;
 	}
 
 	public String getHightUnitSizeCategory() {
-		return hightUnitSizeCategory;
+		return heightUnitSizeCategory;
 	}
 
-	public void setHightUnitSizeCategory(String hightUnitSizeCategory) {
-		this.hightUnitSizeCategory = hightUnitSizeCategory;
+	public void setHeightUnitSizeCategory(String heightUnitSizeCategory) {
+		this.heightUnitSizeCategory = heightUnitSizeCategory;
 	}
 
 	public String getCoreNum() {
@@ -659,5 +698,267 @@ public class ProductAddBean {
 		this.commentData = commentData;
 	}
 
+	public String getOnlinePcode() {
+		return onlinePcode;
+	}
+
+	public void setOnlinePcode(String onlinePcode) {
+		this.onlinePcode = onlinePcode;
+	}
+
+	public double getHeight() {
+		return height;
+	}
+
+	public void setHeight(double height) {
+		this.height = height;
+	}
+
+	public int getTeamShipNum() {
+		return termShipNum;
+	}
+
+	public void setTeamShipNum(int teamShipNum) {
+		this.termShipNum = teamShipNum;
+	}
+
+	public int getMaxPoUpdNum() {
+		return maxPoUpdNum;
+	}
+
+	public void setMaxPoUpdNum(int maxPoUpdNum) {
+		this.maxPoUpdNum = maxPoUpdNum;
+	}
+
+	public String getFractCategory() {
+		return fractCategory;
+	}
+
+	public void setFractCategory(String fractCategory) {
+		this.fractCategory = fractCategory;
+	}
+
+	public String getTaxCategory() {
+		return taxCategory;
+	}
+
+	public void setTaxCategory(String taxCategory) {
+		this.taxCategory = taxCategory;
+	}
+
+	public String getStockAssesCategory() {
+		return stockAssesCategory;
+	}
+
+	public void setStockAssesCategory(String stockAssesCategory) {
+		this.stockAssesCategory = stockAssesCategory;
+	}
+
+	public String getProductCategory() {
+		return productCategory;
+	}
+
+	public void setProductCategory(String productCategory) {
+		this.productCategory = productCategory;
+	}
+
+	public String getProductRank() {
+		return productRank;
+	}
+
+	public void setProductRank(String productRank) {
+		this.productRank = productRank;
+	}
+
+	public int getNum1() {
+		return num1;
+	}
+
+	public void setNum1(int num1) {
+		this.num1 = num1;
+	}
+
+	public int getNum2() {
+		return num2;
+	}
+
+	public void setNum2(int num2) {
+		this.num2 = num2;
+	}
+
+	public int getNum3() {
+		return num3;
+	}
+
+	public void setNum3(int num3) {
+		this.num3 = num3;
+	}
+
+	public int getNum4() {
+		return num4;
+	}
+
+	public void setNum4(int num4) {
+		this.num4 = num4;
+	}
+
+	public int getNum5() {
+		return num5;
+	}
+
+	public void setNum5(int num5) {
+		this.num5 = num5;
+	}
+
+	public double getDec1() {
+		return dec1;
+	}
+
+	public void setDec1(double dec1) {
+		this.dec1 = dec1;
+	}
+
+	public double getDec2() {
+		return dec2;
+	}
+
+	public void setDec2(double dec2) {
+		this.dec2 = dec2;
+	}
+
+	public double getDec3() {
+		return dec3;
+	}
+
+	public void setDec3(double dec3) {
+		this.dec3 = dec3;
+	}
+
+	public double getDec4() {
+		return dec4;
+	}
+
+	public void setDec4(double dec4) {
+		this.dec4 = dec4;
+	}
+
+	public double getDec5() {
+		return dec5;
+	}
+
+	public void setDec5(double dec5) {
+		this.dec5 = dec5;
+	}
+
+	public String getEndRemarks() {
+		return endRemarks;
+	}
+
+	public void setEndRemarks(String endRemarks) {
+		this.endRemarks = endRemarks;
+	}
+
+	public Date getLastRoDate() {
+		return lastRoDate;
+	}
+
+	public void setLastRoDate(Date lastRoDate) {
+		this.lastRoDate = lastRoDate;
+	}
+
+	public BigDecimal getSalesStandardDevia() {
+		return salesStandardDeviation;
+	}
+
+	public void setSalesStandardDevia(BigDecimal salesStandardDevia) {
+		this.salesStandardDeviation = salesStandardDevia;
+	}
+
+
+	public int getEntrustSafetyStock() {
+		return entrustSafetyStock;
+	}
+
+	public void setEntrustSafetyStock(int entrustSafetyStock) {
+		this.entrustSafetyStock = entrustSafetyStock;
+	}
+
+	public String getCreFunc() {
+		return creFunc;
+	}
+
+	public void setCreFunc(String creFunc) {
+		this.creFunc = creFunc;
+	}
+
+	public Timestamp getCreDatetm() {
+		return creDatetm;
+	}
+
+	public void setCreDatetm(Timestamp creDatetm) {
+		this.creDatetm = creDatetm;
+	}
+
+	public String getCreUser() {
+		return creUser;
+	}
+
+	public void setCreUser(String creUser) {
+		this.creUser = creUser;
+	}
+
+	public String getUpdFunc() {
+		return updFunc;
+	}
+
+	public void setUpdFunc(String updFunc) {
+		this.updFunc = updFunc;
+	}
+
+	public Timestamp getUpdDatetm() {
+		return updDatetm;
+	}
+
+	public void setUpdDatetm(Timestamp updDatetm) {
+		this.updDatetm = updDatetm;
+	}
+
+	public String getUpdUser() {
+		return updUser;
+	}
+
+	public void setUpdUser(String updUser) {
+		this.updUser = updUser;
+	}
+
+	public String getDelFunc() {
+		return delFunc;
+	}
+
+	public void setDelFunc(String delFunc) {
+		this.delFunc = delFunc;
+	}
+
+	public Timestamp getDelDatetm() {
+		return delDatetm;
+	}
+
+	public void setDelDatetm(Timestamp delDatetm) {
+		this.delDatetm = delDatetm;
+	}
+
+	public String getDelUser() {
+		return delUser;
+	}
+
+	public void setDelUser(String delUser) {
+		this.delUser = delUser;
+	}
+
+	public String getHeightUnitSizeCategory() {
+		return heightUnitSizeCategory;
+	}
+	
+	
 
 }
