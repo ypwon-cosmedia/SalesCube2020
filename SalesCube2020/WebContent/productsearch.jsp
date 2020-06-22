@@ -254,15 +254,12 @@
 								</div>
 								<select class="custom-select" name="product2" id="pro1" onClick="selectPro1();">
 									<option selected></option>
-<<<<<<< HEAD
 										<c:forEach var="cat" items="${category2}">
 											<option value="${cat.product2}">${cat.productName}</option>
 										</c:forEach>
-=======
 									<c:forEach var="cat" items="${category2}">
 										<option value="${cat.product2}">${cat.productName}</option>
 									</c:forEach>
->>>>>>> branch 'master' of https://github.com/ypwon-cosmedia/SalesCube2020.git
 								</select>
 							</div>
 						</div>
