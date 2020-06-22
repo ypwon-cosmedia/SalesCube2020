@@ -4,7 +4,10 @@ import java.io.*;
 import javax.servlet.*;
 import javax.servlet.http.*;
 
+import common.beans.ProductStandardCategoryBean;
+import common.beans.ProductStatusCategoryBean;
 import common.beans.ProductStockCategoryBean;
+import common.beans.SetTypeCategoryBean;
 import common.dao.MenuDAO;
 import master.product.DAO.GetCategoryDAO;
 import master.product.beans.ProductBigCategoryBean;
@@ -49,15 +52,24 @@ final public class MenuController extends BaseController{
 		
 		List<ProductBigCategoryBean> list = new ArrayList<>();
 		List<ProductStockCategoryBean> list2 = new ArrayList<>();
+		List<SetTypeCategoryBean> list3 = new ArrayList<>();
+		List<ProductStandardCategoryBean> list4 = new ArrayList<ProductStandardCategoryBean>();
+		List<ProductStatusCategoryBean> list5 = new ArrayList<ProductStatusCategoryBean>();
 		
 		GetCategoryDAO dao = new GetCategoryDAO();
 		MenuDAO dao2 = new MenuDAO();
 		
 		list = dao.getBigCategory();
-		list2= dao2.getProductStockCategory();
+		list2 = dao2.getProductStockCategory();
+		list3 = dao2.getSetTypeCategory();
+		list4 = dao2.getProductStandardCategory();
+		list5 = dao2.getProductStatusCategory();
 		
 		request.setAttribute("category", list);
 		request.setAttribute("prosearch", list2);
+		request.setAttribute("setTypeCategory", list3);
+		request.setAttribute("productStandardCategory", list4);
+		request.setAttribute("productStatusCategory", list5);
 		
 		return "/productsearch.jsp";
 	}

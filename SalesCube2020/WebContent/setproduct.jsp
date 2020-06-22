@@ -85,14 +85,14 @@
       <div class="btn-toolbar float-right" role="toolbar" aria-label="Toolbar with button groups">
         
         <div class="btn-group mr-2 " role="group" aria-label="First group">
-          <button type="button" class="btn btn-secondary" style="font-size: 12px;">F1<br>初期化</button>
-          <button type="button" class="btn btn-secondary" style="font-size: 12px;">F2<br>戻る</button>
-          <button type="button" class="btn btn-secondary" style="font-size: 12px;">F3<br>登録</button>
-          <button type="button" class="btn btn-secondary" style="font-size: 12px;">F4<br>削除</button>
-          <button type="button" class="btn btn-secondary" style="font-size: 12px;">F5<br>初期値</button>
+          <button type="button" class="btn btn-secondary" style="font-size: 12px;" onclick="location.href='http://localhost:8080/SalesCube2020/SalesCube?action=setProduct'">F1<br>初期化</button>
+          <button type="button" class="btn btn-secondary" style="font-size: 12px;">F2<br>検索</button>
+          <button type="button" class="btn btn-secondary" style="font-size: 12px;">F3<br></button>
+          <button type="button" class="btn btn-secondary" style="font-size: 12px;">F4<br></button>
+          <button type="button" class="btn btn-secondary" style="font-size: 12px;">F5<br></button>
           <button type="button" class="btn btn-secondary" style="font-size: 12px;">F6<br></button>
           <button type="button" class="btn btn-secondary" style="font-size: 12px;">F7<br></button>
-          <button type="button" class="btn btn-secondary" style="font-size: 12px;">F8<br>履歴出力</button>
+          <button type="button" class="btn btn-secondary" style="font-size: 12px;">F8<br></button>
           <button type="button" class="btn btn-secondary" style="font-size: 12px;">F9<br></button>
           <button type="button" class="btn btn-secondary" style="font-size: 12px;">F10<br></button>
           <button type="button" class="btn btn-secondary" style="font-size: 12px;">F11<br></button>
@@ -117,7 +117,6 @@
 									<div class="input-group-text">セット商品コード</div>
 								</div>
 							<input type="text"  class="form-control" id="inlineFormInputGroup" name="data1">
-							<!-- <input type="image" name="" src="btn_search.png" tabindex="101" onclick="" style="vertical-align: middle; cursor: pointer; width: 32px;"> -->
 							</div>
 						</div>
 						<div class="col-8">
@@ -150,7 +149,7 @@
 								<div class="input-group-prepend">
 									<div class="input-group-text">商品コード</div>
 								</div>
-							<input type="text"  class="form-control" id="inlineFormInputGroup" name="data3">				<!--<input type="image" name="" src="btn_search.png" tabindex="101" onclick="" style="vertical-align: middle; cursor: pointer; width: 32px;"> -->
+							<input type="text"  class="form-control" id="inlineFormInputGroup" name="data3">
 							</div>
 						</div>
 						
@@ -169,7 +168,7 @@
 			</div>
 				
 				<div align="right">
-					<input type="button" value="初期化" class="btn btn-outline-secondary">
+					<input type="button" value="初期化" class="btn btn-outline-secondary" onclick="location.href='http://localhost:8080/SalesCube2020/SalesCube?action=setProduct'">
 					<input type="submit" value="検索" class="btn btn-outline-secondary">
 				</div>
 			
