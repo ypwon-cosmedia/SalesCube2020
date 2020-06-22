@@ -65,7 +65,7 @@ public class GetCategoryDAO extends BaseDAO {
 		return list;
 	}
 	
-	public List<ProductSmallCategoryBean> getSmailCategory(String product1, String product2) throws SQLException, ClassNotFoundException{
+	public List<ProductSmallCategoryBean> getSmallCategory(String product1, String product2) throws SQLException, ClassNotFoundException{
 
 		List<ProductSmallCategoryBean> list = new ArrayList<ProductSmallCategoryBean>();
 

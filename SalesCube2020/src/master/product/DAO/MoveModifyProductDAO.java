@@ -60,7 +60,7 @@ public class MoveModifyProductDAO extends BaseDAO {
 	 			+ "LEFT OUTER JOIN (select SUPPLIER_CODE, SUPPLIER_NAME from supplier_mst_xxxxx) B ON A.SUPPLIER_CODE = B.SUPPLIER_CODE "
 	 			+ "LEFT OUTER JOIN (select WAREHOUSE_CODE, RACK_CODE from rack_mst_xxxxx) C ON A.RACK_CODE = C.RACK_CODE "
 	 			+ "LEFT OUTER JOIN (select WAREHOUSE_CODE, WAREHOUSE_NAME from warehouse_mst_xxxxx) D ON C.WAREHOUSE_CODE = D.WAREHOUSE_CODE "
-	 			+ "LEFT OUTER JOIN (select PRODUCT_CODE, DISCOUNT_ID from discount_rel_xxxxx) E ON A.PRODUCT_CODE = E.PRODUCT_CODE ";
+	 			+ "LEFT OUTER JOIN (select PRODUCT_CODE, DISCOUNT_ID from discount_rel_xxxxx) E ON A.PRODUCT_CODE = E.PRODUCT_CODE";
 	 	result = stmt.executeQuery(sql);	
 	 	
 	 	while (result.next()) {

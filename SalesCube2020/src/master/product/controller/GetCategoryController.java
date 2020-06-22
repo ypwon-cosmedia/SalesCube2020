@@ -90,7 +90,7 @@ public class GetCategoryController extends BaseController {
 		
 		
 		try {
-			list = dao.getSmailCategory(bigCode, middleCode);
+			list = dao.getSmallCategory(bigCode, middleCode);
 		} catch (ClassNotFoundException | SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
