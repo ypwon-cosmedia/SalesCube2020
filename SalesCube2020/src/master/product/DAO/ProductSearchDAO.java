@@ -67,7 +67,7 @@ public class ProductSearchDAO extends BaseDAO{
 	 		stmt.setString(6, bean.getProductStandardCategory());
 	 		stmt.setString(7, bean.getProductStatusCategory());
 	 		stmt.setString(8, bean.getProductStockCategory());
-	 		stmt.setInt(9, bean.getSetTypeCategory());
+	 		stmt.setString(9, bean.getSetTypeCategory());
 	 		stmt.setString(10, bean.getRemarks());
 	 		stmt.setString(11, bean.getProduct1());
 	 		stmt.setString(12, bean.getProduct2());
@@ -136,7 +136,7 @@ public class ProductSearchDAO extends BaseDAO{
 	 		stmt.setString(6, bean.getProductStandardCategory());
 	 		stmt.setString(7, bean.getProductStatusCategory());
 	 		stmt.setString(8, bean.getProductStockCategory());
-	 		stmt.setInt(9, bean.getSetTypeCategory());
+	 		stmt.setString(9, bean.getSetTypeCategory());
 	 		stmt.setString(10, bean.getRemarks());
 	 		stmt.setString(11, bean.getProduct1());
 	 		stmt.setString(12, bean.getProduct2());
@@ -158,8 +158,8 @@ public class ProductSearchDAO extends BaseDAO{
 	 				pb.setRackCode(result.getString("pmx.RACK_CODE"));
 	 				pb.setSupplierPriceYen(result.getInt("pmx.SUPPLIER_PRICE_YEN"));
 	 				pb.setSupplierPriceDol(result.getInt("pmx.SUPPLIER_PRICE_DOL"));
-	 				pb.setRetailPrice(result.getBigDecimal("pmx.RETAIL_PRICE"));
-	 				pb.setSoRate(result.getBigDecimal("pmx.SO_RATE"));
+	 				pb.setRetailPrice(result.getInt("pmx.RETAIL_PRICE"));
+	 				pb.setSoRate(result.getInt("pmx.SO_RATE"));
 		 			pb.setUnitCategory(result.getString("pmx.UNIT_CATEGORY"));
 		 			pb.setPackQuantity(result.getShort("pmx.PACK_QUANTITY"));
 		 			pb.setJanPcode(result.getString("pmx.JAN_PCODE"));
@@ -173,7 +173,7 @@ public class ProductSearchDAO extends BaseDAO{
 		 			pb.setWeightUnitSizeCategory(result.getString("pmx.WEIGHT_UNIT_SIZE_CATEGORY"));
 		 			pb.setLength(result.getDouble("pmx.LENGTH"));
 		 			pb.setLengthUnitSizeCategory(result.getString("pmx.LENGTH_UNIT_SIZE_CATEGORY"));
-		 			pb.setPoLot(result.getBigDecimal("pmx.PO_LOT"));
+		 			pb.setPoLot(result.getInt("pmx.PO_LOT"));
 		 			pb.setLotUpdFlag(result.getShort("pmx.LOT_UPD_FLAG"));
 		 			pb.setLeadTime(result.getInt("pmx.LEAD_TIME"));
 		 			pb.setPoNum(result.getInt("pmx.PO_NUM"));
@@ -215,7 +215,7 @@ public class ProductSearchDAO extends BaseDAO{
 		 			pb.setEadRemarks(result.getString("pmx.EAD_REMARKS"));
 		 			pb.setCommentData(result.getString("pmx.COMMENT_DATA"));
 		 			pb.setLastRoDate(result.getDate("pmx.LAST_RO_DATE"));
-		 			pb.setSalesStandardDeviation(result.getBigDecimal("pmx.SALES_STANDARD_DEVIATION"));
+		 			pb.setSalesStandardDeviation(result.getInt("pmx.SALES_STANDARD_DEVIATION"));
 		 			pb.setMineSafetyStock(result.getInt("pmx.MINE_SAFETY_STOCK"));
 			 		pb.setMineSafetyStockUpdFlag(result.getShort("pmx.MINE_SAFETY_STOCK_UPD_FLAG"));
 			 		pb.setEntrustSafetyStock(result.getInt("pmx.ENTRUST_SAFETY_STOCK"));
