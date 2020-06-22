@@ -1,7 +1,6 @@
 package master.product.beans;
 
 import java.sql.*;
-import java.math.*;
 
 /**
  * ¤•i‚ğ•ÏX‚·‚é<br>

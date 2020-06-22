@@ -104,6 +104,13 @@
 		<br><br><br>
 		</div>
 	<br>
+	
+	<!-- エラーメッセージを表示 -->
+       <div style="width:100%; text-align:center; margin-bottom:20px;">
+				 <span class="action_errors" style="color: red">${addmodifyError}<br></span>
+       </div>
+	
+	
 		<div class="container" style="background-color: white;"><div class="panel panel-default" >
 			<div class="panel-heading row mb-2 col-4">
 				<h5><br>商品情報</h5>
