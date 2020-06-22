@@ -14,4 +14,6 @@ import master.product.beans.ProductSearchBean;
 
 public class MoveModifyProductDAO {
 
+	public 
+	
 }
