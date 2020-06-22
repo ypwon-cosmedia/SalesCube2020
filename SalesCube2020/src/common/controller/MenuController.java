@@ -4,6 +4,8 @@ import java.io.*;
 import javax.servlet.*;
 import javax.servlet.http.*;
 
+import common.beans.ProductStockCategoryBean;
+import common.dao.MenuDAO;
 import master.product.DAO.GetCategoryDAO;
 import master.product.beans.ProductBigCategoryBean;
 
@@ -46,12 +48,16 @@ final public class MenuController extends BaseController{
 	private String moveProduct (HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException, ClassNotFoundException, SQLException {
 		
 		List<ProductBigCategoryBean> list = new ArrayList<>();
+		List<ProductStockCategoryBean> list2 = new ArrayList<>();
 		
 		GetCategoryDAO dao = new GetCategoryDAO();
+		MenuDAO dao2 = new MenuDAO();
 		
 		list = dao.getBigCategory();
+		list2= dao2.getProductStockCategory();
 		
 		request.setAttribute("category", list);
+		request.setAttribute("prosearch", list2);
 		
 		return "/productsearch.jsp";
 	}

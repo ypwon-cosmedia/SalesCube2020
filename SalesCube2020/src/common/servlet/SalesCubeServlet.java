@@ -25,10 +25,8 @@ public class SalesCubeServlet extends HttpServlet {
 		request.setCharacterEncoding("utf-8");
 		
         String  forwardURL;
-;
 
         String action = request.getParameter("action");
-        System.out.println(action);
 
         // �Ɩ��̐U�蕪��
         if  ( controllerList.containsKey(action) )  {							// action�ɊY������Ɩ��R���g���[��������ꍇ
