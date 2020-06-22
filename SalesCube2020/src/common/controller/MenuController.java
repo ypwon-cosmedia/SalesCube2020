@@ -11,6 +11,7 @@ import common.beans.SetTypeCategoryBean;
 import common.dao.MenuDAO;
 import master.product.DAO.GetCategoryDAO;
 import master.product.beans.ProductBigCategoryBean;
+import master.product.beans.ProductMiddleCategoryBean;
 
 import java.util.*;
 import java.sql.SQLException;
@@ -55,6 +56,7 @@ final public class MenuController extends BaseController{
 		List<SetTypeCategoryBean> list3 = new ArrayList<>();
 		List<ProductStandardCategoryBean> list4 = new ArrayList<ProductStandardCategoryBean>();
 		List<ProductStatusCategoryBean> list5 = new ArrayList<ProductStatusCategoryBean>();
+		List<ProductMiddleCategoryBean> list6 = new ArrayList<ProductMiddleCategoryBean>();
 		
 		GetCategoryDAO dao = new GetCategoryDAO();
 		MenuDAO dao2 = new MenuDAO();
@@ -64,12 +66,14 @@ final public class MenuController extends BaseController{
 		list3 = dao2.getSetTypeCategory();
 		list4 = dao2.getProductStandardCategory();
 		list5 = dao2.getProductStatusCategory();
+		list6 = dao.getMiddleCategory(request.getParameter("product1"));
 		
 		request.setAttribute("category", list);
 		request.setAttribute("prosearch", list2);
 		request.setAttribute("setTypeCategory", list3);
 		request.setAttribute("productStandardCategory", list4);
 		request.setAttribute("productStatusCategory", list5);
+		request.setAttribute("category2", list6);
 		
 		return "/productsearch.jsp";
 	}

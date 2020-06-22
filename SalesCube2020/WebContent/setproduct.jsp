@@ -3,7 +3,14 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %> 
     
-<% int rowCount =Integer.parseInt((String) request.getParameter("rowCount")); %>    
+<% int rowCount;
+
+	if((String) request.getParameter("rowCount")==null){
+		rowCount = 100;
+	} else{
+		rowCount =Integer.parseInt((String) request.getParameter("rowCount"));
+	}
+%> 
 
 <!DOCTYPE html>
 <html>
@@ -194,7 +201,7 @@
     
 <br>
 	<c:forEach var="pageCount" items="${totalPage}">
-		<a id='MySelect' href="http://localhost:8080/SalesCube2020/SalesCube?action=searchSetProduct&rowCount=100&currentPage=${pageCount}" >${pageCount}</a>
+		<a id='MySelect' href="http://localhost:8080/SalesCube2020/SalesCube?action=searchSetProduct&rowCount=${rowCount}&currentPage=${pageCount}" >${pageCount}</a>
 	</c:forEach>
 <br>
 <div class="container" style="background-color: rgb(255, 255, 255);" id="setProductList">
