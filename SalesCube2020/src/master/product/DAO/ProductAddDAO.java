@@ -51,7 +51,7 @@ public class ProductAddDAO extends BaseDAO {
 		 	stmt.setInt(30, bean.getAvgShipCount());
 		 	stmt.setInt(31, bean.getMaxStockNum());
 		 	stmt.setInt(32, bean.getStockUpdFlag());
-		 	stmt.setInt(33, bean.getTeamShipNum());
+		 	stmt.setInt(33, bean.getTermShipNum());
 		 	stmt.setInt(34, bean.getMaxPoNum());
 		 	stmt.setInt(35, bean.getMaxPoUpdNum());
 		 	stmt.setString(36, bean.getFractCategory());
@@ -85,7 +85,7 @@ public class ProductAddDAO extends BaseDAO {
 		 	stmt.setString(64, bean.getEndRemarks());
 		 	stmt.setString(65, bean.getCommentData());
 		 	stmt.setDate(66, bean.getLastRoDate());
-		 	stmt.setBigDecimal(67, bean.getSalesStandardDevia());
+		 	stmt.setBigDecimal(67, bean.getSalesStandardDeviation());
 		 	stmt.setInt(68, bean.getMineSafetyStock());
 		 	stmt.setInt(69, bean.getMineSafetyStockUpdFlag());
 		 	stmt.setInt(70, bean.getEntrustSafetyStock());
