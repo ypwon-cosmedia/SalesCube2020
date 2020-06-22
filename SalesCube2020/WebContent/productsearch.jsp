@@ -3,6 +3,15 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
 
+<% int bigCategory;
+
+	if((String)request.getParameter("bigCategory") == null){
+		bigCategory = 0;
+	} else {
+		bigCategory = Integer.parseInt((String)request.getParameter("bigCategory"));
+	}
+%>
+
 <!DOCTYPE html>
 <html>
 	<head>
@@ -236,7 +245,7 @@
 								<div class="input-group-prepend">
 									<div class="input-group-text">分類（大）</div>
 								</div>
-								<select class="custom-select" name="product1" id="pro1" onchange="selectPro1(this);">
+								<select class="custom-select" name="product1" id="product1" onchange="selectPro1(this);">
 									<option selected></option>
 									<c:forEach var="cat" items="${category}">
 										<option value="${cat.product1}" >${cat.productName}</option>
@@ -368,8 +377,19 @@
 			 valueNames: [ 'productCode', 'productName' , 'supplierName' , 'product1' ]
 		};
 		var prosortList = new List('prosortList', options);
+		function initBigCategory(){
+			var e = document.getElementById("product1");
+			var tmp = e.option[e.selectedIndex].value;
+			
+		}
+	</script>
+	<script>
+	$(function() {
+	    var temp = "<%= bigCategory %>"; 
+	    $("#product1").val(temp);
+	});
 
-		
+
 	</script>
 	
 </html>

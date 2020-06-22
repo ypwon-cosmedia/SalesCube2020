@@ -61,20 +61,28 @@ final public class MenuController extends BaseController{
 		GetCategoryDAO dao = new GetCategoryDAO();
 		MenuDAO dao2 = new MenuDAO();
 		
+		String bigCategory = request.getParameter("product1");
+		
+		System.out.println(bigCategory);
+		
 		list = dao.getBigCategory();
 		list2 = dao2.getProductStockCategory();
 		list3 = dao2.getSetTypeCategory();
 		list4 = dao2.getProductStandardCategory();
 		list5 = dao2.getProductStatusCategory();
-		list6 = dao.getMiddleCategory(request.getParameter("product1"));
+		if(bigCategory != null)
+			list6 = dao.getMiddleCategory(bigCategory);
 		
 		request.setAttribute("category", list);
 		request.setAttribute("prosearch", list2);
 		request.setAttribute("setTypeCategory", list3);
 		request.setAttribute("productStandardCategory", list4);
 		request.setAttribute("productStatusCategory", list5);
-		request.setAttribute("category2", list6);
-		
+		if(bigCategory != null) {
+			request.setAttribute("category2", list6);
+			int tmp = Integer.parseInt(bigCategory);
+			request.setAttribute("bigCategory", tmp);
+		}
 		return "/productsearch.jsp";
 	}
 	
