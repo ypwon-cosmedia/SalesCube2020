@@ -2,4 +2,5 @@ eclipse.preferences.version=1
 encoding//WebContent/customeraddmodify.jsp=UTF-8
 encoding//WebContent/menu.jsp=UTF-8
 encoding//WebContent/zipsearch.jsp=UTF-8
+encoding//src/master/product/DAO/ProductSearchDAO.java=UTF-8
 encoding//src/master/product/controller/ProductExcelController.java=UTF-8
