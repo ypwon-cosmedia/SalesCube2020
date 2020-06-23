@@ -10,10 +10,7 @@ import common.beans.ProductStockCategoryBean;
 import common.beans.SetTypeCategoryBean;
 import common.dao.MenuDAO;
 import master.product.DAO.GetCategoryDAO;
-import master.product.beans.ProductBigCategoryBean;
 import master.product.beans.ProductCategoryAllBean;
-import master.product.beans.ProductMiddleCategoryBean;
-import master.product.beans.ProductSmallCategoryBean;
 
 import java.util.*;
 import java.sql.SQLException;
@@ -53,13 +50,13 @@ final public class MenuController extends BaseController{
 	
 	private String moveProduct (HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException, ClassNotFoundException, SQLException {
 		
-		List<ProductBigCategoryBean> list = new ArrayList<>();
+		
 		List<ProductStockCategoryBean> list2 = new ArrayList<>();
 		List<SetTypeCategoryBean> list3 = new ArrayList<>();
 		List<ProductStandardCategoryBean> list4 = new ArrayList<ProductStandardCategoryBean>();
 		List<ProductStatusCategoryBean> list5 = new ArrayList<ProductStatusCategoryBean>();
-		List<ProductMiddleCategoryBean> list6 = new ArrayList<ProductMiddleCategoryBean>();
-		List<ProductSmallCategoryBean> list7 = new ArrayList<ProductSmallCategoryBean>();
+		
+		
 		List<ProductCategoryAllBean> list8 = new ArrayList<ProductCategoryAllBean>();
 		
 		GetCategoryDAO dao = new GetCategoryDAO();
@@ -69,30 +66,23 @@ final public class MenuController extends BaseController{
 		String middleCategory = request.getParameter("product2");
 		
 		
-		list = dao.getBigCategory();
+		
 		list2 = dao2.getProductStockCategory();
 		list3 = dao2.getSetTypeCategory();
 		list4 = dao2.getProductStandardCategory();
 		list5 = dao2.getProductStatusCategory();
-		if(bigCategory != null)
-			list6 = dao.getMiddleCategory(bigCategory);
-		if(bigCategory != null && middleCategory != null)
-			list7 = dao.getSmallCategory(bigCategory, middleCategory);
+
 		
 		list8 = dao.getAllCategory();
 		
-		request.setAttribute("category", list);
+
 		request.setAttribute("prosearch", list2);
 		request.setAttribute("setTypeCategory", list3);
 		request.setAttribute("productStandardCategory", list4);
 		request.setAttribute("productStatusCategory", list5);
 		request.setAttribute("Category1", bigCategory);
 		request.setAttribute("Category2", middleCategory);
-		if(bigCategory != null) {
-			request.setAttribute("middleCategory", list6);
-		}
-		if(bigCategory != null && middleCategory != null)
-			request.setAttribute("smallCategory", list7);
+
 		
 		request.setAttribute("all", list8);
 		
