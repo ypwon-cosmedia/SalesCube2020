@@ -18,17 +18,92 @@ import master.product.beans.ProductSearchBean;
 
 public class ProductSearchDAO extends BaseDAO{
 	
-	/* ���i�������̎擾(������ʗp) */
-	public List<ProductResultBean> searchProduct(ProductSearchBean bean) throws SQLException, ClassNotFoundException {
+	/* �ｿｽ�ｿｽ�ｿｽi�ｿｽ�ｿｽ�ｿｽ�ｿｽ�ｿｽ�ｿｽ�ｿｽﾌ取得(�ｿｽ�ｿｽ�ｿｽ�ｿｽ�ｿｽ�ｿｽﾊ用) */
+	public List<ProductResultBean> searchProduct(ProductSearchBean input) throws SQLException, ClassNotFoundException {
 
 		List<ProductResultBean> list = new ArrayList<ProductResultBean>();
 
 		Connection con;
-	 	PreparedStatement stmt = null;
+	 	Statement stmt = null;
 	 	ResultSet result = null;	
 	 	String  sql;
 
-	 	con = super.getConnection();	
+	 	con = super.getConnection();
+	 	stmt = con.createStatement();
+	 	
+	 	if(input.getProductCode() == null) {
+	 		input.setProductCode("%");
+	 	}
+	 	if(input.getProductName() == null) {
+	 		input.setProductName("%");
+	 	}
+	 	if(input.getProductKana() == null) {
+	 		input.setProductKana("%' OR pmx.PRODUCT_KANA IS NULL");
+	 	}
+	 	else {
+	 		input.setProductKana(input.getProductKana().concat("'"));
+	 	}
+	 	if(input.getSupplierCode() == null) {
+	 		input.setSupplierCode("%' OR pmx.SUPPLIER_CODE IS NULL");
+	 	}
+	 	else {
+	 		input.setSupplierCode(input.getSupplierCode().concat("'"));
+	 	}
+	 	if(input.getSupplierName() == null) {
+	 		input.setSupplierName("%' OR pmx.SUPPLIER_NAME IS NULL");
+	 	}
+	 	else {
+	 		input.setSupplierName(input.getSupplierName().concat("'"));
+	 	}
+	 	if(input.getProductStandardCategory() == null) {
+	 		input.setProductStandardCategory("%' OR pmx.PRODUCT_STANDARD_CATEGORY IS NULL");
+	 	}
+	 	else {
+	 		input.setProductStandardCategory(input.getProductStandardCategory().concat("'"));
+	 	}
+	 	if(input.getProductStatusCategory() == null) {
+	 		input.setProductStatusCategory("%' OR pmx.PRODUCT_STATUS_CATEGORY IS NULL");
+	 	}
+	 	else {
+	 		input.setProductStatusCategory(input.getProductStatusCategory().concat("'"));
+	 	}
+	 	if(input.getProductStockCategory() == null) {
+	 		input.setProductStockCategory("%' OR pmx.PRODUCT_STOCK_CATEGORY IS NULL");
+	 	}
+	 	else {
+	 		input.setProductStockCategory(input.getProductStockCategory().concat("'"));
+	 	}
+	 	if(input.getSetTypeCategory() == null) {
+	 		input.setSetTypeCategory("%' OR pmx.SET_TYPE_CATEGORY IS NULL");
+	 	}
+	 	else {
+	 		input.setSetTypeCategory(input.getSetTypeCategory().concat("'"));
+	 	}
+	 	if(input.getRemarks() == null) {
+	 		input.setRemarks("%' OR pmx.REMARKS IS NULL");
+	 	}
+	 	else {
+	 		input.setRemarks(input.getRemarks().concat("'"));
+	 	}
+	 	if(input.getProduct1() == null) {
+	 		input.setProduct1("%' OR pmx.PRODUCT_1 IS NULL");
+	 	}
+	 	else {
+	 		input.setProduct1(input.getProduct1().concat("'"));
+	 	}
+	 	if(input.getProduct2() == null) {
+	 		input.setProduct2("%' OR pmx.PRODUCT_2 IS NULL");
+	 	}
+	 	else {
+	 		input.setProduct2(input.getProduct2().concat("'"));
+	 	}
+	 	if(input.getProduct3() == null) {
+	 		input.setProduct3("%' OR pmx.PRODUCT_3 IS NULL");
+	 	}
+	 	else {
+	 		input.setProduct3(input.getProduct3().concat("'"));
+	 	}
+	 	
 	 	sql = "SELECT"
 	 			+" pmx.PRODUCT_CODE,"
 	 			+" pmx.PRODUCT_NAME,"
@@ -38,43 +113,29 @@ public class ProductSearchDAO extends BaseDAO{
 	 		  +" FROM"
 	 			+" product_mst_xxxxx pmx"
 	 			+" LEFT OUTER JOIN (SELECT SUPPLIER_CODE ,SUPPLIER_NAME FROM supplier_mst_xxxxx AS smx) A on pmx.SUPPLIER_CODE = A.SUPPLIER_CODE"
-	 			+" LEFT OUTER JOIN (SELECT pcm.CLASS_CODE_1, pcm.CLASS_CODE_2, pcm.CLASS_NAME FROM product_class_mst_xxxxx pcm, product_mst_xxxxx pmx) B ON pmx.PRODUCT_1 = B.CLASS_CODE_1 AND CLASS_CODE_2 ='' "
+	 			+" LEFT OUTER JOIN (SELECT pcm.CLASS_CODE_1, pcm.CLASS_CODE_2, pcm.CLASS_NAME FROM product_class_mst_xxxxx pcm, product_mst_xxxxx pmx) B ON pmx.PRODUCT_1 = B.CLASS_CODE_1 AND CLASS_CODE_2 =''"
 	 		  +" WHERE"
-	 			+" pmx.PRODUCT_CODE LIKE ''?%'"
-	 		  +" AND 	pmx.PRODUCT_NAME LIKE ''?%'"
-	 		  +" AND 	(pmx.PRODUCT_KANA LIKE ''?%' OR pmx.PRODUCT_KANA IS NULL)"
-	 		  +" AND 	(pmx.SUPPLIER_CODE LIKE ''?%' OR pmx.SUPPLIER_CODE IS NULL)"
-	 		  +" AND 	(A.SUPPLIER_NAME LIKE ''?%' OR A.SUPPLIER_NAME IS NULL)"
-	 		  +" AND 	(pmx.PRODUCT_STANDARD_CATEGORY LIKE ''?%' OR pmx.PRODUCT_STANDARD_CATEGORY IS NULL)"
-	 		  +" AND 	(pmx.PRODUCT_STATUS_CATEGORY LIKE ''?%' OR pmx.PRODUCT_STATUS_CATEGORY IS NULL)"
-	 		  +" AND 	(pmx.PRODUCT_STOCK_CATEGORY LIKE ''?%' OR pmx.PRODUCT_STOCK_CATEGORY IS NULL)"
-	 		  +" AND 	(pmx.SET_TYPE_CATEGORY LIKE ''?%' OR pmx.SET_TYPE_CATEGORY IS NULL)"
-	 		  +" AND 	(pmx.REMARKS LIKE ''?%' OR pmx.REMARKS IS NULL)"
-	 		  +" AND 	(pmx.PRODUCT_1 LIKE ''?%' OR pmx.PRODUCT_1 IS NULL)"
-	 		  +" AND 	(pmx.PRODUCT_2 LIKE ''?%' OR pmx.PRODUCT_2 IS NULL)"
-	 		  +" AND 	(pmx.PRODUCT_3 LIKE ''?%' OR pmx.PRODUCT_3 IS NULL)"
-	 		  +" GROUP BY"
+	 			+" pmx.PRODUCT_CODE LIKE " + input.getProductCode()
+	 		  +" AND 	pmx.PRODUCT_NAME LIKE " + input.getProductName()
+	 		  +" AND 	(pmx.PRODUCT_KANA LIKE " + input.getProductKana() 
+	 		  +") AND 	(pmx.SUPPLIER_CODE LIKE " + input.getSupplierCode()
+	 		  +") AND 	(A.SUPPLIER_NAME LIKE " + input.getSupplierName()
+	 		  +") AND 	(pmx.PRODUCT_STANDARD_CATEGORY LIKE " + input.getProductStandardCategory()
+	 		  +") AND 	(pmx.PRODUCT_STATUS_CATEGORY LIKE " + input.getProductStatusCategory()
+	 		  +") AND 	(pmx.PRODUCT_STOCK_CATEGORY LIKE " + input.getProductStockCategory()
+	 		  +") AND 	(pmx.SET_TYPE_CATEGORY LIKE " + input.getSetTypeCategory()
+	 		  +") AND 	(pmx.REMARKS LIKE " + input.getRemarks()
+	 		  +") AND 	(pmx.PRODUCT_1 LIKE " + input.getProduct1()
+	 		  +") AND 	(pmx.PRODUCT_2 LIKE " + input.getProduct2()
+	 		  +") AND 	(pmx.PRODUCT_3 LIKE " + input.getProduct3()
+	 		  +") GROUP BY"
 	 			+" pmx.PRODUCT_CODE"
 	 		  +" ORDER BY"
 	 			+" pmx.PRODUCT_CODE";
 	 	
-	 	stmt = con.prepareStatement(sql);
-	 	
-	 		stmt.setString(1, bean.getProductCode());
-	 		stmt.setString(2, bean.getProductName());
-	 		stmt.setString(3, bean.getProductKana());
-	 		stmt.setString(4, bean.getSupplierCode());
-	 		stmt.setString(5, bean.getSupplierName());
-	 		stmt.setString(6, bean.getProductStandardCategory());
-	 		stmt.setString(7, bean.getProductStatusCategory());
-	 		stmt.setString(8, bean.getProductStockCategory());
-	 		stmt.setString(9, bean.getSetTypeCategory());
-	 		stmt.setString(10, bean.getRemarks());
-	 		stmt.setString(11, bean.getProduct1());
-	 		stmt.setString(12, bean.getProduct2());
-	 		stmt.setString(13, bean.getProduct3());
 
-		 	result = stmt.executeQuery();
+		 	result = stmt.executeQuery(sql);
+
 		 	
 		 	while( result.next() ) {
 		 		ProductResultBean prb = new ProductResultBean();
@@ -91,7 +152,7 @@ public class ProductSearchDAO extends BaseDAO{
 		 	return list; 	
 	}
 	
-	//���i�������̎擾(Excel�o�͗p�j ModifyBean���g�p
+	//�ｿｽ�ｿｽ�ｿｽi�ｿｽ�ｿｽ�ｿｽ�ｿｽ�ｿｽ�ｿｽ�ｿｽﾌ取得(Excel�ｿｽo�ｿｽﾍ用�ｿｽj ModifyBean�ｿｽ�ｿｽ�ｿｽg�ｿｽp
 	public List<ProductModifyBean> searchAllProduct(ProductSearchBean bean) throws SQLException, ClassNotFoundException {
 
 		List<ProductModifyBean> listAll = new ArrayList<ProductModifyBean>();
@@ -147,7 +208,7 @@ public class ProductSearchDAO extends BaseDAO{
 	 		
 	 		
 	 			while( result.next() ) {
-	 				//Bean�̎擾
+	 				//Bean�ｿｽﾌ取得
 	 				ProductModifyBean pb =new ProductModifyBean();
 	 				
 	 				pb.setProductCode(result.getString("pmx.PRODUCT_CODE"));
@@ -233,7 +294,7 @@ public class ProductSearchDAO extends BaseDAO{
 			 		listAll.add(pb);
 		 		
 	 			}
-	 		//�f�[�^�x�[�X�̊J��
+	 		//�ｿｽf�ｿｽ[�ｿｽ^�ｿｽx�ｿｽ[�ｿｽX�ｿｽﾌ開�ｿｽ�ｿｽ
 		 	super.releaseDB(con, stmt, result);
 		 	
 		 	return listAll;
