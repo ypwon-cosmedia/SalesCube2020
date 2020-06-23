@@ -125,7 +125,7 @@
 								<div class="input-group-prepend">
 									<div class="input-group-text" style = "background-color: pink;">商品コード※</div>
 								</div>
-							<input type="text"  class="form-control" id="inlineFormInputGroup" name="productCode" value="${product.productCode}">
+							<input type="text"  class="form-control" id="inlineFormInputGroup" name="productCode" value="${product.productCode}" required>
 				
 							</div>
 						</div>
@@ -135,7 +135,7 @@
 								<div class="input-group-prepend">
 									<div class="input-group-text" style = "background-color: pink;">商品名※</div>
 								</div>
-							<input type="text"  class="form-control" id="inlineFormInputGroup" name="productName" value="${product.productName}">
+							<input type="text"  class="form-control" id="inlineFormInputGroup" name="productName" value="${product.productName}" required>
 							</div>
 						</div>
 						<div class="col-4">
@@ -214,9 +214,9 @@
 							<label class="sr-only" for="inlineFormInputGroup">supplierPriceYen</label>
 							<div class="input-group mb-2">
 								<div class="input-group-prepend">
-									<div class="input-group-text" style = "background-color: pink;">仕入れ単価(円)※</div>
+									<div class="input-group-text" style = "background-color: pink;">仕入単価(円)※</div>
 								</div>
-							<input type="text"  class="form-control" id="inlineFormInputGroup" name="supplierPriceYen" value="${product.supplierPriceYen}">
+							<input type="text"  class="form-control" id="inlineFormInputGroup" name="supplierPriceYen" value="${product.supplierPriceYen}" required>
 							</div>
 						</div>
 						<div class="col-4">

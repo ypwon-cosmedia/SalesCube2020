@@ -1,7 +1,7 @@
 package master.product.beans;
 
 import java.sql.*;
-import java.math.*;
+
 
 /**
  * 商品を追加する<br>
@@ -138,7 +138,7 @@ public class ProductAddBean {
 	private int maxStockNum;
 	
 	/** 在庫限度数自動更新：在庫限度数自動更新を保持する */
-	private int StockUpdFlag;
+	private int stockUpdFlag;
 
 	/** 発注限度数：発注限度数を保持する */
 	private int maxPoNum;
@@ -459,11 +459,11 @@ public class ProductAddBean {
 	}
 
 	public int getStockUpdFlag() {
-		return StockUpdFlag;
+		return stockUpdFlag;
 	}
 
 	public void setStockUpdFlag(int stockUpdFlag) {
-		StockUpdFlag = stockUpdFlag;
+		stockUpdFlag = stockUpdFlag;
 	}
 
 	public int getMaxPoNum() {
