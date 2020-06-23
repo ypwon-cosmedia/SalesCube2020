@@ -298,21 +298,21 @@
 			<table id="order_detail_info" class="table table-bordered">
 				<thead class="thead-dark">
 					<tr>
-						<th scope="col" class="rd_top_left th_back_black" style="cursor: pointer; height: 30px;" data-sort="productCode">商品コード</th>
-						<th scope="col" class="th_back_black" style="cursor: pointer; height: 30px;" data-sort="productName">商品名</th>
-						<th scope="col" class="th_back_black" style="cursor: pointer; height: 30px;" data-sort="supplierName">仕入先</th>
-						<th scope="col" class="th_back_black" style="cursor: pointer; height: 30px;" data-sort="product1">分類（大）</th>
-						<th scope="col" class="th_back_black" style="height: 30px;">備考</th>
-						<th scope="col" class="rd_top_right th_back_black" style="cursor: pointer; height: 30px;">&nbsp;</th>
+						<th scope="col" class="rd_top_left th_back_black sort" style="cursor: pointer; height: 30px;" data-sort="productCode">商品コード</th>
+						<th scope="col" class="th_back_black sort" style="cursor: pointer; height: 30px;" data-sort="productName">商品名</th>
+						<th scope="col" class="th_back_black sort" style="cursor: pointer; height: 30px;" data-sort="supplierName">仕入先</th>
+						<th scope="col" class="th_back_black sort" style="cursor: pointer; height: 30px;" data-sort="product1">分類（大）</th>
+						<th scope="col" class="th_back_black sort" style="height: 30px;">備考</th>
+						<th scope="col" class="rd_top_right th_back_black sort" style="cursor: pointer; height: 30px;">&nbsp;</th>
 					</tr>
 				</thead>
 				<tbody class="list">
 				 <c:forEach items="${search}" var="prdct">
 					<tr>
-						<td style="white-space: normal; text-align: left;">${prdct.productCode}</td>
-						<td style="white-space: normal; text-align: left;">${prdct.productName}</td>
-						<td style="white-space: normal; text-align: left;">${prdct.supplierName}</td>
-						<td style="white-space: normal; text-align: left;">${prdct.product1}</td>
+						<td class="productCode" style="white-space: normal; text-align: left;">${prdct.productCode}</td>
+						<td class="productName" style="white-space: normal; text-align: left;">${prdct.productName}</td>
+						<td class="supplierName" style="white-space: normal; text-align: left;">${prdct.supplierName}</td>
+						<td class="product1" style="white-space: normal; text-align: left;">${prdct.product1}</td>
 						<td style="white-space: normal; text-align: left;">${prdct.remarks}</td>
 						<td style="text-align: center">
 							<div style="display:inline-flex">
@@ -418,10 +418,7 @@
 			window.location.href = '/SalesCube2020/SalesCube?action=setProduct';
 		}
 
-		var options = {
-			 valueNames: [ 'productCode', 'productName' , 'supplierName' , 'product1' ]
-		};
-		var prosortList = new List('prosortList', options);
+		
 	$(function() {
 	    var temp = "${Category1}"; 
 	    $("#product1").val(temp);
@@ -430,5 +427,14 @@
 	    var temp = "${Category2}"; 
 	    $("#product2").val(temp);
 	});
-	</script>	
+	</script>
+	<script src="//cdnjs.cloudflare.com/ajax/libs/list.js/1.5.0/list.min.js"></script>
+	<script>
+	//ソート
+	var options = {
+			 valueNames: [ 'productCode', 'productName' , 'supplierName' , 'product1' ]
+		};
+		var prosort = new List('prosort', options);
+	</script>
+		
 </html>

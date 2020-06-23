@@ -39,17 +39,25 @@ public class ProductDeleteController extends BaseController{
 		// TODO Auto-generated method stub
 		String forwardURL = "/productsearch.jsp";	
 		
-		List<ProductCategoryAllBean> list2 = new ArrayList<ProductCategoryAllBean>();		
-		GetCategoryDAO dao2 = new GetCategoryDAO();
+		List<ProductCategoryAllBean> list = new ArrayList<ProductCategoryAllBean>();		
+		GetCategoryDAO dao = new GetCategoryDAO();
 		
 		try {
-			list2 = dao2.getAllCategory();
+			list = dao.getAllCategory();
 		} catch (ClassNotFoundException | SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		
-		request.setAttribute("all", list2);
+		request.setAttribute("all", list);
+		
+		ProductDeleteBean bean = new ProductDeleteBean();
+		ProductDeleteDAO dao2 = new ProductDeleteDAO();
+		
+		String productCode = null;
+		
+		productCode = (String)request.getParameter("productCode");
+		bean.setProductCode(productCode);
 		
 		return forwardURL;
 	}
