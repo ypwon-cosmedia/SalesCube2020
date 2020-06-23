@@ -4,11 +4,22 @@ import java.io.*;
 import javax.servlet.*;
 import javax.servlet.http.*;
 
+import common.beans.ProductPurvayCategoryBean;
+import common.beans.ProductStandardCategoryBean;
+import common.beans.ProductStatusCategoryBean;
+import common.beans.ProductStockCategoryBean;
+import common.beans.SetTypeCategoryBean;
 import common.controller.BaseController;
+import common.dao.MenuDAO;
+import master.product.DAO.GetCategoryDAO;
 import master.product.DAO.ProductAddDAO;
 import master.product.beans.ProductAddBean;
+import master.product.beans.ProductCategoryAllBean;
 
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.MissingResourceException;
 import java.sql.Date;
 
 public class ProductAddController extends BaseController{
@@ -195,10 +206,10 @@ public class ProductAddController extends BaseController{
 			
 			if( result == 0 ) {
 			
-				String message = "“ü—Í‚µ‚½“à—e‚ÉŒë‚è‚ª‚ ‚è‚Ü‚·";
+				String message = "ï¿½ï¿½ï¿½Í‚ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½eï¿½ÉŒï¿½è‚ªï¿½ï¿½ï¿½ï¿½Ü‚ï¿½";
 				request.setAttribute("addmodifyError", "message");
 			}else{
-				request.setAttribute("message", "’Ç‰Á‚ðŠ®—¹‚µ‚Ü‚µ‚½");
+				request.setAttribute("message", "ï¿½Ç‰ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ü‚ï¿½ï¿½ï¿½");
 			}
 		}catch(NumberFormatException e) {
 			e.printStackTrace();
@@ -209,11 +220,41 @@ public class ProductAddController extends BaseController{
 			return forwardURL;
 	}
 
-
-
-	private String moveAddProduct(HttpServletRequest request, HttpServletResponse response) {
-		// TODO Auto-generated method stub
 	
+	private String moveAddProduct(HttpServletRequest request, HttpServletResponse response) throws SQLException {
+		// TODO Auto-generated method stub
+		
+		List<ProductStockCategoryBean> list2 = new ArrayList<>();
+		List<SetTypeCategoryBean> list3 = new ArrayList<>();
+		List<ProductStandardCategoryBean> list4 = new ArrayList<ProductStandardCategoryBean>();
+		List<ProductStatusCategoryBean> list5 = new ArrayList<ProductStatusCategoryBean>();
+		List<ProductCategoryAllBean> list8 = new ArrayList<ProductCategoryAllBean>();
+		List<ProductPurvayCategoryBean> list = new ArrayList<ProductPurvayCategoryBean>();
+		
+		GetCategoryDAO dao = new GetCategoryDAO();
+		MenuDAO dao2 = new MenuDAO();
+		
+		try {
+			list2 = dao2.getProductStockCategory();
+			list3 = dao2.getSetTypeCategory();
+			list4 = dao2.getProductStandardCategory();
+			list5 = dao2.getProductStatusCategory();
+			list8 = dao.getAllCategory();
+			list = dao2.getProductPurvayCategory();
+		} catch (ClassNotFoundException | MissingResourceException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		
+		request.setAttribute("prosearch", list2);
+		request.setAttribute("setTypeCategory", list3);
+		request.setAttribute("productStandardCategory", list4);
+		request.setAttribute("productStatusCategory", list5);	
+		request.setAttribute("all", list8);
+		request.setAttribute("purvey", list);
+		
+		
 		return "/productaddmodify.jsp";
 	}
 }

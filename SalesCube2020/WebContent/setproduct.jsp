@@ -260,6 +260,7 @@ function doSubmit(){
 	
 	form.submit();
 }
+
 </script>
 </body>
 </html>

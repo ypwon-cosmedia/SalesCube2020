@@ -192,9 +192,18 @@
 		<script type="text/javascript">
 		
 		function deleteLine(obj){
+			if(!confirm("この行を削除してよろしいですか？")){
+				return;
+			}
 			var tr = $(obj).parent().parent();
+			var table = document.getElementById("mytable").rows.length;
 			
 			tr.remove();
+			
+			for(var i = 1; i <= table; i++){
+				$("#mytable tr:eq("+ i + ") td:eq(0)").html(i);
+			}
+			
 			
 		}
 		

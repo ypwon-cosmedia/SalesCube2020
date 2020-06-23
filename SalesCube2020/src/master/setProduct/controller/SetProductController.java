@@ -148,12 +148,14 @@ final public class SetProductController extends BaseController{
 		String[] productName = request.getParameterValues("name");
 		String[] quantity = request.getParameterValues("quantity");
 		
-		for(int i = 0; i<productCode.length; i++) {				
-			SetProductBean bean = new SetProductBean();
-			bean.setProductCode(productCode[i]);
-			bean.setProductName(productName[i]);
-			bean.setQuantity(Integer.parseInt(quantity[i]));			
-			list.add(bean);
+		if(productCode != null) {
+			for(int i = 0; i<productCode.length; i++) {				
+				SetProductBean bean = new SetProductBean();
+				bean.setProductCode(productCode[i]);
+				bean.setProductName(productName[i]);
+				bean.setQuantity(Integer.parseInt(quantity[i]));			
+				list.add(bean);
+			}
 		}
 
 		
