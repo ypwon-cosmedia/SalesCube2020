@@ -198,10 +198,10 @@ public class ProductModifyController extends BaseController{
 				String message = "“ü—Í‚µ‚½“à—e‚ÉŒë‚è‚ª‚ ‚è‚Ü‚·";
 				request.setAttribute("addmodifyError", "message");
 			}else{
-				request.setAttribute("message", "’Ç‰Á‚ğŠ®—¹‚µ‚Ü‚µ‚½");
+				request.setAttribute("message", "XV‚ğŠ®—¹‚µ‚Ü‚µ‚½");
 			}
 		}catch(NumberFormatException e) {
-			e.printStackTrace();
+			request.setAttribute("message", "³‚µ‚­“ü—Í‚µ‚Ä‚­‚¾‚³‚¢");
 		}
 			
 			

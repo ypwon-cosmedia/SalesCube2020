@@ -51,7 +51,7 @@ public class ProductAddController extends BaseController{
 		
 		String forwardURL = "/productaddmodify.jsp";
 		String productCode = request.getParameter("productCode");
-			System.out.println(productCode);
+			//System.out.println(productCode);
 		String productName = request.getParameter("productName");
 		String productKana = request.getParameter("productKana");
 		String onlinePcode = request.getParameter("onlinePcode");
@@ -201,7 +201,7 @@ public class ProductAddController extends BaseController{
 				request.setAttribute("message", "í«â¡ÇäÆóπÇµÇ‹ÇµÇΩ");
 			}
 		}catch(NumberFormatException e) {
-			e.printStackTrace();
+			request.setAttribute("message", "ê≥ÇµÇ≠ì¸óÕÇµÇƒÇ≠ÇæÇ≥Ç¢");
 		}
 			
 			

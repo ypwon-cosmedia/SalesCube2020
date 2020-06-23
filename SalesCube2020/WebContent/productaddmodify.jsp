@@ -93,7 +93,7 @@
 			<button type="button" class="btn btn-secondary" style="font-size: 12px;" disabled>F6<br></button>
 			<button type="button" class="btn btn-secondary" style="font-size: 12px;" disabled>F7<br></button>
 			<form action="/SalesCube2020/SalesCube? action=producthistoryoutput">
-				<button type="button" class="btn btn-secondary" style="font-size: 12px;" onclick= "productHistoryOutPut()" ${status eq 'add' ? "disabled" :''}>F8<br>履歴出力</button>
+				<button type="button" class="btn btn-secondary" style="font-size: 12px;" disabled>F8<br></button>
 			</form>
 			<button type="button" class="btn btn-secondary" style="font-size: 12px;" disabled>F9<br></button>
 			<button type="button" class="btn btn-secondary" style="font-size: 12px;" disabled>F10<br></button>
@@ -108,6 +108,8 @@
 	<!-- エラーメッセージを表示 -->
        <div style="width:100%; text-align:center; margin-bottom:20px;">
 				 <span class="action_errors" style="color: red">${addmodifyError}<br></span>
+				 <span class="action_errors" style="color: red">${message}<br></span>
+				 
        </div>
 	
 	
@@ -650,12 +652,7 @@
     			
     		}
     		
-    		function productHistoryOutPut() {
-    			if(!confirm("履歴をExcel出力しますか？")) {
-    				return;
-    			}
-    			
-    		}
+
     	</script>
 	</body>
 </html>
