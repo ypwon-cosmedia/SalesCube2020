@@ -29,16 +29,24 @@ public class ProductDeleteController extends BaseController{
 		String forwardURL = "/menu.jsp";
 		String action = request.getParameter("action");
 
-		 if(action.equals("deleteProduct")) forwardURL = deleteProduct(request, response);
+		 if(action.equals("deleteProduct"))
+			try {
+				forwardURL = deleteProduct(request, response);
+			} catch (ClassNotFoundException | ServletException | IOException | SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 		
 		return forwardURL;
 	}
 	
 	
-	private String deleteProduct(HttpServletRequest request, HttpServletResponse response)  throws ServletException, IOException{
+	private String deleteProduct(HttpServletRequest request, HttpServletResponse response)  throws ServletException, IOException, ClassNotFoundException, SQLException{
 		// TODO Auto-generated method stub
+
 		String forwardURL = "/productsearch.jsp";	
 		
+		//カテゴリー		
 		List<ProductCategoryAllBean> list = new ArrayList<ProductCategoryAllBean>();		
 		GetCategoryDAO dao = new GetCategoryDAO();
 		
@@ -51,13 +59,18 @@ public class ProductDeleteController extends BaseController{
 		
 		request.setAttribute("all", list);
 		
-		ProductDeleteBean bean = new ProductDeleteBean();
-		ProductDeleteDAO dao2 = new ProductDeleteDAO();
-		
+		//削除
 		String productCode = null;
-		
 		productCode = (String)request.getParameter("productCode");
-		bean.setProductCode(productCode);
+		ProductDeleteDAO dao2 = new ProductDeleteDAO();
+
+		int check = dao2.deleteProduct(productCode);
+		
+		//削除においてエラーが生じたとき
+		if(check == 1) {
+			String message = "商品情報の削除処理においてエラーが発生しました";
+			request.setAttribute("message", message);
+		}
 		
 		return forwardURL;
 	}

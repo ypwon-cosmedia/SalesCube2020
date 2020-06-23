@@ -37,7 +37,7 @@ public class ProductModifyController extends BaseController{
 		
 		
 		try {
-			if(action.equals("moveAddProduct")) forwardURL = moveModifyProduct(request, response);
+			if(action.equals("moveModifyProduct")) forwardURL = moveModifyProduct(request, response);
 			else if(action.equals("addProduct")) forwardURL = addProduct(request, response);
 		
 		
@@ -206,10 +206,10 @@ public class ProductModifyController extends BaseController{
 			
 			if( result == 0 ) {
 			
-				String message = "���͂������e�Ɍ�肪����܂�";
+				String message = "�ｿｽ�ｿｽ�ｿｽﾍゑｿｽ�ｿｽ�ｿｽ�ｿｽ�ｿｽ�ｿｽe�ｿｽﾉ鯉ｿｽ閧ｪ�ｿｽ�ｿｽ�ｿｽ�ｿｽﾜゑｿｽ";
 				request.setAttribute("addmodifyError", "message");
 			}else{
-				request.setAttribute("message", "�ǉ����������܂���");
+				request.setAttribute("message", "�ｿｽﾇ会ｿｽ�ｿｽ�ｿｽ�ｿｽ�ｿｽ�ｿｽ�ｿｽ�ｿｽ�ｿｽ�ｿｽﾜゑｿｽ�ｿｽ�ｿｽ");
 			}
 		}catch(NumberFormatException e) {
 			e.printStackTrace();

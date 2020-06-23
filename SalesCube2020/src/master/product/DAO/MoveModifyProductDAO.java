@@ -12,7 +12,6 @@ import java.util.MissingResourceException;
 
 import common.dao.BaseDAO;
 import master.product.beans.ProductSearchBean;
-import master.product.beans.ProductBigCategoryBean;
 import master.product.beans.ProductModifyBean;
 import master.product.beans.QuantityDiscountBean;
 
@@ -99,7 +98,7 @@ public class MoveModifyProductDAO extends BaseDAO {
 	
 	}
 	
-	public List<ProductModifyBean> moveModifyCategory() throws SQLException, MissingResourceException, ClassNotFoundException{
+	public List<ProductModifyBean> moveModifyCategory(String productCode) throws SQLException, MissingResourceException, ClassNotFoundException{
 
 		List<ProductModifyBean> list = new ArrayList<ProductModifyBean>();
 		
@@ -110,11 +109,42 @@ public class MoveModifyProductDAO extends BaseDAO {
 	 		
 	 	con = super.getConnection();	
 	 	stmt = con.createStatement();
-	 	sql = 
+	 	sql = "SELECT"
+	 			+ " PRODUCT_STATUS_CATEGORY,"
+	 			+ " PRODUCT_STOCK_CATEGORY,"
+	 			+ " PRODUCT_PURVAY_CATEGORY,"
+	 			+ " PRODUCT_STANDARD_CATEGORY,"
+	 			+ " SO_RATE,"
+	 			+ " SET_TYPE_CATEGORY,"
+	 			+ " PRODUCT_1,"
+	 			+ " PRODUCT_2,"
+	 			+ " PRODUCT_3"
+	 			+ " FROM"
+	 			+ " product_mst_xxxxx"
+	 			+ " WHERE"
+	 			+ " PRODUCT_CODE = " + productCode;
+	 	result = stmt.executeQuery(sql);
 
+	 	while (result.next()) {
+	 		ProductModifyBean bean = new ProductModifyBean();
+	 		bean.setProductCode(result.getString("PRODUCT_STATUS_CATEGORY"));
+	 		bean.setProductName(result.getString("PRODUCT_STOCK_CATEGORY"));
+	 		bean.setProductKana(result.getString("PRODUCT_PURVAY_CATEGORY"));
+	 		bean.setOnlinePcode(result.getString("SO_RATE"));
+	 		bean.setJanPcode(result.getString("SET_TYPE_CATEGORY"));
+	 		bean.setDiscardDate(result.getDate("PRODUCT_1"));
+	 		bean.setSupplierCode(result.getString("PRODUCT_2"));
+	 		bean.setSupplierName(result.getString("PRODUCT_3"));
+	 	
+	 		list.add(bean);
+	 	}
+	 	
+	 	super.releaseDB(con, stmt, result);
+		return list;
+	 	
 	}
 	
-	public List<ProductModifyBean> moveModifyTokuseiCategory() throws SQLException, MissingResourceException, ClassNotFoundException{
+	public List<ProductModifyBean> moveModifyTokuseiCategory(String productCode) throws SQLException, MissingResourceException, ClassNotFoundException{
 
 		List<ProductModifyBean> list = new ArrayList<ProductModifyBean>();
 		
@@ -141,7 +171,7 @@ public class MoveModifyProductDAO extends BaseDAO {
 				+ "FROM "
 				+ "product_mst_xxxxx "
 				+ "WHERE "
-				+ "PRODUCT_CODE LIKE '%'";
+				+ "PRODUCT_CODE = " + productCode;
 	 	result = stmt.executeQuery(sql);
 	 	
 	 	while (result.next()) {
@@ -166,7 +196,7 @@ public class MoveModifyProductDAO extends BaseDAO {
 
 	}
 
-	public List<ProductModifyBean> moveModifyRemarks() throws SQLException, MissingResourceException, ClassNotFoundException{
+	public List<ProductModifyBean> moveModifyRemarks(String productCode) throws SQLException, MissingResourceException, ClassNotFoundException{
 
 			List<ProductModifyBean> list = new ArrayList<ProductModifyBean>();
 		
@@ -181,10 +211,10 @@ public class MoveModifyProductDAO extends BaseDAO {
 		 			+ "REMARKS, " 
 		 			+ "EAD_REMARKS, " 
 		 			+ "COMMENT_DATA "
-		 		+ "FROM "
+		 			+ "FROM "
 		 			+ "product_mst_xxxxx "
-		 		+ "WHERE "
-		 			+ "PRODUCT_CODE LIKE '%'";
+		 			+ "WHERE "
+		 			+ "PRODUCT_CODE = " + productCode;
 		 	result = stmt.executeQuery(sql);
 		 	
 		 	while (result.next()) {
@@ -195,6 +225,7 @@ public class MoveModifyProductDAO extends BaseDAO {
 		 	
 		 		list.add(bean);
 		 	}
+		 	
 		 	super.releaseDB(con, stmt, result);
 			return list;
 
