@@ -69,11 +69,11 @@
                         <th scope="col" class="th_back_black" style="height: 30px;">住所2</th>
                     </tr>
                 </thead>
-                <c:forEach items="${customer}" var="cus">              
+                <c:forEach items="${ZipList}" var="cus">              
                     <tr>
                         <td style="white-space: normal; text-align: left; cursor: pointer;" id="inputData" onClick="clickData()">${cus.zipCode}</td>
-                        <td style="white-space: normal; text-align: left;">${cus.address1}</td>
-                        <td style="white-space: normal; text-align: left;">${cus.address2}</td>
+                        <td style="white-space: normal; text-align: left;">${ZipList.address1}</td>
+                        <td style="white-space: normal; text-align: left;">${ZipList.address2}</td>
                     </tr>
                 </c:forEach>                
             </table>

@@ -149,7 +149,7 @@ public class CustomerModifyBean {
 	private String ROCategory;
 	
 	/** —^MŒÀ“xŠz F —^MŒÀ“xŠz‚ğ•Û‘¶‚·‚é */
-	private BigDecimal maxCreditLimit;
+	private int maxCreditLimit;
 
 	/** ‹Æí F  ‹Æí‚ğ•Û‘¶‚·‚é */
 	private String businessCategory;
@@ -485,14 +485,14 @@ public class CustomerModifyBean {
 	/**
 	 * @return the maxCreditLimit
 	 */
-	public BigDecimal getMaxCreditLimit() {
+	public int getMaxCreditLimit() {
 		return maxCreditLimit;
 	}
 
 	/**
 	 * @param maxCreditLimit the maxCreditLimit to set
 	 */
-	public void setMaxCreditLimit(BigDecimal maxCreditLimit) {
+	public void setMaxCreditLimit(int maxCreditLimit) {
 		this.maxCreditLimit = maxCreditLimit;
 	}
 

@@ -149,7 +149,7 @@ public class CustomerAddBean {
 	private String ROCategory;
 	
 	/** 与信限度額 ： 与信限度額を保存する */
-	private BigDecimal maxCreditLimit;
+	private int maxCreditLimit;
 
 	/** 業種 ：  業種を保存する */
 	private String businessCategory;
@@ -164,7 +164,7 @@ public class CustomerAddBean {
 	private String shiftCategory;
 
 	/** 最終処理日 ： 最終処理日 を保存する */
-	private Date lastCutoffDate;
+	private String lastCutoffDate;
 
 	/** 取引区分 ：  取引区分を保存する */
 	private String salesCMCategory;
@@ -194,7 +194,7 @@ public class CustomerAddBean {
 	private String comment;
 	
 	/** 作成日時 ： 作成日時 を保存する */
-	private Date creDate;
+	private String creDate;
 	
 	/** 作成者 ：  作成者を保存する */
 	private String creUser;	
@@ -483,14 +483,14 @@ public class CustomerAddBean {
 	/**
 	 * @return the maxCreditLimit
 	 */
-	public BigDecimal getMaxCreditLimit() {
+	public int getMaxCreditLimit() {
 		return maxCreditLimit;
 	}
 
 	/**
 	 * @param maxCreditLimit the maxCreditLimit to set
 	 */
-	public void setMaxCreditLimit(BigDecimal maxCreditLimit) {
+	public void setMaxCreditLimit(int maxCreditLimit) {
 		this.maxCreditLimit = maxCreditLimit;
 	}
 
@@ -553,14 +553,14 @@ public class CustomerAddBean {
 	/**
 	 * @return the lastCutoffDate
 	 */
-	public Date getLastCutoffDate() {
+	public String getLastCutoffDate() {
 		return lastCutoffDate;
 	}
 
 	/**
 	 * @param lastCutoffDate the lastCutoffDate to set
 	 */
-	public void setLastCutoffDate(Date lastCutoffDate) {
+	public void setLastCutoffDate(String lastCutoffDate) {
 		this.lastCutoffDate = lastCutoffDate;
 	}
 
@@ -693,14 +693,14 @@ public class CustomerAddBean {
 	/**
 	 * @return the creDate
 	 */
-	public Date getCreDate() {
+	public String getCreDate() {
 		return creDate;
 	}
 
 	/**
 	 * @param creDate the creDate to set
 	 */
-	public void setCreDate(Date creDate) {
+	public void setCreDate(String creDate) {
 		this.creDate = creDate;
 	}
 

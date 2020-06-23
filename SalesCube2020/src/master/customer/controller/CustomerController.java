@@ -6,22 +6,25 @@ import javax.servlet.http.*;
 
 import common.controller.BaseController;
 import master.customer.DAO.CustomerDAO;
+import master.customer.beans.AddressBean;
+import master.customer.beans.CustomerAddBean;
 import master.customer.beans.CustomerModifyBean;
+import master.customer.beans.DeliveryAddBean;
+import master.customer.beans.DeliveryModifyBean;
 import master.customer.beans.customerSearchBeans.CustomerInputBean;
 import master.customer.beans.customerSearchBeans.CustomerResultBean;
 
 import java.util.*;
 import java.sql.SQLException;
-import java.lang.*;
-
-import user.DAO.*;
-import user.beans.*;
+	
+import java.time.LocalDateTime;
 
 public class CustomerController extends BaseController{
 	
 	public CustomerController() {
 	}
 	
+	//‹Æ–±‚ğU‚è•ª‚¯‚éƒRƒ“ƒgƒ[ƒ‰[ƒƒ\ƒbƒh
 	public String execService(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
 		String forwardURL = "/menu.jsp";
@@ -35,7 +38,7 @@ public class CustomerController extends BaseController{
 			else if(action.equals("addCustomer")) forwardURL = addCustomer(request, response);
 			else if(action.equals("modifyCustomer")) forwardURL = modifyCustomer(request, response);
 			else if(action.equals("deleteCustomer")) forwardURL = deleteCustomer(request, response);
-			else if(action.equals("customerExcelOutput")) forwardURL = customerExcelOutput(request, response);
+			//else if(action.equals("customerExcelOutput")) forwardURL = customerExcelOutput(request, response);
 			//else if(action.equals("initCustomer")) forwardURL = initCustomer(request, response);
 			//else if(action.equals("updateInitCostomer")) forwardURL = updateInitCostomer(request, response);
 		} catch(ClassNotFoundException e) {
@@ -48,10 +51,12 @@ public class CustomerController extends BaseController{
   		return forwardURL;
 	}
 	
+	//ŒÚ‹qî•ñ‚ğw’è‚³‚ê‚½î•ñ‚ÉŠî‚Ã‚¢‚ÄŒŸõ‚·‚éƒƒ\ƒbƒh
 	private String searchCustomer(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException, ClassNotFoundException, SQLException {
 		
 		String forwardURL     = "/customersearch.jsp";
+		//ƒ†[ƒU[‚ª“ü—Í‚µ‚½î•ñ‚ğæ“¾‚·‚é
 		String customerCode   = request.getParameter("customerCode");
 		String customerName   = request.getParameter("customerName");
 		String customerKana   = request.getParameter("customerKana");
@@ -66,33 +71,8 @@ public class CustomerController extends BaseController{
 		String paymentName 	  = request.getParameter("paymentName");
 		String remarks 		  = request.getParameter("remarks");
 		
-		CustomerDAO dao =  new CustomerDAO();
 		
-		String tmp;
-		int count;
-		int totalCount;
-		int totalPage;
-		int currentPage;
-		
-		totalCount = dao.getCount();
-		
-		tmp = (String) request.getParameter("rowCount");
-		count = Integer.parseInt(tmp);
-
-		totalPage = totalCount/count;
-		
-		if(totalCount%count != 0) {
-			totalPage++;
-		}
-
-		tmp = (String) request.getParameter("currentPage");
-			
-		if(tmp == null) {
-			currentPage=1;
-		}else {
-			currentPage = Integer.parseInt(tmp);
-		}
-		
+		//ŒÚ‹qî•ñ‚ğbean‚ÉƒZƒbƒg‚·‚é
 		CustomerInputBean bean = new CustomerInputBean();
 		bean.setCustomerCode(customerCode);
 		bean.setCustomerName(customerName);
@@ -107,103 +87,520 @@ public class CustomerController extends BaseController{
 		bean.setCutoffGroup(cutoffGroup);
 		bean.setPaymentName(paymentName);
 		bean.setRemarks(remarks);
-
-		List<CustomerResultBean> list = dao.searchCustomer(bean, count, currentPage);
+		
+		//CustomerDAO‚ÌŒÚ‹qŒŸõƒƒ\ƒbƒh‚ğŒÄ‚Ño‚µAŒ‹‰Ê‚ğƒŠƒXƒg‚Å•Ô‚·
+		CustomerDAO dao =  new CustomerDAO();
+		List<CustomerResultBean> list = dao.searchCustomer(bean);
 		
 		/*if(result == 0 ) {
-			request.setAttribute("message","ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ÉƒGï¿½ï¿½ï¿½[ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ü‚ï¿½ï¿½ï¿½");
+			request.setAttribute("message","ŒŸõ’†‚ÉƒGƒ‰[‚ª¶‚¶‚Ü‚µ‚½");
 		} else {
-			//request.setAttribute( "message", "ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ü‚ï¿½ï¿½ï¿½ï¿½B");
+			//request.setAttribute( "message", "ŒŸõ‚ªŠ®—¹‚µ‚Ü‚µ‚½B");
 		} */
 		
-		int[] totalPageArr= new int[totalPage];
-		
-		for(int i = 0; i<totalPageArr.length; i++) {
-			totalPageArr[i] = i+1;
-		}
-		
+		//æ“¾‚µ‚½ŒÚ‹qŒŸõŒ‹‰Ê‚ÌƒŠƒXƒg‚ğ"customerList"‚ğƒL[‚É‚µ‚ÄƒŠƒNƒGƒXƒgƒXƒR[ƒv‚É“o˜^‚·‚é
 		request.setAttribute("customerList",list);
-		request.setAttribute("totalPage", totalPageArr);
-		request.setAttribute("currentPage", currentPage);
-		request.setAttribute("rowCount", count);
-		request.setAttribute("totalCount", totalCount);
 			
 		return forwardURL;
 		
 	}
 	
+	//ŒÚ‹q“o˜^‰æ–Ê‚É‘JˆÚ‚·‚éƒƒ\ƒbƒh
 	private String moveAddCustomer(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException, ClassNotFoundException, SQLException {
 		
-		String forwardURL = "/customeraddmodify.jsp";		
+		String forwardURL = "/customeraddmodify.jsp";
 		
 		return forwardURL;
 		
 	}
 	
+	//ŒÚ‹q•ÒW‰æ–Ê‚É‘JˆÚ‚·‚éƒƒ\ƒbƒh
 	private String moveModifyCustomer(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException, ClassNotFoundException, SQLException {
 		
 		String forwardURL = "/customeraddmodify.jsp";
 		String customerCode   = request.getParameter("customerCode");
 	
-		CustomerDAO dao =  new CustomerDAO();
-		CustomerModifyBean bean = dao.getCustomer(customerCode);
 		
+		CustomerDAO dao =  new CustomerDAO();
+		//w’è‚³‚ê‚½ŒÚ‹qƒR[ƒh‚ğŠî‚ÉŒÚ‹qî•ñ‚ğæ“¾‚·‚é
+		CustomerModifyBean bean = dao.getCustomer(customerCode);
+		//w’è‚³‚ê‚½ŒÚ‹qƒR[ƒh‚ğŠî‚É”[“üæî•ñ‚ğæ“¾‚·‚é
+		List<DeliveryModifyBean> list = dao.getDelivery(customerCode);
+		//w’è‚³‚ê‚½ŒÚ‹qƒR[ƒh‚ğŠî‚É¿‹æî•ñ‚ğæ“¾‚·‚é
+		DeliveryModifyBean bean2 = dao.getDelivery2(customerCode);
+		
+		//æ“¾‚µ‚½Šeî•ñ‚ğƒŠƒNƒGƒXƒgƒXƒR[ƒv‚É“o˜^‚·‚é
 		request.setAttribute("customer",bean);
+		request.setAttribute("deliveryList",list);
+		request.setAttribute("delivery2",bean2);
 		
 		return forwardURL;
 		
 	}
 	
+	//w’è‚³‚ê‚½î•ñ‚ğŠî‚É—X•Ö”Ô†‹y‚ÑZŠ‚ğŒŸõ‚·‚é
 	private String searchAddress(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException, ClassNotFoundException, SQLException {
 		
 		String forwardURL = "/zipsearch.jsp";
 		
+		String zipCode   = request.getParameter("zipCode");
+		String address1   = request.getParameter("address1");
+		
+		//—X•Ö”Ô†ŒŸõ‚ÌBean‚É—X•Ö”Ô†‚ÆZŠ1‚ğƒZƒbƒg‚·‚é
+		AddressBean bean = new AddressBean();
+		bean.setZipCode(zipCode);
+		bean.setZipAddress1(address1);
+		
+		CustomerDAO dao =  new CustomerDAO();
+		//ŒÚ‹qDAO‚Ì—X•Ö”Ô†ŒŸõƒƒ\ƒbƒh‚ğw’è‚³‚ê‚½î•ñ‚ğˆø”‚É‚µ‚ÄŒÄ‚Ño‚µAŒ‹‰Ê‚ğƒŠƒXƒg‚Åæ“¾‚·‚é
+		List<AddressBean> list = dao.searchAddress(bean);
+		
+		//w’è‚³‚ê‚½î•ñ‚ğŠî‚É—X•Ö”Ô†‚ÆZŠ‚ÌƒŠƒXƒg‚ğ"ZipList"‚Æ‚¢‚¤ƒL[‚ÅƒŠƒNƒGƒXƒgƒXƒR[ƒv‚É“o˜^‚·‚é
+		request.setAttribute("ZipList",list);
+		
 		return forwardURL;
 		
 	}
 	
+	//ŒÚ‹q’Ç‰Á‚ğ‚·‚éƒƒ\ƒbƒh
 	private String addCustomer(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException, ClassNotFoundException, SQLException {
 		
 		String forwardURL = "/customeraddmodify.jsp";
 		
+		//ŒÚ‹qî•ñ
+		String customerCode         = request.getParameter("customerCode");
+		String customerName         = request.getParameter("customerName");
+		String customerKana         = request.getParameter("customerKana");
+		String officeName 	        = request.getParameter("officeName");
+		String officeNameKana       = request.getParameter("officeNameKana");
+	 	String customerAbbr         = request.getParameter("customerAbbr");
+	 	String zipCode              = request.getParameter("zipCode");
+	 	String zipAddress1          = request.getParameter("zipAddress1");
+	 	String zipAddress2          = request.getParameter("zipAddress2");
+		String PCName 		        = request.getParameter("PCName");
+		String PCNameKana 	        = request.getParameter("PCNameKana");
+		String PCPreCategory        = request.getParameter("PCPreCategory");
+		String deptName             = request.getParameter("deptName");
+		String PCPost               = request.getParameter("PCPost");
+		String tel			        = request.getParameter("tel");
+		String fax 			        = request.getParameter("fax");
+		String email                = request.getParameter("email");
+		String rankCategory         = request.getParameter("rankCategory");
+		String updateFlag           = request.getParameter("updateFlag");
+		String ROCategory           = request.getParameter("ROCategory");
+		int maxCreditLimit          = Integer.parseInt(request.getParameter("maxCreditLimit"));
+		String businessCategory     = request.getParameter("businessCategory");
+		String jobCategory          = request.getParameter("jobCategory");
+		String fractCategory        = request.getParameter("fractCategory");
+		String shiftCategory        = request.getParameter("shiftCategory");
+		String lastCutoffDate       = request.getParameter("lastCutoffDate");
+		String salesCMCategory  	= request.getParameter("salesCMCategory");
+		String cutoffGroup 	 	    = request.getParameter("cutoffGroup");
+		String paybackTypeCategory  = request.getParameter("paybackTypeCategory");
+		String billPrintUnit        = request.getParameter("billPrintUnit");
+		String billDatePrint        = request.getParameter("billDatePrint");
+		String tempDeliverySlipFlag = request.getParameter("tempDeliverySlipFlag");
+		String paymentName 	        = request.getParameter("paymentName");
+		String remarks 		        = request.getParameter("remarks");
+		String comment              = request.getParameter("comment");
+		
+		//ŒÚ‹qî•ñ‚ğŒÚ‹q’Ç‰ÁBean‚ÉƒZƒbƒg‚·‚é
+		CustomerAddBean bean = new CustomerAddBean();
+		bean.setCustomerCode(customerCode);
+		bean.setCustomerName(customerName);
+		bean.setCustomerKana(customerKana);
+		bean.setOfficeName(officeName);
+		bean.setOfficeNameKana(officeNameKana);
+		bean.setCustomerAbbr(customerAbbr);
+		bean.setZipCode(zipCode);
+		bean.setZipAddress1(zipAddress1);
+		bean.setZipAddress2(zipAddress2);
+		bean.setPCName(PCName);
+		bean.setPCNameKana(PCNameKana);
+		bean.setPCPreCategory(PCPreCategory);
+		bean.setDeptName(deptName);
+		bean.setPCPost(PCPost);
+		bean.setTel(tel);
+		bean.setFax(fax);
+		bean.setEmail(email);
+		bean.setRankCategory(rankCategory);
+		bean.setUpdateFlag(updateFlag);
+		bean.setROCategory(ROCategory);
+		bean.setMaxCreditLimit(maxCreditLimit);
+		bean.setBusinessCategory(businessCategory);
+		bean.setJobCategory(jobCategory);
+		bean.setFractCategory(fractCategory);
+		bean.setShiftCategory(shiftCategory);
+		bean.setLastCutoffDate(lastCutoffDate);
+		bean.setSalesCMCategory(salesCMCategory);
+		bean.setCutoffGroup(cutoffGroup);
+		bean.setPaybackTypeCategory(paybackTypeCategory);
+		bean.setBillPrintUnit(billPrintUnit);
+		bean.setBillDatePrint(billDatePrint);
+		bean.setTempDeliverySlipFlag(tempDeliverySlipFlag);
+		bean.setPaymentName(paymentName);
+		bean.setRemarks(remarks);
+		bean.setComment(comment);
+		
+		
+		CustomerDAO dao =  new CustomerDAO();
+		//ŒÚ‹qDAO‚ÌŒÚ‹q’Ç‰Áƒƒ\ƒbƒh‚ğŒÄ‚Ño‚µAƒGƒ‰[‚ª‚ ‚Á‚½‚çcheck‚É1‚ª“ü‚é
+		String check = dao.addCustomer(bean);
+		
+		//ŒÚ‹qî•ñ’Ç‰Á‚ÌƒGƒ‰[ˆ—
+		if(check == "1") {
+			String message = "ŒÚ‹qî•ñ‚Ì’Ç‰Áˆ—‚É‚¨‚¢‚ÄƒGƒ‰[‚ª”­¶‚µ‚Ü‚µ‚½";
+			request.setAttribute("message",message);
+		}
+		
+		//”[“üæî•ñ
+		//String deliveryCode        = request.getParameter("deliveryCode");
+		String deliveryName        = request.getParameter("deliveryName");
+		String deliveryKana        = request.getParameter("deliveryKana");
+		String delOfficeName 	   = request.getParameter("delOfficeName");
+		String delOfficeKana       = request.getParameter("delOfficeNameKana");
+	 	String delDeptName         = request.getParameter("delDeptName");
+	 	String delZipCode          = request.getParameter("delZipCode");
+	 	String delAddress1         = request.getParameter("delZipAddress1");
+	 	String delAddress2         = request.getParameter("delZipAddress2");
+		String delPCName 		   = request.getParameter("delPCName");
+		String delPCNameKana 	   = request.getParameter("delPCNameKana");
+		String delPCPreCategory    = request.getParameter("delPCPreCategory");
+		String delTel			   = request.getParameter("delTel");
+		String delFax 			   = request.getParameter("delFax");
+		String delEmail            = request.getParameter("delEmail");
+		
+		//Œ»İ‚ğ“üè‚µAStringŒ^‚É•ÏŠ·‚·‚é
+		LocalDateTime ldt           = LocalDateTime.now();
+		String creDate              = ldt.toString();
+
+		
+		
+		//’Ç‰Á‚·‚é”[“üæî•ñ‚ğ”[“üæ’Ç‰ÁBean‚ÉƒZƒbƒg‚·‚é
+		DeliveryAddBean delbean = new DeliveryAddBean();
+		delbean.setAddress1(delAddress1);
+		delbean.setAddress2(delAddress2);
+		//delbean.setDeliveryCode(deliveryCode);
+		delbean.setDeliveryKana(deliveryKana);
+		delbean.setDeliveryName(deliveryName);
+		delbean.setDeptName(delDeptName);
+		delbean.setEmail(delEmail);
+		delbean.setFax(delFax);
+		delbean.setOfficeKana(delOfficeKana);
+		delbean.setOfficeName(delOfficeName);
+		delbean.setPCKana(delPCNameKana);
+		delbean.setPCName(delPCName);
+		delbean.setPCPreCategory(delPCPreCategory);
+		delbean.setTel(delTel);
+		delbean.setZipCode(delZipCode);
+		delbean.setCreDate(creDate);
+		
+		//”[“üæ’Ç‰Áƒƒ\ƒbƒh‚ğŒÄ‚Ño‚µAƒGƒ‰[‚ª¶‚¶‚½ê‡Acheck2‚É"1"‚ª•Ô‚³‚ê‚é
+		String check2 = dao.addDelivery(delbean);
+		
+		//”[“üæ’Ç‰Áƒƒ\ƒbƒh‚ÌƒGƒ‰[ˆ—
+		if(check2 == "1") {
+			String message2 = "”[“üæî•ñ‚Ì’Ç‰Áˆ—‚É‚¨‚¢‚ÄƒGƒ‰[‚ª”­¶‚µ‚Ü‚µ‚½";
+			request.setAttribute("message2",message2);
+		}
+		
+		//ÅV‚Ì”[“üæƒR[ƒh‚ğæ“¾(ã‚Ìƒƒ\ƒbƒh‚Å“o˜^‚µ‚½Û‚Ì”[“üæƒR[ƒh)
+		String delCode = dao.getAddDeliveryCode();
+		
+		//¿‹æ
+		//String deliveryCode2        = request.getParameter("deliveryCode2");
+		String deliveryName2        = request.getParameter("deliveryName2");
+		String deliveryKana2        = request.getParameter("deliveryKana2");
+		String delOfficeName2 	   = request.getParameter("delOfficeName2");
+		String delOfficeKana2       = request.getParameter("delOfficeNameKana2");
+		String delDeptName2         = request.getParameter("delDeptName2");
+		String delZipCode2          = request.getParameter("delZipCode2");
+		String delAddress1_2         = request.getParameter("delZipAddress1_2");
+		String delAddress2_2         = request.getParameter("delZipAddress2_2");
+		String delPCName2 		   = request.getParameter("delPCName2");
+		String delPCNameKana2 	   = request.getParameter("delPCNameKana2");
+		String delPCPreCategory2    = request.getParameter("delPCPreCategory2");
+		String delTel2			   = request.getParameter("delTel2");
+		String delFax2 			   = request.getParameter("delFax2");
+		String delEmail2            = request.getParameter("delEmail2");
+		
+		//Œ»İ‚ğ“üè‚µAStringŒ^‚É•ÏŠ·‚·‚é
+		LocalDateTime ldt2           = LocalDateTime.now();
+		String creDate2              = ldt2.toString();
+				
+		//’Ç‰Á‚·‚é¿‹æî•ñ‚ğ”[“üæ’Ç‰ÁBean‚ÉƒZƒbƒg‚·‚é
+		DeliveryAddBean delbean2 = new DeliveryAddBean();
+		delbean2.setAddress1(delAddress1_2);
+		delbean2.setAddress2(delAddress2_2);
+		//delbean2.setDeliveryCode(deliveryCode2);
+		delbean2.setDeliveryKana(deliveryKana2);
+		delbean2.setDeliveryName(deliveryName2);
+		delbean2.setDeptName(delDeptName2);
+		delbean2.setEmail(delEmail2);
+		delbean2.setFax(delFax2);
+		delbean2.setOfficeKana(delOfficeKana2);
+		delbean2.setOfficeName(delOfficeName2);
+		delbean2.setPCKana(delPCNameKana2);
+		delbean2.setPCName(delPCName2);
+		delbean2.setPCPreCategory(delPCPreCategory2);
+		delbean2.setTel(delTel2);
+		delbean2.setZipCode(delZipCode2);
+		delbean2.setCreDate(creDate2);
+		
+		//”[“üæ’Ç‰Áƒƒ\ƒbƒh‚ğŒÄ‚Ño‚µAƒGƒ‰[‚ª¶‚¶‚½ê‡Acheck3‚É"1"‚ª•Ô‚³‚ê‚é
+		String check3 = dao.addDelivery(delbean);
+		
+		//”[“üæ’Ç‰Áƒƒ\ƒbƒh‚ÌƒGƒ‰[ˆ—
+		if(check3 == "1") {
+			String message3 = "¿‹æî•ñ‚Ì’Ç‰Áˆ—‚É‚¨‚¢‚ÄƒGƒ‰[‚ª”­¶‚µ‚Ü‚µ‚½";
+			request.setAttribute("message3",message3);
+		}
+		
+		//ÅV‚Ì¿‹ææƒR[ƒh‚ğæ“¾(ã‚Ìƒƒ\ƒbƒh‚Å“o˜^‚µ‚½Û‚Ì¿‹æƒR[ƒh)
+		String delCode2 = dao.getAddDeliveryCode();
+		
+		//ŒÚ‹qŠÖ˜Aî•ñ“o˜^ƒƒ\ƒbƒh‚ğŒÄ‚Ño‚µA(ŒÚ‹qƒR[ƒhA”[“üæƒR[ƒh‹y‚Ñ¿‹æƒR[ƒhA”[“üæ/¿‹æƒtƒ‰ƒO)‚ğˆø”‚É‚µ‚ÄAŠÖ˜Aƒ}ƒXƒ^‚É“o˜^‚ğ‚·‚é
+		//‚à‚µAƒGƒ‰[‚ª¶‚¶‚½‚çcheck4,check5‚É1‚ª•Ô‚³‚ê‚é
+		String check4 = dao.setRelation(customerCode, delCode, "01");
+		String check5 = dao.setRelation(customerCode, delCode2, "02");
+				
+		if(check4 == "1" || check5 == "1") {
+			String message3 = "¿‹æî•ñ‚Ì’Ç‰Áˆ—‚É‚¨‚¢‚ÄƒGƒ‰[‚ª”­¶‚µ‚Ü‚µ‚½";
+			request.setAttribute("message3",message3);
+		}
+
 		return forwardURL;
+		
 		
 	}
 	
+	//ŒÚ‹q•ÒW‚ğ‚·‚éƒƒ\ƒbƒh
 	private String modifyCustomer(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException, ClassNotFoundException, SQLException {
 		
 		String forwardURL = "/customeraddmodify.jsp";
 		
+		//•ÒW‚·‚éŒÚ‹qî•ñ
+		String customerCode         = request.getParameter("customerCode");
+		String customerName         = request.getParameter("customerName");
+		String customerKana         = request.getParameter("customerKana");
+		String officeName 	        = request.getParameter("officeName");
+		String officeNameKana       = request.getParameter("officeNameKana");
+	 	String customerAbbr         = request.getParameter("customerAbbr");
+	 	String zipCode              = request.getParameter("zipCode");
+	 	String zipAddress1          = request.getParameter("zipAddress1");
+	 	String zipAddress2          = request.getParameter("zipAddress2");
+		String PCName 		        = request.getParameter("PCName");
+		String PCNameKana 	        = request.getParameter("PCNameKana");
+		String PCPreCategory        = request.getParameter("PCPreCategory");
+		String deptName             = request.getParameter("deptName");
+		String PCPost               = request.getParameter("PCPost");
+		String tel			        = request.getParameter("tel");
+		String fax 			        = request.getParameter("fax");
+		String email                = request.getParameter("email");
+		String rankCategory         = request.getParameter("rankCategory");
+		String updateFlag           = request.getParameter("updateFlag");
+		String ROCategory           = request.getParameter("ROCategory");
+		int maxCreditLimit          = Integer.parseInt(request.getParameter("maxCreditLimit"));
+		String businessCategory     = request.getParameter("businessCategory");
+		String jobCategory          = request.getParameter("jobCategory");
+		String fractCategory        = request.getParameter("fractCategory");
+		String shiftCategory        = request.getParameter("shiftCategory");
+		String lastCutoffDate       = request.getParameter("lastCutoffDate");
+		String salesCMCategory  	= request.getParameter("salesCMCategory");
+		String cutoffGroup 	 	    = request.getParameter("cutoffGroup");
+		String paybackTypeCategory  = request.getParameter("paybackTypeCategory");
+		String billPrintUnit        = request.getParameter("billPrintUnit");
+		String billDatePrint        = request.getParameter("billDatePrint");
+		String tempDeliverySlipFlag = request.getParameter("tempDeliverySlipFlag");
+		String paymentName 	        = request.getParameter("paymentName");
+		String remarks 		        = request.getParameter("remarks");
+		String comment              = request.getParameter("comment");
+		
+		//•ÒW‚·‚éŒÚ‹qî•ñ‚ğŒÚ‹q•ÒWBean‚ÉƒZƒbƒg‚·‚é
+		CustomerModifyBean bean = new CustomerModifyBean();
+		bean.setCustomerCode(customerCode);
+		bean.setCustomerName(customerName);
+		bean.setCustomerKana(customerKana);
+		bean.setOfficeName(officeName);
+		bean.setOfficeNameKana(officeNameKana);
+		bean.setCustomerAbbr(customerAbbr);
+		bean.setZipCode(zipCode);
+		bean.setZipAddress1(zipAddress1);
+		bean.setZipAddress2(zipAddress2);
+		bean.setPCName(PCName);
+		bean.setPCNameKana(PCNameKana);
+		bean.setPCPreCategory(PCPreCategory);
+		bean.setDeptName(deptName);
+		bean.setPCPost(PCPost);
+		bean.setTel(tel);
+		bean.setFax(fax);
+		bean.setEmail(email);
+		bean.setRankCategory(rankCategory);
+		bean.setUpdateFlag(updateFlag);
+		bean.setROCategory(ROCategory);
+		bean.setMaxCreditLimit(maxCreditLimit);
+		bean.setBusinessCategory(businessCategory);
+		bean.setJobCategory(jobCategory);
+		bean.setFractCategory(fractCategory);
+		bean.setShiftCategory(shiftCategory);
+		bean.setLastCutoffDate(lastCutoffDate);
+		bean.setSalesCMCategory(salesCMCategory);
+		bean.setCutoffGroup(cutoffGroup);
+		bean.setPaybackTypeCategory(paybackTypeCategory);
+		bean.setBillPrintUnit(billPrintUnit);
+		bean.setBillDatePrint(billDatePrint);
+		bean.setTempDeliverySlipFlag(tempDeliverySlipFlag);
+		bean.setPaymentName(paymentName);
+		bean.setRemarks(remarks);
+		bean.setComment(comment);
+		
+		
+		CustomerDAO dao =  new CustomerDAO();
+		//ŒÚ‹qDAO‚ÌŒÚ‹q•ÒWƒƒ\ƒbƒh‚ğŒÄ‚Ño‚µAƒGƒ‰[‚ª‚ ‚Á‚½‚çcheck‚É1‚ª“ü‚é
+		String check = dao.modifyCustomer(bean);
+		
+		//ŒÚ‹q•ÒW‚ÌƒGƒ‰[ˆ—
+		if(check == "1") {
+			String message = "ŒÚ‹qî•ñ‚Ì’Ç‰Áˆ—‚É‚¨‚¢‚ÄƒGƒ‰[‚ª”­¶‚µ‚Ü‚µ‚½";
+			request.setAttribute("message",message);
+		}
+		
+		
+		//•ÒW‚·‚é”[“üæî•ñ
+		String deliveryCode        = request.getParameter("deliveryCode");
+		String deliveryName        = request.getParameter("deliveryName");
+		String deliveryKana        = request.getParameter("deliveryKana");
+		String delOfficeName 	   = request.getParameter("delOfficeName");
+		String delOfficeKana       = request.getParameter("delOfficeNameKana");
+	 	String delDeptName         = request.getParameter("delDeptName");
+	 	String delZipCode          = request.getParameter("delZipCode");
+	 	String delAddress1         = request.getParameter("delZipAddress1");
+	 	String delAddress2         = request.getParameter("delZipAddress2");
+		String delPCName 		   = request.getParameter("delPCName");
+		String delPCNameKana 	   = request.getParameter("delPCNameKana");
+		String delPCPreCategory    = request.getParameter("delPCPreCategory");
+		String delTel			   = request.getParameter("delTel");
+		String delFax 			   = request.getParameter("delFax");
+		String delEmail            = request.getParameter("delEmail");
+		
+		LocalDateTime ldt           = LocalDateTime.now();
+		String updDate              = ldt.toString();
+
+		//•ÒW‚·‚é”[“üæî•ñ‚ğ”[“üæ•ÒWBean‚ÉƒZƒbƒg‚·‚é
+		DeliveryModifyBean delbean = new DeliveryModifyBean();
+		delbean.setAddress1(delAddress1);
+		delbean.setAddress2(delAddress2);
+		delbean.setDeliveryCode(deliveryCode);
+		delbean.setDeliveryKana(deliveryKana);
+		delbean.setDeliveryName(deliveryName);
+		delbean.setDeptName(delDeptName);
+		delbean.setEmail(delEmail);
+		delbean.setFax(delFax);
+		delbean.setOfficeKana(delOfficeKana);
+		delbean.setOfficeName(delOfficeName);
+		delbean.setPCKana(delPCNameKana);
+		delbean.setPCName(delPCName);
+		delbean.setPCPreCategory(delPCPreCategory);
+		delbean.setTel(delTel);
+		delbean.setZipCode(delZipCode);
+		delbean.setUpdDate(updDate);
+		
+		//ŒÚ‹qDAO‚Ì”[“üæ•ÒWƒƒ\ƒbƒh‚ğŒÄ‚Ño‚µAƒGƒ‰[‚ª‚ ‚Á‚½‚çcheck‚É1‚ª“ü‚é
+		String check2 = dao.modifyDelivery(delbean);
+		
+		//”[“üæ•ÒW‚ÌƒGƒ‰[ˆ—
+		if(check2 == "1") {
+			String message2 = "”[“üæî•ñ‚Ì’Ç‰Áˆ—‚É‚¨‚¢‚ÄƒGƒ‰[‚ª”­¶‚µ‚Ü‚µ‚½";
+			request.setAttribute("message2",message2);
+		}
+		
+		
+		//¿‹æî•ñ
+		String deliveryCode2        = request.getParameter("deliveryCode2");
+		String deliveryName2        = request.getParameter("deliveryName2");
+		String deliveryKana2        = request.getParameter("deliveryKana2");
+		String delOfficeName2 	   = request.getParameter("delOfficeName2");
+		String delOfficeKana2       = request.getParameter("delOfficeNameKana2");
+		String delDeptName2         = request.getParameter("delDeptName2");
+		String delZipCode2          = request.getParameter("delZipCode2");
+		String delAddress1_2         = request.getParameter("delZipAddress1_2");
+		String delAddress2_2         = request.getParameter("delZipAddress2_2");
+		String delPCName2 		   = request.getParameter("delPCName2");
+		String delPCNameKana2 	   = request.getParameter("delPCNameKana2");
+		String delPCPreCategory2    = request.getParameter("delPCPreCategory2");
+		String delTel2			   = request.getParameter("delTel2");
+		String delFax2 			   = request.getParameter("delFax2");
+		String delEmail2            = request.getParameter("delEmail2");
+				
+		LocalDateTime ldt2           = LocalDateTime.now();
+		String creDate2              = ldt2.toString();
+				
+		//•ÒW‚·‚é¿‹æî•ñ‚ğ”[“üæ(¿‹æ)•ÒWBean‚ÉƒZƒbƒg‚·‚é
+		DeliveryModifyBean delbean2 = new DeliveryModifyBean();
+		delbean2.setAddress1(delAddress1_2);
+		delbean2.setAddress2(delAddress2_2);
+		delbean2.setDeliveryCode(deliveryCode2);
+		delbean2.setDeliveryKana(deliveryKana2);
+		delbean2.setDeliveryName(deliveryName2);
+		delbean2.setDeptName(delDeptName2);
+		delbean2.setEmail(delEmail2);
+		delbean2.setFax(delFax2);
+		delbean2.setOfficeKana(delOfficeKana2);
+		delbean2.setOfficeName(delOfficeName2);
+		delbean2.setPCKana(delPCNameKana2);
+		delbean2.setPCName(delPCName2);
+		delbean2.setPCPreCategory(delPCPreCategory2);
+		delbean2.setTel(delTel2);
+		delbean2.setZipCode(delZipCode2);
+		delbean2.setUpdDate(creDate2);
+		
+		//ŒÚ‹qDAO‚Ì”[“üæ(¿‹æ)•ÒWƒƒ\ƒbƒh‚ğŒÄ‚Ño‚µAƒGƒ‰[‚ª‚ ‚Á‚½‚çcheck‚É1‚ª“ü‚é
+		String check3 = dao.modifyDelivery(delbean2);
+		//”[“üæ(¿‹æ)•ÒW‚ÌƒGƒ‰[ˆ—
+		if(check3 == "1") {
+			String message3 = "¿‹æî•ñ‚Ì’Ç‰Áˆ—‚É‚¨‚¢‚ÄƒGƒ‰[‚ª”­¶‚µ‚Ü‚µ‚½";
+			request.setAttribute("message3",message3);
+		}
+				
+//		String check4 = dao.setRelation(customerCode, deliveryCode, "01");
+//		String check5 = dao.setRelation(customerCode, deliveryCode2, "02");
+//		
+//		//ŠÖ˜Aƒ}ƒXƒ^•ÒWˆ—‚ª³í‚É‚Å‚«‚È‚¢ê‡‚ÌƒGƒ‰[ˆ—
+//		if(check4 == "1" || check5 == "1") {
+//			String message3 = "¿‹æî•ñ‚Ì’Ç‰Áˆ—‚É‚¨‚¢‚ÄƒGƒ‰[‚ª”­¶‚µ‚Ü‚µ‚½";
+//			request.setAttribute("message3",message3);
+//		}
+
 		return forwardURL;
 		
 	}
 	
+	//ŒÚ‹qî•ñ‚ğíœ‚·‚éƒƒ\ƒbƒh
 	private String deleteCustomer(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException, ClassNotFoundException, SQLException {
 		
-		String forwardURL = "/customersearch.jsp";
-		//String status = request.getAttribute(status)
-		/* if (status=="add" || status=="modify") {
 		String forwardURL = "/customeraddmodify.jsp";
-		} */
+		
+		String customerCode = request.getParameter("customerCode");
+		
+		CustomerDAO dao =  new CustomerDAO();
+		//ŒÚ‹qî•ñ‚ğíœ‚·‚éDAO‚Ìƒƒ\ƒbƒh‚ğÀs
+		String check = dao.deleteCustomer(customerCode);
+		
+		//íœˆ—‚ª³í‚É‚Å‚«‚È‚¢ê‡‚ÌƒGƒ‰[ˆ—
+		if(check == "1") {
+			String message = "ŒÚ‹qî•ñ‚Ìíœˆ—‚É‚¨‚¢‚ÄƒGƒ‰[‚ª”­¶‚µ‚Ü‚µ‚½";
+			request.setAttribute("message",message);
+		}
 		
 		return forwardURL;
-		
 	}
 	
-	private String customerExcelOutput(HttpServletRequest request, HttpServletResponse response)
-			throws ServletException, IOException, ClassNotFoundException, SQLException {
-		
-		String forwardURL = "/customeraddmodify.jsp";
-		
-		return forwardURL;
-		
-	}
 	
 	/* private String initCustomer(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException, ClassNotFoundException, SQLException {

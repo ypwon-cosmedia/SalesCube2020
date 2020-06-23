@@ -49,7 +49,7 @@ import java.util.Date;
 public class DeliveryModifyBean {
 
 	/** 納入先コード　：　納入先コードを保持する */
-	private int deliveryCode;
+	private String deliveryCode;
 
 	/** 納入先名　：　納入先名を保持する */
 	private String deliveryName;
@@ -67,7 +67,7 @@ public class DeliveryModifyBean {
 	private String deptName;
 
 	/** 郵便番号 ：　郵便番号を保持する */
-	private int zipCode;
+	private String zipCode;
 	
 	/** 住所1 ：　住所1を保持する */
 	private String address1;
@@ -94,7 +94,7 @@ public class DeliveryModifyBean {
 	private String email;
 	
 	/** 更新日時 ： 更新日時 を保存する */
-	private Date updDate;
+	private String updDate;
 	
 	/** 更新者 ： 更新者を保存する */
 	private String updUser;
@@ -102,14 +102,14 @@ public class DeliveryModifyBean {
 	/**
 	 * @return the deliveryCode
 	 */
-	public int getDeliveryCode() {
+	public String getDeliveryCode() {
 		return deliveryCode;
 	}
 
 	/**
 	 * @param deliveryCode the deliveryCode to set
 	 */
-	public void setDeliveryCode(int deliveryCode) {
+	public void setDeliveryCode(String deliveryCode) {
 		this.deliveryCode = deliveryCode;
 	}
 
@@ -186,14 +186,14 @@ public class DeliveryModifyBean {
 	/**
 	 * @return the zipCode
 	 */
-	public int getZipCode() {
+	public String getZipCode() {
 		return zipCode;
 	}
 
 	/**
 	 * @param zipCode the zipCode to set
 	 */
-	public void setZipCode(int zipCode) {
+	public void setZipCode(String zipCode) {
 		this.zipCode = zipCode;
 	}
 
@@ -312,14 +312,14 @@ public class DeliveryModifyBean {
 	/**
 	 * @return the updDate
 	 */
-	public Date getUpdDate() {
+	public String getUpdDate() {
 		return updDate;
 	}
 
 	/**
 	 * @param updDate the updDate to set
 	 */
-	public void setUpdDate(Date updDate) {
+	public void setUpdDate(String updDate) {
 		this.updDate = updDate;
 	}
 
