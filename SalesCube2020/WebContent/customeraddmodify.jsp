@@ -110,36 +110,36 @@
         <div class="panel-body">
                 <div class="row">
                     <div class="col-4">
-                        <label class="sr-only" for="inlineFormInputGroup">productCode</label>
+                        <label class="sr-only" for="inlineFormInputGroup"></label>
                         <div class="input-group mb-2">
                             <div class="input-group-prepend">
                                 <div class="input-group-text" style="background-color: pink;">顧客コード</div>
                             </div>
-                        <input type="text"  class="form-control" id="inlineFormInputGroup" name="productCode" value="${customer.productCode}">
+                        <input type="text"  class="form-control" id="inlineFormInputGroup" name="customerCode" value="${customer.customerCode}">
                         </div>
                     </div>
                     <div class="col-4">
-                        <label class="sr-only" for="inlineFormInputGroup">productName</label>
+                        <label class="sr-only" for="inlineFormInputGroup"></label>
                         <div class="input-group mb-2">
                             <div class="input-group-prepend">
                                 <div class="input-group-text" style="background-color: pink;">顧客名</div>
                             </div>
-                        <input type="text"  class="form-control" id="inlineFormInputGroup" name="productName" value="${customer.productName}">
+                        <input type="text"  class="form-control" id="inlineFormInputGroup" name="customerName" value="${customer.customerName}">
                         </div>
                     </div>
                     <div class="col-4">
-                        <label class="sr-only" for="inlineFormInputGroup">productKana</label>
+                        <label class="sr-only" for="inlineFormInputGroup"></label>
                         <div class="input-group mb-2">
                             <div class="input-group-prepend">
                                 <div class="input-group-text" style="background-color: pink;">顧客カナ</div>
                             </div>
-                        <input type="text"  class="form-control" id="inlineFormInputGroup" name="productKana" value="${customer.productKana}">
+                        <input type="text"  class="form-control" id="inlineFormInputGroup" name="customerKana" value="${customer.customerKana}">
                         </div>
                     </div>
                 </div>
                 <div class="row">
                     <div class="col-4">
-                        <label class="sr-only" for="inlineFormInputGroup">officeName</label>
+                        <label class="sr-only" for="inlineFormInputGroup"></label>
                         <div class="input-group mb-2">
                             <div class="input-group-prepend">
                                 <div class="input-group-text" style="background-color: pink;">事業所名</div>
@@ -223,7 +223,7 @@
                                 <div class="input-group-text">敬称</div>
                             </div>
                             <select class="custom-select" name="PCPreCategory" name="PCPreCategory" value="${customer.PCPreCategory}">
-                            	<option value="null"></option>
+                            	<option value=""></option>
                             	<option value="0">御中</option>
                                 <option value="1">様</option>
                                 <option value="2">殿</option>
@@ -291,7 +291,7 @@
                             </div>
 								<select class="custom-select" name="rankCategory" name="rankCategory" value="{customer.rankCategory}">
 								</select>
-                        &emsp;<label><input type="checkbox" name="updateFlag"  value="{customer.}" >&ensp;顧客ランク適用</label>
+                        &emsp;<label><input type="checkbox" name="updateFlag"  value="{customer.updateFlag}" >&ensp;顧客ランク適用</label>
                         </div>
                     </div>
                     	<div class="col-3">
@@ -301,7 +301,9 @@
 									<div class="input-group-text">受注停止</div>
 								</div>
                             	<select class="custom-select" name="ROCategory" value="${customer.ROCategory}">
-                                
+                                	<option value=""></option>
+                            		<option value="1">取引停止</option>
+                                	<option value="2">入金遅延</option>
                             	</select>
                         	</div>
                     	</div>
@@ -323,8 +325,34 @@
  	                               <div class="input-group-text">業種</div>
  	                           </div>
  		                           <select class="custom-select" name="businessCategory" value="${customer.businessCategory}">
-
- 	                           </select>
+							       		<option value=""></option>
+                            			<option value="1">コンピュータ関連</option>	
+                                		<option value="2">通信関連</option>
+                                		<option value="3">重電</option>	
+                                		<option value="4">家電・AV関連</option>
+                                		<option value="5">その他の電気機器</option>
+                                		<option value="6">OA・精密機器</option>	
+                                		<option value="7">検査・計測機器</option>
+                                		<option value="8">半導体関連</option>	
+                                		<option value="9">電気・電子部品</option>
+                                		<option value="10">自動車関連</option>	
+                                		<option value="11">その他の輸送機器</option>
+                                		<option value="12">工作機械関連</option>	
+                                		<option value="13">その他の産業機器</option>
+                                		<option value="14">印刷関連</option>	
+                                		<option value="15">食品関連</option>
+                                		<option value="16">化学関連</option>	
+                                		<option value="17">繊維関連</option>
+                                		<option value="18">住宅関連</option>	
+                                		<option value="19">その他の製造業</option>
+                                		<option value="20">その他の設計業</option>	
+                                		<option value="21">商社・卸売り</option>
+                                		<option value="22">医療・福祉関連</option>
+                                		<option value="23">学校</option>	
+                                		<option value="24">官公庁</option>
+                                		<option value="25">その他</option>	
+                                		<option value="26">個人事業</option>
+								   </select>
  		                       </div>
  		                   </div>
  		                   <div class="col-3">
@@ -334,7 +362,19 @@
 		                                <div class="input-group-text">職種</div>
 		                            </div>
 		                            <select class="custom-select" name="jobCategory" value="${customer.jobCategory}">
-
+							       		<option value=""></option>
+                            			<option value="1">製品設計・商品設計</option>	
+                                		<option value="2">研究・開発</option>
+                                		<option value="3">設備・金型・治工具設計</option>	
+                                		<option value="4">生産技術・製造技術</option>
+                                		<option value="5">製造・加工・生産</option>
+                                		<option value="6">検査・品質管理</option>	
+                                		<option value="7">資材・購買</option>
+                                		<option value="8">営業</option>	
+                                		<option value="9">企画・マーケティング	</option>
+                                		<option value="10">管理・総務</option>	
+                                		<option value="11">保守・メンテナンス</option>
+                                		<option value="12">その他</option>	
  		                            </select>
  		                        </div>
 	                       </div>
@@ -499,11 +539,14 @@
                         <div class="input-group-prepend">
                             <div class="input-group-text" style="background-color: pink;">納入先</div>
                         </div>
-                    <input type="text"  class="form-control" id="inlineFormInputGroup" name="">
+                        <select class="custom-select" name="deliveryCode" onchange="setInitDelivery(this)">
+                        			<option value=""></option>
+                                <c:forEach items="${deliveryList}" var="delivery">
+                                	<option value="${delivery.deliveryCode} }">${delivery.deliveryName}</option>
+                                </c:forEach>
+                        </select>
                     </div>
                 </div>
-                <button type="button" class="btn btn-outline-secondary btn-sm">追加</button>&emsp;
-                <button type="button" class="btn btn-outline-secondary btn-sm">削除</button>
             </div>
             <div class="row">
                 <div class="col-4">
@@ -512,7 +555,7 @@
                         <div class="input-group-prepend">
                             <div class="input-group-text" style="background-color: pink;">納入先名</div>
                         </div>
-                    <input type="text"  class="form-control" id="inlineFormInputGroup" name="deliveryName" value="${delivery.deliveryName}">
+                    <input type="text"  class="form-control" id="inlineFormInputGroup deliveryName" name="deliveryName" value="${delivery.deliveryName}">
                     </div>
                 </div>
                 <div class="col-4">
@@ -521,7 +564,7 @@
                         <div class="input-group-prepend">
                             <div class="input-group-text" style="background-color: pink;">納入先名カナ</div>
                         </div>
-                    <input type="text"  class="form-control" id="inlineFormInputGroup" name="deliveryKana" value="${delivery.deliveryKana}">
+                    <input type="text"  class="form-control" id="inlineFormInputGroup deliveryKana" name="deliveryKana" value="${delivery.deliveryKana}">
                     </div>
                 </div>
             </div>
@@ -532,7 +575,7 @@
                         <div class="input-group-prepend">
                             <div class="input-group-text">事業所名</div>
                         </div>
-                    <input type="text"  class="form-control" id="inlineFormInputGroup" name="officeName" value="${delivery.officeName}">
+                    <input type="text"  class="form-control" id="inlineFormInputGroup delOfficeName" name="delOfficeName" value="${delivery.officeName}">
                     </div>
                 </div>
                 <div class="col-4">
@@ -541,7 +584,7 @@
                         <div class="input-group-prepend">
                             <div class="input-group-text">事業所カナ</div>
                         </div>
-                    <input type="text"  class="form-control" id="inlineFormInputGroup" name="officeKana" value="${delivery.officeKana}">
+                    <input type="text"  class="form-control" id="inlineFormInputGroup delOfficeKana" name="delOfficeKana" value="${delivery.officeKana}">
                     </div>
                 </div>
                 <div class="col-4">
@@ -550,7 +593,7 @@
                         <div class="input-group-prepend">
                             <div class="input-group-text">部署名</div>
                         </div>
-                    <input type="text"  class="form-control" id="inlineFormInputGroup" name="deptName" value="${delivery.deptName}">
+                    <input type="text"  class="form-control" id="inlineFormInputGroup delDeptName" name="delDeptName" value="${delivery.deptName}">
                     </div>
                 </div>
             </div>
@@ -561,7 +604,7 @@
                         <div class="input-group-prepend">
                             <div class="input-group-text" style="background-color: pink;">郵便番号</div>
                         </div>
-                    <input type="text"  class="form-control" id="inlineFormInputGroup" name="zipCode" value="${delivery.zipCode}">                       
+                    <input type="text"  class="form-control" id="inlineFormInputGroup delZipCode " name="delZipCode" value="${delivery.zipCode}">                       
                     <input type="image" name="" src="btn_search.png" tabindex="101" onclick="" style="vertical-align: middle; cursor: pointer; width: 32px;">
                     </div>
                 </div>
@@ -571,7 +614,7 @@
                         <div class="input-group-prepend">
                             <div class="input-group-text" style="background-color: pink;">住所1</div>
                         </div>
-                        <input type="text"  class="form-control" id="inlineFormInputGroup" name="address1" value="${delivery.address1}">
+                        <input type="text"  class="form-control" id="inlineFormInputGroup delAddress1" name="delAddress1" value="${delivery.address1}">
                     </div>
                 </div>
                 <div class="col-4">
@@ -580,7 +623,7 @@
                         <div class="input-group-prepend">
                             <div class="input-group-text">住所2</div>
                         </div>
-                    <input type="text"  class="form-control" id="inlineFormInputGroup" name="address2" value="${delivery.address2}">
+                    <input type="text"  class="form-control" id="inlineFormInputGroup delAddress2" name="delAddress2" value="${delivery.address2}">
                     </div>
                 </div>
             </div>
@@ -591,7 +634,7 @@
                         <div class="input-group-prepend">
                             <div class="input-group-text">担当者</div>
                         </div>
-                    <input type="text"  class="form-control" id="inlineFormInputGroup" name="PCName" value="${delivery.PCName}">
+                    <input type="text"  class="form-control" id="inlineFormInputGroup delPCName" name="delPCName" value="${delivery.PCName}">
                     </div>
                 </div>
                 <div class="col-4">
@@ -600,7 +643,7 @@
                         <div class="input-group-prepend">
                             <div class="input-group-text">担当者カナ</div>
                         </div>
-                    <input type="text"  class="form-control" id="inlineFormInputGroup" name="PCKana" value="${delivery.PCKana}">
+                    <input type="text"  class="form-control" id="inlineFormInputGroup delPCNameKana" name="delPCKana" value="${delivery.PCKana}">
                     </div>
                 </div>
             
@@ -610,7 +653,7 @@
                         <div class="input-group-prepend">
                             <div class="input-group-text">敬称</div>
                         </div>
-                        <select class="custom-select" name="PCPreCategory" value="${delivery.PCPreCategory}">
+                        <select class="custom-select" name="delPCPreCategory" value="${delivery.PCPreCategory}" id="delPCPreCategory">
 
                         </select>
                     </div>
@@ -623,7 +666,7 @@
                         <div class="input-group-prepend">
                             <div class="input-group-text">TEL</div>
                         </div>
-                    <input type="text"  class="form-control" id="inlineFormInputGroup" name="tel" value="${delivery.tel}">
+                    <input type="text"  class="form-control" id="inlineFormInputGroup delTel" name="delTel" value="${delivery.tel}">
                     </div>
                 </div>
                 <div class="col-3">
@@ -632,7 +675,7 @@
                         <div class="input-group-prepend">
                             <div class="input-group-text">FAX</div>
                         </div>
-                    <input type="text"  class="form-control" id="inlineFormInputGroup" name="fax" value="${delivery.fax}">
+                    <input type="text"  class="form-control" id="inlineFormInputGroup delFax" name="delFax" value="${delivery.fax}">
                     </div>
                 </div>
             </div>
@@ -643,7 +686,7 @@
                         <div class="input-group-prepend">
                             <div class="input-group-text">E-MAIL</div>
                         </div>
-                    <input type="text"  class="form-control" id="inlineFormInputGroup" name="email" value="${delivery.email}">
+                    <input type="text"  class="form-control" id="inlineFormInputGroup delEmail" name="delEmail" value="${delivery.email}">
                     </div>
                 </div>
             </div>            
@@ -669,7 +712,7 @@
                         <div class="input-group-prepend">
                             <div class="input-group-text" style="background-color: pink;">請求先名</div>
                         </div>
-                    <input type="text"  class="form-control" id="inlineFormInputGroup" name="deliveryName" value="${delivery2.deliveryName}">
+                    <input type="text"  class="form-control" id="inlineFormInputGroup" name="deliveryName2" value="${delivery2.deliveryName}">
                     </div>
                 </div>
                 <div class="col-4">
@@ -678,7 +721,7 @@
                         <div class="input-group-prepend">
                             <div class="input-group-text" style="background-color: pink;">請求先名カナ</div>
                         </div>
-                    <input type="text"  class="form-control" id="inlineFormInputGroup" name="deliveryKana" value="${delivery2.deliveryKana}">
+                    <input type="text"  class="form-control" id="inlineFormInputGroup" name="deliveryKana2" value="${delivery2.deliveryKana}">
                     </div>
                 </div>
             </div>
@@ -689,7 +732,7 @@
                         <div class="input-group-prepend">
                             <div class="input-group-text">事業所名</div>
                         </div>
-                    <input type="text"  class="form-control" id="inlineFormInputGroup" name="officeName" value="${delivery2.officeName}">
+                    <input type="text"  class="form-control" id="inlineFormInputGroup" name="delOfficeName2" value="${delivery2.officeName}">
                     </div>
                 </div>
                 <div class="col-4">
@@ -698,7 +741,7 @@
                         <div class="input-group-prepend">
                             <div class="input-group-text">事業所カナ</div>
                         </div>
-                    <input type="text"  class="form-control" id="inlineFormInputGroup" name="officeKana" value="${delivery2.officeKana}">
+                    <input type="text"  class="form-control" id="inlineFormInputGroup" name="delOfficeKana2" value="${delivery2.officeKana}">
                     </div>
                 </div>
                 <div class="col-4">
@@ -707,7 +750,7 @@
                         <div class="input-group-prepend">
                             <div class="input-group-text">部署名</div>
                         </div>
-                    <input type="text"  class="form-control" id="inlineFormInputGroup" name="deptName" value="${delivery2.deptName}">
+                    <input type="text"  class="form-control" id="inlineFormInputGroup" name="delDeptName2" value="${delivery2.deptName}">
                     </div>
                 </div>
             </div>
@@ -718,7 +761,7 @@
                         <div class="input-group-prepend">
                             <div class="input-group-text" style="background-color: pink;">郵便番号</div>
                         </div>
-                    <input type="text"  class="form-control" id="inlineFormInputGroup" name="zipCode" value="${delivery2.zipCode}">                       
+                    <input type="text"  class="form-control" id="inlineFormInputGroup" name="delZipCode2" value="${delivery2.zipCode}">                       
                     <input type="image" name="" src="btn_search.png" tabindex="101" onclick="" style="vertical-align: middle; cursor: pointer; width: 32px;">
                     </div>
                 </div>
@@ -728,7 +771,7 @@
                         <div class="input-group-prepend">
                             <div class="input-group-text" style="background-color: pink;">住所1</div>
                         </div>
-                        <input type="text"  class="form-control" id="inlineFormInputGroup" name="address1" value="${delivery2.address1}">
+                        <input type="text"  class="form-control" id="inlineFormInputGroup" name="delAddress1_2" value="${delivery2.address1}">
                     </div>
                 </div>
                 <div class="col-4">
@@ -737,7 +780,7 @@
                         <div class="input-group-prepend">
                             <div class="input-group-text">住所2</div>
                         </div>
-                    <input type="text"  class="form-control" id="inlineFormInputGroup" name="address2" value="${delivery2.address2}">
+                    <input type="text"  class="form-control" id="inlineFormInputGroup" name="delAddress2_2" value="${delivery2.address2}">
                     </div>
                 </div>
             </div>
@@ -748,7 +791,7 @@
                         <div class="input-group-prepend">
                             <div class="input-group-text">担当者</div>
                         </div>
-                    <input type="text"  class="form-control" id="inlineFormInputGroup" name="PCName" value="${delivery2.PCName}">
+                    <input type="text"  class="form-control" id="inlineFormInputGroup" name="delPCName2" value="${delivery2.PCName}">
                     </div>
                 </div>
                 <div class="col-4">
@@ -757,7 +800,7 @@
                         <div class="input-group-prepend">
                             <div class="input-group-text">担当者カナ</div>
                         </div>
-                    <input type="text"  class="form-control" id="inlineFormInputGroup" name="PCKana" value="${delivery2.PCKana}">
+                    <input type="text"  class="form-control" id="inlineFormInputGroup" name="delPCKana2" value="${delivery2.PCKana}">
                     </div>
                 </div>
             
@@ -767,7 +810,7 @@
                         <div class="input-group-prepend">
                             <div class="input-group-text">敬称</div>
                         </div>
-                        <select class="custom-select" name="PCPreCategory" value="${delivery2.PCPreCategory}">
+                        <select class="custom-select" name="delPCPreCategory2" value="${delivery2.PCPreCategory}">
 
                         </select>
                     </div>
@@ -780,7 +823,7 @@
                         <div class="input-group-prepend">
                             <div class="input-group-text">TEL</div>
                         </div>
-                    <input type="text"  class="form-control" id="inlineFormInputGroup" name="tel" value="${delivery2.tel}">
+                    <input type="text"  class="form-control" id="inlineFormInputGroup" name="delTel2" value="${delivery2.tel}">
                     </div>
                 </div>
                 <div class="col-3">
@@ -789,7 +832,7 @@
                         <div class="input-group-prepend">
                             <div class="input-group-text">FAX</div>
                         </div>
-                    <input type="text"  class="form-control" id="inlineFormInputGroup" name="fax" value="${delivery2.fax}">
+                    <input type="text"  class="form-control" id="inlineFormInputGroup" name="delFax2" value="${delivery2.fax}">
                     </div>
                 </div>
             </div>
@@ -800,7 +843,7 @@
                         <div class="input-group-prepend">
                             <div class="input-group-text">E-MAIL</div>
                         </div>
-                    <input type="text"  class="form-control" id="inlineFormInputGroup" name="email" value="${delivery2.email}">
+                    <input type="text"  class="form-control" id="inlineFormInputGroup" name="delEmail2" value="${delivery2.email}">
                     </div>
                 </div>
             </div>            
@@ -856,6 +899,67 @@
 			return;
 		}		
 	}
+ 
+ 	
+ 	var deliveryList = [];
+		window.onload = function(){
+			var loop=0;
+		
+			<c:forEach var="delivery" items="${deliveryList}" >
+			  deliveryList[loop] = {
+					 //listNo:""
+					 deliveryCode:"${delivery.deliveryCode}",
+					 deliveryName:"${delivery.deliveryName}",
+					 deliveryKana:"${delivery.deliveryKana}",
+					 delOfficeName:"${delivery.delOfficeName}",
+					 delOfficeKana:"${delivery.delOfficeKana}",
+					 delDeptName:"${delivery.delDeptName}",
+					 delZipCode:"${delivery.delZipCode}",
+					 delAddress1:"${delivery.delAddress1}",
+					 delAddress2:"${delivery.delAddress2}",
+					 delPCName:"${delivery.delPCName}",
+					 delPCNameKana:"${delivery.delPCNameKana}",
+					 delPCPreCategory:"${delivery.delPCPreCategory}",
+					 delTel:"${delivery.delTel}",
+					 delFax:"${delivery.delFax}",
+					 delEmail:"${delivery.delEmail}",	
+					  };
+		  			loop++;  	
+			</c:forEach>
+ 
+ 
+ 	function setInitDelivery(del) {
+ 		
+ 		alert();
+ 		
+ 		var deliveryCode = del.value;
+ 		var index;
+ 		
+ 		
+ 		
+ 		for(var count in list){
+ 			if(list[count].deliveryCode == deliveryCode){
+ 				index == count;
+ 			}
+ 		}
+ 		document.getElementByID("deliveryCode").value = list[index].deliveryCode;
+ 		document.getElementByID("deliveryName").value = list[index].deliveryName;
+ 		document.getElementByID("deliveryKana").value = list[index].deliveryKana;
+ 		document.getElementByID("delOfficeName").value = list[index].delOfficeName;
+ 		document.getElementByID("delOfficeKana").value = list[index].delOfficeKana;
+ 		document.getElementByID("delDeptName").value = list[index].delDeptName;
+ 		document.getElementByID("delZipCode").value = list[index].delZipCode;
+ 		document.getElementByID("delAddress1").value = list[index].delAddress1;
+ 		document.getElementByID("delAddress2").value = list[index].delAddress2;
+ 		document.getElementByID("delPCName").value = list[index].delPCName;
+ 		document.getElementByID("delPCNameKana").value = list[index].delPCNameKana;
+ 		document.getElementByID("delPCPreCategory").value = list[index].delPCPreCategory;
+ 		document.getElementByID("delTel").value = list[index].delTel;
+ 		document.getElementByID("delFax").value = list[index].delFax;
+ 		document.getElementByID("delEmail").value = list[index].delEmail;
+ 		}
+
+ 	}
 </script>
 	
 	</body>
