@@ -8,6 +8,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.MissingResourceException;
 
+import common.beans.CustomerPayBean;
 import common.beans.ProductStandardCategoryBean;
 import common.beans.ProductStatusCategoryBean;
 import common.beans.ProductStockCategoryBean;
@@ -131,6 +132,39 @@ public class MenuDAO extends BaseDAO {
 		 		ProductStatusCategoryBean bean = new ProductStatusCategoryBean();
 		 		bean.setProductStatusCategoryCode(result.getInt("CATEGORY_CODE"));
 		 		bean.setProductStatusCategoryName(result.getString("CATEGORY_CODE_NAME"));
+				list.add(bean);
+		 	} 
+		 	super.releaseDB(con, stmt, result);
+		 	return list;
+		 	
+	 	}	catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+		}
+	 		
+	 	
+	 	return list;
+
+	}
+	
+	public List<CustomerPayBean> getCustomerPayInfo() throws ClassNotFoundException, MissingResourceException{
+		
+		List<CustomerPayBean> list = new ArrayList<CustomerPayBean>();
+		
+		Connection con;
+	 	Statement stmt = null;
+	 	ResultSet result = null;	
+	 	String  sql;
+	 	try {
+		 	con = super.getConnection();	
+		 	stmt = con.createStatement();	
+		 	sql = "select CATEGORY_CODE, CATEGORY_CODE_NAME from category_trn_xxxxx where CATEGORY_ID = 11;";	
+		 	result = stmt.executeQuery(sql);	
+			
+		 	while (result.next()) {
+		 		CustomerPayBean bean = new CustomerPayBean();
+		 		bean.setCategoryCode(result.getString("CATEGORY_CODE"));
+		 		bean.setCategoryCodeName(result.getString("CATEGORY_CODE_NAME"));
 				list.add(bean);
 		 	} 
 		 	super.releaseDB(con, stmt, result);

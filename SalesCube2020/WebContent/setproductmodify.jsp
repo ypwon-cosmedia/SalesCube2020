@@ -153,7 +153,7 @@
 							<tbody>
 								<c:forEach var="res" items="${result}" varStatus="status">   
 									<tr>
-										<td scope="row">${status.count}</td>
+										<td scope="row" id="t${status.count}">${status.count}</td>
 										<td style="white-space: normal; text-align: left;" nowrap> 
 											<div class="input-group mb-3">
 												<input type="text" class="form-control" value="${res.productCode}" name="code">
@@ -190,10 +190,12 @@
 		    $('#mytable > tbody:last').append('<tr><td scope="row">' + tableNo + '</td><td style="white-space: normal; text-align: left;" nowrap> <div class="input-group mb-3"><input type="text" class="form-control" value="${res.productCode}" name="code"></div></td><td style="white-space: normal; text-align: left;"><input type="text"  class="form-control" id="inlineFormInputGroup" name="name" value="${res.productName}"></td><td style="white-space: normal; text-align: left;"><input type="text"  class="form-control" id="inlineFormInputGroup" name="quantity" value="${res.quantity}"></td><td style="text-align: center"><button type="button" class="btn btn-outline-secondary" onclick="deleteLine(this);">削除</button></td></tr>');});
 		</script>
 		<script type="text/javascript">
+		
 		function deleteLine(obj){
 			var tr = $(obj).parent().parent();
 			
 			tr.remove();
+			
 		}
 		
 		</script>

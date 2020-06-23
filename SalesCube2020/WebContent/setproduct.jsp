@@ -185,8 +185,17 @@
 		
 		
 		<div class="container">
-            <div class="float-left" style="position:static; left: 0px;">検索結果件数：${fn:length(searchData)} 件</div>
-  
+            <div class="float-left" style="position:static; left: 0px;">検索結果件数：${fn:length(searchData)} 件
+  				&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+  				&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+  				&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+  				&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+
+		  		<c:forEach var="pageCount" items="${totalPage}">
+					<a id='MySelect' href="http://localhost:8080/SalesCube2020/SalesCube?action=searchSetProduct&rowCount=${rowCount}&currentPage=${pageCount}" >${pageCount}</a>
+				</c:forEach>
+			</div>
+			
          	<div class="rounded float-right">
                 ページあたりの表示件数
                 <select id="rowCount" name="rowCount">
@@ -199,9 +208,7 @@
     </form>
     
 <br>
-	<c:forEach var="pageCount" items="${totalPage}">
-		<a id='MySelect' href="http://localhost:8080/SalesCube2020/SalesCube?action=searchSetProduct&rowCount=${rowCount}&currentPage=${pageCount}" >${pageCount}</a>
-	</c:forEach>
+
 <br>
 
 <div class="container" style="background-color: rgb(255, 255, 255);" id="setProductList">

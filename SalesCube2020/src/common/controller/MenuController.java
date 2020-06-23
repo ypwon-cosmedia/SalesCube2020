@@ -4,6 +4,7 @@ import java.io.*;
 import javax.servlet.*;
 import javax.servlet.http.*;
 
+import common.beans.CustomerPayBean;
 import common.beans.ProductStandardCategoryBean;
 import common.beans.ProductStatusCategoryBean;
 import common.beans.ProductStockCategoryBean;
@@ -45,6 +46,21 @@ final public class MenuController extends BaseController{
 	
 	private String moveCustomer (HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
+		List<CustomerPayBean> list = new ArrayList<CustomerPayBean>();
+		MenuDAO dao = new MenuDAO();
+		
+		try {
+			list = dao.getCustomerPayInfo();
+			
+			request.setAttribute("payInfo", list);
+			
+			return "/customersearch.jsp";
+		} catch (ClassNotFoundException | MissingResourceException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		
 		return "/customersearch.jsp";
 	}
 	
@@ -81,6 +97,8 @@ final public class MenuController extends BaseController{
 	}
 	
 	private String moveMenu (HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		
+		
 		
 		return "/menu.jsp";
 	}

@@ -161,12 +161,14 @@ public class SetProductDAO extends BaseDAO {
 
 	 	
 	 	for(SetProductBean bean : inputList) {
-	 		sql2 = "insert into product_set_mst_xxxxx(SET_PRODUCT_CODE, PRODUCT_CODE, QUANTITY) values( '"
-	 				+ setProductCode + "' , '"
-	 				+ bean.getProductCode() + "', "
-	 				+ bean.getQuantity() + ")";
-	 		int result2 = stmt.executeUpdate(sql2);
-	 		con.commit();
+
+		 		sql2 = "insert into product_set_mst_xxxxx(SET_PRODUCT_CODE, PRODUCT_CODE, QUANTITY) values( '"
+		 				+ setProductCode + "' , '"
+		 				+ bean.getProductCode() + "', "
+		 				+ bean.getQuantity() + ")";
+		 		int result2 = stmt.executeUpdate(sql2);
+		 		con.commit();
+	 		
 	 	}
 	 	
 	 	super.releaseDB(con, stmt);
