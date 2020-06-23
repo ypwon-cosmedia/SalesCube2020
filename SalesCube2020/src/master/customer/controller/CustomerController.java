@@ -249,10 +249,10 @@ public class CustomerController extends BaseController{
 		
 		CustomerDAO dao =  new CustomerDAO();
 		//顧客DAOの顧客追加メソッドを呼び出し、エラーがあったらcheckに1が入る
-		String check = dao.addCustomer(bean);
+		int check = dao.addCustomer(bean);
 		
 		//顧客情報追加のエラー処理
-		if(check == "1") {
+		if(check == 1) {
 			String message = "顧客情報の追加処理においてエラーが発生しました";
 			request.setAttribute("message",message);
 		}
@@ -300,10 +300,10 @@ public class CustomerController extends BaseController{
 		delbean.setCreDate(creDate);
 		
 		//納入先追加メソッドを呼び出し、エラーが生じた場合、check2に"1"が返される
-		String check2 = dao.addDelivery(delbean);
+		int check2 = dao.addDelivery(delbean);
 		
 		//納入先追加メソッドのエラー処理
-		if(check2 == "1") {
+		if(check2 == 1) {
 			String message2 = "納入先情報の追加処理においてエラーが発生しました";
 			request.setAttribute("message2",message2);
 		}
@@ -352,10 +352,10 @@ public class CustomerController extends BaseController{
 		delbean2.setCreDate(creDate2);
 		
 		//納入先追加メソッドを呼び出し、エラーが生じた場合、check3に"1"が返される
-		String check3 = dao.addDelivery(delbean);
+		int check3 = dao.addDelivery(delbean);
 		
 		//納入先追加メソッドのエラー処理
-		if(check3 == "1") {
+		if(check3 == 1) {
 			String message3 = "請求先情報の追加処理においてエラーが発生しました";
 			request.setAttribute("message3",message3);
 		}
@@ -365,10 +365,10 @@ public class CustomerController extends BaseController{
 		
 		//顧客関連情報登録メソッドを呼び出し、(顧客コード、納入先コード及び請求先コード、納入先/請求先フラグ)を引数にして、関連マスタに登録をする
 		//もし、エラーが生じたらcheck4,check5に1が返される
-		String check4 = dao.setRelation(customerCode, delCode, "01");
-		String check5 = dao.setRelation(customerCode, delCode2, "02");
+		int check4 = dao.setRelation(customerCode, delCode, "01");
+		int check5 = dao.setRelation(customerCode, delCode2, "02");
 				
-		if(check4 == "1" || check5 == "1") {
+		if(check4 == 1 || check5 == 1) {
 			String message3 = "請求先情報の追加処理においてエラーが発生しました";
 			request.setAttribute("message3",message3);
 		}
@@ -511,10 +511,10 @@ public class CustomerController extends BaseController{
 		delbean.setUpdDate(updDate);
 		
 		//顧客DAOの納入先編集メソッドを呼び出し、エラーがあったらcheckに1が入る
-		String check2 = dao.modifyDelivery(delbean);
+		int check2 = dao.modifyDelivery(delbean);
 		
 		//納入先編集のエラー処理
-		if(check2 == "1") {
+		if(check2 == 1) {
 			String message2 = "納入先情報の追加処理においてエラーが発生しました";
 			request.setAttribute("message2",message2);
 		}
@@ -560,9 +560,9 @@ public class CustomerController extends BaseController{
 		delbean2.setUpdDate(creDate2);
 		
 		//顧客DAOの納入先(請求先)編集メソッドを呼び出し、エラーがあったらcheckに1が入る
-		String check3 = dao.modifyDelivery(delbean2);
+		int check3 = dao.modifyDelivery(delbean2);
 		//納入先(請求先)編集のエラー処理
-		if(check3 == "1") {
+		if(check3 == 1) {
 			String message3 = "請求先情報の追加処理においてエラーが発生しました";
 			request.setAttribute("message3",message3);
 		}
@@ -590,10 +590,10 @@ public class CustomerController extends BaseController{
 		
 		CustomerDAO dao =  new CustomerDAO();
 		//顧客情報を削除するDAOのメソッドを実行
-		String check = dao.deleteCustomer(customerCode);
+		int check = dao.deleteCustomer(customerCode);
 		
 		//削除処理が正常にできない場合のエラー処理
-		if(check == "1") {
+		if(check == 1) {
 			String message = "顧客情報の削除処理においてエラーが発生しました";
 			request.setAttribute("message",message);
 		}
