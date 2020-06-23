@@ -11,8 +11,6 @@
 		rowCount =Integer.parseInt((String) request.getParameter("rowCount"));
 	}
 %> 
-
-<%= rowCount %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -95,8 +93,8 @@
       <div class="btn-toolbar float-right" role="toolbar" aria-label="Toolbar with button groups">
         
         <div class="btn-group mr-2 " role="group" aria-label="First group">
-          <button type="button" class="btn btn-secondary" style="font-size: 12px;" onclick="location.href='http://localhost:8080/SalesCube2020/SalesCube?action=setProduct'">F1<br>初期化</button>
-          <button type="button" class="btn btn-secondary" style="font-size: 12px;">F2<br>検索</button>
+          <button type="button" class="btn btn-secondary" style="font-size: 12px;" onclick="initForm();">F1<br>初期化</button>
+          <button type="button" class="btn btn-secondary" style="font-size: 12px;" onclick="doSubmit();">F2<br>検索</button>
           <button type="button" class="btn btn-secondary" style="font-size: 12px;">F3<br></button>
           <button type="button" class="btn btn-secondary" style="font-size: 12px;">F4<br></button>
           <button type="button" class="btn btn-secondary" style="font-size: 12px;">F5<br></button>
@@ -111,7 +109,7 @@
       </div>
       <br><br><br>
       </div>
-      <form action="/SalesCube2020/SalesCube?action=searchSetProduct" method="post">
+      <form action="/SalesCube2020/SalesCube?action=searchSetProduct" method="post" name="mainform">
 		<div class="container" style="background-color: white;"><div class="panel panel-default" >
 			<div class="panel-heading row mb-2 col-4">
 				<h5><br>セット商品情報</h5>
@@ -178,7 +176,7 @@
 			</div>
 				
 				<div align="right">
-					<input type="button" value="初期化" class="btn btn-outline-secondary" onclick="location.href='http://localhost:8080/SalesCube2020/SalesCube?action=setProduct'">
+					<input type="button" value="初期化" class="btn btn-outline-secondary" onclick="initForm();">
 					<input type="submit" value="検索" class="btn btn-outline-secondary">
 				</div>
 			
@@ -244,6 +242,17 @@ $(function() {
     var temp = "<%= rowCount %>"; 
     $("#rowCount").val(temp);
 });
+function initForm() {
+	if(!confirm("入力内容を初期化してよろしいですか？")){
+		return;
+	} 
+	window.location.href = '/SalesCube2020/SalesCube?action=setProduct';
+}
+function doSubmit(){
+	var form = document.mainform;
+	
+	form.submit();
+}
 </script>
 </body>
 </html>

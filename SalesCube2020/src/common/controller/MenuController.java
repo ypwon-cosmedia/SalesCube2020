@@ -55,35 +55,21 @@ final public class MenuController extends BaseController{
 		List<SetTypeCategoryBean> list3 = new ArrayList<>();
 		List<ProductStandardCategoryBean> list4 = new ArrayList<ProductStandardCategoryBean>();
 		List<ProductStatusCategoryBean> list5 = new ArrayList<ProductStatusCategoryBean>();
-		
-		
 		List<ProductCategoryAllBean> list8 = new ArrayList<ProductCategoryAllBean>();
 		
 		GetCategoryDAO dao = new GetCategoryDAO();
 		MenuDAO dao2 = new MenuDAO();
 		
-		String bigCategory = request.getParameter("product1");		
-		String middleCategory = request.getParameter("product2");
-		
-		
-		
 		list2 = dao2.getProductStockCategory();
 		list3 = dao2.getSetTypeCategory();
 		list4 = dao2.getProductStandardCategory();
 		list5 = dao2.getProductStatusCategory();
-
-		
 		list8 = dao.getAllCategory();
 		
-
 		request.setAttribute("prosearch", list2);
 		request.setAttribute("setTypeCategory", list3);
 		request.setAttribute("productStandardCategory", list4);
-		request.setAttribute("productStatusCategory", list5);
-		request.setAttribute("Category1", bigCategory);
-		request.setAttribute("Category2", middleCategory);
-
-		
+		request.setAttribute("productStatusCategory", list5);	
 		request.setAttribute("all", list8);
 		
 		return "/productsearch.jsp";

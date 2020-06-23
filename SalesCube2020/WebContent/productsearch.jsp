@@ -331,7 +331,6 @@
 				</tbody>
 			</table>
 		</div>
-	
 
 	</body>
 	
@@ -410,22 +409,19 @@
 			}
 		}			
 		//入力値の初期化
-		function initForm(){
-			if(!confirm("入力内容を初期化してよろしいですか？")){
-    			return;
-    	  	}
-    		document.main.reset();
+		function initForm() {
+			var test = confirm("入力内容を初期化してよろしいですか？");
+			test;
+			if(test == false){
+				return;
+			} else
+			window.location.href = '/SalesCube2020/SalesCube?action=setProduct';
 		}
 
 		var options = {
 			 valueNames: [ 'productCode', 'productName' , 'supplierName' , 'product1' ]
 		};
 		var prosortList = new List('prosortList', options);
-		function initBigCategory(){
-			var e = document.getElementById("product1");
-			var tmp = e.option[e.selectedIndex].value;
-			
-		}
 	$(function() {
 	    var temp = "${Category1}"; 
 	    $("#product1").val(temp);
