@@ -239,9 +239,6 @@
 								</div>
 								<select class="custom-select" name="product1" id="product1" onchange="selectPro1();">
 									<option selected></option>
-									<c:forEach var="cat" items="${category}">
-										<option value="${cat.product1}" >${cat.productName}</option>
-									</c:forEach>
 								</select>
 							</div>
 						</div>
@@ -253,11 +250,8 @@
 								<div class="input-group-prepend">
 									<div class="input-group-text">分類（中）</div>
 								</div>
-								<select class="custom-select" name="product2" id="product2" onchange="selectPro2(this);">
+								<select class="custom-select" name="product2" id="product2" onchange="selectPro2();">
 									<option selected></option>
-									<c:forEach var="cat" items="${middleCategory}">
-										<option value="${cat.product2}">${cat.productName}</option>
-									</c:forEach>
 								</select>
 							</div>
 						</div>
@@ -271,9 +265,6 @@
 								</div>
 								<select class="custom-select" name="product3" id="product3">
 									<option selected></option>
-									<c:forEach var="cat" items="${smallCategory}">
-										<option value="${cat.product3}">${cat.productName}</option>
-									</c:forEach>
 								</select>
 							</div>
 						</div>
@@ -346,6 +337,31 @@
 	
 	<script>
 	var mylist = [];
+	window.onload = function(){
+		var loop=0;
+		
+		<c:forEach var="test" items="${all}" >
+		  mylist[loop] = {
+				    cat1:"${test.classCode1}",
+				    cat2:"${test.classCode2}",
+				    cat3:"${test.classCode3}",
+				    catName:"${test.classCodeName}",	
+				  };
+		  		loop++;  	 
+		</c:forEach>
+		var list = mylist
+		var objSel = document.getElementById("product1");
+					
+		for(var i in list) {
+			if(list[i].cat1 != "" && list[i].cat2 == ""){
+				var objOption = document.createElement("option");
+				objOption.text = list[i].catName;
+				objOption.value = list[i].cat1;
+				
+				objSel.add(objOption);
+			}
+		}
+	}
 		//カテゴリー
 		function selectPro1(){
 	
@@ -363,9 +379,8 @@
 				}
 			}
 
-		}
-	
-		function selectPro2(selectObject){
+		}	
+		function selectPro2(){
 			var list = mylist
 			
 			var objSel = document.getElementById("product3");
@@ -381,8 +396,7 @@
 					objSel.add(objOption);
 				}
 			}
-		}
-			
+		}			
 		//入力値の初期化
 		function initForm(){
 			if(!confirm("入力内容を初期化してよろしいですか？")){
@@ -400,7 +414,6 @@
 			var tmp = e.option[e.selectedIndex].value;
 			
 		}
-
 	$(function() {
 	    var temp = "${Category1}"; 
 	    $("#product1").val(temp);
@@ -409,25 +422,5 @@
 	    var temp = "${Category2}"; 
 	    $("#product2").val(temp);
 	});
-
-	window.onload = function(){
-		
-		var loop=0;
-		
-		<c:forEach var="test" items="${all}" >
-		  mylist[loop] = {
-				    cat1:"${test.classCode1}",
-				    cat2:"${test.classCode2}",
-				    cat3:"${test.classCode3}",
-				    catName:"${test.classCodeName}",	
-				  };
-		  		loop++;  	 
-		</c:forEach>
-		
-		
-		for(i=0; i< mylist.length; i++){
-			  
-		}
-	}
 	</script>	
 </html>
