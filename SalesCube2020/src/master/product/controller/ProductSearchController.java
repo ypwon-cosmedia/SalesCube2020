@@ -8,7 +8,9 @@ import common.controller.BaseController;
 import master.customer.beans.customerSearchBeans.CustomerResultBean;
 import master.product.DAO.GetCategoryDAO;
 import master.product.DAO.ProductDAO;
+import master.product.DAO.ProductSearchDAO;
 import master.product.beans.ProductBigCategoryBean;
+import master.product.beans.ProductResultBean;
 import master.product.beans.ProductSearchBean;
 
 import java.util.*;
@@ -38,17 +40,23 @@ public class ProductSearchController extends BaseController{
 		// TODO Auto-generated method stub
 		
 		List<ProductBigCategoryBean> list = new ArrayList<>();
+		List<ProductResultBean> list2 = new ArrayList<>();
+		
+		ProductSearchBean bean = new ProductSearchBean();
 		
 		GetCategoryDAO dao = new GetCategoryDAO();
+		ProductSearchDAO dao2 = new ProductSearchDAO();
 		
 		try {
 			list = dao.getBigCategory();
+			list2 = dao2.searchProduct(bean);
 		} catch (ClassNotFoundException | SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		
 		request.setAttribute("category", list);
+		request.setAttribute("search", list2);
 		
 		return "/productsearch.jsp";
 	}

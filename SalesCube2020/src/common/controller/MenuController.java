@@ -11,6 +11,7 @@ import common.beans.SetTypeCategoryBean;
 import common.dao.MenuDAO;
 import master.product.DAO.GetCategoryDAO;
 import master.product.beans.ProductBigCategoryBean;
+import master.product.beans.ProductCategoryAllBean;
 import master.product.beans.ProductMiddleCategoryBean;
 import master.product.beans.ProductSmallCategoryBean;
 
@@ -59,12 +60,14 @@ final public class MenuController extends BaseController{
 		List<ProductStatusCategoryBean> list5 = new ArrayList<ProductStatusCategoryBean>();
 		List<ProductMiddleCategoryBean> list6 = new ArrayList<ProductMiddleCategoryBean>();
 		List<ProductSmallCategoryBean> list7 = new ArrayList<ProductSmallCategoryBean>();
+		List<ProductCategoryAllBean> list8 = new ArrayList<ProductCategoryAllBean>();
 		
 		GetCategoryDAO dao = new GetCategoryDAO();
 		MenuDAO dao2 = new MenuDAO();
 		
 		String bigCategory = request.getParameter("product1");		
 		String middleCategory = request.getParameter("product2");
+		
 		
 		list = dao.getBigCategory();
 		list2 = dao2.getProductStockCategory();
@@ -75,6 +78,8 @@ final public class MenuController extends BaseController{
 			list6 = dao.getMiddleCategory(bigCategory);
 		if(bigCategory != null && middleCategory != null)
 			list7 = dao.getSmallCategory(bigCategory, middleCategory);
+		
+		list8 = dao.getAllCategory();
 		
 		request.setAttribute("category", list);
 		request.setAttribute("prosearch", list2);
@@ -88,6 +93,8 @@ final public class MenuController extends BaseController{
 		}
 		if(bigCategory != null && middleCategory != null)
 			request.setAttribute("smallCategory", list7);
+		
+		request.setAttribute("all", list8);
 		
 		return "/productsearch.jsp";
 	}
