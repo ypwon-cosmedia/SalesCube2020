@@ -26,7 +26,7 @@ package master.customer.beans;
   */
 public class AddressBean {
 	/** —X•Ö”Ô†@F@—X•Ö”Ô†‚ğ•Û‚·‚é */
-	private int zipCode;
+	private String zipCode;
 
 	/** ZŠ1@F@ZŠ1‚ğ•Û‚·‚é */
 	private String zipAddress1;
@@ -39,7 +39,7 @@ public class AddressBean {
 	 * 
 	 * @return the zipCode —X•Ö”Ô†‚ğ•Ô‚·
 	 */
-	public int getZipCode() {
+	public String getZipCode() {
 		return zipCode;
 	}
 
@@ -48,7 +48,7 @@ public class AddressBean {
 	 * 
 	 * @param zipCode the zipCode to set İ’è‚·‚é—X•Ö”Ô†
 	 */
-	public void setZipCode(int zipCode) {
+	public void setZipCode(String zipCode) {
 		this.zipCode = zipCode;
 	}
 
