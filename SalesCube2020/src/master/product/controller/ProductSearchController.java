@@ -6,6 +6,7 @@ import javax.servlet.http.*;
 
 import common.controller.BaseController;
 import master.customer.beans.customerSearchBeans.CustomerResultBean;
+import master.product.DAO.GetCategoryDAO;
 import master.product.DAO.ProductDAO;
 import master.product.beans.ProductBigCategoryBean;
 import master.product.beans.ProductSearchBean;
@@ -29,19 +30,19 @@ public class ProductSearchController extends BaseController{
 		String action = request.getParameter("action");
 
 		if(action.equals("searchProduct")) forwardURL = searchProduct(request, response);
-		else if(action.equals("moveModifyProduct")) forwardURL = moveModifyProduct(request, response);
 		
 		return forwardURL;
 	}
 	
 	private String searchProduct(HttpServletRequest request, HttpServletResponse response)  throws ServletException, IOException{
 		// TODO Auto-generated method stub
+		
 		List<ProductBigCategoryBean> list = new ArrayList<>();
 		
-		ProductDAO dao = new ProductDAO();
+		GetCategoryDAO dao = new GetCategoryDAO();
 		
 		try {
-			list = dao.getCategory();
+			list = dao.getBigCategory();
 		} catch (ClassNotFoundException | SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -52,16 +53,4 @@ public class ProductSearchController extends BaseController{
 		return "/productsearch.jsp";
 	}
 
-	private String moveModifyProduct(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
-		String productCode;
-		
-		productCode = (String) request.getParameter("productCode");
-		
-		request.setAttribute("productCode", productCode);
-		
-		//System.out.println(productCode);
-		
-		return "/productaddmodify.jsp";
-	}
 }

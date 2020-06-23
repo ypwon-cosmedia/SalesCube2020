@@ -8,6 +8,7 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.MissingResourceException;
 
 import common.dao.BaseDAO;
 import master.product.beans.ProductModifyBean;
@@ -237,5 +238,32 @@ public class ProductSearchDAO extends BaseDAO{
 		 	
 		 	return listAll;
 
+	}
+	
+	public int getCount() throws ClassNotFoundException, MissingResourceException, SQLException {
+		
+		Connection con;
+	 	Statement stmt = null;
+	 	ResultSet result = null;
+	 	String  sql1;
+
+	 	int count = 0;
+	 	
+	 	con = super.getConnection();	
+	 	stmt = con.createStatement();
+	 	
+	 	sql1 = "select COUNT(*) from product_mst_xxxxx";
+	 	result = stmt.executeQuery(sql1);
+
+	 	while(result.next()) {
+	 		count = result.getInt("COUNT(*)");
+	 	}
+
+	 	
+	 	
+	 	super.releaseDB(con, stmt);
+	 	
+	 	return count;
+	
 	}
 }
