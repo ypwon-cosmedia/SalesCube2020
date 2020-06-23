@@ -10,7 +10,7 @@ import master.product.beans.ProductAddBean;
 
 import java.util.*;
 import java.sql.SQLException;
-
+import java.sql.Date.*;
 import user.DAO.*;
 import user.beans.*;
 
@@ -31,9 +31,9 @@ public class ProductAddController extends BaseController{
 			else if(action.equals("addProduct")) forwardURL = addProduct(request, response);
 		
 		
-		}catch(ClassNotFoundException e) {
+		}catch(ServletException e) {
 			e.printStackTrace();
-		}catch(SQLException e) {
+		}catch(IOException e) {
 			e.printStackTrace();
 		}
 
@@ -188,10 +188,14 @@ public class ProductAddController extends BaseController{
 			int result = dao.addProduct(bean);
 			
 			if( result == 0 ) {
-				request.setAttribute("message", "");
+			
+				String message = "“ü—Í‚µ‚½“à—e‚ÉŒë‚è‚ª‚ ‚è‚Ü‚·";
+				request.setAttribute("addmodifyError", "message");
 			}else{
 				request.setAttribute("message", "’Ç‰Á‚ðŠ®—¹‚µ‚Ü‚µ‚½");
 			}
+			
+			
 			
 			return forwardURL;
 	}
@@ -200,14 +204,6 @@ public class ProductAddController extends BaseController{
 
 	private String moveAddProduct(HttpServletRequest request, HttpServletResponse response) {
 		// TODO Auto-generated method stub
-	
-		String productCode;
-	
-		productCode = (String) request.getParameter("productCode");
-	
-		request.setAttribute("productCode", productCode);
-	
-		//System.out.println(productCode);
 	
 		return "/productaddmodify.jsp";
 	}
