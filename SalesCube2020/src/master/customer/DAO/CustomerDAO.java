@@ -333,13 +333,13 @@ public class CustomerDAO extends BaseDAO {
 	}
 	
 	//顧客を追加するメソッド
-	public String addCustomer(CustomerAddBean bean) throws SQLException, ClassNotFoundException {
+	public int addCustomer(CustomerAddBean bean) throws SQLException, ClassNotFoundException {
 
 		Connection con;
 		PreparedStatement pstmt= null;
 	 	ResultSet result=null;	
 	 	String  sql;
-	 	String check = "0";
+	 	int check = 0;
 	 	
 	 	//beanから追加する顧客情報を取得する
 	 	String customerCode         = bean.getCustomerCode();
@@ -458,7 +458,7 @@ public class CustomerDAO extends BaseDAO {
 	 		result = pstmt.executeQuery();
 	 		con.commit();
 	 	} catch (SQLException e) {
-	 		check = "1";
+	 		check = 1;
 	 	} finally {
 	 		super.releaseDB(con,pstmt,result);
 	 	}
@@ -468,13 +468,13 @@ public class CustomerDAO extends BaseDAO {
 	}
 	
 	//納入先を追加するメソッド
-	public String addDelivery(DeliveryAddBean bean) throws SQLException, ClassNotFoundException {
+	public int addDelivery(DeliveryAddBean bean) throws SQLException, ClassNotFoundException {
 
 		Connection con;
 		PreparedStatement pstmt= null;
 	 	ResultSet result=null;
 	 	String  sql;
-	 	String check = "0";
+	 	int check = 0;
 	 	
 	 	//Beanから追加する納入先情報を取得する
 	 	String address1         = bean.getAddress1();
@@ -537,7 +537,7 @@ public class CustomerDAO extends BaseDAO {
 	 		result = pstmt.executeQuery();
 	 		con.commit();
 	 	} catch (SQLException e) {
-	 		check = "1";
+	 		check = 1;
 	 	} finally {
 	 		super.releaseDB(con,pstmt,result);
 	 	}
@@ -570,13 +570,13 @@ public class CustomerDAO extends BaseDAO {
 	}
 	
 	//関連マスタテーブルに(顧客コード、納入先(請求先)コード、納入先/請求先フラグ)を追加するメソッド
-	public String setRelation(String customerCode, String delCode, String relCategory) throws SQLException, ClassNotFoundException {
+	public int setRelation(String customerCode, String delCode, String relCategory) throws SQLException, ClassNotFoundException {
 		
 		
 		Connection con;
 		PreparedStatement pstmt= null;
 	 	ResultSet result=null;
-	 	String check = "0";
+	 	int check = 0;
 	 	String sql;
 		
 	 	
@@ -598,7 +598,7 @@ public class CustomerDAO extends BaseDAO {
 	 		result = pstmt.executeQuery();
 	 		con.commit();
 	 	} catch (SQLException e) {
-	 		check = "1";
+	 		check = 1;
 	 	} finally {
 	 		super.releaseDB(con,pstmt,result);
 	 	}
@@ -611,9 +611,8 @@ public class CustomerDAO extends BaseDAO {
 		
 		Connection con;
 		Statement stmt= null;
-	 	ResultSet result=null;	
+	 	int result=0;	
 	 	String  sql;
-	 	String check = "0";
 	 	
 	 	//編集する顧客情報をbeanから取得
 	 	String customerCode         = bean.getCustomerCode();
@@ -696,7 +695,7 @@ public class CustomerDAO extends BaseDAO {
 
 	 	
 	 	try {
-	 		result = stmt.executeQuery(sql);
+	 		result = stmt.executeUpdate(sql);
 	 		con.commit();
 	 	} catch (SQLException e) {
 	 		check = "1";
@@ -709,13 +708,12 @@ public class CustomerDAO extends BaseDAO {
 	}
 	
 	//納入先(請求先)を編集するメソッド
-	public String modifyDelivery(DeliveryModifyBean bean) throws SQLException, ClassNotFoundException {
+	public int modifyDelivery(DeliveryModifyBean bean) throws SQLException, ClassNotFoundException {
 
 		Connection con;
 		Statement stmt= null;
-	 	ResultSet result=null;
+	 	int result=0;
 	 	String  sql;
-	 	String check = "0";
 	 	
 	 	//編集する納入先(請求先)情報をbeanから取得
 	 	String address1         = bean.getAddress1();
@@ -762,26 +760,25 @@ public class CustomerDAO extends BaseDAO {
 	 	
 	 	
 	 	try {
-	 		result = stmt.executeQuery(sql);
+	 		result = stmt.executeUpdate(sql);
 	 		con.commit();
 	 	} catch (SQLException e) {
-	 		check = "1";
+	 		result = 1;
 	 	} finally {
-	 		super.releaseDB(con,stmt,result);
+	 		super.releaseDB(con,stmt);
 	 	}
 	 	
-	 	return check;
+	 	return result;
 	}
 	
 	
 	//関連マスタテーブルを編集するメソッド
-	public String modifyRelation(String customerCode, String delCode, String relCategory) throws SQLException, ClassNotFoundException {
+	public int modifyRelation(String customerCode, String delCode, String relCategory) throws SQLException, ClassNotFoundException {
 		
 		
 		Connection con;
 		Statement stmt= null;
-	 	ResultSet result=null;
-	 	String check = "0";
+	 	int result=0;
 	 	String sql;
 		
 	 	
@@ -795,25 +792,24 @@ public class CustomerDAO extends BaseDAO {
 	 			"WHERE CUSTOMER_CODE = " + customerCode;	 	
 	 	
 	 	try {
-	 		result = stmt.executeQuery(sql);
+	 		result = stmt.executeUpdate(sql);
 	 		con.commit();
 	 	} catch (SQLException e) {
-	 		check = "1";
+	 		result = 1;
 	 	} finally {
-	 		super.releaseDB(con,stmt,result);
+	 		super.releaseDB(con,stmt);
 	 	}
 	 	
-	 	return check;
+	 	return result;
 	}
 	
 	//顧客削除をするメソッド
-	public String deleteCustomer(String customerCode) throws SQLException, ClassNotFoundException {
+	public int deleteCustomer(String customerCode) throws SQLException, ClassNotFoundException {
 
 		Connection con;
 		Statement stmt= null;
-	 	ResultSet result=null;
+	 	int result=0;
 	 	String  sql;
-	 	String check = "0";
 	 	
 	 	con = super.getConnection();
 	 	stmt = con.createStatement();
@@ -822,15 +818,15 @@ public class CustomerDAO extends BaseDAO {
 	 	sql = "DELETE FROM customer_mst_xxxxx　WHERE CUSTOMER_CODE = " + customerCode;	 	
 	 	
 	 	try {
-	 		result = stmt.executeQuery(sql);
+	 		result = stmt.executeUpdate(sql);
 	 		con.commit();
 	 	} catch (SQLException e) {
-	 		check = "1";
+	 		result = 1;
 	 	} finally {
-	 		super.releaseDB(con,stmt,result);
+	 		super.releaseDB(con,stmt);
 	 	}
 	 	
-	 	return check;
+	 	return result;
 	}
 	
 	//郵便番号及び住所を取得するメソッド
