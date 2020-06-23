@@ -2,7 +2,7 @@
     pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
-
+<%@ page import="master.product.beans.*" %>
 
 <!DOCTYPE html>
 <html>
@@ -39,7 +39,7 @@
 	</head>
 
 	<body style="background-color: gainsboro;">
-	
+
 		<!-- Optional JavaScript -->
 		<!-- jQuery first, then Popper.js, then Bootstrap JS -->
 		<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
@@ -237,7 +237,7 @@
 								<div class="input-group-prepend">
 									<div class="input-group-text">分類（大）</div>
 								</div>
-								<select class="custom-select" name="product1" id="product1" onchange="selectPro1(this);">
+								<select class="custom-select" name="product1" id="product1" onchange="selectPro1();">
 									<option selected></option>
 									<c:forEach var="cat" items="${category}">
 										<option value="${cat.product1}" >${cat.productName}</option>
@@ -269,7 +269,7 @@
 								<div class="input-group-prepend">
 									<div class="input-group-text">分類（小）</div>
 								</div>
-								<select class="custom-select" name="product3" id="pro3">
+								<select class="custom-select" name="product3" id="product3">
 									<option selected></option>
 									<c:forEach var="cat" items="${smallCategory}">
 										<option value="${cat.product3}">${cat.productName}</option>
@@ -316,7 +316,7 @@
 					</tr>
 				</thead>
 				<tbody class="list">
-				<%-- <c:forEach items="${search.prosearch}" var="prdct">--%>
+				 <c:forEach items="${search}" var="prdct">
 					<tr>
 						<td style="white-space: normal; text-align: left;">${prdct.productCode}</td>
 						<td style="white-space: normal; text-align: left;">${prdct.productName}</td>
@@ -336,7 +336,7 @@
 							</div>
 						</td>
 					</tr>
-				<%-- </c:forEach>--%>
+				</c:forEach>
 				</tbody>
 			</table>
 		</div>
@@ -345,17 +345,42 @@
 	</body>
 	
 	<script>
+	var mylist = [];
 		//カテゴリー
-		function selectPro1(selectObject){
-			var value = selectObject.value;
-			location.href = "http://localhost:8080/SalesCube2020/SalesCube?action=product&product1="+value;
+		function selectPro1(){
+	
+			var list = mylist
+			var objSel = document.getElementById("product2");
+			var sel1 = document.getElementById("product1").value;
+						
+			for(var i in list) {
+				if(list[i].cat1 == sel1 && list[i].cat2 != "" && list[i].cat3 == ""){
+					var objOption = document.createElement("option");
+					objOption.text = list[i].catName;
+					objOption.value = list[i].cat2;
+					
+					objSel.add(objOption);
+				}
+			}
 
 		}
 	
 		function selectPro2(selectObject){
-			var value = selectObject.value;
-			location.href = "http://localhost:8080/SalesCube2020/SalesCube?action=product&product1="+document.getElementById('product1').value+"&product2="+value;
-
+			var list = mylist
+			
+			var objSel = document.getElementById("product3");
+			var sel1 = document.getElementById("product1").value;
+			var sel2 = document.getElementById("product2").value;
+			
+			for(var i in list) {
+				if(list[i].cat1 == sel1 && list[i].cat2 == sel2 && list[i].cat3 != ""){
+					var objOption = document.createElement("option");
+					objOption.text = list[i].catName;
+					objOption.value = list[i].cat3;
+					
+					objSel.add(objOption);
+				}
+			}
 		}
 		
 		function post_to_url(path,params,method){
@@ -397,13 +422,30 @@
 	$(function() {
 	    var temp = "${Category1}"; 
 	    $("#product1").val(temp);
-	});
+	})
 	$(function() {
 	    var temp = "${Category2}"; 
 	    $("#product2").val(temp);
 	});
 
-
-	</script>
-	
+	window.onload = function(){
+		
+		var loop=0;
+		
+		<c:forEach var="test" items="${all}" >
+		  mylist[loop] = {
+				    cat1:"${test.classCode1}",
+				    cat2:"${test.classCode2}",
+				    cat3:"${test.classCode3}",
+				    catName:"${test.classCodeName}",	
+				  };
+		  		loop++;  	 
+		</c:forEach>
+		
+		
+		for(i=0; i< mylist.length; i++){
+			  
+		}
+	}
+	</script>	
 </html>
