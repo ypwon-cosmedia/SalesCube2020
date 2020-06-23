@@ -71,9 +71,20 @@ public class ProductExcelController extends BaseController{
 				e.printStackTrace();
 			}
 
-			//CSVファイルの指定
+			/**CSVファイルの指定
 			PrintWriter p = new PrintWriter( new BufferedWriter( new OutputStreamWriter( new FileOutputStream("C:\\Users\\cosmedia\\Desktop\\SalesCubeテスト用", false),"utf-8")));
-			
+			**/
+			// 出力ファイルの作成
+            File file = new File("C:/Users/cosmedia/Desktop/SalesCubeテスト用/商品マスタ.csv");
+
+            int k = 1;
+            while( file.exists() ){
+            	file = new File("C:/Users/cosmedia/Desktop/SalesCubeテスト用/商品マスタ("+ k +").csv");
+            		k++;
+            	}
+
+            PrintWriter p = new PrintWriter( new BufferedWriter( new OutputStreamWriter( new FileOutputStream(file, false),"utf-8")));
+            
 			//ヘッダ部
 			p.print("商品コード");
 			p.print(",");
