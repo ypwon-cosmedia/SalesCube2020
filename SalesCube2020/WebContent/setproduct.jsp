@@ -12,6 +12,7 @@
 	}
 %> 
 
+<%= rowCount %>
 <!DOCTYPE html>
 <html>
 <head>

@@ -12,6 +12,7 @@ import common.dao.MenuDAO;
 import master.product.DAO.GetCategoryDAO;
 import master.product.beans.ProductBigCategoryBean;
 import master.product.beans.ProductMiddleCategoryBean;
+import master.product.beans.ProductSmallCategoryBean;
 
 import java.util.*;
 import java.sql.SQLException;
@@ -57,13 +58,13 @@ final public class MenuController extends BaseController{
 		List<ProductStandardCategoryBean> list4 = new ArrayList<ProductStandardCategoryBean>();
 		List<ProductStatusCategoryBean> list5 = new ArrayList<ProductStatusCategoryBean>();
 		List<ProductMiddleCategoryBean> list6 = new ArrayList<ProductMiddleCategoryBean>();
+		List<ProductSmallCategoryBean> list7 = new ArrayList<ProductSmallCategoryBean>();
 		
 		GetCategoryDAO dao = new GetCategoryDAO();
 		MenuDAO dao2 = new MenuDAO();
 		
-		String bigCategory = request.getParameter("product1");
-		
-		System.out.println(bigCategory);
+		String bigCategory = request.getParameter("product1");		
+		String middleCategory = request.getParameter("product2");
 		
 		list = dao.getBigCategory();
 		list2 = dao2.getProductStockCategory();
@@ -72,17 +73,22 @@ final public class MenuController extends BaseController{
 		list5 = dao2.getProductStatusCategory();
 		if(bigCategory != null)
 			list6 = dao.getMiddleCategory(bigCategory);
+		if(bigCategory != null && middleCategory != null)
+			list7 = dao.getSmallCategory(bigCategory, middleCategory);
 		
 		request.setAttribute("category", list);
 		request.setAttribute("prosearch", list2);
 		request.setAttribute("setTypeCategory", list3);
 		request.setAttribute("productStandardCategory", list4);
 		request.setAttribute("productStatusCategory", list5);
+		request.setAttribute("Category1", bigCategory);
+		request.setAttribute("Category2", middleCategory);
 		if(bigCategory != null) {
-			request.setAttribute("category2", list6);
-			int tmp = Integer.parseInt(bigCategory);
-			request.setAttribute("bigCategory", tmp);
+			request.setAttribute("middleCategory", list6);
 		}
+		if(bigCategory != null && middleCategory != null)
+			request.setAttribute("smallCategory", list7);
+		
 		return "/productsearch.jsp";
 	}
 	

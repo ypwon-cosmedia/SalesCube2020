@@ -3,14 +3,6 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
 
-<% int bigCategory;
-
-	if((String)request.getParameter("bigCategory") == null){
-		bigCategory = 0;
-	} else {
-		bigCategory = Integer.parseInt((String)request.getParameter("bigCategory"));
-	}
-%>
 
 <!DOCTYPE html>
 <html>
@@ -47,7 +39,7 @@
 	</head>
 
 	<body style="background-color: gainsboro;">
-
+	
 		<!-- Optional JavaScript -->
 		<!-- jQuery first, then Popper.js, then Bootstrap JS -->
 		<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
@@ -261,9 +253,9 @@
 								<div class="input-group-prepend">
 									<div class="input-group-text">分類（中）</div>
 								</div>
-								<select class="custom-select" name="product2" id="pro2" onClick="selectPro2();">
+								<select class="custom-select" name="product2" id="product2" onchange="selectPro2(this);">
 									<option selected></option>
-									<c:forEach var="cat" items="${category2}">
+									<c:forEach var="cat" items="${middleCategory}">
 										<option value="${cat.product2}">${cat.productName}</option>
 									</c:forEach>
 								</select>
@@ -279,7 +271,7 @@
 								</div>
 								<select class="custom-select" name="product3" id="pro3">
 									<option selected></option>
-									<c:forEach var="cat" items="${category3}">
+									<c:forEach var="cat" items="${smallCategory}">
 										<option value="${cat.product3}">${cat.productName}</option>
 									</c:forEach>
 								</select>
@@ -349,7 +341,7 @@
 			</table>
 		</div>
 	
-	
+
 	</body>
 	
 	<script>
@@ -357,12 +349,30 @@
 		function selectPro1(selectObject){
 			var value = selectObject.value;
 			location.href = "http://localhost:8080/SalesCube2020/SalesCube?action=product&product1="+value;
+
 		}
 	
 		function selectPro2(selectObject){
 			var value = selectObject.value;
-			location.href = "http://localhost:8080/SalesCube2020/SalesCube?action=product&product1="+value+"&product2="+value;
+			location.href = "http://localhost:8080/SalesCube2020/SalesCube?action=product&product1="+document.getElementById('product1').value+"&product2="+value;
 
+		}
+		
+		function post_to_url(path,params,method){
+			method = method||"post";
+			
+			var form = document.createElement("form");
+			form.setAttribute("method",method);
+			form.setAttribute("action",path);
+			
+			for(var key in params){
+				var hiddenField = document.createElement("input");
+				hiddenField.setAttribute("type", "hidden");
+				hiddenField.setAttribute("name", key);
+				hiddenField.setAttribute("value", params[key]);
+				
+				form.appendChild(hiddenField);
+			}
 		}
 		
 		//入力値の初期化
@@ -385,8 +395,12 @@
 	</script>
 	<script>
 	$(function() {
-	    var temp = "<%= bigCategory %>"; 
+	    var temp = "${Category1}"; 
 	    $("#product1").val(temp);
+	});
+	$(function() {
+	    var temp = "${Category2}"; 
+	    $("#product2").val(temp);
 	});
 
 
