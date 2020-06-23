@@ -367,14 +367,22 @@
 	
 			var list = mylist
 			var objSel = document.getElementById("product2");
+			var objSel2 = document.getElementById("product3");
 			var sel1 = document.getElementById("product1").value;
-						
+			
+			for(i=objSel.length; i > 0; i--){
+				objSel.options[i]=null;
+			}
+			
+			for(i=objSel2.length; i > 0; i--){
+				objSel2.options[i]=null;
+			}
+			
 			for(var i in list) {
 				if(list[i].cat1 == sel1 && list[i].cat2 != "" && list[i].cat3 == ""){
 					var objOption = document.createElement("option");
 					objOption.text = list[i].catName;
-					objOption.value = list[i].cat2;
-					
+					objOption.value = list[i].cat2;					
 					objSel.add(objOption);
 				}
 			}
@@ -386,6 +394,10 @@
 			var objSel = document.getElementById("product3");
 			var sel1 = document.getElementById("product1").value;
 			var sel2 = document.getElementById("product2").value;
+			
+			for(i=objSel.length; i > 0; i--){
+				objSel.options[i]=null;
+			}
 			
 			for(var i in list) {
 				if(list[i].cat1 == sel1 && list[i].cat2 == sel2 && list[i].cat3 != ""){
