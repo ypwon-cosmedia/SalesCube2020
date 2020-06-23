@@ -7,7 +7,9 @@ import javax.servlet.http.*;
 import common.controller.BaseController;
 import master.product.DAO.GetCategoryDAO;
 import master.product.DAO.ProductDAO;
-import master.product.beans.ProductBigCategoryBean;
+import master.product.DAO.ProductDeleteDAO;
+import master.product.beans.ProductCategoryAllBean;
+import master.product.beans.ProductDeleteBean;
 
 import java.util.*;
 import java.sql.SQLException;
@@ -37,22 +39,17 @@ public class ProductDeleteController extends BaseController{
 		// TODO Auto-generated method stub
 		String forwardURL = "/productsearch.jsp";	
 		
-		List<ProductBigCategoryBean> list = new ArrayList<>();		
-		GetCategoryDAO dao = new GetCategoryDAO();
+		List<ProductCategoryAllBean> list2 = new ArrayList<ProductCategoryAllBean>();		
+		GetCategoryDAO dao2 = new GetCategoryDAO();
+		
 		try {
-			list = dao.getBigCategory();
+			list2 = dao2.getAllCategory();
 		} catch (ClassNotFoundException | SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		request.setAttribute("category", list);
 		
-		
-		ProductDeleteBean bean = 
-		
-		String code = request.getParameter("productCode");
-		int productCode = Integer.parseInt(code);
-
+		request.setAttribute("all", list2);
 		
 		return forwardURL;
 	}

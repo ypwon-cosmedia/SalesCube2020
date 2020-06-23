@@ -12,7 +12,7 @@ import master.product.beans.ProductDeleteBean;
 /* çÌèúÅ@*/
 public class ProductDeleteDAO extends BaseDAO {
 
-	public String deleteProduct(ProductDeleteBean bean, String productCode) throws SQLException, ClassNotFoundException{
+	public String deleteProduct(String productCode) throws SQLException, ClassNotFoundException{
 
 		Connection con;
 	 	Statement stmt = null;
