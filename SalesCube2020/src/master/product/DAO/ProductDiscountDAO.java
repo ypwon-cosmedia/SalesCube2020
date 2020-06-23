@@ -71,9 +71,9 @@ public class ProductDiscountDAO extends BaseDAO{
 		return list; 
 		
 		}
-	
-	/* ”—ÊŠ„ˆøŒŸõî•ñ‚Ìæ“¾(Modal•”j */
-	public List<DiscountDetailBean> searchModalDiscount(DiscountSearchBean bean) throws SQLException, ClassNotFoundException {
+	/**
+	// ”—ÊŠ„ˆøŒŸõî•ñ‚Ìæ“¾(Modal•”j 
+	public List<DiscountDetailBean> searchModalDiscount(String discountId) throws SQLException, ClassNotFoundException {
 
 		List<DiscountDetailBean> list = new ArrayList<DiscountDetailBean>();
 
@@ -85,16 +85,13 @@ public class ProductDiscountDAO extends BaseDAO{
 	 	con = super.getConnection();
 	 	stmt = con.createStatement();
 	 	
-	 	if(bean.getDiscountId() == null) {
-	 		bean.setDiscountId("'%'");
-	 	}
-	 	
-	 	sql = "select * from discount_trn_xxxxx where discount_id = " + bean.getDiscountId() + ";" ;
+	 	sql = "select * from discount_trn_xxxxx where discount_id = " + discountId + ";" ;
 	 	
 	 	result = stmt.executeQuery(sql);
 	 	
 	 	while( result.next() ) {
 	 		DiscountDetailBean ddb = new DiscountDetailBean();
+	 		ddb.setDiscountId("DISCOUNT_ID");
 	 		ddb.setLineNo( result.getInt("LINE_NO") );
 	 		ddb.setDataFrom( result.getInt("DATA_FROM") );
 	 		ddb.setDataTo( result.getInt("DATA_TO") );
@@ -107,5 +104,5 @@ public class ProductDiscountDAO extends BaseDAO{
 		return list; 
 		
 		}
-	
+	**/
 }

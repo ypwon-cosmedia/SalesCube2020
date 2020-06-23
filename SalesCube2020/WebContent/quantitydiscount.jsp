@@ -52,12 +52,12 @@
     <form action="/SalesCube2020/SalesCube?action=quantitydiscountserch">
         <div class="row">
             <div class="col-4">
-                <label class="sr-only" for="inlineFormInputGroup">discountCode</label>
+                <label class="sr-only" for="inlineFormInputGroup">discountId</label>
                 <div class="input-group mb-2">
                     <div class="input-group-prepend">
                         <div class="input-group-text" >割引コード</div>
                     </div>
-                <input type="text"  class="form-control" id="inlineFormInputGroup" name="discountCode" >
+                <input type="text"  class="form-control" id="inlineFormInputGroup" name="discountCodeId" >
                 </div>
             </div>
             <div class="col-6">
@@ -107,7 +107,7 @@
 
     <div class="container">
         <div class="float-left" style="position:static; left: 0px;">
-            検索結果件数：${quantitydiscountserchresult.serchCount}件
+            検索結果件数：${quantitydiscountserchresultcount}件
         </div>
         <div class="rounded float-right">
             ページあたりの表示件数

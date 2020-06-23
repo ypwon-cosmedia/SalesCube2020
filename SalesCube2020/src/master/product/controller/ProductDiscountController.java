@@ -6,7 +6,10 @@ import javax.servlet.http.*;
 
 import common.controller.BaseController;
 import master.product.DAO.ProductDAO;
-import master.product.beans.ProductBigCategoryBean;
+import master.product.DAO.ProductDiscountDAO;
+import master.product.beans.DiscountDetailBean;
+import master.product.beans.DiscountSearchBean;
+import master.product.beans.QuantityDiscountBean;
 
 import java.util.*;
 import java.sql.SQLException;
@@ -34,8 +37,33 @@ public class ProductDiscountController extends BaseController{
 
 
 	private String quantityDiscount(HttpServletRequest request, HttpServletResponse response) {
-		// TODO Auto-generated method stub
-		return "/productaddmodify.jsp";
+		String forwardURL = "/quantitydiscount.jsp";
+		String message = null;
+		
+		//åüçıópBean
+		QuantityDiscountBean qdb = new QuantityDiscountBean();
+		ProductDiscountDAO discountDAO = new ProductDiscountDAO();
+		
+		try {
+		
+		//JSPÇ©ÇÁèÓïÒÇéÊìæ
+		qdb.setDiscountId( request.getParameter("discountCode") );
+		qdb.setUseFlag( request.getParameter("useFlag") );
+		qdb.setDiscountName( request.getParameter("discountName") );
+		qdb.setRemarks( request.getParameter("remarks") );
+		
+		List<DiscountSearchBean> list = discountDAO.searchQuantityDiscount(qdb);
+		
+		request.setAttribute("quantitydiscountserchresultcount", list.size() );
+		request.setAttribute("quantitydiscountserchresult", list);
+		
+		}catch (ClassNotFoundException e) {
+			e.printStackTrace();
+		}catch (SQLException e) {
+			e.printStackTrace();
+		}
+		
+		return forwardURL;
 	}
 
 

@@ -2,7 +2,7 @@ package master.product.beans;
 
 public class DiscountSearchBean {
 	
-
+//検索条件
 	
 	//割引コード
 	private String discountId;
@@ -12,6 +12,9 @@ public class DiscountSearchBean {
 	
 	//割引有効フラグ
 	private String useFlag;
+	
+	//備考
+	private String remarks;
 
 	
 
@@ -39,5 +42,12 @@ public class DiscountSearchBean {
 		this.useFlag = useFlag;
 	}
 	
+	public String getRemarks() {
+		return remarks;
+	}
+	
+	public void setRemarks(String remarks) {
+		this.remarks = remarks;
+	}
 	
 }
