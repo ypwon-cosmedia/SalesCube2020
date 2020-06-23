@@ -8,11 +8,8 @@ import common.controller.BaseController;
 import master.product.DAO.ProductAddDAO;
 import master.product.beans.ProductAddBean;
 
-import java.util.*;
 import java.sql.SQLException;
-import java.sql.Date.*;
-import user.DAO.*;
-import user.beans.*;
+import java.sql.Date;
 
 public class ProductAddController extends BaseController{
 	
@@ -20,7 +17,8 @@ public class ProductAddController extends BaseController{
 		
 	}
 	
-	public String execService(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+	public String execService(HttpServletRequest request, HttpServletResponse response) 
+			throws ServletException, IOException{
 
 		String forwardURL = "/menu.jsp";
 		String action = request.getParameter("action");
@@ -35,17 +33,25 @@ public class ProductAddController extends BaseController{
 			e.printStackTrace();
 		}catch(IOException e) {
 			e.printStackTrace();
+		} catch (ClassNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
 		}
 
   		return forwardURL;
   	}
 
 
-	private String addProduct(HttpServletRequest request, HttpServletResponse response) {
+	private String addProduct(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException, ClassNotFoundException, SQLException {
 		// TODO Auto-generated method stub
 		
 		String forwardURL = "/productaddmodify.jsp";
 		String productCode = request.getParameter("productCode");
+			System.out.println(productCode);
 		String productName = request.getParameter("productName");
 		String productKana = request.getParameter("productKana");
 		String onlinePcode = request.getParameter("onlinePcode");
@@ -65,7 +71,7 @@ public class ProductAddController extends BaseController{
 		String poNum = request.getParameter("poNum");
 		String poUpdFlag = request.getParameter("poUpdFlag");
 		String mineSafetyStock = request.getParameter("mineSafetyStock");
-		String mineSafetyStockUpdFlage = request.getParameter("mineSafetyStockUpdFlag");
+		String mineSafetyStockUpdFlag = request.getParameter("mineSafetyStockUpdFlag");
 		String poLot = request.getParameter("poLot");
 		String lotUpdFlag = request.getParameter("lotUpdFlag");
 		String maxStockNum = request.getParameter("maxStockNum");
@@ -102,7 +108,7 @@ public class ProductAddController extends BaseController{
 		
 		
 		try {
-			Date sqlDate = Date.valueOf(discardDate);
+			Date date = Date.valueOf(discardDate);
 			int isupplierPriceYen = Integer.parseInt(supplierPriceYen);
 			int isupplierPriceDol = Integer.parseInt(supplierPriceDol);
 			int ipackQuantity = Integer.parseInt(packQuantity);
@@ -134,7 +140,7 @@ public class ProductAddController extends BaseController{
 			bean.setProductKana(productKana);
 			bean.setOnlinePcode(onlinePcode);
 			bean.setJanPcode(janPcode);
-			bean.setDiscardDate(sqlDate);
+			bean.setDiscardDate(date);
 			bean.setSupplierCode(supplierCode);
 			bean.setSupplierName(supplierName);
 			bean.setSupplierPcode(supplierPcode);
@@ -194,6 +200,9 @@ public class ProductAddController extends BaseController{
 			}else{
 				request.setAttribute("message", "’Ç‰Á‚ðŠ®—¹‚µ‚Ü‚µ‚½");
 			}
+		}catch(NumberFormatException e) {
+			e.printStackTrace();
+		}
 			
 			
 			

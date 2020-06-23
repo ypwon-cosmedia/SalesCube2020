@@ -8,11 +8,9 @@ import common.controller.BaseController;
 import master.product.DAO.ProductModifyDAO;
 import master.product.beans.ProductModifyBean;
 
-import java.util.*;
 import java.sql.SQLException;
-import java.sql.Date.*;
-import user.DAO.*;
-import user.beans.*;
+import java.sql.Date;
+
 
 public class ProductModifyController extends BaseController{
 	
@@ -20,18 +18,27 @@ public class ProductModifyController extends BaseController{
 		
 	}
 	
-	public String execService(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+	public String execService(HttpServletRequest request, HttpServletResponse response) 
+			throws ServletException, IOException{
 
 		String forwardURL = "/menu.jsp";
 		String action = request.getParameter("action");
 		
+		
 		try {
-			if(action.equals("moveModifyProduct")) forwardURL = moveModifyProduct(request, response);
-			else if(action.equals("modifyProduct")) forwardURL = modifyProduct(request, response);
+			if(action.equals("moveAddProduct")) forwardURL = moveModifyProduct(request, response);
+			else if(action.equals("addProduct")) forwardURL = addProduct(request, response);
+		
 		
 		}catch(ServletException e) {
 			e.printStackTrace();
 		}catch(IOException e) {
+			e.printStackTrace();
+		} catch (ClassNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 
@@ -39,7 +46,8 @@ public class ProductModifyController extends BaseController{
   	}
 
 
-	private String modifyProduct(HttpServletRequest request, HttpServletResponse response) {
+	private String addProduct(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException, ClassNotFoundException, SQLException {
 		// TODO Auto-generated method stub
 		
 		String forwardURL = "/productaddmodify.jsp";
@@ -63,7 +71,7 @@ public class ProductModifyController extends BaseController{
 		String poNum = request.getParameter("poNum");
 		String poUpdFlag = request.getParameter("poUpdFlag");
 		String mineSafetyStock = request.getParameter("mineSafetyStock");
-		String mineSafetyStockUpdFlage = request.getParameter("mineSafetyStockUpdFlag");
+		String mineSafetyStockUpdFlag = request.getParameter("mineSafetyStockUpdFlag");
 		String poLot = request.getParameter("poLot");
 		String lotUpdFlag = request.getParameter("lotUpdFlag");
 		String maxStockNum = request.getParameter("maxStockNum");
@@ -98,8 +106,9 @@ public class ProductModifyController extends BaseController{
 		String eadRemarks = request.getParameter("eadRemarks");
 		String commentData = request.getParameter("commentData");
 		
+		
 		try {
-			Date sqlDate = Date.valueOf(discardDate);
+			Date date = Date.valueOf(discardDate);
 			int isupplierPriceYen = Integer.parseInt(supplierPriceYen);
 			int isupplierPriceDol = Integer.parseInt(supplierPriceDol);
 			int ipackQuantity = Integer.parseInt(packQuantity);
@@ -124,13 +133,14 @@ public class ProductModifyController extends BaseController{
 			double ddepth = Double.parseDouble(depth);
 			double dheight = Double.parseDouble(height);
 			
+			
 			ProductModifyBean bean = new ProductModifyBean();
 			bean.setProductCode(productCode);
 			bean.setProductName(productName);
 			bean.setProductKana(productKana);
 			bean.setOnlinePcode(onlinePcode);
 			bean.setJanPcode(janPcode);
-			bean.setDiscardDate(sqlDate);
+			bean.setDiscardDate(date);
 			bean.setSupplierCode(supplierCode);
 			bean.setSupplierName(supplierName);
 			bean.setSupplierPcode(supplierPcode);
@@ -179,16 +189,27 @@ public class ProductModifyController extends BaseController{
 			bean.setEadRemarks(eadRemarks);
 			bean.setCommentData(commentData);
 			
+			
 			ProductModifyDAO dao = new ProductModifyDAO();
 			int result = dao.modifyProduct(bean);
 			
 			if( result == 0 ) {
-				request.setAttribute("message", "");
+			
+				String message = "ì¸óÕÇµÇΩì‡óeÇ…åÎÇËÇ™Ç†ÇËÇ‹Ç∑";
+				request.setAttribute("addmodifyError", "message");
 			}else{
-				request.setAttribute("message", "çXêVÇäÆóπÇµÇ‹ÇµÇΩ");
+				request.setAttribute("message", "í«â¡ÇäÆóπÇµÇ‹ÇµÇΩ");
 			}
+		}catch(NumberFormatException e) {
+			e.printStackTrace();
 		}
+			
+			
+			
+			return forwardURL;
+	}
 
+			
 
 	private String moveModifyProduct(HttpServletRequest request, HttpServletResponse response) {
 		// TODO Auto-generated method stub
