@@ -1,7 +1,8 @@
-//<%@ page language="java" contentType="text/html; charset=UTF-8"
+<%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
+<%@ page import="master.product.beans.*" %>
 
 <!DOCTYPE html>
 <html>
@@ -44,38 +45,38 @@
 		<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
 		<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
 		<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
-		<nav class="navbar navbar-expand-lg navbar-light bg-light">
-			<a class="navbar-brand" href="#">SalesCube2020</a>
-			<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-				<span class="navbar-toggler-icon"></span>
-			</button>
-		
-			<div class="collapse navbar-collapse" id="navbarSupportedContent">
-				<ul class="navbar-nav mr-auto">
-					<li class="nav-item dropdown">
-						<a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-							マスター
-						</a>
-						<div class="dropdown-menu" aria-labelledby="navbarDropdown">
-							<a class="dropdown-item" href="#">商品</a>
-							<a class="dropdown-item" href="#">セット商品</a>
-							<a class="dropdown-item" href="#">顧客</a>
-						</div>
-					</li>
-				</ul>
-				<span class="navbar-text">
-					<svg class="bi bi-person-circle" width="1em" height="1em" viewBox="0 0 16 16" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
-						<path d="M13.468 12.37C12.758 11.226 11.195 10 8 10s-4.757 1.225-5.468 2.37A6.987 6.987 0 0 0 8 15a6.987 6.987 0 0 0 5.468-2.63z"/>
-						<path fill-rule="evenodd" d="M8 9a3 3 0 1 0 0-6 3 3 0 0 0 0 6z"/>
-						<path fill-rule="evenodd" d="M8 1a7 7 0 1 0 0 14A7 7 0 0 0 8 1zM0 8a8 8 0 1 1 16 0A8 8 0 0 1 0 8z"/>
-					</svg>
-					システム管理者　
-				</span>
-				<form class="form-inline">
-					<button class="btn btn-outline-success my-2 my-sm-0" type="submit">ログアウト</button>
-				</form>
-			</div>
-		</nav>
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+      <a class="navbar-brand" href="#">SalesCube2020</a>
+      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+    
+      <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <ul class="navbar-nav mr-auto">
+          <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+              	マスター
+            </a>
+            <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+              <a class="dropdown-item" href="/SalesCube2020/SalesCube?action=product">商品</a>
+              <a class="dropdown-item" href="/SalesCube2020/SalesCube?action=setProduct">セット商品</a>
+              <a class="dropdown-item" href="/SalesCube2020/SalesCube?action=customer">顧客</a>
+            </div>
+          </li>
+        </ul>
+        <span class="navbar-text">
+          <svg class="bi bi-person-circle" width="1em" height="1em" viewBox="0 0 16 16" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+            <path d="M13.468 12.37C12.758 11.226 11.195 10 8 10s-4.757 1.225-5.468 2.37A6.987 6.987 0 0 0 8 15a6.987 6.987 0 0 0 5.468-2.63z"/>
+            <path fill-rule="evenodd" d="M8 9a3 3 0 1 0 0-6 3 3 0 0 0 0 6z"/>
+            <path fill-rule="evenodd" d="M8 1a7 7 0 1 0 0 14A7 7 0 0 0 8 1zM0 8a8 8 0 1 1 16 0A8 8 0 0 1 0 8z"/>
+          </svg>
+        	${userInfo.nameKNJ} &nbsp;     	
+        </span>
+        <form class="form-inline" action="/SalesCube2020/SalesCube?action=logout" method="post">
+          <button class="btn btn-outline-success my-2 my-sm-0" type="submit">ログアウト</button>
+        </form>
+      </div>
+    </nav>
 		<br>
 
 		<div class="container" id="main_function">
@@ -118,7 +119,7 @@
 								<div class="input-group-prepend">
 										<div class="input-group-text">商品コード</div>
 								</div>
-								<input type="text"  class="form-control" id="inlineFormInputGroup">
+								<input type="text"  class="form-control" id="inlineFormInputGroup" name="productCode">
 							</div>
 						</div>
 						<div class="col-4">
@@ -127,7 +128,7 @@
 								<div class="input-group-prepend">
 									<div class="input-group-text">商品名</div>
 								</div>
-								<input type="text"  class="form-control" id="inlineFormInputGroup">
+								<input type="text"  class="form-control" id="inlineFormInputGroup" name="productName">
 							</div>
 						</div>
 						<div class="col-4">
@@ -136,7 +137,7 @@
 								<div class="input-group-prepend">
 									<div class="input-group-text">商品カナ</div>
 								</div>
-								<input type="text" class="form-control" id="inlineFormInputGroup">
+								<input type="text" class="form-control" id="inlineFormInputGroup" name="productKana">
 							</div>
 						</div>
 					</div>
@@ -147,7 +148,7 @@
 								<div class="input-group-prepend">
 									<div class="input-group-text">仕入先コード</div>
 								</div>
-								<input type="text" class="form-control" id="inlineFormInputGroup">
+								<input type="text" class="form-control" id="inlineFormInputGroup" name="supplierCode">
 							</div>
 						</div>
 						<div class="col-4">
@@ -156,7 +157,7 @@
 								<div class="input-group-prepend">
 									<div class="input-group-text">仕入先名</div>
 								</div>
-								<input type="text" class="form-control" id="inlineFormInputGroup">
+								<input type="text" class="form-control" id="inlineFormInputGroup" name="supplierName">
 							</div>
 						</div>
 						<div class="col-4">
@@ -167,8 +168,8 @@
 								</div>
 								<select class="custom-select" name="productStandardCategory">
 									<option selected></option>
-									<c:forEach items="${search.prosearch}" var="prdct">
-										<option value="${prdct.productStandardCategoryCode}">${prdct.productStandardCategory}</option>
+									<c:forEach items="${productStandardCategory}" var="prdct">
+										<option value="${prdct.productStandardCategoryCode}">${prdct.productStandardCategoryName}</option>
 									</c:forEach>
 								</select>
 							</div>
@@ -183,8 +184,8 @@
 								</div>
 								<select class="custom-select" name="productStatusCategory">
 									<option selected></option>
-									<c:forEach items="${search.prosearch}" var="prdct">
-										<option value="${prdct.productStatusCategoryCode}">${prdct.productStatusCategory}</option>
+									<c:forEach items="${productStatusCategory}" var="prdct">
+										<option value="${prdct.productStatusCategoryCode}">${prdct.productStatusCategoryName}</option>
 									</c:forEach>
 								</select>
 							</div>
@@ -197,8 +198,8 @@
 								</div>
 								<select class="custom-select" name="productStockCategory">
 									<option selected></option>
-									<c:forEach items="${search.prosearch}" var="prdct">
-										<option value="${prdct.productStockCategoryCode}">${prdct.productStockCategory}</option>
+									<c:forEach items="${prosearch}" var="prdct">
+										<option value="${prdct.productStockCategoryCode}">${prdct.productStockCategoryName}</option>
 									</c:forEach>
 								</select>
 							</div>
@@ -211,8 +212,8 @@
 								</div>
 								<select class="custom-select" name="setTypeCategory">
 									<option selected></option>
-									<c:forEach items="${search.prosearch}" var="prdct">
-										<option value="${prdct.setTypeCategoryCode}">${prdct.setTypeCategory}</option>
+									<c:forEach items="${setTypeCategory}" var="prdct">
+										<option value="${prdct.setTypeCategoryCode}">${prdct.setTypeCategoryName}</option>
 									</c:forEach>
 								</select>
 							</div>
@@ -225,7 +226,7 @@
 								<div class="input-group-prepend">
 									<div class="input-group-text">備考</div>
 								</div>
-								<input type="text" class="form-control" id="inlineFormInputGroup">
+								<input type="text" class="form-control" id="inlineFormInputGroup" name="remarks">
 							</div>
 						</div>
 					</div>
@@ -236,13 +237,8 @@
 								<div class="input-group-prepend">
 									<div class="input-group-text">分類（大）</div>
 								</div>
-								<select class="custom-select" name="product1" id="pro1" onClick="selectPro1();">
+								<select class="custom-select" name="product1" id="product1" onchange="selectPro1();">
 									<option selected></option>
-									<c:forEach var="cat" items="${category}">
-										<c:if test="${!empty cat.product1 and empty cat.product2 }" >
-										<option value="${cat.product1}">${cat.productName}</option>
-										</c:if>
-									</c:forEach>
 								</select>
 							</div>
 						</div>
@@ -254,13 +250,8 @@
 								<div class="input-group-prepend">
 									<div class="input-group-text">分類（中）</div>
 								</div>
-								<select class="custom-select" name="product1" id="pro1" onClick="selectPro1();">
+								<select class="custom-select" name="product2" id="product2" onchange="selectPro2();">
 									<option selected></option>
-									<c:forEach var="cat" items="${category}">
-										<c:if test="${!empty cat.product1 and !empty cat.product2 and empty cat.product3}" >
-										<option value="${cat.product1}">${cat.productName}</option>
-										</c:if>
-									</c:forEach>
 								</select>
 							</div>
 						</div>
@@ -272,13 +263,8 @@
 								<div class="input-group-prepend">
 									<div class="input-group-text">分類（小）</div>
 								</div>
-								<select class="custom-select" name="product1" id="pro1" onClick="selectPro1();">
+								<select class="custom-select" name="product3" id="product3">
 									<option selected></option>
-									<c:forEach var="cat" items="${category}">
-										<c:if test="${!empty cat.product1 and !empty cat.product2 and !empty cat.product3}" >
-										<option value="${cat.product1}">${cat.productName}</option>
-										</c:if>
-									</c:forEach>
 								</select>
 							</div>
 						</div>
@@ -308,25 +294,25 @@
 
 		<!--商品検索結果テーブル-->
 		<br><br>
-		<div class="container" style="background-color: rgb(255, 255, 255);"　id="prosort">
+		<div class="container" style="background-color: rgb(255, 255, 255);" id="prosort">
 			<table id="order_detail_info" class="table table-bordered">
 				<thead class="thead-dark">
 					<tr>
-						<th scope="col" class="rd_top_left th_back_black" style="cursor: pointer; height: 30px;" data-sort="productCode">商品コード</th>
-						<th scope="col" class="th_back_black" style="cursor: pointer; height: 30px;" data-sort="productName">商品名</th>
-						<th scope="col" class="th_back_black" style="cursor: pointer; height: 30px;" data-sort="supplierName">仕入先</th>
-						<th scope="col" class="th_back_black" style="cursor: pointer; height: 30px;" data-sort="product1">分類（大）</th>
-						<th scope="col" class="th_back_black" style="height: 30px;">備考</th>
-						<th scope="col" class="rd_top_right th_back_black" style="cursor: pointer; height: 30px;">&nbsp;</th>
+						<th scope="col" class="rd_top_left th_back_black sort" style="cursor: pointer; height: 30px;" data-sort="productCode">商品コード</th>
+						<th scope="col" class="th_back_black sort" style="cursor: pointer; height: 30px;" data-sort="productName">商品名</th>
+						<th scope="col" class="th_back_black sort" style="cursor: pointer; height: 30px;" data-sort="supplierName">仕入先</th>
+						<th scope="col" class="th_back_black sort" style="cursor: pointer; height: 30px;" data-sort="product1">分類（大）</th>
+						<th scope="col" class="th_back_black sort" style="height: 30px;">備考</th>
+						<th scope="col" class="rd_top_right th_back_black sort" style="cursor: pointer; height: 30px;">&nbsp;</th>
 					</tr>
 				</thead>
 				<tbody class="list">
-				<%-- <c:forEach items="${search.prosearch}" var="prdct">--%>
+				 <c:forEach items="${search}" var="prdct">
 					<tr>
-						<td style="white-space: normal; text-align: left;">${prdct.productCode}</td>
-						<td style="white-space: normal; text-align: left;">${prdct.productName}</td>
-						<td style="white-space: normal; text-align: left;">${prdct.supplierName}</td>
-						<td style="white-space: normal; text-align: left;">${prdct.product1}</td>
+						<td class="productCode" style="white-space: normal; text-align: left;">${prdct.productCode}</td>
+						<td class="productName" style="white-space: normal; text-align: left;">${prdct.productName}</td>
+						<td class="supplierName" style="white-space: normal; text-align: left;">${prdct.supplierName}</td>
+						<td class="product1" style="white-space: normal; text-align: left;">${prdct.product1}</td>
 						<td style="white-space: normal; text-align: left;">${prdct.remarks}</td>
 						<td style="text-align: center">
 							<div style="display:inline-flex">
@@ -341,29 +327,114 @@
 							</div>
 						</td>
 					</tr>
-				<%-- </c:forEach>--%>
+				</c:forEach>
 				</tbody>
 			</table>
 		</div>
-	
-	
+
 	</body>
 	
 	<script>
+	var mylist = [];
+	window.onload = function(){
+		var loop=0;
+		
+		<c:forEach var="test" items="${all}" >
+		  mylist[loop] = {
+				    cat1:"${test.classCode1}",
+				    cat2:"${test.classCode2}",
+				    cat3:"${test.classCode3}",
+				    catName:"${test.classCodeName}",	
+				  };
+		  		loop++;  	 
+		</c:forEach>
+		var list = mylist
+		var objSel = document.getElementById("product1");
+					
+		for(var i in list) {
+			if(list[i].cat1 != "" && list[i].cat2 == ""){
+				var objOption = document.createElement("option");
+				objOption.text = list[i].catName;
+				objOption.value = list[i].cat1;
+				
+				objSel.add(objOption);
+			}
+		}
+	}
+		//カテゴリー
+		function selectPro1(){
+	
+			var list = mylist
+			var objSel = document.getElementById("product2");
+			var objSel2 = document.getElementById("product3");
+			var sel1 = document.getElementById("product1").value;
+			
+			for(i=objSel.length; i > 0; i--){
+				objSel.options[i]=null;
+			}
+			
+			for(i=objSel2.length; i > 0; i--){
+				objSel2.options[i]=null;
+			}
+			
+			for(var i in list) {
+				if(list[i].cat1 == sel1 && list[i].cat2 != "" && list[i].cat3 == ""){
+					var objOption = document.createElement("option");
+					objOption.text = list[i].catName;
+					objOption.value = list[i].cat2;					
+					objSel.add(objOption);
+				}
+			}
+
+		}	
+		function selectPro2(){
+			var list = mylist
+			
+			var objSel = document.getElementById("product3");
+			var sel1 = document.getElementById("product1").value;
+			var sel2 = document.getElementById("product2").value;
+			
+			for(i=objSel.length; i > 0; i--){
+				objSel.options[i]=null;
+			}
+			
+			for(var i in list) {
+				if(list[i].cat1 == sel1 && list[i].cat2 == sel2 && list[i].cat3 != ""){
+					var objOption = document.createElement("option");
+					objOption.text = list[i].catName;
+					objOption.value = list[i].cat3;
+					
+					objSel.add(objOption);
+				}
+			}
+		}			
 		//入力値の初期化
-		function initForm(){
-			if(!confirm("入力内容を初期化してよろしいですか？")){
-    			return;
-    	  	}
-    		document.main.reset();
+		function initForm() {
+			var test = confirm("入力内容を初期化してよろしいですか？");
+			test;
+			if(test == false){
+				return;
+			} else
+			window.location.href = '/SalesCube2020/SalesCube?action=setProduct';
 		}
 
-		var options = {
+		
+	$(function() {
+	    var temp = "${Category1}"; 
+	    $("#product1").val(temp);
+	})
+	$(function() {
+	    var temp = "${Category2}"; 
+	    $("#product2").val(temp);
+	});
+	</script>
+	<script src="//cdnjs.cloudflare.com/ajax/libs/list.js/1.5.0/list.min.js"></script>
+	<script>
+	//ソート
+	var options = {
 			 valueNames: [ 'productCode', 'productName' , 'supplierName' , 'product1' ]
 		};
-		var prosortList = new List('prosortList', options);
-
-		
+		var prosort = new List('prosort', options);
 	</script>
-	
+		
 </html>

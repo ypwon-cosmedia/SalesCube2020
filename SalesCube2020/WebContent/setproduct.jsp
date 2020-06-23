@@ -3,6 +3,14 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %> 
     
+<% int rowCount;
+
+	if((String) request.getParameter("rowCount")==null){
+		rowCount = 100;
+	} else{
+		rowCount =Integer.parseInt((String) request.getParameter("rowCount"));
+	}
+%> 
 <!DOCTYPE html>
 <html>
 <head>
@@ -85,14 +93,14 @@
       <div class="btn-toolbar float-right" role="toolbar" aria-label="Toolbar with button groups">
         
         <div class="btn-group mr-2 " role="group" aria-label="First group">
-          <button type="button" class="btn btn-secondary" style="font-size: 12px;">F1<br>初期化</button>
-          <button type="button" class="btn btn-secondary" style="font-size: 12px;">F2<br>戻る</button>
-          <button type="button" class="btn btn-secondary" style="font-size: 12px;">F3<br>登録</button>
-          <button type="button" class="btn btn-secondary" style="font-size: 12px;">F4<br>削除</button>
-          <button type="button" class="btn btn-secondary" style="font-size: 12px;">F5<br>初期値</button>
+          <button type="button" class="btn btn-secondary" style="font-size: 12px;" onclick="initForm();">F1<br>初期化</button>
+          <button type="button" class="btn btn-secondary" style="font-size: 12px;" onclick="doSubmit();">F2<br>検索</button>
+          <button type="button" class="btn btn-secondary" style="font-size: 12px;">F3<br></button>
+          <button type="button" class="btn btn-secondary" style="font-size: 12px;">F4<br></button>
+          <button type="button" class="btn btn-secondary" style="font-size: 12px;">F5<br></button>
           <button type="button" class="btn btn-secondary" style="font-size: 12px;">F6<br></button>
           <button type="button" class="btn btn-secondary" style="font-size: 12px;">F7<br></button>
-          <button type="button" class="btn btn-secondary" style="font-size: 12px;">F8<br>履歴出力</button>
+          <button type="button" class="btn btn-secondary" style="font-size: 12px;">F8<br></button>
           <button type="button" class="btn btn-secondary" style="font-size: 12px;">F9<br></button>
           <button type="button" class="btn btn-secondary" style="font-size: 12px;">F10<br></button>
           <button type="button" class="btn btn-secondary" style="font-size: 12px;">F11<br></button>
@@ -101,7 +109,7 @@
       </div>
       <br><br><br>
       </div>
-      <form action="/SalesCube2020/SalesCube?action=searchSetProduct" method="post">
+      <form action="/SalesCube2020/SalesCube?action=searchSetProduct" method="post" name="mainform">
 		<div class="container" style="background-color: white;"><div class="panel panel-default" >
 			<div class="panel-heading row mb-2 col-4">
 				<h5><br>セット商品情報</h5>
@@ -117,7 +125,6 @@
 									<div class="input-group-text">セット商品コード</div>
 								</div>
 							<input type="text"  class="form-control" id="inlineFormInputGroup" name="data1">
-							<!-- <input type="image" name="" src="btn_search.png" tabindex="101" onclick="" style="vertical-align: middle; cursor: pointer; width: 32px;"> -->
 							</div>
 						</div>
 						<div class="col-8">
@@ -150,7 +157,7 @@
 								<div class="input-group-prepend">
 									<div class="input-group-text">商品コード</div>
 								</div>
-							<input type="text"  class="form-control" id="inlineFormInputGroup" name="data3">				<!--<input type="image" name="" src="btn_search.png" tabindex="101" onclick="" style="vertical-align: middle; cursor: pointer; width: 32px;"> -->
+							<input type="text"  class="form-control" id="inlineFormInputGroup" name="data3">
 							</div>
 						</div>
 						
@@ -169,17 +176,26 @@
 			</div>
 				
 				<div align="right">
-					<input type="button" value="初期化" class="btn btn-outline-secondary">
+					<input type="button" value="初期化" class="btn btn-outline-secondary" onclick="initForm();">
 					<input type="submit" value="検索" class="btn btn-outline-secondary">
 				</div>
 			
 			
 		</div><br></div><br>
-		</form>
+		
 		
 		<div class="container">
-            <div class="float-left" style="position:static; left: 0px;">検索結果件数：${fn:length(searchData)} 件</div>
-  
+            <div class="float-left" style="position:static; left: 0px;">検索結果件数：${fn:length(searchData)} 件
+  				&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+  				&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+  				&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+  				&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+
+		  		<c:forEach var="pageCount" items="${totalPage}">
+					<a id='MySelect' href="http://localhost:8080/SalesCube2020/SalesCube?action=searchSetProduct&rowCount=${rowCount}&currentPage=${pageCount}" >${pageCount}</a>
+				</c:forEach>
+			</div>
+			
          	<div class="rounded float-right">
                 ページあたりの表示件数
                 <select id="rowCount" name="rowCount">
@@ -189,9 +205,12 @@
                 </select>
 			</div>
 		</div>
+    </form>
     
-    </div>
-<br><br>
+<br>
+
+<br>
+
 <div class="container" style="background-color: rgb(255, 255, 255);" id="setProductList">
     <table id="order_detail_info" class="table table-bordered">
 		<thead class="thead-dark">
@@ -217,7 +236,6 @@
 			</c:forEach>
 		</tbody>
 	</table>
-
 </div>
 <script src="//cdnjs.cloudflare.com/ajax/libs/list.js/1.5.0/list.min.js"></script>
 <script>
@@ -225,6 +243,23 @@ var options = {
   valueNames: [ 'productCode', 'productName' ]
 };
 var setProductList = new List('setProductList', options);
+</script>
+<script>
+$(function() {
+    var temp = "<%= rowCount %>"; 
+    $("#rowCount").val(temp);
+});
+function initForm() {
+	if(!confirm("入力内容を初期化してよろしいですか？")){
+		return;
+	} 
+	window.location.href = '/SalesCube2020/SalesCube?action=setProduct';
+}
+function doSubmit(){
+	var form = document.mainform;
+	
+	form.submit();
+}
 </script>
 </body>
 </html>

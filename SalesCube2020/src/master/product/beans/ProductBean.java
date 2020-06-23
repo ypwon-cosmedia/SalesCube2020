@@ -122,7 +122,7 @@ public class ProductBean {
 	private String warehouseName;
 	
 	/** 棚番：棚番を保持する */
-	private String rankName;
+	private String rackCode;
 
 	/** リードタイム：リードタイムを保持する */
 	private int leadTime;
@@ -221,10 +221,10 @@ public class ProductBean {
 	private String depthUnitSizeCategory;	
 	
 	/** サイズ（高）：サイズ（高）を保持する */
-	private double hight;
+	private double height;
 	
 	/** サイズ（高）単位：サイズ（高）単位を保持する */
-	private String hightUnitSizeCategory;
+	private String heightUnitSizeCategory;
 
 	/** 芯数：芯数を保持する */
 	private String coreNum;
@@ -359,11 +359,11 @@ public class ProductBean {
 	}
 
 	public String getRankName() {
-		return rankName;
+		return rackCode;
 	}
 
-	public void setRankName(String rankName) {
-		this.rankName = rankName;
+	public void setRankName(String rackCode) {
+		this.rackCode = rackCode;
 	}
 
 	public int getLeadTime() {
@@ -622,20 +622,20 @@ public class ProductBean {
 		this.depthUnitSizeCategory = depthUnitSizeCategory;
 	}
 
-	public double getHight() {
-		return hight;
+	public double getHeight() {
+		return height;
 	}
 
-	public void setHight(double hight) {
-		this.hight = hight;
+	public void setHeight(double height) {
+		this.height = height;
 	}
 
 	public String getHightUnitSizeCategory() {
-		return hightUnitSizeCategory;
+		return heightUnitSizeCategory;
 	}
 
-	public void setHightUnitSizeCategory(String hightUnitSizeCategory) {
-		this.hightUnitSizeCategory = hightUnitSizeCategory;
+	public void setHightUnitSizeCategory(String heightUnitSizeCategory) {
+		this.heightUnitSizeCategory = heightUnitSizeCategory;
 	}
 
 	public String getCoreNum() {

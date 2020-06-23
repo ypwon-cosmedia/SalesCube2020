@@ -8,6 +8,7 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.MissingResourceException;
 
 import common.dao.BaseDAO;
 import master.customer.beans.CustomerAddBean;
@@ -19,7 +20,7 @@ import user.beans.*;
 public class CustomerDAO extends BaseDAO {
 
 	
-	public List<CustomerResultBean> searchCustomer(CustomerInputBean bean) throws SQLException, ClassNotFoundException {
+	public List<CustomerResultBean> searchCustomer(CustomerInputBean bean, int count, int currentPage) throws SQLException, ClassNotFoundException {
 		
 		List<CustomerResultBean> list = new ArrayList<> ();
 		Connection con;
@@ -148,7 +149,8 @@ public class CustomerDAO extends BaseDAO {
 	 										" ) and ( CUSTOMER_RANK_CATEGORY " + rankCategorySQL + 
 	 										" ) and ( CUTOFF_GROUP " + cutoffGroupSQL + 
 	 										" ) and ( PAYMENT_NAME " + paymentNameSQL + 
-	 										" ) and ( REMARKS " + remarksSQL + " )";
+	 										" ) and ( REMARKS " + remarksSQL + " ) " +
+	 										"LIMIT " + count + " OFFSET " + count*(currentPage-1);;
 
 	 	pstmt = con.prepareStatement(sql);
 
@@ -231,6 +233,34 @@ public class CustomerDAO extends BaseDAO {
 	 	
 	 	return bean;
 	 	
+	}
+	
+	public int getCount() throws ClassNotFoundException, MissingResourceException, SQLException {
+		
+
+		Connection con;
+	 	Statement stmt = null;
+	 	ResultSet result = null;
+	 	String  sql1;
+
+	 	int count = 0;
+	 	
+	 	con = super.getConnection();	
+	 	stmt = con.createStatement();
+	 	
+	 	sql1 = "select COUNT(*) from customer_mst_xxxxx";
+	 	result = stmt.executeQuery(sql1);
+
+	 	while(result.next()) {
+	 		count = result.getInt("COUNT(*)");
+	 	}
+
+	 	
+	 	
+	 	super.releaseDB(con, stmt);
+	 	
+	 	return count;
+	
 	}
 	
 

@@ -45,7 +45,7 @@ public class ProductSearchBean {
 	private String productStockCategory;
 	
 	/** セット商品フラグ：セット商品フラグを保持する */
-	private int setTypeCategory;
+	private String setTypeCategory;
 	
 	/** 備考：備考を保持する */
 	private String remarks;	
@@ -147,11 +147,11 @@ public class ProductSearchBean {
 		this.productStandardCategory = productStandardCategory;
 	}
 
-	public int getSetTypeCategory() {
+	public String getSetTypeCategory() {
 		return setTypeCategory;
 	}
 
-	public void setSetTypeCategory(int setTypeCategory) {
+	public void setSetTypeCategory(String setTypeCategory) {
 		this.setTypeCategory = setTypeCategory;
 	}
 

@@ -62,38 +62,66 @@ final public class SetProductController extends BaseController{
 		SetProductDAO dao = new SetProductDAO();
 		SetProductSearchBean bean = new SetProductSearchBean();
 		
-		bean.setSetProductCode((String) request.getParameter("data1"));
-		bean.setSetProductName((String) request.getParameter("data2"));
-		bean.setProductCode((String) request.getParameter("data3"));
-		bean.setProductName((String) request.getParameter("data4"));
-		
-
-		if(bean.getSetProductCode() == "") {
-			bean.setSetProductCode(null);
-		}
-		
-		if(bean.getSetProductName() == "") {
-			bean.setSetProductName(null);
-		}
-		
-		if(bean.getProductCode() == "") {
-			bean.setProductCode(null);
-		}
-		
-		if(bean.getProductName() == "") {
-			bean.setProductName(null);
-		}
-		
-		System.out.println(bean.getSetProductCode());
-		System.out.println(bean.getSetProductName());
-		System.out.println(bean.getProductCode());
-		System.out.println(bean.getProductName());
-		
-		try {
-			list = dao.getProductInfo(bean);
-			request.setAttribute("searchData", list);
+		String tmp;
+		int count;
+		int totalCount;
+		int totalPage;
+		int currentPage;
 			
-		
+		try {
+			
+			totalCount = dao.getCount();
+			
+			tmp = (String) request.getParameter("rowCount");
+			count = Integer.parseInt(tmp);
+
+			totalPage = totalCount/count;
+			
+			if(totalCount%count != 0) {
+				totalPage++;
+			}
+
+			tmp = (String) request.getParameter("currentPage");
+				
+			if(tmp == null) {
+				currentPage=1;
+			}else {
+				currentPage = Integer.parseInt(tmp);
+			}
+
+			bean.setSetProductCode((String) request.getParameter("data1"));
+			bean.setSetProductName((String) request.getParameter("data2"));
+			bean.setProductCode((String) request.getParameter("data3"));
+			bean.setProductName((String) request.getParameter("data4"));
+							
+			if(bean.getSetProductCode() == "") {
+				bean.setSetProductCode(null);
+			}
+			
+			if(bean.getSetProductName() == "") {
+				bean.setSetProductName(null);
+			}
+			
+			if(bean.getProductCode() == "") {
+				bean.setProductCode(null);
+			}
+			
+			if(bean.getProductName() == "") {
+				bean.setProductName(null);
+			}
+						
+			list = dao.getProductInfo(bean, count, currentPage);
+			
+			int[] totalPageArr= new int[totalPage];
+			
+			for(int i = 0; i<totalPageArr.length; i++) {
+				totalPageArr[i] = i+1;
+			}
+			
+			request.setAttribute("searchData", list);
+			request.setAttribute("totalPage", totalPageArr);
+			request.setAttribute("currentPage", currentPage);
+			request.setAttribute("rowCount", count);
 			
 			return "/setproduct.jsp";
 			
@@ -109,19 +137,43 @@ final public class SetProductController extends BaseController{
 		
 		SetProductDAO dao = new SetProductDAO();
 		List<SetProductBean> list = new ArrayList<SetProductBean>();
+		List<SetProductBean> list2 = new ArrayList<SetProductBean>();
 		String setProductCode = null;
+		String setProductName = null;
 		
-		setProductCode = (String) request.getAttribute("setProductCode");
-		//	for(int i = 0; ����; i++){
-		//		SetProductBean bean = new SetProductBean();
-		//		bean.setSetProductCode((String)request.getArribute(""));
-		//		bean.setProductCode((String)request.getArribute(""));
-		//		bean.setQuantity((int)request.getArribute(""));
-		//		list.add(bean);
-		//	}
-		//
-		//	dao.setInfo(list,setProductCode);
+		setProductCode = (String) request.getParameter("productCode");
+		setProductName = (String) request.getParameter("productName");
+				
+		String[] productCode = request.getParameterValues("code");
+		String[] productName = request.getParameterValues("name");
+		String[] quantity = request.getParameterValues("quantity");
 		
+		for(int i = 0; i<productCode.length; i++) {				
+			SetProductBean bean = new SetProductBean();
+			bean.setProductCode(productCode[i]);
+			bean.setProductName(productName[i]);
+			bean.setQuantity(Integer.parseInt(quantity[i]));			
+			list.add(bean);
+		}
+
+		
+		try {
+			dao.setInfo(list, setProductCode);
+			
+			list2=dao.getInfo(setProductCode);
+			
+			request.setAttribute("result", list2);
+			request.setAttribute("productCode", setProductCode);
+			request.setAttribute("productName", setProductName);
+			
+		} catch (ClassNotFoundException | MissingResourceException | SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+
 		return "/setproductmodify.jsp";
 	}
+	
+	
+	
 }

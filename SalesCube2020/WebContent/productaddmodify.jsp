@@ -104,6 +104,13 @@
 		<br><br><br>
 		</div>
 	<br>
+	
+	<!-- エラーメッセージを表示 -->
+       <div style="width:100%; text-align:center; margin-bottom:20px;">
+				 <span class="action_errors" style="color: red">${addmodifyError}<br></span>
+       </div>
+	
+	
 		<div class="container" style="background-color: white;"><div class="panel panel-default" >
 			<div class="panel-heading row mb-2 col-4">
 				<h5><br>商品情報</h5>
@@ -118,7 +125,7 @@
 								<div class="input-group-prepend">
 									<div class="input-group-text" style = "background-color: pink;">商品コード※</div>
 								</div>
-							<input type="text"  class="form-control" id="inlineFormInputGroup" name="productCode" value="${product.productCode}">
+							<input type="text"  class="form-control" id="inlineFormInputGroup" name="productCode" value="${product.productCode}" required>
 				
 							</div>
 						</div>
@@ -128,7 +135,7 @@
 								<div class="input-group-prepend">
 									<div class="input-group-text" style = "background-color: pink;">商品名※</div>
 								</div>
-							<input type="text"  class="form-control" id="inlineFormInputGroup" name="productName" value="${product.productName}">
+							<input type="text"  class="form-control" id="inlineFormInputGroup" name="productName" value="${product.productName}" required>
 							</div>
 						</div>
 						<div class="col-4">
@@ -207,9 +214,9 @@
 							<label class="sr-only" for="inlineFormInputGroup">supplierPriceYen</label>
 							<div class="input-group mb-2">
 								<div class="input-group-prepend">
-									<div class="input-group-text" style = "background-color: pink;">仕入れ単価(円)※</div>
+									<div class="input-group-text" style = "background-color: pink;">仕入単価(円)※</div>
 								</div>
-							<input type="text"  class="form-control" id="inlineFormInputGroup" name="supplierPriceYen" value="${product.supplierPriceYen}">
+							<input type="text"  class="form-control" id="inlineFormInputGroup" name="supplierPriceYen" value="${product.supplierPriceYen}" required>
 							</div>
 						</div>
 						<div class="col-4">
@@ -582,7 +589,7 @@
 							<div class="col-8">
 								<div class="input-group-prepend">
 									<div class="input-group-text">備考</div>
-									<textarea id="textarea1" class="form-control"></textarea>
+									<textarea id="textarea1" class="form-control" name="remarks"></textarea>
 								</div>
 							</div>
 						</div><br>
@@ -590,7 +597,7 @@
 							<div class="col-8">
 								<div class="input-group-prepend">
 									<div class="input-group-text">ピッキング備考</div>
-									<textarea id="textarea1" class="form-control"></textarea>
+									<textarea id="textarea1" class="form-control" name="eadRemarks"></textarea>
 								</div>
 							</div>
 						</div><br>
@@ -598,7 +605,7 @@
 							<div class="col-8">
 								<div class="input-group-prepend">
 									<div class="input-group-text">コメント</div>
-									<textarea id="textarea1" class="form-control"></textarea>
+									<textarea id="textarea1" class="form-control" name="commentData"></textarea>
 								</div>
 							</div>
 						</div>
