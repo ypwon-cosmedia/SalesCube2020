@@ -48,12 +48,11 @@ public class ProductDeleteController extends BaseController{
 		request.setAttribute("category", list);
 		
 		
+		ProductDeleteBean bean = 
+		
 		String code = request.getParameter("productCode");
 		int productCode = Integer.parseInt(code);
-		
 
-		
-		
 		
 		return forwardURL;
 	}
