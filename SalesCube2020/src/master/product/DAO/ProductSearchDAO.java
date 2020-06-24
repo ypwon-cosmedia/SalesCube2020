@@ -34,77 +34,83 @@ public class ProductSearchDAO extends BaseDAO{
 	 	if(input.getProductCode() == null || input.getProductCode().equals("")) {
 	 		input.setProductCode("%'");
 	 	}
+	 	else {
+	 		input.setProductCode(input.getProductCode().concat("%'"));
+	 	}
 	 	if(input.getProductName() == null || input.getProductName().equals("")) {
 	 		input.setProductName("%'");
+	 	}
+	 	else {
+	 		input.setProductName(input.getProductName().concat("%'"));
 	 	}
 	 	if(input.getProductKana() == null || input.getProductKana().equals("")) {
 	 		input.setProductKana("%' OR pmx.PRODUCT_KANA IS NULL");
 	 	}
 	 	else {
-	 		input.setProductKana(input.getProductKana().concat("'"));
+	 		input.setProductKana(input.getProductKana().concat("%'"));
 	 	}
 	 	if(input.getSupplierCode() == null || input.getSupplierCode().equals("")) {
 	 		input.setSupplierCode("%' OR pmx.SUPPLIER_CODE IS NULL");
 	 	}
 	 	else {
-	 		input.setSupplierCode(input.getSupplierCode().concat("'"));
+	 		input.setSupplierCode(input.getSupplierCode().concat("%'"));
 	 	}
 	 	if(input.getSupplierName() == null || input.getSupplierName().equals("")) {
 	 		input.setSupplierName("%' OR A.SUPPLIER_NAME IS NULL");
 	 	}
 	 	else {
-	 		input.setSupplierName(input.getSupplierName().concat("'"));
+	 		input.setSupplierName(input.getSupplierName().concat("%'"));
 	 	}
 	 	if(input.getProductStandardCategory() == null || input.getProductStandardCategory().equals("")) {
 	 		input.setProductStandardCategory("%' OR pmx.PRODUCT_STANDARD_CATEGORY IS NULL");
 	 	}
 	 	else {
-	 		input.setProductStandardCategory(input.getProductStandardCategory().concat("'"));
+	 		input.setProductStandardCategory(input.getProductStandardCategory().concat("%'"));
 	 	}
 	 	if(input.getProductStatusCategory() == null || input.getProductStatusCategory().equals("")) {
 	 		input.setProductStatusCategory("%' OR pmx.PRODUCT_STATUS_CATEGORY IS NULL");
 	 	}
 	 	else {
-	 		input.setProductStatusCategory(input.getProductStatusCategory().concat("'"));
+	 		input.setProductStatusCategory(input.getProductStatusCategory().concat("%'"));
 	 	}
 	 	if(input.getProductStockCategory() == null || input.getProductStockCategory().equals("")) {
 	 		input.setProductStockCategory("%' OR pmx.PRODUCT_STOCK_CATEGORY IS NULL");
 	 	}
 	 	else {
-	 		input.setProductStockCategory(input.getProductStockCategory().concat("'"));
+	 		input.setProductStockCategory(input.getProductStockCategory().concat("%'"));
 	 	}
 	 	if(input.getSetTypeCategory() == null || input.getSetTypeCategory().equals("")) {
 	 		input.setSetTypeCategory("%' OR pmx.SET_TYPE_CATEGORY IS NULL");
 	 	}
 	 	else {
-	 		input.setSetTypeCategory(input.getSetTypeCategory().concat("'"));
+	 		input.setSetTypeCategory(input.getSetTypeCategory().concat("%'"));
 	 	}
 	 	if(input.getRemarks() == null || input.getRemarks().equals("")) {
 	 		input.setRemarks("%' OR pmx.REMARKS IS NULL");
 	 	}
 	 	else {
-	 		input.setRemarks(input.getRemarks().concat("'"));
+	 		input.setRemarks(input.getRemarks().concat("%'"));
 	 	}
 	 	if(input.getProduct1() == null || input.getProduct1().equals("")) {
 	 		input.setProduct1("%' OR pmx.PRODUCT_1 IS NULL");
 	 	}
 	 	else {
-	 		input.setProduct1(input.getProduct1().concat("'"));
+	 		input.setProduct1(input.getProduct1().concat("%'"));
 	 	}
 	 	if(input.getProduct2() == null || input.getProduct2().equals("")) {
 	 		input.setProduct2("%' OR pmx.PRODUCT_2 IS NULL");
 	 	}
 	 	else {
-	 		input.setProduct2(input.getProduct2().concat("'"));
+	 		input.setProduct2(input.getProduct2().concat("%'"));
 	 	}
 	 	if(input.getProduct3() == null || input.getProduct3().equals("")) {
 	 		input.setProduct3("%' OR pmx.PRODUCT_3 IS NULL");
 	 	}
 	 	else {
-	 		input.setProduct3(input.getProduct3().concat("'"));
+	 		input.setProduct3(input.getProduct3().concat("%'"));
 	 	}
 	 	
-	 	sql = "SELECT"
+	 	sql = "SELECT DISTINCT"
 	 			+" pmx.PRODUCT_CODE,"
 	 			+" pmx.PRODUCT_NAME,"
 	 			+" A.SUPPLIER_NAME,"
@@ -165,99 +171,109 @@ public class ProductSearchDAO extends BaseDAO{
 	 	con = super.getConnection();
 	 	stmt = con.createStatement();
 	 	
-	 	if(input.getProductCode() == null) {
-	 		input.setProductCode("%");
+	 	if(input.getProductCode() == null || input.getProductCode().equals("")) {
+	 		input.setProductCode("%'");
 	 	}
-	 	if(input.getProductName() == null) {
-	 		input.setProductName("%");
+	 	else {
+	 		input.setProductCode(input.getProductCode().concat("%'"));
 	 	}
-	 	if(input.getProductKana() == null) {
+	 	if(input.getProductName() == null || input.getProductName().equals("")) {
+	 		input.setProductName("%'");
+	 	}
+	 	else {
+	 		input.setProductName(input.getProductName().concat("%'"));
+	 	}
+	 	if(input.getProductKana() == null || input.getProductKana().equals("")) {
 	 		input.setProductKana("%' OR pmx.PRODUCT_KANA IS NULL");
 	 	}
 	 	else {
-	 		input.setProductKana(input.getProductKana().concat("'"));
+	 		input.setProductKana(input.getProductKana().concat("%'"));
 	 	}
-	 	if(input.getSupplierCode() == null) {
+	 	if(input.getSupplierCode() == null || input.getSupplierCode().equals("")) {
 	 		input.setSupplierCode("%' OR pmx.SUPPLIER_CODE IS NULL");
 	 	}
 	 	else {
-	 		input.setSupplierCode(input.getSupplierCode().concat("'"));
+	 		input.setSupplierCode(input.getSupplierCode().concat("%'"));
 	 	}
-	 	if(input.getSupplierName() == null) {
-	 		input.setSupplierName("%' OR pmx.SUPPLIER_NAME IS NULL");
+	 	if(input.getSupplierName() == null || input.getSupplierName().equals("")) {
+	 		input.setSupplierName("%' OR A.SUPPLIER_NAME IS NULL");
 	 	}
 	 	else {
-	 		input.setSupplierName(input.getSupplierName().concat("'"));
+	 		input.setSupplierName(input.getSupplierName().concat("%'"));
 	 	}
-	 	if(input.getProductStandardCategory() == null) {
+	 	if(input.getProductStandardCategory() == null || input.getProductStandardCategory().equals("")) {
 	 		input.setProductStandardCategory("%' OR pmx.PRODUCT_STANDARD_CATEGORY IS NULL");
 	 	}
 	 	else {
-	 		input.setProductStandardCategory(input.getProductStandardCategory().concat("'"));
+	 		input.setProductStandardCategory(input.getProductStandardCategory().concat("%'"));
 	 	}
-	 	if(input.getProductStatusCategory() == null) {
+	 	if(input.getProductStatusCategory() == null || input.getProductStatusCategory().equals("")) {
 	 		input.setProductStatusCategory("%' OR pmx.PRODUCT_STATUS_CATEGORY IS NULL");
 	 	}
 	 	else {
-	 		input.setProductStatusCategory(input.getProductStatusCategory().concat("'"));
+	 		input.setProductStatusCategory(input.getProductStatusCategory().concat("%'"));
 	 	}
-	 	if(input.getProductStockCategory() == null) {
+	 	if(input.getProductStockCategory() == null || input.getProductStockCategory().equals("")) {
 	 		input.setProductStockCategory("%' OR pmx.PRODUCT_STOCK_CATEGORY IS NULL");
 	 	}
 	 	else {
-	 		input.setProductStockCategory(input.getProductStockCategory().concat("'"));
+	 		input.setProductStockCategory(input.getProductStockCategory().concat("%'"));
 	 	}
-	 	if(input.getSetTypeCategory() == null) {
+	 	if(input.getSetTypeCategory() == null || input.getSetTypeCategory().equals("")) {
 	 		input.setSetTypeCategory("%' OR pmx.SET_TYPE_CATEGORY IS NULL");
 	 	}
 	 	else {
-	 		input.setSetTypeCategory(input.getSetTypeCategory().concat("'"));
+	 		input.setSetTypeCategory(input.getSetTypeCategory().concat("%'"));
 	 	}
-	 	if(input.getRemarks() == null) {
+	 	if(input.getRemarks() == null || input.getRemarks().equals("")) {
 	 		input.setRemarks("%' OR pmx.REMARKS IS NULL");
 	 	}
 	 	else {
-	 		input.setRemarks(input.getRemarks().concat("'"));
+	 		input.setRemarks(input.getRemarks().concat("%'"));
 	 	}
-	 	if(input.getProduct1() == null) {
+	 	if(input.getProduct1() == null || input.getProduct1().equals("")) {
 	 		input.setProduct1("%' OR pmx.PRODUCT_1 IS NULL");
 	 	}
 	 	else {
-	 		input.setProduct1(input.getProduct1().concat("'"));
+	 		input.setProduct1(input.getProduct1().concat("%'"));
 	 	}
-	 	if(input.getProduct2() == null) {
+	 	if(input.getProduct2() == null || input.getProduct2().equals("")) {
 	 		input.setProduct2("%' OR pmx.PRODUCT_2 IS NULL");
 	 	}
 	 	else {
-	 		input.setProduct2(input.getProduct2().concat("'"));
+	 		input.setProduct2(input.getProduct2().concat("%'"));
 	 	}
-	 	if(input.getProduct3() == null) {
+	 	if(input.getProduct3() == null || input.getProduct3().equals("")) {
 	 		input.setProduct3("%' OR pmx.PRODUCT_3 IS NULL");
 	 	}
 	 	else {
-	 		input.setProduct3(input.getProduct3().concat("'"));
+	 		input.setProduct3(input.getProduct3().concat("%'"));
 	 	}
 	 	
-	 	sql = "SELECT"
-	 			+" * "
+	 	sql = "SELECT DISTINCT"
+	 			+" pmx.PRODUCT_CODE,"
+	 			+" pmx.PRODUCT_NAME,"
+	 			+" A.SUPPLIER_NAME,"
+	 			+" B.CLASS_NAME,"
+	 			+" pmx.REMARKS"
 	 		  +" FROM"
 	 			+" product_mst_xxxxx pmx"
 	 			+" LEFT OUTER JOIN (SELECT SUPPLIER_CODE ,SUPPLIER_NAME FROM supplier_mst_xxxxx AS smx) A on pmx.SUPPLIER_CODE = A.SUPPLIER_CODE"
 	 			+" LEFT OUTER JOIN (SELECT pcm.CLASS_CODE_1, pcm.CLASS_CODE_2, pcm.CLASS_NAME FROM product_class_mst_xxxxx pcm, product_mst_xxxxx pmx) B ON pmx.PRODUCT_1 = B.CLASS_CODE_1 AND CLASS_CODE_2 =''"
 	 		  +" WHERE"
-	 			+" pmx.PRODUCT_CODE LIKE " + input.getProductCode()
-	 		  +" AND 	pmx.PRODUCT_NAME LIKE " + input.getProductName()
-	 		  +" AND 	(pmx.PRODUCT_KANA LIKE " + input.getProductKana() 
-	 		  +") AND 	(pmx.SUPPLIER_CODE LIKE " + input.getSupplierCode()
-	 		  +") AND 	(A.SUPPLIER_NAME LIKE " + input.getSupplierName()
-	 		  +") AND 	(pmx.PRODUCT_STANDARD_CATEGORY LIKE " + input.getProductStandardCategory()
-	 		  +") AND 	(pmx.PRODUCT_STATUS_CATEGORY LIKE " + input.getProductStatusCategory()
-	 		  +") AND 	(pmx.PRODUCT_STOCK_CATEGORY LIKE " + input.getProductStockCategory()
-	 		  +") AND 	(pmx.SET_TYPE_CATEGORY LIKE " + input.getSetTypeCategory()
-	 		  +") AND 	(pmx.REMARKS LIKE " + input.getRemarks()
-	 		  +") AND 	(pmx.PRODUCT_1 LIKE " + input.getProduct1()
-	 		  +") AND 	(pmx.PRODUCT_2 LIKE " + input.getProduct2()
-	 		  +") AND 	(pmx.PRODUCT_3 LIKE " + input.getProduct3()
+	 			+" pmx.PRODUCT_CODE LIKE '" + input.getProductCode()
+	 		  +" AND pmx.PRODUCT_NAME LIKE '" + input.getProductName()
+	 		  +" AND (pmx.PRODUCT_KANA LIKE '" + input.getProductKana() 
+	 		  +") AND (pmx.SUPPLIER_CODE LIKE '" + input.getSupplierCode()
+	 		  +") AND (A.SUPPLIER_NAME LIKE '" + input.getSupplierName()
+	 		  +") AND (pmx.PRODUCT_STANDARD_CATEGORY LIKE '" + input.getProductStandardCategory()
+	 		  +") AND (pmx.PRODUCT_STATUS_CATEGORY LIKE '" + input.getProductStatusCategory()
+	 		  +") AND (pmx.PRODUCT_STOCK_CATEGORY LIKE '" + input.getProductStockCategory()
+	 		  +") AND (pmx.SET_TYPE_CATEGORY LIKE '" + input.getSetTypeCategory()
+	 		  +") AND (pmx.REMARKS LIKE '" + input.getRemarks()
+	 		  +") AND (pmx.PRODUCT_1 LIKE '" + input.getProduct1()
+	 		  +") AND (pmx.PRODUCT_2 LIKE '" + input.getProduct2()
+	 		  +") AND (pmx.PRODUCT_3 LIKE '" + input.getProduct3()
 	 		  +") GROUP BY"
 	 			+" pmx.PRODUCT_CODE"
 	 		  +" ORDER BY"
