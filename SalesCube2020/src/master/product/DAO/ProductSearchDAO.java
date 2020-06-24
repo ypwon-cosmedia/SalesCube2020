@@ -95,7 +95,7 @@ public class ProductSearchDAO extends BaseDAO{
 	 		input.setProduct1("%' OR pmx.PRODUCT_1 IS NULL");
 	 	}
 	 	else {
-	 		input.setProduct1(input.getProduct1().concat("%'"));
+	 		input.setProduct1(input.getProduct1().concat("'"));
 	 	}
 	 	if(input.getProduct2() == null || input.getProduct2().equals("")) {
 	 		input.setProduct2("%' OR pmx.PRODUCT_2 IS NULL");
@@ -235,7 +235,7 @@ public class ProductSearchDAO extends BaseDAO{
 	 		input.setProduct1("%' OR pmx.PRODUCT_1 IS NULL");
 	 	}
 	 	else {
-	 		input.setProduct1(input.getProduct1().concat("%'"));
+	 		input.setProduct1(input.getProduct1().concat("'"));
 	 	}
 	 	if(input.getProduct2() == null || input.getProduct2().equals("")) {
 	 		input.setProduct2("%' OR pmx.PRODUCT_2 IS NULL");
