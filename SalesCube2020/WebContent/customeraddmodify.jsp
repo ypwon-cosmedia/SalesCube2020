@@ -878,7 +878,7 @@
 <!-- ボタン -->
 <div align="right" class="container">
     <input type="button" value="初期化" class="btn btn-outline-secondary" onclick="initForm()" >
-    <input type="submit" value="${status eq 'add' ? '登録' : '更新'}" class="btn btn-outline-secondary">
+    <input type="submit" value="${status eq 'add' ? '登録' : '更新'}" class="btn btn-outline-secondary" onclick="confirmForm()">
     <input type="submit" value="削除" class="btn btn-outline-secondary" onclick="deleteForm()" ${status eq 'add' ? "disabled" :''}>
 </div>
 </form> 
@@ -904,8 +904,7 @@
 	}
     		
 	function registrationForm() {
-	 var status = ${status};
-	 alert(status);
+	 var status = "${status}";
 	 	if(status=="add"){
 			if(!confirm("入力内容を登録します。よろしいですか？")) {
 				return;
@@ -921,9 +920,23 @@
 			form.submit();
 		}
 	 }
+ 
+ function confirmForm() {
+	 var status = "${status}";
+	 	if(status=="add"){
+			if(!confirm("入力内容を登録します。よろしいですか？")) {
+				return;
+			}
+	 	}
+	 	else {
+			if(!confirm("入力内容を更新します。よろしいですか？")) {
+				return;
+			}
+		}
+	 }
+ 
+ 
 
-    			
-	}
     		
 	function deleteForm() {
 		if(!confirm("このデータを削除しますか？")) {
