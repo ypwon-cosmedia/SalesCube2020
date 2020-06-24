@@ -111,6 +111,8 @@ public class CustomerController extends BaseController{
 		
 		String forwardURL = "/customeraddmodify.jsp";
 		
+		request.setAttribute("status", "add");
+		
 		return forwardURL;
 		
 	}
@@ -135,6 +137,8 @@ public class CustomerController extends BaseController{
 		request.setAttribute("customer",bean);
 		request.setAttribute("deliveryList",list);
 		request.setAttribute("delivery2",bean2);
+		
+		request.setAttribute("status", "modify");
 		
 		return forwardURL;
 		
@@ -169,7 +173,7 @@ public class CustomerController extends BaseController{
 	private String addCustomer(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException, ClassNotFoundException, SQLException {
 		
-		String forwardURL = "/customeraddmodify.jsp";
+		String forwardURL = "/customersearch.jsp";
 		
 		//顧客情報
 		String customerCode         = request.getParameter("customerCode");
@@ -192,7 +196,18 @@ public class CustomerController extends BaseController{
 		String rankCategory         = request.getParameter("rankCategory");
 		String updateFlag           = request.getParameter("updateFlag");
 		String ROCategory           = request.getParameter("ROCategory");
-		int maxCreditLimit          = Integer.parseInt(request.getParameter("maxCreditLimit"));
+		String str      = request.getParameter("maxCreditLimit");
+		int maxCreditLimit ;
+		if (str == null || str.length() == 0){
+			maxCreditLimit = 0;
+		}else{
+		      try{
+		    	  maxCreditLimit = Integer.parseInt(str);
+		      }catch (NumberFormatException e){
+		    	  maxCreditLimit = 0;
+		      }
+		    }
+		
 		String businessCategory     = request.getParameter("businessCategory");
 		String jobCategory          = request.getParameter("jobCategory");
 		String fractCategory        = request.getParameter("fractCategory");
@@ -253,9 +268,9 @@ public class CustomerController extends BaseController{
 		
 		//顧客情報追加のエラー処理
 		if(check == 1) {
-			String message = "顧客情報の追加処理においてエラーが発生しました";
+			String message = "顧客情報の追加処理においてエラーが発生しました<br>";
 			request.setAttribute("message",message);
-		}
+		} 
 		
 		//納入先情報
 		//String deliveryCode        = request.getParameter("deliveryCode");
@@ -304,8 +319,10 @@ public class CustomerController extends BaseController{
 		
 		//納入先追加メソッドのエラー処理
 		if(check2 == 1) {
-			String message2 = "納入先情報の追加処理においてエラーが発生しました";
+			String message2 = "納入先情報の追加処理においてエラーが発生しました<br>";
 			request.setAttribute("message2",message2);
+		} else {
+			
 		}
 		
 		//最新の納入先コードを取得(上のメソッドで登録した際の納入先コード)
@@ -356,7 +373,7 @@ public class CustomerController extends BaseController{
 		
 		//納入先追加メソッドのエラー処理
 		if(check3 == 1) {
-			String message3 = "請求先情報の追加処理においてエラーが発生しました";
+			String message3 = "請求先情報の追加処理においてエラーが発生しました<br>";
 			request.setAttribute("message3",message3);
 		}
 		
@@ -373,6 +390,11 @@ public class CustomerController extends BaseController{
 			request.setAttribute("message3",message3);
 		}
 
+		
+		if(check!=1 && check2!=1 && check3!=1 && check4!=1 && check5!=1) {
+			String message6 = "顧客情報の追加が完了しました";
+			request.setAttribute("message",message6);
+		}
 		return forwardURL;
 		
 		
@@ -382,7 +404,7 @@ public class CustomerController extends BaseController{
 	private String modifyCustomer(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException, ClassNotFoundException, SQLException {
 		
-		String forwardURL = "/customeraddmodify.jsp";
+		String forwardURL = "/customersearch.jsp";
 		
 		//編集する顧客情報
 		String customerCode         = request.getParameter("customerCode");
@@ -462,10 +484,10 @@ public class CustomerController extends BaseController{
 		
 		CustomerDAO dao =  new CustomerDAO();
 		//顧客DAOの顧客編集メソッドを呼び出し、エラーがあったらcheckに1が入る
-		String check = dao.modifyCustomer(bean);
+		int check = dao.modifyCustomer(bean);
 		
 		//顧客編集のエラー処理
-		if(check == "1") {
+		if(check == 1) {
 			String message = "顧客情報の追加処理においてエラーが発生しました";
 			request.setAttribute("message",message);
 		}
@@ -575,6 +597,11 @@ public class CustomerController extends BaseController{
 //			String message3 = "請求先情報の追加処理においてエラーが発生しました";
 //			request.setAttribute("message3",message3);
 //		}
+		
+		if(check!=1 && check2!=1 && check3!=1) {
+			String message4 = "顧客情報の編集が完了しました";
+			request.setAttribute("message",message4);
+		}
 
 		return forwardURL;
 		
@@ -584,7 +611,7 @@ public class CustomerController extends BaseController{
 	private String deleteCustomer(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException, ClassNotFoundException, SQLException {
 		
-		String forwardURL = "/customeraddmodify.jsp";
+		String forwardURL = "/customersearch.jsp";
 		
 		String customerCode = request.getParameter("customerCode");
 		
@@ -595,6 +622,9 @@ public class CustomerController extends BaseController{
 		//削除処理が正常にできない場合のエラー処理
 		if(check == 1) {
 			String message = "顧客情報の削除処理においてエラーが発生しました";
+			request.setAttribute("message",message);
+		} else {
+			String message = "顧客情報の削除が完了しました";
 			request.setAttribute("message",message);
 		}
 		

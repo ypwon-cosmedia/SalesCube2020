@@ -549,22 +549,21 @@ public class CustomerDAO extends BaseDAO {
 	public String getAddDeliveryCode() throws SQLException, ClassNotFoundException {
 		
 		Connection con;
-		PreparedStatement pstmt= null;
+		Statement stmt= null;
 	 	ResultSet result=null;
 	 	String  sql;
 	 	
 	 	con = super.getConnection();
 	 	
 	 	//(登録時の)最新の納入先コードを取得するSQL文
-	 	sql = "SELECT DELIVERY_CODE FROM delivery_mst_XXXXX where CRE_DATETM = "
+	 	sql = "SELECT * delivery_mst_XXXXX where CRE_DATETM = "
 	 			+ "(select max(CRE_DATETM) from delivery_mst_XXXXX)";
 	 	
-	 	pstmt = con.prepareStatement(sql);
-	 	result = pstmt.executeQuery();
+	 	result = stmt.executeQuery(sql);
 	 	
 	 	String delCode = result.getString("DELIVERY_CODE");
 	 	
-	 	super.releaseDB(con,pstmt,result);
+	 	super.releaseDB(con,stmt,result);
 	 	
 	 	return delCode;
 	}
@@ -607,7 +606,7 @@ public class CustomerDAO extends BaseDAO {
 	}
 	
 	//顧客情報を編集するメソッド
-	public String modifyCustomer(CustomerModifyBean bean) throws SQLException, ClassNotFoundException {
+	public int modifyCustomer(CustomerModifyBean bean) throws SQLException, ClassNotFoundException {
 		
 		Connection con;
 		Statement stmt= null;
@@ -698,12 +697,12 @@ public class CustomerDAO extends BaseDAO {
 	 		result = stmt.executeUpdate(sql);
 	 		con.commit();
 	 	} catch (SQLException e) {
-	 		check = "1";
+	 		result = 1;
 	 	} finally {
-	 		super.releaseDB(con,stmt,result);
+	 		super.releaseDB(con,stmt);
 	 	}
 	 	
-	 	return check;
+	 	return result;
 		
 	}
 	

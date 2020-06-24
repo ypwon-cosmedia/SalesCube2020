@@ -85,11 +85,11 @@
 			<button type="button" class="btn btn-secondary" style="font-size: 12px;" onclick="backForm()">F2<br>戻る</button>
 			<button type="button" class="btn btn-secondary" style="font-size: 12px;" onclick="registrationForm()" >F3<br>${status eq 'add' ? "登録" : "更新"}</button>
 			<button type="button" class="btn btn-secondary" style="font-size: 12px;" onclick= "delete()" ${status eq 'add' ? "disabled" :''}>F4 <br>削除</button>
-			<button type="button" class="btn btn-secondary" style="font-size: 12px;">F5<br>初期値</button>
+			<button type="button" class="btn btn-secondary" style="font-size: 12px;" disabled>F5<br>初期値</button>
 			<button type="button" class="btn btn-secondary" style="font-size: 12px;" disabled>F6<br></button>
 			<button type="button" class="btn btn-secondary" style="font-size: 12px;" disabled>F7<br></button>
 			<form action="/SalesCube2020/SalesCube? action=producthistoryoutput">
-				<button type="button" class="btn btn-secondary" style="font-size: 12px;" onclick= "productHistoryOutPut()" ${status eq 'add' ? "disabled" :''}>F8<br>履歴出力</button>
+				<button type="button" class="btn btn-secondary" style="font-size: 12px;" onclick= "productHistoryOutPut()" disabled>F8<br>履歴出力</button>
 			</form>
 			<button type="button" class="btn btn-secondary" style="font-size: 12px;" disabled>F9<br></button>
 			<button type="button" class="btn btn-secondary" style="font-size: 12px;" disabled>F10<br></button>
@@ -101,7 +101,7 @@
       <br><br><br>
       </div>
 <!-- 顧客情報 -->
-	<form action="" method="post">
+	<form ${status eq 'add' ? "action='/SalesCube2020/SalesCube?action=addCustomer'" :"action='/SalesCube2020/SalesCube?action=modifyCustomer'"} method="post" name="mainform">
       <div class="container" style="background-color: white;"><div class="panel panel-default" >
         <div class="panel-heading row mb-2 col-4">
             <h5><br>顧客情報</h5>
@@ -387,7 +387,9 @@
 	                                <div class="input-group-text" style="background-color: pink;"> 税端数処理</div>
   	                          </div>
   		                          <select class="custom-select" name="fractCategory" value="${customer.fractCategory}">
-
+										<option value="1">切り捨て</option>
+										<option value="2">四捨五入</option>
+										<option value="3">切り上げ</option>
   		                          </select>
  	                       </div>
  	                   </div>
@@ -398,7 +400,8 @@
  	                               <div class="input-group-text" style="background-color: pink;">税転嫁</div>
   	                            </div>
 		                            <select class="custom-select" name="shiftCategory" value="${customer.shiftCategory}">
-
+										<option value="1">外税締単位</option>
+										<option value="2">外税伝票計</option>
  		                            </select>
  	                        </div>
 	                  </div>
@@ -420,9 +423,13 @@
                                 	<div class="input-group-text" style="background-color: pink;">取引区分</div>
                             	</div>
                             	<select class="custom-select" name="salesCMCategory" value="${customer.salesCMCategory}">
-                                	<option selected></option>
-
-
+                                	<option value="1">掛売</option>
+									<option value="2">現金</option>
+									<option value="3">サンプル</option>
+									<option value="4">代引き</option>
+									<option value="5">クレジット</option>
+									<option value="6">先入金</option>
+									<option value="7">通販サイト1経由</option>
                             	</select>
                         	</div>
                     	</div>
@@ -433,9 +440,12 @@
                                 	<div class="input-group-text" style="background-color: pink;">支払い条件</div>
                             	</div>
                             	<select class="custom-select" name="cutoffGroup" value="${customer.cutoffGroup}">
-                                	<option selected></option>
-
-
+                                	<option value="1">10日締め翌月10日</option>
+									<option value="2">20日締め翌月20日</option>
+									<option value="3">25日締め翌月末</option>
+									<option value="4">月末締め翌月末日</option>
+									<option value="5">月末締め翌々月5日</option>
+									<option value="6">その他</option>
                            		</select>
                         	</div>
                     	</div>
@@ -446,8 +456,11 @@
                                 	<div class="input-group-text" style="background-color: pink;">回収方法</div>
                             	</div>
                             	<select class="custom-select" name="paybackTypeCategory" value="${customer.paybackTypeCategory}">
-
-
+                                	<option value="1">現金</option>
+									<option value="2">小切手</option>
+									<option value="3">振込</option>
+									<option value="4">手形</option>
+									<option value="5">その他</option>
                             	</select>
                         	</div>
                     	</div>
@@ -460,8 +473,9 @@
                                 	<div class="input-group-text" style="background-color: pink;">請求書発行単位</div>
                             	</div>
                             	<select class="custom-select" name="billPrintUnit" value="${customer.billPrintUnit}">
-
-
+                                	<option value="1">請求書なし</option>
+									<option value="2">請求締め単位</option>
+									<option value="3">売上伝票単位</option>
                             	</select>
                         	</div>
                     	</div>
@@ -472,8 +486,8 @@
                                 	<div class="input-group-text" style="background-color: pink;">請求書日付有無</div>
                             	</div>
                             	<select class="custom-select" name="billDatePrint" value="{customer.billDatePrint}">
-
-
+                                	<option value="1">なし</option>
+									<option value="2">あり</option>
                             	</select>
                         	</div>
                     	</div>
@@ -532,7 +546,7 @@
     <hr>
     <div class="panel-body">
 
-            <div class="row">
+            <!--  <div class="row">
                 <div class="col-4">
                     <label class="sr-only" for="inlineFormInputGroup"></label>
                     <div class="input-group mb-2">
@@ -547,7 +561,7 @@
                         </select>
                     </div>
                 </div>
-            </div>
+            </div> -->
             <div class="row">
                 <div class="col-4">
                     <label class="sr-only" for="inlineFormInputGroup"></label>
@@ -555,7 +569,7 @@
                         <div class="input-group-prepend">
                             <div class="input-group-text" style="background-color: pink;">納入先名</div>
                         </div>
-                    <input type="text"  class="form-control" id="inlineFormInputGroup deliveryName" name="deliveryName" value="${delivery.deliveryName}">
+                    <input type="text"  class="form-control" id="inlineFormInputGroup deliveryName" name="deliveryName" value="${deliveryList.get(0).deliveryName}">
                     </div>
                 </div>
                 <div class="col-4">
@@ -564,7 +578,7 @@
                         <div class="input-group-prepend">
                             <div class="input-group-text" style="background-color: pink;">納入先名カナ</div>
                         </div>
-                    <input type="text"  class="form-control" id="inlineFormInputGroup deliveryKana" name="deliveryKana" value="${delivery.deliveryKana}">
+                    <input type="text"  class="form-control" id="inlineFormInputGroup deliveryKana" name="deliveryKana" value="${deliveryList.get(0).deliveryKana}">
                     </div>
                 </div>
             </div>
@@ -575,7 +589,7 @@
                         <div class="input-group-prepend">
                             <div class="input-group-text">事業所名</div>
                         </div>
-                    <input type="text"  class="form-control" id="inlineFormInputGroup delOfficeName" name="delOfficeName" value="${delivery.officeName}">
+                    <input type="text"  class="form-control" id="inlineFormInputGroup delOfficeName" name="delOfficeName" value="${deliveryList.get(0).officeName}">
                     </div>
                 </div>
                 <div class="col-4">
@@ -584,7 +598,7 @@
                         <div class="input-group-prepend">
                             <div class="input-group-text">事業所カナ</div>
                         </div>
-                    <input type="text"  class="form-control" id="inlineFormInputGroup delOfficeKana" name="delOfficeKana" value="${delivery.officeKana}">
+                    <input type="text"  class="form-control" id="inlineFormInputGroup delOfficeKana" name="delOfficeKana" value="${deliveryList.get(0).officeKana}">
                     </div>
                 </div>
                 <div class="col-4">
@@ -593,7 +607,7 @@
                         <div class="input-group-prepend">
                             <div class="input-group-text">部署名</div>
                         </div>
-                    <input type="text"  class="form-control" id="inlineFormInputGroup delDeptName" name="delDeptName" value="${delivery.deptName}">
+                    <input type="text"  class="form-control" id="inlineFormInputGroup delDeptName" name="delDeptName" value="${deliveryList.get(0).deptName}">
                     </div>
                 </div>
             </div>
@@ -604,7 +618,7 @@
                         <div class="input-group-prepend">
                             <div class="input-group-text" style="background-color: pink;">郵便番号</div>
                         </div>
-                    <input type="text"  class="form-control" id="inlineFormInputGroup delZipCode " name="delZipCode" value="${delivery.zipCode}">                       
+                    <input type="text"  class="form-control" id="inlineFormInputGroup delZipCode " name="delZipCode" value="${deliveryList.get(0).zipCode}">                       
                     <input type="image" name="" src="btn_search.png" tabindex="101" onclick="" style="vertical-align: middle; cursor: pointer; width: 32px;">
                     </div>
                 </div>
@@ -614,7 +628,7 @@
                         <div class="input-group-prepend">
                             <div class="input-group-text" style="background-color: pink;">住所1</div>
                         </div>
-                        <input type="text"  class="form-control" id="inlineFormInputGroup delAddress1" name="delAddress1" value="${delivery.address1}">
+                        <input type="text"  class="form-control" id="inlineFormInputGroup delAddress1" name="delAddress1" value="${deliveryList.get(0).address1}">
                     </div>
                 </div>
                 <div class="col-4">
@@ -623,7 +637,7 @@
                         <div class="input-group-prepend">
                             <div class="input-group-text">住所2</div>
                         </div>
-                    <input type="text"  class="form-control" id="inlineFormInputGroup delAddress2" name="delAddress2" value="${delivery.address2}">
+                    <input type="text"  class="form-control" id="inlineFormInputGroup delAddress2" name="delAddress2" value="${deliveryList.get(0).address2}">
                     </div>
                 </div>
             </div>
@@ -634,7 +648,7 @@
                         <div class="input-group-prepend">
                             <div class="input-group-text">担当者</div>
                         </div>
-                    <input type="text"  class="form-control" id="inlineFormInputGroup delPCName" name="delPCName" value="${delivery.PCName}">
+                    <input type="text"  class="form-control" id="inlineFormInputGroup delPCName" name="delPCName" value="${deliveryList.get(0).PCName}">
                     </div>
                 </div>
                 <div class="col-4">
@@ -643,7 +657,7 @@
                         <div class="input-group-prepend">
                             <div class="input-group-text">担当者カナ</div>
                         </div>
-                    <input type="text"  class="form-control" id="inlineFormInputGroup delPCNameKana" name="delPCKana" value="${delivery.PCKana}">
+                    <input type="text"  class="form-control" id="inlineFormInputGroup delPCNameKana" name="delPCKana" value="${deliveryList.get(0).PCKana}">
                     </div>
                 </div>
             
@@ -653,8 +667,11 @@
                         <div class="input-group-prepend">
                             <div class="input-group-text">敬称</div>
                         </div>
-                        <select class="custom-select" name="delPCPreCategory" value="${delivery.PCPreCategory}" id="delPCPreCategory">
-
+                        <select class="custom-select" name="delPCPreCategory" value="${deliveryList.get(0).PCPreCategory}" id="delPCPreCategory">
+                                	<option value=""></option>
+									<option value="1">御中</option>
+									<option value="2">様</option>
+									<option value="3">殿</option>
                         </select>
                     </div>
 　　　　　　    　　　</div>
@@ -666,7 +683,7 @@
                         <div class="input-group-prepend">
                             <div class="input-group-text">TEL</div>
                         </div>
-                    <input type="text"  class="form-control" id="inlineFormInputGroup delTel" name="delTel" value="${delivery.tel}">
+                    <input type="text"  class="form-control" id="inlineFormInputGroup delTel" name="delTel" value="${deliveryList.get(0).tel}">
                     </div>
                 </div>
                 <div class="col-3">
@@ -675,7 +692,7 @@
                         <div class="input-group-prepend">
                             <div class="input-group-text">FAX</div>
                         </div>
-                    <input type="text"  class="form-control" id="inlineFormInputGroup delFax" name="delFax" value="${delivery.fax}">
+                    <input type="text"  class="form-control" id="inlineFormInputGroup delFax" name="delFax" value="${deliveryList.get(0).fax}">
                     </div>
                 </div>
             </div>
@@ -686,7 +703,7 @@
                         <div class="input-group-prepend">
                             <div class="input-group-text">E-MAIL</div>
                         </div>
-                    <input type="text"  class="form-control" id="inlineFormInputGroup delEmail" name="delEmail" value="${delivery.email}">
+                    <input type="text"  class="form-control" id="inlineFormInputGroup delEmail" name="delEmail" value="${deliveryList.get(0).email}">
                     </div>
                 </div>
             </div>            
@@ -811,7 +828,10 @@
                             <div class="input-group-text">敬称</div>
                         </div>
                         <select class="custom-select" name="delPCPreCategory2" value="${delivery2.PCPreCategory}">
-
+                                	<option value=""></option>
+									<option value="1">御中</option>
+									<option value="2">様</option>
+									<option value="3">殿</option>
                         </select>
                     </div>
 　　　　　　    　　　</div>
@@ -857,11 +877,14 @@
 
 <!-- ボタン -->
 <div align="right" class="container">
-    <input type="button" value="初期化" class="btn btn-outline-secondary">
-    <input type="submit" value="更新" class="btn btn-outline-secondary">
-    <input type="submit" value="削除" class="btn btn-outline-secondary">
+    <input type="button" value="初期化" class="btn btn-outline-secondary" onclick="initForm()" >
+    <input type="submit" value="${status eq 'add' ? '登録' : '更新'}" class="btn btn-outline-secondary">
+    <input type="submit" value="削除" class="btn btn-outline-secondary" onclick="deleteForm()" ${status eq 'add' ? "disabled" :''}>
 </div>
 </form> 
+	<form action="/SalesCube2020/SalesCube?action=deleteCustomer" method="post" name="deleteform">
+		<input type="hidden" name="customerCode" value="${customer.customerCode}">
+	</form>
 <br><br>    
 
 
@@ -870,20 +893,29 @@
 		if(!confirm("入力内容を初期化してよろしいですか？")){
 			return;
 		}
-		window.location.href = '/SalesCube2020/customeraddmodify.jsp';
+		window.location.href = '/SalesCube2020/SalesCube?action=moveAddCustomer';
 	}
     	
 	function backForm() {
 		if(!confirm("顧客検索画面に戻ります。よろしいですか？")) {
 			return;
 		}
-		window.location.href = '/SalesCube2020/searchCustomer.jsp';
+		window.location.href = '/SalesCube2020/SalesCube?action=customer';
 	}
     		
 	function registrationForm() {
-		if(!confirm("入力内容を登録します。よろしいですか？")) {
-			return;
-		}
+	 var status = ${status};
+	 	if(status=="add"){
+			if(!confirm("入力内容を登録します。よろしいですか？")) {
+				return;
+			}
+	 	}
+	 	else {
+			if(!confirm("入力内容を更新します。よろしいですか？")) {
+				return;
+			}
+	 }
+
     			
 	}
     		
@@ -891,6 +923,9 @@
 		if(!confirm("このデータを削除しますか？")) {
 			return;
 		}
+		var form = document.deleteform;
+		
+		form.submit();
     			
 	}
     		
@@ -900,7 +935,7 @@
 		}		
 	}
  
- 	
+ 	/*
  	var deliveryList = [];
 		window.onload = function(){
 			var loop=0;
@@ -911,24 +946,23 @@
 					 deliveryCode:"${delivery.deliveryCode}",
 					 deliveryName:"${delivery.deliveryName}",
 					 deliveryKana:"${delivery.deliveryKana}",
-					 delOfficeName:"${delivery.delOfficeName}",
-					 delOfficeKana:"${delivery.delOfficeKana}",
-					 delDeptName:"${delivery.delDeptName}",
-					 delZipCode:"${delivery.delZipCode}",
-					 delAddress1:"${delivery.delAddress1}",
-					 delAddress2:"${delivery.delAddress2}",
-					 delPCName:"${delivery.delPCName}",
-					 delPCNameKana:"${delivery.delPCNameKana}",
-					 delPCPreCategory:"${delivery.delPCPreCategory}",
-					 delTel:"${delivery.delTel}",
-					 delFax:"${delivery.delFax}",
-					 delEmail:"${delivery.delEmail}",	
+					 delOfficeName:"${delivery.officeName}",
+					 delOfficeKana:"${delivery.officeKana}",
+					 delDeptName:"${delivery.deptName}",
+					 delZipCode:"${delivery.zipCode}",
+					 delAddress1:"${delivery.address1}",
+					 delAddress2:"${delivery.address2}",
+					 delPCName:"${delivery.PCName}",
+					 delPCNameKana:"${delivery.PCKana}",
+					 delPCPreCategory:"${delivery.PCPreCategory}",
+					 delTel:"${delivery.tel}",
+					 delFax:"${delivery.fax}",
+					 delEmail:"${delivery.email}"	
 					  };
 		  			loop++;  	
 			</c:forEach>
  
- 
- 	function setInitDelivery(del) {
+  	function setInitDelivery(del) {
  		
  		alert();
  		
@@ -941,7 +975,6 @@
  			if(list[count].deliveryCode == deliveryCode){
  				index == count;
  			}
- 		}
  		document.getElementByID("deliveryCode").value = list[index].deliveryCode;
  		document.getElementByID("deliveryName").value = list[index].deliveryName;
  		document.getElementByID("deliveryKana").value = list[index].deliveryKana;
@@ -959,7 +992,13 @@
  		document.getElementByID("delEmail").value = list[index].delEmail;
  		}
 
- 	}
+ 	} */
+		
+	
+	function doSubmit(){
+		var form = document.mainform;
+		form.submit();
+	}
 </script>
 	
 	</body>

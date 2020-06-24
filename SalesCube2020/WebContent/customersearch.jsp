@@ -3,15 +3,6 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
 
-<% int rowCount;
-
-	if((String) request.getParameter("rowCount")==null){
-		rowCount = 100;
-	} else{
-		rowCount =Integer.parseInt((String) request.getParameter("rowCount"));
-	}
-%>    
-
 <!doctype html>
 <html lang="en">
   <head>
@@ -100,15 +91,13 @@
       <div class="btn-toolbar float-right" role="toolbar" aria-label="Toolbar with button groups">
         <div class="btn-group mr-2 " role="group" aria-label="First group">
           <button type="button" class="btn btn-secondary" style="font-size: 12px;" onclick="initForm()" >F1<br>初期化</button>
-			<button type="button" class="btn btn-secondary" style="font-size: 12px;" onclick="backForm()">F2<br>戻る</button>
-			<button type="button" class="btn btn-secondary" style="font-size: 12px;" onclick="registrationForm()" >F3<br>${status eq 'add' ? "登録" : "更新"}</button>
-			<button type="button" class="btn btn-secondary" style="font-size: 12px;" onclick= "deleteForm()" ${status eq 'add' ? "disabled" :''}>F4 <br>削除</button>
-			<button type="button" class="btn btn-secondary" style="font-size: 12px;">F5<br>初期値</button>
+			<button type="button" class="btn btn-secondary" style="font-size: 12px;" onclick="doSubmit()">F2<br>検索</button>
+			<button type="button" class="btn btn-secondary" style="font-size: 12px;" onclick="moveAddCustomerForm()" >F3<br>追加</button>
+			<button type="button" class="btn btn-secondary" style="font-size: 12px;" disabled>F4 <br></button>
+			<button type="button" class="btn btn-secondary" style="font-size: 12px;" disabled>F5<br></button>
 			<button type="button" class="btn btn-secondary" style="font-size: 12px;" disabled>F6<br></button>
 			<button type="button" class="btn btn-secondary" style="font-size: 12px;" disabled>F7<br></button>
-			<form action="/SalesCube2020/SalesCube? action=producthistoryoutput">
-				<button type="button" class="btn btn-secondary" style="font-size: 12px;" onclick= "productHistoryOutPut()" ${status eq 'add' ? "disabled" :''}>F8<br>履歴出力</button>
-			</form>
+			<button type="button" class="btn btn-secondary" style="font-size: 12px;" disabled>F8<br></button>
 			<button type="button" class="btn btn-secondary" style="font-size: 12px;" disabled>F9<br></button>
 			<button type="button" class="btn btn-secondary" style="font-size: 12px;" disabled>F10<br></button>
 			<button type="button" class="btn btn-secondary" style="font-size: 12px;" disabled>F11<br></button>
@@ -117,8 +106,11 @@
       </div>
       <br><br><br>
       </div>
+      <h2>${message}</h2>
+      <h2>${message2}</h2>
+      <h2>${message3}</h2>
 		<div class="container" style="background-color: white;"><div class="panel panel-default" >
-			<form action="/SalesCube2020/SalesCube?action=searchCustomer" name="sampleform" method="post">
+			<form action="/SalesCube2020/SalesCube?action=searchCustomer" name="mainform" method="post">
 			<div class="panel-heading row mb-2 col-4">
 				<h5><br>顧客情報</h5>
 			</div>
@@ -282,17 +274,13 @@
 
 					<div align="right">
 						<button type="button" class="btn btn-outline-secondary" onclick="initForm()">初期化</button>
-						<input type="hidden" value="${rowCount}" id="rowCount">
+						<input type="hidden" value="10" id="rowCount">
 						<input type="submit" value="検索" class="btn btn-outline-secondary">
 					</div>
 			</div>
-<br>
-	<c:forEach var="pageCount" items="${totalPage}">
-		<a id='MySelect' href="http://localhost:8080/SalesCube2020/SalesCube?action=searchCustomer&rowCount=${rowCount}&currentPage=${pageCount}" >${pageCount}</a>
-	</c:forEach>
-<br>
+<br><br>
 		<div class="container">
-            <div class="float-left" style="position:static; left: 0px;">検索結果件数： ${totalCount}件</div>
+            <div class="float-left" style="position:static; left: 0px;">検索結果件数： ${fn:length(customerList)}件</div>
   
          	<div class="rounded float-right">
                 ページあたりの表示件数
@@ -336,13 +324,13 @@
 						<td class="deptName" style="white-space: normal; text-align: left;">&nbsp;${customer.deptName}&nbsp;</td>
 						<td style="text-align: center">
 							<div style="display:inline-flex">
-								<form action="/SalesCube2020/SalesCube?action=moveModifyCustomer">
-									<input type="hidden" name="customer" value="${customer.customerCode}">	
+								<form action="/SalesCube2020/SalesCube?action=moveModifyCustomer" method="post">
+									<input type="hidden" name="customerCode" value="${customer.customerCode}">	
 									<input type="submit" class="btn btn-outline-secondary" value="編集">
 								</form>
-								<form action="/SalesCube2020/SalesCube?action=deleteCustomer">
+								<form action="/SalesCube2020/SalesCube?action=deleteCustomer" method="post">
 									<input type="hidden" name="customerCode" value="${customer.customerCode}">	
-									<input type="submit" class="btn btn-outline-secondary" value="削除">
+									<input type="submit" class="btn btn-outline-secondary" value="削除" onclick="deleteForm()">
 								</form>
 							</div>
 						</td>
@@ -370,21 +358,18 @@ function initForm() {
 	if(!confirm("入力内容を初期化してよろしいですか？")){
 		return;
 	}
-	window.location.href = '/SalesCube2020/customersearch.jsp';
+	window.location.href = '/SalesCube2020/SalesCube?action=customer';
 }
    	
 function backForm() {
 	if(!confirm("メニュー画面に戻ります。よろしいですか？")) {
 		return;
 	}
-	window.location.href = '/SalesCube2020/menu.jsp';
+	window.location.href = '/SalesCube2020/SalesCube?action=menu';
 }
    		
-function registrationForm() {
-	if(!confirm("入力内容を登録します。よろしいですか？")) {
-		return;
-	}
-   			
+function moveAddCustomerForm() {
+   	window.location.href = '/SalesCube2020/SalesCube?action=moveAddCustomer';
 }
    		
 function deleteForm() {
@@ -399,12 +384,13 @@ function customerHistoryOutPut() {
 		return;
 	}		
 }
-</script>
-<script>
-$(function() {
-    var temp = "<%= rowCount %>"; 
-    $("#rowCount").val(temp);
-});
+
+
+function doSubmit(){
+	var form = document.mainform;
+	
+	form.submit();
+}
 </script>
 	</body>
 </html>
