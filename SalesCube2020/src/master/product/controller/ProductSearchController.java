@@ -4,7 +4,12 @@ import java.io.*;
 import javax.servlet.*;
 import javax.servlet.http.*;
 
+import common.beans.ProductStandardCategoryBean;
+import common.beans.ProductStatusCategoryBean;
+import common.beans.ProductStockCategoryBean;
+import common.beans.SetTypeCategoryBean;
 import common.controller.BaseController;
+import common.dao.MenuDAO;
 import master.customer.beans.customerSearchBeans.CustomerResultBean;
 import master.product.DAO.GetCategoryDAO;
 import master.product.DAO.ProductDAO;
@@ -31,12 +36,18 @@ public class ProductSearchController extends BaseController{
 		String forwardURL = "/menu.jsp";
 		String action = request.getParameter("action");
 
-		if(action.equals("searchProduct")) forwardURL = searchProduct(request, response);
+		if(action.equals("searchProduct"))
+			try {
+				forwardURL = searchProduct(request, response);
+			} catch (ClassNotFoundException | MissingResourceException | ServletException | IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 		
 		return forwardURL;
 	}
 	
-	private String searchProduct(HttpServletRequest request, HttpServletResponse response)  throws ServletException, IOException{
+	private String searchProduct(HttpServletRequest request, HttpServletResponse response)  throws ServletException, IOException, ClassNotFoundException, MissingResourceException{
 		// TODO Auto-generated method stub
 
 		List<ProductResultBean> list = new ArrayList<ProductResultBean>();
@@ -45,6 +56,18 @@ public class ProductSearchController extends BaseController{
 		List<ProductCategoryAllBean> list2 = new ArrayList<ProductCategoryAllBean>();		
 		GetCategoryDAO dao2 = new GetCategoryDAO();
 
+		List<ProductStockCategoryBean> list3 = new ArrayList<ProductStockCategoryBean>();
+		List<SetTypeCategoryBean> list4 = new ArrayList<SetTypeCategoryBean>();
+		List<ProductStandardCategoryBean> list5 = new ArrayList<ProductStandardCategoryBean>();
+		List<ProductStatusCategoryBean> list6 = new ArrayList<ProductStatusCategoryBean>();
+		
+		MenuDAO dao3 = new MenuDAO();
+		
+		list3 = dao3.getProductStockCategory();
+		list4 = dao3.getSetTypeCategory();
+		list5 = dao3.getProductStandardCategory();
+		list6 = dao3.getProductStatusCategory();
+		
 		String productCode = null;
 		String productName = null;
 		String productKana = null;
@@ -100,6 +123,11 @@ public class ProductSearchController extends BaseController{
 		request.setAttribute("search", list);
 		request.setAttribute("init", bean);
 		request.setAttribute("all", list2);
+		
+		request.setAttribute("prosearch", list3);
+		request.setAttribute("setTypeCategory", list4);
+		request.setAttribute("productStandardCategory", list5);
+		request.setAttribute("productStatusCategory", list6);	
 		
 		return "/productsearch.jsp";
 	}

@@ -67,8 +67,8 @@ final public class MenuController extends BaseController{
 	private String moveProduct (HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException, ClassNotFoundException, SQLException {
 		
 		
-		List<ProductStockCategoryBean> list2 = new ArrayList<>();
-		List<SetTypeCategoryBean> list3 = new ArrayList<>();
+		List<ProductStockCategoryBean> list2 = new ArrayList<ProductStockCategoryBean>();
+		List<SetTypeCategoryBean> list3 = new ArrayList<SetTypeCategoryBean>();
 		List<ProductStandardCategoryBean> list4 = new ArrayList<ProductStandardCategoryBean>();
 		List<ProductStatusCategoryBean> list5 = new ArrayList<ProductStatusCategoryBean>();
 		List<ProductCategoryAllBean> list8 = new ArrayList<ProductCategoryAllBean>();
