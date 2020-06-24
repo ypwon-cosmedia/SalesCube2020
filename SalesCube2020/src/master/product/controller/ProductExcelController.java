@@ -47,26 +47,58 @@ public class ProductExcelController extends BaseController{
 		//DAOを呼び出す
 		ProductSearchDAO psd = new ProductSearchDAO();
 		//検索条件の取得
-		ProductSearchBean bean = new ProductSearchBean();
-		
+
 		request.setCharacterEncoding("UTF-8");
-		bean.setProductCode( request.getParameter("productCode") );
-		bean.setProductName( request.getParameter("productName") );
-		bean.setProductKana( request.getParameter("productKana") );
-		bean.setSupplierCode( request.getParameter("supplierCode") );
-		bean.setSupplierName( request.getParameter("supplierName") );
-		bean.setProductStandardCategory( request.getParameter("productStandardCategory") );
-		bean.setProductStatusCategory( request.getParameter("productStatusCategory") );
-		bean.setProductStockCategory( request.getParameter("productStockCategory") );
-		bean.setSetTypeCategory(  request.getParameter("setTypeCategory") );
-		bean.setRemarks( request.getParameter("remarks") );
-		bean.setProduct1( request.getParameter("product1") );
-		bean.setProduct2( request.getParameter("product2") );
-		bean.setProduct3( request.getParameter("product3") );
+		
+		String productCode = null;
+		String productName = null;
+		String productKana = null;
+		String supplierCode = null;
+		String supplierName = null;
+		String productStandardCategory = null;
+		String productStatusCategory = null;
+		String productStockCategory = null;
+		String setTypeCategory = null;
+		String remarks = null;
+		String product1 = null;
+		String product2 = null;
+		String product3 = null;
+		
+		productCode = (String)request.getParameter("productCode");
+		productName = (String)request.getParameter("productName");
+		productKana = (String)request.getParameter("productKana");
+		supplierCode = (String)request.getParameter("supplierCode");
+		supplierName = (String)request.getParameter("supplierName");
+		productStandardCategory = (String)request.getParameter("productStandardCategory");
+		productStatusCategory = (String)request.getParameter("productStatusCategory");
+		productStockCategory = (String)request.getParameter("productStockCategory");
+		setTypeCategory = (String)request.getParameter("setTypeCategory");
+		remarks = (String)request.getParameter("remarks");
+		product1 = (String)request.getParameter("product1");
+		product2 = (String)request.getParameter("product2");
+		product3 = (String)request.getParameter("product3");
+		
+
+			ProductSearchBean bean = new ProductSearchBean();
+			bean.setProductCode(productCode);
+			bean.setProductName(productName);
+			bean.setProductKana(productKana);
+			bean.setSupplierCode(supplierCode);
+			bean.setSupplierName(supplierName);
+			bean.setProductStandardCategory(productStandardCategory);
+			bean.setProductStatusCategory(productStatusCategory);
+			bean.setProductStockCategory(productStockCategory);
+			bean.setSetTypeCategory(setTypeCategory);
+			bean.setRemarks(remarks);
+			bean.setProduct1(product1);
+			bean.setProduct2(product2);
+			bean.setProduct3(product3);
 		
 		//検索結果をlistに入れる
 			try {
+				
 				list = psd.searchAllProduct( bean );
+				
 			} catch (SQLException e) {
 				e.printStackTrace();
 			}
