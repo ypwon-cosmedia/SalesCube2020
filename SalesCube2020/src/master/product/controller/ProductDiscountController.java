@@ -28,9 +28,8 @@ public class ProductDiscountController extends BaseController{
 
 		String forwardURL = "/menu.jsp";
 		String action = request.getParameter("action");
-
-
-		 if(action.equals("quantityDiscount")) forwardURL = quantityDiscount(request, response);
+		
+		if(action.equals("quantityDiscount")) 	forwardURL = quantityDiscount(request, response);
 		
   		return forwardURL;
       	}
@@ -38,24 +37,52 @@ public class ProductDiscountController extends BaseController{
 
 	private String quantityDiscount(HttpServletRequest request, HttpServletResponse response) {
 		String forwardURL = "/quantitydiscount.jsp";
-		String message = null;
 		
 		//åüçıópBean
 		QuantityDiscountBean qdb = new QuantityDiscountBean();
 		ProductDiscountDAO discountDAO = new ProductDiscountDAO();
 		
 		try {
+		String disId;
+		String uf;
+		String disNm;
+		String rem;
 		
 		//JSPÇ©ÇÁèÓïÒÇéÊìæ
-		qdb.setDiscountId( request.getParameter("discountCode") );
-		qdb.setUseFlag( request.getParameter("useFlag") );
-		qdb.setDiscountName( request.getParameter("discountName") );
-		qdb.setRemarks( request.getParameter("remarks") );
+		if( (request.getParameter("discountId")) == null ) {
+			disId = "";
+		}else {
+			disId = request.getParameter("discountId");
+		}
+		
+		if( (request.getParameter("useFlag")) == null ) {
+			uf = "";
+		}else {
+			uf = request.getParameter("useFlag");
+		}
+		
+		if( (request.getParameter("discountName")) == null ) {
+			disNm = "";
+		}else {
+			disNm = request.getParameter("discountName");
+		}
+		
+		if( (request.getParameter("remarks")) == null ) {
+			rem = "";
+		}else {
+			rem = request.getParameter("remarks");
+		}
+
+		qdb.setDiscountId( disId );
+		qdb.setUseFlag( uf );
+		qdb.setDiscountName( disNm );
+		qdb.setRemarks( rem );
 		
 		List<DiscountSearchBean> list = discountDAO.searchQuantityDiscount(qdb);
 		
-		request.setAttribute("quantitydiscountserchresultcount", list.size() );
-		request.setAttribute("quantitydiscountserchresult", list);
+		request.setAttribute("quantitydiscountsearchresultcount", list.size() );
+		request.setAttribute("quantitydiscountsearchresult", list);
+		
 		
 		}catch (ClassNotFoundException e) {
 			e.printStackTrace();

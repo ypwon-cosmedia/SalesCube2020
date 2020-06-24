@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; utf-8"
     pageEncoding="utf-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+${quantitydiscountsearchresult}
 <!doctype html>
 <html lang="en">
   <head>
@@ -49,7 +50,7 @@
     <div class="form-group container">
     <br><h5>数量割引検索</h5>
     <hr>
-    <form action="/SalesCube2020/SalesCube?action=quantitydiscountserch">
+    <form action="/SalesCube2020/SalesCube?action=quantityDiscount" method="post">
         <div class="row">
             <div class="col-4">
                 <label class="sr-only" for="inlineFormInputGroup">discountId</label>
@@ -57,7 +58,7 @@
                     <div class="input-group-prepend">
                         <div class="input-group-text" >割引コード</div>
                     </div>
-                <input type="text"  class="form-control" id="inlineFormInputGroup" name="discountCodeId" >
+                <input type="text"  class="form-control" id="inlineFormInputGroup" name="discountId" >
                 </div>
             </div>
             <div class="col-6">
@@ -81,7 +82,7 @@
                     <div class="input-group-prepend">
                         <div class="input-group-text" >割引名</div>
                     </div>
-                <input type="text"  class="form-control" id="inlineFormInputGroup" name="discountNmae">
+                <input type="text"  class="form-control" id="inlineFormInputGroup" name="discountName">
                 </div>
             </div>
         </div>
@@ -107,9 +108,10 @@
 
     <div class="container">
         <div class="float-left" style="position:static; left: 0px;">
-            検索結果件数：${quantitydiscountserchresultcount}件
+            検索結果件数：${quantitydiscountsearchresultcount}件
         </div>
-        <div class="rounded float-right">
+    </div>
+    <!--   <div class="rounded float-right">
             ページあたりの表示件数
             <select id="rowCount" name="rowCount">
                 <option value="10">10</option>
@@ -117,7 +119,7 @@
                 <option value="100" selected>100</option>
             </select>
         </div>
-    </div><br><br>
+    </div> -->  <br><br>
 
 
     <div class="container" style="background-color: white;"><div class="panel panel-default" >
@@ -125,15 +127,15 @@
         <table id="order_detail_info" class="table table-bordered">
             <thead class="thead-dark">
                 <tr>
-                    <th scope="col" class="rd_top_left th_back_black" >割引詳細</th>
+                    <!-- <th scope="col" class="rd_top_left th_back_black" >割引詳細</th> -->
                     <th scope="col" class="th_back_black"  >割引コード</th>
                     <th scope="col" class="th_back_black" >割引名</th>
                     <th scope="col" class="th_back_black"  >割引有効</th>
                 </tr>
             </thead>
-            <c:forEach items="${quantitydiscountserchresult}" var="discount">
+            <c:forEach items="${quantitydiscountsearchresult}" var="discount">
                 <tr>
-                    <td style="white-space: normal; text-align: left;">
+                    <!-- <td style="white-space: normal; text-align: left;">
                     	<button type="button" class="btn btn-outline-secondary" data-toggle="modal" data-target="#discountdetail">
                            	 割引詳細
                         </button>
@@ -166,10 +168,10 @@
                               </div>
                             </div>
                           </div>
-                    </td>
-                    <td style="white-space: normal; text-align: left;">${discount.discountID}</td>
+                    </td> -->
+                    <td style="white-space: normal; text-align: left;">${discount.discountId}</td>
                     <td style="white-space: normal; text-align: left;">${discount.discountName}</td>
-                    <td style="white-space: normal; text-align: left;">${discount.useFrag}</td>
+                    <td style="white-space: normal; text-align: left;">${discount.useFlag}</td>
                 </tr>
             </c:forEach>
         </table>

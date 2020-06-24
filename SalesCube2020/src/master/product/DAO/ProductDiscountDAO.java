@@ -30,17 +30,17 @@ public class ProductDiscountDAO extends BaseDAO{
 	 	con = super.getConnection();
 	 	stmt = con.createStatement();
 	 	
-	 	if(bean.getDiscountId() == null) {
-	 		bean.setDiscountId("'%'");
+	 	if(bean.getDiscountId() == null || bean.getDiscountId().equals("")) {
+	 		bean.setDiscountId("%");
 	 	}
-	 	if(bean.getUseFlag() == null) {
-	 		bean.setUseFlag("'%'");
+	 	if(bean.getUseFlag() == null || bean.getUseFlag().equals("")) {
+	 		bean.setUseFlag("%");
 	 	}
-	 	if(bean.getDiscountName() == null) {
-	 		bean.setDiscountName("'%'");
+	 	if(bean.getDiscountName() == null || bean.getDiscountName().equals("")) {
+	 		bean.setDiscountName("%");
 	 	}
-	 	if(bean.getRemarks() == null) {
-	 		bean.setRemarks("'%'");
+	 	if(bean.getRemarks() == null || bean.getRemarks().equals("")) {
+	 		bean.setRemarks("%");
 	 	}
 	 	
 	 	
@@ -49,11 +49,11 @@ public class ProductDiscountDAO extends BaseDAO{
 	 		  +" FROM"
 	 			+" discount_mst_xxxxx dmx "
 	 		  +" WHERE"
-	 		    +" dmx.DISCOUNT_ID LIKE " + "'%" + bean.getDiscountId() + "%'"
-	 		    +" AND 	dmx.USE_FLAG LIKE " + "'%" + bean.getUseFlag() + "%'"
-	 		    +" AND 	dmx.DISCOUNT_NAME LIKE " + "'%" + bean.getDiscountName() + "%'"
-	 		    +" AND 	dmx.REMARKS LIKE " + "'%" + bean.getRemarks() + "%'"
-	 		  +" ORDER BY"
+	 		    +" dmx.DISCOUNT_ID LIKE '" + bean.getDiscountId()
+	 		    +"' AND 	dmx.USE_FLAG LIKE '" + bean.getUseFlag()
+	 		    +"' AND 	dmx.DISCOUNT_NAME LIKE '" + bean.getDiscountName()
+	 		    +"' AND 	dmx.REMARKS LIKE '" + bean.getRemarks()
+	 		  +"' ORDER BY"
 	 			+" dmx.DISCOUNT_ID";
 	 	
 	 	result = stmt.executeQuery(sql);
