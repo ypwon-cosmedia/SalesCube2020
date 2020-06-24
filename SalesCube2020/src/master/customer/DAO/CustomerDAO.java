@@ -337,9 +337,8 @@ public class CustomerDAO extends BaseDAO {
 
 		Connection con;
 		PreparedStatement pstmt= null;
-	 	ResultSet result=null;	
+	 	int result=0;	
 	 	String  sql;
-	 	int check = 0;
 	 	
 	 	//bean‚©‚ç’Ç‰Á‚·‚éŒÚ‹qî•ñ‚ğæ“¾‚·‚é
 	 	String customerCode         = bean.getCustomerCode();
@@ -455,15 +454,15 @@ public class CustomerDAO extends BaseDAO {
 	 	pstmt.setString(35, comment);
 	 	
 	 	try {
-	 		result = pstmt.executeQuery();
+	 		result = pstmt.executeUpdate();
 	 		con.commit();
 	 	} catch (SQLException e) {
-	 		check = 1;
+	 		result = 1;
 	 	} finally {
-	 		super.releaseDB(con,pstmt,result);
+	 		super.releaseDB(con,pstmt);
 	 	}
 	 	
-	 	return check;
+	 	return result;
 
 	}
 	
@@ -472,9 +471,8 @@ public class CustomerDAO extends BaseDAO {
 
 		Connection con;
 		PreparedStatement pstmt= null;
-	 	ResultSet result=null;
+	 	int result=0;
 	 	String  sql;
-	 	int check = 0;
 	 	
 	 	//Bean‚©‚ç’Ç‰Á‚·‚é”[“üæî•ñ‚ğæ“¾‚·‚é
 	 	String address1         = bean.getAddress1();
@@ -534,15 +532,16 @@ public class CustomerDAO extends BaseDAO {
 	 	
 	 	
 	 	try {
-	 		result = pstmt.executeQuery();
+	 		result = pstmt.executeUpdate();
+	 		System.out.println(result);
 	 		con.commit();
 	 	} catch (SQLException e) {
-	 		check = 1;
+	 		result = 1;
 	 	} finally {
-	 		super.releaseDB(con,pstmt,result);
+	 		super.releaseDB(con,pstmt);
 	 	}
 	 	
-	 	return check;
+	 	return result;
 	}
 	 
 	//(“o˜^‚Ì)ÅV‚Ì”[“üæƒR[ƒh‚ğæ“¾‚·‚é
@@ -552,16 +551,21 @@ public class CustomerDAO extends BaseDAO {
 		Statement stmt= null;
 	 	ResultSet result=null;
 	 	String  sql;
+	 	String delCode=null;
 	 	
 	 	con = super.getConnection();
+	 	stmt = con.createStatement();
 	 	
 	 	//(“o˜^‚Ì)ÅV‚Ì”[“üæƒR[ƒh‚ğæ“¾‚·‚éSQL•¶
-	 	sql = "SELECT * delivery_mst_XXXXX where CRE_DATETM = "
+	 	sql = "SELECT DELIVERY_CODE from delivery_mst_XXXXX where CRE_DATETM = "
 	 			+ "(select max(CRE_DATETM) from delivery_mst_XXXXX)";
 	 	
 	 	result = stmt.executeQuery(sql);
 	 	
-	 	String delCode = result.getString("DELIVERY_CODE");
+	 	
+	 	while(result.next()){
+	 		delCode = result.getString("DELIVERY_CODE");
+	 	}
 	 	
 	 	super.releaseDB(con,stmt,result);
 	 	
@@ -574,8 +578,7 @@ public class CustomerDAO extends BaseDAO {
 		
 		Connection con;
 		PreparedStatement pstmt= null;
-	 	ResultSet result=null;
-	 	int check = 0;
+	 	int result=0;
 	 	String sql;
 		
 	 	
@@ -594,15 +597,15 @@ public class CustomerDAO extends BaseDAO {
 	 	
 	 	
 	 	try {
-	 		result = pstmt.executeQuery();
+	 		result = pstmt.executeUpdate();
 	 		con.commit();
 	 	} catch (SQLException e) {
-	 		check = 1;
+	 		result = 1;
 	 	} finally {
-	 		super.releaseDB(con,pstmt,result);
+	 		super.releaseDB(con,pstmt);
 	 	}
 	 	
-	 	return check;
+	 	return result;
 	}
 	
 	//ŒÚ‹qî•ñ‚ğ•ÒW‚·‚éƒƒ\ƒbƒh
