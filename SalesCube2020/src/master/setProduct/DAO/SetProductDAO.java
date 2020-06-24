@@ -88,25 +88,31 @@ public class SetProductDAO extends BaseDAO {
 	 	stmt = con.createStatement();
 	 	
 	 	if(input.getSetProductCode() == null) {
-	 		input.setSetProductCode("%");
+	 		input.setSetProductCode("%'");
+	 	}
+	 	else {
+	 		input.setSetProductCode(input.getSetProductCode().concat("%'"));
 	 	}
 	 	
 	 	if(input.getSetProductName() == null) {
-	 		input.setSetProductName("%");
+	 		input.setSetProductName("%'");
+	 	}
+	 	else {
+	 		input.setSetProductName(input.getSetProductName().concat("%'"));
 	 	}
 	 	
 	 	if(input.getProductName() == null) {
 	 		input.setProductName("%' or b.PRODUCT_CODE IS NULL");
 	 	}
 	 	else {
-	 		input.setProductName(input.getProductName().concat("'"));
+	 		input.setProductName(input.getProductName().concat("%'"));
 	 	}
 	 	
 	 	if(input.getProductCode() == null) {
 	 		input.setProductCode("%' or a.PRODUCT_NAME IS NULL");
 	 	}
 	 	else {
-	 		input.setProductCode(input.getProductCode().concat("'"));
+	 		input.setProductCode(input.getProductCode().concat("%'"));
 	 	}
 	 	
 	 	
@@ -124,8 +130,8 @@ public class SetProductDAO extends BaseDAO {
 	 			"left join (select PRODUCT_NAME, PRODUCT_CODE from product_mst_xxxxx) a on a.PRODUCT_CODE = b.PRODUCT_CODE " + 
 	 			"where " + 
 	 			"c.PRODUCT_CODE LIKE '" + input.getSetProductCode() + 
-	 			"' and c.PRODUCT_NAME LIKE '" + input.getSetProductName() +
-	 			"' and (b.PRODUCT_CODE LIKE '" + input.getProductCode() +
+	 			" and c.PRODUCT_NAME LIKE '" + input.getSetProductName() +
+	 			" and (b.PRODUCT_CODE LIKE '" + input.getProductCode() +
 	 			") and (a.PRODUCT_NAME LIKE '" + input.getProductName() + ") " +
 	 			"LIMIT " + count + " OFFSET " + count*(currentPage-1);
 	 			

@@ -156,10 +156,11 @@
 										<td scope="row" id="t${status.count}">${status.count}</td>
 										<td style="white-space: normal; text-align: left;" nowrap> 
 											<div class="input-group mb-3">
-												<input type="text" class="form-control" value="${res.productCode}" name="code">
+												<input type="text" class="form-control" value="${res.productCode}" name="code" id="input${status.count}">
+												<button type="button" class="btn btn-outline-secondary" value="${res.productCode + 1000}" id="button${status.count}" name="codeButton" onclick="disp(this);">検索</button>
 											  </div>
 										</td>
-										<td style="white-space: normal; text-align: left;"><input type="text"  class="form-control" id="inlineFormInputGroup" name="name" value="${res.productName}"></td>
+										<td style="white-space: normal; text-align: left;"><input type="text"  class="form-control" id="inputs${status.count}" name="name" value="${res.productName}"></td>
 										<td style="white-space: normal; text-align: left;"><input type="text"  class="form-control" id="inlineFormInputGroup" name="quantity" value="${res.quantity}"></td>
 										<td style="text-align: center">
 												<button type="button" class="btn btn-outline-secondary" onclick="deleteLine(this);">削除</button>
@@ -182,15 +183,17 @@
 			
 		</div><br></div><br>
 		</form>
+	<input type="hidden" value="" id="tmphidden">
 	</body>
 		<script src="//code.jquery.com/jquery.min.js"></script>
 		<script>
 		  $('#btn-add-row').click(function() {
 			  var tableNo = $("#mytable tr").length
-		    $('#mytable > tbody:last').append('<tr><td scope="row">' + tableNo + '</td><td style="white-space: normal; text-align: left;" nowrap> <div class="input-group mb-3"><input type="text" class="form-control" value="${res.productCode}" name="code"></div></td><td style="white-space: normal; text-align: left;"><input type="text"  class="form-control" id="inlineFormInputGroup" name="name" value="${res.productName}"></td><td style="white-space: normal; text-align: left;"><input type="text"  class="form-control" id="inlineFormInputGroup" name="quantity" value="${res.quantity}"></td><td style="text-align: center"><button type="button" class="btn btn-outline-secondary" onclick="deleteLine(this);">削除</button></td></tr>');});
+			  var tmpNo = tableNo + 1000;
+		    $('#mytable > tbody:last').append('<tr><td scope="row">' + tableNo + '</td><td style="white-space: normal; text-align: left;" nowrap> <div class="input-group mb-3"><input type="text" class="form-control" value="" name="code" id="input'+tableNo+'"><button type="button" class="btn btn-outline-secondary" id="button' + tableNo + '" value="button' + tableNo + '" name="codeButton" onclick="disp(this);">検索</button></div></td><td style="white-space: normal; text-align: left;"><input type="text"  class="form-control" id="inlineFormInputGroup" name="name" value="${res.productName}"></td><td style="white-space: normal; text-align: left;"><input type="text"  class="form-control" id="inlineFormInputGroup" name="quantity" value="${res.quantity}"></td><td style="text-align: center"><button type="button" class="btn btn-outline-secondary" onclick="deleteLine(this);">削除</button></td></tr>');});
 		</script>
 		<script type="text/javascript">
-		
+		var data;
 		function deleteLine(obj){
 			if(!confirm("この行を削除してよろしいですか？")){
 				return;
@@ -218,6 +221,17 @@
 			var form = document.mainform;
 			
 			form.submit();
+		}
+		function disp(element){			
+			var openWin;
+			var pData = element.id;
+			document.getElementById("tmphidden").value=document.getElementById(pData).id;
+			openWin = window.open("http://localhost:8080/SalesCube2020/SalesCube?action=searchforset&pData="+pData , "_blank", "toolbar=yes,scrollbars=yes,resizable=yes,top=500,left=500,width=1180,height=480");
+		}
+		
+		function setValue(status){
+			data = status;
+			alert(data);
 		}
 		</script>
 		

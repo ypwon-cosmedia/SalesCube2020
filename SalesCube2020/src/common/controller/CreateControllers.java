@@ -55,6 +55,8 @@ public class CreateControllers {
 		map.put( "setProduct", menuObj);
 		map.put( "product", menuObj);
 		map.put( "menu", menuObj);
+		map.put( "searchforset", menuObj);
+		map.put( "resultforset", menuObj);
 		
 		map.put( "moveAddProduct", productAddObj);
 		map.put( "addProduct", productAddObj);
