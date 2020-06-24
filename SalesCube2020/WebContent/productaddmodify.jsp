@@ -69,7 +69,7 @@
             <path fill-rule="evenodd" d="M8 9a3 3 0 1 0 0-6 3 3 0 0 0 0 6z"/>
             <path fill-rule="evenodd" d="M8 1a7 7 0 1 0 0 14A7 7 0 0 0 8 1zM0 8a8 8 0 1 1 16 0A8 8 0 0 1 0 8z"/>
           </svg>
-          システム管理者　
+          　		${userInfo.nameKNJ} &nbsp; 
         </span>
         <form class="form-inline">
           <button class="btn btn-outline-success my-2 my-sm-0" type="submit">ログアウト</button>
@@ -237,6 +237,9 @@
 								</div>
 							<select class="custom-select" name="stockCtlCategory" value="${product.stockCtlCategory}">
 							
+									<option value="0">しない</option>
+                            		<option value="1">する</option>
+                                	
 							</select>
 							</div>
 						</div>
@@ -364,7 +367,7 @@
 									<div class="input-group-text">数量割引</div>
 								</div>
 							<input type="text"  class="form-control" id="inlineFormInputGroup" name="quantityDiscount" value="${product.quantityDiscount}">
-							<input type="image" name="" src="btn_search.png" tabindex="101" onclick="discountForm(quantitydiscount.jsp)" style="vertical-align: middle; cursor: pointer; width: 32px;">
+							<input type="image" name="" src="btn_search.png" tabindex="101" onclick='discountForm("/SalesCube2020/quantitydiscount.jsp")' style="vertical-align: middle; cursor: pointer; width: 32px;">
 							</div>
 						</div>
 					</div>
@@ -414,6 +417,8 @@
 										<div class="input-group-text">調達</div>
 									</div>
 								<select class="custom-select" name="productPurvayCategory" value="${product.productPurvayCategory}">
+									<option value="1">国内調達</option>
+                            		<option value="2">海外調達</option>
 								</select>
 								</div>
 							</div>
@@ -511,6 +516,9 @@
 										<div class="input-group-text">単位</div>
 									</div>
 								<select class="custom-select" name="unitCategory" value="${product.unitCategory}">
+									<option value="1">本</option>
+                            		<option value="2">個</option>
+                            		<option value="3">箱</option>
 								</select>
 								</div>
 							</div>
@@ -522,6 +530,10 @@
 									</div>
 								<input type="text"  class="form-control" id="inlineFormInputGroup">
 								<select class="custom-select" name="weightUnitCategory" value="${product.weightUnitCategory}">
+									<option value=""></option>
+									<option value="1">mg</option>
+                            		<option value="2">g</option>
+                            		<option value="3">kg</option>
 								</select>
 								</div>
 							</div>
@@ -533,6 +545,10 @@
 									</div>
 								<input type="text"  class="form-control" id="inlineFormInputGroup">
 								<select class="custom-select" name="lengthUnitSizeCategory" value="${product.lengthUnitSizeCategory}">
+									<option value=""></option>
+									<option value="1">mm</option>
+                            		<option value="2">cm</option>
+                            		<option value="3">m</option>
 								</select>
 								</div>
 							</div>
@@ -546,6 +562,10 @@
 									</div>
 								<input type="text"  class="form-control" id="inlineFormInputGroup">
 								<select class="custom-select" name="widthUnitSizeCategory" value="${product.widthUnitSizeCategory}">
+									<option value=""></option>
+									<option value="1">mm</option>
+                            		<option value="2">cm</option>
+                            		<option value="3">m</option>
 								</select>
 								</div>
 							</div>
@@ -557,6 +577,10 @@
 									</div>
 									<input type="text"  class="form-control" id="inlineFormInputGroup">
 								<select class="custom-select" name="depthUnitSizeCategory" value="${product.depthUnitSizeCategory}">
+									<option value=""></option>
+									<option value="1">mm</option>
+                            		<option value="2">cm</option>
+                            		<option value="3">m</option>
 								</select>
 								</div>
 							</div>
@@ -568,6 +592,10 @@
 									</div>
 									<input type="text"  class="form-control" id="inlineFormInputGroup">
 								<select class="custom-select" name="heightUnitSizeCategory" value="${product.heightUnitSizeCategory}">
+									<option value=""></option>
+									<option value="1">mm</option>
+                            		<option value="2">cm</option>
+                            		<option value="3">m</option>
 								</select>
 								</div>
 							</div>
@@ -692,7 +720,7 @@
     		
     		
     		function discountForm(url){
-    			 window.open(url, "サブ検索画面", "width=300,height=200,scrollbars=yes");
+    			 window.open(url, "サブ検索画面", "width=1200,height=650,scrollbars=yes");
     		}
     		
     		
