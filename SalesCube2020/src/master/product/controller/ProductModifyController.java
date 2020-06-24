@@ -12,9 +12,13 @@ import common.beans.SetTypeCategoryBean;
 import common.controller.BaseController;
 import common.dao.MenuDAO;
 import master.product.DAO.GetCategoryDAO;
+import master.product.DAO.MoveModifyProductDAO;
 import master.product.DAO.ProductModifyDAO;
+import master.product.DAO.ProductSearchDAO;
 import master.product.beans.ProductCategoryAllBean;
 import master.product.beans.ProductModifyBean;
+import master.product.beans.ProductResultBean;
+import master.product.beans.ProductSearchBean;
 
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -215,8 +219,6 @@ public class ProductModifyController extends BaseController{
 			e.printStackTrace();
 		}
 			
-			
-			
 			return forwardURL;
 	}
 
@@ -230,6 +232,13 @@ public class ProductModifyController extends BaseController{
 		
 		request.setAttribute("productCode", productCode);
 		
+		List<ProductModifyBean> list9 = new ArrayList<ProductModifyBean>();
+		List<ProductModifyBean> list10 = new ArrayList<ProductModifyBean>();
+		List<ProductModifyBean> list11 = new ArrayList<ProductModifyBean>();
+		List<ProductModifyBean> list12 = new ArrayList<ProductModifyBean>();
+
+		MoveModifyProductDAO dao3 = new MoveModifyProductDAO();
+		
 		List<ProductStockCategoryBean> list2 = new ArrayList<>();
 		List<SetTypeCategoryBean> list3 = new ArrayList<>();
 		List<ProductStandardCategoryBean> list4 = new ArrayList<ProductStandardCategoryBean>();
@@ -241,6 +250,12 @@ public class ProductModifyController extends BaseController{
 		MenuDAO dao2 = new MenuDAO();
 		
 		try {
+			list9 = dao3.moveModifyProduct(productCode);
+			list10 = dao3.moveModifyCategory(productCode);
+			list11 = dao3.moveModifyTokuseiCategory(productCode);
+			list12 = dao3.moveModifyRemarks(productCode);
+			
+			
 			list2 = dao2.getProductStockCategory();
 			list3 = dao2.getSetTypeCategory();
 			list4 = dao2.getProductStandardCategory();
@@ -251,14 +266,17 @@ public class ProductModifyController extends BaseController{
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		
-		
+				
 		request.setAttribute("prosearch", list2);
 		request.setAttribute("setTypeCategory", list3);
 		request.setAttribute("productStandardCategory", list4);
 		request.setAttribute("productStatusCategory", list5);	
 		request.setAttribute("all", list8);
 		request.setAttribute("purvey", list);
+		request.setAttribute("product", list9);
+		request.setAttribute("product1", list10);
+		request.setAttribute("product2", list11);
+		request.setAttribute("product3", list12);
 		
 		return "/productaddmodify.jsp";
 	}

@@ -318,11 +318,11 @@
 							<div style="display:inline-flex">
 								<form action="/SalesCube2020/SalesCube?action=moveModifyProduct" method="post">
 									<input type="submit" value="編集" class="btn btn-outline-secondary">
-									<input type="hidden" id="productCode" name="productCode">
+									<input type="hidden" id="productCode" name="productCode" value="${prdct.productCode}">
 								</form>
 								<form action="/SalesCube2020/SalesCube?action=deleteProduct" method="post">
 									<input type="submit" value="削除" class="btn btn-outline-secondary">
-									<input type="hidden" id="productCode" name="productCode">
+									<input type="hidden" id="productCode" name="productCode" value="${prdct.productCode}">
 								</form>
 							</div>
 						</td>
@@ -361,6 +361,14 @@
 			}
 		}
 	}
+		//削除
+		function deleteForm() {
+			if(!confirm("このデータを削除しますか？")) {
+				return;
+			}
+	   	}
+	
+	
 		//カテゴリー
 		function selectPro1(){
 	

@@ -6,7 +6,7 @@ import java.sql.Statement;
 
 import common.dao.BaseDAO;
 
-/* çÌèúÅ@*/
+/* ÔøΩÌèúÔøΩ@*/
 public class ProductDeleteDAO extends BaseDAO {
 
 	public int deleteProduct(String productCode) throws SQLException, ClassNotFoundException{
@@ -15,17 +15,16 @@ public class ProductDeleteDAO extends BaseDAO {
 	 	Statement stmt = null;
 	 	int result = 0;
 	 	String sql;
-	 	String check = "0";
 
 	 	con = super.getConnection();
-	 	sql = "DELETE * from product_mst_xxxxx WHERE PRODUCT_CODE = " + productCode;	
-	 	stmt = con.createStatement();
-	 	
+	 	stmt = con.createStatement();	 	
+	 	sql = "DELETE * FROM product_mst_xxxxx WHERE PRODUCT_CODE = '" + productCode + "'";	
+
 	 	try {
 	 		result = stmt.executeUpdate(sql);
 	 		con.commit();
 	 	}catch(SQLException e) {
-	 		check = "1";
+	 		result = 1;
 	 	}finally {
 	 		super.releaseDB(con, stmt);	 		
 	 	}
