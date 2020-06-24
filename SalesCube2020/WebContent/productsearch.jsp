@@ -87,17 +87,17 @@
 			
 				<div class="btn-group mr-2 " role="group" aria-label="First group">
 					<button type="button" class="btn btn-secondary" style="font-size: 12px;" onClick="initForm();">F1<br>初期化</button>
-					<button type="button" class="btn btn-secondary" style="font-size: 12px;">F2<br>戻る</button>
-					<button type="button" class="btn btn-secondary" style="font-size: 12px;">F3<br>登録</button>
-					<button type="button" class="btn btn-secondary" style="font-size: 12px;">F4<br>削除</button>
-					<button type="button" class="btn btn-secondary" style="font-size: 12px;">F5<br>初期値</button>
-					<button type="button" class="btn btn-secondary" style="font-size: 12px;">F6<br></button>
-					<button type="button" class="btn btn-secondary" style="font-size: 12px;">F7<br></button>
-					<button type="button" class="btn btn-secondary" style="font-size: 12px;">F8<br>履歴出力</button>
-					<button type="button" class="btn btn-secondary" style="font-size: 12px;">F9<br></button>
-					<button type="button" class="btn btn-secondary" style="font-size: 12px;">F10<br></button>
-					<button type="button" class="btn btn-secondary" style="font-size: 12px;">F11<br></button>
-					<button type="button" class="btn btn-secondary" style="font-size: 12px;">F12<br></button>
+					<button type="submit" class="btn btn-secondary" style="font-size: 12px;" onClick="searchForm()">F2<br>検索</button>
+					<button type="button" class="btn btn-secondary" style="font-size: 12px;" onClick="addForm()">F3<br>追加</button>
+					<button type="button" class="btn btn-secondary" style="font-size: 12px;">F4<br>Excel出力</button>
+					<button type="button" class="btn btn-secondary" style="font-size: 12px;" disabled>F5<br></button>
+					<button type="button" class="btn btn-secondary" style="font-size: 12px;" disabled>F6<br></button>
+					<button type="button" class="btn btn-secondary" style="font-size: 12px;" disabled>F7<br></button>
+					<button type="button" class="btn btn-secondary" style="font-size: 12px;" disabled>F8<br></button>
+					<button type="button" class="btn btn-secondary" style="font-size: 12px;" disabled>F9<br></button>
+					<button type="button" class="btn btn-secondary" style="font-size: 12px;" disabled>F10<br></button>
+					<button type="button" class="btn btn-secondary" style="font-size: 12px;" disabled>F11<br></button>
+					<button type="button" class="btn btn-secondary" style="font-size: 12px;" disabled>F12<br></button>
 				</div>
 			</div>
 			<br><br><br>
@@ -417,7 +417,16 @@
 			} else
 			window.location.href = '/SalesCube2020/SalesCube?action=setProduct';
 		}
-
+		
+		//検索
+		function searchForm(){
+			window.location.href = '/SalesCube2020/SalesCube?action=searchProduct';
+		}
+		
+		 //追加
+		function addForm() {
+			window.location.href = '/SalesCube2020/SalesCube?action=moveAddProduct';
+		}
 		
 	$(function() {
 	    var temp = "${Category1}"; 
