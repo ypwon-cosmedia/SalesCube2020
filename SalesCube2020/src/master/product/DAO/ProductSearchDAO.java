@@ -251,12 +251,8 @@ public class ProductSearchDAO extends BaseDAO{
 	 	}
 	 	
 	 	sql = "SELECT DISTINCT"
-	 			+" pmx.PRODUCT_CODE,"
-	 			+" pmx.PRODUCT_NAME,"
-	 			+" A.SUPPLIER_NAME,"
-	 			+" B.CLASS_NAME,"
-	 			+" pmx.REMARKS"
-	 		  +" FROM"
+	 			+" *"
+	 			+" FROM"
 	 			+" product_mst_xxxxx pmx"
 	 			+" LEFT OUTER JOIN (SELECT SUPPLIER_CODE ,SUPPLIER_NAME FROM supplier_mst_xxxxx AS smx) A on pmx.SUPPLIER_CODE = A.SUPPLIER_CODE"
 	 			+" LEFT OUTER JOIN (SELECT pcm.CLASS_CODE_1, pcm.CLASS_CODE_2, pcm.CLASS_NAME FROM product_class_mst_xxxxx pcm, product_mst_xxxxx pmx) B ON pmx.PRODUCT_1 = B.CLASS_CODE_1 AND CLASS_CODE_2 =''"
