@@ -82,14 +82,14 @@
       <div class="btn-toolbar float-right" role="toolbar" aria-label="Toolbar with button groups">
         
         <div class="btn-group mr-2 " role="group" aria-label="First group">
-          <button type="button" class="btn btn-secondary" style="font-size: 12px;">F1<br>初期化</button>
-          <button type="button" class="btn btn-secondary" style="font-size: 12px;">F2<br>戻る</button>
-          <button type="button" class="btn btn-secondary" style="font-size: 12px;">F3<br>登録</button>
-          <button type="button" class="btn btn-secondary" style="font-size: 12px;">F4<br>削除</button>
-          <button type="button" class="btn btn-secondary" style="font-size: 12px;">F5<br>初期値</button>
+          <button type="button" class="btn btn-secondary" style="font-size: 12px;" onclick="history.go(0);">F1<br>リセット</button>
+          <button type="button" class="btn btn-secondary" style="font-size: 12px;" onclick="window.history.back();">F2<br>戻る</button>
+          <button type="button" class="btn btn-secondary" style="font-size: 12px;" onclick="doSubmit();">F3<br>更新</button>
+          <button type="button" class="btn btn-secondary" style="font-size: 12px;">F4<br></button>
+          <button type="button" class="btn btn-secondary" style="font-size: 12px;">F5<br></button>
           <button type="button" class="btn btn-secondary" style="font-size: 12px;">F6<br></button>
           <button type="button" class="btn btn-secondary" style="font-size: 12px;">F7<br></button>
-          <button type="button" class="btn btn-secondary" style="font-size: 12px;">F8<br>履歴出力</button>
+          <button type="button" class="btn btn-secondary" style="font-size: 12px;">F8<br></button>
           <button type="button" class="btn btn-secondary" style="font-size: 12px;">F9<br></button>
           <button type="button" class="btn btn-secondary" style="font-size: 12px;">F10<br></button>
           <button type="button" class="btn btn-secondary" style="font-size: 12px;">F11<br></button>
@@ -98,7 +98,7 @@
       </div>
       <br><br><br>
       </div>
-      <form action="/SalesCube2020/SalesCube?action=modifySetProduct" method="post">
+      <form action="/SalesCube2020/SalesCube?action=modifySetProduct" name="mainform" method="post">
 		<div class="container" style="background-color: white;"><div class="panel panel-default" >
 			<div class="panel-heading row mb-2 col-4">
 				<h5><br>セット商品情報</h5>
@@ -176,7 +176,7 @@
 
 				
 				<div align="right">
-					<input type="submit" value="リセット" class="btn btn-outline-secondary">
+					<input type="submit" value="リセット" class="btn btn-outline-secondary" onclick="initForm();">
 					<input type="submit" value="更新" class="btn btn-outline-secondary">
 				</div>
 			
@@ -206,7 +206,19 @@
 			
 			
 		}
-		
+		function initForm() {
+			var test = confirm("入力内容を初期化してよろしいですか？");
+			test;
+			if(test == false){
+				return;
+			} else
+			window.location.href = 'http://localhost:8080/SalesCube2020/SalesCube?action=searchSetProduct';
+		}
+		function doSubmit(){
+			var form = document.mainform;
+			
+			form.submit();
+		}
 		</script>
 		
 </html>

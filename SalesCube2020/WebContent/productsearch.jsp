@@ -280,7 +280,7 @@
 		<!--商品検索結果-->
 		<div class="container">
 			<div class="float-left" style="position:static; left: 0px;">
-				検索結果件数：${fn:length(prosearch)}件
+				検索結果件数：${fn:length(search)}件
 			</div>
 			<div class="rounded float-right">
 				ページあたりの表示件数
