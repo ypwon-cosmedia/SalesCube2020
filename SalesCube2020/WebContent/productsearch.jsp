@@ -415,7 +415,7 @@
 			if(test == false){
 				return;
 			} else
-			window.location.href = '/SalesCube2020/SalesCube?action=setProduct';
+			window.location.href = '/SalesCube2020/SalesCube?action=searchProduct';
 		}
 		
 		//検索
