@@ -1,7 +1,7 @@
 <%@ page language="java" contentType="text/html; utf-8"
     pageEncoding="utf-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
-${quantitydiscountsearchresult}
+
 <!doctype html>
 <html lang="en">
   <head>
@@ -19,6 +19,10 @@ ${quantitydiscountsearchresult}
             width: 1120px;
             max-width: none !important;
         }
+        .cursor-pointer{
+ 		 	cursor: pointer;
+ 		 	color : blue;
+		}
     </style>
     
     <script type="text/javascript">
@@ -32,7 +36,23 @@ ${quantitydiscountsearchresult}
     	function CloseWindow() {
     		 <!--alert();-->
     		 window.close();
-   	}
+   		}
+    	
+    	var parentExistanceFlag = true;
+    	function clickFire(){
+    		//存在していない場合
+    		if( !window.opener || !Object.keys(window.opener).length){
+    			window.alert("商品マスタ編集・追加画面がありません")
+    			parentExistanceFlag = false
+    		}
+    		//親画面に値を挿入
+    		if(parantExistanceFlag){
+    		    window.opener.document.getElementByName("quantityDiscount").value
+    		     = document.getElementById("resultDiscountId").value
+    		    }
+    		window.close
+    	}
+    	
     </script>
     
   </head>
@@ -169,9 +189,15 @@ ${quantitydiscountsearchresult}
                             </div>
                           </div>
                     </td> -->
-                    <td style="white-space: normal; text-align: left;">${discount.discountId}</td>
+                    <td style="white-space: normal; text-align: left;" id="resultDiscountId" onclick="clickFire()" class="cursor-pointer">${discount.discountId}</td>
                     <td style="white-space: normal; text-align: left;">${discount.discountName}</td>
-                    <td style="white-space: normal; text-align: left;">${discount.useFlag}</td>
+                    <td style="white-space: normal; text-align: left;">
+                    													<c:if test="${discount.useFlag == 1}">
+                    															有効
+                    													</c:if>
+                    													<c:if test="${discount.useFlag == 0}">
+                    															無効
+                    													</c:if></td>
                 </tr>
             </c:forEach>
         </table>
