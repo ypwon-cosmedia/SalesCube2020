@@ -115,7 +115,7 @@ public class ProductExcelController extends BaseController{
             		k++;
             	}
 
-            PrintWriter p = new PrintWriter( new BufferedWriter( new OutputStreamWriter( new FileOutputStream(file, false),"utf-8")));
+            PrintWriter p = new PrintWriter( new BufferedWriter( new OutputStreamWriter( new FileOutputStream(file, false),"SJIS")));
             
 			//ヘッダ部
 			p.print("商品コード");
@@ -438,7 +438,8 @@ public class ProductExcelController extends BaseController{
 			e.printStackTrace();
 			System.out.println("ClassNotFoundException");
 		}
-		return "/productsearch.jsp";
+		System.out.println("終了処理");
+		return "/SalesCube?action=searchProduct";
 	}
 
 /**	
