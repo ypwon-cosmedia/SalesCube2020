@@ -89,7 +89,7 @@
 					<button type="button" class="btn btn-secondary" style="font-size: 12px;" onClick="initForm();">F1<br>初期化</button>
 					<button type="submit" class="btn btn-secondary" style="font-size: 12px;" onClick="searchForm()">F2<br>検索</button>
 					<button type="button" class="btn btn-secondary" style="font-size: 12px;" onClick="addForm()">F3<br>追加</button>
-					<button type="button" class="btn btn-secondary" style="font-size: 12px;">F4<br>Excel出力</button>
+					<button type="submit" class="btn btn-secondary" style="font-size: 12px;" onClick="excelForm()">F4<br>Excel出力</button>
 					<button type="button" class="btn btn-secondary" style="font-size: 12px;" disabled>F5<br></button>
 					<button type="button" class="btn btn-secondary" style="font-size: 12px;" disabled>F6<br></button>
 					<button type="button" class="btn btn-secondary" style="font-size: 12px;" disabled>F7<br></button>
@@ -111,7 +111,7 @@
 			</div>
 			<hr>
 			<div class="panel-body">
-				<form action="/SalesCube2020/SalesCube?action=searchProduct" name="main" method="post">
+				<form name="main" method="post" id="main">
 					<div class="row">
 						<div class="col-4">
 							<label class="sr-only" for="inlineFormInputGroup">productCode</label>
@@ -271,7 +271,7 @@
 					</div>
 					<div class="rounded float-right">
 						<button type="button" class="btn btn-outline-secondary" onClick="initForm();">初期化</button>
-						<input type="submit" value="検索" class="btn btn-outline-secondary">
+						<input type="submit" value="検索" class="btn btn-outline-secondary" onclick="form.action='/SalesCube2020/SalesCube?action=searchProduct';">
 					</div><br>
 				</form><br>
 			</div><br>
@@ -287,7 +287,7 @@
 				<select id="rowCount" name="rowCount">
 					<option value="10">10</option>
 					<option value="50">50</option>
-					<option value="100" selected="">100</option>
+					<option value="100" selected=" ">100</option>
 				</select>
 			</div>
 		</div>
@@ -427,6 +427,21 @@
 		function addForm() {
 			window.location.href = '/SalesCube2020/SalesCube?action=moveAddProduct';
 		}
+		 
+		 //Excel出力
+		 function excelForm(){
+			 if(!confirm("この検索条件で商品をCSV出力しますか？")){
+				 return;
+			 }
+			//window.location.href = '/SalesCube2020/SalesCube?action=productExcelOutput';
+			var form = document.getElementById("main");
+			
+			form.action="/SalesCube2020/SalesCube?action=productExcelOutput";
+			form.method="post";
+			
+			form.submit();
+		 }
+		 
 		
 	$(function() {
 	    var temp = "${Category1}"; 

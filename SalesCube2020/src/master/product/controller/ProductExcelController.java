@@ -107,11 +107,11 @@ public class ProductExcelController extends BaseController{
 			PrintWriter p = new PrintWriter( new BufferedWriter( new OutputStreamWriter( new FileOutputStream("C:\\Users\\cosmedia\\Desktop\\SalesCubeテスト用", false),"utf-8")));
 			**/
 			// 出力ファイルの作成
-            File file = new File("C:/Users/cosmedia/Desktop/SalesCubeテスト用/商品マスタ.csv");
+            File file = new File("C:/Users/cosmedia/Desktop/商品マスタ.csv");
 
             int k = 1;
             while( file.exists() ){
-            	file = new File("C:/Users/cosmedia/Desktop/SalesCubeテスト用/商品マスタ("+ k +").csv");
+            	file = new File("C:/Users/cosmedia/Desktop/商品マスタ("+ k +").csv");
             		k++;
             	}
 
