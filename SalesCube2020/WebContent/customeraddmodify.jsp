@@ -905,15 +905,21 @@
     		
 	function registrationForm() {
 	 var status = ${status};
+	 alert(status);
 	 	if(status=="add"){
 			if(!confirm("入力内容を登録します。よろしいですか？")) {
 				return;
 			}
+			var form = document.mainform;
+			form.submit();
 	 	}
 	 	else {
 			if(!confirm("入力内容を更新します。よろしいですか？")) {
 				return;
 			}
+			var form = document.mainform;
+			form.submit();
+		}
 	 }
 
     			
