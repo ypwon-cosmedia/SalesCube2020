@@ -60,7 +60,7 @@ public class ProductAddController extends BaseController{
 			throws ServletException, IOException, ClassNotFoundException, SQLException {
 		// TODO Auto-generated method stub
 		
-		String forwardURL = "/productaddmodify.jsp";
+		String forwardURL = "/productsearch.jsp";
 		String productCode = request.getParameter("productCode");
 			//System.out.println(productCode);
 		String productName = request.getParameter("productName");
@@ -206,10 +206,10 @@ public class ProductAddController extends BaseController{
 			
 			if( result == 0 ) {
 			
-				String message = "ï¿½ï¿½ï¿½Í‚ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½eï¿½ÉŒï¿½è‚ªï¿½ï¿½ï¿½ï¿½Ü‚ï¿½";
+				String message = "";
 				request.setAttribute("addmodifyError", "message");
 			}else{
-				request.setAttribute("message", "ï¿½Ç‰ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ü‚ï¿½ï¿½ï¿½");
+				request.setAttribute("message", "");
 			}
 		}catch(NumberFormatException e) {
 			request.setAttribute("message", "³‚µ‚­“ü—Í‚µ‚Ä‚­‚¾‚³‚¢");
