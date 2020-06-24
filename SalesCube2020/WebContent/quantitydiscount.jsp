@@ -34,7 +34,7 @@
 		}
     	
     	function CloseWindow() {
-    		 alert(  );
+    		 //alert(  );
     		 window.close();
    		}
     	
