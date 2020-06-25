@@ -352,12 +352,12 @@
 							</div>
 						</div>
 						<div class="col-4">
-							<label class="sr-only" for="inlineFormInputGroup">salesPrice</label>
+							<label class="sr-only" for="inlineFormInputGroup">retailPrice</label>
 							<div class="input-group mb-2">
 								<div class="input-group-prepend">
 									<div class="input-group-text">売単価</div>
 								</div>
-							<input type="text"  class="form-control" id="inlineFormInputGroup" name="salesPrice" value="${product.salesPrice}">
+							<input type="text"  class="form-control" id="inlineFormInputGroup" name="retailPrice" value="${product.retailPrice}">
 							</div>
 						</div>
 						<div class="col-4">
