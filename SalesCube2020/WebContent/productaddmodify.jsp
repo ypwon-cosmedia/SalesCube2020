@@ -273,12 +273,12 @@
 							</div>
 						</div>
 						<div class="col-4">
-							<label class="sr-only" for="inlineFormInputGroup">rackName</label>
+							<label class="sr-only" for="inlineFormInputGroup">rackCode</label>
 							<div class="input-group mb-2">
 								<div class="input-group-prepend">
 									<div class="input-group-text">棚番</div>
 								</div>
-							<input type="text"  class="form-control" id="inlineFormInputGroup" name="rackName" value="${product.rackName}">
+							<input type="text"  class="form-control" id="inlineFormInputGroup" name="rackCode" value="${product.rackCode}">
 							
 							</div>
 						</div>
