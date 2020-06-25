@@ -352,13 +352,13 @@ public class ProductAddController extends BaseController {
 		
 			if(result==0){
 		
-				String message = "¸”s";
+				String message = "“o˜^‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½<br>";
 				request.setAttribute("addmodifyError", message);
 			}else{
-				request.setAttribute("message", "¬Œ÷");
+				request.setAttribute("addmodifysuccsess", "“o˜^‚ªŠ®—¹‚µ‚Ü‚µ‚½<br>");
 			}
 		}catch(NumberFormatException e){
-			request.setAttribute("message", "³‚µ‚­“ü—Í‚µ‚Ä‚­‚¾‚³‚¢");
+			request.setAttribute("addmodifyinterror", "³‚µ‚¢”’l‚ğ“ü—Í‚µ‚Ä‚­‚¾‚³‚¢<br>");
 			e.printStackTrace();
 		}
 

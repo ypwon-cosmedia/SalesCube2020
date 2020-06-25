@@ -104,8 +104,9 @@
 	
 	<!-- エラーメッセージを表示 -->
        <div style="width:100%; text-align:center; margin-bottom:20px;">
-				 <span class="action_errors" style="color: red">${addmodifyError}<br></span>
-				 <span class="action_errors" style="color: red">${message}<br></span>
+				 <span class="action_errors" style="color: red">${addmodifyError}</span>
+				 <span class="action_errors" style="color: red">${addmodifysuccsess}</span>
+				 <span class="action_errors" style="color: red">${addmodifyinterror}</span>
 				 
        </div>
 	
