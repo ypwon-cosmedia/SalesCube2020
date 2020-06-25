@@ -244,9 +244,6 @@
 						<th scope="col" class="rd_top_left th_back_black sort" style="cursor: pointer; height: 30px;" data-sort="productCode">商品コード</th>
 						<th scope="col" class="th_back_black sort" style="cursor: pointer; height: 30px;" data-sort="productName">商品名</th>
 						<th scope="col" class="th_back_black sort" style="cursor: pointer; height: 30px;" data-sort="supplierName">仕入先</th>
-						<th scope="col" class="th_back_black sort" style="cursor: pointer; height: 30px;" data-sort="product1">分類（大）</th>
-						<th scope="col" class="th_back_black sort" style="height: 30px;">備考</th>
-						<th scope="col" class="rd_top_right th_back_black sort" style="cursor: pointer; height: 30px;">&nbsp;</th>
 					</tr>
 				</thead>
 				<tbody class="list">
@@ -255,20 +252,6 @@
 						<td class="productCode" style="white-space: normal; text-align: left;"><a href="" onclick="testFunction(this)">${prdct.productCode}</a></td>
 						<td class="productName" style="white-space: normal; text-align: left;" id="${prdct.productCode}" >${prdct.productName}</td>
 						<td class="supplierName" style="white-space: normal; text-align: left;">${prdct.supplierName}</td>
-						<td class="product1" style="white-space: normal; text-align: left;">${prdct.product1}</td>
-						<td style="white-space: normal; text-align: left;">${prdct.remarks}</td>
-						<td style="text-align: center">
-							<div style="display:inline-flex">
-								<form action="/SalesCube2020/SalesCube?action=moveModifyProduct" method="post">
-									<input type="submit" value="編集" class="btn btn-outline-secondary">
-									<input type="hidden" id="productCode" name="productCode">
-								</form>
-								<form action="/SalesCube2020/SalesCube?action=deleteProduct" method="post">
-									<input type="submit" value="削除" class="btn btn-outline-secondary">
-									<input type="hidden" id="productCode" name="productCode">
-								</form>
-							</div>
-						</td>
 					</tr>
 				</c:forEach>
 				</tbody>
