@@ -57,9 +57,9 @@
               マスター
             </a>
             <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-              <a class="dropdown-item" href="#">商品</a>
-              <a class="dropdown-item" href="#">セット商品</a>
-              <a class="dropdown-item" href="#">顧客</a>
+              <a class="dropdown-item" href="/SalesCube2020/SalesCube?action=product">商品</a>
+              <a class="dropdown-item" href="/SalesCube2020/SalesCube?action=setProduct">セット商品</a>
+              <a class="dropdown-item" href="/SalesCube2020/SalesCube?action=customer">顧客</a>
             </div>
           </li>
         </ul>
@@ -173,7 +173,7 @@
 								<div class="input-group-prepend">
 									<div class="input-group-text">廃番予定日</div>
 								</div>
-							<input type="date" name="discardDate" value="${product.janPcode}">
+							<input type="date" name="discardDate" value="${product.discardDate}">
 							</div>
 						</div>
 					</div>
@@ -366,7 +366,7 @@
 								<div class="input-group-prepend">
 									<div class="input-group-text">数量割引</div>
 								</div>
-							<input type="text"  class="form-control" id="inlineFormInputGroup" name="quantityDiscount" value="${product.quantityDiscount}">
+							<input type="text"  class="form-control" id="quantityDiscount" name="quantityDiscount" value="${product.quantityDiscount}">
 							<input type="image" name="" src="btn_search.png" tabindex="101" onclick='discountForm("/SalesCube2020/quantitydiscount.jsp")' style="vertical-align: middle; cursor: pointer; width: 32px;">
 							</div>
 						</div>
@@ -625,7 +625,7 @@
 							<div class="col-8">
 								<div class="input-group-prepend">
 									<div class="input-group-text">備考</div>
-									<textarea id="textarea1" class="form-control" name="remarks"></textarea>
+									<textarea id="textarea1" class="form-control" name="remarks" value="${product.remarks}"></textarea>
 								</div>
 							</div>
 						</div><br>
@@ -633,7 +633,7 @@
 							<div class="col-8">
 								<div class="input-group-prepend">
 									<div class="input-group-text">ピッキング備考</div>
-									<textarea id="textarea1" class="form-control" name="eadRemarks"></textarea>
+									<textarea id="textarea1" class="form-control" name="eadRemarks" value="${product.eadRemarks}"></textarea>
 								</div>
 							</div>
 						</div><br>
@@ -641,7 +641,7 @@
 							<div class="col-8">
 								<div class="input-group-prepend">
 									<div class="input-group-text">コメント</div>
-									<textarea id="textarea1" class="form-control" name="commentData"></textarea>
+									<textarea id="textarea1" class="form-control" name="commentData" value="${product.commentData}"></textarea>
 								</div>
 							</div>
 						</div>
@@ -684,10 +684,12 @@
     				if(!confirm("入力内容を登録します。よろしいですか？")) {
     					return;
     				}
+    				var form = document.mainform;
+    				form.submit();
     		 	} else {
     				if(!confirm("入力内容を更新します。よろしいですか？")) {
     					return;
-    			}
+    				}
     				var form = document.mainform;
     				form.submit();
     			}

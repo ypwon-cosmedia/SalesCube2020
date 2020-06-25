@@ -119,9 +119,156 @@ public class ProductAddController extends BaseController{
 		
 		
 		try {
-			Date date = Date.valueOf(discardDate);
-			int isupplierPriceYen = Integer.parseInt(supplierPriceYen);
-			int isupplierPriceDol = Integer.parseInt(supplierPriceDol);
+			Date date;
+			if(discardDate == null || discardDate.equals("")) {
+				date = null;
+			}
+			else {
+				date = Date.valueOf(discardDate);
+			}
+			
+			if (request.getParameter("supplierPriceYen") == null) {
+				supplierPriceYen = "";
+			}else {
+				supplierPriceYen = request.getParameter("supplierPriceYen");
+			}
+			
+			if (request.getParameter("supplierPriceDol") == null) {
+				supplierPriceDol = "";
+			}else {
+				supplierPriceDol = request.getParameter("supplierPriceDol");
+			}
+			
+			if (request.getParameter("packQuantity") == null) {
+				packQuantity = "";
+			}else {
+				packQuantity = request.getParameter("packQuantity");
+			}
+			
+			if (request.getParameter("avgShipCount") == null) {
+				avgShipCount = "";
+			}else {
+				avgShipCount = request.getParameter("avgShipCount");
+			}
+			
+			if (request.getParameter("leadTime") == null) {
+				leadTime = "";
+			}else {
+				leadTime = request.getParameter("leadTime");
+			}
+			
+			if (request.getParameter("poNum") == null) {
+				poNum = "";
+			}else {
+				poNum = request.getParameter("poNum");
+			}
+			
+			if (request.getParameter("poUpdFlag") == null) {
+				poUpdFlag = "";
+			}else {
+				poUpdFlag = request.getParameter("poUpdFlag");
+			}
+			
+			if (request.getParameter("mineSafetyStock") == null) {
+				mineSafetyStock = "";
+			}else {
+				mineSafetyStock = request.getParameter("mineSafetyStock");
+			}
+			
+			if (request.getParameter("mineSafetyStockUpdFlag") == null) {
+				mineSafetyStockUpdFlag = "";
+			}else {
+				mineSafetyStockUpdFlag = request.getParameter("mineSafetyStockUpdFlag");
+			}
+			
+			if (request.getParameter("poLot") == null) {
+				poLot = "";
+			}else {
+				poLot = request.getParameter("poLot");
+			}
+			
+			if (request.getParameter("lotUpdFlag") == null) {
+				lotUpdFlag = "";
+			}else {
+				lotUpdFlag = request.getParameter("lotUpdFlag");
+			}
+			
+			if (request.getParameter("maxStockNum") == null) {
+				maxStockNum = "";
+			}else {
+				maxStockNum = request.getParameter("maxStockNum");
+			}
+			
+			if (request.getParameter("stockUpdFlag") == null) {
+				stockUpdFlag = "";
+			}else {
+				stockUpdFlag = request.getParameter("stockUpdFlag");
+			}
+			
+			if (request.getParameter("maxPoNum") == null) {
+				maxPoNum = "";
+			}else {
+				maxPoNum = request.getParameter("maxPoNum");
+			}
+			
+			if (request.getParameter("maxPoUpdFlag") == null) {
+				maxPoUpdFlag = "";
+			}else {
+				maxPoUpdFlag = request.getParameter("maxPoUpdFlag");
+			}
+			
+			if (request.getParameter("roMaxNum") == null) {
+				roMaxNum = "";
+			}else {
+				roMaxNum = request.getParameter("roMaxNum");
+			}
+			
+			if (request.getParameter("retailPrice") == null) {
+				retailPrice = "";
+			}else {
+				retailPrice = request.getParameter("retailPrice");
+			}
+			
+			if (request.getParameter("soRate") == null) {
+				soRate = "";
+			}else {
+				soRate = request.getParameter("soRate");
+			}
+			
+			if (request.getParameter("weight") == null) {
+				weight = "";
+			}else {
+				weight = request.getParameter("weight");
+			}
+			
+			if (request.getParameter("length") == null) {
+				length = "";
+			}else {
+				length = request.getParameter("length");
+			}
+			
+			if (request.getParameter("width") == null) {
+				width = "";
+			}else {
+				width = request.getParameter("width");
+			}
+			
+			if (request.getParameter("depth") == null) {
+				depth = "";
+			}else {
+				depth = request.getParameter("depth");
+			}
+			
+			
+			if (request.getParameter("height") == null) {
+				height = "";
+			}else {
+				height = request.getParameter("height");
+			}
+/*			
+ *
+ 			int isupplierPriceYen = Integer.parseInt(supplierPriceYen);
+			Integer isupplierPriceDol = new Integer(request.getParameter("supplierPriceDol"));
 			int ipackQuantity = Integer.parseInt(packQuantity);
 			int iavgShipCount = Integer.parseInt(avgShipCount);
 			int ileadTime = Integer.parseInt(leadTime);
@@ -143,6 +290,7 @@ public class ProductAddController extends BaseController{
 			double dwidth = Double.parseDouble(width);
 			double ddepth = Double.parseDouble(depth);
 			double dheight = Double.parseDouble(height);
+*/
 			
 			
 			ProductAddBean bean = new ProductAddBean();
@@ -206,13 +354,14 @@ public class ProductAddController extends BaseController{
 			
 			if( result == 0 ) {
 			
-				String message = "";
-				request.setAttribute("addmodifyError", "message");
+				String message = "é∏îs";
+				request.setAttribute("addmodifyError", message);
 			}else{
-				request.setAttribute("message", "");
+				request.setAttribute("message", "ê¨å˜");
 			}
 		}catch(NumberFormatException e) {
 			request.setAttribute("message", "ê≥ÇµÇ≠ì¸óÕÇµÇƒÇ≠ÇæÇ≥Ç¢");
+			e.printStackTrace();
 		}
 			
 			
@@ -254,6 +403,7 @@ public class ProductAddController extends BaseController{
 		request.setAttribute("all", list8);
 		request.setAttribute("purvey", list);
 		
+		request.setAttribute("status", "add");
 		
 		return "/productaddmodify.jsp";
 	}
