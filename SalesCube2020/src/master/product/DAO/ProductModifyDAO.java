@@ -99,7 +99,6 @@ public class ProductModifyDAO extends BaseDAO {
 		 								+ "DEL_USER = ?"
 		 								+ "where PRODUCT_CODE = ?";
 		 	
-		 	stmt = con.prepareStatement(sql);
 		 	stmt.setString(1, bean.getProductCode());
 		 	stmt.setString(2, bean.getProductName());
 		 	stmt.setString(3, bean.getProductKana());
@@ -107,34 +106,183 @@ public class ProductModifyDAO extends BaseDAO {
 		 	stmt.setString(5, bean.getSupplierPcode());
 		 	stmt.setString(6, bean.getSupplierCode());
 		 	stmt.setString(7, bean.getRackCode());
-		 	stmt.setInt(8, bean.getSupplierPriceYen());
-		 	stmt.setInt(9, bean.getSupplierPriceDol());
-		 	stmt.setInt(10, bean.getRetailPrice());
-		 	stmt.setInt(11, bean.getSoRate());
+		 	
+		 	if(bean.getSupplierPriceYen() == null) {
+		 		stmt.setNull(8,java.sql.Types.NULL);
+		 		
+		 	}else {
+		 		stmt.setInt(8, Integer.parseInt(bean.getSupplierPriceYen()));
+		 	}
+		 	
+		 	
+		 	if(bean.getSupplierPriceDol() == null) {
+		 		stmt.setNull(9,java.sql.Types.NULL);
+		 		
+		 	}else {
+		 		stmt.setInt(9, Integer.parseInt(bean.getSupplierPriceDol()));
+		 	}
+		 	
+		 	
+		 	if(bean.getRetailPrice() == null) {
+		 		stmt.setNull(10,java.sql.Types.NULL);
+		 		
+		 	}else {
+		 		stmt.setInt(10, Integer.parseInt(bean.getRetailPrice()));
+		 	}
+		 			 	
+		 	if(bean.getSoRate() == null) {
+		 		stmt.setNull(11,java.sql.Types.NULL);
+		 		
+		 	}else {
+		 		stmt.setInt(11, Integer.parseInt(bean.getSoRate()));
+		 	}
+		 	
+		 	
 		 	stmt.setString(12, bean.getUnitCategory());
-		 	stmt.setInt(13, bean.getPackQuantity());
+		 	
+		 	if(bean.getPackQuantity() == null) {
+		 		stmt.setNull(13,java.sql.Types.NULL);
+		 		
+		 	}else {
+		 		stmt.setInt(13, Integer.parseInt(bean.getPackQuantity()));
+		 	}
+		 	
 		 	stmt.setString(14, bean.getJanPcode());
-		 	stmt.setDouble(15, bean.getWidth());
+		 	
+		 	if(bean.getWidth() == null) {
+		 		stmt.setNull(15,java.sql.Types.NULL);
+		 		
+		 	}else {
+		 		stmt.setInt(15, Integer.parseInt(bean.getWidth()));
+		 	}
+		 	
 		 	stmt.setString(16, bean.getWidthUnitSizeCategory());
-		 	stmt.setDouble(17, bean.getDepth());
+		 	
+		 	if(bean.getDepth() == null) {
+		 		stmt.setNull(17,java.sql.Types.NULL);
+		 		
+		 	}else {
+		 		stmt.setInt(17, Integer.parseInt(bean.getDepth()));
+		 	}
+		 	
 		 	stmt.setString(18, bean.getDepthUnitSizeCategory());
-		 	stmt.setDouble(19, bean.getHeight());
+		 	
+		 	if(bean.getHeight() == null) {
+		 		stmt.setNull(19,java.sql.Types.NULL);
+		 		
+		 	}else {
+		 		stmt.setInt(19, Integer.parseInt(bean.getHeight()));
+		 	}
+		 	
 		 	stmt.setString(20, bean.getHeightUnitSizeCategory());
-		 	stmt.setDouble(21, bean.getWeight());
+		 	
+		 	if(bean.getWeight() == null) {
+		 		stmt.setNull(21,java.sql.Types.NULL);
+		 		
+		 	}else {
+		 		stmt.setInt(21, Integer.parseInt(bean.getWeight()));
+		 	}
+		
+		 	
 		 	stmt.setString(22, bean.getWeightUnitSizeCategory());
-		 	stmt.setDouble(23, bean.getLength());
+		 	
+		 	if(bean.getLength() == null) {
+		 		stmt.setNull(23,java.sql.Types.NULL);
+		 		
+		 	}else {
+		 		stmt.setInt(23, Integer.parseInt(bean.getLength()));
+		 	}
+		 	
+		 	
 		 	stmt.setString(24, bean.getLengthUnitSizeCategory());
-		 	stmt.setInt(25, bean.getPoLot());
-		 	stmt.setInt(26, bean.getLotUpdFlag());
-		 	stmt.setInt(27, bean.getLeadTime());
-		 	stmt.setInt(28, bean.getPoNum());
-		 	stmt.setInt(29, bean.getPoUpdFlag());
-		 	stmt.setInt(30, bean.getAvgShipCount());
-		 	stmt.setInt(31, bean.getMaxStockNum());
-		 	stmt.setInt(32, bean.getStockUpdFlag());
-		 	stmt.setInt(33, bean.getTermShipNum());
-		 	stmt.setInt(34, bean.getMaxPoNum());
-		 	stmt.setInt(35, bean.getMaxPoUpdNum());
+		 	
+		 	if(bean.getPoLot() == null) {
+		 		stmt.setNull(25,java.sql.Types.NULL);
+		 		
+		 	}else {
+		 		stmt.setInt(25, Integer.parseInt(bean.getPoLot()));
+		 	}
+		 	
+		 	
+		 	if(bean.getLotUpdFlag() == null) {
+		 		stmt.setNull(26,java.sql.Types.NULL);
+		 		
+		 	}else {
+		 		stmt.setInt(26, Integer.parseInt(bean.getLotUpdFlag()));
+		 	}
+		 	
+		 	
+		 	if(bean.getLeadTime() == null) {
+		 		stmt.setNull(27,java.sql.Types.NULL);
+		 		
+		 	}else {
+		 		stmt.setInt(27, Integer.parseInt(bean.getLeadTime()));
+		 	}
+		 	
+		 	
+		 	if(bean.getPoNum() == null) {
+		 		stmt.setNull(28,java.sql.Types.NULL);
+		 		
+		 	}else {
+		 		stmt.setInt(28, Integer.parseInt(bean.getPoNum()));
+		 	}
+		 	
+		 	
+		 	if(bean.getPoUpdFlag() == null) {
+		 		stmt.setNull(29,java.sql.Types.NULL);
+		 		
+		 	}else {
+		 		stmt.setInt(29, Integer.parseInt(bean.getPoUpdFlag()));
+		 	}
+		 	
+		 	
+		 	if(bean.getAvgShipCount() == null) {
+		 		stmt.setNull(30,java.sql.Types.NULL);
+		 		
+		 	}else {
+		 		stmt.setInt(30, Integer.parseInt(bean.getAvgShipCount()));
+		 	}
+		 	
+		 	
+		 	if(bean.getMaxStockNum() == null) {
+		 		stmt.setNull(31,java.sql.Types.NULL);
+		 		
+		 	}else {
+		 		stmt.setInt(31, Integer.parseInt(bean.getMaxStockNum()));
+		 	}
+		 	
+		 	
+		 	if(bean.getStockUpdFlag() == null) {
+		 		stmt.setNull(32,java.sql.Types.NULL);
+		 		
+		 	}else {
+		 		stmt.setInt(32, Integer.parseInt(bean.getStockUpdFlag()));
+		 	}
+		 	
+		 	
+		 	if(bean.getTermShipNum() == null) {
+		 		stmt.setNull(33,java.sql.Types.NULL);
+		 		
+		 	}else {
+		 		stmt.setInt(33, Integer.parseInt(bean.getTermShipNum()));
+		 	}
+		 	
+		 	
+		 	if(bean.getMaxPoNum() == null) {
+		 		stmt.setNull(34,java.sql.Types.NULL);
+		 		
+		 	}else {
+		 		stmt.setInt(34, Integer.parseInt(bean.getMaxPoNum()));
+		 	}
+		 	
+		 	
+		 	if(bean.getMaxPoUpdFlag() == null) {
+		 		stmt.setNull(35,java.sql.Types.NULL);
+		 		
+		 	}else {
+		 		stmt.setInt(35, Integer.parseInt(bean.getMaxPoUpdFlag()));
+		 	}
+		 	
 		 	stmt.setString(36, bean.getFractCategory());
 		 	stmt.setString(37, bean.getTaxCategory());
 		 	stmt.setString(38, bean.getStockCtlCategory());
@@ -143,7 +291,14 @@ public class ProductModifyDAO extends BaseDAO {
 		 	stmt.setString(41, bean.getProduct1());
 		 	stmt.setString(42, bean.getProduct2());
 		 	stmt.setString(43, bean.getProduct3());
-		 	stmt.setInt(44, bean.getRoMaxNum());
+		 	
+		 	if(bean.getRoMaxNum() == null) {
+		 		stmt.setNull(44,java.sql.Types.NULL);
+		 		
+		 	}else {
+		 		stmt.setInt(44, Integer.parseInt(bean.getRoMaxNum()));
+		 	}
+		 	
 		 	stmt.setString(45, bean.getProductRank());
 		 	stmt.setString(46, bean.getSetTypeCategory());
 		 	stmt.setString(47, bean.getProductStatusCategory());
@@ -151,37 +306,137 @@ public class ProductModifyDAO extends BaseDAO {
 		 	stmt.setString(49, bean.getProductPurvayCategory());
 		 	stmt.setString(50, bean.getProductStandardCategory());
 		 	stmt.setString(51, bean.getCoreNum());
-		 	stmt.setInt(52, bean.getNum1());
-		 	stmt.setInt(53, bean.getNum2());
-		 	stmt.setInt(54, bean.getNum3());
-		 	stmt.setInt(55, bean.getNum4());
-		 	stmt.setInt(56, bean.getNum5());
-		 	stmt.setDouble(57, bean.getDec1());
-		 	stmt.setDouble(58, bean.getDec2());
-		 	stmt.setDouble(59, bean.getDec3());
-		 	stmt.setDouble(60, bean.getDec4());
-		 	stmt.setDouble(61, bean.getDec5());
-		 	stmt.setDate(62, bean.getDiscardDate());
+		 	
+		 	if(bean.getNum1() == null) {
+		 		stmt.setNull(52,java.sql.Types.NULL);
+		 		
+		 	}else {
+		 		stmt.setInt(52, Integer.parseInt(bean.getNum1()));
+		 	}
+		 	
+		 	
+		 	if(bean.getNum2() == null) {
+		 		stmt.setNull(53,java.sql.Types.NULL);
+		 		
+		 	}else {
+		 		stmt.setInt(53, Integer.parseInt(bean.getNum2()));
+		 	}
+		 	
+		 	
+		 	if(bean.getNum3() == null) {
+		 		stmt.setNull(54,java.sql.Types.NULL);
+		 		
+		 	}else {
+		 		stmt.setInt(54, Integer.parseInt(bean.getNum3()));
+		 	}
+		 	
+		 	
+		 	if(bean.getNum4() == null) {
+		 		stmt.setNull(55,java.sql.Types.NULL);
+		 		
+		 	}else {
+		 		stmt.setInt(55, Integer.parseInt(bean.getNum4()));
+		 	}
+		 	
+		 	
+		 	if(bean.getNum5() == null) {
+		 		stmt.setNull(56,java.sql.Types.NULL);
+		 		
+		 	}else {
+		 		stmt.setInt(56, Integer.parseInt(bean.getNum5()));
+		 	}
+		 	
+		 	
+		 	if(bean.getDec1() == null) {
+		 		stmt.setNull(57,java.sql.Types.NULL);
+		 		
+		 	}else {
+		 		stmt.setInt(57, Integer.parseInt(bean.getDec1()));
+		 	}
+		 	
+		 	
+		 	if(bean.getDec2() == null) {
+		 		stmt.setNull(58,java.sql.Types.NULL);
+		 		
+		 	}else {
+		 		stmt.setInt(58, Integer.parseInt(bean.getDec2()));
+		 	}
+		 	
+		 	
+		 	if(bean.getDec3() == null) {
+		 		stmt.setNull(59,java.sql.Types.NULL);
+		 		
+		 	}else {
+		 		stmt.setInt(59, Integer.parseInt(bean.getDec3()));
+		 	}
+		 	
+		 	
+		 	if(bean.getDec4() == null) {
+		 		stmt.setNull(60,java.sql.Types.NULL);
+		 		
+		 	}else {
+		 		stmt.setInt(60, Integer.parseInt(bean.getDec4()));
+		 	}
+		 	
+		 	
+		 	if(bean.getDec5() == null) {
+		 		stmt.setNull(61,java.sql.Types.NULL);
+		 		
+		 	}else {
+		 		stmt.setInt(61, Integer.parseInt(bean.getDec5()));
+		 	}
+		 	
+		 	stmt.setString(62, bean.getDiscardDate());
 		 	stmt.setString(63, bean.getRemarks());
 		 	stmt.setString(64, bean.getEndRemarks());
 		 	stmt.setString(65, bean.getCommentData());
-		 	stmt.setDate(66, bean.getLastRoDate());
-		 	stmt.setInt(67, bean.getSalesStandardDeviation());
-		 	stmt.setInt(68, bean.getMineSafetyStock());
-		 	stmt.setInt(69, bean.getMineSafetyStockUpdFlag());
-		 	stmt.setInt(70, bean.getEntrustSafetyStock());
+		 	stmt.setString(66, bean.getLastRoDate());
+		 	
+		 	if(bean.getSalesStandardDeviation() == null) {
+		 		stmt.setNull(67,java.sql.Types.NULL);
+		 		
+		 	}else {
+		 		stmt.setInt(67, Integer.parseInt(bean.getSalesStandardDeviation()));
+		 	}
+		 	
+		 	
+		 	if(bean.getMineSafetyStock() == null) {
+		 		stmt.setNull(68,java.sql.Types.NULL);
+		 		
+		 	}else {
+		 		stmt.setInt(68, Integer.parseInt(bean.getMineSafetyStock()));
+		 	}
+		 	
+		 	
+		 	if(bean.getMineSafetyStockUpdFlag() == null) {
+		 		stmt.setNull(69,java.sql.Types.NULL);
+		 		
+		 	}else {
+		 		stmt.setInt(69, Integer.parseInt(bean.getMineSafetyStockUpdFlag()));
+		 	}
+		 	
+		 	
+		 	if(bean.getEntrustSafetyStock() == null) {
+		 		stmt.setNull(70,java.sql.Types.NULL);
+		 		
+		 	}else {
+		 		stmt.setInt(70, Integer.parseInt(bean.getEntrustSafetyStock()));
+		 	}
+		 	
 		 	stmt.setString(71, bean.getCreFunc());
-		 	stmt.setTimestamp(72, bean.getCreDatetm());
+		 	stmt.setString(72, bean.getCreDatetm());
 		 	stmt.setString(73, bean.getCreUser());
 		 	stmt.setString(74, bean.getUpdFunc());
-		 	stmt.setTimestamp(75, bean.getUpdDatetm());
+		 	stmt.setString(75, bean.getUpdDatetm());
 		 	stmt.setString(76, bean.getUpdUser());
 		 	stmt.setString(77, bean.getDelFunc());
-		 	stmt.setTimestamp(78, bean.getDelDatetm());
+		 	stmt.setString(78, bean.getDelDatetm());
 		 	stmt.setString(79, bean.getDelUser());
 		 	
+		 	
 		 	try{
-		 		result = stmt.executeUpdate(sql);
+		 		result = stmt.executeUpdate();
+		 		System.out.println("çXêVäÆóπ");
 		 		con.commit();
 		 	}catch (SQLException e) {
 		 		e.printStackTrace();
@@ -192,5 +447,4 @@ public class ProductModifyDAO extends BaseDAO {
 		 	
 		 	return result;
 		 }
-		 	
 }
