@@ -333,7 +333,7 @@
 							</div>
 						</div>
 						<div class="col-4">
-							<label class="sr-only" for="inlineFormInputGroup">maxPoNummaxPoNum</label>
+							<label class="sr-only" for="inlineFormInputGroup">maxPoNum</label>
 							<div class="input-group mb-2">
 								<div class="input-group-prepend">
 									<div class="input-group-text">単位発注限度数</div>
