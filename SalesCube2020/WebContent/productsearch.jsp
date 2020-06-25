@@ -102,7 +102,12 @@
 			</div>
 			<br><br><br>
 		</div>
-		
+		<!-- エラーメッセージを表示 -->
+       	<div style="width:100%; text-align:center; margin-bottom:20px;">
+				 <span class="action_errors" style="color: red">${addmodifyError}</span>
+				 <span class="action_errors" style="color: red">${addmodifysuccsess}</span>
+				 <span class="action_errors" style="color: red">${addmodifyinterror}</span>
+		</div>
 		<!--商品検索-->
 		<br><br>
 		<div class="container panel panel-default" style="background-color: white;">
