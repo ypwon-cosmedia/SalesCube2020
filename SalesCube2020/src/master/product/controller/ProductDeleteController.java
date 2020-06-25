@@ -6,17 +6,11 @@ import javax.servlet.http.*;
 
 import common.controller.BaseController;
 import master.product.DAO.GetCategoryDAO;
-import master.product.DAO.ProductDAO;
 import master.product.DAO.ProductDeleteDAO;
 import master.product.beans.ProductCategoryAllBean;
-import master.product.beans.ProductDeleteBean;
-
 import java.util.*;
 import java.sql.SQLException;
 import java.lang.*;
-
-import user.DAO.*;
-import user.beans.*;
 
 public class ProductDeleteController extends BaseController{
 	
@@ -46,7 +40,7 @@ public class ProductDeleteController extends BaseController{
 
 		String forwardURL = "/productsearch.jsp";	
 		
-		//ƒJƒeƒSƒŠ[		
+		//Category	
 		List<ProductCategoryAllBean> list = new ArrayList<ProductCategoryAllBean>();		
 		GetCategoryDAO dao = new GetCategoryDAO();
 		
@@ -59,16 +53,17 @@ public class ProductDeleteController extends BaseController{
 		
 		request.setAttribute("all", list);
 		
-		//íœ
-		String productCode = null;
-		productCode = (String)request.getParameter("productCode");
+		//Delete
+		String productCode = (String)request.getParameter("productCode");
 		ProductDeleteDAO dao2 = new ProductDeleteDAO();
-
 		int check = dao2.deleteProduct(productCode);
 		
-		//íœ‚É‚¨‚¢‚ÄƒGƒ‰[‚ª¶‚¶‚½‚Æ‚«
+		//Delete Check
 		if(check == 1) {
-			String message = "¤•iî•ñ‚Ìíœˆ—‚É‚¨‚¢‚ÄƒGƒ‰[‚ª”­¶‚µ‚Ü‚µ‚½";
+			String message = "ï¿½ï¿½ï¿½iï¿½ï¿½ï¿½Ìíœï¿½ï¿½ï¿½ï¿½ï¿½É‚ï¿½ï¿½ï¿½ï¿½ÄƒGï¿½ï¿½ï¿½[ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ü‚ï¿½ï¿½ï¿½";
+			request.setAttribute("message", message);
+		} else {
+			String message = "ï¿½Ú‹qï¿½ï¿½ï¿½Ìíœï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ü‚ï¿½ï¿½ï¿½";
 			request.setAttribute("message", message);
 		}
 		

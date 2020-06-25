@@ -1,5 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
 
 <!doctype html>
 <html lang="en">
@@ -55,9 +57,9 @@
               マスター
             </a>
             <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-              <a class="dropdown-item" href="#">商品</a>
-              <a class="dropdown-item" href="#">セット商品</a>
-              <a class="dropdown-item" href="#">顧客</a>
+              <a class="dropdown-item" href="/SalesCube2020/SalesCube?action=product">商品</a>
+              <a class="dropdown-item" href="/SalesCube2020/SalesCube?action=setProduct">セット商品</a>
+              <a class="dropdown-item" href="/SalesCube2020/SalesCube?action=customer">顧客</a>
             </div>
           </li>
         </ul>
@@ -67,7 +69,7 @@
             <path fill-rule="evenodd" d="M8 9a3 3 0 1 0 0-6 3 3 0 0 0 0 6z"/>
             <path fill-rule="evenodd" d="M8 1a7 7 0 1 0 0 14A7 7 0 0 0 8 1zM0 8a8 8 0 1 1 16 0A8 8 0 0 1 0 8z"/>
           </svg>
-          システム管理者　
+          　		${userInfo.nameKNJ} &nbsp; 
         </span>
         <form class="form-inline">
           <button class="btn btn-outline-success my-2 my-sm-0" type="submit">ログアウト</button>
@@ -84,17 +86,12 @@
 		  <div class="btn-group mr-2 " role="group" aria-label="First group">
           <button type="button" class="btn btn-secondary" style="font-size: 12px;" onclick="initForm()" >F1<br>初期化</button>
 			<button type="button" class="btn btn-secondary" style="font-size: 12px;" onclick="backForm()">F2<br>戻る</button>
-			<button type="button" class="btn btn-secondary" style="font-size: 12px;" onclick="registrationEditForm()" >F3<br>${status eq 'add' ? "登録" : "更新"}</button>
-			<form action="/SalesCube2020/SalesCube? action=deleteProduct"> 
-				<input type="hidden" name="productCode" value="${product.productCode}">
-				<button type="button" class="btn btn-secondary" style="font-size: 12px;" onclick= "deleteForm()" ${status eq 'add' ? "disabled" :''}>F4 <br>削除</button>
-			</form>
-			<button type="button" class="btn btn-secondary" style="font-size: 12px;">F5<br>初期値</button>
+			<button type="button" class="btn btn-secondary" style="font-size: 12px;" onclick="registrationForm()" >F3<br>${status eq 'add' ? "登録" : "更新"}</button>
+			<button type="button" class="btn btn-secondary" style="font-size: 12px;" onclick= "deleteForm()" ${status eq 'add' ? "disabled" :''}>F4 <br>削除</button>
+			<button type="button" class="btn btn-secondary" style="font-size: 12px;" disabled>F5<br></button>
 			<button type="button" class="btn btn-secondary" style="font-size: 12px;" disabled>F6<br></button>
 			<button type="button" class="btn btn-secondary" style="font-size: 12px;" disabled>F7<br></button>
-			<form action="/SalesCube2020/SalesCube? action=producthistoryoutput">
-				<button type="button" class="btn btn-secondary" style="font-size: 12px;" disabled>F8<br></button>
-			</form>
+			<button type="button" class="btn btn-secondary" style="font-size: 12px;" disabled>F8<br></button>
 			<button type="button" class="btn btn-secondary" style="font-size: 12px;" disabled>F9<br></button>
 			<button type="button" class="btn btn-secondary" style="font-size: 12px;" disabled>F10<br></button>
 			<button type="button" class="btn btn-secondary" style="font-size: 12px;" disabled>F11<br></button>
@@ -112,47 +109,47 @@
 				 
        </div>
 	
-	
+	<form ${status eq 'add' ? "action='/SalesCube2020/SalesCube?action=addProduct'" :"action='/SalesCube2020/SalesCube?action=modifyProduct'"} method="post" name="mainform">
 		<div class="container" style="background-color: white;"><div class="panel panel-default" >
 			<div class="panel-heading row mb-2 col-4">
 				<h5><br>商品情報</h5>
 			</div>
 			<hr>
 			<div class="panel-body">
-				<form action=/SalesCube2020/productSearch.jsp"  method="post">
-					<div class="row">
-						<div class="col-4">
-							<label class="sr-only" for="inlineFormInputGroup">productCode</label>
-							<div class="input-group mb-2">
-								<div class="input-group-prepend">
-									<div class="input-group-text" style = "background-color: pink;">商品コード※</div>
-								</div>
-							<input type="text"  class="form-control" id="inlineFormInputGroup" name="productCode" value="${product.productCode}" required>
+				<div class="row">
+					<div class="col-4">
+						<label class="sr-only" for="inlineFormInputGroup">productCode</label>
+						<div class="input-group mb-2">
+							<div class="input-group-prepend">
+								<div class="input-group-text" style = "background-color: pink;">商品コード※</div>
+							</div>
+						<input type="text"  class="form-control" id="inlineFormInputGroup" name="productCode" value="${product.productCode}" required>
 				
-							</div>
-						</div>
-						<div class="col-4">
-							<label class="sr-only" for="inlineFormInputGroup">productName</label>
-							<div class="input-group mb-2">
-								<div class="input-group-prepend">
-									<div class="input-group-text" style = "background-color: pink;">商品名※</div>
-								</div>
-							<input type="text"  class="form-control" id="inlineFormInputGroup" name="productName" value="${product.productName}" required>
-							</div>
-						</div>
-						<div class="col-4">
-							<label class="sr-only" for="inlineFormInputGroup">productKana</label>
-							<div class="input-group mb-2">
-								<div class="input-group-prepend">
-									<div class="input-group-text">商品カナ</div>
-								</div>
-							<input type="text"  class="form-control" id="inlineFormInputGroup" name="productKana" value="${product.productKana}">
-							</div>
 						</div>
 					</div>
-					<div class="row">
-						<div class="col-4">
-							<label class="sr-only" for="inlineFormInputGroup">productPcode</label>
+					<div class="col-4">
+						<label class="sr-only" for="inlineFormInputGroup">productName</label>
+						<div class="input-group mb-2">
+							<div class="input-group-prepend">
+								<div class="input-group-text" style = "background-color: pink;">商品名※</div>
+							</div>
+						<input type="text"  class="form-control" id="inlineFormInputGroup" name="productName" value="${product.productName}" required>
+						</div>
+					</div>
+					
+					<div class="col-4">
+						<label class="sr-only" for="inlineFormInputGroup">productKana</label>
+						<div class="input-group mb-2">
+							<div class="input-group-prepend">
+								<div class="input-group-text">商品カナ</div>
+							</div>
+						<input type="text"  class="form-control" id="inlineFormInputGroup" name="productKana" value="${product.productKana}">
+						</div>
+					</div>
+				</div>
+				<div class="row">
+					<div class="col-4">
+						<label class="sr-only" for="inlineFormInputGroup">productPcode</label>
 							<div class="input-group mb-2">
 								<div class="input-group-prepend">
 									<div class="input-group-text">オンライン品番</div>
@@ -176,7 +173,7 @@
 								<div class="input-group-prepend">
 									<div class="input-group-text">廃番予定日</div>
 								</div>
-							<input type="date" name="discardDate" value="${product.janPcode}">
+							<input type="date" name="discardDate" value="${product.discardDate}">
 							</div>
 						</div>
 					</div>
@@ -239,6 +236,10 @@
 									<div class="input-group-text">在庫管理</div>
 								</div>
 							<select class="custom-select" name="stockCtlCategory" value="${product.stockCtlCategory}">
+							
+									<option value="0">しない</option>
+                            		<option value="1">する</option>
+                                	
 							</select>
 							</div>
 						</div>
@@ -272,12 +273,12 @@
 							</div>
 						</div>
 						<div class="col-4">
-							<label class="sr-only" for="inlineFormInputGroup">rackName</label>
+							<label class="sr-only" for="inlineFormInputGroup">rackCode</label>
 							<div class="input-group mb-2">
 								<div class="input-group-prepend">
 									<div class="input-group-text">棚番</div>
 								</div>
-							<input type="text"  class="form-control" id="inlineFormInputGroup" name="rackName" value="${product.rackName}">
+							<input type="text"  class="form-control" id="inlineFormInputGroup" name="rackCode" value="${product.rackCode}">
 							
 							</div>
 						</div>
@@ -351,12 +352,12 @@
 							</div>
 						</div>
 						<div class="col-4">
-							<label class="sr-only" for="inlineFormInputGroup">salesPrice</label>
+							<label class="sr-only" for="inlineFormInputGroup">retailPrice</label>
 							<div class="input-group mb-2">
 								<div class="input-group-prepend">
 									<div class="input-group-text">売単価</div>
 								</div>
-							<input type="text"  class="form-control" id="inlineFormInputGroup" name="salesPrice" value="${product.salesPrice}">
+							<input type="text"  class="form-control" id="inlineFormInputGroup" name="retailPrice" value="${product.retailPrice}">
 							</div>
 						</div>
 						<div class="col-4">
@@ -365,8 +366,8 @@
 								<div class="input-group-prepend">
 									<div class="input-group-text">数量割引</div>
 								</div>
-							<input type="text"  class="form-control" id="inlineFormInputGroup" name="quantityDiscount" value="${product.quantityDiscount}">
-							<input type="image" name="" src="btn_search.png" tabindex="101" onclick="" style="vertical-align: middle; cursor: pointer; width: 32px;">
+							<input type="text"  class="form-control" id="quantityDiscount" name=" discountId" value="${product. discountId}">
+							<input type="image" name="" src="btn_search.png" tabindex="101" onclick='discountForm("/SalesCube2020/quantitydiscount.jsp")' style="vertical-align: middle; cursor: pointer; width: 32px;">
 							</div>
 						</div>
 					</div>
@@ -389,7 +390,10 @@
 									<div class="input-group-prepend">
 										<div class="input-group-text">状況</div>
 									</div>
-								<select class="custom-select" name="productStatusCategory" value="${product.productStasCategory}">
+								<select class="custom-select" name="productStatusCategory" value="${product1.productStatusCategory}" >
+									<c:forEach var="search" items="${productStatusCategory}">
+										<option value="${search.productStatusCategoryCode}">${search.productStatusCategoryName}</option>
+									</c:forEach>
 								</select>
 								</div>
 							</div>
@@ -399,7 +403,10 @@
 									<div class="input-group-prepend">
 										<div class="input-group-text">保管</div>
 									</div>
-								<select class="custom-select" name="productStockCategory" value="${product.productStockCategory}">
+								<select class="custom-select" name="productStockCategory" value="${product1.productStockCategory}">
+								<c:forEach items="${prosearch}" var="prdct">
+									<option value="${prdct.productStockCategoryCode}">${prdct.productStockCategoryName}</option>
+								</c:forEach>
 								</select>
 								</div>
 							</div>
@@ -409,7 +416,9 @@
 									<div class="input-group-prepend">
 										<div class="input-group-text">調達</div>
 									</div>
-								<select class="custom-select" name="productPurvayCategory" value="${product.productPurvayCategory}">
+								<select class="custom-select" name="productPurvayCategory" value="${product1.productPurvayCategory}">
+									<option value="1">国内調達</option>
+                            		<option value="2">海外調達</option>
 								</select>
 								</div>
 							</div>
@@ -421,7 +430,11 @@
 									<div class="input-group-prepend">
 										<div class="input-group-text">標準化</div>
 									</div>
-								<select class="custom-select" name="productStandardCategory" value="${product.productStandardCategory}">
+								<select class="custom-select" name="productStandardCategory" value="${product1.productStandardCategory}">
+								<option selected></option>
+									<c:forEach items="${productStandardCategory}" var="prdct">
+										<option value="${prdct.productStandardCategoryCode}">${prdct.productStandardCategoryName}</option>
+									</c:forEach>
 								</select>
 								</div>
 							</div>
@@ -431,7 +444,7 @@
 									<div class="input-group-prepend">
 										<div class="input-group-text">特注計算掛率</div>
 									</div>
-								<input type="text"  class="form-control" id="inlineFormInputGroup" name="soRate" value="${product.soRate}">
+								<input type="text"  class="form-control" id="inlineFormInputGroup" name="soRate" value="${product1.soRate}">
 								</div>
 							</div>
 							<div class="col-4">
@@ -440,7 +453,10 @@
 									<div class="input-group-prepend">
 										<div class="input-group-text">セット</div>
 									</div>
-								<select class="custom-select" name="setTipeCategory" value="${product.setTypeCategory}">
+								<select class="custom-select" name="setTipeCategory" value="${product1.setTypeCategory}">
+								<c:forEach items="${setTypeCategory}" var="prdct">
+										<option value="${prdct.setTypeCategoryCode}">${prdct.setTypeCategoryName}</option>
+								</c:forEach>
 								</select>
 								</div>
 							</div>
@@ -450,14 +466,11 @@
 								<label class="sr-only" for="inlineFormInputGroup">product1</label>
 								<div class="input-group mb-2">
 									<div class="input-group-prepend">
-										<div class="input-group-text">カテゴリ（大）</div>
+										<div class="input-group-text">分類（大）</div>
 									</div>
-									<select class="custom-select" name="product1">
-										<option selected></option>
-										<option value="1">食品</option>
-										<option value="10">本</option>
-										<option value="100">家</option>
-									</select>
+									<select class="custom-select" name="product1" id="product1" onchange="selectPro1();">
+									<option selected></option>
+								</select>
 								</div>
 							</div>
 						</div>
@@ -466,12 +479,11 @@
 								<label class="sr-only" for="inlineFormInputGroup">product2</label>
 								<div class="input-group mb-2">
 									<div class="input-group-prepend">
-										<div class="input-group-text">カテゴリ（中）</div>
+										<div class="input-group-text">分類（中）</div>
 									</div>
-									<select class="custom-select" name="product2">
-										<option selected></option>
-										
-									</select>
+									<select class="custom-select" name="product2" id="product2" onchange="selectPro2();">
+									<option selected></option>
+								</select>
 								</div>
 							</div>
 						</div>
@@ -480,12 +492,11 @@
 								<label class="sr-only" for="inlineFormInputGroup">product3</label>
 								<div class="input-group mb-2">
 									<div class="input-group-prepend">
-										<div class="input-group-text">カテゴリ（小）</div>
+										<div class="input-group-text">分類（小）</div>
 									</div>
-									<select class="custom-select" name="product3">
-										<option selected></option>
-										
-									</select>
+									<select class="custom-select" name="product3" id="product3">
+									<option selected></option>
+								</select>
 								</div>
 							</div>
 						</div>
@@ -504,18 +515,25 @@
 									<div class="input-group-prepend">
 										<div class="input-group-text">単位</div>
 									</div>
-								<select class="custom-select" name="unitCategory" value="${product.unitCategory}">
+								<select class="custom-select" name="unitCategory" value="${product2.unitCategory}">
+									<option value="1">本</option>
+                            		<option value="2">個</option>
+                            		<option value="3">箱</option>
 								</select>
 								</div>
 							</div>
 							<div class="col-4">
-								<label class="sr-only" for="inlineFormInputGroup">weightUnitCategory</label>
+								<label class="sr-only" for="inlineFormInputGroup">weightUnitSizeCategory</label>
 								<div class="input-group mb-2">
 									<div class="input-group-prepend">
 										<div class="input-group-text">重量</div>
 									</div>
 								<input type="text"  class="form-control" id="inlineFormInputGroup">
-								<select class="custom-select" name="weightUnitCategory" value="${product.weightUnitCategory}">
+								<select class="custom-select" name="weightUnitSizeCategory" value="${product2.weightUnitSizeCategory}">
+									<option value=""></option>
+									<option value="1">mg</option>
+                            		<option value="2">g</option>
+                            		<option value="3">kg</option>
 								</select>
 								</div>
 							</div>
@@ -526,7 +544,11 @@
 										<div class="input-group-text">長さ</div>
 									</div>
 								<input type="text"  class="form-control" id="inlineFormInputGroup">
-								<select class="custom-select" name="lengthUnitSizeCategory" value="${product.lengthUnitSizeCategory}">
+								<select class="custom-select" name="lengthUnitSizeCategory" value="${product2.lengthUnitSizeCategory}">
+									<option value=""></option>
+									<option value="1">mm</option>
+                            		<option value="2">cm</option>
+                            		<option value="3">m</option>
 								</select>
 								</div>
 							</div>
@@ -539,7 +561,11 @@
 										<div class="input-group-text">サイズ(幅)</div>
 									</div>
 								<input type="text"  class="form-control" id="inlineFormInputGroup">
-								<select class="custom-select" name="widthUnitSizeCategory" value="${product.widthUnitSizeCategory}">
+								<select class="custom-select" name="widthUnitSizeCategory" value="${product2.widthUnitSizeCategory}">
+									<option value=""></option>
+									<option value="1">mm</option>
+                            		<option value="2">cm</option>
+                            		<option value="3">m</option>
 								</select>
 								</div>
 							</div>
@@ -550,7 +576,11 @@
 										<div class="input-group-text">サイズ(奥)</div>
 									</div>
 									<input type="text"  class="form-control" id="inlineFormInputGroup">
-								<select class="custom-select" name="depthUnitSizeCategory" value="${product.depthUnitSizeCategory}">
+								<select class="custom-select" name="depthUnitSizeCategory" value="${product2.depthUnitSizeCategory}">
+									<option value=""></option>
+									<option value="1">mm</option>
+                            		<option value="2">cm</option>
+                            		<option value="3">m</option>
 								</select>
 								</div>
 							</div>
@@ -561,7 +591,11 @@
 										<div class="input-group-text">サイズ(高)</div>
 									</div>
 									<input type="text"  class="form-control" id="inlineFormInputGroup">
-								<select class="custom-select" name="heightUnitSizeCategory" value="${product.heightUnitSizeCategory}">
+								<select class="custom-select" name="heightUnitSizeCategory" value="${product2.heightUnitSizeCategory}">
+									<option value=""></option>
+									<option value="1">mm</option>
+                            		<option value="2">cm</option>
+                            		<option value="3">m</option>
 								</select>
 								</div>
 							</div>
@@ -572,7 +606,7 @@
 									<div class="input-group-prepend">
 										<div class="input-group-text">芯数</div>
 									</div>
-									<input type="text"  class="form-control" id="inlineFormInputGroup" name="coreNum" value="${product.coreNum}">
+									<input type="text"  class="form-control" id="inlineFormInputGroup" name="coreNum" value="${product2.coreNum}">
 								</div>
 								<br>
 							</div>
@@ -591,7 +625,7 @@
 							<div class="col-8">
 								<div class="input-group-prepend">
 									<div class="input-group-text">備考</div>
-									<textarea id="textarea1" class="form-control" name="remarks"></textarea>
+									<textarea id="textarea1" class="form-control" name="remarks" value="${product3.remarks}"></textarea>
 								</div>
 							</div>
 						</div><br>
@@ -599,7 +633,7 @@
 							<div class="col-8">
 								<div class="input-group-prepend">
 									<div class="input-group-text">ピッキング備考</div>
-									<textarea id="textarea1" class="form-control" name="eadRemarks"></textarea>
+									<textarea id="textarea1" class="form-control" name="eadRemarks" value="${product3.eadRemarks}"></textarea>
 								</div>
 							</div>
 						</div><br>
@@ -607,52 +641,171 @@
 							<div class="col-8">
 								<div class="input-group-prepend">
 									<div class="input-group-text">コメント</div>
-									<textarea id="textarea1" class="form-control" name="commentData"></textarea>
+									<textarea id="textarea1" class="form-control" name="commentData" value="${product3.commentData}"></textarea>
 								</div>
 							</div>
 						</div>
-			</form>
+			
 				</div><br><br>
 				
 			</div>
 			<br><br>
-			<div align="right">
+			<!-- ボタン -->
+			<div align="right" class="container">
 				<input type="submit"  value="初期化" class="btn btn-outline-secondary" onclick="initForm()" >&emsp;
-				<input type="submit" value="${status eq 'add' ? "登録" : "更新"}" class="btn btn-outline-secondary" onclick="registrationEditForm()">&emsp;
-				<input type="submit" value="削除" class="btn btn-outline-secondary" onclick= "deleteForm()" ${status eq 'add' ? "disabled" :''}>&emsp;
+				<input type="submit" value="${status eq 'add' ? '登録' : '更新'}" class="btn btn-outline-secondary" onclick="confirmForm()">&emsp;
+				<input type="submit" value="削除" class="btn btn-outline-secondary" onclick="deleteForm()" ${status eq 'add' ? "disabled" :''}>&emsp;
 			</div>
-			<br> 
+			</form> 
+			<form action="/SalesCube2020/SalesCube?action=deleteProduct" method="post" name="deleteform">
+				<input type="hidden" name="productCode" value="${product.productCode}">
+			</form>
+			<br>
+		 
 			
 		<script>
         	function initForm() {
     	   		if(!confirm("入力内容を初期化してよろしいですか？")){
            	   		return;
     	  		}
-        		window.location.href = '/SalesCube2020/productaddmodify.jsp';
+        		window.location.href = '/SalesCube2020/SalesCube?action=moveAddProduct';
         	}
     	
     		function backForm() {
     			if(!confirm("商品検索画面に戻ります。よろしいですか？")) {
     				return;
     			}
-    			window.location.href = '/SalesCube2020/productsearch.jsp';
+    			window.location.href = '/SalesCube2020/SalesCube?action=searchProduct';
     		}
     		
-    		function registrationEditForm() {
-    			if(!confirm("入力内容を登録します。よろしいですか？")) {
-    				return;
+    		function registrationForm() {
+    			var status = "${status}";
+    		 	if(status=="add"){
+    				if(!confirm("入力内容を登録します。よろしいですか？")) {
+    					return;
+    				}
+    				var form = document.mainform;
+    				form.submit();
+    		 	} else {
+    				if(!confirm("入力内容を更新します。よろしいですか？")) {
+    					return;
+    				}
+    				var form = document.mainform;
+    				form.submit();
     			}
-    			
     		}
+    		 	
+    		 function confirmForm() {
+    		 	 var status = "${status}";
+    		 		 if(status=="add"){
+    		 			if(!confirm("入力内容を登録します。よろしいですか？")) {
+    		 				return;
+    		 			}
+    		 		 }
+    		 		 else {
+    		 			if(!confirm("入力内容を更新します。よろしいですか？")) {
+    		 				return;
+    		 			}
+    		 		}
+    		 }
     		
     		function deleteForm() {
     			if(!confirm("このデータを削除しますか？")) {
     				return;
     			}
+    			var form = document.deleteform;
     			
+    			form.submit();
     		}
     		
+    		
+    		
+    		
+    		function discountForm(url){
+    			 window.open(url, "サブ検索画面", "width=1200,height=650,scrollbars=yes");
+    		}
+    		
+    		
+    		function doSubmit(){
+    			var form = document.mainform;
+    			form.submit();
+    		}
+    		
+    		
+    		var mylist = [];
+    		window.onload = function(){
+    			var loop=0;
+    			
+    			<c:forEach var="test" items="${all}" >
+    			  mylist[loop] = {
+    					    cat1:"${test.classCode1}",
+    					    cat2:"${test.classCode2}",
+    					    cat3:"${test.classCode3}",
+    					    catName:"${test.classCodeName}",	
+    					  };
+    			  		loop++;  	 
+    			</c:forEach>
+    			var list = mylist
+    			var objSel = document.getElementById("product1");
+    						
+    			for(var i in list) {
+    				if(list[i].cat1 != "" && list[i].cat2 == ""){
+    					var objOption = document.createElement("option");
+    					objOption.text = list[i].catName;
+    					objOption.value = list[i].cat1;
+    					
+    					objSel.add(objOption);
+    				}
+    			}
+    		}
+    			//カテゴリー
+    			function selectPro1(){
+    		
+    				var list = mylist
+    				var objSel = document.getElementById("product2");
+    				var objSel2 = document.getElementById("product3");
+    				var sel1 = document.getElementById("product1").value;
+    				
+    				for(i=objSel.length; i > 0; i--){
+    					objSel.options[i]=null;
+    				}
+    				
+    				for(i=objSel2.length; i > 0; i--){
+    					objSel2.options[i]=null;
+    				}
+    				
+    				for(var i in list) {
+    					if(list[i].cat1 == sel1 && list[i].cat2 != "" && list[i].cat3 == ""){
+    						var objOption = document.createElement("option");
+    						objOption.text = list[i].catName;
+    						objOption.value = list[i].cat2;					
+    						objSel.add(objOption);
+    					}
+    				}
 
+    			}	
+    			function selectPro2(){
+    				var list = mylist
+    				
+    				var objSel = document.getElementById("product3");
+    				var sel1 = document.getElementById("product1").value;
+    				var sel2 = document.getElementById("product2").value;
+    				
+    				for(i=objSel.length; i > 0; i--){
+    					objSel.options[i]=null;
+    				}
+    				
+    				for(var i in list) {
+    					if(list[i].cat1 == sel1 && list[i].cat2 == sel2 && list[i].cat3 != ""){
+    						var objOption = document.createElement("option");
+    						objOption.text = list[i].catName;
+    						objOption.value = list[i].cat3;
+    						
+    						objSel.add(objOption);
+    					}
+    				}
+    			}
+    			
     	</script>
 	</body>
 </html>

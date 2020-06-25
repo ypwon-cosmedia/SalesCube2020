@@ -17,7 +17,7 @@ import master.product.beans.QuantityDiscountBean;
 
 public class MoveModifyProductDAO extends BaseDAO {
 
-	public List<ProductModifyBean> moveModifyProduct() throws SQLException, MissingResourceException, ClassNotFoundException{
+	public List<ProductModifyBean> moveModifyProduct(String productCode) throws SQLException, MissingResourceException, ClassNotFoundException{
 
 		List<ProductModifyBean> list = new ArrayList<ProductModifyBean>();
 	
@@ -53,13 +53,15 @@ public class MoveModifyProductDAO extends BaseDAO {
 	 			+ "A.MAX_PO_NUM, "
 	 			+ "A.RO_MAX_NUM, "
 	 			+ "A.RETAIL_PRICE, "
-	 			+ "E.DISCOUNT_ID, "
+	 			+ "E.DISCOUNT_ID "
 	 			+ "FROM "
 	 			+ "product_mst_xxxxx A "
 	 			+ "LEFT OUTER JOIN (select SUPPLIER_CODE, SUPPLIER_NAME from supplier_mst_xxxxx) B ON A.SUPPLIER_CODE = B.SUPPLIER_CODE "
 	 			+ "LEFT OUTER JOIN (select WAREHOUSE_CODE, RACK_CODE from rack_mst_xxxxx) C ON A.RACK_CODE = C.RACK_CODE "
 	 			+ "LEFT OUTER JOIN (select WAREHOUSE_CODE, WAREHOUSE_NAME from warehouse_mst_xxxxx) D ON C.WAREHOUSE_CODE = D.WAREHOUSE_CODE "
-	 			+ "LEFT OUTER JOIN (select PRODUCT_CODE, DISCOUNT_ID from discount_rel_xxxxx) E ON A.PRODUCT_CODE = E.PRODUCT_CODE";
+	 			+ "LEFT OUTER JOIN (select PRODUCT_CODE, DISCOUNT_ID from discount_rel_xxxxx) E ON A.PRODUCT_CODE = E.PRODUCT_CODE"
+	 			+ " WHERE"
+	 			+ " A.PRODUCT_CODE = '" + productCode + "'";
 	 	result = stmt.executeQuery(sql);	
 	 	
 	 	while (result.next()) {
@@ -122,19 +124,19 @@ public class MoveModifyProductDAO extends BaseDAO {
 	 			+ " FROM"
 	 			+ " product_mst_xxxxx"
 	 			+ " WHERE"
-	 			+ " PRODUCT_CODE = " + productCode;
+	 			+ " PRODUCT_CODE = '" + productCode + "'";
 	 	result = stmt.executeQuery(sql);
 
 	 	while (result.next()) {
 	 		ProductModifyBean bean = new ProductModifyBean();
-	 		bean.setProductCode(result.getString("PRODUCT_STATUS_CATEGORY"));
-	 		bean.setProductName(result.getString("PRODUCT_STOCK_CATEGORY"));
-	 		bean.setProductKana(result.getString("PRODUCT_PURVAY_CATEGORY"));
-	 		bean.setOnlinePcode(result.getString("SO_RATE"));
-	 		bean.setJanPcode(result.getString("SET_TYPE_CATEGORY"));
-	 		bean.setDiscardDate(result.getDate("PRODUCT_1"));
-	 		bean.setSupplierCode(result.getString("PRODUCT_2"));
-	 		bean.setSupplierName(result.getString("PRODUCT_3"));
+	 		bean.setProductStatusCategory(result.getString("PRODUCT_STATUS_CATEGORY"));
+	 		bean.setProductStockCategory(result.getString("PRODUCT_STOCK_CATEGORY"));
+	 		bean.setProductPurvayCategory(result.getString("PRODUCT_PURVAY_CATEGORY"));
+	 		bean.setSoRate(result.getInt("SO_RATE"));
+	 		bean.setSetTypeCategory(result.getString("SET_TYPE_CATEGORY"));
+	 		bean.setProduct1(result.getString("PRODUCT_1"));
+	 		bean.setProduct2(result.getString("PRODUCT_2"));
+	 		bean.setProduct3(result.getString("PRODUCT_3"));
 	 	
 	 		list.add(bean);
 	 	}
@@ -171,23 +173,23 @@ public class MoveModifyProductDAO extends BaseDAO {
 				+ "FROM "
 				+ "product_mst_xxxxx "
 				+ "WHERE "
-				+ "PRODUCT_CODE = " + productCode;
+				+ "PRODUCT_CODE = '" + productCode + "'";
 	 	result = stmt.executeQuery(sql);
 	 	
 	 	while (result.next()) {
 	 		ProductModifyBean bean = new ProductModifyBean();
-	 		bean.setProductCode(result.getString("UNIT_CATEGORY"));
-	 		bean.setProductName(result.getString("WEIGHT"));
-	 		bean.setProductKana(result.getString("WEIGHT_UNIT_SIZE_CATEGORY"));
-	 		bean.setOnlinePcode(result.getString("LENGTH"));
-	 		bean.setJanPcode(result.getString("LENGTH_UNIT_SIZE_CATEGORY"));
-	 		bean.setDiscardDate(result.getDate("WIDTH"));
-	 		bean.setSupplierCode(result.getString("WIDTH_UNIT_SIZE_CATEGORY"));
-	 		bean.setSupplierName(result.getString("DEPTH"));
-	 		bean.setSupplierPcode(result.getString("DEPTH_UNIT_SIZE_CATEGORY"));
-	 		bean.setSupplierPriceYen(result.getInt("HEIGHT"));
-	 		bean.setSupplierPriceDol(result.getInt("HEIGHT_UNIT_SIZE_CATEGORY"));
-	 		bean.setStockCtlCategory(result.getString("CORE_NUM"));
+	 		bean.setUnitCategory(result.getString("UNIT_CATEGORY"));
+	 		bean.setWeight(result.getDouble("WEIGHT"));
+	 		bean.setWeightUnitSizeCategory(result.getString("WEIGHT_UNIT_SIZE_CATEGORY"));
+	 		bean.setLength(result.getDouble("LENGTH"));
+	 		bean.setLengthUnitSizeCategory(result.getString("LENGTH_UNIT_SIZE_CATEGORY"));
+	 		bean.setWidth(result.getDouble("WIDTH"));
+	 		bean.setWidthUnitSizeCategory(result.getString("WIDTH_UNIT_SIZE_CATEGORY"));
+	 		bean.setDepth(result.getDouble("DEPTH"));
+	 		bean.setDepthUnitSizeCategory(result.getString("DEPTH_UNIT_SIZE_CATEGORY"));
+	 		bean.setHeight(result.getDouble("HEIGHT"));
+	 		bean.setHeightUnitSizeCategory(result.getString("HEIGHT_UNIT_SIZE_CATEGORY"));
+	 		bean.setCoreNum(result.getString("CORE_NUM"));
 	 	
 	 		list.add(bean);
 	 	}
@@ -214,7 +216,7 @@ public class MoveModifyProductDAO extends BaseDAO {
 		 			+ "FROM "
 		 			+ "product_mst_xxxxx "
 		 			+ "WHERE "
-		 			+ "PRODUCT_CODE = " + productCode;
+		 			+ "PRODUCT_CODE = '" + productCode + "'";
 		 	result = stmt.executeQuery(sql);
 		 	
 		 	while (result.next()) {

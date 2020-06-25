@@ -34,23 +34,17 @@
 		}
     	
     	function CloseWindow() {
-    		 <!--alert();-->
+    		 //alert(  );
     		 window.close();
    		}
     	
-    	var parentExistanceFlag = true;
-    	function clickFire(){
-    		//存在していない場合
-    		if( !window.opener || !Object.keys(window.opener).length){
-    			window.alert("商品マスタ編集・追加画面がありません")
-    			parentExistanceFlag = false
-    		}
+    	function clickFire(selected){
+    		var code = selected.id;
+    		
     		//親画面に値を挿入
-    		if(parantExistanceFlag){
-    		    window.opener.document.getElementByName("quantityDiscount").value
-    		     = document.getElementById("resultDiscountId").value
-    		    }
-    		window.close
+    		//alert( "test" );
+    		window.opener.document.getElementById("quantityDiscount").value = code; 
+    		window.close();
     	}
     	
     </script>
@@ -144,7 +138,7 @@
 
     <div class="container" style="background-color: white;"><div class="panel panel-default" >
     <div style="background-color: rgb(255, 255, 255);">
-        <table id="order_detail_info" class="table table-bordered">
+        <table id="discount_detail_info" class="table table-bordered">
             <thead class="thead-dark">
                 <tr>
                     <!-- <th scope="col" class="rd_top_left th_back_black" >割引詳細</th> -->
@@ -189,15 +183,15 @@
                             </div>
                           </div>
                     </td> -->
-                    <td style="white-space: normal; text-align: left;" id="resultDiscountId" onclick="clickFire()" class="cursor-pointer">${discount.discountId}</td>
+                    <td style="white-space: normal; text-align: left;" id="${discount.discountId}" onclick="clickFire(this)" class="cursor-pointer">${discount.discountId}</td>
                     <td style="white-space: normal; text-align: left;">${discount.discountName}</td>
                     <td style="white-space: normal; text-align: left;">
-                    													<c:if test="${discount.useFlag == 1}">
-                    															有効
-                    													</c:if>
-                    													<c:if test="${discount.useFlag == 0}">
-                    															無効
-                    													</c:if></td>
+                    	<c:if test="${discount.useFlag == 1}">
+                    			有効
+                    	</c:if>
+                    	<c:if test="${discount.useFlag == 0}">
+                    			無効
+                    	</c:if></td>
                 </tr>
             </c:forEach>
         </table>

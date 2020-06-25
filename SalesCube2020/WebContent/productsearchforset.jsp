@@ -45,64 +45,7 @@
 		<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
 		<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
 		<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
-    <nav class="navbar navbar-expand-lg navbar-light bg-light">
-      <a class="navbar-brand" href="#">SalesCube2020</a>
-      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-        <span class="navbar-toggler-icon"></span>
-      </button>
-    
-      <div class="collapse navbar-collapse" id="navbarSupportedContent">
-        <ul class="navbar-nav mr-auto">
-          <li class="nav-item dropdown">
-            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-              	マスター
-            </a>
-            <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-              <a class="dropdown-item" href="/SalesCube2020/SalesCube?action=product">商品</a>
-              <a class="dropdown-item" href="/SalesCube2020/SalesCube?action=setProduct">セット商品</a>
-              <a class="dropdown-item" href="/SalesCube2020/SalesCube?action=customer">顧客</a>
-            </div>
-          </li>
-        </ul>
-        <span class="navbar-text">
-          <svg class="bi bi-person-circle" width="1em" height="1em" viewBox="0 0 16 16" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
-            <path d="M13.468 12.37C12.758 11.226 11.195 10 8 10s-4.757 1.225-5.468 2.37A6.987 6.987 0 0 0 8 15a6.987 6.987 0 0 0 5.468-2.63z"/>
-            <path fill-rule="evenodd" d="M8 9a3 3 0 1 0 0-6 3 3 0 0 0 0 6z"/>
-            <path fill-rule="evenodd" d="M8 1a7 7 0 1 0 0 14A7 7 0 0 0 8 1zM0 8a8 8 0 1 1 16 0A8 8 0 0 1 0 8z"/>
-          </svg>
-        	${userInfo.nameKNJ} &nbsp;     	
-        </span>
-        <form class="form-inline" action="/SalesCube2020/SalesCube?action=logout" method="post">
-          <button class="btn btn-outline-success my-2 my-sm-0" type="submit">ログアウト</button>
-        </form>
-      </div>
-    </nav>
-		<br>
 
-		<div class="container" id="main_function">
-			<h3 class="float-left">商品</h3>
-		
-			<!--FNボタン-->
-			<div class="btn-toolbar float-right" role="toolbar" aria-label="Toolbar with button groups">
-			
-				<div class="btn-group mr-2 " role="group" aria-label="First group">
-					<button type="button" class="btn btn-secondary" style="font-size: 12px;" onClick="initForm();">F1<br>初期化</button>
-					<button type="submit" class="btn btn-secondary" style="font-size: 12px;" onClick="searchForm()">F2<br>検索</button>
-					<button type="button" class="btn btn-secondary" style="font-size: 12px;" onClick="addForm()">F3<br>追加</button>
-					<button type="submit" class="btn btn-secondary" style="font-size: 12px;" onClick="excelForm()">F4<br>Excel出力</button>
-					<button type="button" class="btn btn-secondary" style="font-size: 12px;" disabled>F5<br></button>
-					<button type="button" class="btn btn-secondary" style="font-size: 12px;" disabled>F6<br></button>
-					<button type="button" class="btn btn-secondary" style="font-size: 12px;" disabled>F7<br></button>
-					<button type="button" class="btn btn-secondary" style="font-size: 12px;" disabled>F8<br></button>
-					<button type="button" class="btn btn-secondary" style="font-size: 12px;" disabled>F9<br></button>
-					<button type="button" class="btn btn-secondary" style="font-size: 12px;" disabled>F10<br></button>
-					<button type="button" class="btn btn-secondary" style="font-size: 12px;" disabled>F11<br></button>
-					<button type="button" class="btn btn-secondary" style="font-size: 12px;" disabled>F12<br></button>
-				</div>
-			</div>
-			<br><br><br>
-		</div>
-		
 		<!--商品検索-->
 		<br><br>
 		<div class="container panel panel-default" style="background-color: white;">
@@ -111,7 +54,7 @@
 			</div>
 			<hr>
 			<div class="panel-body">
-				<form name="main" method="post" id="main">
+				<form action="/SalesCube2020/SalesCube?action=resultforset" name="main" method="post">
 					<div class="row">
 						<div class="col-4">
 							<label class="sr-only" for="inlineFormInputGroup">productCode</label>
@@ -271,7 +214,7 @@
 					</div>
 					<div class="rounded float-right">
 						<button type="button" class="btn btn-outline-secondary" onClick="initForm();">初期化</button>
-						<input type="submit" value="検索" class="btn btn-outline-secondary" onclick="form.action='/SalesCube2020/SalesCube?action=searchProduct';">
+						<input type="submit" value="検索" class="btn btn-outline-secondary">
 					</div><br>
 				</form><br>
 			</div><br>
@@ -287,7 +230,7 @@
 				<select id="rowCount" name="rowCount">
 					<option value="10">10</option>
 					<option value="50">50</option>
-					<option value="100" selected=" ">100</option>
+					<option value="100" selected="">100</option>
 				</select>
 			</div>
 		</div>
@@ -301,37 +244,20 @@
 						<th scope="col" class="rd_top_left th_back_black sort" style="cursor: pointer; height: 30px;" data-sort="productCode">商品コード</th>
 						<th scope="col" class="th_back_black sort" style="cursor: pointer; height: 30px;" data-sort="productName">商品名</th>
 						<th scope="col" class="th_back_black sort" style="cursor: pointer; height: 30px;" data-sort="supplierName">仕入先</th>
-						<th scope="col" class="th_back_black sort" style="cursor: pointer; height: 30px;" data-sort="product1">分類（大）</th>
-						<th scope="col" class="th_back_black sort" style="height: 30px;">備考</th>
-						<th scope="col" class="rd_top_right th_back_black sort" style="cursor: pointer; height: 30px;">&nbsp;</th>
 					</tr>
 				</thead>
 				<tbody class="list">
 				 <c:forEach items="${search}" var="prdct">
 					<tr>
-						<td class="productCode" style="white-space: normal; text-align: left;">${prdct.productCode}</td>
-						<td class="productName" style="white-space: normal; text-align: left;">${prdct.productName}</td>
+						<td class="productCode" style="white-space: normal; text-align: left;"><a href="" onclick="testFunction(this)">${prdct.productCode}</a></td>
+						<td class="productName" style="white-space: normal; text-align: left;" id="${prdct.productCode}" >${prdct.productName}</td>
 						<td class="supplierName" style="white-space: normal; text-align: left;">${prdct.supplierName}</td>
-						<td class="product1" style="white-space: normal; text-align: left;">${prdct.product1}</td>
-						<td style="white-space: normal; text-align: left;">${prdct.remarks}</td>
-						<td style="text-align: center">
-							<div style="display:inline-flex">
-								<form action="/SalesCube2020/SalesCube?action=moveModifyProduct" method="post">
-									<input type="submit" value="編集" class="btn btn-outline-secondary">
-									<input type="hidden" id="productCode" name="productCode">
-								</form>
-								<form action="/SalesCube2020/SalesCube?action=deleteProduct" method="post">
-									<input type="submit" value="削除" class="btn btn-outline-secondary">
-									<input type="hidden" id="productCode" name="productCode">
-								</form>
-							</div>
-						</td>
 					</tr>
 				</c:forEach>
 				</tbody>
 			</table>
 		</div>
-
+	
 	</body>
 	
 	<script>
@@ -408,41 +334,6 @@
 				}
 			}
 		}			
-		//入力値の初期化
-		function initForm() {
-			var test = confirm("入力内容を初期化してよろしいですか？");
-			test;
-			if(test == false){
-				return;
-			} else
-			window.location.href = '/SalesCube2020/SalesCube?action=product';
-		}
-		
-		//検索
-		function searchForm(){
-			window.location.href = '/SalesCube2020/SalesCube?action=searchProduct';
-		}
-		
-		 //追加
-		function addForm() {
-			window.location.href = '/SalesCube2020/SalesCube?action=moveAddProduct';
-		}
-		 
-		 //Excel出力
-		 function excelForm(){
-			 if(!confirm("この検索条件で商品をCSV出力しますか？")){
-				 return;
-			 }
-			//window.location.href = '/SalesCube2020/SalesCube?action=productExcelOutput';
-			var form = document.getElementById("main");
-			
-			form.action="/SalesCube2020/SalesCube?action=productExcelOutput";
-			form.method="post";
-			
-			form.submit();
-		 }
-		 
-		
 	$(function() {
 	    var temp = "${Category1}"; 
 	    $("#product1").val(temp);
@@ -451,6 +342,23 @@
 	    var temp = "${Category2}"; 
 	    $("#product2").val(temp);
 	});
+	function testFunction(status){
+
+		var str = $(status).text();
+		var str2 = document.getElementById(str).innerText;
+		var tmp = opener.document.getElementById("tmphidden").value;
+		
+		for(var i = 0; i< 100; i++){
+			
+			if(tmp == "button"+i){
+				opener.document.getElementById("input"+i).value = str ;
+				opener.document.getElementById("inputs"+i).value = str2;
+			}
+		}
+
+		window.close();		
+	}
+
 	</script>
 	<script src="//cdnjs.cloudflare.com/ajax/libs/list.js/1.5.0/list.min.js"></script>
 	<script>
