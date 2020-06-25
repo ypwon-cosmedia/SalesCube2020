@@ -248,12 +248,15 @@ public class ProductModifyController extends BaseController{
 		
 		GetCategoryDAO dao = new GetCategoryDAO();
 		MenuDAO dao2 = new MenuDAO();
-		
+		ProductModifyBean bean = new ProductModifyBean();
+		ProductModifyBean bean1 = new ProductModifyBean();
+		ProductModifyBean bean2 = new ProductModifyBean();
+		ProductModifyBean bean3 = new ProductModifyBean();
 		try {
-			list9 = dao3.moveModifyProduct(productCode);
-			list10 = dao3.moveModifyCategory(productCode);
-			list11 = dao3.moveModifyTokuseiCategory(productCode);
-			list12 = dao3.moveModifyRemarks(productCode);
+			bean = dao3.moveModifyProduct(productCode);
+			bean1 = dao3.moveModifyCategory(productCode);
+			bean2 = dao3.moveModifyTokuseiCategory(productCode);
+			bean3 = dao3.moveModifyRemarks(productCode);
 			
 			
 			list2 = dao2.getProductStockCategory();
@@ -273,10 +276,10 @@ public class ProductModifyController extends BaseController{
 		request.setAttribute("productStatusCategory", list5);	
 		request.setAttribute("all", list8);
 		request.setAttribute("purvey", list);
-		request.setAttribute("product", list9);
-		request.setAttribute("product1", list10);
-		request.setAttribute("product2", list11);
-		request.setAttribute("product3", list12);
+		request.setAttribute("product", bean);
+		request.setAttribute("product1", bean1);
+		request.setAttribute("product2", bean2);
+		request.setAttribute("product3", bean3);
 		
 		return "/productaddmodify.jsp";
 	}

@@ -18,7 +18,7 @@ public class ProductDeleteDAO extends BaseDAO {
 
 	 	con = super.getConnection();
 	 	stmt = con.createStatement();	 	
-	 	sql = "DELETE * FROM product_mst_xxxxx WHERE PRODUCT_CODE = '" + productCode + "'";	
+	 	sql = "DELETE FROM product_mst_xxxxx WHERE PRODUCT_CODE = '" + productCode + "'";	
 
 	 	try {
 	 		result = stmt.executeUpdate(sql);

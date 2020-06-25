@@ -103,11 +103,12 @@
 			<br><br><br>
 		</div>
 		<!-- エラーメッセージを表示 -->
-       	<div style="width:100%; text-align:center; margin-bottom:20px;">
-				 <span class="action_errors" style="color: red">${addmodifyError}</span>
-				 <span class="action_errors" style="color: red">${addmodifysuccsess}</span>
-				 <span class="action_errors" style="color: red">${addmodifyinterror}</span>
+       		<div style="width:100%; text-align:center; margin-bottom:20px;">
+			<span class="action_errors" style="color: red">${addmodifyError}</span>
+			<span class="action_errors" style="color: red">${addmodifysuccsess}</span>
+			<span class="action_errors" style="color: red">${addmodifyinterror}</span>
 		</div>
+		
 		<!--商品検索-->
 		<br><br>
 		<div class="container panel panel-default" style="background-color: white;">
@@ -323,11 +324,11 @@
 							<div style="display:inline-flex">
 								<form action="/SalesCube2020/SalesCube?action=moveModifyProduct" method="post">
 									<input type="submit" value="編集" class="btn btn-outline-secondary">
-									<input type="hidden" id="productCode" name="productCode">
+									<input type="hidden" id="productCode" name="productCode" value="${prdct.productCode}">
 								</form>
-								<form action="/SalesCube2020/SalesCube?action=deleteProduct" method="post">
+								<form action="/SalesCube2020/SalesCube?action=deleteProduct" method="post" id="del" name="del" onsubmit="return confirm('このデータを削除しますか？');">
 									<input type="submit" value="削除" class="btn btn-outline-secondary">
-									<input type="hidden" id="productCode" name="productCode">
+									<input type="hidden" id="productCode" name="productCode" value="${prdct.productCode}">
 								</form>
 							</div>
 						</td>
@@ -366,6 +367,9 @@
 			}
 		}
 	}
+
+	
+	
 		//カテゴリー
 		function selectPro1(){
 	
