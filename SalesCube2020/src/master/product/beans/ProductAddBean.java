@@ -257,6 +257,7 @@ public class ProductAddBean {
 	private String updUser;
 	private String delFunc;
 	private String delDatetm;
+	private String delUser;
 	/**
 	 * @return the productCode
 	 */
@@ -1265,7 +1266,6 @@ public class ProductAddBean {
 	public void setDelUser(String delUser) {
 		this.delUser = delUser;
 	}
-	private String delUser;
 	
 	
 	
