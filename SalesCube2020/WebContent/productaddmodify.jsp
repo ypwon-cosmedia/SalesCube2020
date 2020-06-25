@@ -390,7 +390,7 @@
 									<div class="input-group-prepend">
 										<div class="input-group-text">状況</div>
 									</div>
-								<select class="custom-select" name="productStatusCategory" value="${product.productStatusCategory}" >
+								<select class="custom-select" name="productStatusCategory" value="${product1.productStatusCategory}" >
 									<c:forEach var="search" items="${productStatusCategory}">
 										<option value="${search.productStatusCategoryCode}">${search.productStatusCategoryName}</option>
 									</c:forEach>
@@ -403,7 +403,7 @@
 									<div class="input-group-prepend">
 										<div class="input-group-text">保管</div>
 									</div>
-								<select class="custom-select" name="productStockCategory" value="${product.productStockCategory}">
+								<select class="custom-select" name="productStockCategory" value="${product1.productStockCategory}">
 								<c:forEach items="${prosearch}" var="prdct">
 									<option value="${prdct.productStockCategoryCode}">${prdct.productStockCategoryName}</option>
 								</c:forEach>
@@ -416,7 +416,7 @@
 									<div class="input-group-prepend">
 										<div class="input-group-text">調達</div>
 									</div>
-								<select class="custom-select" name="productPurvayCategory" value="${product.productPurvayCategory}">
+								<select class="custom-select" name="productPurvayCategory" value="${product1.productPurvayCategory}">
 									<option value="1">国内調達</option>
                             		<option value="2">海外調達</option>
 								</select>
@@ -430,7 +430,7 @@
 									<div class="input-group-prepend">
 										<div class="input-group-text">標準化</div>
 									</div>
-								<select class="custom-select" name="productStandardCategory" value="${product.productStandardCategory}">
+								<select class="custom-select" name="productStandardCategory" value="${product1.productStandardCategory}">
 								<option selected></option>
 									<c:forEach items="${productStandardCategory}" var="prdct">
 										<option value="${prdct.productStandardCategoryCode}">${prdct.productStandardCategoryName}</option>
@@ -444,7 +444,7 @@
 									<div class="input-group-prepend">
 										<div class="input-group-text">特注計算掛率</div>
 									</div>
-								<input type="text"  class="form-control" id="inlineFormInputGroup" name="soRate" value="${product.soRate}">
+								<input type="text"  class="form-control" id="inlineFormInputGroup" name="soRate" value="${product1.soRate}">
 								</div>
 							</div>
 							<div class="col-4">
@@ -453,7 +453,7 @@
 									<div class="input-group-prepend">
 										<div class="input-group-text">セット</div>
 									</div>
-								<select class="custom-select" name="setTipeCategory" value="${product.setTypeCategory}">
+								<select class="custom-select" name="setTipeCategory" value="${product1.setTypeCategory}">
 								<c:forEach items="${setTypeCategory}" var="prdct">
 										<option value="${prdct.setTypeCategoryCode}">${prdct.setTypeCategoryName}</option>
 								</c:forEach>
@@ -515,7 +515,7 @@
 									<div class="input-group-prepend">
 										<div class="input-group-text">単位</div>
 									</div>
-								<select class="custom-select" name="unitCategory" value="${product.unitCategory}">
+								<select class="custom-select" name="unitCategory" value="${product2.unitCategory}">
 									<option value="1">本</option>
                             		<option value="2">個</option>
                             		<option value="3">箱</option>
@@ -523,13 +523,13 @@
 								</div>
 							</div>
 							<div class="col-4">
-								<label class="sr-only" for="inlineFormInputGroup">weightUnitCategory</label>
+								<label class="sr-only" for="inlineFormInputGroup">weightUnitSizeCategory</label>
 								<div class="input-group mb-2">
 									<div class="input-group-prepend">
 										<div class="input-group-text">重量</div>
 									</div>
 								<input type="text"  class="form-control" id="inlineFormInputGroup">
-								<select class="custom-select" name="weightUnitCategory" value="${product.weightUnitCategory}">
+								<select class="custom-select" name="weightUnitSizeCategory" value="${product2.weightUnitSizeCategory}">
 									<option value=""></option>
 									<option value="1">mg</option>
                             		<option value="2">g</option>
@@ -544,7 +544,7 @@
 										<div class="input-group-text">長さ</div>
 									</div>
 								<input type="text"  class="form-control" id="inlineFormInputGroup">
-								<select class="custom-select" name="lengthUnitSizeCategory" value="${product.lengthUnitSizeCategory}">
+								<select class="custom-select" name="lengthUnitSizeCategory" value="${product2.lengthUnitSizeCategory}">
 									<option value=""></option>
 									<option value="1">mm</option>
                             		<option value="2">cm</option>
@@ -561,7 +561,7 @@
 										<div class="input-group-text">サイズ(幅)</div>
 									</div>
 								<input type="text"  class="form-control" id="inlineFormInputGroup">
-								<select class="custom-select" name="widthUnitSizeCategory" value="${product.widthUnitSizeCategory}">
+								<select class="custom-select" name="widthUnitSizeCategory" value="${product2.widthUnitSizeCategory}">
 									<option value=""></option>
 									<option value="1">mm</option>
                             		<option value="2">cm</option>
@@ -576,7 +576,7 @@
 										<div class="input-group-text">サイズ(奥)</div>
 									</div>
 									<input type="text"  class="form-control" id="inlineFormInputGroup">
-								<select class="custom-select" name="depthUnitSizeCategory" value="${product.depthUnitSizeCategory}">
+								<select class="custom-select" name="depthUnitSizeCategory" value="${product2.depthUnitSizeCategory}">
 									<option value=""></option>
 									<option value="1">mm</option>
                             		<option value="2">cm</option>
@@ -591,7 +591,7 @@
 										<div class="input-group-text">サイズ(高)</div>
 									</div>
 									<input type="text"  class="form-control" id="inlineFormInputGroup">
-								<select class="custom-select" name="heightUnitSizeCategory" value="${product.heightUnitSizeCategory}">
+								<select class="custom-select" name="heightUnitSizeCategory" value="${product2.heightUnitSizeCategory}">
 									<option value=""></option>
 									<option value="1">mm</option>
                             		<option value="2">cm</option>
@@ -606,7 +606,7 @@
 									<div class="input-group-prepend">
 										<div class="input-group-text">芯数</div>
 									</div>
-									<input type="text"  class="form-control" id="inlineFormInputGroup" name="coreNum" value="${product.coreNum}">
+									<input type="text"  class="form-control" id="inlineFormInputGroup" name="coreNum" value="${product2.coreNum}">
 								</div>
 								<br>
 							</div>
@@ -625,7 +625,7 @@
 							<div class="col-8">
 								<div class="input-group-prepend">
 									<div class="input-group-text">備考</div>
-									<textarea id="textarea1" class="form-control" name="remarks" value="${product.remarks}"></textarea>
+									<textarea id="textarea1" class="form-control" name="remarks" value="${product3.remarks}"></textarea>
 								</div>
 							</div>
 						</div><br>
@@ -633,7 +633,7 @@
 							<div class="col-8">
 								<div class="input-group-prepend">
 									<div class="input-group-text">ピッキング備考</div>
-									<textarea id="textarea1" class="form-control" name="eadRemarks" value="${product.eadRemarks}"></textarea>
+									<textarea id="textarea1" class="form-control" name="eadRemarks" value="${product3.eadRemarks}"></textarea>
 								</div>
 							</div>
 						</div><br>
@@ -641,7 +641,7 @@
 							<div class="col-8">
 								<div class="input-group-prepend">
 									<div class="input-group-text">コメント</div>
-									<textarea id="textarea1" class="form-control" name="commentData" value="${product.commentData}"></textarea>
+									<textarea id="textarea1" class="form-control" name="commentData" value="${product3.commentData}"></textarea>
 								</div>
 							</div>
 						</div>
