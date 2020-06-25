@@ -267,7 +267,7 @@ public class CustomerController extends BaseController{
 		int check = dao.addCustomer(bean);
 		
 		//顧客情報追加のエラー処理
-		if(check == 1) {
+		if(check == 999) {
 			String message = "顧客情報の追加処理においてエラーが発生しました<br>";
 			request.setAttribute("message",message);
 		} 
@@ -290,16 +290,17 @@ public class CustomerController extends BaseController{
 		String delEmail            = request.getParameter("delEmail");
 		
 		//現在時刻を入手し、String型に変換する
-		LocalDateTime ldt           = LocalDateTime.now();
-		String creDate              = ldt.toString();
-
+		//LocalDateTime ldt           = LocalDateTime.now();
+		//String creDate              = ldt.toString();
+		
+		//現在の納入コードの最大値+1を取得する
+		String deliveryCode = dao.getMaxDeliveryCode();
 		
 		
 		//追加する納入先情報を納入先追加Beanにセットする
 		DeliveryAddBean delbean = new DeliveryAddBean();
 		delbean.setAddress1(delAddress1);
 		delbean.setAddress2(delAddress2);
-		//delbean.setDeliveryCode(deliveryCode);
 		delbean.setDeliveryKana(deliveryKana);
 		delbean.setDeliveryName(deliveryName);
 		delbean.setDeptName(delDeptName);
@@ -312,13 +313,14 @@ public class CustomerController extends BaseController{
 		delbean.setPCPreCategory(delPCPreCategory);
 		delbean.setTel(delTel);
 		delbean.setZipCode(delZipCode);
-		delbean.setCreDate(creDate);
+		
+		delbean.setDeliveryCode(deliveryCode);
 		
 		//納入先追加メソッドを呼び出し、エラーが生じた場合、check2に"1"が返される
 		int check2 = dao.addDelivery(delbean);
 		
 		//納入先追加メソッドのエラー処理
-		if(check2 == 1) {
+		if(check2 == 999) {
 			String message2 = "納入先情報の追加処理においてエラーが発生しました<br>";
 			request.setAttribute("message2",message2);
 		} else {
@@ -326,7 +328,7 @@ public class CustomerController extends BaseController{
 		}
 		
 		//最新の納入先コードを取得(上のメソッドで登録した際の納入先コード)
-		String delCode = dao.getAddDeliveryCode();
+		//String latestDelCode = dao.getAddDeliveryCode();
 		
 		//請求先
 		//String deliveryCode2        = request.getParameter("deliveryCode2");
@@ -346,14 +348,15 @@ public class CustomerController extends BaseController{
 		String delEmail2            = request.getParameter("delEmail2");
 		
 		//現在時刻を入手し、String型に変換する
-		LocalDateTime ldt2           = LocalDateTime.now();
-		String creDate2              = ldt2.toString();
+		//LocalDateTime ldt2           = LocalDateTime.now();
+		//String creDate2              = ldt2.toString();
+		
+		String deliveryCode2 = dao.getMaxDeliveryCode();
 				
 		//追加する請求先情報を納入先追加Beanにセットする
 		DeliveryAddBean delbean2 = new DeliveryAddBean();
 		delbean2.setAddress1(delAddress1_2);
 		delbean2.setAddress2(delAddress2_2);
-		//delbean2.setDeliveryCode(deliveryCode2);
 		delbean2.setDeliveryKana(deliveryKana2);
 		delbean2.setDeliveryName(deliveryName2);
 		delbean2.setDeptName(delDeptName2);
@@ -366,32 +369,34 @@ public class CustomerController extends BaseController{
 		delbean2.setPCPreCategory(delPCPreCategory2);
 		delbean2.setTel(delTel2);
 		delbean2.setZipCode(delZipCode2);
-		delbean2.setCreDate(creDate2);
 		
-		//納入先追加メソッドを呼び出し、エラーが生じた場合、check3に"1"が返される
-		int check3 = dao.addDelivery(delbean);
+		delbean2.setDeliveryCode(deliveryCode2);
+		//delbean2.setCreDate(creDate2);
 		
-		//納入先追加メソッドのエラー処理
-		if(check3 == 1) {
+		//納入先（請求先）追加メソッドを呼び出し、エラーが生じた場合、check3に"1"が返される
+		int check3 = dao.addDelivery(delbean2);
+		
+		//納入先（請求先）追加メソッドのエラー処理
+		if(check3 == 999) {
 			String message3 = "請求先情報の追加処理においてエラーが発生しました<br>";
 			request.setAttribute("message3",message3);
 		}
 		
-		//最新の請求先先コードを取得(上のメソッドで登録した際の請求先コード)
-		String delCode2 = dao.getAddDeliveryCode();
+		//最新の請求先コードを取得(上のメソッドで登録した際の請求先コード)
+		//String latestDelCode2 = dao.getAddDeliveryCode();
 		
 		//顧客関連情報登録メソッドを呼び出し、(顧客コード、納入先コード及び請求先コード、納入先/請求先フラグ)を引数にして、関連マスタに登録をする
 		//もし、エラーが生じたらcheck4,check5に1が返される
-		int check4 = dao.setRelation(customerCode, delCode, "01");
-		int check5 = dao.setRelation(customerCode, delCode2, "02");
+		int check4 = dao.setRelation(customerCode, deliveryCode, "01");
+		int check5 = dao.setRelation(customerCode, deliveryCode2, "02");
 				
-		if(check4 == 1 || check5 == 1) {
+		if(check4 == 999 || check5 == 999) {
 			String message3 = "請求先情報の追加処理においてエラーが発生しました";
 			request.setAttribute("message3",message3);
 		}
 
 		
-		if(check!=1 && check2!=1 && check3!=1 && check4!=1 && check5!=1) {
+		if(check!=999 && check2!=999 && check3!=999 && check4!=999 && check5!=999) {
 			String message6 = "顧客情報の追加が完了しました";
 			request.setAttribute("message",message6);
 		}
@@ -487,8 +492,8 @@ public class CustomerController extends BaseController{
 		int check = dao.modifyCustomer(bean);
 		
 		//顧客編集のエラー処理
-		if(check == 1) {
-			String message = "顧客情報の追加処理においてエラーが発生しました";
+		if(check == 999) {
+			String message = "顧客情報の変更処理においてエラーが発生しました";
 			request.setAttribute("message",message);
 		}
 		
@@ -525,7 +530,7 @@ public class CustomerController extends BaseController{
 		delbean.setFax(delFax);
 		delbean.setOfficeKana(delOfficeKana);
 		delbean.setOfficeName(delOfficeName);
-		delbean.setPCKana(delPCNameKana);
+		delbean.setPCKana(delPCNameKana);;
 		delbean.setPCName(delPCName);
 		delbean.setPCPreCategory(delPCPreCategory);
 		delbean.setTel(delTel);
@@ -536,8 +541,8 @@ public class CustomerController extends BaseController{
 		int check2 = dao.modifyDelivery(delbean);
 		
 		//納入先編集のエラー処理
-		if(check2 == 1) {
-			String message2 = "納入先情報の追加処理においてエラーが発生しました";
+		if(check2 == 999) {
+			String message2 = "納入先情報の変更処理においてエラーが発生しました";
 			request.setAttribute("message2",message2);
 		}
 		
@@ -584,8 +589,8 @@ public class CustomerController extends BaseController{
 		//顧客DAOの納入先(請求先)編集メソッドを呼び出し、エラーがあったらcheckに1が入る
 		int check3 = dao.modifyDelivery(delbean2);
 		//納入先(請求先)編集のエラー処理
-		if(check3 == 1) {
-			String message3 = "請求先情報の追加処理においてエラーが発生しました";
+		if(check3 == 999) {
+			String message3 = "請求先情報の変更処理においてエラーが発生しました";
 			request.setAttribute("message3",message3);
 		}
 				
@@ -598,7 +603,7 @@ public class CustomerController extends BaseController{
 //			request.setAttribute("message3",message3);
 //		}
 		
-		if(check!=1 && check2!=1 && check3!=1) {
+		if(check!=999 && check2!=999 && check3!=999) {
 			String message4 = "顧客情報の編集が完了しました";
 			request.setAttribute("message",message4);
 		}
@@ -620,7 +625,7 @@ public class CustomerController extends BaseController{
 		int check = dao.deleteCustomer(customerCode);
 		
 		//削除処理が正常にできない場合のエラー処理
-		if(check == 1) {
+		if(check == 999) {
 			String message = "顧客情報の削除処理においてエラーが発生しました";
 			request.setAttribute("message",message);
 		} else {

@@ -115,7 +115,7 @@
                             <div class="input-group-prepend">
                                 <div class="input-group-text" style="background-color: pink;">顧客コード</div>
                             </div>
-                        <input type="text"  class="form-control" id="inlineFormInputGroup" name="customerCode" value="${customer.customerCode}">
+                        <input type="text"  class="form-control" id="inlineFormInputGroup" name="customerCode" value="${customer.customerCode}" required>
                         </div>
                     </div>
                     <div class="col-4">
@@ -569,6 +569,7 @@
                         <div class="input-group-prepend">
                             <div class="input-group-text" style="background-color: pink;">納入先名</div>
                         </div>
+                        <input type="hidden" name="deliveryCode" value="${deliveryList.get(0).deliveryCode}">
                     <input type="text"  class="form-control" id="inlineFormInputGroup deliveryName" name="deliveryName" value="${deliveryList.get(0).deliveryName}">
                     </div>
                 </div>

@@ -5,7 +5,10 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.sql.Types;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import common.dao.BaseDAO;
@@ -376,11 +379,14 @@ public class CustomerDAO extends BaseDAO {
 		String paymentName 	        = bean.getPaymentName();
 		String remarks 		        = bean.getRemarks();
 		String comment              = bean.getComment();
+		
+		LocalDateTime ldt           = LocalDateTime.now();
+		String creDate              = ldt.toString();
 	 	
 	 	
 	 	con = super.getConnection();
 	 	//顧客情報を顧客マスタに追加するSQL文
-	 	sql = "insert into customer_mst_xxxxx (CUSTOMER_CODE"
+	 	sql = "insert into customer_mst_xxxxx(CUSTOMER_CODE ,"
 	 										+ "CUSTOMER_NAME ,"
 	 										+ "CUSTOMER_KANA ,"
 	 										+ "CUSTOMER_OFFICE_NAME ,"
@@ -403,7 +409,7 @@ public class CustomerDAO extends BaseDAO {
 	 										+ "MAX_CREDIT_LIMIT ,"
 	 										+ "CUSTOMER_BUSINESS_CATEGORY ,"
 	 										+ "CUSTOMER_JOB_CATEGORY ,"
-	 										+ "TAX_FRACT_CATEGORY"
+	 										+ "TAX_FRACT_CATEGORY ,"
 	 										+ "TAX_SHIFT_CATEGORY ,"
 	 										+ "LAST_CUTOFF_DATE ,"
 	 										+ "SALES_CM_CATEGORY ,"
@@ -414,56 +420,269 @@ public class CustomerDAO extends BaseDAO {
 	 										+ "TEMP_DELIVERY_SLIP_FLAG ,"
 	 										+ "PAYMENT_NAME ,"
 	 										+ "REMARKS ,"
-	 										+ "COMMENT_DATA)"
-	 										+ " values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+	 										+ "COMMENT_DATA ,"
+	 										+ "CRE_DATETM)"
+	 										+ " values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
 	 	pstmt = con.prepareStatement(sql);
+	 	
 	 	pstmt.setString(1, customerCode);
-	 	pstmt.setString(2, customerName);
-	 	pstmt.setString(3, customerKana);
-	 	pstmt.setString(4, officeName);
-	 	pstmt.setString(5, officeNameKana);
-	 	pstmt.setString(6, customerAbbr);
-	 	pstmt.setString(7, zipCode);
-	 	pstmt.setString(8, zipAddress1);
-	 	pstmt.setString(9, zipAddress2);
-	 	pstmt.setString(10, PCName);
-	 	pstmt.setString(11, PCNameKana);
-	 	pstmt.setString(12, PCPreCategory);
-	 	pstmt.setString(13, deptName);
-	 	pstmt.setString(14, PCPost);
-	 	pstmt.setString(15, tel);
-	 	pstmt.setString(16, fax);
-	 	pstmt.setString(17, email);
-	 	pstmt.setString(18, rankCategory);
-	 	pstmt.setString(19, updateFlag);
-	 	pstmt.setString(20, ROCategory);
-	 	pstmt.setInt(21, maxCreditLimit);
-	 	pstmt.setString(22, businessCategory);
-	 	pstmt.setString(23, jobCategory);
-	 	pstmt.setString(24, fractCategory);
-	 	pstmt.setString(25, shiftCategory);
-	 	pstmt.setString(26, lastCutoffDate);
-	 	pstmt.setString(27, salesCMCategory);
-	 	pstmt.setString(28, cutoffGroup);
-	 	pstmt.setString(29, paybackTypeCategory);
-	 	pstmt.setString(30, billPrintUnit);
-	 	pstmt.setString(31, billDatePrint);
-	 	pstmt.setString(32, tempDeliverySlipFlag);
-	 	pstmt.setString(33, paymentName);
-	 	pstmt.setString(34, remarks);
-	 	pstmt.setString(35, comment);
+	 	
+	 	if(customerName==null) {
+	 		pstmt.setNull(2, Types.VARCHAR);
+	 	} else {
+	 		pstmt.setString(2, customerName);
+	 	}
+	 	
+	 	if(customerKana==null) {
+	 		pstmt.setNull(3, Types.VARCHAR);
+	 	} else {
+	 		pstmt.setString(3, customerKana);
+	 	}
+	 	
+	 	if(officeName==null) {
+	 		pstmt.setNull(4, Types.VARCHAR);
+	 	} else {
+	 		pstmt.setString(4, officeName);
+	 	}
+	 	
+	 	if(officeNameKana==null) {
+	 		pstmt.setNull(5, Types.VARCHAR);
+	 	} else {
+	 		pstmt.setString(5, officeNameKana);
+	 	}
+	 	
+	 	if(customerAbbr==null) {
+	 		pstmt.setNull(6, Types.VARCHAR);
+	 	} else {
+	 		pstmt.setString(6, customerAbbr);
+	 	}
+	 	
+	 	if(zipCode==null) {
+	 		pstmt.setNull(7, Types.VARCHAR);
+	 	} else {
+	 		pstmt.setString(7, zipCode);
+	 	}
+	 	
+	 	if(zipAddress1==null) {
+	 		pstmt.setNull(8, Types.VARCHAR);
+	 	} else {
+	 		pstmt.setString(8, zipAddress1);
+	 	}
+	 	
+	 	if(zipAddress2==null) {
+	 		pstmt.setNull(9, Types.VARCHAR);
+	 	} else {
+	 		pstmt.setString(9, zipAddress2);
+	 	}
+	 	
+	 	if(PCName==null) {
+	 		pstmt.setNull(10, Types.VARCHAR);
+	 	} else {
+	 		pstmt.setString(10, PCName);
+	 	}
+	 	
+	 	if(PCNameKana==null) {
+	 		pstmt.setNull(11, Types.VARCHAR);
+	 	} else {
+	 		pstmt.setString(11, PCNameKana);
+	 	}
+	 	
+	 	if(PCPreCategory==null) {
+	 		pstmt.setNull(12, Types.VARCHAR);
+	 	} else {
+	 		pstmt.setString(12, PCPreCategory);
+	 	}
+	 	
+	 	if(deptName==null) {
+	 		pstmt.setNull(13, Types.VARCHAR);
+	 	} else {
+	 		pstmt.setString(13, deptName);
+	 	}
+	 	
+	 	
+	 	if(PCPost==null) {
+	 		pstmt.setNull(14, Types.VARCHAR);
+	 	} else {
+	 		pstmt.setString(14, PCPost);
+	 	}
+	 	
+	 	if(tel==null) {
+	 		pstmt.setNull(15, Types.VARCHAR);
+	 	} else {
+	 		pstmt.setString(15, tel);
+	 	}
+	 	
+	 	if(fax==null) {
+	 		pstmt.setNull(16, Types.VARCHAR);
+	 	} else {
+	 		pstmt.setString(16, fax);
+	 	}
+	 	
+	 	if(email==null) {
+	 		pstmt.setNull(17, Types.VARCHAR);
+	 	} else {
+	 		pstmt.setString(17, email);
+	 	}
+	 	
+	 	if(rankCategory==null) {
+	 		pstmt.setNull(18, Types.VARCHAR);
+	 	} else {
+	 		pstmt.setString(18, rankCategory);
+	 	}
+	 	
+	 	if(updateFlag==null) {
+	 		pstmt.setNull(19, Types.VARCHAR);
+	 	} else {
+	 		pstmt.setString(19, updateFlag);
+	 	}
+	 	
+	 	if(ROCategory==null) {
+	 		pstmt.setNull(20, Types.VARCHAR);
+	 	} else {
+	 		pstmt.setString(20, ROCategory);
+	 	}
+	 	
+	 	if(maxCreditLimit==0) {
+	 		pstmt.setNull(21, Types.INTEGER);
+	 	} else {
+	 		pstmt.setInt(21, maxCreditLimit);
+	 	}
+	 	
+	 	if(businessCategory==null) {
+	 		pstmt.setNull(22, Types.VARCHAR);
+	 	} else {
+	 		pstmt.setString(22, businessCategory);
+	 	}
+	 	
+	 	if(jobCategory==null) {
+	 		pstmt.setNull(23, Types.VARCHAR);
+	 	} else {
+	 		pstmt.setString(23, jobCategory);
+	 	}
+	 	
+	 	if(fractCategory==null) {
+	 		pstmt.setNull(24, Types.VARCHAR);
+	 	} else {
+	 		pstmt.setString(24, fractCategory);
+	 	}
+	 	
+	 	if(shiftCategory==null) {
+	 		pstmt.setNull(25, Types.VARCHAR);
+	 	} else {
+	 		pstmt.setString(25, shiftCategory);
+	 	}
+	 	
+	 	if(lastCutoffDate==null) {
+	 		pstmt.setNull(26, Types.DATE);
+	 	} else {
+	 		pstmt.setNull(26, Types.DATE);
+	// 		pstmt.setDate(26, (Date)lastCutoffDate);
+	 	}
+	 	
+	 	if(salesCMCategory==null) {
+	 		pstmt.setNull(27, Types.VARCHAR);
+	 	} else {
+	 		pstmt.setString(27, salesCMCategory);
+	 	}
+	 	
+	 	if(cutoffGroup==null) {
+	 		pstmt.setNull(28, Types.VARCHAR);
+	 	} else {
+	 		pstmt.setString(28, cutoffGroup);
+	 	}
+	 	
+	 	if(paybackTypeCategory==null) {
+	 		pstmt.setNull(29, Types.VARCHAR);
+	 	} else {
+	 		pstmt.setString(29, paybackTypeCategory);
+	 	}
+	 	
+	 	if(billPrintUnit==null) {
+	 		pstmt.setNull(30, Types.VARCHAR);
+	 	} else {
+	 		pstmt.setString(30, billPrintUnit);
+	 	}
+	 	
+	 	if(billDatePrint==null) {
+	 		pstmt.setNull(31, Types.VARCHAR);
+	 	} else {
+	 		pstmt.setString(31, billDatePrint);
+	 	}
+	 	
+	 	if(tempDeliverySlipFlag==null) {
+	 		pstmt.setNull(32, Types.VARCHAR);
+	 	} else {
+	 		pstmt.setString(32, tempDeliverySlipFlag);
+	 	}
+	 	
+	 	if(paymentName==null) {
+	 		pstmt.setNull(33, Types.VARCHAR);
+	 	} else {
+	 		pstmt.setString(33, paymentName);
+	 	}
+	 	
+	 	if(remarks==null) {
+	 		pstmt.setNull(34, Types.VARCHAR);
+	 	} else {
+	 		pstmt.setString(34, remarks);
+	 	}
+	 	
+	 	if(comment==null) {
+	 		pstmt.setNull(35, Types.VARCHAR);
+	 	} else {
+	 		pstmt.setString(35, comment);
+	 	}
+	 	
+	 	if(creDate==null) {
+	 		pstmt.setNull(36, Types.VARCHAR);
+	 	} else {
+	 		pstmt.setString(36, creDate);
+	 	}
 	 	
 	 	try {
 	 		result = pstmt.executeUpdate();
 	 		con.commit();
 	 	} catch (SQLException e) {
-	 		result = 1;
+	 		result = 999;
+	 		e.printStackTrace();
 	 	} finally {
 	 		super.releaseDB(con,pstmt);
 	 	}
 	 	
 	 	return result;
 
+	}
+	
+	//現在の納入先コードの最大値+1を取得するメソッド
+	public String getMaxDeliveryCode() throws SQLException, ClassNotFoundException {
+
+		Connection con;
+		Statement stmt= null;
+	 	ResultSet result=null;
+	 	String  sql;
+	 	String delCode=null;
+	 	
+	 	con = super.getConnection();
+	 	stmt = con.createStatement();
+	 	
+	 	//現在の納入先コードの最大値を取得するSQL文
+	 	sql = "SELECT DELIVERY_CODE from delivery_mst_XXXXX where DELIVERY_CODE = "
+	 			+ "(select max(DELIVERY_CODE) from delivery_mst_XXXXX)";
+	 	
+	 	result = stmt.executeQuery(sql);
+	 	
+	 	
+	 	while(result.next()){
+	 		delCode = result.getString("DELIVERY_CODE");
+	 	}
+	 	
+	 	super.releaseDB(con,stmt,result);
+	 	
+	 	int idelCode = Integer.parseInt(delCode);
+	 	idelCode = idelCode + 1;
+		delCode = Integer.toString(idelCode);
+	 	
+	 	return delCode;
 	}
 	
 	//納入先を追加するメソッド
@@ -477,7 +696,6 @@ public class CustomerDAO extends BaseDAO {
 	 	//Beanから追加する納入先情報を取得する
 	 	String address1         = bean.getAddress1();
 		String address2         = bean.getAddress2();
-		//String deliveryCode     = bean.getDeliveryCode();
 		String deliveryKana 	= bean.getDeliveryKana();
 		String deliveryName     = bean.getDeliveryName();
 	 	String deptName         = bean.getDeptName();
@@ -490,7 +708,11 @@ public class CustomerDAO extends BaseDAO {
 		String PCPreCategory    = bean.getPCPreCategory();
 		String tel              = bean.getTel();
 		String zipCode			= bean.getZipCode();
-		String creDate          = bean.getCreDate();
+		
+		String deliveryCode     = bean.getDeliveryCode();
+		
+		LocalDateTime ldt           = LocalDateTime.now();
+		String creDate              = ldt.toString();
 		
 	 	
 	 	con = super.getConnection();
@@ -508,35 +730,111 @@ public class CustomerDAO extends BaseDAO {
 	 										+ "DELIVERY_PC_NAME ,"
 	 										+ "DELIVERY_PC_PRE_CATEGORY ,"
 	 										+ "DELIVERY_TEL	,"
-	 										+ "DELIVERY_ZIP_CODE"
-	 										+ "CRE_DATETM)"
-	 										+ " values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ? ,?)";
+	 										+ "DELIVERY_ZIP_CODE ,"
+	 										+ "CRE_DATETM ,"
+	 										+ "DELIVERY_CODE)"
+	 										+ " values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ? ,? ,?)";
 	 	
 	 	
 	 	pstmt = con.prepareStatement(sql);
-	 	pstmt.setString(1, address1);
-	 	pstmt.setString(2, address2);
-	 	pstmt.setString(3, deliveryKana);
-	 	pstmt.setString(4, deliveryName);
-	 	pstmt.setString(5, deptName);
-	 	pstmt.setString(6, email);
-	 	pstmt.setString(7, fax);
-	 	pstmt.setString(8, officeKana);
-	 	pstmt.setString(9, officeName);
-	 	pstmt.setString(10, PCKana);
-	 	pstmt.setString(11, PCName);
-	 	pstmt.setString(12, PCPreCategory);
-	 	pstmt.setString(13, tel);
-	 	pstmt.setString(14, zipCode);
-	 	pstmt.setString(15, creDate);
 	 	
+	 	if(address1==null) {
+	 		pstmt.setNull(1, Types.VARCHAR);
+	 	} else {
+	 		pstmt.setString(1, address1);
+	 	}
+	 	
+	 	if(address2==null) {
+	 		pstmt.setNull(2, Types.VARCHAR);
+	 	} else {
+	 		pstmt.setString(2, address2);
+	 	}
+	 	
+	 	if(deliveryKana==null) {
+	 		pstmt.setNull(3, Types.VARCHAR);
+	 	} else {
+	 		pstmt.setString(3, deliveryKana);
+	 	}
+	 	
+	 	if(deliveryName==null) {
+	 		pstmt.setNull(4, Types.VARCHAR);
+	 	} else {
+	 		pstmt.setString(4, deliveryName);
+	 	}
+	 	
+	 	if(deptName==null) {
+	 		pstmt.setNull(5, Types.VARCHAR);
+	 	} else {
+	 		pstmt.setString(5, deptName);
+	 	}
+	 	
+	 	if(email==null) {
+	 		pstmt.setNull(6, Types.VARCHAR);
+	 	} else {
+	 		pstmt.setString(6, email);
+	 	}
+	 	
+	 	if(fax==null) {
+	 		pstmt.setNull(7, Types.VARCHAR);
+	 	} else {
+	 		pstmt.setString(7, fax);
+	 	}
+	 	
+	 	if(officeKana==null) {
+	 		pstmt.setNull(8, Types.VARCHAR);
+	 	} else {
+	 		pstmt.setString(8, officeKana);
+	 	}
+	 	
+	 	if(officeName==null) {
+	 		pstmt.setNull(9, Types.VARCHAR);
+	 	} else {
+	 		pstmt.setString(9, officeName);
+	 	}
+
+	 	if(PCKana==null) {
+	 		pstmt.setNull(10, Types.VARCHAR);
+	 	} else {
+	 		pstmt.setString(10, PCKana);
+	 	}
+	 	
+	 	if(PCName==null) {
+	 		pstmt.setNull(11, Types.VARCHAR);
+	 	} else {
+	 		pstmt.setString(11, PCName);
+	 		
+	 	}if(PCPreCategory==null) {
+	 		pstmt.setNull(12, Types.VARCHAR);
+	 	} else {
+	 		pstmt.setString(12, PCPreCategory);
+	 	}
+	 	
+	 	if(tel==null) {
+	 		pstmt.setNull(13, Types.VARCHAR);
+	 	} else {
+	 		pstmt.setString(13, tel);
+	 	}
+	 	
+	 	if(zipCode==null) {
+	 		pstmt.setNull(14, Types.VARCHAR);
+	 	} else {
+	 		pstmt.setString(14, zipCode);
+	 	}
+	 	
+	 	if(creDate==null) {
+	 		pstmt.setNull(15, Types.VARCHAR);
+	 	} else {
+	 		pstmt.setString(15, creDate);
+	 	}
+	 	
+	 	pstmt.setString(16, deliveryCode);
 	 	
 	 	try {
 	 		result = pstmt.executeUpdate();
-	 		System.out.println(result);
 	 		con.commit();
 	 	} catch (SQLException e) {
-	 		result = 1;
+	 		result = 999;
+	 		e.printStackTrace();
 	 	} finally {
 	 		super.releaseDB(con,pstmt);
 	 	}
@@ -600,7 +898,8 @@ public class CustomerDAO extends BaseDAO {
 	 		result = pstmt.executeUpdate();
 	 		con.commit();
 	 	} catch (SQLException e) {
-	 		result = 1;
+	 		result = 999;
+	 		e.printStackTrace();
 	 	} finally {
 	 		super.releaseDB(con,pstmt);
 	 	}
@@ -652,47 +951,293 @@ public class CustomerDAO extends BaseDAO {
 		String paymentName 	        = bean.getPaymentName();
 		String remarks 		        = bean.getRemarks();
 		String comment              = bean.getComment();
+		
+		LocalDateTime ldt           = LocalDateTime.now();
+		String updDate              = ldt.toString();
+		String updDateSQL           = "'" + updDate + "'";
 	 	
+		
+		String customerCodeSQL = "'" + customerCode + "'";
+		
+		String customerNameSQL;
+		String customerKanaSQL;
+		String officeNameSQL;
+		String officeNameKanaSQL;
+	 	String customerAbbrSQL;
+	 	String zipCodeSQL;
+	 	String zipAddress1SQL;
+	 	String zipAddress2SQL;
+		String PCNameSQL;
+		String PCNameKanaSQL;
+		String PCPreCategorySQL;
+		String deptNameSQL;
+		String PCPostSQL;
+		String telSQL;
+		String faxSQL;
+		String emailSQL;
+		String rankCategorySQL;
+		String updateFlagSQL;
+		String ROCategorySQL;
+		int maxCreditLimitSQL;
+		String businessCategorySQL;
+		String jobCategorySQL;
+		String fractCategorySQL;
+		String shiftCategorySQL;
+		String lastCutoffDateSQL;
+		String salesCMCategorySQL;
+		String cutoffGroupSQL;
+		String paybackTypeCategorySQL;
+		String billPrintUnitSQL;
+		String billDatePrintSQL;
+		String tempDeliverySlipFlagSQL;
+		String paymentNameSQL;
+		String remarksSQL;
+		String commentSQL;
+		
+		if(customerName==null || customerName.equals("")) {
+			customerNameSQL = null;
+		} else {
+			customerNameSQL = "'" + customerName + "'";
+		}
+		
+		if(customerKana==null || customerKana.equals("")) {
+			customerKanaSQL = null;
+		} else {
+			customerKanaSQL = "'" + customerKana + "'";
+		}
 	 	
+		if(officeName==null || officeName.equals("")) {
+			officeNameSQL = null;
+		} else {
+			officeNameSQL = "'" + officeName + "'";
+		}
+		
+		if(officeNameKana==null || officeNameKana.equals("")) {
+			officeNameKanaSQL = null;
+		} else {
+			officeNameKanaSQL = "'" + officeNameKana + "'";
+		}
+		
+		if(customerAbbr==null || customerAbbr.equals("")) {
+			customerAbbrSQL = null;
+		} else {
+			customerAbbrSQL = "'" + customerAbbr + "'";
+		}
+		
+		if(zipCode==null || zipCode.equals("")) {
+			zipCodeSQL = null;
+		} else {
+			zipCodeSQL = "'" + zipCode + "'";
+		}
+
+		if(zipAddress1==null || zipAddress1.equals("")) {
+			zipAddress1SQL = null;
+		} else {
+			zipAddress1SQL = "'" + zipAddress1 + "'";
+		}
+		
+		if(zipAddress2==null || zipAddress2.equals("")) {
+			zipAddress2SQL = null;
+		} else {
+			zipAddress2SQL = "'" + zipAddress2 + "'";
+		}
+		
+		if(PCName==null || PCName.equals("")) {
+			PCNameSQL = null;
+		} else {
+			PCNameSQL = "'" + PCName + "'";
+		}
+		
+		if(PCNameKana==null || PCNameKana.equals("")) {
+			PCNameKanaSQL = null;
+		} else {
+			PCNameKanaSQL = "'" + PCNameKana + "'";
+		}
+	 	
+		if(PCPreCategory==null || PCPreCategory.equals("")) {
+			PCPreCategorySQL = null;
+		} else {
+			PCPreCategorySQL = "'" + PCPreCategory + "'";
+		}
+		
+		if(deptName==null || deptName.equals("")) {
+			deptNameSQL = null;
+		} else {
+			deptNameSQL = "'" + deptName + "'";
+		}
+		
+		if(PCPost==null || PCPost.equals("")) {
+			PCPostSQL = null;
+		} else {
+			PCPostSQL = "'" + PCPost + "'";
+		}
+		
+		if(tel==null || tel.equals("")) {
+			telSQL = null;
+		} else {
+			telSQL = "'" + tel + "'";
+		}
+
+		if(fax==null || fax.equals("")) {
+			faxSQL = null;
+		} else {
+			faxSQL = "'" + fax + "'";
+		}
+		
+		if(email==null || email.equals("")) {
+			emailSQL = null;
+		} else {
+			emailSQL = "'" + email + "'";
+		}
+		
+		if(rankCategory==null || rankCategory.equals("")) {
+			rankCategorySQL = null;
+		} else {
+			rankCategorySQL = "'" + rankCategory + "'";
+		}
+		
+		if(updateFlag==null || updateFlag.equals("")) {
+			updateFlagSQL = null;
+		} else {
+			updateFlagSQL = "'" + updateFlag + "'";
+		}
+	 	
+		if(ROCategory==null || ROCategory.equals("")) {
+			ROCategorySQL = null;
+		} else {
+			ROCategorySQL = "'" + ROCategory + "'";
+		}
+		
+		if(maxCreditLimit==0) {
+			maxCreditLimitSQL = 0;
+		} else {
+			maxCreditLimitSQL = maxCreditLimit;
+		}
+		
+		if(businessCategory==null || businessCategory.equals("")) {
+			businessCategorySQL = null;
+		} else {
+			businessCategorySQL = "'" + businessCategory + "'";
+		}
+		
+		if(jobCategory==null || jobCategory.equals("")) {
+			jobCategorySQL = null;
+		} else {
+			jobCategorySQL = "'" + jobCategory + "'";
+		}
+
+		if(fractCategory==null || fractCategory.equals("")) {
+			fractCategorySQL = null;
+		} else {
+			fractCategorySQL = "'" + fractCategory + "'";
+		}
+		
+		if(shiftCategory==null || shiftCategory.equals("")) {
+			shiftCategorySQL = null;
+		} else {
+			shiftCategorySQL = "'" + shiftCategory + "'";
+		}
+		
+		if(lastCutoffDate==null || lastCutoffDate.equals("")) {
+			lastCutoffDateSQL = null;
+		} else {
+			lastCutoffDateSQL = "'" + lastCutoffDate + "'";
+		}
+		
+		if(salesCMCategory==null || salesCMCategory.equals("")) {
+			salesCMCategorySQL = null;
+		} else {
+			salesCMCategorySQL = "'" + salesCMCategory + "'";
+		}
+	 	
+		if(cutoffGroup==null || cutoffGroup.equals("")) {
+			cutoffGroupSQL = null;
+		} else {
+			cutoffGroupSQL = "'" + cutoffGroup + "'";
+		}
+		
+		if(paybackTypeCategory==null || paybackTypeCategory.equals("")) {
+			paybackTypeCategorySQL = null;
+		} else {
+			paybackTypeCategorySQL = "'" + paybackTypeCategory + "'";
+		}
+		
+		if(billPrintUnit==null || billPrintUnit.equals("")) {
+			billPrintUnitSQL = null;
+		} else {
+			billPrintUnitSQL = "'" + billPrintUnit + "'";
+		}
+		
+		if(billDatePrint==null || billDatePrint.equals("")) {
+			billDatePrintSQL = null;
+		} else {
+			billDatePrintSQL = "'" + billDatePrint + "'";
+		}
+
+		if(tempDeliverySlipFlag==null || tempDeliverySlipFlag.equals("")) {
+			tempDeliverySlipFlagSQL = null;
+		} else {
+			tempDeliverySlipFlagSQL = "'" + tempDeliverySlipFlag + "'";
+		}
+		
+		if(paymentName==null || paymentName.equals("")) {
+			paymentNameSQL = null;
+		} else {
+			paymentNameSQL = "'" + paymentName + "'";
+		}
+		
+		if(remarks==null || remarks.equals("")) {
+			remarksSQL = null;
+		} else {
+			remarksSQL = "'" + remarks + "'";
+		}
+
+		if(comment==null || comment.equals("")) {
+			commentSQL = null;
+		} else {
+			commentSQL = "'" + comment + "'";
+		}
+		
 	 	con = super.getConnection();
 	 	stmt = con.createStatement();
 	 	//顧客情報を更新するSQL文
 	 	sql = "UPDATE customer_mst_xxxxx SET " +
-	 			"CUSTOMER_NAME = " + customerName +
-	 			"CUSTOMER_KANA = " + customerKana +
-	 			"CUSTOMER_OFFICE_NAME = " + officeName +
-	 			"CUSTOMER_OFFICE_KANA = " + officeNameKana +
-	 			"CUSTOMER_ABBR = " + customerAbbr +
-	 			"CUSTOMER_ZIP_CODE = " + zipCode +
-	 			"CUSTOMER_ADDRESS_1 = " + zipAddress1 +
-	 			"CUSTOMER_ADDRESS_2 = " + zipAddress2 +
-	 			"CUSTOMER_PC_NAME = " + PCName +
-	 			"CUSTOMER_PC_KANA = " + PCNameKana +
-	 			"CUSTOMER_PC_PRE_CATEGORY = " + PCPreCategory +
-	 			"CUSTOMER_DEPT_NAME = " + deptName +
-	 			"CUSTOMER_PC_POST = " + PCPost +
-	 			"CUSTOMER_TEL = " + tel +
-	 			"CUSTOMER_FAX = " + fax + 
-	 			"CUSTOMER_EMAIL = " + email +
-	 			"CUSTOMER_RANK_CATEGORY = " + rankCategory +
-	 			"CUSTOMER_UPD_FLAG = " + updateFlag +
-	 			"CUSTOMER_RO_CATEGORY = " + ROCategory +
-	 			"MAX_CREDIT_LIMIT = " + maxCreditLimit +
-	 			"CUSTOMER_BUSINESS_CATEGORY = " + businessCategory +
-	 			"CUSTOMER_JOB_CATEGORY = " + jobCategory +
-	 			"TAX_FRACT_CATEGORY" + fractCategory +
-	 			"TAX_SHIFT_CATEGORY = " + shiftCategory +
-	 			"LAST_CUTOFF_DATE = " + lastCutoffDate +
-	 			"SALES_CM_CATEGORY = " + salesCMCategory +
-	 			"CUTOFF_GROUP = " + cutoffGroup +
-	 			"PAYBACK_TYPE_CATEGORY = " + paybackTypeCategory +
-	 			"BILL_PRINT_UNIT = " + billPrintUnit +
-	 			"BILL_DATE_PRINT = " + billDatePrint +
-	 			"TEMP_DELIVERY_SLIP_FLAG = " + tempDeliverySlipFlag +
-	 			"PAYMENT_NAME = " + paymentName +
-	 			"REMARKS = " + remarks +
-	 			"COMMENT_DATA = " + comment +
-	 			"WHERE CUSTOMER_CODE = " + customerCode;
+	 			"CUSTOMER_NAME = " + customerNameSQL +
+	 			", CUSTOMER_KANA = " + customerKanaSQL +
+	 			", CUSTOMER_OFFICE_NAME = " + officeNameSQL +
+	 			", CUSTOMER_OFFICE_KANA = " + officeNameKanaSQL +
+	 			", CUSTOMER_ABBR = " + customerAbbrSQL +
+	 			", CUSTOMER_ZIP_CODE = " + zipCodeSQL +
+	 			", CUSTOMER_ADDRESS_1 = " + zipAddress1SQL +
+	 			", CUSTOMER_ADDRESS_2 = " + zipAddress2SQL +
+	 			", CUSTOMER_PC_NAME = " + PCNameSQL +
+	 			", CUSTOMER_PC_KANA = " + PCNameKanaSQL +
+	 			", CUSTOMER_PC_PRE_CATEGORY = " + PCPreCategorySQL +
+	 			", CUSTOMER_DEPT_NAME = " + deptNameSQL +
+	 			", CUSTOMER_PC_POST = " + PCPostSQL +
+	 			", CUSTOMER_TEL = " + telSQL +
+	 			", CUSTOMER_FAX = " + faxSQL + 
+	 			", CUSTOMER_EMAIL = " + emailSQL +
+	 			", CUSTOMER_RANK_CATEGORY = " + rankCategorySQL +
+	 			", CUSTOMER_UPD_FLAG = " + updateFlagSQL +
+	 			", CUSTOMER_RO_CATEGORY = " + ROCategorySQL +
+	 			", MAX_CREDIT_LIMIT = " + maxCreditLimitSQL +
+	 			", CUSTOMER_BUSINESS_CATEGORY = " + businessCategorySQL +
+	 			", CUSTOMER_JOB_CATEGORY = " + jobCategorySQL +
+	 			", TAX_FRACT_CATEGORY" + fractCategorySQL +
+	 			", TAX_SHIFT_CATEGORY = " + shiftCategorySQL +
+	 			", LAST_CUTOFF_DATE = " + lastCutoffDateSQL +
+	 			", SALES_CM_CATEGORY = " + salesCMCategorySQL +
+	 			", CUTOFF_GROUP = " + cutoffGroupSQL +
+	 			", PAYBACK_TYPE_CATEGORY = " + paybackTypeCategorySQL +
+	 			", BILL_PRINT_UNIT = " + billPrintUnitSQL +
+	 			", BILL_DATE_PRINT = " + billDatePrintSQL +
+	 			", TEMP_DELIVERY_SLIP_FLAG = " + tempDeliverySlipFlagSQL +
+	 			", PAYMENT_NAME = " + paymentNameSQL +
+	 			", REMARKS = " + remarksSQL +
+	 			", COMMENT_DATA = " + commentSQL +
+	 			", UPD_DATETM = " + updDateSQL + 
+	 			" WHERE CUSTOMER_CODE = " + customerCodeSQL;
 	 			
 
 	 	
@@ -700,7 +1245,8 @@ public class CustomerDAO extends BaseDAO {
 	 		result = stmt.executeUpdate(sql);
 	 		con.commit();
 	 	} catch (SQLException e) {
-	 		result = 1;
+	 		result = 999;
+	 		e.printStackTrace();
 	 	} finally {
 	 		super.releaseDB(con,stmt);
 	 	}
@@ -733,30 +1279,135 @@ public class CustomerDAO extends BaseDAO {
 		String PCPreCategory    = bean.getPCPreCategory();
 		String tel              = bean.getTel();
 		String zipCode			= bean.getZipCode();
-		String updDate          = bean.getUpdDate();
 		
+		LocalDateTime ldt           = LocalDateTime.now();
+		String updDate              = ldt.toString();
+		String updDateSQL           = "'" + updDate + "'";
+		
+		String deliveryCodeSQL = "'" + deliveryCode + "'";
+		
+	 	String address1SQL;
+		String address2SQL;
+		String deliveryKanaSQL;
+		String deliveryNameSQL;
+	 	String deptNameSQL;
+	 	String emailSQL;
+	 	String faxSQL;
+	 	String officeKanaSQL;
+		String officeNameSQL;
+		String PCKanaSQL;
+		String PCNameSQL;
+		String PCPreCategorySQL;
+		String telSQL;
+		String zipCodeSQL;
+		
+		
+		if(address1==null || address1.equals("")) {
+			address1SQL = null;
+		} else {
+			address1SQL = "'" + address1 + "'";
+		}
+		
+		if(address2==null || address2.equals("")) {
+			address2SQL = null;
+		} else {
+			address2SQL = "'" + address2 + "'";
+		}
+		
+		
+		if(deliveryKana==null || deliveryKana.equals("")) {
+			deliveryKanaSQL = null;
+		} else {
+			deliveryKanaSQL = "'" + deliveryKana + "'";
+		}
+		
+		if(deliveryName==null || deliveryName.equals("")) {
+			deliveryNameSQL = null;
+		} else {
+			deliveryNameSQL = "'" + deliveryName + "'";
+		}
+		
+		if(deptName==null || deptName.equals("")) {
+			deptNameSQL = null;
+		} else {
+			deptNameSQL = "'" + deptName + "'";
+		}
+		
+		if(email==null || email.equals("")) {
+			emailSQL = null;
+		} else {
+			emailSQL = "'" + email + "'";
+		}
+		
+		if(fax==null || fax.equals("")) {
+			faxSQL = null;
+		} else {
+			faxSQL = "'" + fax + "'";
+		}
+		
+		if(officeKana==null || officeKana.equals("")) {
+			officeKanaSQL = null;
+		} else {
+			officeKanaSQL = "'" + officeKana + "'";
+		}
+		
+		if(officeName==null || officeName.equals("")) {
+			officeNameSQL = null;
+		} else {
+			officeNameSQL = "'" + officeName + "'";
+		}
+		
+		if(PCKana==null || PCKana.equals("")) {
+			PCKanaSQL = null;
+		} else {
+			PCKanaSQL = "'" + PCKana + "'";
+		}
+		
+		if(PCName==null || PCName.equals("")) {
+			PCNameSQL = null;
+		} else {
+			PCNameSQL = "'" + PCName + "'";
+		}
+		
+		if(PCName==null ||PCPreCategory.equals("")) {
+			PCPreCategorySQL = null;
+		} else {
+			PCPreCategorySQL = "'" +PCPreCategory + "'";
+		}
+		
+		if(PCName==null ||tel.equals("")) {
+			telSQL = null;
+		} else {
+			telSQL = "'" +tel + "'";
+		}
+		
+		if(PCName==null ||zipCode.equals("")) {
+			zipCodeSQL = null;
+		} else {
+			zipCodeSQL = "'" +zipCode + "'";
+		}
 	 	
 	 	con = super.getConnection();
 	 	stmt = con.createStatement();
 	 	
 	 	//納入先(請求先)情報を更新するSQL文
 	 	sql = "UPDATE delivery_mst_xxxxx SET " + 
-	 			"DELIVERY_ADDRESS_1 = " + address1 +
-	 			"DELIVERY_ADDRESS_2 = " + address2 +
-	 			"DELIVERY_KANA = " + deliveryKana +
-	 			"DELIVERY_NAME = " + deliveryName + 
-	 			"DELIVERY_DEPT_NAME = " + deptName +
-	 			"DELIVERY_EMAIL = " + email +
-	 			"DELIVERY_FAX = " + fax +
-	 			"DELIVERY_OFFICE_KANA = " + officeKana +
-	 			"DELIVERY_OFFICE_NAME = " + officeName +
-	 			"DELIVERY_PC_KANA = " + PCKana +
-	 			"DELIVERY_PC_NAME = " + PCName +
-	 			"DELIVERY_PC_PRE_CATEGORY = " + PCPreCategory +
-	 			"DELIVERY_TEL = " + tel +
-	 			"DELIVERY_ZIP_CODE = " + zipCode +
-	 			"UPD_DATETM = " + updDate +
-	 			"WHERE DELIVERY_CODE = " + deliveryCode;
+	 			"DELIVERY_ADDRESS_1 = " + address1SQL +
+	 			",　DELIVERY_ADDRESS_2 = " + address2SQL +
+	 			",　DELIVERY_KANA = " + deliveryKanaSQL +
+	 			",　DELIVERY_NAME = " + deliveryNameSQL + 
+	 			",　DELIVERY_DEPT_NAME = " + deptNameSQL +
+	 			",　DELIVERY_EMAIL = " + emailSQL +
+	 			",　DELIVERY_FAX = " + faxSQL +
+	 			",　DELIVERY_OFFICE_KANA = " + officeKanaSQL +
+	 			",　DELIVERY_OFFICE_NAME = " + officeNameSQL +
+	 			",　DELIVERY_PC_KANA = " + PCKanaSQL +
+	 			",　DELIVERY_PC_NAME = " + PCNameSQL +
+	 			",　DELIVERY_PC_PRE_CATEGORY = " + PCPreCategorySQL +
+	 			",　DELIVERY_TEL = " + telSQL +
+	 			",　DELIVERY_ZIP_CODE = " + zipCodeSQL +
+	 			",　UPD_DATETM = " + updDateSQL +
+	 			"　WHERE DELIVERY_CODE = " + deliveryCodeSQL;
 	 			
 	 	
 	 	
@@ -765,7 +1416,8 @@ public class CustomerDAO extends BaseDAO {
 	 		result = stmt.executeUpdate(sql);
 	 		con.commit();
 	 	} catch (SQLException e) {
-	 		result = 1;
+	 		result = 999;
+	 		e.printStackTrace();
 	 	} finally {
 	 		super.releaseDB(con,stmt);
 	 	}
@@ -797,7 +1449,8 @@ public class CustomerDAO extends BaseDAO {
 	 		result = stmt.executeUpdate(sql);
 	 		con.commit();
 	 	} catch (SQLException e) {
-	 		result = 1;
+	 		result = 999;
+	 		e.printStackTrace();
 	 	} finally {
 	 		super.releaseDB(con,stmt);
 	 	}
@@ -823,7 +1476,8 @@ public class CustomerDAO extends BaseDAO {
 	 		result = stmt.executeUpdate(sql);
 	 		con.commit();
 	 	} catch (SQLException e) {
-	 		result = 1;
+	 		result = 999;
+	 		e.printStackTrace();
 	 	} finally {
 	 		super.releaseDB(con,stmt);
 	 	}
@@ -884,20 +1538,6 @@ public class CustomerDAO extends BaseDAO {
 	 	
 	 	return list;
 		
-	}
-	
-
-
-
-
-
-		
-		
-		
-		
-		
-		
-		
-		
+	}	
 		
 }
