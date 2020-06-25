@@ -222,7 +222,7 @@
                             <div class="input-group-prepend">
                                 <div class="input-group-text">敬称</div>
                             </div>
-                            <select class="custom-select" name="PCPreCategory" name="PCPreCategory" value="${customer.PCPreCategory}">
+                            <select id="keigo" class="custom-select" name="PCPreCategory" name="PCPreCategory">
                             	<option value=""></option>
                             	<option value="0">御中</option>
                                 <option value="1">様</option>
@@ -1019,7 +1019,16 @@
 		var form = document.mainform;
 		form.submit();
 	}
+ 	
+ 	
+
 </script>
-	
+<script>
+$(document).ready(function() {
+
+    $('select[id="keigo"]').find('option[value="${customer.PCPreCategory}"]').attr("selected",true);
+});
+</script>
+
 	</body>
 </html>

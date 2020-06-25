@@ -1411,7 +1411,6 @@ public class CustomerDAO extends BaseDAO {
 	 			
 	 	
 	 	
-	 	
 	 	try {
 	 		result = stmt.executeUpdate(sql);
 	 		con.commit();
@@ -1470,7 +1469,7 @@ public class CustomerDAO extends BaseDAO {
 	 	stmt = con.createStatement();
 	 	
 	 	//�ڋq�폜������SQL��
-	 	sql = "DELETE FROM customer_mst_xxxxx�@WHERE CUSTOMER_CODE = " + customerCode;	 	
+	 	sql = "DELETE FROM customer_mst_xxxxx WHERE CUSTOMER_CODE = " + customerCode;	 	
 	 	
 	 	try {
 	 		result = stmt.executeUpdate(sql);
