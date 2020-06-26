@@ -130,12 +130,13 @@ public class MoveModifyProductDAO extends BaseDAO {
 	 		bean.setProductStatusCategory(result.getString("PRODUCT_STATUS_CATEGORY"));
 	 		bean.setProductStockCategory(result.getString("PRODUCT_STOCK_CATEGORY"));
 	 		bean.setProductPurvayCategory(result.getString("PRODUCT_PURVAY_CATEGORY"));
+	 		bean.setProductStandardCategory(result.getString("PRODUCT_STANDARD_CATEGORY"));
 	 		bean.setSoRate(result.getString("SO_RATE"));
 	 		bean.setSetTypeCategory(result.getString("SET_TYPE_CATEGORY"));
 	 		bean.setProduct1(result.getString("PRODUCT_1"));
 	 		bean.setProduct2(result.getString("PRODUCT_2"));
 	 		bean.setProduct3(result.getString("PRODUCT_3"));
-	 	
+	 		
 //	 		list.add(bean);
 	 	}
 	 	
