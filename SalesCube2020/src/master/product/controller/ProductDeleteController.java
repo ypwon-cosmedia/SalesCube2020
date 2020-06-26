@@ -59,12 +59,12 @@ public class ProductDeleteController extends BaseController{
 		int check = dao2.deleteProduct(productCode);
 		
 		//Delete Check
-		if(check == 1) {
-			String message = "���i���̍폜�����ɂ����ăG���[���������܂���";
-			request.setAttribute("message", message);
-		} else {
-			String message = "�ڋq���̍폜���������܂���";
-			request.setAttribute("message", message);
+		if( check == 0 ) {
+			String message = "削除できませんでした。";
+			request.setAttribute("addmodifyError", message);
+		}else{
+			String message = "削除が完了しました";
+			request.setAttribute("addmodifysuccess", message);
 		}
 		
 		return forwardURL;
