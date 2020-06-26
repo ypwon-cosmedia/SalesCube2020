@@ -43,7 +43,7 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
     <nav class="navbar navbar-expand-lg navbar-light bg-light">
-      <a class="navbar-brand" href="#">SalesCube2020</a>
+      <a class="navbar-brand" href="/SalesCube2020/SalesCube?action=menu">SalesCube2020</a>
       <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
       </button>
@@ -52,12 +52,12 @@
         <ul class="navbar-nav mr-auto">
           <li class="nav-item dropdown">
             <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-              マスター
+              	マスター
             </a>
             <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-              <a class="dropdown-item" href="#">商品</a>
-              <a class="dropdown-item" href="#">セット商品</a>
-              <a class="dropdown-item" href="#">顧客</a>
+              <a class="dropdown-item" href="/SalesCube2020/SalesCube?action=product">商品</a>
+              <a class="dropdown-item" href="/SalesCube2020/SalesCube?action=setProduct">セット商品</a>
+              <a class="dropdown-item" href="/SalesCube2020/SalesCube?action=customer">顧客</a>
             </div>
           </li>
         </ul>
@@ -67,13 +67,13 @@
             <path fill-rule="evenodd" d="M8 9a3 3 0 1 0 0-6 3 3 0 0 0 0 6z"/>
             <path fill-rule="evenodd" d="M8 1a7 7 0 1 0 0 14A7 7 0 0 0 8 1zM0 8a8 8 0 1 1 16 0A8 8 0 0 1 0 8z"/>
           </svg>
-          システム管理者　
+        	${userInfo.nameKNJ} &nbsp;     	
         </span>
-        <form class="form-inline">
+        <form class="form-inline" action="/SalesCube2020/SalesCube?action=logout" method="post">
           <button class="btn btn-outline-success my-2 my-sm-0" type="submit">ログアウト</button>
         </form>
       </div>
-	</nav>
+    </nav>
 	<br>
     <div class="container" id="main_function">
       <h3 class="float-left">顧客</h3>
