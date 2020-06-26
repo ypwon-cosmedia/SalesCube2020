@@ -115,7 +115,7 @@
                             <div class="input-group-prepend">
                                 <div class="input-group-text" style="background-color: pink;">顧客コード</div>
                             </div>
-                        <input type="text"  class="form-control" id="inlineFormInputGroup" name="customerCode" value="${customer.customerCode}" required>
+                        <input type="tel"  class="form-control" id="inlineFormInputGroup" name="customerCode" value="${customer.customerCode}" required ${status eq 'add' ? "" :'readonly'}>
                         </div>
                     </div>
                     <div class="col-4">
@@ -174,7 +174,7 @@
                                 <div class="input-group-text" style="background-color: pink;">郵便番号</div>
                             </div>
                         <input type="text"  class="form-control" id="inlineFormInputGroup" name="zipCode" value="${customer.zipCode}">                       
-                        <input type="image" name="" src="btn_search.png" tabindex="101" onclick="" style="vertical-align: middle; cursor: pointer; width: 32px;">
+                        <!-- <input type="image" name="" src="btn_search.png" tabindex="101" onclick="" style="vertical-align: middle; cursor: pointer; width: 32px;"> -->
                         </div>
                     </div>
                     <div class="col-4">
@@ -222,7 +222,7 @@
                             <div class="input-group-prepend">
                                 <div class="input-group-text">敬称</div>
                             </div>
-                            <select id="keigo" class="custom-select" name="PCPreCategory" name="PCPreCategory">
+                            <select id="PCPreCategory" class="custom-select" name="PCPreCategory">
                             	<option value=""></option>
                             	<option value="0">御中</option>
                                 <option value="1">様</option>
@@ -289,7 +289,7 @@
                             <div class="input-group-prepend">
                                 <div class="input-group-text">顧客ランク</div>
                             </div>
-								<select class="custom-select" name="rankCategory" name="rankCategory" value="{customer.rankCategory}">
+								<select class="custom-select" id="rankCategory" name="rankCategory" name="rankCategory">
 								</select>
                         &emsp;<label><input type="checkbox" name="updateFlag"  value="{customer.updateFlag}" >&ensp;顧客ランク適用</label>
                         </div>
@@ -300,7 +300,7 @@
 								<div class="input-group-prepend">
 									<div class="input-group-text">受注停止</div>
 								</div>
-                            	<select class="custom-select" name="ROCategory" value="${customer.ROCategory}">
+                            	<select class="custom-select" name="ROCategory" id="ROCategory">
                                 	<option value=""></option>
                             		<option value="1">取引停止</option>
                                 	<option value="2">入金遅延</option>
@@ -324,7 +324,7 @@
  		                           <div class="input-group-prepend">
  	                               <div class="input-group-text">業種</div>
  	                           </div>
- 		                           <select class="custom-select" name="businessCategory" value="${customer.businessCategory}">
+ 		                           <select class="custom-select" name="businessCategory" id="businessCategory">
 							       		<option value=""></option>
                             			<option value="1">コンピュータ関連</option>	
                                 		<option value="2">通信関連</option>
@@ -355,13 +355,13 @@
 								   </select>
  		                       </div>
  		                   </div>
- 		                   <div class="col-3">
+ 		                   <div class="col-4">
  		                       <label class="sr-only" for="inlineFormInputGroup">jobCategory</label>
 		                        <div class="input-group mb-2">
 		                            <div class="input-group-prepend">
 		                                <div class="input-group-text">職種</div>
 		                            </div>
-		                            <select class="custom-select" name="jobCategory" value="${customer.jobCategory}">
+		                            <select class="custom-select" name="jobCategory" id="jobCategory">
 							       		<option value=""></option>
                             			<option value="1">製品設計・商品設計</option>	
                                 		<option value="2">研究・開発</option>
@@ -386,7 +386,7 @@
   	                          <div class="input-group-prepend">
 	                                <div class="input-group-text" style="background-color: pink;"> 税端数処理</div>
   	                          </div>
-  		                          <select class="custom-select" name="fractCategory" value="${customer.fractCategory}">
+  		                          <select class="custom-select" name="fractCategory" id="fractCategory">
 										<option value="1">切り捨て</option>
 										<option value="2">四捨五入</option>
 										<option value="3">切り上げ</option>
@@ -399,7 +399,7 @@
 	                            <div class="input-group-prepend">
  	                               <div class="input-group-text" style="background-color: pink;">税転嫁</div>
   	                            </div>
-		                            <select class="custom-select" name="shiftCategory" value="${customer.shiftCategory}">
+		                            <select class="custom-select" name="shiftCategory" id="shiftCategory">
 										<option value="1">外税締単位</option>
 										<option value="2">外税伝票計</option>
  		                            </select>
@@ -416,13 +416,13 @@
                       </div>
                 	</div>
                 	<div class="row">
-                    	<div class="col-3">
+                    	<div class="col-4">
                         	<label class="sr-only" for="inlineFormInputGroup">salesCMCategory</label>
                         	<div class="input-group mb-2">
                             	<div class="input-group-prepend">
                                 	<div class="input-group-text" style="background-color: pink;">取引区分</div>
                             	</div>
-                            	<select class="custom-select" name="salesCMCategory" value="${customer.salesCMCategory}">
+                            	<select class="custom-select" name="salesCMCategory" id="salesCMCategory">
                                 	<option value="1">掛売</option>
 									<option value="2">現金</option>
 									<option value="3">サンプル</option>
@@ -433,13 +433,13 @@
                             	</select>
                         	</div>
                     	</div>
-                    	<div class="col-3">
+                    	<div class="col-5">
                         	<label class="sr-only" for="inlineFormInputGroup">cutoffGroup</label>
                         	<div class="input-group mb-2">
                             	<div class="input-group-prepend">
                                 	<div class="input-group-text" style="background-color: pink;">支払い条件</div>
                             	</div>
-                            	<select class="custom-select" name="cutoffGroup" value="${customer.cutoffGroup}">
+                            	<select class="custom-select" name="cutoffGroup" id="cutoffGroup">
                                 	<option value="1">10日締め翌月10日</option>
 									<option value="2">20日締め翌月20日</option>
 									<option value="3">25日締め翌月末</option>
@@ -455,7 +455,7 @@
                             	<div class="input-group-prepend">
                                 	<div class="input-group-text" style="background-color: pink;">回収方法</div>
                             	</div>
-                            	<select class="custom-select" name="paybackTypeCategory" value="${customer.paybackTypeCategory}">
+                            	<select class="custom-select" name="paybackTypeCategory" id="paybackTypeCategory">
                                 	<option value="1">現金</option>
 									<option value="2">小切手</option>
 									<option value="3">振込</option>
@@ -466,13 +466,13 @@
                     	</div>
                 	</div>
                 	<div class="row">
-                    	<div class="col-3">
+                    	<div class="col-4">
                         	<label class="sr-only" for="inlineFormInputGroup">billPrintUnit</label>
                         	<div class="input-group mb-2">
                             	<div class="input-group-prepend">
                                 	<div class="input-group-text" style="background-color: pink;">請求書発行単位</div>
                             	</div>
-                            	<select class="custom-select" name="billPrintUnit" value="${customer.billPrintUnit}">
+                            	<select class="custom-select" name="billPrintUnit" id="billPrintUnit">
                                 	<option value="1">請求書なし</option>
 									<option value="2">請求締め単位</option>
 									<option value="3">売上伝票単位</option>
@@ -485,7 +485,7 @@
                             	<div class="input-group-prepend">
                                 	<div class="input-group-text" style="background-color: pink;">請求書日付有無</div>
                             	</div>
-                            	<select class="custom-select" name="billDatePrint" value="{customer.billDatePrint}">
+                            	<select class="custom-select" name="billDatePrint" id="billDatePrint">
                                 	<option value="1">なし</option>
 									<option value="2">あり</option>
                             	</select>
@@ -495,7 +495,7 @@
                         	<label class="sr-only" for="inlineFormInputGroup">tempDeliverySlipFlag</label>
                         	<div class="input-group mb-2">
                             	<div class="input-group-prepend">
-                                	<div class="input-group-text">仮納品書出力負荷</div>
+                                	<div class="input-group-text">仮納品書出力不可</div>
                             	</div>
                         	&emsp;<label><input type="checkbox" name="tempDeliverySlipFlag"  value="{customer.tempDeliverySlipFlag}"></label>
                         	</div>
@@ -620,7 +620,7 @@
                             <div class="input-group-text" style="background-color: pink;">郵便番号</div>
                         </div>
                     <input type="text"  class="form-control" id="inlineFormInputGroup delZipCode " name="delZipCode" value="${deliveryList.get(0).zipCode}">                       
-                    <input type="image" name="" src="btn_search.png" tabindex="101" onclick="" style="vertical-align: middle; cursor: pointer; width: 32px;">
+                    <!-- <input type="image" name="" src="btn_search.png" tabindex="101" onclick="" style="vertical-align: middle; cursor: pointer; width: 32px;"> -->
                     </div>
                 </div>
                 <div class="col-4">
@@ -668,7 +668,7 @@
                         <div class="input-group-prepend">
                             <div class="input-group-text">敬称</div>
                         </div>
-                        <select class="custom-select" name="delPCPreCategory" value="${deliveryList.get(0).PCPreCategory}" id="delPCPreCategory">
+                        <select class="custom-select" name="delPCPreCategory" id="delPCPreCategory">
                                 	<option value=""></option>
 									<option value="1">御中</option>
 									<option value="2">様</option>
@@ -780,7 +780,7 @@
                             <div class="input-group-text" style="background-color: pink;">郵便番号</div>
                         </div>
                     <input type="text"  class="form-control" id="inlineFormInputGroup" name="delZipCode2" value="${delivery2.zipCode}">                       
-                    <input type="image" name="" src="btn_search.png" tabindex="101" onclick="" style="vertical-align: middle; cursor: pointer; width: 32px;">
+                    <!--  <input type="image" name="" src="btn_search.png" tabindex="101" onclick="" style="vertical-align: middle; cursor: pointer; width: 32px;"> -->
                     </div>
                 </div>
                 <div class="col-4">
@@ -828,14 +828,14 @@
                         <div class="input-group-prepend">
                             <div class="input-group-text">敬称</div>
                         </div>
-                        <select class="custom-select" name="delPCPreCategory2" value="${delivery2.PCPreCategory}">
+                        <select class="custom-select" name="delPCPreCategory2" id="delPCPreCategory2">
                                 	<option value=""></option>
 									<option value="1">御中</option>
 									<option value="2">様</option>
 									<option value="3">殿</option>
                         </select>
                     </div>
-　　　　　　    　　　</div>
+　　　　　　    　　　	</div>
             </div>
             <div class="row">
                 <div class="col-5">
@@ -1026,7 +1026,21 @@
 <script>
 $(document).ready(function() {
 
-    $('select[id="keigo"]').find('option[value="${customer.PCPreCategory}"]').attr("selected",true);
+    $('select[id="PCPreCategory"]').find('option[value="${customer.PCPreCategory}"]').attr("selected",true);
+    $('select[id="rankCategory"]').find('option[value="${customer.rankCategory}"]').attr("selected",true);
+    $('select[id="ROCategory"]').find('option[value="${customer.ROCategory}"]').attr("selected",true);
+    $('select[id="businessCategory"]').find('option[value="${customer.businessCategory}"]').attr("selected",true);
+    $('select[id="jobCategory"]').find('option[value="${customer.jobCategory}"]').attr("selected",true);
+    $('select[id="fractCategory"]').find('option[value="${customer.fractCategory}"]').attr("selected",true);
+    $('select[id="shiftCategory"]').find('option[value="${customer.shiftCategory}"]').attr("selected",true);
+    $('select[id="salesCMCategory"]').find('option[value="${customer.salesCMCategory}"]').attr("selected",true);
+    $('select[id="cutoffGroup"]').find('option[value="${customer.cutoffGroup}"]').attr("selected",true);
+    $('select[id="paybackTypeCategory"]').find('option[value="${customer.paybackTypeCategory}"]').attr("selected",true);
+    $('select[id="billPrintUnit"]').find('option[value="${customer.billPrintUnit}"]').attr("selected",true);
+    $('select[id="billDatePrint"]').find('option[value="${customer.billDatePrint}"]').attr("selected",true);
+    $('select[id="delPCPreCategory"]').find('option[value="${deliveryList.get(0).PCPreCategory}"]').attr("selected",true);
+    $('select[id="delPCPreCategory2"]').find('option[value="${delivery2.PCPreCategory}"]').attr("selected",true);
+    
 });
 </script>
 

@@ -236,7 +236,7 @@
 								<div class="input-group-prepend">
 									<div class="input-group-text">在庫管理</div>
 								</div>
-							<select class="custom-select" name="stockCtlCategory"  id="stockCtlCategory" value="${product.stockCtlCategory}">
+							<select class="custom-select" name="stockCtlCategory"  id="stockCtlCategory">
 							
 									<option value="0">しない</option>
                             		<option value="1">する</option>
@@ -391,7 +391,7 @@
 									<div class="input-group-prepend">
 										<div class="input-group-text">状況</div>
 									</div>
-								<select class="custom-select" name="productStatusCategory" value="${product1.productStatusCategory}" >
+								<select class="custom-select" name="productStatusCategory" id="productStatusCategory">
 									<c:forEach var="search" items="${productStatusCategory}">
 										<option value="${search.productStatusCategoryCode}">${search.productStatusCategoryName}</option>
 									</c:forEach>
@@ -404,7 +404,7 @@
 									<div class="input-group-prepend">
 										<div class="input-group-text">保管</div>
 									</div>
-								<select class="custom-select" name="productStockCategory" value="${product1.productStockCategory}">
+								<select class="custom-select" name="productStockCategory" id="productStockCategory">
 								<c:forEach items="${prosearch}" var="prdct">
 									<option value="${prdct.productStockCategoryCode}">${prdct.productStockCategoryName}</option>
 								</c:forEach>
@@ -417,7 +417,7 @@
 									<div class="input-group-prepend">
 										<div class="input-group-text">調達</div>
 									</div>
-								<select class="custom-select" name="productPurvayCategory" value="${product1.productPurvayCategory}">
+								<select class="custom-select" name="productPurvayCategory" id="productPurvayCategory">
 									<option value="1">国内調達</option>
                             		<option value="2">海外調達</option>
 								</select>
@@ -431,7 +431,7 @@
 									<div class="input-group-prepend">
 										<div class="input-group-text">標準化</div>
 									</div>
-								<select class="custom-select" name="productStandardCategory" value="${product1.productStandardCategory}">
+								<select class="custom-select" name="productStandardCategory" id="productStandardCategory">
 								<option selected></option>
 									<c:forEach items="${productStandardCategory}" var="prdct">
 										<option value="${prdct.productStandardCategoryCode}">${prdct.productStandardCategoryName}</option>
@@ -454,7 +454,7 @@
 									<div class="input-group-prepend">
 										<div class="input-group-text">セット</div>
 									</div>
-								<select class="custom-select" name="setTipeCategory" value="${product1.setTypeCategory}">
+								<select class="custom-select" name="setTipeCategory" id="setTypeCategory">
 								<c:forEach items="${setTypeCategory}" var="prdct">
 										<option value="${prdct.setTypeCategoryCode}">${prdct.setTypeCategoryName}</option>
 								</c:forEach>
@@ -516,7 +516,7 @@
 									<div class="input-group-prepend">
 										<div class="input-group-text">単位</div>
 									</div>
-								<select class="custom-select" name="unitCategory" value="${product2.unitCategory}">
+								<select class="custom-select" name="unitCategory" id="product2.unitCategory">
 									<option value="1">本</option>
                             		<option value="2">個</option>
                             		<option value="3">箱</option>
@@ -530,7 +530,7 @@
 										<div class="input-group-text">重量</div>
 									</div>
 								<input type="text"  class="form-control" id="inlineFormInputGroup" value="${product2.weight}">
-								<select class="custom-select" name="weightUnitSizeCategory" value="${product2.weightUnitSizeCategory}">
+								<select class="custom-select" name="weightUnitSizeCategory" id="weightUnitSizeCategory">
 									<option value=""></option>
 									<option value="1">mg</option>
                             		<option value="2">g</option>
@@ -545,7 +545,7 @@
 										<div class="input-group-text">長さ</div>
 									</div>
 								<input type="text"  class="form-control" id="inlineFormInputGroup" value="${product2.length}">
-								<select class="custom-select" name="lengthUnitSizeCategory" value="${product2.lengthUnitSizeCategory}">
+								<select class="custom-select" name="lengthUnitSizeCategory" id="lengthUnitSizeCategory">
 									<option value=""></option>
 									<option value="1">mm</option>
                             		<option value="2">cm</option>
@@ -562,7 +562,7 @@
 										<div class="input-group-text">サイズ(幅)</div>
 									</div>
 								<input type="text"  class="form-control" id="inlineFormInputGroup" value="${product2.width}">
-								<select class="custom-select" name="widthUnitSizeCategory" value="${product2.widthUnitSizeCategory}">
+								<select class="custom-select" name="widthUnitSizeCategory" id="widthUnitSizeCategory">
 									<option value=""></option>
 									<option value="1">mm</option>
                             		<option value="2">cm</option>
@@ -577,7 +577,7 @@
 										<div class="input-group-text">サイズ(奥)</div>
 									</div>
 									<input type="text"  class="form-control" id="inlineFormInputGroup" value="${product2.depth}">
-								<select class="custom-select" name="depthUnitSizeCategory" value="${product2.depthUnitSizeCategory}">
+								<select class="custom-select" name="depthUnitSizeCategory" id="depthUnitSizeCategory">
 									<option value=""></option>
 									<option value="1">mm</option>
                             		<option value="2">cm</option>
@@ -592,7 +592,7 @@
 										<div class="input-group-text">サイズ(高)</div>
 									</div>
 									<input type="text"  class="form-control" id="inlineFormInputGroup" value="${product2.height}">
-								<select class="custom-select" name="heightUnitSizeCategory" value="${product2.heightUnitSizeCategory}">
+								<select class="custom-select" name="heightUnitSizeCategory" id="heightUnitSizeCategory">
 									<option value=""></option>
 									<option value="1">mm</option>
                             		<option value="2">cm</option>
@@ -613,7 +613,7 @@
 							</div>
 						</div>	
 				</div>
-			</div><br></div>
+			</div><br>
 			<br><br>
 			<div class="container panel panel-default" style="background-color: white;">
 				<div class="panel-heading row mb-2 col-4">
@@ -666,12 +666,19 @@
 			
 		<script>
 		$(document).ready(function() {
-
-		    $('select[id="productStatusCategory"]').find('option[value="${product1.productStatusCategory}"]').attr("selected",true);
-		    $('select[id="productStatusCategory"]').find('option[value="${product.stockCtlCategory}"]').attr("selected",true);
-		    $('select[id="productStatusCategory"]').find('option[value="${product1.productStatusCategory}"]').attr("selected",true);
-		    $('select[id="productStatusCategory"]').find('option[value="${product1.productStatusCategory}"]').attr("selected",true);
-		    $('select[id="productStatusCategory"]').find('option[value="${product1.productStatusCategory}"]').attr("selected",true);
+			
+		    $('select[id="stockCtlCategory"]').find('option[value="${product.stockCtlCategory}"]').attr("selected",true);
+		    $('select[id="productStatusCategory"]').find('option[value="${product.productStatusCategory}"]').attr("selected",true);
+		    $('select[id="productStockCategory"]').find('option[value="${product1.productStockCategory}"]').attr("selected",true);
+		    $('select[id="productPurvayCategory"]').find('option[value="${product1.productPurvayCategory}"]').attr("selected",true);
+		    $('select[id="productStandardCategory"]').find('option[value="${product1.productStandardCategory}"]').attr("selected",true);
+		    $('select[id="setTypeCategory"]').find('option[value="${product1.setTypeCategory}"]').attr("selected",true);
+		    $('select[id="unitCategory"]').find('option[value="${product2.unitCategory}"]').attr("selected",true);
+		    $('select[id="weightUnitSizeCategory"]').find('option[value="${product2.weightUnitSizeCategory}"]').attr("selected",true);
+		    $('select[id="lengthUnitSizeCategory"]').find('option[value="${product2.lengthUnitSizeCategory}"]').attr("selected",true);
+		    $('select[id="widthUnitSizeCategory"]').find('option[value="${product2.widthUnitSizeCategory}"]').attr("selected",true);
+		    $('select[id="depthUnitSizeCategory"]').find('option[value="${product2.depthUnitSizeCategory}"]').attr("selected",true);
+		    $('select[id="heightUnitSizeCategory"]').find('option[value="${product2.heightUnitSizeCategory}"]').attr("selected",true);
 
 		});
 		

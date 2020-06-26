@@ -13,7 +13,7 @@
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
 
-    <title>Hello, world!</title>
+    <title>SalesCube　顧客マスタ（検索）</title>
     <style type="text/css">
       .menuGroup {
           -moz-border-bottom-colors: none;
@@ -35,6 +35,8 @@
 	   width: 1120px;
 	   max-width: none !important;
 	   }
+	    .red {color:#FF0000;}
+	    
 	   </style>
 	   <script>
 	   function initForm() {
@@ -106,9 +108,9 @@
       </div>
       <br><br><br>
       </div>
-      <h2>${message}</h2>
-      <h2>${message2}</h2>
-      <h2>${message3}</h2>
+      <p class="red">${message}</p>
+      <p class="red">${message2}</p>
+      <p class="red">${message3}</p>
 		<div class="container" style="background-color: white;"><div class="panel panel-default" >
 			<form action="/SalesCube2020/SalesCube?action=searchCustomer" name="mainform" method="post">
 			<div class="panel-heading row mb-2 col-4">
