@@ -104,8 +104,9 @@
 	
 	<!-- エラーメッセージを表示 -->
        <div style="width:100%; text-align:center; margin-bottom:20px;">
-				 <span class="action_errors" style="color: red">${addmodifyError}<br></span>
-				 <span class="action_errors" style="color: red">${message}<br></span>
+				 <span class="action_errors" style="color: red">${addmodifyError}</span>
+				 <span class="action_errors" style="color: red">${addmodifysuccsess}</span>
+				 <span class="action_errors" style="color: red">${addmodifyinterror}</span>
 				 
        </div>
 	
@@ -235,7 +236,7 @@
 								<div class="input-group-prepend">
 									<div class="input-group-text">在庫管理</div>
 								</div>
-							<select class="custom-select" name="stockCtlCategory" value="${product.stockCtlCategory}">
+							<select class="custom-select" name="stockCtlCategory"  id="stockCtlCategory" value="${product.stockCtlCategory}">
 							
 									<option value="0">しない</option>
                             		<option value="1">する</option>
@@ -528,7 +529,7 @@
 									<div class="input-group-prepend">
 										<div class="input-group-text">重量</div>
 									</div>
-								<input type="text"  class="form-control" id="inlineFormInputGroup">
+								<input type="text"  class="form-control" id="inlineFormInputGroup" value="${product2.weight}">
 								<select class="custom-select" name="weightUnitSizeCategory" value="${product2.weightUnitSizeCategory}">
 									<option value=""></option>
 									<option value="1">mg</option>
@@ -543,7 +544,7 @@
 									<div class="input-group-prepend">
 										<div class="input-group-text">長さ</div>
 									</div>
-								<input type="text"  class="form-control" id="inlineFormInputGroup">
+								<input type="text"  class="form-control" id="inlineFormInputGroup" value="${product2.length}">
 								<select class="custom-select" name="lengthUnitSizeCategory" value="${product2.lengthUnitSizeCategory}">
 									<option value=""></option>
 									<option value="1">mm</option>
@@ -560,7 +561,7 @@
 									<div class="input-group-prepend">
 										<div class="input-group-text">サイズ(幅)</div>
 									</div>
-								<input type="text"  class="form-control" id="inlineFormInputGroup">
+								<input type="text"  class="form-control" id="inlineFormInputGroup" value="${product2.width}">
 								<select class="custom-select" name="widthUnitSizeCategory" value="${product2.widthUnitSizeCategory}">
 									<option value=""></option>
 									<option value="1">mm</option>
@@ -575,7 +576,7 @@
 									<div class="input-group-prepend">
 										<div class="input-group-text">サイズ(奥)</div>
 									</div>
-									<input type="text"  class="form-control" id="inlineFormInputGroup">
+									<input type="text"  class="form-control" id="inlineFormInputGroup" value="${product2.depth}">
 								<select class="custom-select" name="depthUnitSizeCategory" value="${product2.depthUnitSizeCategory}">
 									<option value=""></option>
 									<option value="1">mm</option>
@@ -590,7 +591,7 @@
 									<div class="input-group-prepend">
 										<div class="input-group-text">サイズ(高)</div>
 									</div>
-									<input type="text"  class="form-control" id="inlineFormInputGroup">
+									<input type="text"  class="form-control" id="inlineFormInputGroup" value="${product2.height}">
 								<select class="custom-select" name="heightUnitSizeCategory" value="${product2.heightUnitSizeCategory}">
 									<option value=""></option>
 									<option value="1">mm</option>
@@ -625,7 +626,7 @@
 							<div class="col-8">
 								<div class="input-group-prepend">
 									<div class="input-group-text">備考</div>
-									<textarea id="textarea1" class="form-control" name="remarks" value="${product3.remarks}"></textarea>
+									<textarea id="textarea1" class="form-control" name="remarks">${product3.remarks}</textarea>
 								</div>
 							</div>
 						</div><br>
@@ -633,7 +634,7 @@
 							<div class="col-8">
 								<div class="input-group-prepend">
 									<div class="input-group-text">ピッキング備考</div>
-									<textarea id="textarea1" class="form-control" name="eadRemarks" value="${product3.eadRemarks}"></textarea>
+									<textarea id="textarea1" class="form-control" name="eadRemarks">${product3.eadRemarks}</textarea>
 								</div>
 							</div>
 						</div><br>
@@ -641,7 +642,7 @@
 							<div class="col-8">
 								<div class="input-group-prepend">
 									<div class="input-group-text">コメント</div>
-									<textarea id="textarea1" class="form-control" name="commentData" value="${product3.commentData}"></textarea>
+									<textarea id="textarea1" class="form-control" name="commentData" >${product3.commentData}</textarea>
 								</div>
 							</div>
 						</div>
@@ -664,6 +665,16 @@
 		 
 			
 		<script>
+		$(document).ready(function() {
+
+		    $('select[id="productStatusCategory"]').find('option[value="${product1.productStatusCategory}"]').attr("selected",true);
+		    $('select[id="productStatusCategory"]').find('option[value="${product.stockCtlCategory}"]').attr("selected",true);
+		    $('select[id="productStatusCategory"]').find('option[value="${product1.productStatusCategory}"]').attr("selected",true);
+		    $('select[id="productStatusCategory"]').find('option[value="${product1.productStatusCategory}"]').attr("selected",true);
+		    $('select[id="productStatusCategory"]').find('option[value="${product1.productStatusCategory}"]').attr("selected",true);
+
+		});
+		
         	function initForm() {
     	   		if(!confirm("入力内容を初期化してよろしいですか？")){
            	   		return;

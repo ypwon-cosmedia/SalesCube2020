@@ -54,7 +54,7 @@ public class ProductDeleteController extends BaseController{
 		request.setAttribute("all", list);
 		
 		//Delete
-		String productCode = (String)request.getParameter("productCode");
+		String productCode = request.getParameter("productCode");
 		ProductDeleteDAO dao2 = new ProductDeleteDAO();
 		int check = dao2.deleteProduct(productCode);
 		
