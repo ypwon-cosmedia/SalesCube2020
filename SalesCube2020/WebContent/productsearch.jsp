@@ -81,7 +81,7 @@
 
 		<div class="container" id="main_function">
 			<h3 class="float-left">商品</h3>
-		
+
 			<!--FNボタン-->
 			<div class="btn-toolbar float-right" role="toolbar" aria-label="Toolbar with button groups">
 			
@@ -427,10 +427,13 @@
 			window.location.href = '/SalesCube2020/SalesCube?action=product';
 		}
 		
-		//検索
+		//FN検索
 		function searchForm(){
-			window.location.href = '/SalesCube2020/SalesCube?action=searchProduct';
-		}
+			var form = document.main;
+			form.action="/SalesCube2020/SalesCube?action=searchProduct";
+			
+			form.submit();
+			}
 		
 		 //追加
 		function addForm() {

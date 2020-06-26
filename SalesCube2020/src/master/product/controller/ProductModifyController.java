@@ -42,7 +42,7 @@ public class ProductModifyController extends BaseController{
 		
 		try {
 			if(action.equals("moveModifyProduct")) forwardURL = moveModifyProduct(request, response);
-			else if(action.equals("addProduct")) forwardURL = addProduct(request, response);
+			else if(action.equals("modifyProduct")) forwardURL = addProduct(request, response);
 		
 		
 		}catch(ServletException e) {
