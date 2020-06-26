@@ -125,7 +125,7 @@
 								<div class="input-group-prepend">
 									<div class="input-group-text">顧客コード</div>
 								</div>
-							<input type="text" name="customerCode" class="form-control" id="inlineFormInputGroup">
+							<input type="number" name="customerCode" class="form-control" id="inlineFormInputGroup">
 							</div>
 						</div>
 						<div class="col-4">
