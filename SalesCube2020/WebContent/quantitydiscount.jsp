@@ -42,7 +42,7 @@
     		var code = selected.id;
     		
     		//親画面に値を挿入
-    		//alert( "test" );
+
     		window.opener.document.getElementById("quantityDiscount").value = code; 
     		window.close();
     	}
