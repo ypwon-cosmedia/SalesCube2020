@@ -392,6 +392,7 @@
 										<div class="input-group-text">状況</div>
 									</div>
 								<select class="custom-select" name="productStatusCategory" id="productStatusCategory">
+								<option value=""></option>
 									<c:forEach var="search" items="${productStatusCategory}">
 										<option value="${search.productStatusCategoryCode}">${search.productStatusCategoryName}</option>
 									</c:forEach>
@@ -405,6 +406,7 @@
 										<div class="input-group-text">保管</div>
 									</div>
 								<select class="custom-select" name="productStockCategory" id="productStockCategory">
+								<option value=""></option>
 								<c:forEach items="${prosearch}" var="prdct">
 									<option value="${prdct.productStockCategoryCode}">${prdct.productStockCategoryName}</option>
 								</c:forEach>
@@ -418,6 +420,7 @@
 										<div class="input-group-text">調達</div>
 									</div>
 								<select class="custom-select" name="productPurvayCategory" id="productPurvayCategory">
+								<option value=""></option>
 									<option value="1">国内調達</option>
                             		<option value="2">海外調達</option>
 								</select>
@@ -455,6 +458,7 @@
 										<div class="input-group-text">セット</div>
 									</div>
 								<select class="custom-select" name="setTypeCategory" id="setTypeCategory">
+								<option value=""></option>
 								<c:forEach items="${setTypeCategory}" var="prdct">
 										<option value="${prdct.setTypeCategoryCode}">${prdct.setTypeCategoryName}</option>
 								</c:forEach>
@@ -517,6 +521,7 @@
 										<div class="input-group-text">単位</div>
 									</div>
 								<select class="custom-select" name="unitCategory" id="product2.unitCategory">
+								<option value=""></option>
 									<option value="1">本</option>
                             		<option value="2">個</option>
                             		<option value="3">箱</option>
