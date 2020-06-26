@@ -42,7 +42,7 @@ public class ProductModifyController extends BaseController{
 		
 		try {
 			if(action.equals("moveModifyProduct")) forwardURL = moveModifyProduct(request, response);
-			else if(action.equals("modifyProduct")) forwardURL = addProduct(request, response);
+			else if(action.equals("modifyProduct")) forwardURL = modifyProduct(request, response);
 		
 		
 		}catch(ServletException e) {
@@ -61,143 +61,117 @@ public class ProductModifyController extends BaseController{
   	}
 
 
-	private String addProduct(HttpServletRequest request, HttpServletResponse response)
+	private String modifyProduct(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException, ClassNotFoundException, SQLException {
 		// TODO Auto-generated method stub
-		
-		String forwardURL = "/productaddmodify.jsp";
-		String productCode = request.getParameter("productCode");
-		String productName = request.getParameter("productName");
-		String productKana = request.getParameter("productKana");
-		String onlinePcode = request.getParameter("onlinePcode");
-		String janPcode = request.getParameter("janPcode");
-		String discardDate = request.getParameter("discardDate");
-		String supplierCode = request.getParameter("supplierCode");
-		String supplierName = request.getParameter("supplierName");
-		String supplierPcode = request.getParameter("supplierPcode");
-		String supplierPriceYen = request.getParameter("supplierPriceYen");
-		String supplierPriceDol = request.getParameter("supplierPriceDol");
-		String stockCtlCategory = request.getParameter("stockCtlCategory");
-		String packQuantity = request.getParameter("packQuantity");
-		String avgShipCount = request.getParameter("avgShipCount");
-		String warehouseName = request.getParameter("warehouseName");
-		String rackCode = request.getParameter("rackCode");
-		String leadTime = request.getParameter("leadTime");
-		String poNum = request.getParameter("poNum");
-		String poUpdFlag = request.getParameter("poUpdFlag");
-		String mineSafetyStock = request.getParameter("mineSafetyStock");
-		String mineSafetyStockUpdFlag = request.getParameter("mineSafetyStockUpdFlag");
-		String poLot = request.getParameter("poLot");
-		String lotUpdFlag = request.getParameter("lotUpdFlag");
-		String maxStockNum = request.getParameter("maxStockNum");
-		String stockUpdFlag = request.getParameter("stockUpdFlag");
-		String  maxPoNum = request.getParameter("maxPoNum");
-		String maxPoUpdFlag = request.getParameter("maxPoUpdFlag");
-		String roMaxNum = request.getParameter("roMaxNum");
-		String retailPrice = request.getParameter("retailPrice");
-		String discountId = request.getParameter("discountId");
-		String productStatusCategory = request.getParameter("productStatusCategory");
-		String productStockCategory = request.getParameter("productStockCategory");
-		String productPurvayCategory = request.getParameter("productPurvayCategory");
-		String productStandardCategory = request.getParameter("productStandardCategory");
-		String soRate = request.getParameter("soRate");
-		String setTypeCategory = request.getParameter("setTypeCategory");
-		String product1 = request.getParameter("product1");
-		String product2 = request.getParameter("product2");
-		String product3 = request.getParameter("product3");
-		String unitCategory = request.getParameter("unitCategory");
-		String weight = request.getParameter("weight");
-		String weightUnitSizeCategory = request.getParameter("weightUnitSizeCategory");
-		String length = request.getParameter("length");
-		String lengthUnitSizeCategory = request.getParameter("lengthUnitSizeCategory");
-		String width = request.getParameter("width");
-		String widthUnitSizeCategory = request.getParameter("widthUnitSizeCategory");
-		String depth = request.getParameter("depth");
-		String depthUnitSizeCategory = request.getParameter("depthUnitSizeCategory");
-		String height = request.getParameter("height");
-		String heightUnitSizeCategory = request.getParameter("heightUnitSizeCategory");
-		String coreNum = request.getParameter("coreNum");
-		String remarks = request.getParameter("remarks");
-		String eadRemarks = request.getParameter("eadRemarks");
-		String commentData = request.getParameter("commentData");
-		
+	
+
 		
 		try {
-			Date date = Date.valueOf(discardDate);
-			int isupplierPriceYen = Integer.parseInt(supplierPriceYen);
-			int isupplierPriceDol = Integer.parseInt(supplierPriceDol);
-			int ipackQuantity = Integer.parseInt(packQuantity);
-			int iavgShipCount = Integer.parseInt(avgShipCount);
-			int ileadTime = Integer.parseInt(leadTime);
-			int ipoNum = Integer.parseInt(poNum);
-			short spoUpdFlag = Short.parseShort(poUpdFlag);
-			int imineSafetyStock = Integer.parseInt(mineSafetyStock);
-			short smineSafetyStockUpdFlag =Short.parseShort(mineSafetyStockUpdFlag);
-			int ipoLot = Integer.parseInt(poLot);
-			short slotUpdFlag = Short.parseShort(lotUpdFlag);
-			int imaxStockNum = Integer.parseInt(maxStockNum);
-			int istockUpdFlag = Integer.parseInt(stockUpdFlag);
-			int imaxPoNum = Integer.parseInt(maxPoNum);
-			short smaxPoUpdFlag = Short.parseShort(maxPoUpdFlag);
-			short sroMaxNum = Short.parseShort(roMaxNum);
-			int iretailPrice =Integer.parseInt(retailPrice);
-			int isoRate =Integer.parseInt(soRate);
-			double dweight = Double.parseDouble(weight);
-			double dlength = Double.parseDouble(length);
-			double dwidth = Double.parseDouble(width);
-			double ddepth = Double.parseDouble(depth);
-			double dheight = Double.parseDouble(height);
-			
-			
+			String productCode = nullOrEmpty(request.getParameter("productCode"));
+			String productName = nullOrEmpty(request.getParameter("productName"));
+			String productKana = nullOrEmpty(request.getParameter("productKana"));
+			String onlinePcode = nullOrEmpty(request.getParameter("onlinePcode"));
+			String janPcode = nullOrEmpty(request.getParameter("janPcode"));
+			String discardDate = nullOrEmpty(request.getParameter("discardDate"));
+			String supplierCode = nullOrEmpty(request.getParameter("supplierCode"));
+			String supplierName = nullOrEmpty(request.getParameter("supplierName"));
+			String supplierPcode = nullOrEmpty(request.getParameter("supplierPcode"));
+			String supplierPriceYen = nullOrEmpty(request.getParameter("supplierPriceYen"));
+			String supplierPriceDol = nullOrEmpty(request.getParameter("supplierPriceDol"));
+			String stockCtlCategory = nullOrEmpty(request.getParameter("stockCtlCategory"));
+			String packQuantity = nullOrEmpty(request.getParameter("packQuantity"));
+			String avgShipCount = nullOrEmpty(request.getParameter("avgShipCount"));
+			String warehouseName = nullOrEmpty(request.getParameter("warehouseName"));
+			String rackCode = nullOrEmpty(request.getParameter("rackCode"));
+			String leadTime = nullOrEmpty(request.getParameter("leadTime"));
+			String poNum = nullOrEmpty(request.getParameter("poNum"));
+			String poUpdFlag = nullOrEmpty(request.getParameter("poUpdFlag"));
+			String mineSafetyStock = nullOrEmpty(request.getParameter("mineSafetyStock"));
+			String mineSafetyStockUpdFlag = nullOrEmpty(request.getParameter("mineSafetyStockUpdFlag"));
+			String poLot = nullOrEmpty(request.getParameter("poLot"));
+			String lotUpdFlag = nullOrEmpty(request.getParameter("lotUpdFlag"));
+			String maxStockNum = nullOrEmpty(request.getParameter("maxStockNum"));
+			String stockUpdFlag = nullOrEmpty(request.getParameter("stockUpdFlag"));
+			String  maxPoNum = nullOrEmpty(request.getParameter("maxPoNum"));
+			String maxPoUpdFlag = nullOrEmpty(request.getParameter("maxPoUpdFlag"));
+			String roMaxNum = nullOrEmpty(request.getParameter("roMaxNum"));
+			String retailPrice = nullOrEmpty(request.getParameter("retailPrice"));
+			String discountId = nullOrEmpty(request.getParameter("discountId"));
+			String productStatusCategory = nullOrEmpty(request.getParameter("productStatusCategory"));
+			String productStockCategory = nullOrEmpty(request.getParameter("productStockCategory"));
+			String productPurvayCategory = nullOrEmpty(request.getParameter("productPurvayCategory"));
+			String productStandardCategory = nullOrEmpty(request.getParameter("productStandardCategory"));
+			String soRate = nullOrEmpty(request.getParameter("soRate"));
+			String setTypeCategory = nullOrEmpty(request.getParameter("setTypeCategory"));
+			String product1 = nullOrEmpty(request.getParameter("product1"));
+			String product2 = nullOrEmpty(request.getParameter("product2"));
+			String product3 = nullOrEmpty(request.getParameter("product3"));
+			String unitCategory = nullOrEmpty(request.getParameter("unitCategory"));
+			String weight = nullOrEmpty(request.getParameter("weight"));
+			String weightUnitSizeCategory = nullOrEmpty(request.getParameter("weightUnitSizeCategory"));
+			String length = nullOrEmpty(request.getParameter("length"));
+			String lengthUnitSizeCategory = nullOrEmpty(request.getParameter("lengthUnitSizeCategory"));
+			String width = nullOrEmpty(request.getParameter("width"));
+			String widthUnitSizeCategory = nullOrEmpty(request.getParameter("widthUnitSizeCategory"));
+			String depth = nullOrEmpty(request.getParameter("depth"));
+			String depthUnitSizeCategory = nullOrEmpty(request.getParameter("depthUnitSizeCategory"));
+			String height = nullOrEmpty(request.getParameter("height"));
+			String heightUnitSizeCategory = nullOrEmpty(request.getParameter("heightUnitSizeCategory"));
+			String coreNum = nullOrEmpty(request.getParameter("coreNum"));
+			String remarks = nullOrEmpty(request.getParameter("remarks"));
+			String eadRemarks = nullOrEmpty(request.getParameter("eadRemarks"));
+			String commentData = nullOrEmpty(request.getParameter("commentData"));
+					
 			ProductModifyBean bean = new ProductModifyBean();
 			bean.setProductCode(productCode);
 			bean.setProductName(productName);
 			bean.setProductKana(productKana);
 			bean.setOnlinePcode(onlinePcode);
 			bean.setJanPcode(janPcode);
-			bean.setDiscardDate(date);
+			bean.setDiscardDate(discardDate);
 			bean.setSupplierCode(supplierCode);
 			bean.setSupplierName(supplierName);
 			bean.setSupplierPcode(supplierPcode);
-			bean.setSupplierPriceYen(isupplierPriceYen);
-			bean.setSupplierPriceDol(isupplierPriceDol);
+			bean.setSupplierPriceYen(supplierPriceYen);
+			bean.setSupplierPriceDol(supplierPriceDol);
 			bean.setStockCtlCategory(stockCtlCategory);
-			bean.setPackQuantity(ipackQuantity);
-			bean.setAvgShipCount(iavgShipCount);
+			bean.setPackQuantity(packQuantity);
+			bean.setAvgShipCount(avgShipCount);
 			bean.setWarehouseName(warehouseName);
 			bean.setRackCode(rackCode);
-			bean.setLeadTime(ileadTime);
-			bean.setPoNum(ipoNum);
-			bean.setPoUpdFlag(spoUpdFlag);
-			bean.setMineSafetyStock(imineSafetyStock);
-			bean.setMineSafetyStockUpdFlag(smineSafetyStockUpdFlag);
-			bean.setPoLot(ipoLot);
-			bean.setLotUpdFlag(slotUpdFlag);
-			bean.setMaxStockNum(imaxStockNum);
-			bean.setStockUpdFlag(istockUpdFlag);
-			bean.setMaxPoNum(imaxPoNum);
-			bean.setMaxPoUpdFlag(smaxPoUpdFlag);
-			bean.setRoMaxNum(sroMaxNum);
-			bean.setRetailPrice(iretailPrice);
+			bean.setLeadTime(leadTime);
+			bean.setPoNum(poNum);
+			bean.setPoUpdFlag(poUpdFlag);
+			bean.setMineSafetyStock(mineSafetyStock);
+			bean.setMineSafetyStockUpdFlag(mineSafetyStockUpdFlag);
+			bean.setPoLot(poLot);
+			bean.setLotUpdFlag(lotUpdFlag);
+			bean.setMaxStockNum(maxStockNum);
+			bean.setStockUpdFlag(stockUpdFlag);
+			bean.setMaxPoNum(maxPoNum);
+			bean.setMaxPoUpdFlag(maxPoUpdFlag);
+			bean.setRoMaxNum(roMaxNum);
+			bean.setRetailPrice(retailPrice);
 			bean.setDiscountId(discountId);
 			bean.setProductStatusCategory(productStatusCategory);
 			bean.setProductStockCategory(productStockCategory);
 			bean.setProductPurvayCategory(productPurvayCategory);
 			bean.setProductStandardCategory(productStandardCategory);
-			bean.setSoRate(isoRate);
+			bean.setSoRate(soRate);
 			bean.setSetTypeCategory(setTypeCategory);
 			bean.setProduct1(product1);
 			bean.setProduct2(product2);
 			bean.setProduct3(product3);
-			bean.setWeight(dweight);
+			bean.setWeight(weight);
 			bean.setWeightUnitSizeCategory(weightUnitSizeCategory);
-			bean.setLength(dlength);
+			bean.setLength(length);
 			bean.setLengthUnitSizeCategory(lengthUnitSizeCategory);
-			bean.setWidth(dwidth);
+			bean.setWidth(width);
 			bean.setWidthUnitSizeCategory(widthUnitSizeCategory);
-			bean.setDepth(ddepth);
+			bean.setDepth(depth);
 			bean.setDepthUnitSizeCategory(depthUnitSizeCategory);
-			bean.setHeight(dheight);
+			bean.setHeight(height);
 			bean.setHeightUnitSizeCategory(heightUnitSizeCategory);
 			bean.setCoreNum(coreNum);
 			bean.setRemarks(remarks);
@@ -207,19 +181,20 @@ public class ProductModifyController extends BaseController{
 			
 			ProductModifyDAO dao = new ProductModifyDAO();
 			int result = dao.modifyProduct(bean);
+
 			
 			if( result == 0 ) {
-			
-				String message = "�ｿｽ�ｿｽ�ｿｽﾍゑｿｽ�ｿｽ�ｿｽ�ｿｽ�ｿｽ�ｿｽe�ｿｽﾉ鯉ｿｽ閧ｪ�ｿｽ�ｿｽ�ｿｽ�ｿｽﾜゑｿｽ";
-				request.setAttribute("addmodifyError", "message");
+				String message = "更新できませんでした。";
+				request.setAttribute("addmodifyError", message);
 			}else{
-				request.setAttribute("message", "�ｿｽﾇ会ｿｽ�ｿｽ�ｿｽ�ｿｽ�ｿｽ�ｿｽ�ｿｽ�ｿｽ�ｿｽ�ｿｽﾜゑｿｽ�ｿｽ�ｿｽ");
+				String message = "更新が完了しました";
+				request.setAttribute("addmodifysuccess", message);
 			}
 		}catch(NumberFormatException e) {
 			e.printStackTrace();
 		}
 			
-			return forwardURL;
+			return "/productsearch.jsp";
 	}
 
 			
@@ -282,6 +257,13 @@ public class ProductModifyController extends BaseController{
 		request.setAttribute("product3", bean3);
 		
 		return "/productaddmodify.jsp";
+	}
+	
+	public String nullOrEmpty(String str) {
+		if (str == null || str.equals("")) {
+			str = null;
+		}
+		return str;
 	}
 
 

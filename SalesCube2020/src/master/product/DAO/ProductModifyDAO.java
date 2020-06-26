@@ -81,7 +81,7 @@ public class ProductModifyDAO extends BaseDAO {
 		 								+ "DEC_5 = ? ,"
 		 								+ "DISCARD_DATE = ? ,"
 		 								+ "REMARKS = ? ,"
-		 								+ "END REMARKS = ? ,"
+		 								+ "EAD_REMARKS = ? ,"
 		 								+ "COMMENT_DATA = ? ,"
 		 								+ "LAST_RO_DATE = ? ,"
 		 								+ "SALES_STANDARD_DEVIATION = ? ,"
@@ -96,7 +96,7 @@ public class ProductModifyDAO extends BaseDAO {
 		 								+ "UPD_USER = ? ,"
 		 								+ "DEL_FUNC = ? ,"
 		 								+ "DEL_DATETM = ? ," 
-		 								+ "DEL_USER = ?"
+		 								+ "DEL_USER = ? "
 		 								+ "where PRODUCT_CODE = ?";
 		 	
 		 	stmt = con.prepareStatement(sql);
@@ -113,7 +113,7 @@ public class ProductModifyDAO extends BaseDAO {
 		 		stmt.setNull(8,java.sql.Types.NULL);
 		 		
 		 	}else {
-		 		stmt.setInt(8, Integer.parseInt(bean.getSupplierPriceYen()));
+		 		stmt.setDouble(8, Double.parseDouble(bean.getSupplierPriceYen()));
 		 	}
 		 	
 		 	
@@ -129,7 +129,7 @@ public class ProductModifyDAO extends BaseDAO {
 		 		stmt.setNull(10,java.sql.Types.NULL);
 		 		
 		 	}else {
-		 		stmt.setInt(10, Integer.parseInt(bean.getRetailPrice()));
+		 		stmt.setDouble(10, Double.parseDouble(bean.getRetailPrice()));
 		 	}
 		 			 	
 		 	if(bean.getSoRate() == null) {
@@ -202,7 +202,7 @@ public class ProductModifyDAO extends BaseDAO {
 		 		stmt.setNull(25,java.sql.Types.NULL);
 		 		
 		 	}else {
-		 		stmt.setInt(25, Integer.parseInt(bean.getPoLot()));
+		 		stmt.setDouble(25, Double.parseDouble(bean.getPoLot()));
 		 	}
 		 	
 		 	
@@ -434,6 +434,8 @@ public class ProductModifyDAO extends BaseDAO {
 		 	stmt.setString(77, bean.getDelFunc());
 		 	stmt.setString(78, bean.getDelDatetm());
 		 	stmt.setString(79, bean.getDelUser());
+		 	
+		 	stmt.setString(80, bean.getProductCode());
 		 	
 		 	
 		 	try{

@@ -45,7 +45,7 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
     <nav class="navbar navbar-expand-lg navbar-light bg-light">
-      <a class="navbar-brand" href="#">SalesCube2020</a>
+      <a class="navbar-brand" href="/SalesCube2020/SalesCube?action=menu">SalesCube2020</a>
       <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
       </button>
@@ -54,7 +54,7 @@
         <ul class="navbar-nav mr-auto">
           <li class="nav-item dropdown">
             <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-              マスター
+              	マスター
             </a>
             <div class="dropdown-menu" aria-labelledby="navbarDropdown">
               <a class="dropdown-item" href="/SalesCube2020/SalesCube?action=product">商品</a>
@@ -69,13 +69,13 @@
             <path fill-rule="evenodd" d="M8 9a3 3 0 1 0 0-6 3 3 0 0 0 0 6z"/>
             <path fill-rule="evenodd" d="M8 1a7 7 0 1 0 0 14A7 7 0 0 0 8 1zM0 8a8 8 0 1 1 16 0A8 8 0 0 1 0 8z"/>
           </svg>
-          　		${userInfo.nameKNJ} &nbsp; 
+        	${userInfo.nameKNJ} &nbsp;     	
         </span>
-        <form class="form-inline">
+        <form class="form-inline" action="/SalesCube2020/SalesCube?action=logout" method="post">
           <button class="btn btn-outline-success my-2 my-sm-0" type="submit">ログアウト</button>
         </form>
       </div>
-	</nav>
+    </nav>
 	<br><br>
 	<div class="container" id="main_function">
 		<h3 class="float-left">商品</h3>
@@ -155,7 +155,7 @@
 								<div class="input-group-prepend">
 									<div class="input-group-text">オンライン品番</div>
 								</div>
-							<input type="text"  class="form-control" id="inlineFormInputGroup" name="productPcode" value="${product.productPcode}">
+							<input type="text"  class="form-control" id="inlineFormInputGroup" name="productPcode" value="${product.onlinePcode}">
 							</div>
 						</div>
 
@@ -236,7 +236,7 @@
 								<div class="input-group-prepend">
 									<div class="input-group-text">在庫管理</div>
 								</div>
-							<select class="custom-select" name="stockCtlCategory"  id="stockCtlCategory" value="${product.stockCtlCategory}">
+							<select class="custom-select" name="stockCtlCategory"  id="stockCtlCategory">
 							
 									<option value="0">しない</option>
                             		<option value="1">する</option>
@@ -368,7 +368,7 @@
 									<div class="input-group-text">数量割引</div>
 								</div>
 							<input type="text"  class="form-control" id="quantityDiscount" name=" discountId" value="${product. discountId}">
-							<input type="image" name="" src="btn_search.png" tabindex="101" onclick='discountForm("/SalesCube2020/quantitydiscount.jsp")' style="vertical-align: middle; cursor: pointer; width: 32px;">
+							<button type="button" tabindex="101" onclick="discountForm()" ><img src="btn_search.png" style="vertical-align: middle; cursor: pointer; width: 32px;"></button>
 							</div>
 						</div>
 					</div>
@@ -391,7 +391,8 @@
 									<div class="input-group-prepend">
 										<div class="input-group-text">状況</div>
 									</div>
-								<select class="custom-select" name="productStatusCategory" value="${product1.productStatusCategory}" >
+								<select class="custom-select" name="productStatusCategory" id="productStatusCategory">
+								<option value=""></option>
 									<c:forEach var="search" items="${productStatusCategory}">
 										<option value="${search.productStatusCategoryCode}">${search.productStatusCategoryName}</option>
 									</c:forEach>
@@ -404,7 +405,8 @@
 									<div class="input-group-prepend">
 										<div class="input-group-text">保管</div>
 									</div>
-								<select class="custom-select" name="productStockCategory" value="${product1.productStockCategory}">
+								<select class="custom-select" name="productStockCategory" id="productStockCategory">
+								<option value=""></option>
 								<c:forEach items="${prosearch}" var="prdct">
 									<option value="${prdct.productStockCategoryCode}">${prdct.productStockCategoryName}</option>
 								</c:forEach>
@@ -417,7 +419,8 @@
 									<div class="input-group-prepend">
 										<div class="input-group-text">調達</div>
 									</div>
-								<select class="custom-select" name="productPurvayCategory" value="${product1.productPurvayCategory}">
+								<select class="custom-select" name="productPurvayCategory" id="productPurvayCategory">
+								<option value=""></option>
 									<option value="1">国内調達</option>
                             		<option value="2">海外調達</option>
 								</select>
@@ -431,7 +434,7 @@
 									<div class="input-group-prepend">
 										<div class="input-group-text">標準化</div>
 									</div>
-								<select class="custom-select" name="productStandardCategory" value="${product1.productStandardCategory}">
+								<select class="custom-select" name="productStandardCategory" id="productStandardCategory">
 								<option selected></option>
 									<c:forEach items="${productStandardCategory}" var="prdct">
 										<option value="${prdct.productStandardCategoryCode}">${prdct.productStandardCategoryName}</option>
@@ -454,7 +457,8 @@
 									<div class="input-group-prepend">
 										<div class="input-group-text">セット</div>
 									</div>
-								<select class="custom-select" name="setTipeCategory" value="${product1.setTypeCategory}">
+								<select class="custom-select" name="setTypeCategory" id="setTypeCategory">
+								<option value=""></option>
 								<c:forEach items="${setTypeCategory}" var="prdct">
 										<option value="${prdct.setTypeCategoryCode}">${prdct.setTypeCategoryName}</option>
 								</c:forEach>
@@ -470,8 +474,8 @@
 										<div class="input-group-text">分類（大）</div>
 									</div>
 									<select class="custom-select" name="product1" id="product1" onchange="selectPro1();">
-									<option selected></option>
-								</select>
+										<option selected></option>
+									</select>
 								</div>
 							</div>
 						</div>
@@ -496,8 +500,8 @@
 										<div class="input-group-text">分類（小）</div>
 									</div>
 									<select class="custom-select" name="product3" id="product3">
-									<option selected></option>
-								</select>
+										<option selected></option>
+									</select>
 								</div>
 							</div>
 						</div>
@@ -516,7 +520,8 @@
 									<div class="input-group-prepend">
 										<div class="input-group-text">単位</div>
 									</div>
-								<select class="custom-select" name="unitCategory" value="${product2.unitCategory}">
+								<select class="custom-select" name="unitCategory" id="product2.unitCategory">
+								<option value=""></option>
 									<option value="1">本</option>
                             		<option value="2">個</option>
                             		<option value="3">箱</option>
@@ -530,7 +535,7 @@
 										<div class="input-group-text">重量</div>
 									</div>
 								<input type="text"  class="form-control" id="inlineFormInputGroup" value="${product2.weight}">
-								<select class="custom-select" name="weightUnitSizeCategory" value="${product2.weightUnitSizeCategory}">
+								<select class="custom-select" name="weightUnitSizeCategory" id="weightUnitSizeCategory">
 									<option value=""></option>
 									<option value="1">mg</option>
                             		<option value="2">g</option>
@@ -545,7 +550,7 @@
 										<div class="input-group-text">長さ</div>
 									</div>
 								<input type="text"  class="form-control" id="inlineFormInputGroup" value="${product2.length}">
-								<select class="custom-select" name="lengthUnitSizeCategory" value="${product2.lengthUnitSizeCategory}">
+								<select class="custom-select" name="lengthUnitSizeCategory" id="lengthUnitSizeCategory">
 									<option value=""></option>
 									<option value="1">mm</option>
                             		<option value="2">cm</option>
@@ -562,7 +567,7 @@
 										<div class="input-group-text">サイズ(幅)</div>
 									</div>
 								<input type="text"  class="form-control" id="inlineFormInputGroup" value="${product2.width}">
-								<select class="custom-select" name="widthUnitSizeCategory" value="${product2.widthUnitSizeCategory}">
+								<select class="custom-select" name="widthUnitSizeCategory" id="widthUnitSizeCategory">
 									<option value=""></option>
 									<option value="1">mm</option>
                             		<option value="2">cm</option>
@@ -577,7 +582,7 @@
 										<div class="input-group-text">サイズ(奥)</div>
 									</div>
 									<input type="text"  class="form-control" id="inlineFormInputGroup" value="${product2.depth}">
-								<select class="custom-select" name="depthUnitSizeCategory" value="${product2.depthUnitSizeCategory}">
+								<select class="custom-select" name="depthUnitSizeCategory" id="depthUnitSizeCategory">
 									<option value=""></option>
 									<option value="1">mm</option>
                             		<option value="2">cm</option>
@@ -592,7 +597,7 @@
 										<div class="input-group-text">サイズ(高)</div>
 									</div>
 									<input type="text"  class="form-control" id="inlineFormInputGroup" value="${product2.height}">
-								<select class="custom-select" name="heightUnitSizeCategory" value="${product2.heightUnitSizeCategory}">
+								<select class="custom-select" name="heightUnitSizeCategory" id="heightUnitSizeCategory">
 									<option value=""></option>
 									<option value="1">mm</option>
                             		<option value="2">cm</option>
@@ -613,7 +618,7 @@
 							</div>
 						</div>	
 				</div>
-			</div><br></div>
+			</div><br>
 			<br><br>
 			<div class="container panel panel-default" style="background-color: white;">
 				<div class="panel-heading row mb-2 col-4">
@@ -653,9 +658,9 @@
 			<br><br>
 			<!-- ボタン -->
 			<div align="right" class="container">
-				<input type="submit"  value="初期化" class="btn btn-outline-secondary" onclick="initForm()" >&emsp;
-				<input type="submit" value="${status eq 'add' ? '登録' : '更新'}" class="btn btn-outline-secondary" onclick="confirmForm()">&emsp;
-				<input type="submit" value="削除" class="btn btn-outline-secondary" onclick="deleteForm()" ${status eq 'add' ? "disabled" :''}>&emsp;
+				<input type="button"  value="初期化" class="btn btn-outline-secondary" onclick="initForm()" >&emsp;
+				<input type="button" value="${status eq 'add' ? '登録' : '更新'}" class="btn btn-outline-secondary" onclick="confirmForm()">&emsp;
+				<input type="button" value="削除" class="btn btn-outline-secondary" onclick="deleteForm()" ${status eq 'add' ? "disabled" :''}>&emsp;
 			</div>
 			</form> 
 			<form action="/SalesCube2020/SalesCube?action=deleteProduct" method="post" name="deleteform">
@@ -667,11 +672,21 @@
 		<script>
 		$(document).ready(function() {
 
-		    $('select[id="productStatusCategory"]').find('option[value="${product1.productStatusCategory}"]').attr("selected",true);
-		    $('select[id="productStatusCategory"]').find('option[value="${product.stockCtlCategory}"]').attr("selected",true);
-		    $('select[id="productStatusCategory"]').find('option[value="${product1.productStatusCategory}"]').attr("selected",true);
-		    $('select[id="productStatusCategory"]').find('option[value="${product1.productStatusCategory}"]').attr("selected",true);
-		    $('select[id="productStatusCategory"]').find('option[value="${product1.productStatusCategory}"]').attr("selected",true);
+		    $('select[id="stockCtlCategory"]').find('option[value="${product.stockCtlCategory}"]').prop("selected", true);
+		    $('select[id="productStatusCategory"]').find('option[value="${product.productStatusCategory}"]').prop("selected", true);
+		    $('select[id="productStockCategory"]').find('option[value="${product1.productStockCategory}"]').prop("selected", true);
+		    $('select[id="productPurvayCategory"]').find('option[value="${product1.productPurvayCategory}"]').prop("selected", true);
+		    $('select[id="productStandardCategory"]').find('option[value="${product1.productStandardCategory}"]').prop("selected", true);;
+		    $('select[id="setTypeCategory"]').find('option[value="${product1.setTypeCategory}"]').prop("selected", true);
+		    $('select[id="unitCategory"]').find('option[value="${product2.unitCategory}"]').prop("selected", true);
+		    $('select[id="weightUnitSizeCategory"]').find('option[value="${product2.weightUnitSizeCategory}"]').prop("selected", true);
+		    $('select[id="lengthUnitSizeCategory"]').find('option[value="${product2.lengthUnitSizeCategory}"]').prop("selected", true);
+		    $('select[id="widthUnitSizeCategory"]').find('option[value="${product2.widthUnitSizeCategory}"]').prop("selected", true);
+		    $('select[id="depthUnitSizeCategory"]').find('option[value="${product2.depthUnitSizeCategory}"]').prop("selected", true);
+		    $('select[id="heightUnitSizeCategory"]').find('option[value="${product2.heightUnitSizeCategory}"]').prop("selected", true);
+		    $('select[id="product1"]').find('option[value="${product1.product1}"]').prop("selected", true);
+		    $('select[id="product2"]').find('option[value="${product1.product2}"]').prop("selected", true);
+		    $('select[id="product3"]').find('option[value="${product1.product3}"]').prop("selected", true);
 
 		});
 		
@@ -712,11 +727,15 @@
     		 			if(!confirm("入力内容を登録します。よろしいですか？")) {
     		 				return;
     		 			}
+    		 			var form = document.mainform;
+        				form.submit();
     		 		 }
     		 		 else {
     		 			if(!confirm("入力内容を更新します。よろしいですか？")) {
     		 				return;
     		 			}
+    		 			var form = document.mainform;
+        				form.submit();
     		 		}
     		 }
     		
@@ -732,8 +751,8 @@
     		
     		
     		
-    		function discountForm(url){
-    			 window.open(url, "サブ検索画面", "width=1200,height=650,scrollbars=yes");
+    		function discountForm(){
+    			 window.open("/SalesCube2020/quantitydiscount.jsp", "サブ検索画面", "width=1200,height=650,scrollbars=yes");
     		}
     		
     		
@@ -768,6 +787,44 @@
     					objSel.add(objOption);
     				}
     			}
+    			
+    			
+				var bigCat = $('select[id="product1"]').find('option[value="${product1.product1}"]').val();
+				
+				var objSel = document.getElementById("product2");
+				var objSel2 = document.getElementById("product3");
+				
+				for(i=objSel.length; i > 0; i--){
+					objSel.options[i]=null;
+				}
+				
+				for(i=objSel2.length; i > 0; i--){
+					objSel2.options[i]=null;
+				}
+				
+				for(var i in list) {
+					if(list[i].cat1 == bigCat && list[i].cat2 != "" && list[i].cat3 == ""){
+						var objOption = document.createElement("option");
+						objOption.text = list[i].catName;
+						objOption.value = list[i].cat2;					
+						objSel.add(objOption);
+					}
+				}
+				
+				var middleCat = $('select[id="product2"]').find('option[value="${product1.product2}"]').val();
+				
+				var objSel3 = document.getElementById("product3");
+				
+				for(var i in list) {
+					if(list[i].cat1 == bigCat && list[i].cat2 == middleCat && list[i].cat3 != ""){
+						var objOption = document.createElement("option");
+						objOption.text = list[i].catName;
+						objOption.value = list[i].cat3;
+						
+						objSel3.add(objOption);
+					}
+				}
+			
     		}
     			//カテゴリー
     			function selectPro1(){
@@ -794,6 +851,7 @@
     					}
     				}
 
+				
     			}	
     			function selectPro2(){
     				var list = mylist

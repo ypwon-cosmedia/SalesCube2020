@@ -15,8 +15,6 @@ public class MoveModifyProductDAO extends BaseDAO {
 
 //	public List<ProductModifyBean> moveModifyProduct(String productCode) throws SQLException, MissingResourceException, ClassNotFoundException{
 	public ProductModifyBean moveModifyProduct(String productCode) throws SQLException, MissingResourceException, ClassNotFoundException{
-
-		List<ProductModifyBean> list = new ArrayList<ProductModifyBean>();
 	
 		Connection con;
 	 	Statement stmt = null;
@@ -69,25 +67,25 @@ public class MoveModifyProductDAO extends BaseDAO {
 	 		bean.setProductKana(result.getString("PRODUCT_KANA"));
 	 		bean.setOnlinePcode(result.getString("ONLINE_PCODE"));
 	 		bean.setJanPcode(result.getString("JAN_PCODE"));
-	 		bean.setDiscardDate(result.getDate("DISCARD_DATE"));
+	 		bean.setDiscardDate(result.getString("DISCARD_DATE"));
 	 		bean.setSupplierCode(result.getString("SUPPLIER_CODE"));
 	 		bean.setSupplierName(result.getString("SUPPLIER_NAME"));
 	 		bean.setSupplierPcode(result.getString("SUPPLIER_PCODE"));
-	 		bean.setSupplierPriceYen(result.getInt("SUPPLIER_PRICE_YEN"));
-	 		bean.setSupplierPriceDol(result.getInt("SUPPLIER_PRICE_DOL"));
+	 		bean.setSupplierPriceYen(result.getString("SUPPLIER_PRICE_YEN"));
+	 		bean.setSupplierPriceDol(result.getString("SUPPLIER_PRICE_DOL"));
 	 		bean.setStockCtlCategory(result.getString("STOCK_CTL_CATEGORY"));
-	 		bean.setPackQuantity(result.getInt("PACK_QUANTITY"));
-	 		bean.setAvgShipCount(result.getInt("AVG_SHIP_COUNT"));
+	 		bean.setPackQuantity(result.getString("PACK_QUANTITY"));
+	 		bean.setAvgShipCount(result.getString("AVG_SHIP_COUNT"));
 	 		bean.setWarehouseName(result.getString("WAREHOUSE_NAME"));
 	 		bean.setRackCode(result.getString("RACK_CODE"));
-	 		bean.setLeadTime(result.getInt("LEAD_TIME"));
-	 		bean.setPoNum(result.getInt("PO_NUM"));
-	 		bean.setMineSafetyStockUpdFlag(result.getShort("MINE_SAFETY_STOCK_UPD_FLAG"));
-	 		bean.setPoLot(result.getInt("PO_LOT"));
-	 		bean.setMaxStockNum(result.getInt("MAX_STOCK_NUM"));
-	 		bean.setMaxPoNum(result.getInt("MAX_PO_NUM"));
-	 		bean.setRoMaxNum(result.getShort("RO_MAX_NUM"));
-	 		bean.setRetailPrice(result.getInt("RETAIL_PRICE"));
+	 		bean.setLeadTime(result.getString("LEAD_TIME"));
+	 		bean.setPoNum(result.getString("PO_NUM"));
+	 		bean.setMineSafetyStockUpdFlag(result.getString("MINE_SAFETY_STOCK_UPD_FLAG"));
+	 		bean.setPoLot(result.getString("PO_LOT"));
+	 		bean.setMaxStockNum(result.getString("MAX_STOCK_NUM"));
+	 		bean.setMaxPoNum(result.getString("MAX_PO_NUM"));
+	 		bean.setRoMaxNum(result.getString("RO_MAX_NUM"));
+	 		bean.setRetailPrice(result.getString("RETAIL_PRICE"));
 	 		bean.setDiscountId(result.getString("DISCOUNT_ID"));
 	 	
 //	 		list.add(bean);
@@ -132,12 +130,13 @@ public class MoveModifyProductDAO extends BaseDAO {
 	 		bean.setProductStatusCategory(result.getString("PRODUCT_STATUS_CATEGORY"));
 	 		bean.setProductStockCategory(result.getString("PRODUCT_STOCK_CATEGORY"));
 	 		bean.setProductPurvayCategory(result.getString("PRODUCT_PURVAY_CATEGORY"));
-	 		bean.setSoRate(result.getInt("SO_RATE"));
+	 		bean.setProductStandardCategory(result.getString("PRODUCT_STANDARD_CATEGORY"));
+	 		bean.setSoRate(result.getString("SO_RATE"));
 	 		bean.setSetTypeCategory(result.getString("SET_TYPE_CATEGORY"));
 	 		bean.setProduct1(result.getString("PRODUCT_1"));
 	 		bean.setProduct2(result.getString("PRODUCT_2"));
 	 		bean.setProduct3(result.getString("PRODUCT_3"));
-	 	
+	 		
 //	 		list.add(bean);
 	 	}
 	 	
@@ -180,15 +179,15 @@ public class MoveModifyProductDAO extends BaseDAO {
 	 	if (result.next()) {
 
 	 		bean.setUnitCategory(result.getString("UNIT_CATEGORY"));
-	 		bean.setWeight(result.getDouble("WEIGHT"));
+	 		bean.setWeight(result.getString("WEIGHT"));
 	 		bean.setWeightUnitSizeCategory(result.getString("WEIGHT_UNIT_SIZE_CATEGORY"));
-	 		bean.setLength(result.getDouble("LENGTH"));
+	 		bean.setLength(result.getString("LENGTH"));
 	 		bean.setLengthUnitSizeCategory(result.getString("LENGTH_UNIT_SIZE_CATEGORY"));
-	 		bean.setWidth(result.getDouble("WIDTH"));
+	 		bean.setWidth(result.getString("WIDTH"));
 	 		bean.setWidthUnitSizeCategory(result.getString("WIDTH_UNIT_SIZE_CATEGORY"));
-	 		bean.setDepth(result.getDouble("DEPTH"));
+	 		bean.setDepth(result.getString("DEPTH"));
 	 		bean.setDepthUnitSizeCategory(result.getString("DEPTH_UNIT_SIZE_CATEGORY"));
-	 		bean.setHeight(result.getDouble("HEIGHT"));
+	 		bean.setHeight(result.getString("HEIGHT"));
 	 		bean.setHeightUnitSizeCategory(result.getString("HEIGHT_UNIT_SIZE_CATEGORY"));
 	 		bean.setCoreNum(result.getString("CORE_NUM"));
 	 	
