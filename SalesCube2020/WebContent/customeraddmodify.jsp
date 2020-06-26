@@ -115,7 +115,7 @@
                             <div class="input-group-prepend">
                                 <div class="input-group-text" style="background-color: pink;">顧客コード</div>
                             </div>
-                        <input type="tel"  class="form-control" id="inlineFormInputGroup" name="customerCode" value="${customer.customerCode}" required ${status eq 'add' ? "" :'readonly'}>
+                        <input type="number"  class="form-control" id="inlineFormInputGroup" name="customerCode" value="${customer.customerCode}" required ${status eq 'add' ? "" :'readonly'}>
                         </div>
                     </div>
                     <div class="col-4">
@@ -124,7 +124,7 @@
                             <div class="input-group-prepend">
                                 <div class="input-group-text" style="background-color: pink;">顧客名</div>
                             </div>
-                        <input type="text"  class="form-control" id="inlineFormInputGroup" name="customerName" value="${customer.customerName}">
+                        <input type="text"  class="form-control" id="inlineFormInputGroup" name="customerName" value="${customer.customerName}" required>
                         </div>
                     </div>
                     <div class="col-4">
@@ -133,7 +133,7 @@
                             <div class="input-group-prepend">
                                 <div class="input-group-text" style="background-color: pink;">顧客カナ</div>
                             </div>
-                        <input type="text"  class="form-control" id="inlineFormInputGroup" name="customerKana" value="${customer.customerKana}">
+                        <input type="text"  class="form-control" id="inlineFormInputGroup" name="customerKana" value="${customer.customerKana}" required>
                         </div>
                     </div>
                 </div>
@@ -144,7 +144,7 @@
                             <div class="input-group-prepend">
                                 <div class="input-group-text" style="background-color: pink;">事業所名</div>
                             </div>
-                        <input type="text"  class="form-control" id="inlineFormInputGroup" name="officeName" value="${customer.officeName}">
+                        <input type="text"  class="form-control" id="inlineFormInputGroup" name="officeName" value="${customer.officeName}" required>
                         </div>
                     </div>
                     <div class="col-4">
@@ -153,7 +153,7 @@
                             <div class="input-group-prepend">
                                 <div class="input-group-text" style="background-color: pink;">事業所カナ</div>
                             </div>
-                        <input type="text"  class="form-control" id="inlineFormInputGroup" name="officeNameKana" value="${customer.officeNameKana}">
+                        <input type="text"  class="form-control" id="inlineFormInputGroup" name="officeNameKana" value="${customer.officeNameKana}" required>
                         </div>
                     </div>
                     <div class="col-4">
@@ -162,7 +162,7 @@
                             <div class="input-group-prepend">
                                 <div class="input-group-text" style="background-color: pink;">顧客略称</div>
                             </div>
-                        <input type="text"  class="form-control" id="inlineFormInputGroup" name="customerAbbr" value="${customer.customerAbbr}">
+                        <input type="text"  class="form-control" id="inlineFormInputGroup" name="customerAbbr" value="${customer.customerAbbr}" required>
                         </div>
                     </div>
                 </div>
@@ -173,7 +173,7 @@
                             <div class="input-group-prepend">
                                 <div class="input-group-text" style="background-color: pink;">郵便番号</div>
                             </div>
-                        <input type="text"  class="form-control" id="inlineFormInputGroup" name="zipCode" value="${customer.zipCode}">                       
+                        <input type="text"  class="form-control" id="inlineFormInputGroup" name="zipCode" value="${customer.zipCode}" required>                       
                         <!-- <input type="image" name="" src="btn_search.png" tabindex="101" onclick="" style="vertical-align: middle; cursor: pointer; width: 32px;"> -->
                         </div>
                     </div>
@@ -183,7 +183,7 @@
                             <div class="input-group-prepend">
                                 <div class="input-group-text" style="background-color: pink;">住所1</div>
                             </div>
-                            <input type="text"  class="form-control" id="inlineFormInputGroup" name="zipAddress1" value="${customer.zipAddress1}">
+                            <input type="text"  class="form-control" id="inlineFormInputGroup" name="zipAddress1" value="${customer.zipAddress1}" required>
                         </div>
                     </div>
                     <div class="col-4">
@@ -570,7 +570,7 @@
                             <div class="input-group-text" style="background-color: pink;">納入先名</div>
                         </div>
                         <input type="hidden" name="deliveryCode" value="${deliveryList.get(0).deliveryCode}">
-                    <input type="text"  class="form-control" id="inlineFormInputGroup deliveryName" name="deliveryName" value="${deliveryList.get(0).deliveryName}">
+                    <input type="text"  class="form-control" id="inlineFormInputGroup deliveryName" name="deliveryName" value="${deliveryList.get(0).deliveryName}" required>
                     </div>
                 </div>
                 <div class="col-4">
@@ -579,7 +579,7 @@
                         <div class="input-group-prepend">
                             <div class="input-group-text" style="background-color: pink;">納入先名カナ</div>
                         </div>
-                    <input type="text"  class="form-control" id="inlineFormInputGroup deliveryKana" name="deliveryKana" value="${deliveryList.get(0).deliveryKana}">
+                    <input type="text"  class="form-control" id="inlineFormInputGroup deliveryKana" name="deliveryKana" value="${deliveryList.get(0).deliveryKana}" required>
                     </div>
                 </div>
             </div>
@@ -619,7 +619,7 @@
                         <div class="input-group-prepend">
                             <div class="input-group-text" style="background-color: pink;">郵便番号</div>
                         </div>
-                    <input type="text"  class="form-control" id="inlineFormInputGroup delZipCode " name="delZipCode" value="${deliveryList.get(0).zipCode}">                       
+                    <input type="text"  class="form-control" id="inlineFormInputGroup delZipCode " name="delZipCode" value="${deliveryList.get(0).zipCode}" required>                       
                     <!-- <input type="image" name="" src="btn_search.png" tabindex="101" onclick="" style="vertical-align: middle; cursor: pointer; width: 32px;"> -->
                     </div>
                 </div>
@@ -629,7 +629,7 @@
                         <div class="input-group-prepend">
                             <div class="input-group-text" style="background-color: pink;">住所1</div>
                         </div>
-                        <input type="text"  class="form-control" id="inlineFormInputGroup delAddress1" name="delAddress1" value="${deliveryList.get(0).address1}">
+                        <input type="text"  class="form-control" id="inlineFormInputGroup delAddress1" name="delAddress1" value="${deliveryList.get(0).address1}" required>
                     </div>
                 </div>
                 <div class="col-4">
@@ -730,7 +730,7 @@
                         <div class="input-group-prepend">
                             <div class="input-group-text" style="background-color: pink;">請求先名</div>
                         </div>
-                    <input type="text"  class="form-control" id="inlineFormInputGroup" name="deliveryName2" value="${delivery2.deliveryName}">
+                    <input type="text"  class="form-control" id="inlineFormInputGroup" name="deliveryName2" value="${delivery2.deliveryName}" required>
                     </div>
                 </div>
                 <div class="col-4">
@@ -739,7 +739,7 @@
                         <div class="input-group-prepend">
                             <div class="input-group-text" style="background-color: pink;">請求先名カナ</div>
                         </div>
-                    <input type="text"  class="form-control" id="inlineFormInputGroup" name="deliveryKana2" value="${delivery2.deliveryKana}">
+                    <input type="text"  class="form-control" id="inlineFormInputGroup" name="deliveryKana2" value="${delivery2.deliveryKana}" required>
                     </div>
                 </div>
             </div>
@@ -779,7 +779,7 @@
                         <div class="input-group-prepend">
                             <div class="input-group-text" style="background-color: pink;">郵便番号</div>
                         </div>
-                    <input type="text"  class="form-control" id="inlineFormInputGroup" name="delZipCode2" value="${delivery2.zipCode}">                       
+                    <input type="text"  class="form-control" id="inlineFormInputGroup" name="delZipCode2" value="${delivery2.zipCode}" required>                       
                     <!--  <input type="image" name="" src="btn_search.png" tabindex="101" onclick="" style="vertical-align: middle; cursor: pointer; width: 32px;"> -->
                     </div>
                 </div>
@@ -789,7 +789,7 @@
                         <div class="input-group-prepend">
                             <div class="input-group-text" style="background-color: pink;">住所1</div>
                         </div>
-                        <input type="text"  class="form-control" id="inlineFormInputGroup" name="delAddress1_2" value="${delivery2.address1}">
+                        <input type="text"  class="form-control" id="inlineFormInputGroup" name="delAddress1_2" value="${delivery2.address1}" required>
                     </div>
                 </div>
                 <div class="col-4">
@@ -879,7 +879,7 @@
 <!-- ボタン -->
 <div align="right" class="container">
     <input type="button" value="初期化" class="btn btn-outline-secondary" onclick="initForm()" >
-    <input type="submit" value="${status eq 'add' ? '登録' : '更新'}" class="btn btn-outline-secondary" onclick="confirmForm()">
+    <input type="button" value="${status eq 'add' ? '登録' : '更新'}" class="btn btn-outline-secondary" onclick="registrationForm()">
     <input type="button" value="削除" class="btn btn-outline-secondary" onclick="deleteForm()" ${status eq 'add' ? "disabled" :''}>
 </div>
 </form> 
@@ -922,6 +922,7 @@
 		}
 	 }
  
+ /*
  function confirmForm() {
 	 var status = "${status}";
 	 	if(status=="add"){
@@ -933,9 +934,10 @@
 			if(!confirm("入力内容を更新します。よろしいですか？")) {
 				return;
 			}
+			
 		}
 	 }
- 
+ */
  
 
     		
