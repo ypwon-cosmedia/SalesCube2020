@@ -84,7 +84,7 @@
           <button type="button" class="btn btn-secondary" style="font-size: 12px;" onclick="initForm()" >F1<br>初期化</button>
 			<button type="button" class="btn btn-secondary" style="font-size: 12px;" onclick="backForm()">F2<br>戻る</button>
 			<button type="button" class="btn btn-secondary" style="font-size: 12px;" onclick="registrationForm()" >F3<br>${status eq 'add' ? "登録" : "更新"}</button>
-			<button type="button" class="btn btn-secondary" style="font-size: 12px;" onclick= "delete()" ${status eq 'add' ? "disabled" :''}>F4 <br>削除</button>
+			<button type="button" class="btn btn-secondary" style="font-size: 12px;" onclick= "deleteForm()" ${status eq 'add' ? "disabled" :''}>F4 <br>削除</button>
 			<button type="button" class="btn btn-secondary" style="font-size: 12px;" disabled>F5<br>初期値</button>
 			<button type="button" class="btn btn-secondary" style="font-size: 12px;" disabled>F6<br></button>
 			<button type="button" class="btn btn-secondary" style="font-size: 12px;" disabled>F7<br></button>
@@ -880,7 +880,7 @@
 <div align="right" class="container">
     <input type="button" value="初期化" class="btn btn-outline-secondary" onclick="initForm()" >
     <input type="submit" value="${status eq 'add' ? '登録' : '更新'}" class="btn btn-outline-secondary" onclick="confirmForm()">
-    <input type="submit" value="削除" class="btn btn-outline-secondary" onclick="deleteForm()" ${status eq 'add' ? "disabled" :''}>
+    <input type="button" value="削除" class="btn btn-outline-secondary" onclick="deleteForm()" ${status eq 'add' ? "disabled" :''}>
 </div>
 </form> 
 	<form action="/SalesCube2020/SalesCube?action=deleteCustomer" method="post" name="deleteform">
