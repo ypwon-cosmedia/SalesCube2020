@@ -392,6 +392,7 @@
 										<div class="input-group-text">状況</div>
 									</div>
 								<select class="custom-select" name="productStatusCategory" id="productStatusCategory">
+								<option value=""></option>
 									<c:forEach var="search" items="${productStatusCategory}">
 										<option value="${search.productStatusCategoryCode}">${search.productStatusCategoryName}</option>
 									</c:forEach>
@@ -405,6 +406,7 @@
 										<div class="input-group-text">保管</div>
 									</div>
 								<select class="custom-select" name="productStockCategory" id="productStockCategory">
+								<option value=""></option>
 								<c:forEach items="${prosearch}" var="prdct">
 									<option value="${prdct.productStockCategoryCode}">${prdct.productStockCategoryName}</option>
 								</c:forEach>
@@ -418,6 +420,7 @@
 										<div class="input-group-text">調達</div>
 									</div>
 								<select class="custom-select" name="productPurvayCategory" id="productPurvayCategory">
+								<option value=""></option>
 									<option value="1">国内調達</option>
                             		<option value="2">海外調達</option>
 								</select>
@@ -454,7 +457,8 @@
 									<div class="input-group-prepend">
 										<div class="input-group-text">セット</div>
 									</div>
-								<select class="custom-select" name="setTipeCategory" id="setTypeCategory">
+								<select class="custom-select" name="setTypeCategory" id="setTypeCategory">
+								<option value=""></option>
 								<c:forEach items="${setTypeCategory}" var="prdct">
 										<option value="${prdct.setTypeCategoryCode}">${prdct.setTypeCategoryName}</option>
 								</c:forEach>
@@ -470,8 +474,8 @@
 										<div class="input-group-text">分類（大）</div>
 									</div>
 									<select class="custom-select" name="product1" id="product1" onchange="selectPro1();">
-									<option selected></option>
-								</select>
+										<option selected></option>
+									</select>
 								</div>
 							</div>
 						</div>
@@ -496,8 +500,8 @@
 										<div class="input-group-text">分類（小）</div>
 									</div>
 									<select class="custom-select" name="product3" id="product3">
-									<option selected></option>
-								</select>
+										<option selected></option>
+									</select>
 								</div>
 							</div>
 						</div>
@@ -517,6 +521,7 @@
 										<div class="input-group-text">単位</div>
 									</div>
 								<select class="custom-select" name="unitCategory" id="product2.unitCategory">
+								<option value=""></option>
 									<option value="1">本</option>
                             		<option value="2">個</option>
                             		<option value="3">箱</option>
@@ -666,19 +671,22 @@
 			
 		<script>
 		$(document).ready(function() {
-			
-		    $('select[id="stockCtlCategory"]').find('option[value="${product.stockCtlCategory}"]').attr("selected",true);
-		    $('select[id="productStatusCategory"]').find('option[value="${product.productStatusCategory}"]').attr("selected",true);
-		    $('select[id="productStockCategory"]').find('option[value="${product1.productStockCategory}"]').attr("selected",true);
-		    $('select[id="productPurvayCategory"]').find('option[value="${product1.productPurvayCategory}"]').attr("selected",true);
-		    $('select[id="productStandardCategory"]').find('option[value="${product1.productStandardCategory}"]').attr("selected",true);
-		    $('select[id="setTypeCategory"]').find('option[value="${product1.setTypeCategory}"]').attr("selected",true);
-		    $('select[id="unitCategory"]').find('option[value="${product2.unitCategory}"]').attr("selected",true);
-		    $('select[id="weightUnitSizeCategory"]').find('option[value="${product2.weightUnitSizeCategory}"]').attr("selected",true);
-		    $('select[id="lengthUnitSizeCategory"]').find('option[value="${product2.lengthUnitSizeCategory}"]').attr("selected",true);
-		    $('select[id="widthUnitSizeCategory"]').find('option[value="${product2.widthUnitSizeCategory}"]').attr("selected",true);
-		    $('select[id="depthUnitSizeCategory"]').find('option[value="${product2.depthUnitSizeCategory}"]').attr("selected",true);
-		    $('select[id="heightUnitSizeCategory"]').find('option[value="${product2.heightUnitSizeCategory}"]').attr("selected",true);
+
+		    $('select[id="stockCtlCategory"]').find('option[value="${product.stockCtlCategory}"]').prop("selected", true);
+		    $('select[id="productStatusCategory"]').find('option[value="${product.productStatusCategory}"]').prop("selected", true);
+		    $('select[id="productStockCategory"]').find('option[value="${product1.productStockCategory}"]').prop("selected", true);
+		    $('select[id="productPurvayCategory"]').find('option[value="${product1.productPurvayCategory}"]').prop("selected", true);
+		    $('select[id="productStandardCategory"]').find('option[value="${product1.productStandardCategory}"]').prop("selected", true);;
+		    $('select[id="setTypeCategory"]').find('option[value="${product1.setTypeCategory}"]').prop("selected", true);
+		    $('select[id="unitCategory"]').find('option[value="${product2.unitCategory}"]').prop("selected", true);
+		    $('select[id="weightUnitSizeCategory"]').find('option[value="${product2.weightUnitSizeCategory}"]').prop("selected", true);
+		    $('select[id="lengthUnitSizeCategory"]').find('option[value="${product2.lengthUnitSizeCategory}"]').prop("selected", true);
+		    $('select[id="widthUnitSizeCategory"]').find('option[value="${product2.widthUnitSizeCategory}"]').prop("selected", true);
+		    $('select[id="depthUnitSizeCategory"]').find('option[value="${product2.depthUnitSizeCategory}"]').prop("selected", true);
+		    $('select[id="heightUnitSizeCategory"]').find('option[value="${product2.heightUnitSizeCategory}"]').prop("selected", true);
+		    $('select[id="product1"]').find('option[value="${product1.product1}"]').prop("selected", true);
+		    $('select[id="product2"]').find('option[value="${product1.product2}"]').prop("selected", true);
+		    $('select[id="product3"]').find('option[value="${product1.product3}"]').prop("selected", true);
 
 		});
 		
@@ -779,6 +787,44 @@
     					objSel.add(objOption);
     				}
     			}
+    			
+    			
+				var bigCat = $('select[id="product1"]').find('option[value="${product1.product1}"]').val();
+				
+				var objSel = document.getElementById("product2");
+				var objSel2 = document.getElementById("product3");
+				
+				for(i=objSel.length; i > 0; i--){
+					objSel.options[i]=null;
+				}
+				
+				for(i=objSel2.length; i > 0; i--){
+					objSel2.options[i]=null;
+				}
+				
+				for(var i in list) {
+					if(list[i].cat1 == bigCat && list[i].cat2 != "" && list[i].cat3 == ""){
+						var objOption = document.createElement("option");
+						objOption.text = list[i].catName;
+						objOption.value = list[i].cat2;					
+						objSel.add(objOption);
+					}
+				}
+				
+				var middleCat = $('select[id="product2"]').find('option[value="${product1.product2}"]').val();
+				
+				var objSel3 = document.getElementById("product3");
+				
+				for(var i in list) {
+					if(list[i].cat1 == bigCat && list[i].cat2 == middleCat && list[i].cat3 != ""){
+						var objOption = document.createElement("option");
+						objOption.text = list[i].catName;
+						objOption.value = list[i].cat3;
+						
+						objSel3.add(objOption);
+					}
+				}
+			
     		}
     			//カテゴリー
     			function selectPro1(){
@@ -805,6 +851,7 @@
     					}
     				}
 
+				
     			}	
     			function selectPro2(){
     				var list = mylist
