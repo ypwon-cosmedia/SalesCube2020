@@ -355,7 +355,7 @@ public class ProductAddController extends BaseController {
 				String message = "“o˜^‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½<br>";
 				request.setAttribute("addmodifyError", message);
 			}else{
-				request.setAttribute("addmodifysuccsess", "“o˜^‚ªŠ®—¹‚µ‚Ü‚µ‚½<br>");
+				request.setAttribute("addmodifysuccess", "“o˜^‚ªŠ®—¹‚µ‚Ü‚µ‚½<br>");
 			}
 		}catch(NumberFormatException e){
 			request.setAttribute("addmodifyinterror", "³‚µ‚¢”’l‚ğ“ü—Í‚µ‚Ä‚­‚¾‚³‚¢<br>");
