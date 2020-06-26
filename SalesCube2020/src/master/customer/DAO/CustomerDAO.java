@@ -161,6 +161,11 @@ public class CustomerDAO extends BaseDAO {
 	 	pstmt = con.prepareStatement(sql);
 
 	 	result = pstmt.executeQuery(sql);
+	 	
+	 	String salesCMCategory=null;
+	 	String salesCMCategoryNum =null;
+	 	String cutoffGroup2=null;
+	 	String cutoffGroupNum=null;
 
 	 	//SQL�ｿｽﾌ鯉ｿｽ�ｿｽﾊゑｿｽ�ｿｽ�ｿｽﾉ取得�ｿｽ�ｿｽ�ｿｽ�ｿｽ�ｿｽﾚ客�ｿｽ�ｿｽ�ｿｽ�ｿｽ�ｿｽP�ｿｽ�ｿｽ�ｿｽR�ｿｽ[�ｿｽh�ｿｽ�ｿｽ�ｿｽﾂ�ｿｽ�ｿｽX�ｿｽg�ｿｽﾉ登�ｿｽ^
 	 	while (result.next()) {
@@ -169,8 +174,42 @@ public class CustomerDAO extends BaseDAO {
 	 		rbean.setCustomerName(result.getString("CUSTOMER_NAME"));
 	    	rbean.setTel(result.getString("CUSTOMER_TEL"));
 	    	rbean.setPCName(result.getString("CUSTOMER_PC_NAME"));
-	    	rbean.setSalesCMCategory(result.getString("SALES_CM_CATEGORY"));
-	    	rbean.setCutoffGroup(result.getString("CUTOFF_GROUP"));
+	    	
+	    	salesCMCategoryNum = result.getString("SALES_CM_CATEGORY");
+	    	if (salesCMCategoryNum.equals("1")) {
+	    		salesCMCategory = "掛売";
+	    	} else if(salesCMCategoryNum.equals("2")) {
+	    		salesCMCategory = "現金";
+	    	} else if(salesCMCategoryNum.equals("3")) {
+	    		salesCMCategory = "サンプル";
+	    	} else if(salesCMCategoryNum.equals("4")) {
+	    		salesCMCategory = "代引き";
+	    	} else if(salesCMCategoryNum.equals("5")) {
+	    		salesCMCategory = "クレジット";
+	    	} else if(salesCMCategoryNum.equals("6")) {
+	    		salesCMCategory = "先入金";
+	    	} else if(salesCMCategoryNum.equals("7")) {
+	    		salesCMCategory = "通販サイト1経由";
+	    	}
+	    	rbean.setSalesCMCategory(salesCMCategory);
+	    	
+	    	cutoffGroupNum = result.getString("CUTOFF_GROUP");
+	    	if (cutoffGroupNum.equals("1")) {
+	    		cutoffGroup2 = "10日締め翌月10日";
+	    	} else if(cutoffGroupNum.equals("2")) {
+	    		cutoffGroup2 = "20日締め翌月20日";
+	    	} else if(cutoffGroupNum.equals("3")) {
+	    		cutoffGroup2 = "25日締め翌月末";
+	    	} else if(cutoffGroupNum.equals("4")) {
+	    		cutoffGroup2 = "月末締め翌月末日";
+	    	} else if(cutoffGroupNum.equals("5")) {
+	    		cutoffGroup2 = "月末締め翌々月5日";
+	    	} else if(cutoffGroupNum.equals("6")) {
+	    		cutoffGroup2 = "その他";
+	    	}
+	    	
+	    	rbean.setCutoffGroup(cutoffGroup2);
+	    	
 	    	rbean.setOfficeName(result.getString("CUSTOMER_OFFICE_NAME"));
 	    	rbean.setDeptName(result.getString("CUSTOMER_DEPT_NAME"));
 			list.add(rbean);
