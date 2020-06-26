@@ -658,9 +658,9 @@
 			<br><br>
 			<!-- ボタン -->
 			<div align="right" class="container">
-				<input type="submit"  value="初期化" class="btn btn-outline-secondary" onclick="initForm()" >&emsp;
-				<input type="submit" value="${status eq 'add' ? '登録' : '更新'}" class="btn btn-outline-secondary" onclick="confirmForm()">&emsp;
-				<input type="submit" value="削除" class="btn btn-outline-secondary" onclick="deleteForm()" ${status eq 'add' ? "disabled" :''}>&emsp;
+				<input type="button"  value="初期化" class="btn btn-outline-secondary" onclick="initForm()" >&emsp;
+				<input type="button" value="${status eq 'add' ? '登録' : '更新'}" class="btn btn-outline-secondary" onclick="confirmForm()">&emsp;
+				<input type="button" value="削除" class="btn btn-outline-secondary" onclick="deleteForm()" ${status eq 'add' ? "disabled" :''}>&emsp;
 			</div>
 			</form> 
 			<form action="/SalesCube2020/SalesCube?action=deleteProduct" method="post" name="deleteform">
@@ -671,7 +671,7 @@
 			
 		<script>
 		$(document).ready(function() {
-			alert("${product1.productStandardCategory}");
+
 		    $('select[id="stockCtlCategory"]').find('option[value="${product.stockCtlCategory}"]').prop("selected", true);
 		    $('select[id="productStatusCategory"]').find('option[value="${product.productStatusCategory}"]').prop("selected", true);
 		    $('select[id="productStockCategory"]').find('option[value="${product1.productStockCategory}"]').prop("selected", true);
@@ -727,11 +727,15 @@
     		 			if(!confirm("入力内容を登録します。よろしいですか？")) {
     		 				return;
     		 			}
+    		 			var form = document.mainform;
+        				form.submit();
     		 		 }
     		 		 else {
     		 			if(!confirm("入力内容を更新します。よろしいですか？")) {
     		 				return;
     		 			}
+    		 			var form = document.mainform;
+        				form.submit();
     		 		}
     		 }
     		
