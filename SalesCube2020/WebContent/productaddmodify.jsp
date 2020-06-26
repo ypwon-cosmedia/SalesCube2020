@@ -155,7 +155,7 @@
 								<div class="input-group-prepend">
 									<div class="input-group-text">オンライン品番</div>
 								</div>
-							<input type="text"  class="form-control" id="inlineFormInputGroup" name="productPcode" value="${product.productPcode}">
+							<input type="text"  class="form-control" id="inlineFormInputGroup" name="productPcode" value="${product.onlinePcode}">
 							</div>
 						</div>
 

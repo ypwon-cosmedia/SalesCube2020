@@ -3,227 +3,227 @@ package master.product.beans;
 import java.sql.*;
 
 /**
- * ¤•i‚ð•ÏX‚·‚é<br>
- * E¤•iƒR[ƒh‚ðŽæ“¾‚·‚é<br>
- * E¤•i–¼‚ðŽæ“¾‚·‚é<br>
- * E¤•i–¼ƒJƒi‚ðŽæ“¾‚·‚é<br>
- * EƒIƒ“ƒ‰ƒCƒ“•i”Ô‚ðŽæ“¾‚·‚é<br>
- * EJANƒR[ƒh‚ðŽæ“¾‚·‚é<br>
- * E”p”Ô—\’è“ú‚ðŽæ“¾‚·‚é<br>
- * EŽd“üæƒR[ƒh‚ðŽæ“¾‚·‚é<br>
- * EŽd“üæ–¼‚ðŽæ“¾‚·‚é<br>
- * EŽd“üæ¤•iƒR[ƒh‚ðÝ’è‚·‚é<br>
- * EŽd“ü’P‰¿i‰~j‚ðÝ’è‚·‚é<br>
- * EŽd“ü’P‰¿iŠO‰Ýj‚ðÝ’è‚·‚é<br>
- * EÝŒÉŠÇ—‚ðÝ’è‚·‚é<br>
- * E“ü”‚ðÝ’è‚·‚é<br>
- * EŒŽ•½‹Ïo‰×”‚ðÝ’è‚·‚é<br>
- * E‘qŒÉ–¼‚ðÝ’è‚·‚é<br>
- * E’I”Ô‚ðÝ’è‚·‚é<br>
- * EƒŠ[ƒhƒ^ƒCƒ€‚ðŽæ“¾‚·‚é<br>
- * E”­’“_‚ðŽæ“¾‚·‚é<br>
- * E”­’“_Ž©“®XV‚ðŽæ“¾‚·‚é<br>
- * EŽ©ŽÐˆÀ‘SÝŒÉ”‚ðŽæ“¾‚·‚é<br>
- * EŽ©ŽÐˆÀ‘SÝŒÉ”Ž©“®XV‚ðŽæ“¾‚·‚é<br>
- * E”­’ƒƒbƒg‚ðŽæ“¾‚·‚é<br>
- * E”­’ƒƒbƒgŽ©“®XV‚ðŽæ“¾‚·‚é<br>
- * EÅ‘å•Û—L”‚ðŽæ“¾‚·‚é<br>
- * EÅ‘å•Û—L”Ž©“®XV‚ðŽæ“¾‚·‚é<br>
- * E’PˆÊ”­’ŒÀ“x”‚ðŽæ“¾‚·‚é<br>
- * E’PˆÊ”­’ŒÀ“x”Ž©“®XV‚ðŽæ“¾‚·‚é<br>
- * EŽó’ŒÀ“x”‚ðŽæ“¾‚·‚é<br>
- * E”„’P‰¿‚ðŽæ“¾‚·‚é<br>
- * E”—ÊŠ„ˆø‚ðÝ’è‚·‚é<br>
- * Eó‹µ‚ðÝ’è‚·‚é<br>
- * E•ÛŠÇ‚ðÝ’è‚·‚é<br>
- * E’²’B‚ðÝ’è‚·‚é<br>
- * E•W€‰»‚ðÝ’è‚·‚é<br>
- * E“Á’ŒvŽZŠ|—¦‚ðÝ’è‚·‚é<br>
- * EƒZƒbƒg‚ðÝ’è‚·‚é<br>
- * EƒJƒeƒSƒŠi‘åj‚ðÝ’è‚·‚é<br>
- * EƒJƒeƒSƒŠi’†j‚ðÝ’è‚·‚é<br>
- * EƒJƒeƒSƒŠi¬j‚ðŽæ“¾‚·‚é<br>
- * E’PˆÊ‚ðŽæ“¾‚·‚é<br>
- * Ed—Ê‚ðŽæ“¾‚·‚é<br>
- * Ed—Ê’PˆÊ‚ðŽæ“¾‚·‚é<br>
- * E’·‚³‚ðŽæ“¾‚·‚é<br>
- * E’·‚³’PˆÊ‚ðŽæ“¾‚·‚é<br>
- * EƒTƒCƒYi•j‚ðŽæ“¾‚·‚é<br>
- * EƒTƒCƒYi•j’PˆÊ‚ðŽæ“¾‚·‚é<br>
- * EƒTƒCƒYi‰œj‚ðŽæ“¾‚·‚é<br>
- * EƒTƒCƒYi‰œj’PˆÊ‚ðŽæ“¾‚·‚é<br>
- * EƒTƒCƒYi‚j‚ðŽæ“¾‚·‚é<br>
- * EƒTƒCƒYi‚j’PˆÊ‚ðŽæ“¾‚·‚é<br>
- * Ec”‚ðŽæ“¾‚·‚é<br>
- * E”õl‚ðÝ’è‚·‚é<br>
- * EƒsƒbƒLƒ“ƒO”õl‚ðÝ’è‚·‚é<br>
- * EƒRƒƒ“ƒg‚ðÝ’è‚·‚é<br>
-@* 
- * @author •¨‰ž
+ * ï¿½ï¿½ï¿½iï¿½ï¿½ÏXï¿½ï¿½ï¿½ï¿½<br>
+ * ï¿½Eï¿½ï¿½ï¿½iï¿½Rï¿½[ï¿½hï¿½ï¿½ï¿½æ“¾ï¿½ï¿½ï¿½ï¿½<br>
+ * ï¿½Eï¿½ï¿½ï¿½iï¿½ï¿½ï¿½ï¿½ï¿½æ“¾ï¿½ï¿½ï¿½ï¿½<br>
+ * ï¿½Eï¿½ï¿½ï¿½iï¿½ï¿½ï¿½Jï¿½iï¿½ï¿½ï¿½æ“¾ï¿½ï¿½ï¿½ï¿½<br>
+ * ï¿½Eï¿½Iï¿½ï¿½ï¿½ï¿½ï¿½Cï¿½ï¿½ï¿½iï¿½Ô‚ï¿½ï¿½æ“¾ï¿½ï¿½ï¿½ï¿½<br>
+ * ï¿½EJANï¿½Rï¿½[ï¿½hï¿½ï¿½ï¿½æ“¾ï¿½ï¿½ï¿½ï¿½<br>
+ * ï¿½Eï¿½pï¿½Ô—\ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½æ“¾ï¿½ï¿½ï¿½ï¿½<br>
+ * ï¿½Eï¿½dï¿½ï¿½ï¿½ï¿½Rï¿½[ï¿½hï¿½ï¿½ï¿½æ“¾ï¿½ï¿½ï¿½ï¿½<br>
+ * ï¿½Eï¿½dï¿½ï¿½ï¿½æ–¼ï¿½ï¿½ï¿½æ“¾ï¿½ï¿½ï¿½ï¿½<br>
+ * ï¿½Eï¿½dï¿½ï¿½ï¿½æ¤ï¿½iï¿½Rï¿½[ï¿½hï¿½ï¿½Ý’è‚·ï¿½ï¿½<br>
+ * ï¿½Eï¿½dï¿½ï¿½ï¿½Pï¿½ï¿½ï¿½iï¿½~ï¿½jï¿½ï¿½Ý’è‚·ï¿½ï¿½<br>
+ * ï¿½Eï¿½dï¿½ï¿½ï¿½Pï¿½ï¿½ï¿½iï¿½Oï¿½Ýjï¿½ï¿½Ý’è‚·ï¿½ï¿½<br>
+ * ï¿½Eï¿½ÝŒÉŠÇ—ï¿½ï¿½ï¿½Ý’è‚·ï¿½ï¿½<br>
+ * ï¿½Eï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ý’è‚·ï¿½ï¿½<br>
+ * ï¿½Eï¿½ï¿½ï¿½ï¿½ï¿½Ïoï¿½×ï¿½ï¿½ï¿½Ý’è‚·ï¿½ï¿½<br>
+ * ï¿½Eï¿½qï¿½É–ï¿½ï¿½ï¿½Ý’è‚·ï¿½ï¿½<br>
+ * ï¿½Eï¿½Iï¿½Ô‚ï¿½Ý’è‚·ï¿½ï¿½<br>
+ * ï¿½Eï¿½ï¿½ï¿½[ï¿½hï¿½^ï¿½Cï¿½ï¿½ï¿½ï¿½ï¿½æ“¾ï¿½ï¿½ï¿½ï¿½<br>
+ * ï¿½Eï¿½ï¿½ï¿½ï¿½ï¿½_ï¿½ï¿½ï¿½æ“¾ï¿½ï¿½ï¿½ï¿½<br>
+ * ï¿½Eï¿½ï¿½ï¿½ï¿½ï¿½_ï¿½ï¿½ï¿½ï¿½ï¿½Xï¿½Vï¿½ï¿½ï¿½æ“¾ï¿½ï¿½ï¿½ï¿½<br>
+ * ï¿½Eï¿½ï¿½ï¿½Ðˆï¿½ï¿½Sï¿½ÝŒÉï¿½ï¿½ï¿½ï¿½æ“¾ï¿½ï¿½ï¿½ï¿½<br>
+ * ï¿½Eï¿½ï¿½ï¿½Ðˆï¿½ï¿½Sï¿½ÝŒÉï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Xï¿½Vï¿½ï¿½ï¿½æ“¾ï¿½ï¿½ï¿½ï¿½<br>
+ * ï¿½Eï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½bï¿½gï¿½ï¿½ï¿½æ“¾ï¿½ï¿½ï¿½ï¿½<br>
+ * ï¿½Eï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½bï¿½gï¿½ï¿½ï¿½ï¿½ï¿½Xï¿½Vï¿½ï¿½ï¿½æ“¾ï¿½ï¿½ï¿½ï¿½<br>
+ * ï¿½Eï¿½Å‘ï¿½Û—Lï¿½ï¿½ï¿½ï¿½ï¿½æ“¾ï¿½ï¿½ï¿½ï¿½<br>
+ * ï¿½Eï¿½Å‘ï¿½Û—Lï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Xï¿½Vï¿½ï¿½ï¿½æ“¾ï¿½ï¿½ï¿½ï¿½<br>
+ * ï¿½Eï¿½Pï¿½Ê”ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½xï¿½ï¿½ï¿½ï¿½ï¿½æ“¾ï¿½ï¿½ï¿½ï¿½<br>
+ * ï¿½Eï¿½Pï¿½Ê”ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½xï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Xï¿½Vï¿½ï¿½ï¿½æ“¾ï¿½ï¿½ï¿½ï¿½<br>
+ * ï¿½Eï¿½ó’Œï¿½ï¿½xï¿½ï¿½ï¿½ï¿½ï¿½æ“¾ï¿½ï¿½ï¿½ï¿½<br>
+ * ï¿½Eï¿½ï¿½ï¿½Pï¿½ï¿½ï¿½ï¿½ï¿½æ“¾ï¿½ï¿½ï¿½ï¿½<br>
+ * ï¿½Eï¿½ï¿½ï¿½ÊŠï¿½ï¿½ï¿½ï¿½ï¿½Ý’è‚·ï¿½ï¿½<br>
+ * ï¿½Eï¿½ó‹µ‚ï¿½Ý’è‚·ï¿½ï¿½<br>
+ * ï¿½Eï¿½ÛŠÇ‚ï¿½Ý’è‚·ï¿½ï¿½<br>
+ * ï¿½Eï¿½ï¿½ï¿½Bï¿½ï¿½Ý’è‚·ï¿½ï¿½<br>
+ * ï¿½Eï¿½Wï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ý’è‚·ï¿½ï¿½<br>
+ * ï¿½Eï¿½ï¿½ï¿½ï¿½ï¿½vï¿½Zï¿½|ï¿½ï¿½ï¿½ï¿½Ý’è‚·ï¿½ï¿½<br>
+ * ï¿½Eï¿½Zï¿½bï¿½gï¿½ï¿½Ý’è‚·ï¿½ï¿½<br>
+ * ï¿½Eï¿½Jï¿½eï¿½Sï¿½ï¿½ï¿½iï¿½ï¿½jï¿½ï¿½Ý’è‚·ï¿½ï¿½<br>
+ * ï¿½Eï¿½Jï¿½eï¿½Sï¿½ï¿½ï¿½iï¿½ï¿½ï¿½jï¿½ï¿½Ý’è‚·ï¿½ï¿½<br>
+ * ï¿½Eï¿½Jï¿½eï¿½Sï¿½ï¿½ï¿½iï¿½ï¿½ï¿½jï¿½ï¿½ï¿½æ“¾ï¿½ï¿½ï¿½ï¿½<br>
+ * ï¿½Eï¿½Pï¿½Ê‚ï¿½ï¿½æ“¾ï¿½ï¿½ï¿½ï¿½<br>
+ * ï¿½Eï¿½dï¿½Ê‚ï¿½ï¿½æ“¾ï¿½ï¿½ï¿½ï¿½<br>
+ * ï¿½Eï¿½dï¿½Ê’Pï¿½Ê‚ï¿½ï¿½æ“¾ï¿½ï¿½ï¿½ï¿½<br>
+ * ï¿½Eï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½æ“¾ï¿½ï¿½ï¿½ï¿½<br>
+ * ï¿½Eï¿½ï¿½ï¿½ï¿½ï¿½Pï¿½Ê‚ï¿½ï¿½æ“¾ï¿½ï¿½ï¿½ï¿½<br>
+ * ï¿½Eï¿½Tï¿½Cï¿½Yï¿½iï¿½ï¿½ï¿½jï¿½ï¿½ï¿½æ“¾ï¿½ï¿½ï¿½ï¿½<br>
+ * ï¿½Eï¿½Tï¿½Cï¿½Yï¿½iï¿½ï¿½ï¿½jï¿½Pï¿½Ê‚ï¿½ï¿½æ“¾ï¿½ï¿½ï¿½ï¿½<br>
+ * ï¿½Eï¿½Tï¿½Cï¿½Yï¿½iï¿½ï¿½ï¿½jï¿½ï¿½ï¿½æ“¾ï¿½ï¿½ï¿½ï¿½<br>
+ * ï¿½Eï¿½Tï¿½Cï¿½Yï¿½iï¿½ï¿½ï¿½jï¿½Pï¿½Ê‚ï¿½ï¿½æ“¾ï¿½ï¿½ï¿½ï¿½<br>
+ * ï¿½Eï¿½Tï¿½Cï¿½Yï¿½iï¿½ï¿½ï¿½jï¿½ï¿½ï¿½æ“¾ï¿½ï¿½ï¿½ï¿½<br>
+ * ï¿½Eï¿½Tï¿½Cï¿½Yï¿½iï¿½ï¿½ï¿½jï¿½Pï¿½Ê‚ï¿½ï¿½æ“¾ï¿½ï¿½ï¿½ï¿½<br>
+ * ï¿½Eï¿½cï¿½ï¿½ï¿½ï¿½ï¿½æ“¾ï¿½ï¿½ï¿½ï¿½<br>
+ * ï¿½Eï¿½ï¿½ï¿½lï¿½ï¿½Ý’è‚·ï¿½ï¿½<br>
+ * ï¿½Eï¿½sï¿½bï¿½Lï¿½ï¿½ï¿½Oï¿½ï¿½ï¿½lï¿½ï¿½Ý’è‚·ï¿½ï¿½<br>
+ * ï¿½Eï¿½Rï¿½ï¿½ï¿½ï¿½ï¿½gï¿½ï¿½Ý’è‚·ï¿½ï¿½<br>
+ï¿½@* 
+ * @author ï¿½ï¿½ï¿½ï¿½
  * @version 1.0
  */
 
 public class ProductModifyBean {
-	/** ¤•iƒR[ƒhF¤•iƒR[ƒh‚ð•ÛŽ‚·‚é */
+	/** ï¿½ï¿½ï¿½iï¿½Rï¿½[ï¿½hï¿½Fï¿½ï¿½ï¿½iï¿½Rï¿½[ï¿½hï¿½ï¿½ÛŽï¿½ï¿½ï¿½ï¿½ï¿½ */
 	private String productCode;
 
-	/** ¤•i–¼F¤•i–¼‚ð•ÛŽ‚·‚é */
+	/** ï¿½ï¿½ï¿½iï¿½ï¿½ï¿½Fï¿½ï¿½ï¿½iï¿½ï¿½ï¿½ï¿½ÛŽï¿½ï¿½ï¿½ï¿½ï¿½ */
 	private String productName;
 	
-	/** ¤•i–¼ƒJƒiF¤•i–¼ƒJƒi‚ð•ÛŽ‚·‚é */
+	/** ï¿½ï¿½ï¿½iï¿½ï¿½ï¿½Jï¿½iï¿½Fï¿½ï¿½ï¿½iï¿½ï¿½ï¿½Jï¿½iï¿½ï¿½ÛŽï¿½ï¿½ï¿½ï¿½ï¿½ */
 	private String productKana;
 	
-	/** ƒIƒ“ƒ‰ƒCƒ“•i”ÔFƒIƒ“ƒ‰ƒCƒ“•i”Ô‚ð•ÛŽ‚·‚é */
+	/** ï¿½Iï¿½ï¿½ï¿½ï¿½ï¿½Cï¿½ï¿½ï¿½iï¿½ÔFï¿½Iï¿½ï¿½ï¿½ï¿½ï¿½Cï¿½ï¿½ï¿½iï¿½Ô‚ï¿½ÛŽï¿½ï¿½ï¿½ï¿½ï¿½ */
 	private String onlinePcode;
 	
-	/** JANƒR[ƒhFJANƒR[ƒh‚ð•ÛŽ‚·‚é */
+	/** JANï¿½Rï¿½[ï¿½hï¿½FJANï¿½Rï¿½[ï¿½hï¿½ï¿½ÛŽï¿½ï¿½ï¿½ï¿½ï¿½ */
 	private String janPcode;
 	
-	/** ”pŠü“úF”pŠü“ú‚ð•ÛŽ‚·‚é */
+	/** ï¿½pï¿½ï¿½ï¿½ï¿½ï¿½Fï¿½pï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ÛŽï¿½ï¿½ï¿½ï¿½ï¿½ */
 	private String discardDate;
 	
-	/** Žd“üæƒR[ƒhFŽd“üæƒR[ƒh‚ð•ÛŽ‚·‚é */
+	/** ï¿½dï¿½ï¿½ï¿½ï¿½Rï¿½[ï¿½hï¿½Fï¿½dï¿½ï¿½ï¿½ï¿½Rï¿½[ï¿½hï¿½ï¿½ÛŽï¿½ï¿½ï¿½ï¿½ï¿½ */
 	private String supplierCode;
 	
-	/** Žd“üæ–¼FŽd“üæ–¼‚ð•ÛŽ‚·‚é */
+	/** ï¿½dï¿½ï¿½ï¿½æ–¼ï¿½Fï¿½dï¿½ï¿½ï¿½æ–¼ï¿½ï¿½ÛŽï¿½ï¿½ï¿½ï¿½ï¿½ */
 	private String supplierName;
 
-	/** Žd“üæ•i”ÔFŽd“üæ•i”Ô‚ð•ÛŽ‚·‚é */
+	/** ï¿½dï¿½ï¿½ï¿½ï¿½iï¿½ÔFï¿½dï¿½ï¿½ï¿½ï¿½iï¿½Ô‚ï¿½ÛŽï¿½ï¿½ï¿½ï¿½ï¿½ */
 	private String supplierPcode;
 	
-	/** Žd“ü’P‰¿i‰~jFŽd“ü’P‰¿i‰~j‚ð•ÛŽ‚·‚é */
+	/** ï¿½dï¿½ï¿½ï¿½Pï¿½ï¿½ï¿½iï¿½~ï¿½jï¿½Fï¿½dï¿½ï¿½ï¿½Pï¿½ï¿½ï¿½iï¿½~ï¿½jï¿½ï¿½ÛŽï¿½ï¿½ï¿½ï¿½ï¿½ */
 	private String supplierPriceYen;
 	
-	/** Žd“ü’P‰¿iŠO‰ÝjFŽd“ü’P‰¿iŠO‰Ýj‚ð•ÛŽ‚·‚é */
+	/** ï¿½dï¿½ï¿½ï¿½Pï¿½ï¿½ï¿½iï¿½Oï¿½Ýjï¿½Fï¿½dï¿½ï¿½ï¿½Pï¿½ï¿½ï¿½iï¿½Oï¿½Ýjï¿½ï¿½ÛŽï¿½ï¿½ï¿½ï¿½ï¿½ */
 	private String supplierPriceDol;
 
-	/** ÝŒÉŠÇ—‹æ•ªFÝŒÉŠÇ—‹æ•ª‚ð•ÛŽ‚·‚é */
+	/** ï¿½ÝŒÉŠÇ—ï¿½ï¿½æ•ªï¿½Fï¿½ÝŒÉŠÇ—ï¿½ï¿½æ•ªï¿½ï¿½ÛŽï¿½ï¿½ï¿½ï¿½ï¿½ */
 	private String stockCtlCategory;
 	
-	/** “ü”F“ü”‚ð•ÛŽ‚·‚é */
+	/** ï¿½ï¿½ï¿½ï¿½ï¿½Fï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ÛŽï¿½ï¿½ï¿½ï¿½ï¿½ */
 	private String packQuantity;
 	
-	/** •½‹Ïo‰×”F•½‹Ïo‰×”‚ð•ÛŽ‚·‚é */
+	/** ï¿½ï¿½ï¿½Ïoï¿½×ï¿½ï¿½Fï¿½ï¿½ï¿½Ïoï¿½×ï¿½ï¿½ï¿½ÛŽï¿½ï¿½ï¿½ï¿½ï¿½ */
 	private String avgShipCount;
 	
-	/** ‘qŒÉ–¼F‘qŒÉ–¼‚ð•ÛŽ‚·‚é */
+	/** ï¿½qï¿½É–ï¿½ï¿½Fï¿½qï¿½É–ï¿½ï¿½ï¿½ÛŽï¿½ï¿½ï¿½ï¿½ï¿½ */
 	private String warehouseName;
 	
-	/** ’I”ÔF’I”Ô‚ð•ÛŽ‚·‚é */
+	/** ï¿½Iï¿½ÔFï¿½Iï¿½Ô‚ï¿½ÛŽï¿½ï¿½ï¿½ï¿½ï¿½ */
 	private String rackCode;
 
-	/** ƒŠ[ƒhƒ^ƒCƒ€FƒŠ[ƒhƒ^ƒCƒ€‚ð•ÛŽ‚·‚é */
+	/** ï¿½ï¿½ï¿½[ï¿½hï¿½^ï¿½Cï¿½ï¿½ï¿½Fï¿½ï¿½ï¿½[ï¿½hï¿½^ï¿½Cï¿½ï¿½ï¿½ï¿½ÛŽï¿½ï¿½ï¿½ï¿½ï¿½ */
 	private String leadTime;
 
-	/** ”­’“_F”­’“_‚ð•ÛŽ‚·‚é */
+	/** ï¿½ï¿½ï¿½ï¿½ï¿½_ï¿½Fï¿½ï¿½ï¿½ï¿½ï¿½_ï¿½ï¿½ÛŽï¿½ï¿½ï¿½ï¿½ï¿½ */
 	private String poNum;
 	
-	/** ”­’“_Ž©“®XVF”­’“_Ž©“®XV‚ð•ÛŽ‚·‚é */
+	/** ï¿½ï¿½ï¿½ï¿½ï¿½_ï¿½ï¿½ï¿½ï¿½ï¿½Xï¿½Vï¿½Fï¿½ï¿½ï¿½ï¿½ï¿½_ï¿½ï¿½ï¿½ï¿½ï¿½Xï¿½Vï¿½ï¿½ÛŽï¿½ï¿½ï¿½ï¿½ï¿½ */
 	private String poUpdFlag;
 
-	/** Ž©ŽÐˆÀ‘SÝŒÉ”FŽ©ŽÐˆÀ‘SÝŒÉ”‚ð•ÛŽ‚·‚é */
+	/** ï¿½ï¿½ï¿½Ðˆï¿½ï¿½Sï¿½ÝŒÉï¿½ï¿½Fï¿½ï¿½ï¿½Ðˆï¿½ï¿½Sï¿½ÝŒÉï¿½ï¿½ï¿½ÛŽï¿½ï¿½ï¿½ï¿½ï¿½ */
 	private String mineSafetyStock;
 	
-	/** Ž©ŽÐˆÀ‘SÝŒÉ”Ž©“®XVFŽ©ŽÐˆÀ‘SÝŒÉ”Ž©“®XV‚ð•ÛŽ‚·‚é */
+	/** ï¿½ï¿½ï¿½Ðˆï¿½ï¿½Sï¿½ÝŒÉï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Xï¿½Vï¿½Fï¿½ï¿½ï¿½Ðˆï¿½ï¿½Sï¿½ÝŒÉï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Xï¿½Vï¿½ï¿½ÛŽï¿½ï¿½ï¿½ï¿½ï¿½ */
 	private String mineSafetyStockUpdFlag;
 
-	/** ”­’ƒƒbƒgF”­’ƒƒbƒg‚ð•ÛŽ‚·‚é */
+	/** ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½bï¿½gï¿½Fï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½bï¿½gï¿½ï¿½ÛŽï¿½ï¿½ï¿½ï¿½ï¿½ */
 	private String poLot;
 	
-	/** ”­’ƒƒbƒgŽ©“®XVF”­’ƒƒbƒgŽ©“®XV‚ð•ÛŽ‚·‚é */
+	/** ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½bï¿½gï¿½ï¿½ï¿½ï¿½ï¿½Xï¿½Vï¿½Fï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½bï¿½gï¿½ï¿½ï¿½ï¿½ï¿½Xï¿½Vï¿½ï¿½ÛŽï¿½ï¿½ï¿½ï¿½ï¿½ */
 	private String lotUpdFlag;
 
-	/** ÝŒÉŒÀ“x”FÝŒÉŒÀ“x”‚ð•ÛŽ‚·‚é */
+	/** ï¿½ÝŒÉŒï¿½ï¿½xï¿½ï¿½ï¿½Fï¿½ÝŒÉŒï¿½ï¿½xï¿½ï¿½ï¿½ï¿½ÛŽï¿½ï¿½ï¿½ï¿½ï¿½ */
 	private String maxStockNum;
 	
-	/** ÝŒÉŒÀ“x”Ž©“®XVFÝŒÉŒÀ“x”Ž©“®XV‚ð•ÛŽ‚·‚é */
+	/** ï¿½ÝŒÉŒï¿½ï¿½xï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Xï¿½Vï¿½Fï¿½ÝŒÉŒï¿½ï¿½xï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Xï¿½Vï¿½ï¿½ÛŽï¿½ï¿½ï¿½ï¿½ï¿½ */
 	private String stockUpdFlag;
 
-	/** ”­’ŒÀ“x”F”­’ŒÀ“x”‚ð•ÛŽ‚·‚é */
+	/** ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½xï¿½ï¿½ï¿½Fï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½xï¿½ï¿½ï¿½ï¿½ÛŽï¿½ï¿½ï¿½ï¿½ï¿½ */
 	private String maxPoNum;
 	
-	/** ”­’ŒÀ“x”Ž©“®XVF”­’ŒÀ“x”Ž©“®XV‚ð•ÛŽ‚·‚é */
+	/** ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½xï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Xï¿½Vï¿½Fï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½xï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Xï¿½Vï¿½ï¿½ÛŽï¿½ï¿½ï¿½ï¿½ï¿½ */
 	private String maxPoUpdFlag;
 
-	/** Žó’ŒÀ“x”FŽó’ŒÀ“x”‚ð•ÛŽ‚·‚é */
+	/** ï¿½ó’Œï¿½ï¿½xï¿½ï¿½ï¿½Fï¿½ó’Œï¿½ï¿½xï¿½ï¿½ï¿½ï¿½ÛŽï¿½ï¿½ï¿½ï¿½ï¿½ */
 	private String roMaxNum;
 	
-	/** ã‘ãFã‘ã‚ð•ÛŽ‚·‚é */
+	/** ï¿½ï¿½ï¿½Fï¿½ï¿½ï¿½ï¿½ÛŽï¿½ï¿½ï¿½ï¿½ï¿½ */
 	private String retailPrice;
 	
-	/** Š„ˆøƒR[ƒhFŠ„ˆøƒR[ƒh‚ð•ÛŽ‚·‚é */
+	/** ï¿½ï¿½ï¿½ï¿½ï¿½Rï¿½[ï¿½hï¿½Fï¿½ï¿½ï¿½ï¿½ï¿½Rï¿½[ï¿½hï¿½ï¿½ÛŽï¿½ï¿½ï¿½ï¿½ï¿½ */
 	private String discountId;
 	
-	/** •ª—Þó‹µF•ª—Þó‹µ‚ð•ÛŽ‚·‚é */
+	/** ï¿½ï¿½ï¿½Þó‹µFï¿½ï¿½ï¿½Þó‹µ‚ï¿½ÛŽï¿½ï¿½ï¿½ï¿½ï¿½ */
 	private String productStatusCategory;
 	
-	/** •ª—Þ•ÛŠÇF•ª—Þ•ÛŠÇ‚ð•ÛŽ‚·‚é */
+	/** ï¿½ï¿½ï¿½Þ•ÛŠÇFï¿½ï¿½ï¿½Þ•ÛŠÇ‚ï¿½ÛŽï¿½ï¿½ï¿½ï¿½ï¿½ */
 	private String productStockCategory;
 	
-	/** •ª—Þ’²’BF•ª—Þ’²’B‚ð•ÛŽ‚·‚é */
+	/** ï¿½ï¿½ï¿½Þ’ï¿½ï¿½Bï¿½Fï¿½ï¿½ï¿½Þ’ï¿½ï¿½Bï¿½ï¿½ÛŽï¿½ï¿½ï¿½ï¿½ï¿½ */
 	private String productPurvayCategory;
 	
-	/** •ª—Þ•W€F•ª—Þ•W€‚ð•ÛŽ‚·‚é */
+	/** ï¿½ï¿½ï¿½Þ•Wï¿½ï¿½ï¿½Fï¿½ï¿½ï¿½Þ•Wï¿½ï¿½ï¿½ï¿½ÛŽï¿½ï¿½ï¿½ï¿½ï¿½ */
 	private String productStandardCategory;
 	
-	/** “Á’•iŠ|—¦F“Á’•iŠ|—¦‚ð•ÛŽ‚·‚é */
+	/** ï¿½ï¿½ï¿½ï¿½ï¿½iï¿½|ï¿½ï¿½ï¿½Fï¿½ï¿½ï¿½ï¿½ï¿½iï¿½|ï¿½ï¿½ï¿½ï¿½ÛŽï¿½ï¿½ï¿½ï¿½ï¿½ */
 	private String soRate;
 
-	/** ƒZƒbƒg¤•iƒtƒ‰ƒOFƒZƒbƒg¤•iƒtƒ‰ƒO‚ð•ÛŽ‚·‚é */
+	/** ï¿½Zï¿½bï¿½gï¿½ï¿½ï¿½iï¿½tï¿½ï¿½ï¿½Oï¿½Fï¿½Zï¿½bï¿½gï¿½ï¿½ï¿½iï¿½tï¿½ï¿½ï¿½Oï¿½ï¿½ÛŽï¿½ï¿½ï¿½ï¿½ï¿½ */
 	private String setTypeCategory;
 
-	/** ¤•i•ª—Þ‚PF¤•i•ª—Þ‚P‚ð•ÛŽ‚·‚é */
+	/** ï¿½ï¿½ï¿½iï¿½ï¿½ï¿½Þ‚Pï¿½Fï¿½ï¿½ï¿½iï¿½ï¿½ï¿½Þ‚Pï¿½ï¿½ÛŽï¿½ï¿½ï¿½ï¿½ï¿½ */
 	private String product1;
 
-	/** ¤•i•ª—Þ‚QF¤•i•ª—Þ‚Q‚ð•ÛŽ‚·‚é */
+	/** ï¿½ï¿½ï¿½iï¿½ï¿½ï¿½Þ‚Qï¿½Fï¿½ï¿½ï¿½iï¿½ï¿½ï¿½Þ‚Qï¿½ï¿½ÛŽï¿½ï¿½ï¿½ï¿½ï¿½ */
 	private String product2;
 	
-	/** ¤•i•ª—Þ‚RF¤•i•ª—Þ‚R‚ð•ÛŽ‚·‚é */
+	/** ï¿½ï¿½ï¿½iï¿½ï¿½ï¿½Þ‚Rï¿½Fï¿½ï¿½ï¿½iï¿½ï¿½ï¿½Þ‚Rï¿½ï¿½ÛŽï¿½ï¿½ï¿½ï¿½ï¿½ */
 	private String product3;
 	
-	/** ’PˆÊƒR[ƒhF’PˆÊƒR[ƒh‚ð•ÛŽ‚·‚é */
+	/** ï¿½Pï¿½ÊƒRï¿½[ï¿½hï¿½Fï¿½Pï¿½ÊƒRï¿½[ï¿½hï¿½ï¿½ÛŽï¿½ï¿½ï¿½ï¿½ï¿½ */
 	private String unitCategory;
 	
-	/** d—ÊFd—Ê‚ð•ÛŽ‚·‚é */
+	/** ï¿½dï¿½ÊFï¿½dï¿½Ê‚ï¿½ÛŽï¿½ï¿½ï¿½ï¿½ï¿½ */
 	private String weight;
 	
-	/** d—Ê’PˆÊFd—Ê’PˆÊ‚ð•ÛŽ‚·‚é */
+	/** ï¿½dï¿½Ê’Pï¿½ÊFï¿½dï¿½Ê’Pï¿½Ê‚ï¿½ÛŽï¿½ï¿½ï¿½ï¿½ï¿½ */
 	private String weightUnitSizeCategory;
 
-	/** ’·‚³F’·‚³‚ð•ÛŽ‚·‚é */
+	/** ï¿½ï¿½ï¿½ï¿½ï¿½Fï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ÛŽï¿½ï¿½ï¿½ï¿½ï¿½ */
 	private String length;
 	
-	/** ’·‚³’PˆÊF’·‚³’PˆÊ‚ð•ÛŽ‚·‚é */
+	/** ï¿½ï¿½ï¿½ï¿½ï¿½Pï¿½ÊFï¿½ï¿½ï¿½ï¿½ï¿½Pï¿½Ê‚ï¿½ÛŽï¿½ï¿½ï¿½ï¿½ï¿½ */
 	private String lengthUnitSizeCategory;
 
-	/** ƒTƒCƒYi•jFƒTƒCƒYi•j‚ð•ÛŽ‚·‚é */
+	/** ï¿½Tï¿½Cï¿½Yï¿½iï¿½ï¿½ï¿½jï¿½Fï¿½Tï¿½Cï¿½Yï¿½iï¿½ï¿½ï¿½jï¿½ï¿½ÛŽï¿½ï¿½ï¿½ï¿½ï¿½ */
 	private String width;
 	
-	/** ƒTƒCƒYi•j’PˆÊFƒTƒCƒYi•j’PˆÊ‚ð•ÛŽ‚·‚é */
+	/** ï¿½Tï¿½Cï¿½Yï¿½iï¿½ï¿½ï¿½jï¿½Pï¿½ÊFï¿½Tï¿½Cï¿½Yï¿½iï¿½ï¿½ï¿½jï¿½Pï¿½Ê‚ï¿½ÛŽï¿½ï¿½ï¿½ï¿½ï¿½ */
 	private String widthUnitSizeCategory;
 
-	/** ƒTƒCƒYi‰œjFƒTƒCƒYi‰œj‚ð•ÛŽ‚·‚é */
+	/** ï¿½Tï¿½Cï¿½Yï¿½iï¿½ï¿½ï¿½jï¿½Fï¿½Tï¿½Cï¿½Yï¿½iï¿½ï¿½ï¿½jï¿½ï¿½ÛŽï¿½ï¿½ï¿½ï¿½ï¿½ */
 	private String depth;
 
-	/** ƒTƒCƒYi‰œj’PˆÊFƒTƒCƒYi‰œj’PˆÊ‚ð•ÛŽ‚·‚é */
+	/** ï¿½Tï¿½Cï¿½Yï¿½iï¿½ï¿½ï¿½jï¿½Pï¿½ÊFï¿½Tï¿½Cï¿½Yï¿½iï¿½ï¿½ï¿½jï¿½Pï¿½Ê‚ï¿½ÛŽï¿½ï¿½ï¿½ï¿½ï¿½ */
 	private String depthUnitSizeCategory;	
 	
-	/** ƒTƒCƒYi‚jFƒTƒCƒYi‚j‚ð•ÛŽ‚·‚é */
+	/** ï¿½Tï¿½Cï¿½Yï¿½iï¿½ï¿½ï¿½jï¿½Fï¿½Tï¿½Cï¿½Yï¿½iï¿½ï¿½ï¿½jï¿½ï¿½ÛŽï¿½ï¿½ï¿½ï¿½ï¿½ */
 	private String height;
 	
-	/** ƒTƒCƒYi‚j’PˆÊFƒTƒCƒYi‚j’PˆÊ‚ð•ÛŽ‚·‚é */
+	/** ï¿½Tï¿½Cï¿½Yï¿½iï¿½ï¿½ï¿½jï¿½Pï¿½ÊFï¿½Tï¿½Cï¿½Yï¿½iï¿½ï¿½ï¿½jï¿½Pï¿½Ê‚ï¿½ÛŽï¿½ï¿½ï¿½ï¿½ï¿½ */
 	private String heightUnitSizeCategory;
 
-	/** c”Fc”‚ð•ÛŽ‚·‚é */
+	/** ï¿½cï¿½ï¿½ï¿½Fï¿½cï¿½ï¿½ï¿½ï¿½ÛŽï¿½ï¿½ï¿½ï¿½ï¿½ */
 	private String coreNum;
 	
-	/** ”õlF”õl‚ð•ÛŽ‚·‚é */
+	/** ï¿½ï¿½ï¿½lï¿½Fï¿½ï¿½ï¿½lï¿½ï¿½ÛŽï¿½ï¿½ï¿½ï¿½ï¿½ */
 	private String remarks;
 
-	/** ƒsƒbƒLƒ“ƒO”õlFƒsƒbƒLƒ“ƒO”õl‚ð•ÛŽ‚·‚é */
+	/** ï¿½sï¿½bï¿½Lï¿½ï¿½ï¿½Oï¿½ï¿½ï¿½lï¿½Fï¿½sï¿½bï¿½Lï¿½ï¿½ï¿½Oï¿½ï¿½ï¿½lï¿½ï¿½ÛŽï¿½ï¿½ï¿½ï¿½ï¿½ */
 	private String eadRemarks;
 	
-	/** ƒRƒƒ“ƒgFƒRƒƒ“ƒg‚ð•ÛŽ‚·‚é */
+	/** ï¿½Rï¿½ï¿½ï¿½ï¿½ï¿½gï¿½Fï¿½Rï¿½ï¿½ï¿½ï¿½ï¿½gï¿½ï¿½ÛŽï¿½ï¿½ï¿½ï¿½ï¿½ */
 	private String commentData;
 	
 	
