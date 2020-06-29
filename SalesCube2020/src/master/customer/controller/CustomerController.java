@@ -95,9 +95,9 @@ public class CustomerController extends BaseController{
 		List<CustomerResultBean> list = dao.searchCustomer(bean);
 		
 		/*if(result == 0 ) {
-			request.setAttribute("message","�������ɃG���[�������܂���");
+			request.setAttribute("message","�ｿｽ�ｿｽ�ｿｽ�ｿｽ�ｿｽ�ｿｽ�ｿｽﾉエ�ｿｽ�ｿｽ�ｿｽ[�ｿｽ�ｿｽ�ｿｽ�ｿｽ�ｿｽ�ｿｽ�ｿｽﾜゑｿｽ�ｿｽ�ｿｽ");
 		} else {
-			//request.setAttribute( "message", "�������������܂����B");
+			//request.setAttribute( "message", "�ｿｽ�ｿｽ�ｿｽ�ｿｽ�ｿｽ�ｿｽ�ｿｽ�ｿｽ�ｿｽ�ｿｽ�ｿｽ�ｿｽ�ｿｽﾜゑｿｽ�ｿｽ�ｿｽ�ｿｽB");
 		} */
 		
 		
@@ -270,11 +270,11 @@ public class CustomerController extends BaseController{
 		
 		
 		if(check == 999) {
-			String message = space + "�ڋq���̒ǉ������ɂ����ăG���[���������܂���<br>";
+			String message = space + "顧客情報の追加処理でエラーが生じました<br>";
 			request.setAttribute("message",message);
 		} 
 		
-		//�[������
+		//�ｿｽ[�ｿｽ�ｿｽ�ｿｽ�ｿｽ�ｿｽ�ｿｽ
 		//String deliveryCode        = request.getParameter("deliveryCode");
 		String deliveryName        = request.getParameter("deliveryName");
 		String deliveryKana        = request.getParameter("deliveryKana");
@@ -291,15 +291,15 @@ public class CustomerController extends BaseController{
 		String delFax 			   = request.getParameter("delFax");
 		String delEmail            = request.getParameter("delEmail");
 		
-		//���ݎ�������肵�AString�^�ɕϊ�����
+		//�ｿｽ�ｿｽ�ｿｽﾝ趣ｿｽ�ｿｽ�ｿｽ�ｿｽ�ｿｽ�ｿｽ�ｿｽ閧ｵ�ｿｽAString�ｿｽ^�ｿｽﾉ変奇ｿｽ�ｿｽ�ｿｽ�ｿｽ�ｿｽ
 		//LocalDateTime ldt           = LocalDateTime.now();
 		//String creDate              = ldt.toString();
 		
-		//���݂̔[���R�[�h�̍ő�l+1���擾����
+		//�ｿｽ�ｿｽ�ｿｽﾝの納�ｿｽ�ｿｽ�ｿｽR�ｿｽ[�ｿｽh�ｿｽﾌ最托ｿｽl+1�ｿｽ�ｿｽ�ｿｽ謫ｾ�ｿｽ�ｿｽ�ｿｽ�ｿｽ
 		String deliveryCode = dao.getMaxDeliveryCode();
 		
 		
-		//�ǉ�����[�������[����ǉ�Bean�ɃZ�b�g����
+		//�ｿｽﾇ会ｿｽ�ｿｽ�ｿｽ�ｿｽ�ｿｽ[�ｿｽ�ｿｽ�ｿｽ�ｿｽ�ｿｽ�ｿｽ�ｿｽ[�ｿｽ�ｿｽ�ｿｽ�ｿｽﾇ会ｿｽBean�ｿｽﾉセ�ｿｽb�ｿｽg�ｿｽ�ｿｽ�ｿｽ�ｿｽ
 		DeliveryAddBean delbean = new DeliveryAddBean();
 		delbean.setAddress1(delAddress1);
 		delbean.setAddress2(delAddress2);
@@ -318,21 +318,21 @@ public class CustomerController extends BaseController{
 		
 		delbean.setDeliveryCode(deliveryCode);
 		
-		//�[����ǉ����\�b�h���Ăяo���A�G���[���������ꍇ�Acheck2��"1"���Ԃ����
+		//�ｿｽ[�ｿｽ�ｿｽ�ｿｽ�ｿｽﾇ会ｿｽ�ｿｽ�ｿｽ�ｿｽ\�ｿｽb�ｿｽh�ｿｽ�ｿｽ�ｿｽﾄび出�ｿｽ�ｿｽ�ｿｽA�ｿｽG�ｿｽ�ｿｽ�ｿｽ[�ｿｽ�ｿｽ�ｿｽ�ｿｽ�ｿｽ�ｿｽ�ｿｽ�ｿｽ�ｿｽ鼾�ｿｽAcheck2�ｿｽ�ｿｽ"1"�ｿｽ�ｿｽ�ｿｽﾔゑｿｽ�ｿｽ�ｿｽ�ｿｽ
 		int check2 = dao.addDelivery(delbean);
 		
-		//�[����ǉ����\�b�h�̃G���[����
+		//�ｿｽ[�ｿｽ�ｿｽ�ｿｽ�ｿｽﾇ会ｿｽ�ｿｽ�ｿｽ�ｿｽ\�ｿｽb�ｿｽh�ｿｽﾌエ�ｿｽ�ｿｽ�ｿｽ[�ｿｽ�ｿｽ�ｿｽ�ｿｽ
 		if(check2 == 999) {
-			String message2 = space + "�[������̒ǉ������ɂ����ăG���[���������܂���<br>";
+			String message2 = space + "納入先情報の追加処理でエラーが生じました<br>";
 			request.setAttribute("message2",message2);
 		} else {
 			
 		}
 		
-		//�ŐV�̔[����R�[�h���擾(��̃��\�b�h�œo�^�����ۂ̔[����R�[�h)
+		//�ｿｽﾅ新�ｿｽﾌ納�ｿｽ�ｿｽ�ｿｽ�ｿｽR�ｿｽ[�ｿｽh�ｿｽ�ｿｽ�ｿｽ謫ｾ(�ｿｽ�ｿｽﾌ�ｿｽ�ｿｽ\�ｿｽb�ｿｽh�ｿｽﾅ登�ｿｽ^�ｿｽ�ｿｽ�ｿｽ�ｿｽ�ｿｽﾛの納�ｿｽ�ｿｽ�ｿｽ�ｿｽR�ｿｽ[�ｿｽh)
 		//String latestDelCode = dao.getAddDeliveryCode();
 		
-		//������
+		//�ｿｽ�ｿｽ�ｿｽ�ｿｽ�ｿｽ�ｿｽ
 		//String deliveryCode2        = request.getParameter("deliveryCode2");
 		String deliveryName2        = request.getParameter("deliveryName2");
 		String deliveryKana2        = request.getParameter("deliveryKana2");
@@ -349,13 +349,13 @@ public class CustomerController extends BaseController{
 		String delFax2 			   = request.getParameter("delFax2");
 		String delEmail2            = request.getParameter("delEmail2");
 		
-		//���ݎ�������肵�AString�^�ɕϊ�����
+		//�ｿｽ�ｿｽ�ｿｽﾝ趣ｿｽ�ｿｽ�ｿｽ�ｿｽ�ｿｽ�ｿｽ�ｿｽ閧ｵ�ｿｽAString�ｿｽ^�ｿｽﾉ変奇ｿｽ�ｿｽ�ｿｽ�ｿｽ�ｿｽ
 		//LocalDateTime ldt2           = LocalDateTime.now();
 		//String creDate2              = ldt2.toString();
 		
 		String deliveryCode2 = dao.getMaxDeliveryCode();
 				
-		//�ǉ����鐿�������[����ǉ�Bean�ɃZ�b�g����
+		//�ｿｽﾇ会ｿｽ�ｿｽ�ｿｽ�ｿｽ髏ｿ�ｿｽ�ｿｽ�ｿｽ�ｿｽ�ｿｽ�ｿｽ�ｿｽ[�ｿｽ�ｿｽ�ｿｽ�ｿｽﾇ会ｿｽBean�ｿｽﾉセ�ｿｽb�ｿｽg�ｿｽ�ｿｽ�ｿｽ�ｿｽ
 		DeliveryAddBean delbean2 = new DeliveryAddBean();
 		delbean2.setAddress1(delAddress1_2);
 		delbean2.setAddress2(delAddress2_2);
@@ -375,31 +375,31 @@ public class CustomerController extends BaseController{
 		delbean2.setDeliveryCode(deliveryCode2);
 		//delbean2.setCreDate(creDate2);
 		
-		//�[����i������j�ǉ����\�b�h���Ăяo���A�G���[���������ꍇ�Acheck3��"1"���Ԃ����
+		//�ｿｽ[�ｿｽ�ｿｽ�ｿｽ�ｿｽi�ｿｽ�ｿｽ�ｿｽ�ｿｽ�ｿｽ�ｿｽj�ｿｽﾇ会ｿｽ�ｿｽ�ｿｽ�ｿｽ\�ｿｽb�ｿｽh�ｿｽ�ｿｽ�ｿｽﾄび出�ｿｽ�ｿｽ�ｿｽA�ｿｽG�ｿｽ�ｿｽ�ｿｽ[�ｿｽ�ｿｽ�ｿｽ�ｿｽ�ｿｽ�ｿｽ�ｿｽ�ｿｽ�ｿｽ鼾�ｿｽAcheck3�ｿｽ�ｿｽ"1"�ｿｽ�ｿｽ�ｿｽﾔゑｿｽ�ｿｽ�ｿｽ�ｿｽ
 		int check3 = dao.addDelivery(delbean2);
 		
-		//�[����i������j�ǉ����\�b�h�̃G���[����
+		//�ｿｽ[�ｿｽ�ｿｽ�ｿｽ�ｿｽi�ｿｽ�ｿｽ�ｿｽ�ｿｽ�ｿｽ�ｿｽj�ｿｽﾇ会ｿｽ�ｿｽ�ｿｽ�ｿｽ\�ｿｽb�ｿｽh�ｿｽﾌエ�ｿｽ�ｿｽ�ｿｽ[�ｿｽ�ｿｽ�ｿｽ�ｿｽ
 		if(check3 == 999) {
-			String message3 = space + "��������̒ǉ������ɂ����ăG���[���������܂���<br>";
+			String message3 = space + "請求先情報の追加処理でエラーが生じました<br><br>";
 			request.setAttribute("message3",message3);
 		}
 		
-		//�ŐV�̐�����R�[�h���擾(��̃��\�b�h�œo�^�����ۂ̐�����R�[�h)
+		//�ｿｽﾅ新�ｿｽﾌ撰ｿｽ�ｿｽ�ｿｽ�ｿｽ�ｿｽR�ｿｽ[�ｿｽh�ｿｽ�ｿｽ�ｿｽ謫ｾ(�ｿｽ�ｿｽﾌ�ｿｽ�ｿｽ\�ｿｽb�ｿｽh�ｿｽﾅ登�ｿｽ^�ｿｽ�ｿｽ�ｿｽ�ｿｽ�ｿｽﾛの撰ｿｽ�ｿｽ�ｿｽ�ｿｽ�ｿｽR�ｿｽ[�ｿｽh)
 		//String latestDelCode2 = dao.getAddDeliveryCode();
 		
-		//�ڋq�֘A���o�^���\�b�h���Ăяo���A(�ڋq�R�[�h�A�[����R�[�h�y�ѐ�����R�[�h�A�[����/������t���O)�������ɂ��āA�֘A�}�X�^�ɓo�^������
-		//�����A�G���[����������check4,check5��1���Ԃ����
+		//�ｿｽﾚ客�ｿｽﾖ連�ｿｽ�ｿｽ�ｿｽo�ｿｽ^�ｿｽ�ｿｽ�ｿｽ\�ｿｽb�ｿｽh�ｿｽ�ｿｽ�ｿｽﾄび出�ｿｽ�ｿｽ�ｿｽA(�ｿｽﾚ客�ｿｽR�ｿｽ[�ｿｽh�ｿｽA�ｿｽ[�ｿｽ�ｿｽ�ｿｽ�ｿｽR�ｿｽ[�ｿｽh�ｿｽy�ｿｽﾑ撰ｿｽ�ｿｽ�ｿｽ�ｿｽ�ｿｽR�ｿｽ[�ｿｽh�ｿｽA�ｿｽ[�ｿｽ�ｿｽ�ｿｽ�ｿｽ/�ｿｽ�ｿｽ�ｿｽ�ｿｽ�ｿｽ�ｿｽt�ｿｽ�ｿｽ�ｿｽO)�ｿｽ�ｿｽ�ｿｽ�ｿｽ�ｿｽ�ｿｽ�ｿｽﾉゑｿｽ�ｿｽﾄ、�ｿｽﾖ連�ｿｽ}�ｿｽX�ｿｽ^�ｿｽﾉ登�ｿｽ^�ｿｽ�ｿｽ�ｿｽ�ｿｽ�ｿｽ�ｿｽ
+		//�ｿｽ�ｿｽ�ｿｽ�ｿｽ�ｿｽA�ｿｽG�ｿｽ�ｿｽ�ｿｽ[�ｿｽ�ｿｽ�ｿｽ�ｿｽ�ｿｽ�ｿｽ�ｿｽ�ｿｽ�ｿｽ�ｿｽcheck4,check5�ｿｽ�ｿｽ1�ｿｽ�ｿｽ�ｿｽﾔゑｿｽ�ｿｽ�ｿｽ�ｿｽ
 		int check4 = dao.setRelation(customerCode, deliveryCode, "01");
 		int check5 = dao.setRelation(customerCode, deliveryCode2, "02");
 				
 		if(check4 == 999 || check5 == 999) {
-			String message3 = space + "�ڋq�֘A���̒ǉ������ɂ����ăG���[���������܂���";
+			String message3 = space + "関連情報の追加処理でエラーが生じました<br>";
 			request.setAttribute("message4",message3);
 		}
 
 		
 		if(check!=999 && check2!=999 && check3!=999 && check4!=999 && check5!=999) {
-			String message6 = space + "�ڋq���̒ǉ����������܂���";
+			String message6 = space + "顧客情報の追加が完了しました。";
 			request.setAttribute("message",message6);
 		}
 		return forwardURL;
@@ -407,13 +407,13 @@ public class CustomerController extends BaseController{
 		
 	}
 	
-	//�ڋq�ҏW�����郁�\�b�h
+	//�ｿｽﾚ客�ｿｽﾒ集�ｿｽ�ｿｽ�ｿｽ�ｿｽ�ｿｽ驛�ｿｽ\�ｿｽb�ｿｽh
 	private String modifyCustomer(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException, ClassNotFoundException, SQLException {
 		
 		String forwardURL = "/customersearch.jsp";
 		
-		//�ҏW����ڋq���
+		//�ｿｽﾒ集�ｿｽ�ｿｽ�ｿｽ�ｿｽﾚ客�ｿｽ�ｿｽ�ｿｽ
 		String customerCode         = request.getParameter("customerCode");
 		String customerName         = request.getParameter("customerName");
 		String customerKana         = request.getParameter("customerKana");
@@ -450,7 +450,7 @@ public class CustomerController extends BaseController{
 		String remarks 		        = request.getParameter("remarks");
 		String comment              = request.getParameter("comment");
 		
-		//�ҏW����ڋq�����ڋq�ҏWBean�ɃZ�b�g����
+		//�ｿｽﾒ集�ｿｽ�ｿｽ�ｿｽ�ｿｽﾚ客�ｿｽ�ｿｽ�ｿｽ�ｿｽ�ｿｽﾚ客�ｿｽﾒ集Bean�ｿｽﾉセ�ｿｽb�ｿｽg�ｿｽ�ｿｽ�ｿｽ�ｿｽ
 		CustomerModifyBean bean = new CustomerModifyBean();
 		bean.setCustomerCode(customerCode);
 		bean.setCustomerName(customerName);
@@ -490,17 +490,17 @@ public class CustomerController extends BaseController{
 		
 		
 		CustomerDAO dao =  new CustomerDAO();
-		//�ڋqDAO�̌ڋq�ҏW���\�b�h���Ăяo���A�G���[����������check��1������
+		//�ｿｽﾚ客DAO�ｿｽﾌ顧客�ｿｽﾒ集�ｿｽ�ｿｽ�ｿｽ\�ｿｽb�ｿｽh�ｿｽ�ｿｽ�ｿｽﾄび出�ｿｽ�ｿｽ�ｿｽA�ｿｽG�ｿｽ�ｿｽ�ｿｽ[�ｿｽ�ｿｽ�ｿｽ�ｿｽ�ｿｽ�ｿｽ�ｿｽ�ｿｽ�ｿｽ�ｿｽcheck�ｿｽ�ｿｽ1�ｿｽ�ｿｽ�ｿｽ�ｿｽ�ｿｽ�ｿｽ
 		int check = dao.modifyCustomer(bean);
 		
-		//�ڋq�ҏW�̃G���[����
+		//�ｿｽﾚ客�ｿｽﾒ集�ｿｽﾌエ�ｿｽ�ｿｽ�ｿｽ[�ｿｽ�ｿｽ�ｿｽ�ｿｽ
 		if(check == 999) {
-			String message =  space + "�ڋq���̕ύX�����ɂ����ăG���[���������܂���<br>";
+			String message =  space + "顧客情報の編集処理でエラーが生じました<br><br>";
 			request.setAttribute("message",message);
 		}
 		
 		
-		//�ҏW����[������
+		//�ｿｽﾒ集�ｿｽ�ｿｽ�ｿｽ�ｿｽ[�ｿｽ�ｿｽ�ｿｽ�ｿｽ�ｿｽ�ｿｽ
 		String deliveryCode        = request.getParameter("deliveryCode");
 		String deliveryName        = request.getParameter("deliveryName");
 		String deliveryKana        = request.getParameter("deliveryKana");
@@ -520,7 +520,7 @@ public class CustomerController extends BaseController{
 		LocalDateTime ldt           = LocalDateTime.now();
 		String updDate              = ldt.toString();
 
-		//�ҏW����[�������[����ҏWBean�ɃZ�b�g����
+		//�ｿｽﾒ集�ｿｽ�ｿｽ�ｿｽ�ｿｽ[�ｿｽ�ｿｽ�ｿｽ�ｿｽ�ｿｽ�ｿｽ�ｿｽ[�ｿｽ�ｿｽ�ｿｽ�ｿｽﾒ集Bean�ｿｽﾉセ�ｿｽb�ｿｽg�ｿｽ�ｿｽ�ｿｽ�ｿｽ
 		DeliveryModifyBean delbean = new DeliveryModifyBean();
 		delbean.setAddress1(delAddress1);
 		delbean.setAddress2(delAddress2);
@@ -539,17 +539,17 @@ public class CustomerController extends BaseController{
 		delbean.setZipCode(delZipCode);
 		delbean.setUpdDate(updDate);
 		
-		//�ڋqDAO�̔[����ҏW���\�b�h���Ăяo���A�G���[����������check��1������
+		//�ｿｽﾚ客DAO�ｿｽﾌ納�ｿｽ�ｿｽ�ｿｽ�ｿｽﾒ集�ｿｽ�ｿｽ�ｿｽ\�ｿｽb�ｿｽh�ｿｽ�ｿｽ�ｿｽﾄび出�ｿｽ�ｿｽ�ｿｽA�ｿｽG�ｿｽ�ｿｽ�ｿｽ[�ｿｽ�ｿｽ�ｿｽ�ｿｽ�ｿｽ�ｿｽ�ｿｽ�ｿｽ�ｿｽ�ｿｽcheck�ｿｽ�ｿｽ1�ｿｽ�ｿｽ�ｿｽ�ｿｽ�ｿｽ�ｿｽ
 		int check2 = dao.modifyDelivery(delbean);
 		
-		//�[����ҏW�̃G���[����
+		//�ｿｽ[�ｿｽ�ｿｽ�ｿｽ�ｿｽﾒ集�ｿｽﾌエ�ｿｽ�ｿｽ�ｿｽ[�ｿｽ�ｿｽ�ｿｽ�ｿｽ
 		if(check2 == 999) {
-			String message2 =  space + "�[������̕ύX�����ɂ����ăG���[���������܂���<br>";
+			String message2 =  space + "納入先情報の編集処理でエラーが生じました<br>";
 			request.setAttribute("message2",message2);
 		}
 		
 		
-		//��������
+		//�ｿｽ�ｿｽ�ｿｽ�ｿｽ�ｿｽ�ｿｽ�ｿｽ�ｿｽ
 		String deliveryCode2        = request.getParameter("deliveryCode2");
 		String deliveryName2        = request.getParameter("deliveryName2");
 		String deliveryKana2        = request.getParameter("deliveryKana2");
@@ -569,7 +569,7 @@ public class CustomerController extends BaseController{
 		LocalDateTime ldt2           = LocalDateTime.now();
 		String creDate2              = ldt2.toString();
 				
-		//�ҏW���鐿�������[����(������)�ҏWBean�ɃZ�b�g����
+		//�ｿｽﾒ集�ｿｽ�ｿｽ�ｿｽ髏ｿ�ｿｽ�ｿｽ�ｿｽ�ｿｽ�ｿｽ�ｿｽ�ｿｽ[�ｿｽ�ｿｽ�ｿｽ�ｿｽ(�ｿｽ�ｿｽ�ｿｽ�ｿｽ�ｿｽ�ｿｽ)�ｿｽﾒ集Bean�ｿｽﾉセ�ｿｽb�ｿｽg�ｿｽ�ｿｽ�ｿｽ�ｿｽ
 		DeliveryModifyBean delbean2 = new DeliveryModifyBean();
 		delbean2.setAddress1(delAddress1_2);
 		delbean2.setAddress2(delAddress2_2);
@@ -588,25 +588,25 @@ public class CustomerController extends BaseController{
 		delbean2.setZipCode(delZipCode2);
 		delbean2.setUpdDate(creDate2);
 		
-		//�ڋqDAO�̔[����(������)�ҏW���\�b�h���Ăяo���A�G���[����������check��1������
+		//�ｿｽﾚ客DAO�ｿｽﾌ納�ｿｽ�ｿｽ�ｿｽ�ｿｽ(�ｿｽ�ｿｽ�ｿｽ�ｿｽ�ｿｽ�ｿｽ)�ｿｽﾒ集�ｿｽ�ｿｽ�ｿｽ\�ｿｽb�ｿｽh�ｿｽ�ｿｽ�ｿｽﾄび出�ｿｽ�ｿｽ�ｿｽA�ｿｽG�ｿｽ�ｿｽ�ｿｽ[�ｿｽ�ｿｽ�ｿｽ�ｿｽ�ｿｽ�ｿｽ�ｿｽ�ｿｽ�ｿｽ�ｿｽcheck�ｿｽ�ｿｽ1�ｿｽ�ｿｽ�ｿｽ�ｿｽ�ｿｽ�ｿｽ
 		int check3 = dao.modifyDelivery(delbean2);
-		//�[����(������)�ҏW�̃G���[����
+		//�ｿｽ[�ｿｽ�ｿｽ�ｿｽ�ｿｽ(�ｿｽ�ｿｽ�ｿｽ�ｿｽ�ｿｽ�ｿｽ)�ｿｽﾒ集�ｿｽﾌエ�ｿｽ�ｿｽ�ｿｽ[�ｿｽ�ｿｽ�ｿｽ�ｿｽ
 		if(check3 == 999) {
-			String message3 =  space + "��������̕ύX�����ɂ����ăG���[���������܂���<br>";
+			String message3 =  space + "請求先情報の編集処理でエラーが生じました<br>";
 			request.setAttribute("message3",message3);
 		}
 				
 //		String check4 = dao.setRelation(customerCode, deliveryCode, "01");
 //		String check5 = dao.setRelation(customerCode, deliveryCode2, "02");
 //		
-//		//�֘A�}�X�^�ҏW����������ɂł��Ȃ��ꍇ�̃G���[����
+//		//�ｿｽﾖ連�ｿｽ}�ｿｽX�ｿｽ^�ｿｽﾒ集�ｿｽ�ｿｽ�ｿｽ�ｿｽ�ｿｽ�ｿｽ�ｿｽ�ｿｽ�ｿｽ�ｿｽﾉでゑｿｽ�ｿｽﾈゑｿｽ�ｿｽ鼾�ｿｽﾌエ�ｿｽ�ｿｽ�ｿｽ[�ｿｽ�ｿｽ�ｿｽ�ｿｽ
 //		if(check4 == "1" || check5 == "1") {
-//			String message3 = "��������̒ǉ������ɂ����ăG���[���������܂���";
+//			String message3 = "�ｿｽ�ｿｽ�ｿｽ�ｿｽ�ｿｽ�ｿｽ�ｿｽ�ｿｽﾌ追会ｿｽ�ｿｽ�ｿｽ�ｿｽ�ｿｽ�ｿｽﾉゑｿｽ�ｿｽ�ｿｽ�ｿｽﾄエ�ｿｽ�ｿｽ�ｿｽ[�ｿｽ�ｿｽ�ｿｽ�ｿｽ�ｿｽ�ｿｽ�ｿｽ�ｿｽ�ｿｽﾜゑｿｽ�ｿｽ�ｿｽ";
 //			request.setAttribute("message3",message3);
 //		}
 		
 		if(check!=999 && check2!=999 && check3!=999) {
-			String message4 =  space + "�ڋq���̕ҏW���������܂���";
+			String message4 =  space + "顧客情報の編集が完了しました";
 			request.setAttribute("message",message4);
 		}
 
@@ -614,7 +614,7 @@ public class CustomerController extends BaseController{
 		
 	}
 	
-	//�ڋq�����폜���郁�\�b�h
+	//�ｿｽﾚ客�ｿｽ�ｿｽ�ｿｽ�ｿｽ�ｿｽ尞懶ｿｽ�ｿｽ�ｿｽ驛�ｿｽ\�ｿｽb�ｿｽh
 	private String deleteCustomer(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException, ClassNotFoundException, SQLException {
 		
@@ -623,15 +623,15 @@ public class CustomerController extends BaseController{
 		String customerCode = request.getParameter("customerCode");
 		
 		CustomerDAO dao =  new CustomerDAO();
-		//�ڋq�����폜����DAO�̃��\�b�h�����s
+		//�ｿｽﾚ客�ｿｽ�ｿｽ�ｿｽ�ｿｽ�ｿｽ尞懶ｿｽ�ｿｽ�ｿｽ�ｿｽDAO�ｿｽﾌ�ｿｽ�ｿｽ\�ｿｽb�ｿｽh�ｿｽ�ｿｽ�ｿｽ�ｿｽ�ｿｽs
 		int check = dao.deleteCustomer(customerCode);
 		
-		//�폜����������ɂł��Ȃ��ꍇ�̃G���[����
+		//�ｿｽ尞懶ｿｽ�ｿｽ�ｿｽ�ｿｽ�ｿｽ�ｿｽ�ｿｽ�ｿｽ�ｿｽ�ｿｽﾉでゑｿｽ�ｿｽﾈゑｿｽ�ｿｽ鼾�ｿｽﾌエ�ｿｽ�ｿｽ�ｿｽ[�ｿｽ�ｿｽ�ｿｽ�ｿｽ
 		if(check == 999) {
-			String message =  space + "�ڋq���̍폜�����ɂ����ăG���[���������܂���";
+			String message =  space + "顧客情報の削除処理でエラーが生じました";
 			request.setAttribute("message",message);
 		} else {
-			String message =  space + "�ڋq���̍폜���������܂���";
+			String message =  space + "顧客情報の削除が完了しました";
 			request.setAttribute("message",message);
 		}
 		

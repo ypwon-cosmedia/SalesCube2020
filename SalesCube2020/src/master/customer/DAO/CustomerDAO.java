@@ -344,8 +344,8 @@ public class CustomerDAO extends BaseDAO {
 	 	//�ｿｽw�ｿｽ閧ｳ�ｿｽ黷ｽ�ｿｽﾚ客�ｿｽR�ｿｽ[�ｿｽh�ｿｽ�ｿｽ�ｿｽ�ｿｽﾉ、�ｿｽ�ｿｽ�ｿｽ�ｿｽ�ｿｽ�ｿｽ�ｿｽ�ｿｽ�ｿｽ�ｿｽ謫ｾ�ｿｽ�ｿｽ�ｿｽ�ｿｽ (�ｿｽﾖ連�ｿｽJ�ｿｽe�ｿｽS�ｿｽ�ｿｽ�ｿｽ[�ｿｽ�ｿｽ02(�ｿｽ�ｿｽ�ｿｽ�ｿｽ�ｿｽ�ｿｽ)�ｿｽﾉゑｿｽ�ｿｽﾄゑｿｽ�ｿｽ�ｿｽ)SQL�ｿｽ�ｿｽ
 	 	sql = "SELECT * FROM customer_rel_xxxxx RIGHT OUTER JOIN delivery_mst_xxxxx "
 	 			+ "ON customer_rel_xxxxx.REL_CODE = delivery_mst_xxxxx.DELIVERY_CODE "
-	 			+ "AND customer_rel_xxxxx.CUSTOMER_CODE = " + customerCode
-	 			+ " AND customer_rel_xxxxx.CUST_REL_CATEGORY = '02' ";
+	 			+ "AND customer_rel_xxxxx.CUST_REL_CATEGORY = '02' "
+	 			+ "WHERE customer_rel_xxxxx.CUSTOMER_CODE = " + customerCode;
 	 	result = stmt.executeQuery(sql);
 	 	
 	 	DeliveryModifyBean bean = new DeliveryModifyBean();

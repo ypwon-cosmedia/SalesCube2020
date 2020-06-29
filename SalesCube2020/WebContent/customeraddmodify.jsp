@@ -1014,8 +1014,7 @@
  		document.getElementByID("delEmail").value = list[index].delEmail;
  		}
 
- 	} */
-		
+ 	} */	
 	
 	function doSubmit(){
 		var form = document.mainform;
