@@ -8,7 +8,6 @@ import java.sql.Statement;
 import java.sql.Types;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
 import common.dao.BaseDAO;
@@ -345,7 +344,7 @@ public class CustomerDAO extends BaseDAO {
 	 	sql = "SELECT * FROM customer_rel_xxxxx RIGHT OUTER JOIN delivery_mst_xxxxx "
 	 			+ "ON customer_rel_xxxxx.REL_CODE = delivery_mst_xxxxx.DELIVERY_CODE "
 	 			+ "AND customer_rel_xxxxx.CUST_REL_CATEGORY = '02' "
-	 			+ "WHERE customer_rel_xxxxx.CUSTOMER_CODE = " + customerCode;
+	 			+ " customer_rel_xxxxx.CUSTOMER_CODE = " + customerCode;
 	 	result = stmt.executeQuery(sql);
 	 	
 	 	DeliveryModifyBean bean = new DeliveryModifyBean();
