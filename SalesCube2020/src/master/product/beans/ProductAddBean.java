@@ -1252,16 +1252,4 @@ public class ProductAddBean {
 	public void setDelUser(String delUser) {
 		this.delUser = delUser;
 	}
-	
-	
-	
-	
-	
-	
-	
-
-	
-	
-	
-
 }

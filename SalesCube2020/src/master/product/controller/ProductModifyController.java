@@ -163,6 +163,7 @@ public class ProductModifyController extends BaseController{
 			bean.setProduct1(product1);
 			bean.setProduct2(product2);
 			bean.setProduct3(product3);
+			bean.setUnitCategory(unitCategory);
 			bean.setWeight(weight);
 			bean.setWeightUnitSizeCategory(weightUnitSizeCategory);
 			bean.setLength(length);

@@ -323,6 +323,7 @@ public class ProductAddController extends BaseController {
 			bean.setRoMaxNum(roMaxNum);
 			bean.setRetailPrice(retailPrice);
 			bean.setDiscountId(discountId);
+			bean.setUnitCategory(unitCategory);
 			bean.setProductStatusCategory(productStatusCategory);
 			bean.setProductStockCategory(productStockCategory);
 			bean.setProductPurvayCategory(productPurvayCategory);
