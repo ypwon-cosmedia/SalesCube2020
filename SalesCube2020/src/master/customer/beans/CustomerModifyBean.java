@@ -83,8 +83,6 @@ package master.customer.beans;
  * 
  */
 
-import java.util.Date;
-import java.math.BigDecimal;
 
 public class CustomerModifyBean {
 

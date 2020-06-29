@@ -615,7 +615,6 @@ public class CustomerDAO extends BaseDAO {
 	 		pstmt.setNull(26, Types.DATE);
 	 	} else {
 	 		pstmt.setNull(26, Types.DATE);
-	// 		pstmt.setDate(26, (Date)lastCutoffDate);
 	 	}
 	 	
 	 	if(salesCMCategory==null) {
@@ -710,7 +709,6 @@ public class CustomerDAO extends BaseDAO {
 	 	
 	 	result = stmt.executeQuery(sql);
 	 	
-	 	
 	 	while(result.next()){
 	 		delCode = result.getString("DELIVERY_CODE");
 	 	}
@@ -773,7 +771,6 @@ public class CustomerDAO extends BaseDAO {
 	 										+ "CRE_DATETM ,"
 	 										+ "DELIVERY_CODE)"
 	 										+ " values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ? ,? ,?)";
-	 	
 	 	
 	 	pstmt = con.prepareStatement(sql);
 	 	
@@ -882,7 +879,7 @@ public class CustomerDAO extends BaseDAO {
 	}
 	 
 	//(�ｿｽo�ｿｽ^�ｿｽ�ｿｽ�ｿｽ�ｿｽ)�ｿｽﾅ新�ｿｽﾌ納�ｿｽ�ｿｽ�ｿｽ�ｿｽR�ｿｽ[�ｿｽh�ｿｽ�ｿｽ�ｿｽ謫ｾ�ｿｽ�ｿｽ�ｿｽ�ｿｽ
-	public String getAddDeliveryCode() throws SQLException, ClassNotFoundException {
+	/*public String getAddDeliveryCode() throws SQLException, ClassNotFoundException {
 		
 		Connection con;
 		Statement stmt= null;
@@ -899,7 +896,6 @@ public class CustomerDAO extends BaseDAO {
 	 	
 	 	result = stmt.executeQuery(sql);
 	 	
-	 	
 	 	while(result.next()){
 	 		delCode = result.getString("DELIVERY_CODE");
 	 	}
@@ -907,7 +903,7 @@ public class CustomerDAO extends BaseDAO {
 	 	super.releaseDB(con,stmt,result);
 	 	
 	 	return delCode;
-	}
+	}*/
 	
 	//�ｿｽﾖ連�ｿｽ}�ｿｽX�ｿｽ^�ｿｽe�ｿｽ[�ｿｽu�ｿｽ�ｿｽ�ｿｽ�ｿｽ(�ｿｽﾚ客�ｿｽR�ｿｽ[�ｿｽh�ｿｽA�ｿｽ[�ｿｽ�ｿｽ�ｿｽ�ｿｽ(�ｿｽ�ｿｽ�ｿｽ�ｿｽ�ｿｽ�ｿｽ)�ｿｽR�ｿｽ[�ｿｽh�ｿｽA�ｿｽ[�ｿｽ�ｿｽ�ｿｽ�ｿｽ/�ｿｽ�ｿｽ�ｿｽ�ｿｽ�ｿｽ�ｿｽt�ｿｽ�ｿｽ�ｿｽO)�ｿｽ�ｿｽﾇ会ｿｽ�ｿｽ�ｿｽ�ｿｽ驛�ｿｽ\�ｿｽb�ｿｽh
 	public int setRelation(String customerCode, String delCode, String relCategory) throws SQLException, ClassNotFoundException {
@@ -918,7 +914,6 @@ public class CustomerDAO extends BaseDAO {
 	 	int result=0;
 	 	String sql;
 		
-	 	
 	 	con = super.getConnection();
 	 	//�ｿｽﾖ連�ｿｽ}�ｿｽX�ｿｽ^�ｿｽe�ｿｽ[�ｿｽu�ｿｽ�ｿｽ�ｿｽ�ｿｽ(�ｿｽﾚ客�ｿｽR�ｿｽ[�ｿｽh�ｿｽA�ｿｽ[�ｿｽ�ｿｽ�ｿｽ�ｿｽ(�ｿｽ�ｿｽ�ｿｽ�ｿｽ�ｿｽ�ｿｽ)�ｿｽR�ｿｽ[�ｿｽh�ｿｽA�ｿｽ[�ｿｽ�ｿｽ�ｿｽ�ｿｽ/�ｿｽ�ｿｽ�ｿｽ�ｿｽ�ｿｽ�ｿｽt�ｿｽ�ｿｽ�ｿｽO)�ｿｽ�ｿｽﾇ会ｿｽ�ｿｽ�ｿｽ�ｿｽ�ｿｽSQL�ｿｽ�ｿｽ
 	 	sql = "insert into customer_rel_xxxxx (CUSTOMER_CODE ,"
@@ -926,12 +921,10 @@ public class CustomerDAO extends BaseDAO {
 	 										+ "CUST_REL_CATEGORY)"
 	 										+ " values (?, ?, ?)";
 	 	
-	 	
 	 	pstmt = con.prepareStatement(sql);
 	 	pstmt.setString(1, customerCode);
 	 	pstmt.setString(2, delCode);
 	 	pstmt.setString(3, relCategory);
-	 	
 	 	
 	 	try {
 	 		result = pstmt.executeUpdate();
@@ -995,7 +988,6 @@ public class CustomerDAO extends BaseDAO {
 		String updDate              = ldt.toString();
 		String updDateSQL           = "'" + updDate + "'";
 	 	
-		
 		String customerCodeSQL = "'" + customerCode + "'";
 		
 		String customerNameSQL;
@@ -1278,8 +1270,6 @@ public class CustomerDAO extends BaseDAO {
 	 			", UPD_DATETM = " + updDateSQL + 
 	 			" WHERE CUSTOMER_CODE = " + customerCodeSQL;
 	 			
-
-	 	
 	 	try {
 	 		result = stmt.executeUpdate(sql);
 	 		con.commit();
@@ -1448,8 +1438,6 @@ public class CustomerDAO extends BaseDAO {
 	 			", UPD_DATETM = " + updDateSQL +
 	 			" WHERE DELIVERY_CODE = " + deliveryCodeSQL;
 	 			
-	 	
-	 	
 	 	try {
 	 		result = stmt.executeUpdate(sql);
 	 		con.commit();
@@ -1473,7 +1461,6 @@ public class CustomerDAO extends BaseDAO {
 	 	int result=0;
 	 	String sql;
 		
-	 	
 	 	con = super.getConnection();
 	 	stmt = con.createStatement();
 	 	
@@ -1551,15 +1538,12 @@ public class CustomerDAO extends BaseDAO {
 	 		address1_SQL = "LIKE '" + address1 + "%'";
 	 	}
 	 	
-	 	
 	 	con = super.getConnection();
 	 	stmt = con.createStatement();
 	 	//�ｿｽw�ｿｽ閧ｳ�ｿｽ黷ｽ�ｿｽ�ｿｽ�ｿｽ�ｿｽ�ｿｽﾌ住�ｿｽ�ｿｽ�ｿｽ�ｿｽ�ｿｽ�ｿｽ�ｿｽ謫ｾ�ｿｽ�ｿｽ�ｿｽ�ｿｽ
 	 	sql = "SELECT * FROM ZIP_MST_XXXXX where ( ZIP_CODE " + zipCodeSQL +
 	 			" ) AND ( ZIP_ADDRESS_1 " + address1_SQL + " )"; 
-	 			
-	 			
-	 			
+	 	
 	 	result = stmt.executeQuery(sql);
 	 	
 	 	AddressBean bean2 = new AddressBean();
@@ -1575,7 +1559,6 @@ public class CustomerDAO extends BaseDAO {
 	 	super.releaseDB(con,stmt,result);
 	 	
 	 	return list;
-		
 	}	
 		
 }

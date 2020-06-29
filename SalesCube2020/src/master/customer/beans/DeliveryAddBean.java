@@ -1,7 +1,5 @@
 package master.customer.beans;
 
-import java.util.Date;
-
 /**
  * 納入先情報
  * 納入先情報追加に付随するサービスを提供する<br>

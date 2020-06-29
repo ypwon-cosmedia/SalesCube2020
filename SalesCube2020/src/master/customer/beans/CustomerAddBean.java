@@ -83,9 +83,6 @@ package master.customer.beans;
  * 
  */
 
-import java.util.Date;
-import java.math.BigDecimal;
-
 public class CustomerAddBean {
 
 	/** 顧客コード  ： 顧客コードを保存する　 */
@@ -198,7 +195,6 @@ public class CustomerAddBean {
 	
 	/** 作成者 ：  作成者を保存する */
 	private String creUser;	
-	
 	
 	/**
 	 * @return the customerCode
