@@ -411,7 +411,7 @@
                             <div class="input-group-prepend">
                                 <div class="input-group-text">最終締処理日</div>
                             </div>
- 	                        <input type="text"  class="form-control" id="inlineFormInputGroup" name="lastCutoffDate" value="${customer.lastCutoffDate}">
+ 	                        <input type="text"  class="form-control" id="inlineFormInputGroup" name="lastCutoffDate" value="${customer.lastCutoffDate}" readonly>
                         </div>
                       </div>
                 	</div>
