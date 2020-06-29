@@ -17,6 +17,5 @@ public class SetTypeCategoryBean {
 	public void setSetTypeCategoryName(String setTypeCategoryName) {
 		this.setTypeCategoryName = setTypeCategoryName;
 	}
-	
-	
+		
 }

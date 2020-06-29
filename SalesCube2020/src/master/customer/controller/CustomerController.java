@@ -26,7 +26,7 @@ public class CustomerController extends BaseController{
 	public CustomerController() {
 	}
 	
-	//‹Æ–±‚ğU‚è•ª‚¯‚éƒRƒ“ƒgƒ[ƒ‰[ƒƒ\ƒbƒh
+
 	public String execService(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
 		String forwardURL = "/menu.jsp";
@@ -53,12 +53,12 @@ public class CustomerController extends BaseController{
   		return forwardURL;
 	}
 	
-	//ŒÚ‹qî•ñ‚ğw’è‚³‚ê‚½î•ñ‚ÉŠî‚Ã‚¢‚ÄŒŸõ‚·‚éƒƒ\ƒbƒh
+	
 	private String searchCustomer(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException, ClassNotFoundException, SQLException {
 		
 		String forwardURL     = "/customersearch.jsp";
-		//ƒ†[ƒU[‚ª“ü—Í‚µ‚½î•ñ‚ğæ“¾‚·‚é
+	
 		String customerCode   = request.getParameter("customerCode");
 		String customerName   = request.getParameter("customerName");
 		String customerKana   = request.getParameter("customerKana");
@@ -74,7 +74,7 @@ public class CustomerController extends BaseController{
 		String remarks 		  = request.getParameter("remarks");
 		
 		
-		//ŒÚ‹qî•ñ‚ğbean‚ÉƒZƒbƒg‚·‚é
+		
 		CustomerInputBean bean = new CustomerInputBean();
 		bean.setCustomerCode(customerCode);
 		bean.setCustomerName(customerName);
@@ -90,24 +90,24 @@ public class CustomerController extends BaseController{
 		bean.setPaymentName(paymentName);
 		bean.setRemarks(remarks);
 		
-		//CustomerDAO‚ÌŒÚ‹qŒŸõƒƒ\ƒbƒh‚ğŒÄ‚Ño‚µAŒ‹‰Ê‚ğƒŠƒXƒg‚Å•Ô‚·
+		
 		CustomerDAO dao =  new CustomerDAO();
 		List<CustomerResultBean> list = dao.searchCustomer(bean);
 		
 		/*if(result == 0 ) {
-			request.setAttribute("message","ŒŸõ’†‚ÉƒGƒ‰[‚ª¶‚¶‚Ü‚µ‚½");
+			request.setAttribute("message","ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ÉƒGï¿½ï¿½ï¿½[ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ü‚ï¿½ï¿½ï¿½");
 		} else {
-			//request.setAttribute( "message", "ŒŸõ‚ªŠ®—¹‚µ‚Ü‚µ‚½B");
+			//request.setAttribute( "message", "ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ü‚ï¿½ï¿½ï¿½ï¿½B");
 		} */
 		
-		//æ“¾‚µ‚½ŒÚ‹qŒŸõŒ‹‰Ê‚ÌƒŠƒXƒg‚ğ"customerList"‚ğƒL[‚É‚µ‚ÄƒŠƒNƒGƒXƒgƒXƒR[ƒv‚É“o˜^‚·‚é
+		
 		request.setAttribute("customerList",list);
 			
 		return forwardURL;
 		
 	}
 	
-	//ŒÚ‹q“o˜^‰æ–Ê‚É‘JˆÚ‚·‚éƒƒ\ƒbƒh
+	
 	private String moveAddCustomer(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException, ClassNotFoundException, SQLException {
 		
@@ -119,7 +119,7 @@ public class CustomerController extends BaseController{
 		
 	}
 	
-	//ŒÚ‹q•ÒW‰æ–Ê‚É‘JˆÚ‚·‚éƒƒ\ƒbƒh
+	
 	private String moveModifyCustomer(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException, ClassNotFoundException, SQLException {
 		
@@ -128,14 +128,14 @@ public class CustomerController extends BaseController{
 	
 		
 		CustomerDAO dao =  new CustomerDAO();
-		//w’è‚³‚ê‚½ŒÚ‹qƒR[ƒh‚ğŠî‚ÉŒÚ‹qî•ñ‚ğæ“¾‚·‚é
+		
 		CustomerModifyBean bean = dao.getCustomer(customerCode);
-		//w’è‚³‚ê‚½ŒÚ‹qƒR[ƒh‚ğŠî‚É”[“üæî•ñ‚ğæ“¾‚·‚é
+		
 		List<DeliveryModifyBean> list = dao.getDelivery(customerCode);
-		//w’è‚³‚ê‚½ŒÚ‹qƒR[ƒh‚ğŠî‚É¿‹æî•ñ‚ğæ“¾‚·‚é
+		
 		DeliveryModifyBean bean2 = dao.getDelivery2(customerCode);
 		
-		//æ“¾‚µ‚½Šeî•ñ‚ğƒŠƒNƒGƒXƒgƒXƒR[ƒv‚É“o˜^‚·‚é
+		
 		request.setAttribute("customer",bean);
 		request.setAttribute("deliveryList",list);
 		request.setAttribute("delivery2",bean2);
@@ -146,7 +146,7 @@ public class CustomerController extends BaseController{
 		
 	}
 	
-	//w’è‚³‚ê‚½î•ñ‚ğŠî‚É—X•Ö”Ô†‹y‚ÑZŠ‚ğŒŸõ‚·‚é
+	
 	private String searchAddress(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException, ClassNotFoundException, SQLException {
 		
@@ -155,29 +155,29 @@ public class CustomerController extends BaseController{
 		String zipCode   = request.getParameter("zipCode");
 		String address1   = request.getParameter("address1");
 		
-		//—X•Ö”Ô†ŒŸõ‚ÌBean‚É—X•Ö”Ô†‚ÆZŠ1‚ğƒZƒbƒg‚·‚é
+		
 		AddressBean bean = new AddressBean();
 		bean.setZipCode(zipCode);
 		bean.setZipAddress1(address1);
 		
 		CustomerDAO dao =  new CustomerDAO();
-		//ŒÚ‹qDAO‚Ì—X•Ö”Ô†ŒŸõƒƒ\ƒbƒh‚ğw’è‚³‚ê‚½î•ñ‚ğˆø”‚É‚µ‚ÄŒÄ‚Ño‚µAŒ‹‰Ê‚ğƒŠƒXƒg‚Åæ“¾‚·‚é
+		
 		List<AddressBean> list = dao.searchAddress(bean);
 		
-		//w’è‚³‚ê‚½î•ñ‚ğŠî‚É—X•Ö”Ô†‚ÆZŠ‚ÌƒŠƒXƒg‚ğ"ZipList"‚Æ‚¢‚¤ƒL[‚ÅƒŠƒNƒGƒXƒgƒXƒR[ƒv‚É“o˜^‚·‚é
+	
 		request.setAttribute("ZipList",list);
 		
 		return forwardURL;
 		
 	}
 	
-	//ŒÚ‹q’Ç‰Á‚ğ‚·‚éƒƒ\ƒbƒh
+	
 	private String addCustomer(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException, ClassNotFoundException, SQLException {
 		
 		String forwardURL = "/customersearch.jsp";
 		
-		//ŒÚ‹qî•ñ
+		
 		String customerCode         = request.getParameter("customerCode");
 		String customerName         = request.getParameter("customerName");
 		String customerKana         = request.getParameter("customerKana");
@@ -225,7 +225,7 @@ public class CustomerController extends BaseController{
 		String remarks 		        = request.getParameter("remarks");
 		String comment              = request.getParameter("comment");
 		
-		//ŒÚ‹qî•ñ‚ğŒÚ‹q’Ç‰ÁBean‚ÉƒZƒbƒg‚·‚é
+		
 		CustomerAddBean bean = new CustomerAddBean();
 		bean.setCustomerCode(customerCode);
 		bean.setCustomerName(customerName);
@@ -265,16 +265,16 @@ public class CustomerController extends BaseController{
 		
 		
 		CustomerDAO dao =  new CustomerDAO();
-		//ŒÚ‹qDAO‚ÌŒÚ‹q’Ç‰Áƒƒ\ƒbƒh‚ğŒÄ‚Ño‚µAƒGƒ‰[‚ª‚ ‚Á‚½‚çcheck‚É1‚ª“ü‚é
+		
 		int check = dao.addCustomer(bean);
 		
-		//ŒÚ‹qî•ñ’Ç‰Á‚ÌƒGƒ‰[ˆ—
+		
 		if(check == 999) {
-			String message = space + "ŒÚ‹qî•ñ‚Ì’Ç‰Áˆ—‚É‚¨‚¢‚ÄƒGƒ‰[‚ª”­¶‚µ‚Ü‚µ‚½<br>";
+			String message = space + "ï¿½Ú‹qï¿½ï¿½ï¿½Ì’Ç‰ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½É‚ï¿½ï¿½ï¿½ï¿½ÄƒGï¿½ï¿½ï¿½[ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ü‚ï¿½ï¿½ï¿½<br>";
 			request.setAttribute("message",message);
 		} 
 		
-		//”[“üæî•ñ
+		//ï¿½[ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 		//String deliveryCode        = request.getParameter("deliveryCode");
 		String deliveryName        = request.getParameter("deliveryName");
 		String deliveryKana        = request.getParameter("deliveryKana");
@@ -291,15 +291,15 @@ public class CustomerController extends BaseController{
 		String delFax 			   = request.getParameter("delFax");
 		String delEmail            = request.getParameter("delEmail");
 		
-		//Œ»İ‚ğ“üè‚µAStringŒ^‚É•ÏŠ·‚·‚é
+		//ï¿½ï¿½ï¿½İï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½è‚µï¿½AStringï¿½^ï¿½É•ÏŠï¿½ï¿½ï¿½ï¿½ï¿½
 		//LocalDateTime ldt           = LocalDateTime.now();
 		//String creDate              = ldt.toString();
 		
-		//Œ»İ‚Ì”[“üƒR[ƒh‚ÌÅ‘å’l+1‚ğæ“¾‚·‚é
+		//ï¿½ï¿½ï¿½İ‚Ì”[ï¿½ï¿½ï¿½Rï¿½[ï¿½hï¿½ÌÅ‘ï¿½l+1ï¿½ï¿½ï¿½æ“¾ï¿½ï¿½ï¿½ï¿½
 		String deliveryCode = dao.getMaxDeliveryCode();
 		
 		
-		//’Ç‰Á‚·‚é”[“üæî•ñ‚ğ”[“üæ’Ç‰ÁBean‚ÉƒZƒbƒg‚·‚é
+		//ï¿½Ç‰ï¿½ï¿½ï¿½ï¿½ï¿½[ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½[ï¿½ï¿½ï¿½ï¿½Ç‰ï¿½Beanï¿½ÉƒZï¿½bï¿½gï¿½ï¿½ï¿½ï¿½
 		DeliveryAddBean delbean = new DeliveryAddBean();
 		delbean.setAddress1(delAddress1);
 		delbean.setAddress2(delAddress2);
@@ -318,21 +318,21 @@ public class CustomerController extends BaseController{
 		
 		delbean.setDeliveryCode(deliveryCode);
 		
-		//”[“üæ’Ç‰Áƒƒ\ƒbƒh‚ğŒÄ‚Ño‚µAƒGƒ‰[‚ª¶‚¶‚½ê‡Acheck2‚É"1"‚ª•Ô‚³‚ê‚é
+		//ï¿½[ï¿½ï¿½ï¿½ï¿½Ç‰ï¿½ï¿½ï¿½ï¿½\ï¿½bï¿½hï¿½ï¿½ï¿½Ä‚Ñoï¿½ï¿½ï¿½Aï¿½Gï¿½ï¿½ï¿½[ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ê‡ï¿½Acheck2ï¿½ï¿½"1"ï¿½ï¿½ï¿½Ô‚ï¿½ï¿½ï¿½ï¿½
 		int check2 = dao.addDelivery(delbean);
 		
-		//”[“üæ’Ç‰Áƒƒ\ƒbƒh‚ÌƒGƒ‰[ˆ—
+		//ï¿½[ï¿½ï¿½ï¿½ï¿½Ç‰ï¿½ï¿½ï¿½ï¿½\ï¿½bï¿½hï¿½ÌƒGï¿½ï¿½ï¿½[ï¿½ï¿½ï¿½ï¿½
 		if(check2 == 999) {
-			String message2 = space + "”[“üæî•ñ‚Ì’Ç‰Áˆ—‚É‚¨‚¢‚ÄƒGƒ‰[‚ª”­¶‚µ‚Ü‚µ‚½<br>";
+			String message2 = space + "ï¿½[ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ì’Ç‰ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½É‚ï¿½ï¿½ï¿½ï¿½ÄƒGï¿½ï¿½ï¿½[ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ü‚ï¿½ï¿½ï¿½<br>";
 			request.setAttribute("message2",message2);
 		} else {
 			
 		}
 		
-		//ÅV‚Ì”[“üæƒR[ƒh‚ğæ“¾(ã‚Ìƒƒ\ƒbƒh‚Å“o˜^‚µ‚½Û‚Ì”[“üæƒR[ƒh)
+		//ï¿½ÅVï¿½Ì”[ï¿½ï¿½ï¿½ï¿½Rï¿½[ï¿½hï¿½ï¿½ï¿½æ“¾(ï¿½ï¿½Ìƒï¿½ï¿½\ï¿½bï¿½hï¿½Å“oï¿½^ï¿½ï¿½ï¿½ï¿½ï¿½Û‚Ì”[ï¿½ï¿½ï¿½ï¿½Rï¿½[ï¿½h)
 		//String latestDelCode = dao.getAddDeliveryCode();
 		
-		//¿‹æ
+		//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 		//String deliveryCode2        = request.getParameter("deliveryCode2");
 		String deliveryName2        = request.getParameter("deliveryName2");
 		String deliveryKana2        = request.getParameter("deliveryKana2");
@@ -349,13 +349,13 @@ public class CustomerController extends BaseController{
 		String delFax2 			   = request.getParameter("delFax2");
 		String delEmail2            = request.getParameter("delEmail2");
 		
-		//Œ»İ‚ğ“üè‚µAStringŒ^‚É•ÏŠ·‚·‚é
+		//ï¿½ï¿½ï¿½İï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½è‚µï¿½AStringï¿½^ï¿½É•ÏŠï¿½ï¿½ï¿½ï¿½ï¿½
 		//LocalDateTime ldt2           = LocalDateTime.now();
 		//String creDate2              = ldt2.toString();
 		
 		String deliveryCode2 = dao.getMaxDeliveryCode();
 				
-		//’Ç‰Á‚·‚é¿‹æî•ñ‚ğ”[“üæ’Ç‰ÁBean‚ÉƒZƒbƒg‚·‚é
+		//ï¿½Ç‰ï¿½ï¿½ï¿½ï¿½é¿ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½[ï¿½ï¿½ï¿½ï¿½Ç‰ï¿½Beanï¿½ÉƒZï¿½bï¿½gï¿½ï¿½ï¿½ï¿½
 		DeliveryAddBean delbean2 = new DeliveryAddBean();
 		delbean2.setAddress1(delAddress1_2);
 		delbean2.setAddress2(delAddress2_2);
@@ -375,31 +375,31 @@ public class CustomerController extends BaseController{
 		delbean2.setDeliveryCode(deliveryCode2);
 		//delbean2.setCreDate(creDate2);
 		
-		//”[“üæi¿‹æj’Ç‰Áƒƒ\ƒbƒh‚ğŒÄ‚Ño‚µAƒGƒ‰[‚ª¶‚¶‚½ê‡Acheck3‚É"1"‚ª•Ô‚³‚ê‚é
+		//ï¿½[ï¿½ï¿½ï¿½ï¿½iï¿½ï¿½ï¿½ï¿½ï¿½ï¿½jï¿½Ç‰ï¿½ï¿½ï¿½ï¿½\ï¿½bï¿½hï¿½ï¿½ï¿½Ä‚Ñoï¿½ï¿½ï¿½Aï¿½Gï¿½ï¿½ï¿½[ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ê‡ï¿½Acheck3ï¿½ï¿½"1"ï¿½ï¿½ï¿½Ô‚ï¿½ï¿½ï¿½ï¿½
 		int check3 = dao.addDelivery(delbean2);
 		
-		//”[“üæi¿‹æj’Ç‰Áƒƒ\ƒbƒh‚ÌƒGƒ‰[ˆ—
+		//ï¿½[ï¿½ï¿½ï¿½ï¿½iï¿½ï¿½ï¿½ï¿½ï¿½ï¿½jï¿½Ç‰ï¿½ï¿½ï¿½ï¿½\ï¿½bï¿½hï¿½ÌƒGï¿½ï¿½ï¿½[ï¿½ï¿½ï¿½ï¿½
 		if(check3 == 999) {
-			String message3 = space + "¿‹æî•ñ‚Ì’Ç‰Áˆ—‚É‚¨‚¢‚ÄƒGƒ‰[‚ª”­¶‚µ‚Ü‚µ‚½<br>";
+			String message3 = space + "ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ì’Ç‰ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½É‚ï¿½ï¿½ï¿½ï¿½ÄƒGï¿½ï¿½ï¿½[ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ü‚ï¿½ï¿½ï¿½<br>";
 			request.setAttribute("message3",message3);
 		}
 		
-		//ÅV‚Ì¿‹æƒR[ƒh‚ğæ“¾(ã‚Ìƒƒ\ƒbƒh‚Å“o˜^‚µ‚½Û‚Ì¿‹æƒR[ƒh)
+		//ï¿½ÅVï¿½Ìï¿½ï¿½ï¿½ï¿½ï¿½Rï¿½[ï¿½hï¿½ï¿½ï¿½æ“¾(ï¿½ï¿½Ìƒï¿½ï¿½\ï¿½bï¿½hï¿½Å“oï¿½^ï¿½ï¿½ï¿½ï¿½ï¿½Û‚Ìï¿½ï¿½ï¿½ï¿½ï¿½Rï¿½[ï¿½h)
 		//String latestDelCode2 = dao.getAddDeliveryCode();
 		
-		//ŒÚ‹qŠÖ˜Aî•ñ“o˜^ƒƒ\ƒbƒh‚ğŒÄ‚Ño‚µA(ŒÚ‹qƒR[ƒhA”[“üæƒR[ƒh‹y‚Ñ¿‹æƒR[ƒhA”[“üæ/¿‹æƒtƒ‰ƒO)‚ğˆø”‚É‚µ‚ÄAŠÖ˜Aƒ}ƒXƒ^‚É“o˜^‚ğ‚·‚é
-		//‚à‚µAƒGƒ‰[‚ª¶‚¶‚½‚çcheck4,check5‚É1‚ª•Ô‚³‚ê‚é
+		//ï¿½Ú‹qï¿½Ö˜Aï¿½ï¿½ï¿½oï¿½^ï¿½ï¿½ï¿½\ï¿½bï¿½hï¿½ï¿½ï¿½Ä‚Ñoï¿½ï¿½ï¿½A(ï¿½Ú‹qï¿½Rï¿½[ï¿½hï¿½Aï¿½[ï¿½ï¿½ï¿½ï¿½Rï¿½[ï¿½hï¿½yï¿½Ñï¿½ï¿½ï¿½ï¿½ï¿½Rï¿½[ï¿½hï¿½Aï¿½[ï¿½ï¿½ï¿½ï¿½/ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½tï¿½ï¿½ï¿½O)ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½É‚ï¿½ï¿½ÄAï¿½Ö˜Aï¿½}ï¿½Xï¿½^ï¿½É“oï¿½^ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+		//ï¿½ï¿½ï¿½ï¿½ï¿½Aï¿½Gï¿½ï¿½ï¿½[ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½check4,check5ï¿½ï¿½1ï¿½ï¿½ï¿½Ô‚ï¿½ï¿½ï¿½ï¿½
 		int check4 = dao.setRelation(customerCode, deliveryCode, "01");
 		int check5 = dao.setRelation(customerCode, deliveryCode2, "02");
 				
 		if(check4 == 999 || check5 == 999) {
-			String message3 = space + "ŒÚ‹qŠÖ˜Aî•ñ‚Ì’Ç‰Áˆ—‚É‚¨‚¢‚ÄƒGƒ‰[‚ª”­¶‚µ‚Ü‚µ‚½";
+			String message3 = space + "ï¿½Ú‹qï¿½Ö˜Aï¿½ï¿½ï¿½Ì’Ç‰ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½É‚ï¿½ï¿½ï¿½ï¿½ÄƒGï¿½ï¿½ï¿½[ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ü‚ï¿½ï¿½ï¿½";
 			request.setAttribute("message4",message3);
 		}
 
 		
 		if(check!=999 && check2!=999 && check3!=999 && check4!=999 && check5!=999) {
-			String message6 = space + "ŒÚ‹qî•ñ‚Ì’Ç‰Á‚ªŠ®—¹‚µ‚Ü‚µ‚½";
+			String message6 = space + "ï¿½Ú‹qï¿½ï¿½ï¿½Ì’Ç‰ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ü‚ï¿½ï¿½ï¿½";
 			request.setAttribute("message",message6);
 		}
 		return forwardURL;
@@ -407,13 +407,13 @@ public class CustomerController extends BaseController{
 		
 	}
 	
-	//ŒÚ‹q•ÒW‚ğ‚·‚éƒƒ\ƒbƒh
+	//ï¿½Ú‹qï¿½ÒWï¿½ï¿½ï¿½ï¿½ï¿½éƒï¿½\ï¿½bï¿½h
 	private String modifyCustomer(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException, ClassNotFoundException, SQLException {
 		
 		String forwardURL = "/customersearch.jsp";
 		
-		//•ÒW‚·‚éŒÚ‹qî•ñ
+		//ï¿½ÒWï¿½ï¿½ï¿½ï¿½Ú‹qï¿½ï¿½ï¿½
 		String customerCode         = request.getParameter("customerCode");
 		String customerName         = request.getParameter("customerName");
 		String customerKana         = request.getParameter("customerKana");
@@ -450,7 +450,7 @@ public class CustomerController extends BaseController{
 		String remarks 		        = request.getParameter("remarks");
 		String comment              = request.getParameter("comment");
 		
-		//•ÒW‚·‚éŒÚ‹qî•ñ‚ğŒÚ‹q•ÒWBean‚ÉƒZƒbƒg‚·‚é
+		//ï¿½ÒWï¿½ï¿½ï¿½ï¿½Ú‹qï¿½ï¿½ï¿½ï¿½ï¿½Ú‹qï¿½ÒWBeanï¿½ÉƒZï¿½bï¿½gï¿½ï¿½ï¿½ï¿½
 		CustomerModifyBean bean = new CustomerModifyBean();
 		bean.setCustomerCode(customerCode);
 		bean.setCustomerName(customerName);
@@ -490,17 +490,17 @@ public class CustomerController extends BaseController{
 		
 		
 		CustomerDAO dao =  new CustomerDAO();
-		//ŒÚ‹qDAO‚ÌŒÚ‹q•ÒWƒƒ\ƒbƒh‚ğŒÄ‚Ño‚µAƒGƒ‰[‚ª‚ ‚Á‚½‚çcheck‚É1‚ª“ü‚é
+		//ï¿½Ú‹qDAOï¿½ÌŒÚ‹qï¿½ÒWï¿½ï¿½ï¿½\ï¿½bï¿½hï¿½ï¿½ï¿½Ä‚Ñoï¿½ï¿½ï¿½Aï¿½Gï¿½ï¿½ï¿½[ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½checkï¿½ï¿½1ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 		int check = dao.modifyCustomer(bean);
 		
-		//ŒÚ‹q•ÒW‚ÌƒGƒ‰[ˆ—
+		//ï¿½Ú‹qï¿½ÒWï¿½ÌƒGï¿½ï¿½ï¿½[ï¿½ï¿½ï¿½ï¿½
 		if(check == 999) {
-			String message =  space + "ŒÚ‹qî•ñ‚Ì•ÏXˆ—‚É‚¨‚¢‚ÄƒGƒ‰[‚ª”­¶‚µ‚Ü‚µ‚½<br>";
+			String message =  space + "ï¿½Ú‹qï¿½ï¿½ï¿½Ì•ÏXï¿½ï¿½ï¿½ï¿½ï¿½É‚ï¿½ï¿½ï¿½ï¿½ÄƒGï¿½ï¿½ï¿½[ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ü‚ï¿½ï¿½ï¿½<br>";
 			request.setAttribute("message",message);
 		}
 		
 		
-		//•ÒW‚·‚é”[“üæî•ñ
+		//ï¿½ÒWï¿½ï¿½ï¿½ï¿½[ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 		String deliveryCode        = request.getParameter("deliveryCode");
 		String deliveryName        = request.getParameter("deliveryName");
 		String deliveryKana        = request.getParameter("deliveryKana");
@@ -520,7 +520,7 @@ public class CustomerController extends BaseController{
 		LocalDateTime ldt           = LocalDateTime.now();
 		String updDate              = ldt.toString();
 
-		//•ÒW‚·‚é”[“üæî•ñ‚ğ”[“üæ•ÒWBean‚ÉƒZƒbƒg‚·‚é
+		//ï¿½ÒWï¿½ï¿½ï¿½ï¿½[ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½[ï¿½ï¿½ï¿½ï¿½ÒWBeanï¿½ÉƒZï¿½bï¿½gï¿½ï¿½ï¿½ï¿½
 		DeliveryModifyBean delbean = new DeliveryModifyBean();
 		delbean.setAddress1(delAddress1);
 		delbean.setAddress2(delAddress2);
@@ -539,17 +539,17 @@ public class CustomerController extends BaseController{
 		delbean.setZipCode(delZipCode);
 		delbean.setUpdDate(updDate);
 		
-		//ŒÚ‹qDAO‚Ì”[“üæ•ÒWƒƒ\ƒbƒh‚ğŒÄ‚Ño‚µAƒGƒ‰[‚ª‚ ‚Á‚½‚çcheck‚É1‚ª“ü‚é
+		//ï¿½Ú‹qDAOï¿½Ì”[ï¿½ï¿½ï¿½ï¿½ÒWï¿½ï¿½ï¿½\ï¿½bï¿½hï¿½ï¿½ï¿½Ä‚Ñoï¿½ï¿½ï¿½Aï¿½Gï¿½ï¿½ï¿½[ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½checkï¿½ï¿½1ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 		int check2 = dao.modifyDelivery(delbean);
 		
-		//”[“üæ•ÒW‚ÌƒGƒ‰[ˆ—
+		//ï¿½[ï¿½ï¿½ï¿½ï¿½ÒWï¿½ÌƒGï¿½ï¿½ï¿½[ï¿½ï¿½ï¿½ï¿½
 		if(check2 == 999) {
-			String message2 =  space + "”[“üæî•ñ‚Ì•ÏXˆ—‚É‚¨‚¢‚ÄƒGƒ‰[‚ª”­¶‚µ‚Ü‚µ‚½<br>";
+			String message2 =  space + "ï¿½[ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ì•ÏXï¿½ï¿½ï¿½ï¿½ï¿½É‚ï¿½ï¿½ï¿½ï¿½ÄƒGï¿½ï¿½ï¿½[ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ü‚ï¿½ï¿½ï¿½<br>";
 			request.setAttribute("message2",message2);
 		}
 		
 		
-		//¿‹æî•ñ
+		//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 		String deliveryCode2        = request.getParameter("deliveryCode2");
 		String deliveryName2        = request.getParameter("deliveryName2");
 		String deliveryKana2        = request.getParameter("deliveryKana2");
@@ -569,7 +569,7 @@ public class CustomerController extends BaseController{
 		LocalDateTime ldt2           = LocalDateTime.now();
 		String creDate2              = ldt2.toString();
 				
-		//•ÒW‚·‚é¿‹æî•ñ‚ğ”[“üæ(¿‹æ)•ÒWBean‚ÉƒZƒbƒg‚·‚é
+		//ï¿½ÒWï¿½ï¿½ï¿½é¿ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½[ï¿½ï¿½ï¿½ï¿½(ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½)ï¿½ÒWBeanï¿½ÉƒZï¿½bï¿½gï¿½ï¿½ï¿½ï¿½
 		DeliveryModifyBean delbean2 = new DeliveryModifyBean();
 		delbean2.setAddress1(delAddress1_2);
 		delbean2.setAddress2(delAddress2_2);
@@ -588,25 +588,25 @@ public class CustomerController extends BaseController{
 		delbean2.setZipCode(delZipCode2);
 		delbean2.setUpdDate(creDate2);
 		
-		//ŒÚ‹qDAO‚Ì”[“üæ(¿‹æ)•ÒWƒƒ\ƒbƒh‚ğŒÄ‚Ño‚µAƒGƒ‰[‚ª‚ ‚Á‚½‚çcheck‚É1‚ª“ü‚é
+		//ï¿½Ú‹qDAOï¿½Ì”[ï¿½ï¿½ï¿½ï¿½(ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½)ï¿½ÒWï¿½ï¿½ï¿½\ï¿½bï¿½hï¿½ï¿½ï¿½Ä‚Ñoï¿½ï¿½ï¿½Aï¿½Gï¿½ï¿½ï¿½[ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½checkï¿½ï¿½1ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 		int check3 = dao.modifyDelivery(delbean2);
-		//”[“üæ(¿‹æ)•ÒW‚ÌƒGƒ‰[ˆ—
+		//ï¿½[ï¿½ï¿½ï¿½ï¿½(ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½)ï¿½ÒWï¿½ÌƒGï¿½ï¿½ï¿½[ï¿½ï¿½ï¿½ï¿½
 		if(check3 == 999) {
-			String message3 =  space + "¿‹æî•ñ‚Ì•ÏXˆ—‚É‚¨‚¢‚ÄƒGƒ‰[‚ª”­¶‚µ‚Ü‚µ‚½<br>";
+			String message3 =  space + "ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ì•ÏXï¿½ï¿½ï¿½ï¿½ï¿½É‚ï¿½ï¿½ï¿½ï¿½ÄƒGï¿½ï¿½ï¿½[ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ü‚ï¿½ï¿½ï¿½<br>";
 			request.setAttribute("message3",message3);
 		}
 				
 //		String check4 = dao.setRelation(customerCode, deliveryCode, "01");
 //		String check5 = dao.setRelation(customerCode, deliveryCode2, "02");
 //		
-//		//ŠÖ˜Aƒ}ƒXƒ^•ÒWˆ—‚ª³í‚É‚Å‚«‚È‚¢ê‡‚ÌƒGƒ‰[ˆ—
+//		//ï¿½Ö˜Aï¿½}ï¿½Xï¿½^ï¿½ÒWï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½É‚Å‚ï¿½ï¿½È‚ï¿½ï¿½ê‡ï¿½ÌƒGï¿½ï¿½ï¿½[ï¿½ï¿½ï¿½ï¿½
 //		if(check4 == "1" || check5 == "1") {
-//			String message3 = "¿‹æî•ñ‚Ì’Ç‰Áˆ—‚É‚¨‚¢‚ÄƒGƒ‰[‚ª”­¶‚µ‚Ü‚µ‚½";
+//			String message3 = "ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ì’Ç‰ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½É‚ï¿½ï¿½ï¿½ï¿½ÄƒGï¿½ï¿½ï¿½[ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ü‚ï¿½ï¿½ï¿½";
 //			request.setAttribute("message3",message3);
 //		}
 		
 		if(check!=999 && check2!=999 && check3!=999) {
-			String message4 =  space + "ŒÚ‹qî•ñ‚Ì•ÒW‚ªŠ®—¹‚µ‚Ü‚µ‚½";
+			String message4 =  space + "ï¿½Ú‹qï¿½ï¿½ï¿½Ì•ÒWï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ü‚ï¿½ï¿½ï¿½";
 			request.setAttribute("message",message4);
 		}
 
@@ -614,7 +614,7 @@ public class CustomerController extends BaseController{
 		
 	}
 	
-	//ŒÚ‹qî•ñ‚ğíœ‚·‚éƒƒ\ƒbƒh
+	//ï¿½Ú‹qï¿½ï¿½ï¿½ï¿½ï¿½íœï¿½ï¿½ï¿½éƒï¿½\ï¿½bï¿½h
 	private String deleteCustomer(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException, ClassNotFoundException, SQLException {
 		
@@ -623,15 +623,15 @@ public class CustomerController extends BaseController{
 		String customerCode = request.getParameter("customerCode");
 		
 		CustomerDAO dao =  new CustomerDAO();
-		//ŒÚ‹qî•ñ‚ğíœ‚·‚éDAO‚Ìƒƒ\ƒbƒh‚ğÀs
+		//ï¿½Ú‹qï¿½ï¿½ï¿½ï¿½ï¿½íœï¿½ï¿½ï¿½ï¿½DAOï¿½Ìƒï¿½ï¿½\ï¿½bï¿½hï¿½ï¿½ï¿½ï¿½ï¿½s
 		int check = dao.deleteCustomer(customerCode);
 		
-		//íœˆ—‚ª³í‚É‚Å‚«‚È‚¢ê‡‚ÌƒGƒ‰[ˆ—
+		//ï¿½íœï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½É‚Å‚ï¿½ï¿½È‚ï¿½ï¿½ê‡ï¿½ÌƒGï¿½ï¿½ï¿½[ï¿½ï¿½ï¿½ï¿½
 		if(check == 999) {
-			String message =  space + "ŒÚ‹qî•ñ‚Ìíœˆ—‚É‚¨‚¢‚ÄƒGƒ‰[‚ª”­¶‚µ‚Ü‚µ‚½";
+			String message =  space + "ï¿½Ú‹qï¿½ï¿½ï¿½Ìíœï¿½ï¿½ï¿½ï¿½ï¿½É‚ï¿½ï¿½ï¿½ï¿½ÄƒGï¿½ï¿½ï¿½[ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ü‚ï¿½ï¿½ï¿½";
 			request.setAttribute("message",message);
 		} else {
-			String message =  space + "ŒÚ‹qî•ñ‚Ìíœ‚ªŠ®—¹‚µ‚Ü‚µ‚½";
+			String message =  space + "ï¿½Ú‹qï¿½ï¿½ï¿½Ìíœï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ü‚ï¿½ï¿½ï¿½";
 			request.setAttribute("message",message);
 		}
 		
