@@ -317,7 +317,7 @@ public class ProductAddDAO extends BaseDAO {
 		 	
 		 	stmt.setString(62, bean.getDiscardDate());
 		 	stmt.setString(63, bean.getRemarks());
-		 	stmt.setString(64, bean.getEndRemarks());
+		 	stmt.setString(64, bean.getEadRemarks());
 		 	stmt.setString(65, bean.getCommentData());
 		 	stmt.setString(66, bean.getLastRoDate());
 		 	

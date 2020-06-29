@@ -10,7 +10,7 @@ import master.product.beans.ProductModifyBean;
 
 public class ProductModifyDAO extends BaseDAO {
 	
-	/* ���i�ύX���̎擾�@*/
+	/* �ｿｽ�ｿｽ�ｿｽi�ｿｽﾏ更�ｿｽ�ｿｽ�ｿｽﾌ取得�ｿｽ@*/
 	 public int modifyProduct(ProductModifyBean bean) throws SQLException, ClassNotFoundException {
 		 	Connection con;
 		 	PreparedStatement stmt=null;
@@ -390,7 +390,7 @@ public class ProductModifyDAO extends BaseDAO {
 		 	
 		 	stmt.setString(62, bean.getDiscardDate());
 		 	stmt.setString(63, bean.getRemarks());
-		 	stmt.setString(64, bean.getEndRemarks());
+		 	stmt.setString(64, bean.getEadRemarks());
 		 	stmt.setString(65, bean.getCommentData());
 		 	stmt.setString(66, bean.getLastRoDate());
 		 	
@@ -440,7 +440,7 @@ public class ProductModifyDAO extends BaseDAO {
 		 	
 		 	try{
 		 		result = stmt.executeUpdate();
-		 		System.out.println("�X�V����");
+		 		System.out.println("�ｿｽX�ｿｽV�ｿｽ�ｿｽ�ｿｽ�ｿｽ");
 		 		con.commit();
 		 	}catch (SQLException e) {
 		 		e.printStackTrace();

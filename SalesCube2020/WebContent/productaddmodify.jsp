@@ -124,7 +124,7 @@
 							<div class="input-group-prepend">
 								<div class="input-group-text" style = "background-color: pink;">商品コード※</div>
 							</div>
-						<input type="text"  class="form-control" id="inlineFormInputGroup" name="productCode" value="${product.productCode}" required>
+						<input type="text"  class="form-control" id="inlineFormInputGroup" name="productCode" value="${product.productCode}" required ${status eq 'add' ? "" :'readonly'}>
 				
 						</div>
 					</div>
@@ -196,7 +196,7 @@
 								<div class="input-group-prepend">
 									<div class="input-group-text">仕入先名</div>
 								</div>
-							<input type="text"  class="form-control" id="inlineFormInputGroup" name="supplierName" value="${product.supplierName}">
+							<input type="text"  class="form-control" id="inlineFormInputGroup" name="supplierName" value="${product.supplierName}" readonly>
 							</div>
 						</div>
 						<div class="col-4">
@@ -261,7 +261,7 @@
 								<div class="input-group-prepend">
 									<div class="input-group-text">月平均出荷数</div>
 								</div>
-							<input type="text"  class="form-control" id="inlineFormInputGroup" name="avgShipCount"  value="${product.avgShipCount}">
+							<input type="text"  class="form-control" id="inlineFormInputGroup" name="avgShipCount"  value="${product.avgShipCount}" readonly>
 							</div>
 						</div>
 						<div class="col-4">
@@ -270,7 +270,7 @@
 								<div class="input-group-prepend">
 									<div class="input-group-text">倉庫名</div>
 								</div>
-							<input type="text"  class="form-control" id="inlineFormInputGroup" name="warehouseName" value="${product.warehouseName}">
+							<input type="text"  class="form-control" id="inlineFormInputGroup" name="warehouseName" value="${product.warehouseName}" readonly>
 							</div>
 						</div>
 						<div class="col-4">
@@ -368,7 +368,7 @@
 									<div class="input-group-text">数量割引</div>
 								</div>
 							<input type="text"  class="form-control" id="quantityDiscount" name=" discountId" value="${product. discountId}">
-							<input type="image" name="" src="btn_search.png" tabindex="101" onclick='discountForm("/SalesCube2020/quantitydiscount.jsp")' style="vertical-align: middle; cursor: pointer; width: 32px;">
+							<input type="button" name="" src="btn_search.png" tabindex="101" onclick='discountForm("/SalesCube2020/quantitydiscount.jsp")' style="vertical-align: middle; cursor: pointer; width: 32px;">
 							</div>
 						</div>
 					</div>

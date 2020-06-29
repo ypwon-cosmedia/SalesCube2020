@@ -245,7 +245,6 @@ public class ProductAddBean {
 	private String dec3;
 	private String dec4;
 	private String dec5;
-	private String endRemarks;
 	private String lastRoDate;
 	private String salesStandardDeviation;
 	private String entrustSafetyStock;
@@ -1110,21 +1109,8 @@ public class ProductAddBean {
 	public void setDec5(String dec5) {
 		this.dec5 = dec5;
 	}
-	/**
-	 * @return the endRemarks
-	 */
-	public String getEndRemarks() {
-		return endRemarks;
-	}
-	/**
-	 * @param endRemarks the endRemarks to set
-	 */
-	public void setEndRemarks(String endRemarks) {
-		this.endRemarks = endRemarks;
-	}
-	/**
-	 * @return the lastRoDate
-	 */
+
+
 	public String getLastRoDate() {
 		return lastRoDate;
 	}
