@@ -60,7 +60,7 @@ public class ProductDeleteController extends BaseController{
 		
 		//Delete Check
 		if( check == 0 ) {
-			String message = "削除できませんでした。";
+			String message = "削除ができませんでした";
 			request.setAttribute("addmodifyError", message);
 		}else{
 			String message = "削除が完了しました";
