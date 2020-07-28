@@ -21,8 +21,8 @@ import java.time.LocalDateTime;
 
 public class CustomerController extends BaseController{
 	
-	String space = "&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;";
-	
+	CustomerControllerData data = new CustomerControllerData("&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;");
+
 	public CustomerController() {
 	}
 	
@@ -270,7 +270,7 @@ public class CustomerController extends BaseController{
 		
 		
 		if(check == 999) {
-			String message = space + "顧客情報の追加処理でエラーが生じました<br>";
+			String message = data.space + "顧客情報の追加処理でエラーが生じました<br>";
 			request.setAttribute("message",message);
 		} 
 		
@@ -323,7 +323,7 @@ public class CustomerController extends BaseController{
 		
 		//�ｿｽ[�ｿｽ�ｿｽ�ｿｽ�ｿｽﾇ会ｿｽ�ｿｽ�ｿｽ�ｿｽ\�ｿｽb�ｿｽh�ｿｽﾌエ�ｿｽ�ｿｽ�ｿｽ[�ｿｽ�ｿｽ�ｿｽ�ｿｽ
 		if(check2 == 999) {
-			String message2 = space + "納入先情報の追加処理でエラーが生じました<br>";
+			String message2 = data.space + "納入先情報の追加処理でエラーが生じました<br>";
 			request.setAttribute("message2",message2);
 		} else {
 			
@@ -380,7 +380,7 @@ public class CustomerController extends BaseController{
 		
 		//�ｿｽ[�ｿｽ�ｿｽ�ｿｽ�ｿｽi�ｿｽ�ｿｽ�ｿｽ�ｿｽ�ｿｽ�ｿｽj�ｿｽﾇ会ｿｽ�ｿｽ�ｿｽ�ｿｽ\�ｿｽb�ｿｽh�ｿｽﾌエ�ｿｽ�ｿｽ�ｿｽ[�ｿｽ�ｿｽ�ｿｽ�ｿｽ
 		if(check3 == 999) {
-			String message3 = space + "請求先情報の追加処理でエラーが生じました<br><br>";
+			String message3 = data.space + "請求先情報の追加処理でエラーが生じました<br><br>";
 			request.setAttribute("message3",message3);
 		}
 		
@@ -393,13 +393,13 @@ public class CustomerController extends BaseController{
 		int check5 = dao.setRelation(customerCode, deliveryCode2, "02");
 				
 		if(check4 == 999 || check5 == 999) {
-			String message3 = space + "関連情報の追加処理でエラーが生じました<br>";
+			String message3 = data.space + "関連情報の追加処理でエラーが生じました<br>";
 			request.setAttribute("message4",message3);
 		}
 
 		
 		if(check!=999 && check2!=999 && check3!=999 && check4!=999 && check5!=999) {
-			String message6 = space + "顧客情報の追加が完了しました。";
+			String message6 = data.space + "顧客情報の追加が完了しました。";
 			request.setAttribute("message",message6);
 		}
 		return forwardURL;
@@ -495,7 +495,7 @@ public class CustomerController extends BaseController{
 		
 		//�ｿｽﾚ客�ｿｽﾒ集�ｿｽﾌエ�ｿｽ�ｿｽ�ｿｽ[�ｿｽ�ｿｽ�ｿｽ�ｿｽ
 		if(check == 999) {
-			String message =  space + "顧客情報の編集処理でエラーが生じました<br><br>";
+			String message =  data.space + "顧客情報の編集処理でエラーが生じました<br><br>";
 			request.setAttribute("message",message);
 		}
 		
@@ -544,7 +544,7 @@ public class CustomerController extends BaseController{
 		
 		//�ｿｽ[�ｿｽ�ｿｽ�ｿｽ�ｿｽﾒ集�ｿｽﾌエ�ｿｽ�ｿｽ�ｿｽ[�ｿｽ�ｿｽ�ｿｽ�ｿｽ
 		if(check2 == 999) {
-			String message2 =  space + "納入先情報の編集処理でエラーが生じました<br>";
+			String message2 =  data.space + "納入先情報の編集処理でエラーが生じました<br>";
 			request.setAttribute("message2",message2);
 		}
 		
@@ -592,7 +592,7 @@ public class CustomerController extends BaseController{
 		int check3 = dao.modifyDelivery(delbean2);
 		//�ｿｽ[�ｿｽ�ｿｽ�ｿｽ�ｿｽ(�ｿｽ�ｿｽ�ｿｽ�ｿｽ�ｿｽ�ｿｽ)�ｿｽﾒ集�ｿｽﾌエ�ｿｽ�ｿｽ�ｿｽ[�ｿｽ�ｿｽ�ｿｽ�ｿｽ
 		if(check3 == 999) {
-			String message3 =  space + "請求先情報の編集処理でエラーが生じました<br>";
+			String message3 =  data.space + "請求先情報の編集処理でエラーが生じました<br>";
 			request.setAttribute("message3",message3);
 		}
 				
@@ -606,7 +606,7 @@ public class CustomerController extends BaseController{
 //		}
 		
 		if(check!=999 && check2!=999 && check3!=999) {
-			String message4 =  space + "顧客情報の編集が完了しました";
+			String message4 =  data.space + "顧客情報の編集が完了しました";
 			request.setAttribute("message",message4);
 		}
 
@@ -628,10 +628,10 @@ public class CustomerController extends BaseController{
 		
 		//�ｿｽ尞懶ｿｽ�ｿｽ�ｿｽ�ｿｽ�ｿｽ�ｿｽ�ｿｽ�ｿｽ�ｿｽ�ｿｽﾉでゑｿｽ�ｿｽﾈゑｿｽ�ｿｽ鼾�ｿｽﾌエ�ｿｽ�ｿｽ�ｿｽ[�ｿｽ�ｿｽ�ｿｽ�ｿｽ
 		if(check == 999) {
-			String message =  space + "顧客情報の削除処理でエラーが生じました";
+			String message =  data.space + "顧客情報の削除処理でエラーが生じました";
 			request.setAttribute("message",message);
 		} else {
-			String message =  space + "顧客情報の削除が完了しました";
+			String message =  data.space + "顧客情報の削除が完了しました";
 			request.setAttribute("message",message);
 		}
 		

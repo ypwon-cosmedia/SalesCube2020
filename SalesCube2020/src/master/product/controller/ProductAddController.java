@@ -355,7 +355,7 @@ public class ProductAddController extends BaseController {
 				String message = "登録できませんでした。<br>";
 				request.setAttribute("addmodifyError", message);
 			}else{
-				request.setAttribute("addmodifysuccsess", "登録が完了しました。<br>");
+				request.setAttribute("addmodifysuccess", "登録が完了しました。<br>");
 			}
 		}catch(NumberFormatException e){
 			request.setAttribute("addmodifyinterror", "正しい数値を入力してください。<br>");

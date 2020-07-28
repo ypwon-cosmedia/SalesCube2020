@@ -213,7 +213,7 @@
 						</div>
 					</div>
 					<div class="rounded float-right">
-						<button type="button" class="btn btn-outline-secondary" onClick="initForm();">初期化</button>
+						<button type="button" class="btn btn-outline-secondary" onClick="history.back();">初期化</button>
 						<input type="submit" value="検索" class="btn btn-outline-secondary">
 					</div><br>
 				</form><br>
