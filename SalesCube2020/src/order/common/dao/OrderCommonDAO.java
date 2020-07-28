@@ -1,5 +1,7 @@
 package order.common.dao;
 
-public class OrderCommonDAO {
+import common.dao.BaseDAO;
+
+public class OrderCommonDAO extends BaseDAO{
 
 }

@@ -1,5 +1,7 @@
 package order.search.dao;
 
-public class OrderSearchDAO {
+import common.dao.BaseDAO;
+
+public class OrderSearchDAO extends BaseDAO{
 
 }

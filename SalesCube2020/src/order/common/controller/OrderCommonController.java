@@ -1,5 +1,17 @@
 package order.common.controller;
 
-public class OrderCommonController {
+import java.io.IOException;
 
+import javax.servlet.ServletException;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
+import common.controller.BaseController;
+
+public class OrderCommonController extends BaseController {
+
+	public String execService(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException{
+		
+		return "";
+	}
 }
