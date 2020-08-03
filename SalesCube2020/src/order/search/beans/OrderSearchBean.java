@@ -1,5 +1,5 @@
 package order.search.beans;
 
-public class OrderSearchBillBean {
+public class OrderSearchBean {
 
 }

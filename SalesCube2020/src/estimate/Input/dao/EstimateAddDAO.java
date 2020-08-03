@@ -1,5 +1,5 @@
 package estimate.Input.dao;
 
-public class estimateAddDAO {
+public class EstimateAddDAO {
 
 }
