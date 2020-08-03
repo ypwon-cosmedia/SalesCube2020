@@ -1,5 +1,5 @@
 package estimate.Search.beans;
 
-public class estimateSearchBean {
+public class EstimateSearchBean {
 
 }

@@ -1,5 +1,5 @@
 package estimate.common.controller;
 
-public class DivisionInfoController {
+public class MoveUserSearchController {
 
 }

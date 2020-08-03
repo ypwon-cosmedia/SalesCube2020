@@ -1,5 +1,5 @@
 package estimate.common.beans;
 
-public class userSearchResultBean {
+public class CategoryBean {
 
 }

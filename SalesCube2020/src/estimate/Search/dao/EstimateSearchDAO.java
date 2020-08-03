@@ -1,5 +1,5 @@
 package estimate.Search.dao;
 
-public class estimateSearchDAO {
+public class EstimateSearchDAO {
 
 }
