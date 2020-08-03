@@ -49,6 +49,7 @@
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
     <%@ include file= "../common/menubar.jsp" %>
 	<br>
+
     <div class="container" id="main_function">
       <h3 class="float-left">受注検索</h3>
    
@@ -274,13 +275,12 @@
 						<label class="sr-only" for="inlineFormI4putGroup"></label>
 						<div class="input-group mb-2">
 							<div class="input-group-prepend">
-                                <div class="input-group-text">分類(大)</div>
-                                <select>
-									<option></option>
-								    <option>サンプル大分類</option>
-                                </select>
-						    </div>
-					    </div>
+								<div class="input-group-text">分類（大）</div>
+							</div>
+							<select class="custom-select" name="product1" id="product1" onchange="selectPro1();">
+								<option selected></option>
+							</select>
+						</div>
 					</div>
 				</div>	
 			</div>
@@ -290,13 +290,12 @@
 						<label class="sr-only" for="inlineFormI4putGroup"></label>
 						<div class="input-group mb-2">
 							<div class="input-group-prepend">
-                                <div class="input-group-text">分類(中)</div>
-                                <select>
-									<option></option>
-									<option>サンプル中分類</option>
-								</select>
-						    </div>
-					    </div>
+								<div class="input-group-text">分類（中）</div>
+							</div>
+							<select class="custom-select" name="product2" id="product2" onchange="selectPro2();">
+								<option selected></option>
+							</select>
+						</div>
 					</div>
 				</div>	
 			</div>
@@ -306,13 +305,12 @@
 						<label class="sr-only" for="inlineFormI4putGroup"></label>
 						<div class="input-group mb-2">
 							<div class="input-group-prepend">
-                                <div class="input-group-text">分類(小)</div>
-                                <select>
-									<option></option>
-									<option>サンプル小分類</option>
-								</select>
-						    </div>
-					    </div>
+								<div class="input-group-text">分類（小）</div>
+							</div>
+							<select class="custom-select" name="product3" id="product3">
+								<option selected></option>
+							</select>
+						</div>
 					</div>
 				</div>	
 			</div>
@@ -447,9 +445,7 @@
 						  </div>
 						  <select class="custom-select" name="productStockCategory">
 							<option selected></option>
-							<c:forEach items="${}" value="">
-							  <option value="${}">${}</option>
-							</c:forEach>
+							  <option value=""></option>
 						  </select>
 						</div>
 					</div>
@@ -484,7 +480,6 @@
 					  
 					</tr>
 				  </thead>
-				  <c:forEach items="${}" var="">
 					<tr>
 					  <td style="white-space: normal; text-align: left;" onclick="selectCustomerCode();" data-dismiss="modal" id="customerCode1"><a href="">顧客コード1</a></td>
 					  <td style="white-space: normal; text-align: left;" onclick="selectCustomerCode();" data-dismiss="modal" id="customerName1"><a href="">顧客名1</a></td>
@@ -515,7 +510,6 @@
 						<td style="white-space: normal; text-align: left;">事務所名3</td>
 						<td style="white-space: normal; text-align: left;">部署名3</td>
 					  </tr>
-				  </c:forEach>
 				</table>
 				<br>
 
@@ -581,9 +575,7 @@
 						  </div>
 						  <select class="custom-select" name="productStatusCategory">
 							<option selected></option>
-							<c:forEach items="${}" value="">
-							  <option value="${}">${}</option>
-							</c:forEach>
+							  <option value=""></option>
 						  </select>
 						</div>
 					</div>
@@ -596,9 +588,7 @@
 						  </div>
 						  <select class="custom-select" name="productStockCategory">
 							<option selected></option>
-							<c:forEach items="${}" value="">
-							  <option value="${}">${}</option>
-							</c:forEach>
+							  <option value=""></option>
 						  </select>
 						</div>
 					</div>
@@ -611,9 +601,7 @@
 							</div>
 							<select class="custom-select" name="productStockCategory">
 							  <option selected></option>
-							  <c:forEach items="${}" value="">
-								<option value="${}">${}</option>
-							  </c:forEach>
+								<option value=""></option>
 							</select>
 						  </div>
 						</div>
@@ -663,7 +651,6 @@
 					  <th scope="col" class="th_back_black" style="cursor: pointer; height: 30px;" onclick="sort('supplierName');">仕入先名</th> 
 					</tr>
 				  </thead>
-				  <c:forEach items="${}" var="">
 					<tr>
 					  <td style="white-space: normal; text-align: left;" onclick="selectProductCode()" data-dismiss="modal" id="productCode1"><a href="">商品コード1</a></td>
 					  <td style="white-space: normal; text-align: left;" onclick="selectProductCode()" data-dismiss="modal" id="productName1"><a href="">商品名1</a></td>
@@ -679,7 +666,6 @@
 						<td style="white-space: normal; text-align: left;">商品名3</td>
 						<td style="white-space: normal; text-align: left;">仕入先名3</td>
 					</tr>
-				  </c:forEach>
 				</table>
 				<br>
 
@@ -876,6 +862,7 @@
 	var selectedArr = [];
 	var detailUnselectedArr = [];
 	var detailSelectedArr = [];
+	var mylist = [];
 
 	function initPage(){
 		if(!confirm("入力内容を初期化してよろしいですか？")){
@@ -896,10 +883,45 @@
 	}
 
 	$(document).ready(function(){
-		unselectedArr = ["見積番号", "見積日", "有効期限", "伝票合計", "件名", "提出先名", "提出先敬称", "顧客コード", "顧客名"];
-		selectedArr = ["粗利益", "粗利益率", "金額合計", "消費税", "納期または出荷日", "入力担当者名", "入力担当者コード", "摘要", "納入先", "見積条件"];
-		detailUnselectedArr = ["出荷日","納期指定日","受付番号","入力担当者コード","入力担当者名","摘要","[明細]顧客コード","[明細]完納区分","[明細]売上単価","[明細]仕入金額","[明細]売価金額","粗利益","粗利益率","金額合計","消費税","伝票合計","受注残数"];
-		detailSelectedArr = ["受注番号-行","受注日","顧客名","[明細]商品名","[明細]数量","[明細]仕入単価","[明細]備考"];
+		var loop=0;
+		<c:forEach var="test" items="${configDetailShow}">
+		detailSelectedArr[loop] = {
+				    value:"${test.categoryCode}",
+				    name:"${test.categoryCodeName}",	
+				  };
+		  		loop++;  	 
+		</c:forEach>
+
+		loop=0;
+		<c:forEach var="test" items="${configDetailNotShow}">
+		detailUnselectedArr[loop] = {
+			   value:"${test.categoryCode}",
+		 	   name:"${test.categoryCodeName}",	
+			  };
+  		loop++;
+		</c:forEach>
+		
+		loop=0;
+		<c:forEach var="test" items="${configBillShow}">
+		selectedArr[loop] = {
+			   value:"${test.categoryCode}",
+		 	   name:"${test.categoryCodeName}",	
+			  };
+  		loop++;
+		</c:forEach>
+		
+		loop=0;
+		<c:forEach var="test" items="${configBillNotShow}">
+		unselectedArr[loop] = {
+			   value:"${test.categoryCode}",
+		 	   name:"${test.categoryCodeName}",	
+			  };
+  		loop++;
+		</c:forEach>
+//		unselectedArr = ["見積番号", "見積日", "有効期限", "伝票合計", "件名", "提出先名", "提出先敬称", "顧客コード", "顧客名"];
+//		selectedArr = ["粗利益", "粗利益率", "金額合計", "消費税", "納期または出荷日", "入力担当者名", "入力担当者コード", "摘要", "納入先", "見積条件"];
+//		detailUnselectedArr = ["出荷日","納期指定日","受付番号","入力担当者コード","入力担当者名","摘要","[明細]顧客コード","[明細]完納区分","[明細]売上単価","[明細]仕入金額","[明細]売価金額","粗利益","粗利益率","金額合計","消費税","伝票合計","受注残数"];
+//		detailSelectedArr = ["受注番号-行","受注日","顧客名","[明細]商品名","[明細]数量","[明細]仕入単価","[明細]備考"];
 
 		var headcontents= '';
 
@@ -908,26 +930,26 @@
 
 		if(sel_view == "伝票"){
 			for(var i = 0; i < selectedArr.length; i++){
-				$("#showSearchResult").append("<option value = " + i+1 + ">" + selectedArr[i] + "</option>")
+				$("#showSearchResult").append("<option value = " + selectedArr[i].value + ">" + selectedArr[i].name + "</option>")
 			}
 
 			for(var i = 0; i < unselectedArr.length; i++){
-				$("#notShowSearchResult").append("<option value = " + i+1 + ">" + unselectedArr[i] + "</option>")
+				$("#notShowSearchResult").append("<option value = " + unselectedArr[i].value + ">" + unselectedArr[i].name + "</option>")
 			}
 		}
 		else{
-			for(var i = 0; i < detailSelectedArr.length; i++){
-				$("#showSearchResult").append("<option value = " + i+1 + ">" + selectedArr[i] + "</option>")
+			for(var i in detailSelectedArr){
+				$("#showSearchResult").append("<option value = " + detailSelectedArr[i].value + ">" + detailSelectedArr[i].name + "</option>")
 			}
 
-			for(var i = 0; i < detailUnselectedArr.length; i++){
-				$("#notShowSearchResult").append("<option value = " + i+1 + ">" + unselectedArr[i] + "</option>")
+			for(var i in detailUnselectedArr){
+				$("#notShowSearchResult").append("<option value = " + detailUnselectedArr[i].value + ">" + detailUnselectedArr[i].name + "</option>")
 			}
 		}
 
 		headcontents += '<tr>';
 		for(var i = 0; i < selectedArr.length; i++){
-			headcontents += '<th scope="col" class="sort th_back_black" style="cursor: pointer; height: 30px;">'+ selectedArr[i] +'</th>';
+			headcontents += '<th scope="col" class="sort th_back_black" style="cursor: pointer; height: 30px;">'+ selectedArr[i].name +'</th>';
 		}               
 		headcontents += '</tr>';
 
@@ -992,11 +1014,11 @@
 		$("select#notShowSearchResult option").remove();
 
 		for(var i = 0; i < selectedArr.length; i++){
-			$("#showSearchResult").append("<option value = " + i+1 + ">" + selectedArr[i] + "</option>")
+			$("#showSearchResult").append("<option value = " + selectedArr[i].value + ">" + selectedArr[i].name + "</option>")
 		}
 
 		for(var i = 0; i < unselectedArr.length; i++){
-			$("#notShowSearchResult").append("<option value = " + i+1 + ">" + unselectedArr[i] + "</option>")
+			$("#notShowSearchResult").append("<option value = " + unselectedArr[i].value + ">" + unselectedArr[i].name + "</option>")
 		}
 	}
 
@@ -1007,16 +1029,27 @@
 		if(sel_view == "伝票"){
 			selectedArr = [];
 			unselectedArr = [];
-			selectedArr = $("#showSearchResult>option").map(function() { return $(this).text(); });
-			unselectedArr = $("#notShowSearchResult>option").map(function() { return $(this).text(); });
-
+//			selectedArr = $("#showSearchResult>option").map(function() { return $(this).text(); });
+//			unselectedArr = $("#notShowSearchResult>option").map(function() { return $(this).text(); });
+			for(var i = 0; i<document.getElementById('showSearchResult').length; i++){
+				selectedArr[i] = {
+						value:document.getElementById('showSearchResult')[i].value,
+						name:document.getElementById('showSearchResult')[i].innerText,
+				};
+			}
+			for(var i = 0; i<document.getElementById('notShowSearchResult').length; i++){
+				unselectedArr[i] = {
+						value:document.getElementById('notShowSearchResult')[i].value,
+						name:document.getElementById('notShowSearchResult')[i].innerText,
+				};
+			}
 			$("#AddHead > tr").remove();
 
 			var headcontents= '';
 			
 			headcontents += '<tr>';
 			for(var i = 0; i < selectedArr.length; i++){
-				headcontents += '<th scope="col" class="sort th_back_black" style="cursor: pointer; height: 30px;">'+ selectedArr[i] +'</th>';
+				headcontents += '<th scope="col" class="sort th_back_black" style="cursor: pointer; height: 30px;">'+ selectedArr[i].name +'</th>';
 			}               
 			headcontents += '</tr>';
 
@@ -1025,16 +1058,27 @@
 		else {
 			detailSelectedArr = [];
 			detailUnselectedArr = [];
-			detailSelectedArr = $("#showSearchResult>option").map(function() { return $(this).text(); });
-			detailUnselectedArr = $("#notShowSearchResult>option").map(function() { return $(this).text(); });
-
+//			detailSelectedArr = $("#showSearchResult>option").map(function() { return $(this).text(); });
+//			detailUnselectedArr = $("#notShowSearchResult>option").map(function() { return $(this).text(); });
+			for(var i = 0; i<document.getElementById('showSearchResult').length; i++){
+				detailSelectedArr[i] = {
+						value:document.getElementById('showSearchResult')[i].value,
+						name:document.getElementById('showSearchResult')[i].innerText,
+				};
+			}
+			for(var i = 0; i<document.getElementById('notShowSearchResult').length; i++){
+				detailUnselectedArr[i] = {
+						value:document.getElementById('notShowSearchResult')[i].value,
+						name:document.getElementById('notShowSearchResult')[i].innerText,
+				};
+			}
 			$("#AddHead > tr").remove();
 
 			var headcontents= '';
 			
 			headcontents += '<tr>';
 			for(var i = 0; i < detailSelectedArr.length; i++){
-				headcontents += '<th scope="col" class="sort th_back_black" style="cursor: pointer; height: 30px;">'+ detailSelectedArr[i] +'</th>';
+				headcontents += '<th scope="col" class="sort th_back_black" style="cursor: pointer; height: 30px;">'+ detailSelectedArr[i].name +'</th>';
 			}               
 			headcontents += '</tr>';
 
@@ -1055,23 +1099,106 @@
 
 		if(sel_view == "伝票"){
 			for(var i = 0; i < selectedArr.length; i++){
-				$("#showSearchResult").append("<option value = " + i+1 + ">" + selectedArr[i] + "</option>")
+				$("#showSearchResult").append("<option value = " + selectedArr[i].value + ">" + selectedArr[i].name + "</option>")
 			}
 
 			for(var i = 0; i < unselectedArr.length; i++){
-				$("#notShowSearchResult").append("<option value = " + i+1 + ">" + unselectedArr[i] + "</option>")
+				$("#notShowSearchResult").append("<option value = " + unselectedArr[i].value + ">" + unselectedArr[i].name + "</option>")
 			}
 		}
 		else{
 			for(var i = 0; i < detailSelectedArr.length; i++){
-				$("#showSearchResult").append("<option value = " + i+1 + ">" + detailSelectedArr[i] + "</option>")
+				$("#showSearchResult").append("<option value = " + detailSelectedArr[i].value + ">" + detailSelectedArr[i].name + "</option>")
 			}
 
 			for(var i = 0; i < detailUnselectedArr.length; i++){
-				$("#notShowSearchResult").append("<option value = " + i+1 + ">" + detailUnselectedArr[i] + "</option>")
+				$("#notShowSearchResult").append("<option value = " + detailUnselectedArr[i].value + ">" + detailUnselectedArr[i].name + "</option>")
 			}
 		}
 	});
+	window.onload = function(){
+		var loop=0;
+		
+		<c:forEach var="test" items="${category}" >
+		  mylist[loop] = {
+				    cat1:"${test.classCode1}",
+				    cat2:"${test.classCode2}",
+				    cat3:"${test.classCode3}",
+				    catName:"${test.className}",	
+				  };
+		  		loop++;  	 
+		</c:forEach>
+		var list = mylist
+		var objSel = document.getElementById("product1");
+					
+		for(var i in list) {
+			if(list[i].cat1 != "" && list[i].cat2 == ""){
+				var objOption = document.createElement("option");
+				objOption.text = list[i].catName;
+				objOption.value = list[i].cat1;
+				
+				objSel.add(objOption);
+			}
+		}
+	}
+
+	
+	
+		//カテゴリー
+		function selectPro1(){
+	
+			var list = mylist
+			var objSel = document.getElementById("product2");
+			var objSel2 = document.getElementById("product3");
+			var sel1 = document.getElementById("product1").value;
+			
+			for(i=objSel.length; i > 0; i--){
+				objSel.options[i]=null;
+			}
+			
+			for(i=objSel2.length; i > 0; i--){
+				objSel2.options[i]=null;
+			}
+			
+			for(var i in list) {
+				if(list[i].cat1 == sel1 && list[i].cat2 != "" && list[i].cat3 == ""){
+					var objOption = document.createElement("option");
+					objOption.text = list[i].catName;
+					objOption.value = list[i].cat2;					
+					objSel.add(objOption);
+				}
+			}
+
+		}	
+		function selectPro2(){
+			var list = mylist
+			
+			var objSel = document.getElementById("product3");
+			var sel1 = document.getElementById("product1").value;
+			var sel2 = document.getElementById("product2").value;
+			
+			for(i=objSel.length; i > 0; i--){
+				objSel.options[i]=null;
+			}
+			
+			for(var i in list) {
+				if(list[i].cat1 == sel1 && list[i].cat2 == sel2 && list[i].cat3 != ""){
+					var objOption = document.createElement("option");
+					objOption.text = list[i].catName;
+					objOption.value = list[i].cat3;
+					
+					objSel.add(objOption);
+				}
+			}
+		}
+		$(function() {
+		    var temp = "${Category1}"; 
+		    $("#product1").val(temp);
+		})
+		$(function() {
+		    var temp = "${Category2}"; 
+		    $("#product2").val(temp);
+		});
 </script>
 </body>
 </html>

@@ -1,12 +1,14 @@
 package order.move.controller;
 
 import java.io.IOException;
+import java.sql.SQLException;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import common.controller.BaseController;
+import order.common.init.DAO.OrderInitDAO;
 
 public class OrderMoveController extends BaseController{
 	
@@ -34,6 +36,19 @@ public class OrderMoveController extends BaseController{
 	}
 
 	private String moveOrderSearch (HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		
+		OrderInitDAO dao = new OrderInitDAO();
+		
+		try {
+			request.setAttribute("category", dao.initCategory());
+			request.setAttribute("configDetailShow", dao.initConfigModalShow("0301", "2"));
+			request.setAttribute("configBillShow", dao.initConfigModalShow("0301", "1"));
+			request.setAttribute("configDetailNotShow", dao.initConfigModalNotShow("0301", "2"));
+			request.setAttribute("configBillNotShow", dao.initConfigModalNotShow("0301", "1"));
+		} catch (ClassNotFoundException | SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	
 		return "order\\ordersearch.jsp";
 	}
