@@ -45,6 +45,9 @@ public class OrderMoveController extends BaseController{
 			request.setAttribute("configBillShow", dao.initConfigModalShow("0301", "1"));
 			request.setAttribute("configDetailNotShow", dao.initConfigModalNotShow("0301", "2"));
 			request.setAttribute("configBillNotShow", dao.initConfigModalNotShow("0301", "1"));
+			request.setAttribute("setProduct", dao.initComboBox("2"));
+			request.setAttribute("standard", dao.initComboBox("3"));
+			request.setAttribute("classStatus", dao.initComboBox("16"));
 		} catch (ClassNotFoundException | SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

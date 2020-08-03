@@ -42,6 +42,8 @@
 <title>受注検索</title>
 </head>
 <body style="background-color: gainsboro;">
+	<div id = "test">
+	</div>
 	<!-- Optional JavaScript -->
     <!-- jQuery first, then Popper.js, then Bootstrap JS -->
     <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
@@ -543,7 +545,7 @@
 						<div class="input-group-prepend">
 							<div class="input-group-text">商品コード</div>
 						</div>
-						<input type="text"  class="form-control" id="inlineFormInputGroup">
+						<input type="text"  class="form-control" id="productCode" name="productCode">
 					  </div>
 					</div>
 					<div class="col-4">
@@ -552,7 +554,7 @@
 						<div class="input-group-prepend">
 							<div class="input-group-text">仕入先商品コード</div>
 						</div>
-						<input type="text"  class="form-control" id="inlineFormInputGroup">
+						<input type="text"  class="form-control" id="supllierPcode" name="supllierPcode">
 					  </div>
 					</div>
 					<div class="col-4">
@@ -561,7 +563,7 @@
 						<div class="input-group-prepend">
 							<div class="input-group-text">JANコード</div>
 						</div>
-						<input type="text"  class="form-control" id="inlineFormInputGroup">
+						<input type="text"  class="form-control" id="janPcode" name="janPcode">
 					  </div>
 					</div>
 				  </div>
@@ -573,9 +575,12 @@
 						  <div class="input-group-prepend">
 							<div class="input-group-text">セット分類</div>
 						  </div>
-						  <select class="custom-select" name="productStatusCategory">
+						  <select class="custom-select" id="setTypeCategory" name="setTypeCategory">
 							<option selected></option>
-							  <option value=""></option>
+							<c:forEach var="options" items="${setProduct}">
+								<option value = "${options.categoryCode}">${options.categoryCodeName}</option>
+							</c:forEach>
+							  
 						  </select>
 						</div>
 					</div>
@@ -586,9 +591,11 @@
 						  <div class="input-group-prepend">
 							<div class="input-group-text">標準化分類</div>
 						  </div>
-						  <select class="custom-select" name="productStockCategory">
-							<option selected></option>
-							  <option value=""></option>
+						  <select class="custom-select" id="productStandardCategory"name="productStandardCategory">
+							<option selected></option> 
+							<c:forEach var="options" items="${standard}">
+							  <option value = "${options.categoryCode}">${options.categoryCodeName}</option>
+							</c:forEach>
 						  </select>
 						</div>
 					</div>
@@ -599,9 +606,11 @@
 							<div class="input-group-prepend">
 							  <div class="input-group-text">分類状況</div>
 							</div>
-							<select class="custom-select" name="productStockCategory">
+							<select class="custom-select" id="productStatusCategory" name="productStatusCategory">
 							  <option selected></option>
-								<option value=""></option>
+							  <c:forEach var="options" items="${classStatus}">
+							    <option value = "${options.categoryCode}">${options.categoryCodeName}</option>
+							  </c:forEach>
 							</select>
 						  </div>
 						</div>
@@ -614,7 +623,7 @@
 						<div class="input-group-prepend">
 							<div class="input-group-text">商品名</div>
 						</div>
-						<input type="text"  class="form-control" id="inlineFormInputGroup">
+						<input type="text"  class="form-control" id="productName" name="productName">
 					  </div>
 					</div>
 					<div class="col-6">
@@ -623,7 +632,7 @@
 						<div class="input-group-prepend">
 							<div class="input-group-text">商品名カナ</div>
 						</div>
-						<input type="text"  class="form-control" id="inlineFormInputGroup">
+						<input type="text"  class="form-control" id="productKana" name="productKana">
 					  </div>
 					</div>
 				  </div>
@@ -632,7 +641,7 @@
 
 				<div class="rounded float-right">
 				  <button type="button" class="btn btn-outline-secondary" onclick="">初期化</button>&ensp;
-				  <input type="submit" value="検索" class="btn btn-outline-secondary">&ensp;
+				  <button type="button" class="btn btn-outline-secondary" onclick="productSearch();">検索</button>&ensp;
 				</div>
 			  </form>
 
@@ -651,6 +660,7 @@
 					  <th scope="col" class="th_back_black" style="cursor: pointer; height: 30px;" onclick="sort('supplierName');">仕入先名</th> 
 					</tr>
 				  </thead>
+				  <tbody id="productResult">
 					<tr>
 					  <td style="white-space: normal; text-align: left;" onclick="selectProductCode()" data-dismiss="modal" id="productCode1"><a href="">商品コード1</a></td>
 					  <td style="white-space: normal; text-align: left;" onclick="selectProductCode()" data-dismiss="modal" id="productName1"><a href="">商品名1</a></td>
@@ -666,6 +676,7 @@
 						<td style="white-space: normal; text-align: left;">商品名3</td>
 						<td style="white-space: normal; text-align: left;">仕入先名3</td>
 					</tr>
+				  </tbody>
 				</table>
 				<br>
 
@@ -1199,6 +1210,8 @@
 		    var temp = "${Category2}"; 
 		    $("#product2").val(temp);
 		});
+		
+
 </script>
 </body>
 </html>
