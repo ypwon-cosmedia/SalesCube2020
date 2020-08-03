@@ -15,7 +15,7 @@ public class OrderStatementBean {
 	private String shipDate;
 	
 	/** 受注残数 */
-	private String quantity;
+	private int quantity;
 
 	/**
 	 * @return the orderNoLine
@@ -48,14 +48,14 @@ public class OrderStatementBean {
 	/**
 	 * @return the quantity
 	 */
-	public String getQuantity() {
+	public int getQuantity() {
 		return quantity;
 	}
 
 	/**
 	 * @param quantity the quantity to set
 	 */
-	public void setQuantity(String quantity) {
+	public void setQuantity(int quantity) {
 		this.quantity = quantity;
 	}
 	

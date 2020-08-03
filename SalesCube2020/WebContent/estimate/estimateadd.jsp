@@ -2,11 +2,6 @@
     pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 
-<%
-int[] taxRate = {3, 5};
-request.setAttribute("taxRates", taxRate);
-%>
-
 <!DOCTYPE html>
 <html>
 <head>
