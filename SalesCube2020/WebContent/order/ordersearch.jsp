@@ -42,12 +42,6 @@
 <title>受注検索</title>
 </head>
 <body style="background-color: gainsboro;">
-	<c:forEach var="test" items="${configDetailShow}" varStatus="status">
-		<p>${test.categoryCode} : <c:out value="${test.categoryCodeName}" /></p> 
-	</c:forEach>
-	<c:forEach var="test" items="${configDetailNotShow}" varStatus="status">
-		<p>${test.categoryCode} : <c:out value="${test.categoryCodeName}" /></p> 
-	</c:forEach>
 	<!-- Optional JavaScript -->
     <!-- jQuery first, then Popper.js, then Bootstrap JS -->
     <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
@@ -1035,9 +1029,20 @@
 		if(sel_view == "伝票"){
 			selectedArr = [];
 			unselectedArr = [];
-			selectedArr = $("#showSearchResult>option").map(function() { return $(this).text(); });
-			unselectedArr = $("#notShowSearchResult>option").map(function() { return $(this).text(); });
-
+//			selectedArr = $("#showSearchResult>option").map(function() { return $(this).text(); });
+//			unselectedArr = $("#notShowSearchResult>option").map(function() { return $(this).text(); });
+			for(var i = 0; i<document.getElementById('showSearchResult').length; i++){
+				selectedArr[i] = {
+						value:document.getElementById('showSearchResult')[i].value,
+						name:document.getElementById('showSearchResult')[i].innerText,
+				};
+			}
+			for(var i = 0; i<document.getElementById('notShowSearchResult').length; i++){
+				unselectedArr[i] = {
+						value:document.getElementById('notShowSearchResult')[i].value,
+						name:document.getElementById('notShowSearchResult')[i].innerText,
+				};
+			}
 			$("#AddHead > tr").remove();
 
 			var headcontents= '';
@@ -1053,9 +1058,20 @@
 		else {
 			detailSelectedArr = [];
 			detailUnselectedArr = [];
-			detailSelectedArr = $("#showSearchResult>option").map(function() { return $(this).text(); });
-			detailUnselectedArr = $("#notShowSearchResult>option").map(function() { return $(this).text(); });
-
+//			detailSelectedArr = $("#showSearchResult>option").map(function() { return $(this).text(); });
+//			detailUnselectedArr = $("#notShowSearchResult>option").map(function() { return $(this).text(); });
+			for(var i = 0; i<document.getElementById('showSearchResult').length; i++){
+				detailSelectedArr[i] = {
+						value:document.getElementById('showSearchResult')[i].value,
+						name:document.getElementById('showSearchResult')[i].innerText,
+				};
+			}
+			for(var i = 0; i<document.getElementById('notShowSearchResult').length; i++){
+				detailUnselectedArr[i] = {
+						value:document.getElementById('notShowSearchResult')[i].value,
+						name:document.getElementById('notShowSearchResult')[i].innerText,
+				};
+			}
 			$("#AddHead > tr").remove();
 
 			var headcontents= '';
