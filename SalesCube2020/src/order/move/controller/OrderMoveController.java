@@ -16,7 +16,7 @@ public class OrderMoveController extends BaseController{
 		String action = request.getParameter("action");
 		
 		if(action.equals("orderinput")) forwardURL = moveOrderInput(request, response);
-		else if(action.equals("orderedit")) forwardURL = moveOrderEdit(request, response);
+		else if(action.equals("orderupdate")) forwardURL = moveOrderUpdate(request, response);
 		else if(action.equals("ordersearch")) forwardURL = moveOrderSearch(request, response);
 		else if(action.equals("onlineorder")) forwardURL = moveOnlineOrder(request, response);
 		
@@ -28,7 +28,7 @@ public class OrderMoveController extends BaseController{
 		return "order\\orderinput.jsp";
 	}
 	
-	private String moveOrderEdit (HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+	private String moveOrderUpdate (HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
 		return "order\\orderupdate.jsp";
 	}
