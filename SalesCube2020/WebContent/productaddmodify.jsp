@@ -124,7 +124,7 @@
 							<div class="input-group-prepend">
 								<div class="input-group-text" style = "background-color: pink;">商品コード※</div>
 							</div>
-						<input type="text"  class="form-control" id="inlineFormInputGroup" name="productCode" value="${product.productCode}" required>
+						<input type="text"  class="form-control" id="inlineFormInputGroup" name="productCode" value="${product.productCode}" required ${status eq 'add' ? "" :'readonly'}>
 				
 						</div>
 					</div>
@@ -150,12 +150,12 @@
 				</div>
 				<div class="row">
 					<div class="col-4">
-						<label class="sr-only" for="inlineFormInputGroup">productPcode</label>
+						<label class="sr-only" for="inlineFormInputGroup">onlinePcode</label>
 							<div class="input-group mb-2">
 								<div class="input-group-prepend">
 									<div class="input-group-text">オンライン品番</div>
 								</div>
-							<input type="text"  class="form-control" id="inlineFormInputGroup" name="productPcode" value="${product.onlinePcode}">
+							<input type="text"  class="form-control" id="inlineFormInputGroup" name="onlinePcode" value="${product.onlinePcode}">
 							</div>
 						</div>
 
@@ -196,7 +196,7 @@
 								<div class="input-group-prepend">
 									<div class="input-group-text">仕入先名</div>
 								</div>
-							<input type="text"  class="form-control" id="inlineFormInputGroup" name="supplierName" value="${product.supplierName}">
+							<input type="text"  class="form-control" id="inlineFormInputGroup" name="supplierName" value="${product.supplierName}" readonly>
 							</div>
 						</div>
 						<div class="col-4">
@@ -261,7 +261,7 @@
 								<div class="input-group-prepend">
 									<div class="input-group-text">月平均出荷数</div>
 								</div>
-							<input type="text"  class="form-control" id="inlineFormInputGroup" name="avgShipCount"  value="${product.avgShipCount}">
+							<input type="text"  class="form-control" id="inlineFormInputGroup" name="avgShipCount"  value="${product.avgShipCount}" readonly>
 							</div>
 						</div>
 						<div class="col-4">
@@ -270,7 +270,7 @@
 								<div class="input-group-prepend">
 									<div class="input-group-text">倉庫名</div>
 								</div>
-							<input type="text"  class="form-control" id="inlineFormInputGroup" name="warehouseName" value="${product.warehouseName}">
+							<input type="text"  class="form-control" id="inlineFormInputGroup" name="warehouseName" value="${product.warehouseName}" readonly>
 							</div>
 						</div>
 						<div class="col-4">
@@ -368,7 +368,11 @@
 									<div class="input-group-text">数量割引</div>
 								</div>
 							<input type="text"  class="form-control" id="quantityDiscount" name=" discountId" value="${product. discountId}">
+
+							<input type="button" name="" src="btn_search.png" tabindex="101" onclick='discountForm("/SalesCube2020/quantitydiscount.jsp")' style="vertical-align: middle; cursor: pointer; width: 32px;">
+
 							<button type="button" tabindex="101" onclick="discountForm()" ><img src="btn_search.png" style="vertical-align: middle; cursor: pointer; width: 32px;"></button>
+
 							</div>
 						</div>
 					</div>
@@ -534,7 +538,7 @@
 									<div class="input-group-prepend">
 										<div class="input-group-text">重量</div>
 									</div>
-								<input type="text"  class="form-control" id="inlineFormInputGroup" value="${product2.weight}">
+								<input type="text"  class="form-control" id="inlineFormInputGroup" name="weight" value="${product2.weight}">
 								<select class="custom-select" name="weightUnitSizeCategory" id="weightUnitSizeCategory">
 									<option value=""></option>
 									<option value="1">mg</option>
@@ -549,7 +553,7 @@
 									<div class="input-group-prepend">
 										<div class="input-group-text">長さ</div>
 									</div>
-								<input type="text"  class="form-control" id="inlineFormInputGroup" value="${product2.length}">
+								<input type="text"  class="form-control" id="inlineFormInputGroup" name="length" value="${product2.length}">
 								<select class="custom-select" name="lengthUnitSizeCategory" id="lengthUnitSizeCategory">
 									<option value=""></option>
 									<option value="1">mm</option>
@@ -566,7 +570,7 @@
 									<div class="input-group-prepend">
 										<div class="input-group-text">サイズ(幅)</div>
 									</div>
-								<input type="text"  class="form-control" id="inlineFormInputGroup" value="${product2.width}">
+								<input type="text"  class="form-control" id="inlineFormInputGroup" name="width" value="${product2.width}">
 								<select class="custom-select" name="widthUnitSizeCategory" id="widthUnitSizeCategory">
 									<option value=""></option>
 									<option value="1">mm</option>
@@ -581,7 +585,7 @@
 									<div class="input-group-prepend">
 										<div class="input-group-text">サイズ(奥)</div>
 									</div>
-									<input type="text"  class="form-control" id="inlineFormInputGroup" value="${product2.depth}">
+									<input type="text"  class="form-control" id="inlineFormInputGroup" name="depth" value="${product2.depth}">
 								<select class="custom-select" name="depthUnitSizeCategory" id="depthUnitSizeCategory">
 									<option value=""></option>
 									<option value="1">mm</option>
@@ -596,7 +600,7 @@
 									<div class="input-group-prepend">
 										<div class="input-group-text">サイズ(高)</div>
 									</div>
-									<input type="text"  class="form-control" id="inlineFormInputGroup" value="${product2.height}">
+									<input type="text"  class="form-control" id="inlineFormInputGroup" name="height" value="${product2.height}">
 								<select class="custom-select" name="heightUnitSizeCategory" id="heightUnitSizeCategory">
 									<option value=""></option>
 									<option value="1">mm</option>

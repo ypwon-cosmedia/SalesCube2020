@@ -91,8 +91,6 @@ public class QuantityDiscountBean {
 	public void setDiscountRate(int discountRate) {
 		this.discountRate = discountRate;
 	}
-
-
 }
 
 	

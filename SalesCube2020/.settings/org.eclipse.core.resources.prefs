@@ -1,7 +1,13 @@
+=\=\=\=\=\=\=
+<<<<<<<=HEAD
+>>>>>>>=branch 'master' of https\://github.com/ypwon-cosmedia/SalesCube2020.git
 eclipse.preferences.version=1
 encoding//WebContent/menu.jsp=UTF-8
 encoding//WebContent/zipsearch.jsp=UTF-8
 encoding//src/master/customer/DAO/CustomerDAO.java=UTF-8
 encoding//src/master/customer/controller/CustomerController.java=UTF-8
+encoding//src/master/product/DAO/ProductModifyDAO.java=UTF-8
 encoding//src/master/product/DAO/ProductSearchDAO.java=UTF-8
+encoding//src/master/product/beans/ProductModifyBean.java=UTF-8
+encoding//src/master/product/controller/ProductDeleteController.java=UTF-8
 encoding//src/master/product/controller/ProductExcelController.java=UTF-8

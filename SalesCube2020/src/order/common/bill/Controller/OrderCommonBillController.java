@@ -1,4 +1,4 @@
-package order.common.controller;
+package order.common.bill.Controller;
 
 import java.io.IOException;
 
@@ -8,7 +8,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import common.controller.BaseController;
 
-public class OrderCommonController extends BaseController {
+public class OrderCommonBillController extends BaseController {
 
 	public String execService(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException{
 		

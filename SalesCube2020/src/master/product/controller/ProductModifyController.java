@@ -163,6 +163,7 @@ public class ProductModifyController extends BaseController{
 			bean.setProduct1(product1);
 			bean.setProduct2(product2);
 			bean.setProduct3(product3);
+			bean.setUnitCategory(unitCategory);
 			bean.setWeight(weight);
 			bean.setWeightUnitSizeCategory(weightUnitSizeCategory);
 			bean.setLength(length);
@@ -184,10 +185,10 @@ public class ProductModifyController extends BaseController{
 
 			
 			if( result == 0 ) {
-				String message = "æ›´æ–°ã§ãã¾ã›ã‚“ã§ã—ãŸã€‚";
+				String message = "•ÏX‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½";
 				request.setAttribute("addmodifyError", message);
 			}else{
-				String message = "æ›´æ–°ãŒå®Œäº†ã—ã¾ã—ãŸ";
+				String message = "•ÏX‚ªŠ®—¹‚µ‚Ü‚µ‚½";
 				request.setAttribute("addmodifysuccess", message);
 			}
 		}catch(NumberFormatException e) {
