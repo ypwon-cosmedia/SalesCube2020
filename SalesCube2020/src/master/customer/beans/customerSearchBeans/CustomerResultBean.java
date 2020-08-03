@@ -163,4 +163,3 @@ public class CustomerResultBean {
 		this.deptName = deptName;
 	}
 }
-

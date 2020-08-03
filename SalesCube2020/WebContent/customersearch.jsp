@@ -125,7 +125,7 @@
 								<div class="input-group-prepend">
 									<div class="input-group-text">顧客コード</div>
 								</div>
-							<input type="text" name="customerCode" class="form-control" id="inlineFormInputGroup">
+							<input type="number" name="customerCode" class="form-control" id="inlineFormInputGroup">
 							</div>
 						</div>
 						<div class="col-4">
@@ -332,7 +332,7 @@
 								</form>
 								<form action="/SalesCube2020/SalesCube?action=deleteCustomer" method="post">
 									<input type="hidden" name="customerCode" value="${customer.customerCode}">	
-									<input type="submit" class="btn btn-outline-secondary" value="削除" onclick="deleteForm()">
+									<input type="button" class="btn btn-outline-secondary" value="削除" onclick="deleteForm(this)" id="${customer.customerCode}">
 								</form>
 							</div>
 						</td>
@@ -340,6 +340,10 @@
    				</c:forEach></tbody>
 			</table>
 		</div>
+		
+		<form action="/SalesCube2020/SalesCube?action=deleteCustomer" method="post" name="deleteform">
+			<input type="hidden" name="customerCode">
+		</form>
 		
 <script src="//cdnjs.cloudflare.com/ajax/libs/list.js/1.5.0/list.min.js"></script>
 <script>
@@ -374,10 +378,18 @@ function moveAddCustomerForm() {
    	window.location.href = '/SalesCube2020/SalesCube?action=moveAddCustomer';
 }
    		
-function deleteForm() {
+function deleteForm(elm) {
 	if(!confirm("このデータを削除しますか？")) {
 		return;
 	}
+	
+	var check = elm.id;
+	
+	var form = document.deleteform;
+	
+	form.customerCode.value = check;
+	
+	form.submit();
    			
 }
    		

@@ -18,5 +18,4 @@ public class ProductStatusCategoryBean {
 		this.productStatusCategoryName = productStatusCategoryName;
 	}
 	
-	
 }

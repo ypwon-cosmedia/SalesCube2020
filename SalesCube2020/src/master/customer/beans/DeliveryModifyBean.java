@@ -1,6 +1,5 @@
 package master.customer.beans;
 
-import java.util.Date;
 
 /**
  * ”[“üæî•ñ

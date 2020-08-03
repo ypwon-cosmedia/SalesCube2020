@@ -353,13 +353,17 @@ public class ProductAddController extends BaseController {
 		
 			if(result==0){
 		
-				String message = "“o˜^‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½<br>";
+				String message = "é€‹ï½»éª­ï½²ç¸ºï½§ç¸ºé˜ªâˆªç¸ºå¸™ï½“ç¸ºï½§ç¸ºåŠ±â—†ç¸²ï¿½<br>";
 				request.setAttribute("addmodifyError", message);
 			}else{
-				request.setAttribute("addmodifysuccess", "“o˜^‚ªŠ®—¹‚µ‚Ü‚µ‚½<br>");
+
+				request.setAttribute("addmodifysuccess", "ç™»éŒ²ãŒå®Œäº†ã—ã¾ã—ãŸ<br>");
+
+				request.setAttribute("addmodifysuccsess", "é€‹ï½»éª­ï½²ç¸ºæ‚Ÿï½®å¾¡ï½ºï¿½ç¸ºåŠ±âˆªç¸ºåŠ±â—†ç¸²ï¿½<br>");
+
 			}
 		}catch(NumberFormatException e){
-			request.setAttribute("addmodifyinterror", "³‚µ‚¢”’l‚ğ“ü—Í‚µ‚Ä‚­‚¾‚³‚¢<br>");
+			request.setAttribute("addmodifyinterror", "è±ï½£ç¸ºåŠ±ï¼è¬¨ï½°è›Ÿï½¤ç¹§è²ï¿½ï½¥èœ‰å¸™ï¼ ç¸ºï½¦ç¸ºä¸Šâ–¡ç¸ºè¼”ï¼ç¸²ï¿½<br>");
 			e.printStackTrace();
 		}
 

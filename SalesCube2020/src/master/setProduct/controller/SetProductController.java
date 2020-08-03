@@ -175,7 +175,5 @@ final public class SetProductController extends BaseController{
 
 		return "/setproductmodify.jsp";
 	}
-	
-	
-	
+
 }

@@ -368,7 +368,11 @@
 									<div class="input-group-text">数量割引</div>
 								</div>
 							<input type="text"  class="form-control" id="quantityDiscount" name=" discountId" value="${product. discountId}">
+
 							<input type="button" name="" src="btn_search.png" tabindex="101" onclick='discountForm("/SalesCube2020/quantitydiscount.jsp")' style="vertical-align: middle; cursor: pointer; width: 32px;">
+
+							<button type="button" tabindex="101" onclick="discountForm()" ><img src="btn_search.png" style="vertical-align: middle; cursor: pointer; width: 32px;"></button>
+
 							</div>
 						</div>
 					</div>
@@ -751,8 +755,8 @@
     		
     		
     		
-    		function discountForm(url){
-    			 window.open(url, "サブ検索画面", "width=1200,height=650,scrollbars=yes");
+    		function discountForm(){
+    			 window.open("/SalesCube2020/quantitydiscount.jsp", "サブ検索画面", "width=1200,height=650,scrollbars=yes");
     		}
     		
     		
