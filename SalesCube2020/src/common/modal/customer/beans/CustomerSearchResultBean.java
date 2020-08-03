@@ -9,10 +9,10 @@ public class CustomerSearchResultBean {
 	private String customerName;
 	
 	//TEL
-	private String customerTel;
+	private String customerTEl;
 	
 	//担当者
-	private String customerPcName;
+	private String customerPCName;
 	
 	//取引区分
 	private String SalesCmCategory;
@@ -58,28 +58,28 @@ public class CustomerSearchResultBean {
 	 * @return the customerTel
 	 */
 	public String getCustomerTel() {
-		return customerTel;
+		return customerTEl;
 	}
 
 	/**
 	 * @param customerTel the customerTel to set
 	 */
 	public void setCustomerTel(String customerTel) {
-		this.customerTel = customerTel;
+		this.customerTEl = customerTel;
 	}
 
 	/**
 	 * @return the customerPcName
 	 */
 	public String getCustomerPcName() {
-		return customerPcName;
+		return customerPCName;
 	}
 
 	/**
 	 * @param customerPcName the customerPcName to set
 	 */
 	public void setCustomerPcName(String customerPcName) {
-		this.customerPcName = customerPcName;
+		this.customerPCName = customerPcName;
 	}
 
 	/**
