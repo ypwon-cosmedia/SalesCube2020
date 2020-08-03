@@ -1,5 +1,5 @@
 package estimate.common.dao;
 
-public class DivisionInfoDAO {
+public class CategoryDAO {
 
 }
