@@ -1,5 +1,5 @@
 package estimate.Input.controller;
 
-public class estiamteAddController {
+public class EstiamteAddController {
 
 }

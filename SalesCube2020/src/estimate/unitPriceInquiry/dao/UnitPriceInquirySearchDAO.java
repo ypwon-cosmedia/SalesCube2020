@@ -7,6 +7,6 @@ package estimate.unitPriceInquiry.dao;
  * @author cosmedia
  *
  */
-public class UnitPriceInquirySearch {
+public class UnitPriceInquirySearchDAO {
 
 }
