@@ -49,6 +49,7 @@
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
     <%@ include file= "../common/menubar.jsp" %>
 	<br>
+
     <div class="container" id="main_function">
       <h3 class="float-left">受注検索</h3>
    
@@ -274,13 +275,12 @@
 						<label class="sr-only" for="inlineFormI4putGroup"></label>
 						<div class="input-group mb-2">
 							<div class="input-group-prepend">
-                                <div class="input-group-text">分類(大)</div>
-                                <select>
-									<option></option>
-								    <option>サンプル大分類</option>
-                                </select>
-						    </div>
-					    </div>
+								<div class="input-group-text">分類（大）</div>
+							</div>
+							<select class="custom-select" name="product1" id="product1" onchange="selectPro1();">
+								<option selected></option>
+							</select>
+						</div>
 					</div>
 				</div>	
 			</div>
@@ -290,13 +290,12 @@
 						<label class="sr-only" for="inlineFormI4putGroup"></label>
 						<div class="input-group mb-2">
 							<div class="input-group-prepend">
-                                <div class="input-group-text">分類(中)</div>
-                                <select>
-									<option></option>
-									<option>サンプル中分類</option>
-								</select>
-						    </div>
-					    </div>
+								<div class="input-group-text">分類（中）</div>
+							</div>
+							<select class="custom-select" name="product2" id="product2" onchange="selectPro2();">
+								<option selected></option>
+							</select>
+						</div>
 					</div>
 				</div>	
 			</div>
@@ -306,13 +305,12 @@
 						<label class="sr-only" for="inlineFormI4putGroup"></label>
 						<div class="input-group mb-2">
 							<div class="input-group-prepend">
-                                <div class="input-group-text">分類(小)</div>
-                                <select>
-									<option></option>
-									<option>サンプル小分類</option>
-								</select>
-						    </div>
-					    </div>
+								<div class="input-group-text">分類（小）</div>
+							</div>
+							<select class="custom-select" name="product3" id="product3">
+								<option selected></option>
+							</select>
+						</div>
 					</div>
 				</div>	
 			</div>
@@ -447,9 +445,7 @@
 						  </div>
 						  <select class="custom-select" name="productStockCategory">
 							<option selected></option>
-							<c:forEach items="${}" value="">
-							  <option value="${}">${}</option>
-							</c:forEach>
+							  <option value=""></option>
 						  </select>
 						</div>
 					</div>
@@ -484,7 +480,6 @@
 					  
 					</tr>
 				  </thead>
-				  <c:forEach items="${}" var="">
 					<tr>
 					  <td style="white-space: normal; text-align: left;" onclick="selectCustomerCode();" data-dismiss="modal" id="customerCode1"><a href="">顧客コード1</a></td>
 					  <td style="white-space: normal; text-align: left;" onclick="selectCustomerCode();" data-dismiss="modal" id="customerName1"><a href="">顧客名1</a></td>
@@ -515,7 +510,6 @@
 						<td style="white-space: normal; text-align: left;">事務所名3</td>
 						<td style="white-space: normal; text-align: left;">部署名3</td>
 					  </tr>
-				  </c:forEach>
 				</table>
 				<br>
 
@@ -581,9 +575,7 @@
 						  </div>
 						  <select class="custom-select" name="productStatusCategory">
 							<option selected></option>
-							<c:forEach items="${}" value="">
-							  <option value="${}">${}</option>
-							</c:forEach>
+							  <option value=""></option>
 						  </select>
 						</div>
 					</div>
@@ -596,9 +588,7 @@
 						  </div>
 						  <select class="custom-select" name="productStockCategory">
 							<option selected></option>
-							<c:forEach items="${}" value="">
-							  <option value="${}">${}</option>
-							</c:forEach>
+							  <option value=""></option>
 						  </select>
 						</div>
 					</div>
@@ -611,9 +601,7 @@
 							</div>
 							<select class="custom-select" name="productStockCategory">
 							  <option selected></option>
-							  <c:forEach items="${}" value="">
-								<option value="${}">${}</option>
-							  </c:forEach>
+								<option value=""></option>
 							</select>
 						  </div>
 						</div>
@@ -663,7 +651,6 @@
 					  <th scope="col" class="th_back_black" style="cursor: pointer; height: 30px;" onclick="sort('supplierName');">仕入先名</th> 
 					</tr>
 				  </thead>
-				  <c:forEach items="${}" var="">
 					<tr>
 					  <td style="white-space: normal; text-align: left;" onclick="selectProductCode()" data-dismiss="modal" id="productCode1"><a href="">商品コード1</a></td>
 					  <td style="white-space: normal; text-align: left;" onclick="selectProductCode()" data-dismiss="modal" id="productName1"><a href="">商品名1</a></td>
@@ -679,7 +666,6 @@
 						<td style="white-space: normal; text-align: left;">商品名3</td>
 						<td style="white-space: normal; text-align: left;">仕入先名3</td>
 					</tr>
-				  </c:forEach>
 				</table>
 				<br>
 
@@ -876,6 +862,7 @@
 	var selectedArr = [];
 	var detailUnselectedArr = [];
 	var detailSelectedArr = [];
+	var mylist = [];
 
 	function initPage(){
 		if(!confirm("入力内容を初期化してよろしいですか？")){
@@ -1072,6 +1059,89 @@
 			}
 		}
 	});
+	window.onload = function(){
+		var loop=0;
+		
+		<c:forEach var="test" items="${category}" >
+		  mylist[loop] = {
+				    cat1:"${test.classCode1}",
+				    cat2:"${test.classCode2}",
+				    cat3:"${test.classCode3}",
+				    catName:"${test.className}",	
+				  };
+		  		loop++;  	 
+		</c:forEach>
+		var list = mylist
+		var objSel = document.getElementById("product1");
+					
+		for(var i in list) {
+			if(list[i].cat1 != "" && list[i].cat2 == ""){
+				var objOption = document.createElement("option");
+				objOption.text = list[i].catName;
+				objOption.value = list[i].cat1;
+				
+				objSel.add(objOption);
+			}
+		}
+	}
+
+	
+	
+		//カテゴリー
+		function selectPro1(){
+	
+			var list = mylist
+			var objSel = document.getElementById("product2");
+			var objSel2 = document.getElementById("product3");
+			var sel1 = document.getElementById("product1").value;
+			
+			for(i=objSel.length; i > 0; i--){
+				objSel.options[i]=null;
+			}
+			
+			for(i=objSel2.length; i > 0; i--){
+				objSel2.options[i]=null;
+			}
+			
+			for(var i in list) {
+				if(list[i].cat1 == sel1 && list[i].cat2 != "" && list[i].cat3 == ""){
+					var objOption = document.createElement("option");
+					objOption.text = list[i].catName;
+					objOption.value = list[i].cat2;					
+					objSel.add(objOption);
+				}
+			}
+
+		}	
+		function selectPro2(){
+			var list = mylist
+			
+			var objSel = document.getElementById("product3");
+			var sel1 = document.getElementById("product1").value;
+			var sel2 = document.getElementById("product2").value;
+			
+			for(i=objSel.length; i > 0; i--){
+				objSel.options[i]=null;
+			}
+			
+			for(var i in list) {
+				if(list[i].cat1 == sel1 && list[i].cat2 == sel2 && list[i].cat3 != ""){
+					var objOption = document.createElement("option");
+					objOption.text = list[i].catName;
+					objOption.value = list[i].cat3;
+					
+					objSel.add(objOption);
+				}
+			}
+		}
+		$(function() {
+		    var temp = "${Category1}"; 
+		    $("#product1").val(temp);
+		})
+		$(function() {
+		    var temp = "${Category2}"; 
+		    $("#product2").val(temp);
+		});
 </script>
 </body>
 </html>
