@@ -57,9 +57,6 @@ final public class MenuController extends BaseController{
 					// TODO Auto-generated catch block
 					e.printStackTrace();
 				}
-			else if(action.equals("orderinput")) forwardURL = "";
-			else if(action.equals("ordersearch")) forwardURL = "";
-			else if(action.equals("onlineorder")) forwardURL = "";
 			
       		return forwardURL;
       }
