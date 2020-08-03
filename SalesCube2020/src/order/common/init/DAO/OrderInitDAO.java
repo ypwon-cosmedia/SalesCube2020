@@ -37,7 +37,7 @@ public class OrderInitDAO extends BaseDAO{
 		while(result.next()) {
 			OrderInitBean bean = new OrderInitBean();
 			bean.setCategoryCode(result.getString("CATEGORY_CODE"));
-			bean.setCategoryCode(result.getString("CATEGORY_CODE_NAME"));
+			bean.setCategoryCodeName(result.getString("CATEGORY_CODE_NAME"));
 			list.add(bean);
 		}
 		
@@ -71,6 +71,68 @@ public class OrderInitDAO extends BaseDAO{
 			bean.setClassCode2(result.getString("CLASS_CODE_2"));
 			bean.setClassCode3(result.getString("CLASS_CODE_3"));
 			bean.setClassName(result.getString("CLASS_NAME"));
+			list.add(bean);
+		}
+		
+		super.releaseDB(con,stmt,result);
+		
+		return list;
+	}
+	
+	public List<OrderInitBean> initConfigModalShow(String detailID, String target) throws SQLException, ClassNotFoundException {
+		
+		List<OrderInitBean> list = new ArrayList<> ();
+		
+		OrderSQL sqllist = new OrderSQL();
+		
+		Connection con;
+		Statement stmt = null;
+		ResultSet result = null;
+		
+		con = super.getConnection();
+		stmt = con.createStatement();
+
+		String sql;
+		
+		sql = sqllist.initConfigModalShowList(detailID, target);
+		
+		result = stmt.executeQuery(sql);
+		
+		while(result.next()) {
+			OrderInitBean bean = new OrderInitBean();
+			bean.setCategoryCode(result.getString("ITEM_ID"));
+			bean.setCategoryCodeName(result.getString("ITEM_NAME"));
+			list.add(bean);
+		}
+		
+		super.releaseDB(con,stmt,result);
+		
+		return list;
+	}
+	
+public List<OrderInitBean> initConfigModalNotShow(String detailID, String target) throws SQLException, ClassNotFoundException {
+		
+		List<OrderInitBean> list = new ArrayList<> ();
+		
+		OrderSQL sqllist = new OrderSQL();
+		
+		Connection con;
+		Statement stmt = null;
+		ResultSet result = null;
+		
+		con = super.getConnection();
+		stmt = con.createStatement();
+
+		String sql;
+		
+		sql = sqllist.initConfigModalNotShowList(detailID, target);
+		
+		result = stmt.executeQuery(sql);
+		
+		while(result.next()) {
+			OrderInitBean bean = new OrderInitBean();
+			bean.setCategoryCode(result.getString("ITEM_ID"));
+			bean.setCategoryCodeName(result.getString("ITEM_NAME"));
 			list.add(bean);
 		}
 		

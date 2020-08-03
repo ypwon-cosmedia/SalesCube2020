@@ -42,6 +42,12 @@
 <title>受注検索</title>
 </head>
 <body style="background-color: gainsboro;">
+	<c:forEach var="test" items="${configDetailShow}" varStatus="status">
+		<p>${test.categoryCode} : <c:out value="${test.categoryCodeName}" /></p> 
+	</c:forEach>
+	<c:forEach var="test" items="${configDetailNotShow}" varStatus="status">
+		<p>${test.categoryCode} : <c:out value="${test.categoryCodeName}" /></p> 
+	</c:forEach>
 	<!-- Optional JavaScript -->
     <!-- jQuery first, then Popper.js, then Bootstrap JS -->
     <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
@@ -883,10 +889,45 @@
 	}
 
 	$(document).ready(function(){
-		unselectedArr = ["見積番号", "見積日", "有効期限", "伝票合計", "件名", "提出先名", "提出先敬称", "顧客コード", "顧客名"];
-		selectedArr = ["粗利益", "粗利益率", "金額合計", "消費税", "納期または出荷日", "入力担当者名", "入力担当者コード", "摘要", "納入先", "見積条件"];
-		detailUnselectedArr = ["出荷日","納期指定日","受付番号","入力担当者コード","入力担当者名","摘要","[明細]顧客コード","[明細]完納区分","[明細]売上単価","[明細]仕入金額","[明細]売価金額","粗利益","粗利益率","金額合計","消費税","伝票合計","受注残数"];
-		detailSelectedArr = ["受注番号-行","受注日","顧客名","[明細]商品名","[明細]数量","[明細]仕入単価","[明細]備考"];
+		var loop=0;
+		<c:forEach var="test" items="${configDetailShow}">
+		detailSelectedArr[loop] = {
+				    value:"${test.categoryCode}",
+				    name:"${test.categoryCodeName}",	
+				  };
+		  		loop++;  	 
+		</c:forEach>
+
+		loop=0;
+		<c:forEach var="test" items="${configDetailNotShow}">
+		detailUnselectedArr[loop] = {
+			   value:"${test.categoryCode}",
+		 	   name:"${test.categoryCodeName}",	
+			  };
+  		loop++;
+		</c:forEach>
+		
+		loop=0;
+		<c:forEach var="test" items="${configBillShow}">
+		selectedArr[loop] = {
+			   value:"${test.categoryCode}",
+		 	   name:"${test.categoryCodeName}",	
+			  };
+  		loop++;
+		</c:forEach>
+		
+		loop=0;
+		<c:forEach var="test" items="${configBillNotShow}">
+		unselectedArr[loop] = {
+			   value:"${test.categoryCode}",
+		 	   name:"${test.categoryCodeName}",	
+			  };
+  		loop++;
+		</c:forEach>
+//		unselectedArr = ["見積番号", "見積日", "有効期限", "伝票合計", "件名", "提出先名", "提出先敬称", "顧客コード", "顧客名"];
+//		selectedArr = ["粗利益", "粗利益率", "金額合計", "消費税", "納期または出荷日", "入力担当者名", "入力担当者コード", "摘要", "納入先", "見積条件"];
+//		detailUnselectedArr = ["出荷日","納期指定日","受付番号","入力担当者コード","入力担当者名","摘要","[明細]顧客コード","[明細]完納区分","[明細]売上単価","[明細]仕入金額","[明細]売価金額","粗利益","粗利益率","金額合計","消費税","伝票合計","受注残数"];
+//		detailSelectedArr = ["受注番号-行","受注日","顧客名","[明細]商品名","[明細]数量","[明細]仕入単価","[明細]備考"];
 
 		var headcontents= '';
 
@@ -895,26 +936,26 @@
 
 		if(sel_view == "伝票"){
 			for(var i = 0; i < selectedArr.length; i++){
-				$("#showSearchResult").append("<option value = " + i+1 + ">" + selectedArr[i] + "</option>")
+				$("#showSearchResult").append("<option value = " + selectedArr[i].value + ">" + selectedArr[i].name + "</option>")
 			}
 
 			for(var i = 0; i < unselectedArr.length; i++){
-				$("#notShowSearchResult").append("<option value = " + i+1 + ">" + unselectedArr[i] + "</option>")
+				$("#notShowSearchResult").append("<option value = " + unselectedArr[i].value + ">" + unselectedArr[i].name + "</option>")
 			}
 		}
 		else{
-			for(var i = 0; i < detailSelectedArr.length; i++){
-				$("#showSearchResult").append("<option value = " + i+1 + ">" + selectedArr[i] + "</option>")
+			for(var i in detailSelectedArr){
+				$("#showSearchResult").append("<option value = " + detailSelectedArr[i].value + ">" + detailSelectedArr[i].name + "</option>")
 			}
 
-			for(var i = 0; i < detailUnselectedArr.length; i++){
-				$("#notShowSearchResult").append("<option value = " + i+1 + ">" + unselectedArr[i] + "</option>")
+			for(var i in detailUnselectedArr){
+				$("#notShowSearchResult").append("<option value = " + detailUnselectedArr[i].value + ">" + detailUnselectedArr[i].name + "</option>")
 			}
 		}
 
 		headcontents += '<tr>';
 		for(var i = 0; i < selectedArr.length; i++){
-			headcontents += '<th scope="col" class="sort th_back_black" style="cursor: pointer; height: 30px;">'+ selectedArr[i] +'</th>';
+			headcontents += '<th scope="col" class="sort th_back_black" style="cursor: pointer; height: 30px;">'+ selectedArr[i].name +'</th>';
 		}               
 		headcontents += '</tr>';
 
@@ -979,11 +1020,11 @@
 		$("select#notShowSearchResult option").remove();
 
 		for(var i = 0; i < selectedArr.length; i++){
-			$("#showSearchResult").append("<option value = " + i+1 + ">" + selectedArr[i] + "</option>")
+			$("#showSearchResult").append("<option value = " + selectedArr[i].value + ">" + selectedArr[i].name + "</option>")
 		}
 
 		for(var i = 0; i < unselectedArr.length; i++){
-			$("#notShowSearchResult").append("<option value = " + i+1 + ">" + unselectedArr[i] + "</option>")
+			$("#notShowSearchResult").append("<option value = " + unselectedArr[i].value + ">" + unselectedArr[i].name + "</option>")
 		}
 	}
 
@@ -1003,7 +1044,7 @@
 			
 			headcontents += '<tr>';
 			for(var i = 0; i < selectedArr.length; i++){
-				headcontents += '<th scope="col" class="sort th_back_black" style="cursor: pointer; height: 30px;">'+ selectedArr[i] +'</th>';
+				headcontents += '<th scope="col" class="sort th_back_black" style="cursor: pointer; height: 30px;">'+ selectedArr[i].name +'</th>';
 			}               
 			headcontents += '</tr>';
 
@@ -1021,7 +1062,7 @@
 			
 			headcontents += '<tr>';
 			for(var i = 0; i < detailSelectedArr.length; i++){
-				headcontents += '<th scope="col" class="sort th_back_black" style="cursor: pointer; height: 30px;">'+ detailSelectedArr[i] +'</th>';
+				headcontents += '<th scope="col" class="sort th_back_black" style="cursor: pointer; height: 30px;">'+ detailSelectedArr[i].name +'</th>';
 			}               
 			headcontents += '</tr>';
 
@@ -1042,20 +1083,20 @@
 
 		if(sel_view == "伝票"){
 			for(var i = 0; i < selectedArr.length; i++){
-				$("#showSearchResult").append("<option value = " + i+1 + ">" + selectedArr[i] + "</option>")
+				$("#showSearchResult").append("<option value = " + selectedArr[i].value + ">" + selectedArr[i].name + "</option>")
 			}
 
 			for(var i = 0; i < unselectedArr.length; i++){
-				$("#notShowSearchResult").append("<option value = " + i+1 + ">" + unselectedArr[i] + "</option>")
+				$("#notShowSearchResult").append("<option value = " + unselectedArr[i].value + ">" + unselectedArr[i].name + "</option>")
 			}
 		}
 		else{
 			for(var i = 0; i < detailSelectedArr.length; i++){
-				$("#showSearchResult").append("<option value = " + i+1 + ">" + detailSelectedArr[i] + "</option>")
+				$("#showSearchResult").append("<option value = " + detailSelectedArr[i].value + ">" + detailSelectedArr[i].name + "</option>")
 			}
 
 			for(var i = 0; i < detailUnselectedArr.length; i++){
-				$("#notShowSearchResult").append("<option value = " + i+1 + ">" + detailUnselectedArr[i] + "</option>")
+				$("#notShowSearchResult").append("<option value = " + detailUnselectedArr[i].value + ">" + detailUnselectedArr[i].name + "</option>")
 			}
 		}
 	});
