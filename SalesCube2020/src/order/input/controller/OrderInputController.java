@@ -8,11 +8,17 @@ import javax.servlet.http.HttpServletResponse;
 
 import common.controller.BaseController;
 
+
 public class OrderInputController extends BaseController {
 
 	public String execService(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException{
 		
-		return "";
+		String forwardURL = "/menu.jsp";
+		String action = request.getParameter("action");
+				
+
+		return forwardURL;
 	}
+	
 	
 }
