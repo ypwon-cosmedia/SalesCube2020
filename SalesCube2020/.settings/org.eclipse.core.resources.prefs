@@ -9,6 +9,5 @@ encoding//src/master/customer/controller/CustomerController.java=UTF-8
 encoding//src/master/product/DAO/ProductModifyDAO.java=UTF-8
 encoding//src/master/product/DAO/ProductSearchDAO.java=UTF-8
 encoding//src/master/product/beans/ProductModifyBean.java=UTF-8
-encoding//src/master/product/controller/ProductAddController.java=UTF-8
 encoding//src/master/product/controller/ProductDeleteController.java=UTF-8
 encoding//src/master/product/controller/ProductExcelController.java=UTF-8

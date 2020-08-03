@@ -26,7 +26,7 @@ public class UserController extends BaseController{
 		
 		try {
 		
-		//action’l‚É‚æ‚é
+		//actionï¿½lï¿½É‚ï¿½ï¿½
 		if(action.equals("login")) 			forwardURL = login(request, response);
 		else if(action.equals("logout")) 	forwardURL = logout(request, response);
 		
@@ -47,22 +47,22 @@ public class UserController extends BaseController{
 		LoginBean user = new LoginBean();
 		UserDAO userdao = new UserDAO();
 		
-		//JSP‚©‚çî•ñ‚ğæ“¾
+		//JSPï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½æ“¾
 		String userID = request.getParameter("userId");
 		String password = request.getParameter("password");
-		//DB‚ÉID‚ÆƒpƒXƒ[ƒh‚ªˆê’v‚·‚éî•ñ‚ª‚ ‚é‚©‚ğ’T‚·
+		//DBï¿½ï¿½IDï¿½Æƒpï¿½Xï¿½ï¿½ï¿½[ï¿½hï¿½ï¿½ï¿½ï¿½vï¿½ï¿½ï¿½ï¿½ï¿½ñ‚ª‚ï¿½ï¿½é‚©ï¿½ï¿½Tï¿½ï¿½
 		user = userdao.login(userID, password);
 		
-		//ƒƒOƒCƒ“‚Ì‰Â”Û‚Ìİ’è
+		//ï¿½ï¿½ï¿½Oï¿½Cï¿½ï¿½ï¿½Ì‰Â”Û‚Ìİ’ï¿½
 		if(user == null ) {
-			message = "ID‚ÆƒpƒXƒ[ƒh‚ª³‚µ‚­‚ ‚è‚Ü‚¹‚ñ";
+			message = "æ­£ã—ã„IDã¨PWã‚’å…¥åŠ›ã—ã¦ãã ã•ã„";
 			request.setAttribute("loginError", message);
 			
 			forwardURL = "/login.jsp";
 		}else {
-			//ƒZƒbƒVƒ‡ƒ“—Ìˆæ‚Ìæ“¾
+			//ï¿½Zï¿½bï¿½Vï¿½ï¿½ï¿½ï¿½ï¿½Ìˆï¿½Ìæ“¾
 			HttpSession session = request.getSession();
-			//ƒZƒbƒVƒ‡ƒ“ƒXƒR[ƒv‚ÉAID‚ÆŠ¿š–¼‚ğ“o˜^
+			//ï¿½Zï¿½bï¿½Vï¿½ï¿½ï¿½ï¿½ï¿½Xï¿½Rï¿½[ï¿½vï¿½ÉAIDï¿½ÆŠï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½oï¿½^
 			UserInfoBean userInfo = new UserInfoBean();
 			userInfo = userdao.userInfo(userID);
 			session.setAttribute("userInfo", userInfo);
@@ -77,9 +77,9 @@ public class UserController extends BaseController{
 	
 	public String logout(HttpServletRequest request, HttpServletResponse response) {
 		
-		//ƒZƒbƒVƒ‡ƒ“—Ìˆæ‚Ìæ“¾
+		//ï¿½Zï¿½bï¿½Vï¿½ï¿½ï¿½ï¿½ï¿½Ìˆï¿½Ìæ“¾
 		HttpSession session = request.getSession();
-		//ƒZƒbƒVƒ‡ƒ“î•ñ‚ğ‚·‚×‚Äíœ
+		//ï¿½Zï¿½bï¿½Vï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½×‚Äíœ
 		session.invalidate();
 
 		return "/login.jsp";

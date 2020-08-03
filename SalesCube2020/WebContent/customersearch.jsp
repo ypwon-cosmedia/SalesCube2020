@@ -299,7 +299,7 @@
 <br><br>
 
 		<div class="container" style="background-color: rgb(255, 255, 255);" id="customerList">
-  			<table id="order_detail_info" class="table table-bordered">
+  			<table id="order_detail_info" class="table table-bordered tablewidth">
 				<thead class="thead-dark">
     				<tr>
 						<th style="cursor: pointer; height: 30px;" class="sort" data-sort="customerCode">顧客コード</th>
