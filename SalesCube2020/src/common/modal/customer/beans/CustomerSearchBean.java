@@ -1,12 +1,17 @@
 package common.modal.customer.beans;
 
 public class CustomerSearchBean {
+	
+	//顧客コード
 	private String customerCode;
 	
+	//顧客名
 	private String customerName;
 	
+	//顧客カナ
 	private String customerKana;
 	
+	//支払条件
 	private String cutoffGroup;
 
 	/**

@@ -1,20 +1,29 @@
 package common.modal.customer.beans;
 
 public class CustomerSearchResultBean {
+	
+	//顧客コード
 	private String customerCode;
 	
+	//顧客名
 	private String customerName;
 	
+	//TEL
 	private String customerTel;
 	
+	//担当者
 	private String customerPcName;
 	
+	//取引区分
 	private String SalesCmCategory;
 	
+	//支払条件
 	private String cutoffGroup;
 	
+	//事業所名
 	private String customerOfficeName;
 	
+	//部署名
 	private String customerDeptName;
 
 	/**
