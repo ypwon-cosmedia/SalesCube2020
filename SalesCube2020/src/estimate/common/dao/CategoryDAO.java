@@ -11,6 +11,7 @@ import common.dao.BaseDAO;
 import estimate.common.beans.CategoryBean;
 
 public class CategoryDAO extends BaseDAO{
+	
 	public  List<CategoryBean> CategoryGet(int categoryId) throws SQLException, ClassNotFoundException{
 		
 		List<CategoryBean> list = new ArrayList<> ();

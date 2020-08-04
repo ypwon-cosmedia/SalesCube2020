@@ -17,11 +17,6 @@
             max-width: none !important;
         }
     </style>
-    <script type="text/javascript">
-    	function CloseWindow() {
-     		 window.close();
-    	}
-  	</script>
   </head>
     <body style="background-color: gainsboro;">
        <!-- Optional JavaScript -->
@@ -71,8 +66,8 @@
             		 var showShipdate = [];
             		 var values = '${shipdateInfo.shipdateInfo}'
             		 //配列に追加
-                     for(var i = 0; i < array.length; i++){
-                    	 showShipdate.push( array[i] );
+                     for(var i = 0; i < values.length; i++){
+                    	 showShipdate.push( values[i] );
                      }
             		 /*
             		 var values = [
