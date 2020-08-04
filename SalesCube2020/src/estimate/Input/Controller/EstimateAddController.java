@@ -11,6 +11,7 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import common.controller.BaseController;
 import estimate.Input.beans.TaxRateBean;
 import estimate.Input.dao.EstimateInputCommonDAO;
 
@@ -19,7 +20,7 @@ import estimate.Input.dao.EstimateInputCommonDAO;
  * @author cosmedia
  *
  */
-public class EstimateAddController {
+public class EstimateAddController extends BaseController {
 
 	public String execService(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
