@@ -12,7 +12,7 @@ public class OrderSQL {
 		
 	}
 	
-	public String initConfigModalShowList(String detailID, String target) {
+	public String initConfigModalShowList(String detailID, String target, String userID) {
 		
 		String sql;
 		
@@ -31,7 +31,7 @@ public class OrderSQL {
 				"and " + 
 				"TARGET = '"+ target + "' " +
 				"and " + 
-				"USER_ID = 'SYSTEM') AS b " + 
+				"USER_ID = '"+ userID +"') AS b " + 
 				"USING(DETAIL_ID, TARGET, ITEM_ID) " + 
 				"where " + 
 				"a.DETAIL_ID = '"+ detailID + "' " +
@@ -43,7 +43,7 @@ public class OrderSQL {
 		return sql;
 	}
 	
-	public String initConfigModalNotShowList(String detailID, String target) {
+	public String initConfigModalNotShowList(String detailID, String target, String userID) {
 		
 		String sql;
 		
@@ -62,7 +62,7 @@ public class OrderSQL {
 				"and " + 
 				"TARGET = '"+ target + "' " +
 				"and " + 
-				"USER_ID = 'SYSTEM') AS b " + 
+				"USER_ID = '"+ userID +"') AS b " + 
 				"USING(DETAIL_ID, TARGET, ITEM_ID) " + 
 				"where " + 
 				"a.DETAIL_ID = '"+ detailID + "' " +
@@ -70,6 +70,33 @@ public class OrderSQL {
 				"a.TARGET = '"+ target + "' " +
 				"AND " + 
 				"b.ITEM_ID IS NULL";
+		
+		return sql;
+	}
+	
+	public String deleteConfigModal(String detailID, String target, String userID) {
+		String sql;
+		
+		sql = 	"delete from detail_disp_item_cfg_xxxxx " +
+				"where USER_ID = " + userID + " " +
+				"and " +
+				"DETAIL_ID = " + detailID + " " +
+				"and " +
+				"TARGET = " + target;
+		
+		return sql;
+	}
+	
+	public String insertConfigModal(String detailID, String target, String userID, int seq, String itemID) {
+		String sql;
+		
+		sql = 	"INSERT INTO detail_disp_item_cfg_xxxxx (USER_ID,DETAIL_ID,TARGET,ITEM_ID,SEQ)" +
+				"VALUES(" +
+				userID + ", " +
+				detailID + ", " +
+				target + ", " +
+				itemID + ", " +
+				seq + ")";
 		
 		return sql;
 	}

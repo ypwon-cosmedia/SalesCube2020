@@ -89,7 +89,7 @@
 						<div class="input-group mb-2">
 							<div class="input-group-prepend">
                                    <div class="input-group-text">検索対象</div>
-                                   <select id="select_view">
+                                   <select id="select_view" onchange="changeSearch()">
                                        <option value="伝票">伝票</option>
                                        <option value="明細">明細</option>
                                    </select>
@@ -1088,7 +1088,9 @@
 		}	
 	}
 
-	$("#select_view").focusout(function(){
+	$("#select_view").focusout();
+	
+	function changeSearch(){
 		$("select#showSearchResult option").remove();
 		$("select#notShowSearchResult option").remove();
 
@@ -1117,7 +1119,67 @@
 				$("#notShowSearchResult").append("<option value = " + detailUnselectedArr[i].value + ">" + detailUnselectedArr[i].name + "</option>")
 			}
 		}
-	});
+		
+		if(sel_view == "伝票"){
+			selectedArr = [];
+			unselectedArr = [];
+//			selectedArr = $("#showSearchResult>option").map(function() { return $(this).text(); });
+//			unselectedArr = $("#notShowSearchResult>option").map(function() { return $(this).text(); });
+			for(var i = 0; i<document.getElementById('showSearchResult').length; i++){
+				selectedArr[i] = {
+						value:document.getElementById('showSearchResult')[i].value,
+						name:document.getElementById('showSearchResult')[i].innerText,
+				};
+			}
+			for(var i = 0; i<document.getElementById('notShowSearchResult').length; i++){
+				unselectedArr[i] = {
+						value:document.getElementById('notShowSearchResult')[i].value,
+						name:document.getElementById('notShowSearchResult')[i].innerText,
+				};
+			}
+			$("#AddHead > tr").remove();
+
+			var headcontents= '';
+			
+			headcontents += '<tr>';
+			for(var i = 0; i < selectedArr.length; i++){
+				headcontents += '<th scope="col" class="sort th_back_black" style="cursor: pointer; height: 30px;">'+ selectedArr[i].name +'</th>';
+			}               
+			headcontents += '</tr>';
+
+			$('#AddHead').append(headcontents);
+		} 
+		else {
+			detailSelectedArr = [];
+			detailUnselectedArr = [];
+//			detailSelectedArr = $("#showSearchResult>option").map(function() { return $(this).text(); });
+//			detailUnselectedArr = $("#notShowSearchResult>option").map(function() { return $(this).text(); });
+			for(var i = 0; i<document.getElementById('showSearchResult').length; i++){
+				detailSelectedArr[i] = {
+						value:document.getElementById('showSearchResult')[i].value,
+						name:document.getElementById('showSearchResult')[i].innerText,
+				};
+			}
+			for(var i = 0; i<document.getElementById('notShowSearchResult').length; i++){
+				detailUnselectedArr[i] = {
+						value:document.getElementById('notShowSearchResult')[i].value,
+						name:document.getElementById('notShowSearchResult')[i].innerText,
+				};
+			}
+			$("#AddHead > tr").remove();
+
+			var headcontents= '';
+			
+			headcontents += '<tr>';
+			for(var i = 0; i < detailSelectedArr.length; i++){
+				headcontents += '<th scope="col" class="sort th_back_black" style="cursor: pointer; height: 30px;">'+ detailSelectedArr[i].name +'</th>';
+			}               
+			headcontents += '</tr>';
+
+			$('#AddHead').append(headcontents);
+		}
+	}
+	
 	window.onload = function(){
 		var loop=0;
 		

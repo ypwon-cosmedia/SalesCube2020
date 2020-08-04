@@ -40,11 +40,12 @@ public class OrderMoveController extends BaseController{
 		OrderInitDAO dao = new OrderInitDAO();
 		
 		try {
+			
 			request.setAttribute("category", dao.initCategory());
-			request.setAttribute("configDetailShow", dao.initConfigModalShow("0301", "2"));
-			request.setAttribute("configBillShow", dao.initConfigModalShow("0301", "1"));
-			request.setAttribute("configDetailNotShow", dao.initConfigModalNotShow("0301", "2"));
-			request.setAttribute("configBillNotShow", dao.initConfigModalNotShow("0301", "1"));
+			request.setAttribute("configDetailShow", dao.initConfigModalShow("0301", "2", (String) request.getAttribute("userInfo")));
+			request.setAttribute("configBillShow", dao.initConfigModalShow("0301", "1", (String) request.getAttribute("userInfo")));
+			request.setAttribute("configDetailNotShow", dao.initConfigModalNotShow("0301", "2", (String) request.getAttribute("userInfo")));
+			request.setAttribute("configBillNotShow", dao.initConfigModalNotShow("0301", "1", (String) request.getAttribute("userInfo")));
 			request.setAttribute("setProduct", dao.initComboBox("2"));
 			request.setAttribute("standard", dao.initComboBox("3"));
 			request.setAttribute("classStatus", dao.initComboBox("16"));
