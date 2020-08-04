@@ -1,6 +1,6 @@
 package sql.order;
 
-public class OrderInputSQL {
+public class OrderTmpSQL {
 
 	
 }
