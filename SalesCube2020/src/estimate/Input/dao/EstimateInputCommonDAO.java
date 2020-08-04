@@ -45,7 +45,6 @@ public class EstimateInputCommonDAO extends BaseDAO {
 	 		TaxRateBean bean = new TaxRateBean();
 	 		bean.setTaxRate(result.getBigDecimal("TAX_RATE"));
 	 		list.add(bean);
-	 		System.out.println(result.getBigDecimal("TAX_RATE"));
 	 	}
 	 	
 	 	super.releaseDB(con,stmt,result);

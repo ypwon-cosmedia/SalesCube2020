@@ -48,6 +48,8 @@ public class EstimateAddController extends BaseController {
 		EstimateInputCommonDAO dao =  new EstimateInputCommonDAO();
 		List<TaxRateBean> taxRateList = dao.getTaxRate();
 		
+		System.out.println(taxRateList.get(0).getTaxRate());
+		
 		//+ 顧客敬称取得//
 		
 		
