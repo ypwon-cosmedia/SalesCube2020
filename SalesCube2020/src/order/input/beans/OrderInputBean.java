@@ -148,6 +148,17 @@ public class OrderInputBean {
 	
 	/* 伝票合計 */
 	private String priceTotal;
+	
+	/* 区分コード名 */
+	private String categoryCodeName;
+
+	public String getCategoryCodeName() {
+		return categoryCodeName;
+	}
+
+	public void setCategoryCodeName(String categoryCodeName) {
+		this.categoryCodeName = categoryCodeName;
+	}
 
 	public Integer getRoSlipId() {
 		return roSlipId;
