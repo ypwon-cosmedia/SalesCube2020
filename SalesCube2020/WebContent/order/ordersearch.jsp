@@ -1216,12 +1216,12 @@
 			var formString = $("form[id=product]").serialize();
 			
 			$.ajax({
-				url:'',
+				url:'/SalesCube2020/SalesCubeAJAX?action=productSearch',
 				type:'post',
 				data:formString,
 				dataType:'json',
 				success:function(data){	
-					alert(data);
+					alert(data.test);
 				}
 			});
 		}
