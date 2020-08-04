@@ -7,7 +7,7 @@ package estimate.Input.beans;
  * @author cosmedia
  *
  */
-public class EstimateModifyBean {
+public class EstimateAddBean {
 	/** 見積番号 */
 	private String estimateSheetId;
 
@@ -60,19 +60,19 @@ public class EstimateModifyBean {
 	private String memo;
 	
 	/** 金額合計 */
-	private Integer retailPriceTotal;
+	private int retailPriceTotal;
 	
 	/** 消費税 */
-	private Integer ctaxPriceTotal ;
+	private int ctaxPriceTotal;
 	
 	/** 伝票合計 */
-	private Integer estimateTotal;
+	private int estimateTotal;
 	
-	/** 更新日時 */
-	private String updDate;
+	/** 作成日時 */
+	private String creDate;
 	
-	/** 更新者 */
-	private String updUser;
+	/** 作成者 */
+	private String creUser;
 	
 
 	/**
@@ -316,42 +316,42 @@ public class EstimateModifyBean {
 	/**
 	 * @return the retailPriceTotal
 	 */
-	public Integer getRetailPriceTotal() {
+	public int getRetailPriceTotal() {
 		return retailPriceTotal;
 	}
 
 	/**
 	 * @param retailPriceTotal the retailPriceTotal to set
 	 */
-	public void setRetailPriceTotal(Integer retailPriceTotal) {
+	public void setRetailPriceTotal(int retailPriceTotal) {
 		this.retailPriceTotal = retailPriceTotal;
 	}
 
 	/**
 	 * @return the ctaxPriceTotal
 	 */
-	public Integer getCtaxPriceTotal() {
+	public int getCtaxPriceTotal() {
 		return ctaxPriceTotal;
 	}
 
 	/**
 	 * @param ctaxPriceTotal the ctaxPriceTotal to set
 	 */
-	public void setCtaxPriceTotal(Integer ctaxPriceTotal) {
+	public void setCtaxPriceTotal(int ctaxPriceTotal) {
 		this.ctaxPriceTotal = ctaxPriceTotal;
 	}
 
 	/**
 	 * @return the estimateTotal
 	 */
-	public Integer getEstimateTotal() {
+	public int getEstimateTotal() {
 		return estimateTotal;
 	}
 
 	/**
 	 * @param estimateTotal the estimateTotal to set
 	 */
-	public void setEstimateTotal(Integer estimateTotal) {
+	public void setEstimateTotal(int estimateTotal) {
 		this.estimateTotal = estimateTotal;
 	}
 
@@ -359,28 +359,28 @@ public class EstimateModifyBean {
 	 * @return the creDateTM
 	 */
 	public String getCreDate() {
-		return updDate;
+		return creDate;
 	}
 
 	/**
 	 * @param creDateTM the creDateTM to set
 	 */
 	public void setCreDate(String creDateTM) {
-		this.updDate = creDateTM;
+		this.creDate = creDateTM;
 	}
 
 	/**
 	 * @return the creUser
 	 */
 	public String getCreUser() {
-		return updUser;
+		return creUser;
 	}
 
 	/**
 	 * @param creUser the creUser to set
 	 */
 	public void setCreUser(String creUser) {
-		this.updUser = creUser;
+		this.creUser = creUser;
 	}
 	
 
