@@ -79,7 +79,7 @@ public class OrderInitDAO extends BaseDAO{
 		return list;
 	}
 	
-	public List<OrderInitBean> initConfigModalShow(String detailID, String target) throws SQLException, ClassNotFoundException {
+	public List<OrderInitBean> initConfigModalShow(String detailID, String target, String userID) throws SQLException, ClassNotFoundException {
 		
 		List<OrderInitBean> list = new ArrayList<> ();
 		
@@ -94,7 +94,7 @@ public class OrderInitDAO extends BaseDAO{
 
 		String sql;
 		
-		sql = sqllist.initConfigModalShowList(detailID, target);
+		sql = sqllist.initConfigModalShowList(detailID, target, userID);
 		
 		result = stmt.executeQuery(sql);
 		
@@ -110,7 +110,7 @@ public class OrderInitDAO extends BaseDAO{
 		return list;
 	}
 	
-	public List<OrderInitBean> initConfigModalNotShow(String detailID, String target) throws SQLException, ClassNotFoundException {
+	public List<OrderInitBean> initConfigModalNotShow(String detailID, String target, String userID) throws SQLException, ClassNotFoundException {
 		
 		List<OrderInitBean> list = new ArrayList<> ();
 		
@@ -125,7 +125,7 @@ public class OrderInitDAO extends BaseDAO{
 
 		String sql;
 		
-		sql = sqllist.initConfigModalNotShowList(detailID, target);
+		sql = sqllist.initConfigModalNotShowList(detailID, target, userID);
 		
 		result = stmt.executeQuery(sql);
 		

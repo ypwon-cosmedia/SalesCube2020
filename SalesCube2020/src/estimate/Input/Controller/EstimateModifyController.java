@@ -23,6 +23,10 @@ public class EstimateModifyController extends BaseController {
 		String forwardURL = "/menu.jsp";
 		String action = request.getParameter("action");
 		
+
+		
+		return forwardURL;
+
 		try {
 			if(action.equals("moveEstimateModify")) forwardURL = moveEstimateModify(request, response);
 			else if(action.equals("estimateModify")) forwardURL = estimateModify(request, response);
@@ -35,8 +39,10 @@ public class EstimateModifyController extends BaseController {
 		}
 
   		return forwardURL;
+
 	}
 	
+
 	private String moveEstimateModify(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException, ClassNotFoundException, SQLException {
 		
@@ -72,5 +78,6 @@ public class EstimateModifyController extends BaseController {
 		return forwardURL;
 		
 	}
+
 }
 
