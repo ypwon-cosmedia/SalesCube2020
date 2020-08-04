@@ -87,13 +87,13 @@
           <table class="table borderless">
               <tr>
                   <td rowspan="3">見積</td>
-                  <td><a href="/SalesCube2020/SalesCube?action=product">見積入力</a></td>
+                  <td><a href="/SalesCube2020/SalesCube?action=moveEstimateAdd">見積入力</a></td>
               </tr>
               <tr>
-                  <td><a href="/SalesCube2020/SalesCube?action=setProduct">見積検索</a></td>
+                  <td><a href="/SalesCube2020/SalesCube?action=moveEstimateSearch">見積検索</a></td>
               </tr>
               <tr>
-                  <td><a href="/SalesCube2020/SalesCube?action=customer">単価照会</a></td>
+                  <td><a href="/SalesCube2020/SalesCube?action=moveUnitPriceInquiry">単価照会</a></td>
               </tr>
           </table>
         </div>
