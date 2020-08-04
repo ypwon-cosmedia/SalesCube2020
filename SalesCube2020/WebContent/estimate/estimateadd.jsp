@@ -304,7 +304,7 @@
                   <select class="custom-select" name="" id="taxRate" onchange="totalCalculation()">
                     <option value="0">消費税なし</option>
                     <c:forEach var="taxRateList" items="${taxRateList}">
-						<option value="${taxRateList.taxRate}">${taxRate.taxRate}</option>
+						<option value="${taxRateList.taxRate}">${taxRateList.taxRate}</option>
                     </c:forEach>
                   </select>
                   <div style="margin-top: 7px;">%</div>
