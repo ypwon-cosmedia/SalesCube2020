@@ -36,7 +36,7 @@ public class ProductModalDAO extends BaseDAO{
 			ProductModalResultBean bean1 = new ProductModalResultBean();
 			bean1.setProductCode(result.getString("PRODUCT_CODE"));
 			bean1.setProductName(result.getString("PRODUCT_NAME"));
-			bean1.setSupplierName(result.getString("SUPLLIER_NAME"));
+			bean1.setSupplierName(result.getString("SUPPLIER_NAME"));
 			list.add(bean1);
 		}
 		

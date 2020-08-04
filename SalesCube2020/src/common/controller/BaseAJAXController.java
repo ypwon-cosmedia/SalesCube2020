@@ -10,5 +10,5 @@ abstract public class BaseAJAXController {
 
 	protected BaseAJAXController() {}
 	
-	abstract public String execService(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException;
+	abstract public void execService(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException;
 }

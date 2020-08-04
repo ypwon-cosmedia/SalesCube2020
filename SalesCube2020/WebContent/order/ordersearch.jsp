@@ -1214,6 +1214,7 @@
 		function productSearch() {
 			
 			var formString = $("form[id=product]").serialize();
+			var tmp = "";
 			
 			$.ajax({
 				url:'/SalesCube2020/SalesCubeAJAX?action=productSearch',
@@ -1221,7 +1222,17 @@
 				data:formString,
 				dataType:'json',
 				success:function(data){	
-					alert(data.test);
+					$("#productResult > tr").remove();
+					alert(Object.keys(data).length);
+					for(var i = 0; i<Object.keys(data).length; i++){
+						var headcontents= '';
+						headcontents += '<tr>';
+						headcontents += '<td style="white-space: normal; text-align: left;" onclick="selectProductCode()" data-dismiss="modal" id="productCode1"><a href="">'+data[i].productCode+'</a></td>';
+						headcontents += '<td style="white-space: normal; text-align: left;" onclick="selectProductCode()" data-dismiss="modal" id="productName1"><a href="">'+data[i].productName+'</a></td>';
+						headcontents += '<td style="white-space: normal; text-align: left;">'+data[i].supplierName+'</td>';   
+						headcontents += '</tr>';
+						$('#productResult').append(headcontents);						
+					}
 				}
 			});
 		}
