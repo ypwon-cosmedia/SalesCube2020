@@ -11,9 +11,19 @@
      <servlet-name>SalesCube2020</servlet-name>
      <servlet-class>common.servlet.SalesCubeServlet</servlet-class>	
   </servlet>
-	
+  
+  <servlet>
+     <servlet-name>SalesCube2020AJAX</servlet-name>
+     <servlet-class>common.servlet.SalesCubeAJAXServlet</servlet-class>	
+  </servlet>
+  
+  	
   <servlet-mapping>
     <servlet-name>SalesCube2020</servlet-name>
       <url-pattern>/SalesCube</url-pattern>
+  </servlet-mapping>
+  <servlet-mapping>
+    <servlet-name>SalesCube2020AJAX</servlet-name>
+    <url-pattern>/SalesCubeAJAX</url-pattern>
   </servlet-mapping>
 </web-app>
