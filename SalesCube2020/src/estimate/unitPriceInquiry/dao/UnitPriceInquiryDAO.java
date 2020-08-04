@@ -49,7 +49,7 @@ public class UnitPriceInquiryDAO extends BaseDAO {
 	 			"RACK_CODE,  " + 
 	 			"status.CATEGORY_CODE_NAME as PRODUCT_STATUS_CATEGORY,  " + 
 	 			"stock.CATEGORY_CODE_NAME as PRODUCT_STOCK_CATEGORY,  " + 
-	 			"STOCK_QUANTITY,  " + 
+	 			//"STOCK_QUANTITY,  " + 
 	 			"QUANTITY_TOTAL " + 
 	 		"from PRODUCT_MST_XXXXX  " + 
 	 		"left outer join DISCOUNT_REL_XXXXX using(PRODUCT_CODE) " + 
@@ -62,7 +62,7 @@ public class UnitPriceInquiryDAO extends BaseDAO {
 	 			"on PRODUCT_MST_XXXXX.PRODUCT_STATUS_CATEGORY = status.CATEGORY_CODE " + 
 	 		"left outer join (select * from CATEGORY_TRN_XXXXX where CATEGORY_ID='17')as stock " + 
 	 			"on PRODUCT_MST_XXXXX.PRODUCT_STOCK_CATEGORY = stock.CATEGORY_CODE " + 
-	 		"left outer join STOCK_MST_XXXXX using(PRODUCT_CODE) " + 
+	 		//"left outer join STOCK_MST_XXXXX using(PRODUCT_CODE) " + 
 	 		"left outer join (select PRODUCT_CODE, sum(QUANTITY) as QUANTITY_TOTAL from RO_LINE_TRN_XXXXX GROUP BY PRODUCT_CODE)as quantityTotal " + 
 	 			"on PRODUCT_MST_XXXXX.PRODUCT_CODE = quantityTotal.PRODUCT_CODE  " + 
 	 		"where PRODUCT_MST_XXXXX.PRODUCT_CODE = '" + productCode + "'";
