@@ -115,6 +115,32 @@
             			 //alert(checkedShipdate);
             			 document.getElementById('deliveryInfo').value = checkedShipdate
             		 }
+            		 
+            		 function categoryShow() {
+            				
+            				var formString = $("form[id=product]").serialize();
+            				var tmp = "";
+            				
+            				$.ajax({
+            					url:'/SalesCube2020/SalesCubeAJAX?action=productSearch',
+            					type:'post',
+            					data:formString,
+            					dataType:'json',
+            					success:function(data){	
+            						$("#productResult > tr").remove();
+            						for(var i = 0; i<Object.keys(data).length; i++){
+            							var headcontents= '';
+            							headcontents += '<tr>';
+            							headcontents += '<td style="white-space: normal; text-align: left;" onclick="selectProductCode(this)" data-dismiss="modal"><a href="">'+data[i].productCode+'</a></td>';
+            							headcontents += '<td style="white-space: normal; text-align: left;" onclick="selectProductName(this)" data-dismiss="modal"><a href="">'+data[i].productName+'</a></td>';
+            							headcontents += '<td style="white-space: normal; text-align: left;">'+(data[i].supplierName==null ? '' : data[i].supplierName)+'</td>';   
+            							headcontents += '</tr>';
+            							$('#productResult').append(headcontents);						
+            						}
+            						$('#productSearchResultCount').text(+Object.keys(data).length);
+            					}
+            				});
+            			}
 			</script>
     </body>
 </html>
