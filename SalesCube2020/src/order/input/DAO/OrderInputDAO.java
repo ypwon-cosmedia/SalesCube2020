@@ -3,6 +3,9 @@ package order.input.DAO;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
+import java.util.ArrayList;
+import java.util.List;
 import java.sql.PreparedStatement;
 
 
@@ -113,9 +116,201 @@ public class OrderInputDAO extends BaseDAO{
 		return result;
 	 
 	}
-	
-	/* 受注番号押下 */
-	public OrderInputDAO orderUpdate() throws SQLException, ClassNotFoundException{
-		return null;
+
+	/* 取引区分コンボボックス */
+	public List<OrderInputBean> getSalesCmCategory() throws SQLException, ClassNotFoundException{
+		
+		List<OrderInputBean> list = new ArrayList<OrderInputBean>();
+		
+		Connection con;
+	 	Statement stmt = null;
+	 	ResultSet result = null;	
+	 	String  sql;
+	 	
+	 	con = super.getConnection();	
+	 	stmt = con.createStatement();
+	 	
+	 	OrderSQL ordersql = new OrderSQL();
+	 	sql = ordersql.initSalesCmCategory();
+	 	
+	 	result = stmt.executeQuery(sql);
+	 	
+	 	while (result.next()) {
+	 		OrderInputBean bean = new OrderInputBean();
+	 		bean.setSalesCmCategory(result.getString("SALES_CM_CATEGORY"));
+	 		bean.setCategoryCodeName(result.getString("CATEGORY_CODE_NAME"));
+	 		list.add(bean);
+	 	}
+	 	
+	 	return list;
 	}
+	
+	/* 支払条件コンボボックス */
+	public List<OrderInputBean> getCutoffGroup() throws SQLException, ClassNotFoundException {
+		
+		List<OrderInputBean> list = new ArrayList<>();
+		
+		Connection con;
+	 	Statement stmt = null;
+	 	ResultSet result = null;	
+	 	String  sql;
+	 	
+	 	con = super.getConnection();	
+	 	stmt = con.createStatement();
+	 	
+	 	OrderSQL ordersql = new OrderSQL();
+	 	sql = ordersql.initCutoffGroup();
+	 	
+	 	result = stmt.executeQuery(sql);
+	 	
+	 	while (result.next()) {
+	 		OrderInputBean bean = new OrderInputBean();
+	 		bean.setCategoryCodeName(result.getString("CATEGORY_CODE_NAME"));
+	 		list.add(bean);
+	 	}
+	 	
+	 	return list;
+	 	
+	}
+	
+	/* 税転嫁コンボボックス */
+	public List<OrderInputBean> getTaxShiftCategory() throws SQLException, ClassNotFoundException {
+		
+		List<OrderInputBean> list = new ArrayList<>();
+		
+		Connection con;
+	 	Statement stmt = null;
+	 	ResultSet result = null;	
+	 	String  sql;
+	 	
+	 	con = super.getConnection();	
+	 	stmt = con.createStatement();
+	 	
+	 	OrderSQL ordersql = new OrderSQL();
+	 	sql = ordersql.initTaxShiftCategory();
+	 	
+	 	result = stmt.executeQuery(sql);
+	 	
+	 	while (result.next()) {
+	 		OrderInputBean bean = new OrderInputBean();
+	 		bean.setCategoryCodeName(result.getString("CATEGORY_CODE_NAME"));
+	 		list.add(bean);
+	 	}
+	 	
+	 	return list;
+	 	
+	}
+	
+	/* 顧客納入先コンボボックス */
+	public List<OrderInputBean> getDeliveryName(String customerCode) throws SQLException, ClassNotFoundException {
+		
+		List<OrderInputBean> list = new ArrayList<>();
+		
+		Connection con;
+	 	Statement stmt = null;
+	 	ResultSet result = null;	
+	 	String  sql;
+	 	
+	 	con = super.getConnection();	
+	 	stmt = con.createStatement();
+	 	
+	 	OrderSQL ordersql = new OrderSQL();
+	 	sql = ordersql.initDeliveryName(customerCode);
+	 	
+	 	result = stmt.executeQuery(sql);
+	 	
+	 	while (result.next()) {
+	 		OrderInputBean bean = new OrderInputBean();
+	 		bean.setDeliveryName(result.getString("DELIVERY_NAME"));
+	 		list.add(bean);
+	 	}
+	 	
+	 	return list;
+	 	
+	}
+	
+	/* 配送業者コンボボックス */
+	public List<OrderInputBean> getDcName() throws SQLException, ClassNotFoundException {
+		
+		List<OrderInputBean> list = new ArrayList<>();
+		
+		Connection con;
+	 	Statement stmt = null;
+	 	ResultSet result = null;	
+	 	String  sql;
+	 	
+	 	con = super.getConnection();	
+	 	stmt = con.createStatement();
+	 	
+	 	OrderSQL ordersql = new OrderSQL();
+	 	sql = ordersql.initDcName();
+	 	
+	 	result = stmt.executeQuery(sql);
+	 	
+	 	while (result.next()) {
+	 		OrderInputBean bean = new OrderInputBean();
+	 		bean.setCategoryCodeName(result.getString("CATEGORY_CODE_NAME"));
+	 		list.add(bean);
+	 	}
+	 
+	 	return list;
+	 	
+	}
+	
+	/* 配送時間帯コンボボックス */
+	public List<OrderInputBean> getDcTimezone() throws SQLException, ClassNotFoundException {
+		
+		List<OrderInputBean> list = new ArrayList<>();
+		
+		Connection con;
+	 	Statement stmt = null;
+	 	ResultSet result = null;	
+	 	String  sql;
+	 	
+	 	con = super.getConnection();	
+	 	stmt = con.createStatement();
+	 	
+	 	OrderSQL ordersql = new OrderSQL();
+	 	sql = ordersql.initDcTimezone();
+	 	
+	 	result = stmt.executeQuery(sql);
+	 	
+	 	while (result.next()) {
+	 		OrderInputBean bean = new OrderInputBean();
+	 		bean.setCategoryCodeName(result.getString("CATEGORY_CODE_NAME"));
+	 		list.add(bean);
+	 	}
+	 	
+	 	return list;
+	 	
+	}
+	
+	/* 消費税率コンボボックス */
+	public List<OrderInputBean> getTaxRate() throws SQLException, ClassNotFoundException {
+		
+		List<OrderInputBean> list = new ArrayList<>();
+		
+		Connection con;
+	 	Statement stmt = null;
+	 	ResultSet result = null;	
+	 	String  sql;
+	 	
+	 	con = super.getConnection();	
+	 	stmt = con.createStatement();
+	 	
+	 	OrderSQL ordersql = new OrderSQL();
+	 	sql = ordersql.initTaxRate();
+	 	
+	 	result = stmt.executeQuery(sql);
+	 	
+	 	while (result.next()) {
+	 		OrderInputBean bean = new OrderInputBean();
+	 		bean.setCategoryCodeName(result.getString("TAX_RATE"));
+	 		list.add(bean);
+	 	}
+	 	
+	 	return list;
+	 	
+	}
+
 }

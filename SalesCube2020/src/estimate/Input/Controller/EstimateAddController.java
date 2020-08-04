@@ -43,10 +43,12 @@ public class EstimateAddController extends BaseController {
 	private String moveEstimateAdd(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException, ClassNotFoundException, SQLException {
 		
-		String forwardURL     = "";
+		String forwardURL     = "estimate/estimateadd.jsp";
 
 		EstimateInputCommonDAO dao =  new EstimateInputCommonDAO();
 		List<TaxRateBean> taxRateList = dao.getTaxRate();
+		
+		//System.out.println(taxRateList.get(0).getTaxRate());
 		
 		//+ 顧客敬称取得//
 		

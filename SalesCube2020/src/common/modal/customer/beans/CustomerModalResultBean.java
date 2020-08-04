@@ -1,6 +1,6 @@
 package common.modal.customer.beans;
 
-public class CustomerSearchResultBean {
+public class CustomerModalResultBean {
 	
 	//顧客コード
 	private String customerCode;
@@ -9,7 +9,7 @@ public class CustomerSearchResultBean {
 	private String customerName;
 	
 	//TEL
-	private String customerTEl;
+	private String customerTEL;
 	
 	//担当者
 	private String customerPCName;
@@ -58,14 +58,14 @@ public class CustomerSearchResultBean {
 	 * @return the customerTel
 	 */
 	public String getCustomerTel() {
-		return customerTEl;
+		return customerTEL;
 	}
 
 	/**
 	 * @param customerTel the customerTel to set
 	 */
 	public void setCustomerTel(String customerTel) {
-		this.customerTEl = customerTel;
+		this.customerTEL = customerTel;
 	}
 
 	/**

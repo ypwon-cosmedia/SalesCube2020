@@ -1,6 +1,6 @@
 package common.modal.customer.beans;
 
-public class CustomerSearchBean {
+public class CustomerModalSearchBean {
 	
 	//顧客コード
 	private String customerCode;

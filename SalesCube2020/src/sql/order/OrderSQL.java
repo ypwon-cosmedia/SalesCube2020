@@ -411,15 +411,15 @@ public class OrderSQL {
 			"FROM " + 
 				"ro_slip_trn_xxxxx AS rstx " + 
 				"LEFT OUTER JOIN " + 
-				"(SELECT * FROM category_trn_xxxxx WHERE CATEGORY_ID='29') AS a " + 
+					"(SELECT * FROM category_trn_xxxxx WHERE CATEGORY_ID='29') AS a " + 
 				"ON " + 
 				"rstx.TAX_SHIFT_CATEGORY=a.CATEGORY_CODE " + 
 				"LEFT OUTER JOIN " + 
-				"(SELECT * FROM category_trn_xxxxx WHERE CATEGORY_ID='11') AS b " + 
+					"(SELECT * FROM category_trn_xxxxx WHERE CATEGORY_ID='11') AS b " + 
 				"ON " + 
 				"rstx.CUTOFF_GROUP=b.CATEGORY_CODE " + 
 				"LEFT OUTER JOIN " + 
-				"(SELECT * FROM category_trn_xxxxx WHERE CATEGORY_ID='32') AS c " + 
+					"(SELECT * FROM category_trn_xxxxx WHERE CATEGORY_ID='32') AS c " + 
 				"ON " + 
 				"rstx.SALES_CM_CATEGORY = (c.CATEGORY_CODE + 1) " + 
 			"WHERE " + 
@@ -559,7 +559,7 @@ public class OrderSQL {
 		
 	}
 	
-	/* 受注明細削除 */
+	/* 受注削除 明細 */
 	public String deleteOrderDetail(String roSlipId) {
 		
 		String sql;
@@ -619,7 +619,7 @@ public class OrderSQL {
 		
 	}
 	
-	/* 受注新規登録明細 */
+	/* 受注新規登録 明細 */
 	public String orderInputDetail() {
 		
 		String sql;
@@ -689,7 +689,7 @@ public class OrderSQL {
 		
 	}
 	
-	/* 受注更新明細 */
+	/* 受注更新 明細 */
 	public String orderUpdateDetail() {
 		
 		String sql;
@@ -714,4 +714,111 @@ public class OrderSQL {
 		
 	}
 	
+	/* 取引区分コンボボックス */
+	public String initSalesCmCategory() {
+		
+		String sql;
+		
+		sql = "SELECT DISTINCT " + 
+				"rstx.SALES_CM_CATEGORY, " +
+				"ctx.CATEGORY_CODE_NAME " + 
+			"FROM " + 
+				"ro_slip_trn_xxxxx AS rstx " + 
+				"LEFT OUTER JOIN " + 
+					"(SELECT * " + 
+					"FROM category_trn_xxxxx " + 
+					"WHERE CATEGORY_ID='32') AS ctx " + 
+			"ON " + 
+				"rstx.SALES_CM_CATEGORY = (ctx.CATEGORY_CODE + 1)";
+		
+		return sql;
+		
+	}
+	
+	/* 支払条件コンボボックス */
+	public String initCutoffGroup() {
+		
+		String sql;
+		
+		sql = "SELECT CATEGORY_CODE_NAME " + 
+				"FROM category_trn_xxxxx " + 
+				"WHERE CATEGORY_ID='11'";
+		
+		return sql;
+		
+	}
+	
+	/* 税転嫁コンボボックス */
+	public String initTaxShiftCategory() {
+		
+		String sql;
+		
+		sql = "SELECT CATEGORY_CODE_NAME " + 
+				"FROM category_trn_xxxxx " + 
+				"WHERE CATEGORY_ID='29'";
+		
+		return sql;
+		
+	}
+	
+	/* 顧客納入先コンボボックス */
+	public String initDeliveryName(String customerCode) {
+		
+		String sql;
+		
+		sql = "SELECT " + 
+				"DELIVERY_NAME " + 
+			"FROM " + 
+				"delivery_mst_xxxxx AS dmx " + 
+				"LEFT OUTER JOIN " + 
+					"(SELECT * FROM customer_rel_xxxxx WHERE CUST_REL_CATEGORY='01') AS crx " + 
+				"ON " + 
+					"dmx.DELIVERY_CODE=crx.REL_CODE " + 
+				"LEFT OUTER JOIN " + 
+					"customer_mst_xxxxx " + 
+				"USING(CUSTOMER_CODE) " + 
+			"WHERE " + 
+				"CUSTOMER_CODE='" + customerCode + "'";
+		
+		return sql;
+		
+	}
+	
+	/* 配送業者コンボボックス */
+	public String initDcName() {
+		
+		String sql;
+		
+		sql = "SELECT CATEGORY_CODE_NAME " + 
+				"FROM category_trn_xxxxx " + 
+				"WHERE CATEGORY_ID='36'";
+		
+		return sql;
+		
+	}
+	
+	/* 配送時間帯コンボボックス */
+	public String initDcTimezone() {
+		
+		String sql;
+		
+		sql = "SELECT CATEGORY_CODE_NAME " + 
+				"FROM category_trn_xxxxx " + 
+				"WHERE CATEGORY_ID='37'";
+		
+		return sql;
+		
+	}
+	
+	/* 消費税率コンボボックス */
+	public String initTaxRate() {
+		
+		String sql;
+		
+		sql = "SELECT TAX_RATE " + 
+				"FROM tax_rate_mst_xxxxx";
+		
+		return sql;
+		
+	}
 }
