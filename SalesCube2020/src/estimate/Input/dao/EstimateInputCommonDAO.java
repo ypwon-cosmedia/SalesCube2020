@@ -16,12 +16,41 @@ import java.util.List;
 import common.dao.BaseDAO;
 import estimate.Input.beans.GetCustomerBean;
 import estimate.Input.beans.GetProductBean;
+import estimate.Input.beans.TaxRateBean;
+import master.customer.beans.DeliveryModifyBean;
 
 /**
  * @author cosmedia
  *
  */
 public class EstimateInputCommonDAO extends BaseDAO {
+	
+	//消費税を取得するメソッド
+	public List<TaxRateBean> getTaxRate() throws SQLException, ClassNotFoundException {
+		Connection con;
+	 	Statement stmt=null;
+	 	ResultSet result=null;
+	 	String  sql;
+	 	
+	 	List<TaxRateBean> list = new ArrayList<> ();
+	 	
+	 	con = super.getConnection();
+	 	stmt = con.createStatement();
+	 	
+	 	sql="select TAX_RATE from tax_rate_mst_xxxxx where TAX_TYPE_CATEGORY = '1'";
+	 	
+	 	result = stmt.executeQuery(sql);
+	 	
+	 	while (result.next()) {
+	 		TaxRateBean bean = new TaxRateBean();
+	 		bean.setTaxRate(result.getDouble("CUSTOMER_NAME"));
+	 		list.add(bean);
+	 	}
+	 	
+	 	super.releaseDB(con,stmt,result);
+	 	
+	 	return list;
+	}
 
 	//顧客情報を取得するメソッド
 	public GetCustomerBean getCustomer(int customerCode) throws SQLException, ClassNotFoundException {

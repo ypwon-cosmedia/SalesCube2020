@@ -9,7 +9,7 @@ package estimate.Input.beans;
  */
 public class EstimateProductAddBean {
 	/** No */
-	private int lineNo;
+	private Integer lineNo;
 	
 	/** 商品コード */
 	private String productCode;
@@ -18,25 +18,25 @@ public class EstimateProductAddBean {
 	private String productAbstract;
 	
 	/** 数量 */
-	private int quantity;
+	private Integer quantity;
 	
 	/** 仕入単価 */
-	private int unitCost;
+	private Integer unitCost;
 	
 	/** 仕入金額 */
-	private int cost;
+	private Integer cost;
 	
 	/** 売価単価 */
-	private int unitRetailPrice;
+	private Integer unitRetailPrice;
 	
 	/** 売上金額 */
-	private int retailPrice;
+	private Integer retailPrice;
 	
 	/** 備考 */
 	private String productRemarks;
 	
 	/** 作成日時 */
-	private String creDateTM;
+	private String creDate;
 	
 	/** 作成者 */
 	private String creUser;
@@ -44,14 +44,14 @@ public class EstimateProductAddBean {
 	/**
 	 * @return the lineNo
 	 */
-	public int getLineNo() {
+	public Integer getLineNo() {
 		return lineNo;
 	}
 
 	/**
 	 * @param lineNo the lineNo to set
 	 */
-	public void setLineNo(int lineNo) {
+	public void setLineNo(Integer lineNo) {
 		this.lineNo = lineNo;
 	}
 
@@ -86,49 +86,49 @@ public class EstimateProductAddBean {
 	/**
 	 * @return the quantity
 	 */
-	public int getQuantity() {
+	public Integer getQuantity() {
 		return quantity;
 	}
 
 	/**
 	 * @param quantity the quantity to set
 	 */
-	public void setQuantity(int quantity) {
+	public void setQuantity(Integer quantity) {
 		this.quantity = quantity;
 	}
 
 	/**
 	 * @return the unitCost
 	 */
-	public int getUnitCost() {
+	public Integer getUnitCost() {
 		return unitCost;
 	}
 
 	/**
 	 * @param unitCost the unitCost to set
 	 */
-	public void setUnitCost(int unitCost) {
+	public void setUnitCost(Integer unitCost) {
 		this.unitCost = unitCost;
 	}
 
 	/**
 	 * @return the cost
 	 */
-	public int getCost() {
+	public Integer getCost() {
 		return cost;
 	}
 
 	/**
 	 * @param cost the cost to set
 	 */
-	public void setCost(int cost) {
+	public void setCost(Integer cost) {
 		this.cost = cost;
 	}
 
 	/**
 	 * @return the unitRetailPrice
 	 */
-	public int getUnitRetailPrice() {
+	public Integer getUnitRetailPrice() {
 		return unitRetailPrice;
 	}
 
@@ -142,14 +142,14 @@ public class EstimateProductAddBean {
 	/**
 	 * @return the retailPrice
 	 */
-	public int getRetailPrice() {
+	public Integer getRetailPrice() {
 		return retailPrice;
 	}
 
 	/**
 	 * @param retailPrice the retailPrice to set
 	 */
-	public void setRetailPrice(int retailPrice) {
+	public void setRetailPrice(Integer retailPrice) {
 		this.retailPrice = retailPrice;
 	}
 
@@ -170,15 +170,15 @@ public class EstimateProductAddBean {
 	/**
 	 * @return the creDateTM
 	 */
-	public String getCreDateTM() {
-		return creDateTM;
+	public String getCreDate() {
+		return creDate;
 	}
 
 	/**
 	 * @param creDateTM the creDateTM to set
 	 */
-	public void setCreDateTM(String creDateTM) {
-		this.creDateTM = creDateTM;
+	public void setCreDate(String creDate) {
+		this.creDate = creDate;
 	}
 
 	/**

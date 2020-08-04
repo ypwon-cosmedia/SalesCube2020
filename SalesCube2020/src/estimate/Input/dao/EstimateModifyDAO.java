@@ -9,17 +9,18 @@ import java.util.MissingResourceException;
 
 import common.dao.BaseDAO;
 import estimate.Input.beans.EstimateAddBean;
+import estimate.Input.beans.EstimateModifyBean;
 import estimate.Input.beans.EstimateProductAddBean;
 
 
-public class EstimateAddDAO extends BaseDAO {
+public class EstimateModifyDAO extends BaseDAO {
 	
 
-	public int addEstimate(EstimateAddBean bean) throws ClassNotFoundException, MissingResourceException, SQLException {
+	public int modifyEstimate(EstimateModifyBean bean) throws ClassNotFoundException, MissingResourceException, SQLException {
 		
 		Connection con;
 		Statement stmt = null;
-	 	int result = 0;	
+	 	int result = 0;
 	 	String  sql;
 	 	
 	 	//変数宣言
@@ -142,52 +143,29 @@ public class EstimateAddDAO extends BaseDAO {
 	 	stmt = con.createStatement();
 	 	
 	 	//見積登録をするSQL
-	 	sql = "insert into estimate_sheet_trn_xxxxx (" +
-	 		      "ESTIMATE_SHEET_ID, " + 
-	 		      "ESTIMATE_DATE, " + 
-	 		      "DELIVERY_INFO, " + 
-	 		      "VALID_DATE, " + 
-	 		      "USER_NAME, " + 
-	 		      "TITLE, " +
-	 		      "DELIVERY_NAME, " + 
-	 		      "ESTIMATE_CONDITION, " + 
-	 		      "CTAX_RATE, " + 
-	 		      "SUBMIT_NAME, " + 
-	 		      "SUBMIT_PRE, " + 
-	 		      "CUSTOMER_CODE, " + 
-	 		      "CUSTOMER_NAME, " + 
-	 		      "CUSTOMER_REMARKS, " + 
-	 		      "CUSTOMER_COMMENT_DATA, " + 
-	 		      "REMARKS, " + 
-	 		      "MEMO, " + 
-	 		      "RETAIL_PRICE_TOTAL, " + 
-	 		      "CTAX_PRICE_TOTAL, " + 
-	 		      "ESTIMATE_TOTAL, " + 
-	 		      "CRE_DATETM, " +
-	 		      "CRE_USER) " +
-	 		  "values " +
-	 		      "(" + estimateSheetIdSQL + ", " +
-			 		     estimateDateSQL + ", " +
-			 		     deliveryInfoSQL + ", " +
-			 		     validDateSQL + ", " +
-			 		     userNameSQL + ", " +
-			 		     titleSQL + ", " +
-			 		     deliveryNameSQL + ", " +
-			 		     estimateConditionSQL + ", " +
-			 		     ctaxRateSQL + ", " +
-			 		     submitNameSQL + ", " +
-			 		     submitPreSQL + ", " +
-			 		     customerCodeSQL + ", " +
-			 		     customerNameSQL + ", " +
-			 		     customerRemarksSQL + ", " +
-			 		     customerCommentSQL + ", " +
-			 		     remarksSQL + ", " +
-			 		     memoSQL + ", " +
-			 		     retailPriceTotalSQL + ", " +
-			 		     ctaxPriceTotalSQL + ", " +
-			 		     estimateTotalSQL + ", " +
-			 		     creDateSQL + ", " +
-			 		     creUserSQL + ")";
+	 	sql = "update estimate_sheet_trn_xxxxx set " +
+	 		      "ESTIMATE_DATE = " + estimateDateSQL + ", " +
+	 		      "DELIVERY_INFO = " + deliveryInfoSQL + ", " +
+	 		      "VALID_DATE = " + validDateSQL + ", " +
+	 		      "USER_NAME = " + userNameSQL + ", " +
+	 		      "TITLE = " + titleSQL + ", " +
+	 		      "DELIVERY_NAME = " + deliveryNameSQL + ", " +
+	 		      "ESTIMATE_CONDITION = " + estimateConditionSQL + ", " +
+	 		      "CTAX_RATE = " + ctaxRateSQL + ", " +
+	 		      "SUBMIT_NAME = " + submitNameSQL + ", " +
+	 		      "SUBMIT_PRE = " + submitPreSQL + ", " +
+	 		      "CUSTOMER_CODE = " + customerCodeSQL + ", " +
+	 		      "CUSTOMER_NAME = " + customerNameSQL + ", " +
+	 		      "CUSTOMER_REMARKS = " + customerRemarksSQL + ", " +
+	 		      "CUSTOMER_COMMENT_DATA = " + customerCommentSQL + ", " +
+	 		      "REMARKS = " + remarksSQL + ", " +
+	 		      "MEMO = " + memoSQL + ", " +
+	 		      "RETAIL_PRICE_TOTAL = " + retailPriceTotalSQL + ", " +
+	 		      "CTAX_PRICE_TOTAL = " + ctaxPriceTotalSQL + ", " +
+	 		      "ESTIMATE_TOTAL = " + estimateTotalSQL + ", " +
+	 		      "CRE_DATETM = " + creDateSQL + ", " +
+	 		      "CRE_USER = " + creUserSQL +
+	 		  "where ESTIMATE_SHEET_ID = " + estimateSheetIdSQL;
 			 	
 		try {
 			result = stmt.executeUpdate(sql);
@@ -201,125 +179,6 @@ public class EstimateAddDAO extends BaseDAO {
 		
 		return result;
 	}
-	
-	
-	public int addEstimateProduct (List<EstimateProductAddBean> list) throws ClassNotFoundException, MissingResourceException, SQLException {
-		
-		Connection con;
-		Statement stmt;
-	 	int result = 0;
-	 	String  sql;
-	 	
-	 	Integer lineNo;
-	 	String productCode;
-	 	String productAbstract;
-	 	Integer quantity;
-	 	Integer unitCost;
-	 	Integer cost;
-	 	Integer unitRetailPrice;
-	 	Integer retailPrice;
-	 	String productRemarks;
-	 	String creUser;
-	 	
-		LocalDateTime ldt           = LocalDateTime.now();
-		String creDate              = ldt.toString();
-	 	
-	 	Integer lineNoSQL;
-	 	String productCodeSQL;
-	 	String productAbstractSQL;
-	 	Integer quantitySQL;
-	 	Integer unitCostSQL;
-	 	Integer costSQL;
-	 	Integer unitRetailPriceSQL;
-	 	Integer retailPriceSQL;
-	 	String productRemarksSQL;
-	 	String creDateSQL;
-	 	String creUserSQL;
-	 	
-	 	con = super.getConnection();	
-	 	stmt = con.createStatement();
-	 	
-	 	for(EstimateProductAddBean bean : list) {
-	 		
-			lineNo = bean.getLineNo();
-			productCode = bean.getProductCode();
-			productAbstract = bean.getProductAbstract();
-			quantity = bean.getQuantity();
-			unitCost = bean.getUnitCost();
-			cost = bean.getCost();
-			unitRetailPrice = bean.getUnitRetailPrice();
-			retailPrice = bean.getRetailPrice();
-			productRemarks = bean.getProductRemarks();
-			creUser = bean.getCreUser();
-	 		
-			if(lineNo==null) {lineNoSQL = null;} 
-			else {lineNoSQL = lineNo;}
-			
-			if(productCode==null || productCode.equals("")) {productCodeSQL = null;} 
-			else {productCodeSQL = "'" + productCode + "'";}
-			
-			if(productAbstract==null || productAbstract.equals("")) {productAbstractSQL = null;} 
-			else {productAbstractSQL = "'" + productAbstract + "'";}
-			
-			if(quantity==null) {quantitySQL = null;} 
-			else {quantitySQL = quantity;}
-			
-			if(unitCost==null) {unitCostSQL = null;} 
-			else {unitCostSQL = unitCost;}
-			
-			if(cost==null) {costSQL = null;} 
-			else {costSQL = cost;}
-			
-			if(unitRetailPrice==null) {unitRetailPriceSQL = null;} 
-			else {unitRetailPriceSQL = unitRetailPrice;}
-			
-			if(retailPrice==null) {retailPriceSQL = null;} 
-			else {retailPriceSQL = retailPrice;}
-			
-			if(productRemarks==null || productRemarks.equals("")) {productRemarksSQL = null;} 
-			else {productRemarksSQL = "'" + productRemarks + "'";}
-			
-			if(creDate==null || creDate.equals("")) {creDateSQL = null;} 
-			else {creDateSQL = "'" + creDate + "'";}
-			
-			if(creUser==null || creUser.equals("")) {creUserSQL = null;} 
-			else {creUserSQL = "'" + creUser + "'";}
-	 	
-	 		sql = "insert into estimate_line_trn_xxxxx (" +
-	 					"LINE_NO, " +
-	 					"PRODUCT_CODE, " +
-	 					"PRODUCT_ABSTRACT, " +
-	 					"QUANTITY, " +
-	 					"UNIT_COST, " +
-	 					"COST, " +
-	 					"UNIT_RETAIL_PRICE, " +
-	 					"RETAIL_PRICE, " +
-	 					"REMARKS, " +
-	 					"CRE_DATETM, " +
-	 					"CRE_USER)" +
-	 			  "values(" +
-	 			  		lineNoSQL + ", " +
-	 			  		productCodeSQL + ", " +
-	 			  		productAbstractSQL + ", " +
-	 			  		quantitySQL + ", " +
-	 			  		unitCostSQL + ", " +
-	 			  		costSQL + ", " +
-	 			  		unitRetailPriceSQL + ", " +
-	 			  		retailPriceSQL + ", " +
-	 			  		productRemarksSQL + ", " +
-	 			  		creDateSQL + ", " +
-	 			  		creUserSQL + ")";
-	 		
-	 		result = stmt.executeUpdate(sql);
-	 		con.commit();
-	 	}
-	 	
-	 	super.releaseDB(con,stmt);
-	 	
-	 	return result;
-	 	
-	}
-
 
 	 			
 }

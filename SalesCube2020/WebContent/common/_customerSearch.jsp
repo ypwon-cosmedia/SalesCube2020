@@ -16,12 +16,74 @@
             width: 1120px;
             max-width: none !important;
         }
+        .table tr td {
+            background-color: white;
+        }
 
+        .table {
+          white-space: nowrap;
+        } 
+        
         .cursor-pointer{
  		 	    cursor: pointer;
  		 	    color : blue;
-		}
+		    }
+      
+        .clear-decoration {
+                border: none;  /* 枠線を消す */
+                outline: none; /* クリックしたときに表示される枠線を消す */
+                background: transparent; /* 背景の灰色を消す */
+            }
+
+            
+        .table_1{
+          border-collapse: collapse;
+          border-spacing: 0;
+          height: 250px;
+          display: block;
+          overflow-x: scroll;
+          overflow-y: scroll;
+          white-space: nowrap;
+        }
+
+        .table_1 thead tr th{
+            position: sticky;
+            position: -webkit-sticky;
+            top: 0;
+            
+            z-index: 1;
+        }
+      
+      .table_2{
+            
+            border-collapse: collapse;
+            border-spacing: 0;
+
+            height: auto;
+            display: block;
+            overflow-x: scroll;
+          
+            white-space: nowrap;
+            
+        }
+        .scrollnum{
+            position: sticky;
+            position: -webkit-sticky;
+            top: 0;
+            left: 0;
+            z-index: 1;
+        }
+        
+        .example3 li {
+          display: inline-block;
+          height:35px;line-height:35px;
+          width:35px;text-align:center;
+          border:1px #ccc solid;color:#000053;
+          border-radius: 5px / 5px;
+          }
     	</style>
+    	
+    	
 	</head>
 
 	<body style="background-color: gainsboro;">
@@ -120,7 +182,7 @@
                   <div id="resultCustomer" hidden>
                     <div class="modal-body">
                       <div class="float-left" style="position:static; left: 0px;">
-                        	検索結果件数：5件
+                        	  検索結果件数： 
                       </div>
                     </div>
                     <br>
@@ -146,7 +208,7 @@
                      		<tbody class="modal-body scroll-table">
                       		<c:forEach items="${customerSearch}" var="customer">
 		                        <tr>
-		                          <td style="text-align: left;" ><span class="cursor-pointer" onclick="test(this)" id="1,かるぴす" data-dismiss="modal">${customer.customerCode}</span></td>
+		                          <td style="text-align: left;" ><span class="cursor-pointer" onclick="test(this)" id="customerCode,customerName" data-dismiss="modal">${customer.customerCode}</span></td>
 		                          <td class="customerName" style="text-align: left;">${customer.customerName}</td>
 		                          <td class="customerTEL" style="text-align: left;">${customer.customerTEL}</td>
 		                          <td class="customerPCName" style="text-align: left;">${customer.customerPCName}</td>
@@ -170,6 +232,7 @@
         </div>
       </div> 
       
+      <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.2/jquery.min.js"></script>
       <script>
      	//検索結果を表示する 
       	function customerSearch(){
@@ -187,6 +250,7 @@
             document.getElementById("serchResult").setAttribute('hidden','hidden');
     	}
      	
+     	//顧客コード及び顧客名の値をセット
       	function test(obj) {
       	     var customer = obj.id ;
       	     var list = customer.split(",");
@@ -194,6 +258,44 @@
       	      document.getElementById("customerCode").value = list[0];
       	      document.getElementById("customerName").value = list[1];
       	 }
+     	
+      	function selectCustomerCode(){
+    		var productCode = document.getElementById("customerCode1").innerText;
+    		
+    		document.getElementById("customerCodeInput").value = customerCode;
+    	}
+     	
+		function customerSearch1() {
+			
+			var formString = $("form[id=customer]").serialize();
+			var tmp = "";
+			
+			$.ajax({
+				url:'/SalesCube2020/SalesCubeAJAX?action=customerSearch',
+				type:'post',
+				data:formString,
+				dataType:'json',
+				success:function(data){	
+					$("#customerResult > tr").remove();
+					alert(Object.keys(data).length);
+					for(var i = 0; i<Object.keys(data).length; i++){
+						var headcontents= '';
+						headcontents += '<tr>';
+						headcontents += '<td style="white-space: normal; text-align: left;" onclick="selectcustomerCode()" data-dismiss="modal" id="customerCode1"><a href="">'+data[i].customerCode+'</a></td>';
+						headcontents += '<td style="white-space: normal; text-align: left;">'+data[i].customerName+'</td>';
+						headcontents += '<td style="white-space: normal; text-align: left;">'+data[i].customerTEL+'</td>';  
+						headcontents += '<td style="white-space: normal; text-align: left;">'+data[i].customerPCName+'</td>';
+						headcontents += '<td style="white-space: normal; text-align: left;">'+data[i].salesCmCategory+'</td>';
+						headcontents += '<td style="white-space: normal; text-align: left;">'+data[i].cutoffGroup+'</td>';
+						headcontents += '<td style="white-space: normal; text-align: left;">'+data[i].customerOfficeName+'</td>';
+						headcontents += '<td style="white-space: normal; text-align: left;">'+data[i].customerDeptName+'</td>';
+						headcontents += '</tr>';
+						$('#customerResult').append(headcontents);						
+					}
+				}
+			});
+		}
+     	
       </script>  
       
 	</body>
