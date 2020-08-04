@@ -23,14 +23,13 @@ public class SalesCubeServlet extends HttpServlet {
 	public void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
 		request.setCharacterEncoding("utf-8");
-		
+
         String  forwardURL;
 
         String action = request.getParameter("action");
 
         // �Ɩ��̐U�蕪��
         if  ( controllerList.containsKey(action) )  {							// action�ɊY������Ɩ��R���g���[��������ꍇ
-
         	BaseController controller = controllerList.get(action);			//   �Y������Ɩ��R���g���[�����擾
             forwardURL = controller.execService(request, response);				//   �Ɩ��R���g���[���ɏ������Ϗ����t�H���[�h����JSP��URL���擾����
             RequestDispatcher rd = request.getRequestDispatcher(forwardURL);	//   �f�B�X�p�b�`���[���擾

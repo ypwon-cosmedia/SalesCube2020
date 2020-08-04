@@ -12,7 +12,9 @@ import master.product.controller.ProductInitController;
 import master.product.controller.ProductModifyController;
 import master.product.controller.ProductSearchController;
 import master.setProduct.controller.SetProductController;
+import order.input.controller.OrderInputController;
 import order.move.controller.OrderMoveController;
+import order.search.controller.OrderSearchController;
 import user.controller.UserController;
 
 public class CreateControllers {
@@ -34,6 +36,7 @@ public class CreateControllers {
 		BaseController getCategoryObj = new GetCategoryController();
 		BaseController userObj = new UserController();
 		BaseController orderObj = new OrderMoveController();
+		BaseController orderSearchObj = new OrderSearchController();
 
 
 		map.put( "moveAddCustomer", customerObj);
@@ -88,6 +91,8 @@ public class CreateControllers {
 		map.put( "orderedit", orderObj);
 		map.put( "ordersearch", orderObj);
 		map.put( "onlineorder", orderObj);
+		
+		map.put( "productModalSearch", orderSearchObj);
 		
         return map;
 

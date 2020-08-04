@@ -68,7 +68,6 @@ public class UserController extends BaseController{
 			session.setAttribute("userInfo", userInfo);
 			
 			String a =userInfo.getNameKNJ();
-			System.out.println( a );
 			
 			forwardURL = "/menu.jsp";
 		}

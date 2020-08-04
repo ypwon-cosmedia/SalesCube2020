@@ -110,7 +110,7 @@ public class OrderInitDAO extends BaseDAO{
 		return list;
 	}
 	
-public List<OrderInitBean> initConfigModalNotShow(String detailID, String target) throws SQLException, ClassNotFoundException {
+	public List<OrderInitBean> initConfigModalNotShow(String detailID, String target) throws SQLException, ClassNotFoundException {
 		
 		List<OrderInitBean> list = new ArrayList<> ();
 		
@@ -140,4 +140,5 @@ public List<OrderInitBean> initConfigModalNotShow(String detailID, String target
 		
 		return list;
 	}
+
 }

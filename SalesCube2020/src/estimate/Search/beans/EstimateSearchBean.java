@@ -1,24 +1,35 @@
 package estimate.Search.beans;
 
 public class EstimateSearchBean {
+	
+	//見積番号
 	private String estimateSheetId;
 	
+	//見積日
 	private String estimateDate;
 	
+	//有効期限
 	private String validDate;
 	
+	//担当者コード
 	private String userId;
 	
+	//担当者名
 	private String userName;
 	
+	//件名
 	private String title;
 	
+	//摘要
 	private String remarks;
 	
+	//提出先名
 	private String submitName;
 	
+	//顧客コード
 	private String customerCode;
 	
+	//顧客名
 	private String customerName;
 
 	/**
