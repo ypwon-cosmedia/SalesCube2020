@@ -43,7 +43,7 @@ public class EstimateInputCommonDAO extends BaseDAO {
 	 	
 	 	while (result.next()) {
 	 		TaxRateBean bean = new TaxRateBean();
-	 		bean.setTaxRate(result.getDouble("CUSTOMER_NAME"));
+	 		bean.setTaxRate(result.getDouble("TAX_RATE"));
 	 		list.add(bean);
 	 	}
 	 	
