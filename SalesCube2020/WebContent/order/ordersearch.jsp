@@ -640,14 +640,14 @@
 				<br>
 
 				<div class="rounded float-right">
-				  <button type="button" class="btn btn-outline-secondary" onclick="">初期化</button>&ensp;
+				  <button type="button" class="btn btn-outline-secondary" onclick="initproductModal();">初期化</button>&ensp;
 				  <button type="button" class="btn btn-outline-secondary" onclick="productSearch();">検索</button>&ensp;
 				</div>
 			  </form>
 
 			  <div class="modal-body">
 				<div class="float-left" style="position:static; left: 0px;">
-				  検索結果件数：3件
+				  検索結果件数：<span id="productSearchResultCount">0</span>件
 				</div>
 			  </div>
 
@@ -661,21 +661,6 @@
 					</tr>
 				  </thead>
 				  <tbody id="productResult">
-					<tr>
-					  <td style="white-space: normal; text-align: left;" onclick="selectProductCode()" data-dismiss="modal" id="productCode1"><a href="">商品コード1</a></td>
-					  <td style="white-space: normal; text-align: left;" onclick="selectProductCode()" data-dismiss="modal" id="productName1"><a href="">商品名1</a></td>
-					  <td style="white-space: normal; text-align: left;">仕入先名1</td>
-					</tr>
-					<tr>
-						<td style="white-space: normal; text-align: left;">商品コード2</td>
-						<td style="white-space: normal; text-align: left;">商品名2</td>
-						<td style="white-space: normal; text-align: left;">仕入先名2</td>
-					</tr>
-					<tr>
-						<td style="white-space: normal; text-align: left;">商品コード3</td>
-						<td style="white-space: normal; text-align: left;">商品名3</td>
-						<td style="white-space: normal; text-align: left;">仕入先名3</td>
-					</tr>
 				  </tbody>
 				</table>
 				<br>
@@ -987,11 +972,17 @@
 		
 	}
 
-	function selectProductCode(){
-		var productCode = document.getElementById("productCode1").innerText;
-		var productName = document.getElementById("productName1").innerText;
+	function selectProductCode(obj){
+		
+		var productCode = obj.innerText;
 
 		document.getElementById("productCodeInput").value = productCode;
+	}
+	
+	function selectProductName(obj){
+		
+		var productName = obj.innerText;
+
 		document.getElementById("productNameInput").value = productName;
 	}
 
@@ -1223,18 +1214,23 @@
 				dataType:'json',
 				success:function(data){	
 					$("#productResult > tr").remove();
-					alert(Object.keys(data).length);
 					for(var i = 0; i<Object.keys(data).length; i++){
 						var headcontents= '';
 						headcontents += '<tr>';
-						headcontents += '<td style="white-space: normal; text-align: left;" onclick="selectProductCode()" data-dismiss="modal" id="productCode1"><a href="">'+data[i].productCode+'</a></td>';
-						headcontents += '<td style="white-space: normal; text-align: left;" onclick="selectProductCode()" data-dismiss="modal" id="productName1"><a href="">'+data[i].productName+'</a></td>';
-						headcontents += '<td style="white-space: normal; text-align: left;">'+data[i].supplierName+'</td>';   
+						headcontents += '<td style="white-space: normal; text-align: left;" onclick="selectProductCode(this)" data-dismiss="modal"><a href="">'+data[i].productCode+'</a></td>';
+						headcontents += '<td style="white-space: normal; text-align: left;" onclick="selectProductName(this)" data-dismiss="modal"><a href="">'+data[i].productName+'</a></td>';
+						headcontents += '<td style="white-space: normal; text-align: left;">'+(data[i].supplierName==null ? '' : data[i].supplierName)+'</td>';   
 						headcontents += '</tr>';
 						$('#productResult').append(headcontents);						
 					}
+					$('#productSearchResultCount').text(+Object.keys(data).length);
 				}
 			});
+		}
+		function initproductModal(){
+			$("#productResult > tr").remove();
+			$('#productSearchResultCount').text("0");
+			$("#product")[0].reset(); 
 		}
 
 </script>
