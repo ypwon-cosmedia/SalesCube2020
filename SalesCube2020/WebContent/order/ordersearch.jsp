@@ -536,7 +536,7 @@
 					</button>
 			</div>
 			 
-			<form action="" method="post">
+			<form action="" method="post" id="product">
 				<div class="modal-body">
 				  <div class="row">
 					<div class="col-4">
@@ -1211,6 +1211,20 @@
 		    $("#product2").val(temp);
 		});
 		
+		function productSearch() {
+			
+			var formString = $("form[id=product]").serialize();
+			
+			$.ajax({
+				url:'',
+				type:'post',
+				data:formString,
+				dataType:'json',
+				success:function(data){	
+					alert(data);
+				}
+			});
+		}
 
 </script>
 </body>
