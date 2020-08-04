@@ -31,18 +31,12 @@
        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
        <br><br>
        
-       <!-- <div style="padding-left: 20px"> -->
-       <!--
-       <div style="width:100%; text-align:center; margin-bottom:20px;">
-				 <span class="action_errors" style="color: red">ユーザーIDとパスワードの入力は必須です。<br></span>
-       </div>
-       -->
-
-
+       
         <!-- ボタン（納期または出荷日）data-targetの変更必要-->
         <button type="button" class="btn btn-outline-secondary" data-toggle="modal" data-target="#setShipDate">
         →
         </button>
+        <input type="text" id="deliveryInfo">
         
 
             <div class="modal fade" id="setShipDate" tabindex="-1" role="dialog" aria-labelledby="label1" aria-hidden="true">
@@ -57,13 +51,13 @@
                         </div>
 
                         <div class="modal-body" id="selectShipdate">
-                            <!-- 
+                            <!-- 挿入のイメージ
                             <input type="radio" name="shipDate" value="5～10営業日後出荷（ご注文時に確定）">5～10営業日後出荷（ご注文時に確定）<br>
                              -->
                         </div>
 
                         <div class="modal-footer">
-                            <button type="button" class="btn btn-primary" data-dismiss="modal">反映</button>
+                            <button type="button" class="btn btn-primary" data-dismiss="modal" onclick="writeShipdate()">反映</button>
                         </div>
 
                     </div>
@@ -73,12 +67,22 @@
             
             <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.2/jquery.min.js"></script>
 			<script>
-            		//******************************スコープの配列*****************************************
-            		 var values = ["5～10営業日後出荷（ご注文時に確定）",
+			
+            		 var showShipdate = [];
+            		 var values = '${shipdateInfo.shipdateInfo}'
+            		 //配列に追加
+                     for(var i = 0; i < array.length; i++){
+                    	 showShipdate.push( array[i] );
+                     }
+            		 /*
+            		 var values = [
+            		 			   "5～10営業日後出荷（ご注文時に確定）" ,
             			 		   "10～15営業日後出荷（ご注文時に確定）",
-            			 		   "5～20営業日後出荷（ご注文時に確定）",
+            			 		   "5～20営業日後出荷（ご注文時に確定）" ,
             			 		   "20～25営業日後出荷（ご注文時に確定）",
-            			 		   "25～30営業日後出荷（ご注文時に確定）"]; //ラベルの値を用意する
+            			 		   "25～30営業日後出荷（ご注文時に確定）"
+            			 		   ]; //ラベルの値を用意する
+            		*/
             		 create_radio(values);		//create_radio(values)を実行する
 
             		 function create_radio(values) {
@@ -102,6 +106,19 @@
             		      radioAdd.appendChild(label);								//radioAddにラベルを追加する
             		      radioAdd.appendChild(br);									//radioAddに改行を追加する
             		    }
+            		 }
+            		 
+            		 function writeShipdate(){
+            			 var radio = document.getElementsByName('shipdate')			//nameがshipdateの要素を取得
+            			 	// 選択状態の値を取得
+							for ( var checkedShipdate="", i=radio.length; i--; ) {	//radioボタンの回数分繰り返す
+								if ( radio[i].checked ) {//選択されていたら
+									var checkedShipdate = radio[i].value ;			//radioボタンのvalueを取得
+									break ;
+								}
+							}
+            			 //alert(checkedShipdate);
+            			 document.getElementById('deliveryInfo').value = checkedShipdate
             		 }
 			</script>
     </body>
