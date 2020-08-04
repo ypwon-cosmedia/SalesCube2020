@@ -214,7 +214,7 @@
       <br>
     </form>
       
-      <div id="resultHidden" hidden>
+      <div id="resultHidden">
 
         <div class="container" style="background-color: white;">
           <div class="panel panel-default" >
