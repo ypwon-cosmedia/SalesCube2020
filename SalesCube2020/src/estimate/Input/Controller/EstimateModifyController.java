@@ -24,14 +24,53 @@ public class EstimateModifyController extends BaseController {
 		String action = request.getParameter("action");
 		
 		try {
-
+			if(action.equals("moveEstimateModify")) forwardURL = moveEstimateModify(request, response);
+			else if(action.equals("estimateModify")) forwardURL = estimateModify(request, response);
+			else if(action.equals("estimateDelete")) forwardURL = estimateDelete(request, response);
+			else if(action.equals("estimatePdfOutput")) forwardURL = estimatePdfOutput(request, response);
 		} catch(ClassNotFoundException e) {
 			e.printStackTrace();
 		}catch(SQLException e) {
 			e.printStackTrace();
 		}
+
+  		return forwardURL;
 	}
 	
-	return forwardURL;
+	private String moveEstimateModify(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException, ClassNotFoundException, SQLException {
+		
+		String forwardURL     = "";
+			
+		return forwardURL;
+		
+	}
+	
+	private String estimateModify(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException, ClassNotFoundException, SQLException {
+		
+		String forwardURL     = "";
+			
+		return forwardURL;
+		
+	}
+	
+	private String estimatePdfOutput(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException, ClassNotFoundException, SQLException {
+		
+		String forwardURL     = "";
+			
+		return forwardURL;
+		
+	}
+	
+	private String estimateDelete(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException, ClassNotFoundException, SQLException {
+		
+		String forwardURL     = "";
+			
+		return forwardURL;
+		
+	}
 }
 
