@@ -5,12 +5,18 @@ package estimate.unitPriceInquiry.Controller;
 
 import java.io.IOException;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import common.controller.BaseController;
+import estimate.unitPriceInquiry.beans.OrderStatementBean;
+import estimate.unitPriceInquiry.beans.QuantitySlideSettingBean;
+import estimate.unitPriceInquiry.beans.UnitPriceInquirySearchResultBean;
+import estimate.unitPriceInquiry.dao.UnitPriceInquiryDAO;
 
 /**
  * @author cosmedia
@@ -38,7 +44,7 @@ public class UnitPriceInquiryController extends BaseController {
 	private String moveUnitPriceInquiry(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException, ClassNotFoundException, SQLException {
 		
-		String forwardURL     = "";
+		String forwardURL     = "estimate/unitpriceinquiry.jsp";
 			
 		return forwardURL;
 		
@@ -47,7 +53,24 @@ public class UnitPriceInquiryController extends BaseController {
 	private String unitPriceInquirySearch(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException, ClassNotFoundException, SQLException {
 		
-		String forwardURL     = "";
+		String forwardURL     = "estimate/unitpriceinquiry.jsp";
+		
+		//単価照会画面で入力した商品コード取得
+		String productCode   = request.getParameter("productCode");
+		
+		//単価照会DAOをインスタンス化
+		UnitPriceInquiryDAO dao = new UnitPriceInquiryDAO();
+		//単価照会情報(数量スライド設定および受注残明細情報を除く)を取得
+		UnitPriceInquirySearchResultBean searchResultBean = dao.unitPriceInquirySearch(productCode);
+		//数量スライド設定を取得
+		List<QuantitySlideSettingBean> quantitySlideSettingList = dao.GetQuantitySetting(productCode);
+		//受注残明細を取得
+		List<OrderStatementBean> orderStatementList = dao.GetOrderStatement(productCode);
+		
+		request.setAttribute("searchResult",searchResultBean);
+		request.setAttribute("quantitySlideSettingList",quantitySlideSettingList);
+		request.setAttribute("orderStatementList",orderStatementList);
+		request.setAttribute("status","result");
 			
 		return forwardURL;
 		

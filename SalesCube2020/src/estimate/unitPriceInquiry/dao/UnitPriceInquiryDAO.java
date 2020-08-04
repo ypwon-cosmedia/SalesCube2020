@@ -26,7 +26,7 @@ import master.customer.beans.customerSearchBeans.CustomerResultBean;
 public class UnitPriceInquiryDAO extends BaseDAO {
 	
 	//単価照会(商品情報、割引情報)を取得
-	public UnitPriceInquirySearchResultBean unitPriceInquirySearch(int productCode) throws SQLException, ClassNotFoundException {
+	public UnitPriceInquirySearchResultBean unitPriceInquirySearch(String productCode) throws SQLException, ClassNotFoundException {
 		
 		Connection con;
 	 	Statement stmt=null;
@@ -94,7 +94,7 @@ public class UnitPriceInquiryDAO extends BaseDAO {
 	}
 	
 	//数量スライド設定 取得
-	public List<QuantitySlideSettingBean> GetQuantitySetting(int productCode) throws SQLException, ClassNotFoundException {
+	public List<QuantitySlideSettingBean> GetQuantitySetting(String productCode) throws SQLException, ClassNotFoundException {
 		
 		Connection con;
 	 	Statement stmt=null;
@@ -131,7 +131,7 @@ public class UnitPriceInquiryDAO extends BaseDAO {
 	}
 	
 	//受注残明細 取得
-	public List<OrderStatementBean> GetOrderStatement(int productCode) throws SQLException, ClassNotFoundException {
+	public List<OrderStatementBean> GetOrderStatement(String productCode) throws SQLException, ClassNotFoundException {
 		
 		Connection con;
 	 	Statement stmt=null;
