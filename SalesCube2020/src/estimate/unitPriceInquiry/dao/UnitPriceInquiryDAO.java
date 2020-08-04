@@ -84,7 +84,7 @@ public class UnitPriceInquiryDAO extends BaseDAO {
 	 		bean.setRackCode(result.getString("RACK_CODE"));
 	 		bean.setProductStatus(result.getString("PRODUCT_STATUS_CATEGORY"));
 	 		bean.setProductStock(result.getString("PRODUCT_STOCK_CATEGORY"));
-	 		bean.setStockQuantity(result.getString("STOCK_QUANTITY"));
+	 		//bean.setStockQuantity(result.getString("STOCK_QUANTITY"));
 	 		bean.setQuantityTotal(result.getString("QUANTITY_TOTAL"));
 	 	}
 	 	
