@@ -179,7 +179,7 @@
                     <br>
                 </form>
 
-                  <div id="resultCustomer" hidden>
+                  <div id="resultCustomer" >
                     <div class="modal-body">
                       <div class="float-left" style="position:static; left: 0px;">
                         	  検索結果件数： 
@@ -267,7 +267,7 @@
      	
 		function customerSearch1() {
 			
-		//	$('#resultCustomer').removeAttr('hidden');	//初期化処理
+		//	$('#resultCustomer').removeAttr('hidden');	//検索結果表示表示
 			
 			var formString = $("form[id=customer]").serialize();
 			var tmp = "";
