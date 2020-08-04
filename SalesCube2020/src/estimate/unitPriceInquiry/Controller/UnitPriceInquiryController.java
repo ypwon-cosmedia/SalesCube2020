@@ -56,7 +56,7 @@ public class UnitPriceInquiryController extends BaseController {
 		String forwardURL     = "estimate/unitpriceinquiry.jsp";
 		
 		//単価照会画面で入力した商品コード取得
-		int productCode   = Integer.parseInt(request.getParameter("productCode"));
+		String productCode   = request.getParameter("productCode");
 		
 		//単価照会DAOをインスタンス化
 		UnitPriceInquiryDAO dao = new UnitPriceInquiryDAO();
