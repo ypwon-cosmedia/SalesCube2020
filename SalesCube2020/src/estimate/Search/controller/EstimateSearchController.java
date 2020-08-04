@@ -1,5 +1,9 @@
 package estimate.Search.controller;
 
-public class EstimateSearchController {
+import common.controller.BaseController;
+
+public class EstimateSearchController extends BaseController {
+	
+	
 
 }
