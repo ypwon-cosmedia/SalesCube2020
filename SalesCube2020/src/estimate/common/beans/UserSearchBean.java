@@ -1,16 +1,21 @@
 package estimate.common.beans;
 
 public class UserSearchBean {
+	
+	//担当者コード
 	private String userId;
 	
+	//担当者名
 	private String nameKnj;
 	
+	//担当者カナ
 	private String nameKana;
 	
+	//部門
 	private String deptId;
 	
 	//権限
-	
+	private String  roleId;
 
 	/**
 	 * @return the userId
@@ -66,6 +71,20 @@ public class UserSearchBean {
 	 */
 	public void setDeptId(String deptId) {
 		this.deptId = deptId;
+	}
+
+	/**
+	 * @return the roleId
+	 */
+	public String getRoleId() {
+		return roleId;
+	}
+
+	/**
+	 * @param roleId the roleId to set
+	 */
+	public void setRoleId(String roleId) {
+		this.roleId = roleId;
 	}
 	
 	

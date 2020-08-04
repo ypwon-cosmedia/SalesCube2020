@@ -1,10 +1,14 @@
 package estimate.common.beans;
 
 public class UserSearchResultBean {
+	
+	//担当者コード
 	private String userId;
 	
+	//担当者名
 	private String nameKnj;
 	
+	//部門
 	private String deptId;
 
 	/**

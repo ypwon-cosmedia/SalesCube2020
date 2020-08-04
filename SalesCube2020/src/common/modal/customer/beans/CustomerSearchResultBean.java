@@ -1,20 +1,29 @@
 package common.modal.customer.beans;
 
 public class CustomerSearchResultBean {
+	
+	//顧客コード
 	private String customerCode;
 	
+	//顧客名
 	private String customerName;
 	
-	private String customerTel;
+	//TEL
+	private String customerTEl;
 	
-	private String customerPcName;
+	//担当者
+	private String customerPCName;
 	
+	//取引区分
 	private String SalesCmCategory;
 	
+	//支払条件
 	private String cutoffGroup;
 	
+	//事業所名
 	private String customerOfficeName;
 	
+	//部署名
 	private String customerDeptName;
 
 	/**
@@ -49,28 +58,28 @@ public class CustomerSearchResultBean {
 	 * @return the customerTel
 	 */
 	public String getCustomerTel() {
-		return customerTel;
+		return customerTEl;
 	}
 
 	/**
 	 * @param customerTel the customerTel to set
 	 */
 	public void setCustomerTel(String customerTel) {
-		this.customerTel = customerTel;
+		this.customerTEl = customerTel;
 	}
 
 	/**
 	 * @return the customerPcName
 	 */
 	public String getCustomerPcName() {
-		return customerPcName;
+		return customerPCName;
 	}
 
 	/**
 	 * @param customerPcName the customerPcName to set
 	 */
 	public void setCustomerPcName(String customerPcName) {
-		this.customerPcName = customerPcName;
+		this.customerPCName = customerPcName;
 	}
 
 	/**

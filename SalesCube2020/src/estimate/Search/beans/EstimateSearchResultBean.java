@@ -1,18 +1,26 @@
 package estimate.Search.beans;
 
 public class EstimateSearchResultBean {
+	
+	//見積番号
 	private String estimateSheetId;
 	
+	//見積日
 	private String estimateDate;
 	
+	//有効期限
 	private String validDate;
 	
+	//提出先名
 	private String submitName;
 	
+	//提出先敬称
 	private String submitPre;
 	
+	//顧客コード
 	private String customerCode;
 	
+	//顧客名
 	private String customerName;
 	
 	//粗利益
@@ -21,23 +29,32 @@ public class EstimateSearchResultBean {
 	//粗利益率
 	private String grossProfitMargin;
 
-	private String retailPriceTotal;
+	//金額合計
+	private int retailPriceTotal;
 	
-	private String ctaxPriceTotal;
+	//消費税
+	private int ctaxPriceTotal;
 	
+	//納期または出荷日
 	private String deliveryInfo;
 	
+	//入力担当者コード
 	private String userId;
 	
+	//入力担当者
 	private String userName;
 	
+	//摘要
 	private String remarks;
 	
+	//納入先
 	private String deliveryName;
 	
+	//見積条件
 	private String estimateCondition;
 	
-	private String estimateTotal;
+	//伝票合計
+	private int estimateTotal;
 
 	/**
 	 * @return the estimateSheetId
@@ -168,28 +185,28 @@ public class EstimateSearchResultBean {
 	/**
 	 * @return the retailPriceTotal
 	 */
-	public String getRetailPriceTotal() {
+	public int getRetailPriceTotal() {
 		return retailPriceTotal;
 	}
 
 	/**
 	 * @param retailPriceTotal the retailPriceTotal to set
 	 */
-	public void setRetailPriceTotal(String retailPriceTotal) {
+	public void setRetailPriceTotal(int retailPriceTotal) {
 		this.retailPriceTotal = retailPriceTotal;
 	}
 
 	/**
 	 * @return the ctaxPriceTotal
 	 */
-	public String getCtaxPriceTotal() {
+	public int getCtaxPriceTotal() {
 		return ctaxPriceTotal;
 	}
 
 	/**
 	 * @param ctaxPriceTotal the ctaxPriceTotal to set
 	 */
-	public void setCtaxPriceTotal(String ctaxPriceTotal) {
+	public void setCtaxPriceTotal(int ctaxPriceTotal) {
 		this.ctaxPriceTotal = ctaxPriceTotal;
 	}
 
@@ -280,15 +297,17 @@ public class EstimateSearchResultBean {
 	/**
 	 * @return the estimateTotal
 	 */
-	public String getEstimateTotal() {
+	public int getEstimateTotal() {
 		return estimateTotal;
 	}
 
 	/**
 	 * @param estimateTotal the estimateTotal to set
 	 */
-	public void setEstimateTotal(String estimateTotal) {
+	public void setEstimateTotal(int estimateTotal) {
 		this.estimateTotal = estimateTotal;
 	}
 	
+	
+
 }
