@@ -2,6 +2,10 @@ package common.controller;
 
 import java.util.*;
 
+import estimate.Input.Controller.EstimateAddController;
+import estimate.Input.Controller.EstimateModifyController;
+import estimate.Search.controller.EstimateSearchController;
+import estimate.unitPriceInquiry.Controller.UnitPriceInquiryController;
 import master.customer.controller.CustomerController;
 import master.product.controller.GetCategoryController;
 import master.product.controller.ProductAddController;
@@ -37,7 +41,10 @@ public class CreateControllers {
 		BaseController userObj = new UserController();
 		BaseController orderObj = new OrderMoveController();
 		BaseController orderSearchObj = new OrderSearchController();
-
+		BaseController estimateAddObj = new EstimateAddController();
+		BaseController estimateModifyObj = new EstimateModifyController();
+		BaseController estimateSearchObj = new EstimateSearchController();
+		BaseController unitPriceInquiryObj = new UnitPriceInquiryController();
 
 		map.put( "moveAddCustomer", customerObj);
 		map.put( "moveModifyCustomer", customerObj);
@@ -93,6 +100,21 @@ public class CreateControllers {
 		map.put( "onlineorder", orderObj);
 		
 		map.put( "productModalSearch", orderSearchObj);
+		
+		map.put( "moveEstimateAdd", estimateAddObj);
+		map.put( "estimateAdd", estimateAddObj);
+		
+		map.put( "moveEstimateModify", estimateModifyObj);
+		map.put( "estimateModify", estimateModifyObj);
+		map.put( "estimateDelete", estimateModifyObj);
+		map.put( "estimatePdfOutput", estimateModifyObj);
+		
+		map.put( "moveEstimateSearch", estimateSearchObj);
+		map.put( "estimateSearch", estimateSearchObj);
+		map.put( "estimateExcelOutput", estimateSearchObj);
+		
+		map.put( "moveUnitPriceInquiry", unitPriceInquiryObj);
+		map.put( "unitPriceInquirySearch", unitPriceInquiryObj);
 		
         return map;
 
