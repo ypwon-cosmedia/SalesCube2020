@@ -303,7 +303,7 @@
 						  		</div>
                   <select class="custom-select" name="" id="taxRate" onchange="totalCalculation()">
                     <option value="0">消費税なし</option>
-                    <c:forEach var="taxRate" items="${taxRates}">
+                    <c:forEach var="taxRate" items="${taxRateList}">
 						<option value="${taxRate}">${taxRate}</option>
                     </c:forEach>
                   </select>
@@ -538,28 +538,28 @@
 
 
     /* 入力値の初期化 */
-			function initForm() {
-				if(!confirm("入力内容を初期化してよろしいですか？")){
-					return;
-				}
-				location.reload();
-			}
+	function initForm() {
+		if(!confirm("入力内容を初期化してよろしいですか？")){
+			return;
+		}
+		location.reload();
+	}
 
-			/* 登録 */
-			function addForm() {
-				var test = confirm("入力内容を登録します。よろしいですか？");
-				test;
-				if(test == false){
-					return;
-				} /* else
-				window.location.href = '/SalesCube2020/SalesCube?action=orderinput'; */
-				location.reload();
-			}
+	/* 登録 */
+	function addForm() {
+		var test = confirm("入力内容を登録します。よろしいですか？");
+		test;
+		if(test == false){
+			return;
+		} /* else
+		window.location.href = '/SalesCube2020/SalesCube?action=orderinput'; */
+		location.reload();
+	}
 	
 
       /* 行追加 */
-			$('#addLine').click(function() {
-				var tableNo = ($("#estimate tr").length + 1) / 2; //新しく追加するNo、( (テーブルの行数(見出し1行+ データ行*2n) + 1(新しい行数にするための補完))/2) = 新規に追加する見出しNoになる)
+	$('#addLine').click(function() {
+		var tableNo = ($("#estimate tr").length + 1) / 2; //新しく追加するNo、( (テーブルの行数(見出し1行+ データ行*2n) + 1(新しい行数にするための補完))/2) = 新規に追加する見出しNoになる)
         $('#estimate > tbody:last').append(
           '<tr>' +
             '<td rowspan="2"><div id="tableNo' + tableNo + '"></div></td>' +
