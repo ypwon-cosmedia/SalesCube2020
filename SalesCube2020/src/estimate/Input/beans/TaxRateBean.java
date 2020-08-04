@@ -3,6 +3,8 @@
  */
 package estimate.Input.beans;
 
+import java.math.BigDecimal;
+
 /**
  * @author cosmedia
  *
@@ -10,19 +12,19 @@ package estimate.Input.beans;
 public class TaxRateBean {
 
 	/** 消費税 */
-	private double taxRate;
+	private BigDecimal taxRate;
 
 	/**
 	 * @return the taxRate
 	 */
-	public double getTaxRate() {
+	public BigDecimal getTaxRate() {
 		return taxRate;
 	}
 
 	/**
 	 * @param taxRate the taxRate to set
 	 */
-	public void setTaxRate(double taxRate) {
+	public void setTaxRate(BigDecimal taxRate) {
 		this.taxRate = taxRate;
 	}
 	
