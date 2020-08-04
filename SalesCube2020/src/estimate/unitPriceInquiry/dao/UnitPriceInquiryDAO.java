@@ -26,7 +26,7 @@ import master.customer.beans.customerSearchBeans.CustomerResultBean;
 public class UnitPriceInquiryDAO extends BaseDAO {
 	
 	//単価照会(商品情報、割引情報)を取得
-	public UnitPriceInquirySearchResultBean unitPriceInquirySearch(int productCode) throws SQLException, ClassNotFoundException {
+	public UnitPriceInquirySearchResultBean unitPriceInquirySearch(String productCode) throws SQLException, ClassNotFoundException {
 		
 		Connection con;
 	 	Statement stmt=null;
@@ -65,7 +65,7 @@ public class UnitPriceInquiryDAO extends BaseDAO {
 	 		"left outer join stock_mst_xxxxx using(PRODUCT_CODE) " + 
 	 		"left outer join (select PRODUCT_CODE, sum(QUANTITY) as QUANTITY_TOTAL from RO_LINE_TRN_XXXXX GROUP BY PRODUCT_CODE)as quantityTotal " + 
 	 			"on PRODUCT_MST_XXXXX.PRODUCT_CODE = quantityTotal.PRODUCT_CODE  " + 
-	 		"where PRODUCT_MST_XXXXX.PRODUCT_CODE = " + productCode;
+	 		"where PRODUCT_MST_XXXXX.PRODUCT_CODE = '" + productCode + "'";
 	 	
 	 	result = stmt.executeQuery(sql);
 	 	
@@ -94,7 +94,7 @@ public class UnitPriceInquiryDAO extends BaseDAO {
 	}
 	
 	//数量スライド設定 取得
-	public List<QuantitySlideSettingBean> GetQuantitySetting(int productCode) throws SQLException, ClassNotFoundException {
+	public List<QuantitySlideSettingBean> GetQuantitySetting(String productCode) throws SQLException, ClassNotFoundException {
 		
 		Connection con;
 	 	Statement stmt=null;
@@ -112,7 +112,7 @@ public class UnitPriceInquiryDAO extends BaseDAO {
 	 			"DISCOUNT_RATE " + 
 	 		"from discount_trn_xxxxx  " + 
 	 		"left outer join  discount_rel_xxxxx using(DISCOUNT_ID) " + 
-	 		"where discount_rel_xxxxx.PRODUCT_CODE = " + productCode;
+	 		"where discount_rel_xxxxx.PRODUCT_CODE = '" + productCode + "'";
 
 	 	
 	 	result = stmt.executeQuery(sql);
@@ -131,7 +131,7 @@ public class UnitPriceInquiryDAO extends BaseDAO {
 	}
 	
 	//受注残明細 取得
-	public List<OrderStatementBean> GetOrderStatement(int productCode) throws SQLException, ClassNotFoundException {
+	public List<OrderStatementBean> GetOrderStatement(String productCode) throws SQLException, ClassNotFoundException {
 		
 		Connection con;
 	 	Statement stmt=null;
@@ -149,7 +149,7 @@ public class UnitPriceInquiryDAO extends BaseDAO {
 	 			"QUANTITY " + 
 	 		"from RO_LINE_TRN_XXXXX " + 
 	 		"left outer join RO_SLIP_TRN_XXXXX using(RO_SLIP_ID) " + 
-	 		"where PRODUCT_CODE = " + productCode;
+	 		"where PRODUCT_CODE = '" + productCode + "'";
 
 	 	
 	 	result = stmt.executeQuery(sql);
