@@ -23,15 +23,10 @@ public class EstimateModifyController extends BaseController {
 		String forwardURL = "/menu.jsp";
 		String action = request.getParameter("action");
 		
-		try {
-
-		} catch(ClassNotFoundException e) {
-			e.printStackTrace();
-		}catch(SQLException e) {
-			e.printStackTrace();
-		}
+		
+		return forwardURL;
 	}
 	
-	return forwardURL;
+	
 }
 
