@@ -335,7 +335,7 @@ public class OrderInputDAO extends BaseDAO{
 	 	
 	 	while (result.next()) {
 	 		OrderInputBean bean = new OrderInputBean();
-	 		bean.setDeliveryName(result.getString("DELIVERY"));
+	 		bean.setDeliveryName(result.getString("DELIVERY_NAME"));
 	 		list.add(bean);
 	 	}
 	 	

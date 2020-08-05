@@ -61,7 +61,7 @@ public class OrderCommonBillDAO extends BaseDAO{
 	 	result = stmt.executeQuery(sql);
 	 	
 	 	OrderCommonBillBean bean = new OrderCommonBillBean();
-	 	bean.setCtaxRate(result.getString("CTAX_RATE"));
+	 	bean.setCtaxRate(result.getString("estx.CTAX_RATE"));
 	 	
 	 	return bean;
 	 	
@@ -84,13 +84,13 @@ public class OrderCommonBillDAO extends BaseDAO{
 	 	result = stmt.executeQuery(sql);
 	 	
 	 	OrderCommonBillBean bean = new OrderCommonBillBean();
-	 	bean.setCtaxRate(result.getString("CUSTOMER_CODE"));
-	 	bean.setCtaxRate(result.getString("CUSTOMER_NAME"));
-	 	bean.setCtaxRate(result.getString("CUSTOMER_CODE"));
-	 	bean.setCtaxRate(result.getString("CUSTOMER_CODE"));
-	 	bean.setCtaxRate(result.getString("CUSTOMER_CODE"));
-	 	bean.setCtaxRate(result.getString("CUSTOMER_REMARKS"));
-	 	bean.setCtaxRate(result.getString("CUSTOMER_CODE"));
+	 	bean.setCtaxRate(result.getString("estx.CUSTOMER_CODE"));
+	 	bean.setCtaxRate(result.getString("cmx.CUSTOMER_NAME"));
+	 	bean.setCtaxRate(result.getString("a.CATEGORY_CODE_NAME"));
+	 	bean.setCtaxRate(result.getString("b.CATEGORY_CODE_NAME"));
+	 	bean.setCtaxRate(result.getString("c.CATEGORY_CODE_NAME"));
+	 	bean.setCtaxRate(result.getString("estx.CUSTOMER_REMARKS"));
+	 	bean.setCtaxRate(result.getString("estx.CUSTOMER_COMMENT_DATA"));
 	 	
 	 	return bean;
 	 	
@@ -113,7 +113,18 @@ public class OrderCommonBillDAO extends BaseDAO{
 	 	result = stmt.executeQuery(sql);
 	 	
 	 	OrderCommonBillBean bean = new OrderCommonBillBean();
-	 	bean.setCtaxRate(result.getString("CUSTOMER_CODE"));
+	 	bean.setCtaxRate(result.getString("dmx.DELIVERY_NAME"));
+	 	bean.setCtaxRate(result.getString("dmx.DELIVERY_OFFICE_NAME"));
+	 	bean.setCtaxRate(result.getString("dmx.DELIVERY_DEPT_NAME"));
+	 	bean.setCtaxRate(result.getString("dmx.DELIVERY_ZIP_CODE"));
+	 	bean.setCtaxRate(result.getString("dmx.DELIVERY_ADDRESS_1"));
+	 	bean.setCtaxRate(result.getString("dmx.DELIVERY_ADDRESS_2"));
+	 	bean.setCtaxRate(result.getString("dmx.DELIVERY_PC_NAME"));
+	 	bean.setCtaxRate(result.getString("dmx.DELIVERY_PC_KANA"));
+	 	bean.setCtaxRate(result.getString("dmx.CATEGORY_CODE_NAME"));
+	 	bean.setCtaxRate(result.getString("dmx.DELIVERY_TEL"));
+	 	bean.setCtaxRate(result.getString("dmx.DELIVERY_FAX"));
+	 	bean.setCtaxRate(result.getString("dmx.DELIVERY_EMAIL"));
 	 	
 	 	return bean;
 	 	
