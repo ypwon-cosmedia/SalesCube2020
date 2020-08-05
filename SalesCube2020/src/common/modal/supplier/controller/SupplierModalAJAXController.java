@@ -1,5 +1,5 @@
 package common.modal.supplier.controller;
 
-public class SupplierController {
+public class SupplierModalAJAXController {
 
 }
