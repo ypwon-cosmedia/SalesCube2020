@@ -10,31 +10,25 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import common.controller.BaseAJAXController;
 import common.controller.BaseController;
 
 /**
  * @author cosmedia
  *
  */
-public class EstimateInputCommonController extends BaseController  {
+public class EstimateInputCommonController extends BaseAJAXController  {
 
-	public String execService(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+	public void execService(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
-		String forwardURL = "/menu.jsp";
+
 		String action = request.getParameter("action");
 
-		try {
-			if(action.equals("estimateCustomerSearch")) forwardURL = estimateCustomerSearch(request, response);
-			else if(action.equals("estimateProductSearch")) forwardURL = estimateProductSearch(request, response);
-		} catch(ClassNotFoundException e) {
-			e.printStackTrace();
-		}catch(SQLException e) {
-			e.printStackTrace();
+
 		}
 
-  		return forwardURL;
 
-	}
+	
 	
 
 	private String estimateCustomerSearch(HttpServletRequest request, HttpServletResponse response)
