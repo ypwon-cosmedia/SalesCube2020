@@ -10,7 +10,7 @@
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
 
-    <title>SalesCube modal_shipdate</title>
+    <title>SalesCube quotationConditions</title>
     <style type="text/css">
         .container {
             width: 1120px;
@@ -26,19 +26,19 @@
        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
        <br><br>
        
-        <form id="shipdateGet">
-        	<input type="hidden" name="categoryId" value="34">
-        </form>
-        <!-- ＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊確認用＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊
-        	ボタン（納期または出荷日）data-targetの変更必要
-        <button type="button" class="btn btn-outline-secondary" data-toggle="modal" data-target="#setShipDate" onclick="categoryShow()">
-        →
+    <!-- ＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊ ここから ＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊ -->
+
+        <!-- ボタン（見積条件）data-targetの変更必要 -->
+        <button type="button" class="btn btn-outline-secondary" data-toggle="modal" data-target="#setQuotationCondition" onclick="categoryShows()">
+        ↓
         </button>
+        <input type="text" id="estimateCondition">
         
-        <input type="text" id="deliveryInfo">
-        -->
-        s
-            <div class="modal fade" id="setShipDate" tabindex="-1" role="dialog" aria-labelledby="label1" aria-hidden="true">
+        <form action="" id="quotationGet">
+        	<input type="hidden" name="categoryId" value="35">
+        </form>
+
+            <div class="modal fade" id="setQuotationCondition" tabindex="-1" role="dialog" aria-labelledby="label1" aria-hidden="true">
                 <div class="modal-dialog" role="document">
                     <div class="modal-content">
                         
@@ -49,57 +49,54 @@
                                 </button>
                         </div>
 
-                        <div class="modal-body" id="selectShipdate">
-                            <!-- 挿入のイメージ
-                            <input type="radio" name="shipDate" value="5～10営業日後出荷（ご注文時に確定）">5～10営業日後出荷（ご注文時に確定）<br>
-                             -->
+                        <div class="modal-body" id="selectQuotation">
+                            <!--  <input type="radio" name="quotationCondition" value="">10日締め翌月10日現金支払い<br>-->
                         </div>
 
                         <div class="modal-footer">
-                            <button type="button" class="btn btn-primary" data-dismiss="modal" onclick="writeShipdate()">反映</button>
+                            <button type="button" class="btn btn-primary" data-dismiss="modal" onclick="writeShipdates()">反映</button>
                         </div>
 
                     </div>
                 </div>
             </div>
             
-            
             <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.2/jquery.min.js"></script>
 			<script>
 
-            		 function writeShipdate(){
-            			 var radio = document.getElementsByName('radioShipdate');	//idがshipdateの要素を取得
+            		 function writeShipdates(){
+            			 var radio = document.getElementsByName('radioQuotation');	//idがshipdateの要素を取得
             			 	// 選択状態の値を取得
 							for ( var checkedShipdate="", i=radio.length; i--; ) {	//radioボタンの回数分繰り返す
-								if ( radio[i].checked ) {//選択されていたら
+								if ( radio[i].checked ) {							//選択されていたら
 									var checkedShipdate = radio[i].value ;			//radioボタンのvalueを取得
 									break ;
 								}
 							}
-            			 document.getElementById('deliveryInfo').value = checkedShipdate
+            			 document.getElementById('estimateCondition').value = checkedShipdate
             		 }
             		 
-            		 function categoryShow() {
+            		 function categoryShows() {
             				
-            				var formString = $("form[id=shipdateGet]").serialize();//オブジェクトをバイト列に変換
+            				var formString = $("form[id=quotationGet]").serialize();			//オブジェクトをバイト列に変換
             				var tmp = "";
             				
             				$.ajax({
-            					url:'/SalesCube2020/SalesCubeAJAX?action=estimateCategoryGet',//アクセス先のパス
+            					url:'/SalesCube2020/SalesCubeAJAX?action=estimateCategoryGet',	//アクセス先のパス
             					type:'post',		//通信に利用するHTTPメソッド
             					data:formString,	//送信するデータ
             					dataType:'json',	//応答データの種類
             					
             					success:function(data){	//成功時
-            						$("#selectShipdate").empty();//ラジオボタンをクリア
+            						$("#selectQuotation").empty();//ラジオボタンをクリア
                        			 	
-         	            		 		var radioAdd = document.getElementById('selectShipdate');	//idがselectDhipdateの要素を取得
+         	            		 		var radioAdd = document.getElementById('selectQuotation');	//idがselectQuotationの要素を取得
          	            		 		for(var i = 0; i<Object.keys(data).length; i++){			//受け取ったdataの数だけ、繰り返す
          	            		      		var radio = document.createElement('input');			//input要素を作成
          	            		      		var label = document.createElement('label');			//label要素を作成
          	            		      		var br = document.createElement('br');					//改行の要素を作成
-         	            		      		var id = "radioShipdate";								//idを決める
-         	            		      		var name = "radioShipdate";								//nameを決める
+         	            		      		var id = "radioQuotation";								//idを決める
+         	            		      		var name = "radioQuotation";							//nameを決める
          	            		      		var value = data[i].categoryCodeName;					//valueをvaluesから取得
          	            		      
          	            		      		radio.setAttribute("type", "radio");					//input要素のtypeをradioにする
