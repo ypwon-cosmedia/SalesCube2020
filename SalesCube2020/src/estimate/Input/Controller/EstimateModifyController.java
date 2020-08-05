@@ -22,10 +22,6 @@ public class EstimateModifyController extends BaseController {
 
 		String forwardURL = "/menu.jsp";
 		String action = request.getParameter("action");
-		
-
-		
-		return forwardURL;
 
 		try {
 			if(action.equals("moveEstimateModify")) forwardURL = moveEstimateModify(request, response);
