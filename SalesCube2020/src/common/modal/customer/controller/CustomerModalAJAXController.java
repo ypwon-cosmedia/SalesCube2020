@@ -14,19 +14,21 @@ import com.google.gson.Gson;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonParser;
 
+import common.controller.BaseAJAXController;
 import common.controller.BaseController;
 
 import common.modal.customer.beans.CustomerModalResultBean;
 import common.modal.customer.beans.CustomerModalSearchBean;
+import common.modal.customer.dao.CustomerModalDAO;
 
-public class CustomerModalAJAXController extends BaseController {
+public class CustomerModalAJAXController extends BaseAJAXController {
 	
-		public String execService(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		public void execService(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 			
 			String action = request.getParameter("action");
 			
 			if(action.equals("customerSearch")) customerSearch(request,response);
-
+			
 		}
 		
 		private void customerSearch(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {

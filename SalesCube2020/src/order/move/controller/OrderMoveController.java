@@ -6,9 +6,11 @@ import java.sql.SQLException;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import common.controller.BaseController;
 import order.common.init.DAO.OrderInitDAO;
+import user.beans.UserInfoBean;
 
 public class OrderMoveController extends BaseController{
 	
@@ -38,14 +40,17 @@ public class OrderMoveController extends BaseController{
 	private String moveOrderSearch (HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
 		OrderInitDAO dao = new OrderInitDAO();
+		HttpSession session = request.getSession(true);
+		UserInfoBean userID = (UserInfoBean) session.getAttribute("userInfo");
+		
 		
 		try {
 			
 			request.setAttribute("category", dao.initCategory());
-			request.setAttribute("configDetailShow", dao.initConfigModalShow("0301", "2", (String) request.getAttribute("userInfo")));
-			request.setAttribute("configBillShow", dao.initConfigModalShow("0301", "1", (String) request.getAttribute("userInfo")));
-			request.setAttribute("configDetailNotShow", dao.initConfigModalNotShow("0301", "2", (String) request.getAttribute("userInfo")));
-			request.setAttribute("configBillNotShow", dao.initConfigModalNotShow("0301", "1", (String) request.getAttribute("userInfo")));
+			request.setAttribute("configDetailShow", dao.initConfigModalShow("0301", "2", userID.getUserID()));
+			request.setAttribute("configBillShow", dao.initConfigModalShow("0301", "1", userID.getUserID()));
+			request.setAttribute("configDetailNotShow", dao.initConfigModalNotShow("0301", "2", userID.getUserID()));
+			request.setAttribute("configBillNotShow", dao.initConfigModalNotShow("0301", "1", userID.getUserID()));
 			request.setAttribute("setProduct", dao.initComboBox("2"));
 			request.setAttribute("standard", dao.initComboBox("3"));
 			request.setAttribute("classStatus", dao.initComboBox("16"));

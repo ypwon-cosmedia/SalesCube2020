@@ -173,7 +173,7 @@
               
                     <div class="rounded float-right">
                       <button type="button" class="btn btn-primary" onclick="initCustomer()">初期化</button>&ensp;
-                      <input type="button" value="検索" class="btn btn-primary" onclick="customerSearch()">&ensp;
+                      <input type="button" value="検索" class="btn btn-primary" onclick="customerSearch1()">&ensp;
                     </div>
                     <br>
                     <br>
@@ -273,6 +273,7 @@
 			var tmp = "";
 			
 			$.ajax({
+				
 				url:'/SalesCube2020/SalesCubeAJAX?action=customerSearch',
 				type:'post',
 				data:formString,

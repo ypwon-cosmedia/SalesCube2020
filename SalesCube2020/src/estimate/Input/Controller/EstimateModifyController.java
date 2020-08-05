@@ -22,7 +22,10 @@ public class EstimateModifyController extends BaseController {
 
 		String forwardURL = "/menu.jsp";
 		String action = request.getParameter("action");
+<<<<<<< HEAD
 		
+=======
+>>>>>>> branch 'master' of https://github.com/ypwon-cosmedia/SalesCube2020.git
 
 		try {
 			if(action.equals("moveEstimateModify")) forwardURL = moveEstimateModify(request, response);

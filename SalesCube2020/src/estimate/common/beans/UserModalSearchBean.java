@@ -1,6 +1,6 @@
 package estimate.common.beans;
 
-public class UserSearchBean {
+public class UserModalSearchBean {
 	
 	//担当者コード
 	private String userId;

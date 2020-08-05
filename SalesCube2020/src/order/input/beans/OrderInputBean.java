@@ -42,7 +42,7 @@ public class OrderInputBean {
 	private String dcTimezone;
 	
 	/* 消費税率 */
-	private BigDecimal ctaxRate;
+	private String ctaxRate;
 	
 	/* 顧客コード */
 	private String customerCode;
@@ -240,11 +240,11 @@ public class OrderInputBean {
 		this.dcTimezone = dcTimezone;
 	}
 
-	public BigDecimal getCtaxRate() {
+	public String getCtaxRate() {
 		return ctaxRate;
 	}
 
-	public void setCtaxRate(BigDecimal ctaxRate) {
+	public void setCtaxRate(String ctaxRate) {
 		this.ctaxRate = ctaxRate;
 	}
 

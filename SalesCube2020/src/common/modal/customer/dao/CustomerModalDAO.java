@@ -14,7 +14,7 @@ import common.modal.product.beans.ProductModalSearchBean;
 import sql.common.CommonSQL;
 
 public class CustomerModalDAO extends BaseDAO {
-	public List<CustomerModalResultBean> customerModalResult(ProductModalSearchBean bean) throws SQLException, ClassNotFoundException{
+	public List<CustomerModalResultBean> customerModalResult(CustomerModalSearchBean bean) throws SQLException, ClassNotFoundException{
 		
 		List<CustomerModalResultBean> list = new ArrayList<>();
 		

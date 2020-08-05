@@ -1,5 +1,5 @@
 package estimate.common.dao;
 
-public class UserSearchDAO {
+public class UserModalDAO {
 
 }

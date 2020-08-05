@@ -1085,7 +1085,28 @@
 			headcontents += '</tr>';
 
 			$('#AddHead').append(headcontents);
-		}	
+		}
+		
+		var showlistvalue = $("#showSearchResult option").map(function() {return $(this).val();}).get();
+		var showlistname = $("#showSearchResult option").map(function() {return $(this).text();}).get();
+		var notshowlistvalue = $("#notShowSearchResult option").map(function() {return $(this).val();}).get();
+		var notshowlistname = $("#notShowSearchResult option").map(function() {return $(this).text();}).get();
+		
+		jQuery.ajaxSettings.traditional = true;
+		
+		$.ajax({
+			url:'/SalesCube2020/SalesCubeAJAX?action=configModalUpdate',
+			type:'post',
+			data:{
+				"showlistvalue": showlistvalue,
+				"searchsubject" : sel_view
+			},
+			dataType:'text',
+			success:function(data){	
+								
+			
+			}
+		});
 	}
 
 	$("#select_view").focusout();
