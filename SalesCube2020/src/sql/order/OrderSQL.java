@@ -210,7 +210,7 @@ public class OrderSQL {
 	
 	/* 見積番号押下 納入先情報反映 */
 	public String billToDelivery(String estimateSheetId) {
-		
+	
 		String sql;
 		
 		sql = "SELECT DISTINCT " + 
