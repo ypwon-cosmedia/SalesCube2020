@@ -2,7 +2,12 @@ package common.controller;
 
 import java.util.HashMap;
 
+import common.modal.customer.controller.CustomerModalAJAXController;
 import common.modal.product.controller.ProductModalAJAXController;
+import common.modal.supplier.controller.SupplierModalAJAXController;
+import estimate.common.controller.EstimateCategoryModalAJAXController;
+import estimate.common.controller.EstimateConfigurationModalAJAXController;
+import estimate.common.controller.UserModalAJAXController;
 import order.search.controller.OrderSearchAJAXController;
 
 public class CreateAJAXControllers {
@@ -13,11 +18,26 @@ public class CreateAJAXControllers {
 		
 		BaseAJAXController productAJAX = new ProductModalAJAXController();
 		BaseAJAXController ordersearchAJAX = new OrderSearchAJAXController();
+		BaseAJAXController estimateCategoryAJAX = new EstimateCategoryModalAJAXController();
+		BaseAJAXController supplierAJAX = new SupplierModalAJAXController();
+		BaseAJAXController estimateConfigurationAJAX = new EstimateConfigurationModalAJAXController();
+		BaseAJAXController customerAJAX = new CustomerModalAJAXController();
+		BaseAJAXController userAJAX = new UserModalAJAXController();
 		
 		map.put("productSearch", productAJAX);
 		
 		map.put("configModalUpdate", ordersearchAJAX);
 		
+		map.put("shipdateGet", estimateCategoryAJAX);
+		
+		map.put("searchModalSupplier", supplierAJAX);
+		
+		map.put("estimateCfgGet", estimateConfigurationAJAX);
+		map.put("estimateCfgUpd", estimateConfigurationAJAX);
+		
+		map.put("customerSearch", customerAJAX);
+		
+		map.put("userSearch", userAJAX);
 		
 		return map;
 	}
