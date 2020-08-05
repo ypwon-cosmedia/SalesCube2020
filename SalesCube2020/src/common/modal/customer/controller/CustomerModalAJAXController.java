@@ -18,6 +18,7 @@ import common.controller.BaseController;
 
 import common.modal.customer.beans.CustomerModalResultBean;
 import common.modal.customer.beans.CustomerModalSearchBean;
+import common.modal.customer.dao.CustomerModalDAO;
 
 public class CustomerModalAJAXController extends BaseController {
 	
@@ -26,6 +27,8 @@ public class CustomerModalAJAXController extends BaseController {
 			String action = request.getParameter("action");
 			
 			if(action.equals("customerSearch")) customerSearch(request,response);
+			return action;
+			
 
 		}
 		

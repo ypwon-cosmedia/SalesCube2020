@@ -1,5 +1,6 @@
 package sql.common;
 
+import common.modal.customer.beans.CustomerModalSearchBean;
 import common.modal.product.beans.ProductModalSearchBean;
 
 public class CommonSQL {
@@ -51,6 +52,39 @@ public class CommonSQL {
 				"and " +
 				"(pmx.PRODUCT_KANA " + stringIsNull(bean.getProductKana());
 		
+		return sql;
+	}
+
+
+	public String customerModalSearch(CustomerModalSearchBean bean) {
+		String sql;
+		
+		sql = "select " + 
+				"cmx.CUSTOMER_CODE, " +
+				"cmx.CUSTOMER_NAME, " +
+				"cmx.CUSTOMER_TEL, " +
+				"cmx.CUSTOMER_PC_NAME, " +
+				"ctxa.CATEGORY_CODE_NAME, " +
+				"ctxb.CATEGORY_CODE_NAME, " +
+				"cmx.CUSTOMER_OFFICE_NAME, " +
+				"cmx.CUSTOMER_DEPT_NAME, " +
+				"from " +
+				"CUSTOMER_MST_XXXXX as cmx " +
+				"left outer join " + 
+				"(select *  from  CATEGORY_TRN_XXXXX where CATEGORY_ID='32')as ctxa " +
+				"on cmx.SALES_CM_CATEGORY = ctxa.CATEGORY_CODE " +
+				"left outer join " +
+				"(select * from CATEGORY_TRN_XXXXX where CATEGORY_ID='11')as ctxb " +
+				"on cmx.CUTOFF_GROUP = ctxb.CATEGORY_CODE " +
+				"where " +
+				"(cmx.CUSTOMER_CODE " + stringIsNull(bean.getCustomerCode()) +
+				"and " +
+				"(cmx.CUSTOMER_NAME " + stringIsNull(bean.getCustomerName()) +
+				"and " +
+				"(cmx.CUSTOMER_KANA " + stringIsNull(bean.getCustomerKana()) +
+				"and " +
+				"(cmx.CUTOFF_GROUP " + stringIsNull(bean.getCutoffGroup());
+				
 		return sql;
 	}
 }
