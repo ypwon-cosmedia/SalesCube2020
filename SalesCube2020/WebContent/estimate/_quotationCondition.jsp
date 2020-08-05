@@ -28,12 +28,12 @@
        
     <!-- ＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊ ここから ＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊ -->
 
-        <!-- ボタン（見積条件）data-targetの変更必要 -->
+        <!-- ボタン（見積条件）data-targetの変更必要 
         <button type="button" class="btn btn-outline-secondary" data-toggle="modal" data-target="#setQuotationCondition" onclick="categoryShows()">
         ↓
         </button>
         <input type="text" id="estimateCondition">
-        
+        -->
         <form action="" id="quotationGet">
         	<input type="hidden" name="categoryId" value="35">
         </form>

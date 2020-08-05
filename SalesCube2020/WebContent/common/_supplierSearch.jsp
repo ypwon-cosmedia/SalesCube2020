@@ -74,7 +74,6 @@
         </button>
 
 
-    <!-- ここからコピーして -->
             <div class="modal fade" id="openSearchSupplier" tabindex="-1" role="dialog" aria-labelledby="label1" aria-hidden="true">
                 <div class="modal-dialog modal-lg" role="document">
                     <div class="modal-content">
@@ -89,8 +88,8 @@
                             <!-- 検索部 -->
                                 <p style="color: red;"><!--EL式"$"該当する仕入れ先情報は存在しません--></p>
                                 
-<!-- ******************************action値の設定******************************************** -->
-                            <form action="">
+
+                            <form action="" id="searchSupplier">
                                 <div class="row">
                                     <div class="col-5">
                                         <div class="input-group mb-2">
@@ -132,9 +131,9 @@
                                 <!-- テーブル部（検索結果） -->
                                 <div id="serchResult" hidden="hidden">
                                 
-                                	検索結果件数：9件<br>
+                                	検索結果件数：<br>
 
-                                <table class="table table-bordered">
+                                <table class="table table-bordered" id="supplierTable">
                                     <!-- ヘッダ部 -->
                                     <thead class="thead-light">
                                     <tr>
@@ -146,6 +145,7 @@
                                     </tr>
                                     </thead>
                                     <!-- 内部 -->
+                                    <tbody></tbody>
                                     <tr>
                                         <td class="cursor-pointer">1</td>
                                         <td>アンパンマン食品</td>
@@ -165,8 +165,6 @@
                 </div>
             </div>
             
-            <!--  ＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊ここまでMODAL＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊-->
-            
             <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.2/jquery.min.js"></script>
             <script>
           		//初期化
@@ -179,12 +177,43 @@
                     //テーブルの非表示
                     document.getElementById("serchResult").setAttribute('hidden','hidden');
                 }
+          		
                 function existSerchResult(){
                     //if(resultCount <= 0){ 検索結果が0件
                         //テーブルの表示
                         document.getElementById("serchResult").removeAttribute('hidden');
                     //}
                 }
+                
+                function searchSupplier() {
+    				
+    				var formString = $("form[id=searchSupplier]").serialize();//オブジェクトをバイト列に変換
+    				var tmp = "";
+    				
+    				$.ajax({
+    					url:'/SalesCube2020/SalesCubeAJAX?action=searchModalSupplier',//アクセス先のパス
+    					type:'post',		//通信に利用するHTTPメソッド
+    					data:formString,	//送信するデータ
+    					dataType:'json',	//応答データの種類
+    					
+    					success:function(data){	//成功時
+    						$("#supplierTable > tr").remove();//テーブルをクリア
+               			 	
+ 	            		 		var tableAdd = document.getElementById('supplierTable');	//idがsupplierTableの要素を取得
+ 	            		 		for(var i = 0; i<Object.keys(data).length; i++){			//受け取ったdataの数だけ、繰り返す
+ 	            		 			var headcontents= '';
+ 	       							headcontents += '<tr>';
+ 	       							headcontents += '<td style="white-space: normal; text-align: left;" onclick="selectcustomerCode()" data-dismiss="modal" id="customerCode1"><a href="">'+data[i].supplierCode+'</a></td>';
+ 	       							headcontents += '<td style="white-space: normal; text-align: left;">'+data[i].supplierName+'</td>';
+ 	       							headcontents += '<td style="white-space: normal; text-align: left;">'+data[i].supplierPCName+'</td>';  
+ 	       							headcontents += '<td style="white-space: normal; text-align: left;">'+data[i].categoryCodeName+'</td>';
+ 	       							headcontents += '<td style="white-space: normal; text-align: left;">'+data[i].remarks+'</td>';
+ 	       							headcontents += '</tr>';
+ 	       							$('#supplierTable').append(headcontents);					
+ 	            		    	}
+    					}
+    				});
+    			}
             </script>
     </body>
 </html>
