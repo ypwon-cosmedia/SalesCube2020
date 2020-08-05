@@ -191,7 +191,7 @@
       <br><br><br>
     </div>
 
-    <form action="/SalesCube2020/SalesCube?action=searchSetProduct" method="post" name="mainform">
+    <form action="/SalesCube2020/SalesCube?action=estimateAdd" method="post" name="mainform">
       <div class="container" style="background-color: white;">
         <div class="panel panel-default" >
 			    <div class="panel-heading row mb-2 col-4">
@@ -207,7 +207,7 @@
 						    	<div class="input-group-prepend">
 						    		<div class="input-group-text"  style="background-color: pink;">見積番号</div>
 						  		</div>
-						   	  <input type="text" value="" class="form-control" id="inlineFormInputGroup" name="productCode" pattern="^[0-9A-Za-z]+$" onchange="test3()">
+						   	  <input type="text" value="" class="form-control" id="inlineFormInputGroup" name="estimateSheetId" pattern="^[0-9A-Za-z]+$" onchange="test3()">
 					  		</div>
               </div>
 
@@ -217,7 +217,7 @@
 						    	<div class="input-group-prepend">
 						    		<div class="input-group-text" style="background-color: pink;">見積日</div>
 						  		</div>
-                  <input type="date">
+                  <input type="date" name="estimateDate">
 					  		</div>
               </div>
 
@@ -227,7 +227,7 @@
 						    	<div class="input-group-prepend">
 						    		<div class="input-group-text">納期または出荷日</div>
 						  		</div>
-                   <input type="text" value="" class="form-control" id="inlineFormInputGroup" name="productCode">
+                   <input type="text" value="" class="form-control" id="inlineFormInputGroup" name="deliveryInfo">
                    <button type="button" class="ModalButton"  data-toggle="modal" data-target="#setShipDate">
                     <img src="btn_search.png" style="vertical-align: middle; cursor: pointer; width: 32px; height: 32px;">
                   </button>
@@ -242,7 +242,7 @@
 						    	<div class="input-group-prepend">
 						    		<div class="input-group-text">有効期限</div>
 						  		</div>
-                  <input type="date">
+                  <input type="date" name="validDate">
 					  		</div>
               </div>
 
@@ -252,7 +252,7 @@
 						    	<div class="input-group-prepend">
 						    		<div class="input-group-text">入力担当者</div>
 						  		</div>
-						   	  <input type="text" value="管理者" class="form-control" id="inlineFormInputGroup" name="productCode" readonly>
+						   	  <input type="text" value="管理者" class="form-control" id="inlineFormInputGroup" name="userName" readonly>
 					  		</div>
               </div>
 
@@ -262,7 +262,7 @@
 						    	<div class="input-group-prepend">
 						    		<div class="input-group-text">件名</div>
 						  		</div>
-						   	  <input type="text" value="" class="form-control" id="inlineFormInputGroup" name="productCode">
+						   	  <input type="text" value="" class="form-control" id="inlineFormInputGroup" name="title">
 					  		</div>
 				  		</div>
             </div>
@@ -274,7 +274,7 @@
 						    	<div class="input-group-prepend">
 						    		<div class="input-group-text">納入先</div>
 						  		</div>
-						   	  <input type="text" value="貴社指定場所" class="form-control" id="inlineFormInputGroup" name="productCode">
+						   	  <input type="text" value="貴社指定場所" class="form-control" id="inlineFormInputGroup" name="deliveryName">
 					  		</div>
               </div>
             </div>
@@ -286,7 +286,7 @@
 						    	<div class="input-group-prepend">
 						    		<div class="input-group-text">見積条件</div>
 						  		</div>
-                  <textarea cols="3" style="width: 750px;"></textarea>
+                  <textarea cols="3" style="width: 750px;" name="estimateCondition"></textarea>
                   <button type="button" class="ModalButton"  data-toggle="modal" data-target="#setQuotationCondition">
                     <img src="btn_search.png" style="vertical-align: middle; cursor: pointer; width: 32px; height: 32px;">
                   </button>
@@ -301,7 +301,7 @@
 						    	<div class="input-group-prepend">
 						    		<div class="input-group-text">消費税率</div>
 						  		</div>
-                  <select class="custom-select" name="" id="taxRate" onchange="totalCalculation()">
+                  <select class="custom-select" name="ctaxRate" id="taxRate" onchange="totalCalculation()">
                     <option value="0">消費税なし</option>
                     <c:forEach var="taxRateList" items="${taxRateList}">
 						<option value="${taxRateList.taxRate}">${taxRateList.taxRate}</option>
@@ -333,7 +333,7 @@
                   <div class="input-group-prepend">
                     <div class="input-group-text" style="background-color: pink;">提出先名</div>
                   </div>
-                  <input type="text" value="" class="form-control" id="submitName" name="productCode">&emsp;&emsp;
+                  <input type="text" value="" class="form-control" id="submitName" name="submitName">&emsp;&emsp;
                 </div>
               </div>
 
@@ -343,7 +343,7 @@
                   <div class="input-group-prepend">
                     <div class="input-group-text">提出先敬称</div>
                   </div>
-                  <select class="custom-select" name="">
+                  <select class="custom-select" name=submitPre>
                     <option></option>
                     <c:forEach var="submitPre" items="${submitPre}">
 						<option value="${submitPre.categoryCode}">${submitPre.categoryCodeName}</option>
@@ -384,7 +384,7 @@
                     <div class="input-group-prepend">
                       <div class="input-group-text">顧客名</div>
                     </div>
-                    <input type="text" value="" class="form-control" name="productCode" id="customerName" readonly>
+                    <input type="text" value="" class="form-control" name="customerName" id="customerName" readonly>
                   </div>
                 </div>
               </div>
@@ -396,7 +396,7 @@
                     <div class="input-group-prepend">
                       <div class="input-group-text">備考</div>
                     </div>
-                      <input type="text" value="" class="form-control" name="productCode"  id="customerRemarks" readonly>
+                      <input type="text" value="" class="form-control" name="customerRemarks"  id="customerRemarks" readonly>
                   </div>
                 </div>
               </div>
@@ -408,7 +408,7 @@
                     <div class="input-group-prepend">
                       <div class="input-group-text">コメント</div>
                     </div>
-                      <input type="text" value="" class="form-control" name="productCode"  id="customerComment" readonly>
+                      <input type="text" value="" class="form-control" name="customerComment"  id="customerComment" readonly>
                   </div>
                 </div>
               </div>
@@ -433,7 +433,7 @@
                   <div class="input-group-prepend">
                     <div class="input-group-text">摘要</div>
                   </div>
-                  <textarea name="" cols="100"></textarea>
+                  <textarea name="remarks" cols="100"></textarea>
                 </div>
               </div>
             </div>
@@ -445,7 +445,7 @@
                   <div class="input-group-prepend">
                     <div class="input-group-text">メモ</div>
                   </div>
-                  <textarea name="" cols="100"></textarea>
+                  <textarea name="memo" cols="100"></textarea>
                 </div>
               </div>
             </div>
@@ -513,17 +513,21 @@
           <td>￥<span id="grossProfit">0</span></td>
           <td><span id="grossProfitMargin">0.00</span> %</td>
           <td>￥<span id="retailPriceTotal">0</span></td>
-          <td>￥<span id="taxTotal">0</span></td>
+          	<input type="hidden" value="0" id="inputRetailPriceTotal" name="retailPriceTotal">
+          <td>￥<span id="taxPriceTotal">0</span></td>
+          	<input type="hidden" value="0" id="inputTaxPriceTotal" name="taxPriceTotal">
           <td>￥<span id="estimateTotal">0</span></td>
+          	<input type="hidden" value="0" id="inputEstimateTotal" name="estimateTotal">
         </tr>
         </tbody>
       </table>
     </div>
 
     <div class="container" style="text-align:center">
-      <button type="button" class="btn btn-primary" style="width:200px; height:50px;">登録</button>
+      <input type="submit" class="btn btn-primary" value="登録" style="width:200px; height:50px;">
     </div>
     <br><br>
+  </form>
 
   </body>
 
@@ -531,8 +535,6 @@
     window.onload = function onLoad() {
             target = document.getElementById("tableNo1");
             target.innerHTML = "1";
-            //target = document.getElementById("tableNo2");
-            //target.innerHTML = "2";
     }
 
 
@@ -786,7 +788,8 @@
             }
           }
         document.getElementById("retailPriceTotal").innerHTML = retailPriceTotal; //金額合計に入力
-
+        document.getElementById("inputRetailPriceTotal").value = retailPriceTotal;
+        
         //仕入金額合計計算
         var costArray = document.getElementsByName("cost"); //各売上金額の配列を取得
         var costTotal = 0;
@@ -802,7 +805,7 @@
         document.getElementById("grossProfit").innerHTML = grossProfit; //粗利益に入力
 
         //粗利益率計算 ( (粗利益/金額合計) * 100 ) ※小数第三位を四捨五入 + 値入力
-        var grossProfitMargin = Math.round( (grossProfit/retailPriceTotal)*100*100 )/100;
+        var grossProfitMargin = Math.round( ( grossProfit/retailPriceTotal )*100*100 )/100;
         if(retailPriceTotal == 0){
           grossProfitMargin = 0;
         }
@@ -810,12 +813,14 @@
 
         //消費税計算 (金額合計 * 消費税) + 値入力
         var taxRate = document.getElementById('taxRate').value;
-        var taxTotal = Math.floor( (retailPriceTotal * taxRate) /100 );//小数点以下切り捨て
-        document.getElementById("taxTotal").innerHTML = taxTotal; //消費税に入力
+        var taxPriceTotal = Math.floor( (retailPriceTotal * taxRate ) /100 );//小数点以下切り捨て
+        document.getElementById("taxPriceTotal").innerHTML = taxPriceTotal; //消費税に入力
+        document.getElementById("inputTaxPriceTotal").value = taxPriceTotal;
 
         //伝票合計 (金額合計 + 消費税) + 値入力
-        var estimateTotal = retailPriceTotal + taxTotal;
-        document.getElementById("estimateTotal").innerHTML = estimateTotal; //伝票合計に入力   
+        var estimateTotal = retailPriceTotal + taxPriceTotal;
+        document.getElementById("estimateTotal").innerHTML = estimateTotal; //伝票合計に入力
+        document.getElementById("inputEstimateTotal").value = estimateTotal;
         
         } 
 
@@ -871,7 +876,7 @@
 				if(!confirm("すでに登録済みの見積番号です。編集画面に遷移しますか？")){
 					return;
 				}
-				location.href = 'estimatemodify.html';
+				location.href = 'estimate/estimatemodify.html';
 			}
 
   </script>

@@ -24,9 +24,6 @@ public class EstimateModifyController extends BaseController {
 		String action = request.getParameter("action");
 		
 
-		
-		return forwardURL;
-
 		try {
 			if(action.equals("moveEstimateModify")) forwardURL = moveEstimateModify(request, response);
 			else if(action.equals("estimateModify")) forwardURL = estimateModify(request, response);
