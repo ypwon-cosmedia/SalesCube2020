@@ -789,7 +789,7 @@ public class OrderSQL {
 		
 		String sql;
 		
-		sql = "SELECT CATEGORY_CODE_NAME " + 
+		sql = "SELECT CATEGORY_CODE_NAME, CATEGORY_ID " + 
 				"FROM category_trn_xxxxx " + 
 				"WHERE CATEGORY_ID='36'";
 		
@@ -802,7 +802,7 @@ public class OrderSQL {
 		
 		String sql;
 		
-		sql = "SELECT CATEGORY_CODE_NAME " + 
+		sql = "SELECT CATEGORY_CODE_NAME, CATEGORY_ID " + 
 				"FROM category_trn_xxxxx " + 
 				"WHERE CATEGORY_ID='37'";
 		
@@ -821,4 +821,5 @@ public class OrderSQL {
 		return sql;
 		
 	}
+
 }

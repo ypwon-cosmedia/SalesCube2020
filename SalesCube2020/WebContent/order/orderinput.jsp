@@ -74,7 +74,7 @@
 			</div><br><br><br>
 		</div><br>
 
-		<form="" method="post">
+		<form method="post">
 			<!-- 受注伝票情報 -->
 			<div class="container" style="background-color: white;"><div class="panel panel-default">
 				<div class="panel-heading row mb-2 col-4">
@@ -167,8 +167,8 @@
 								</div>
 								<select class="custom-select" name="">
 									<option value=""></option>
-									<c:forEach items="${}" var="">
-										<option value="${}">${}</option>
+									<c:forEach items="${initDcName}" var="initDN">
+										<option value="${initDN.CategoryId}">${initDN.CategoryCodeName}</option>
 									</c:forEach>
 								</select>
 							</div>
@@ -183,8 +183,8 @@
 								</div>
 								<select class="custom-select" name="">
 									<option value=""></option>
-									<c:forEach items="${}" var="">
-										<option value="${}">${}</option>
+									<c:forEach items="${initDcTimezone}" var="initDT">
+										<option value="${initDT.CategoryId}">${initDT.CategoryCodeName}</option>
 									</c:forEach>
 								</select>
 							</div>
@@ -197,8 +197,8 @@
 								</div>
 								<select class="custom-select" name="">
 									<option value=""></option>
-									<c:forEach items="${}" var="">
-										<option value="10.00" id="ctaxRate">${}</option>%
+									<c:forEach items="${initTaxRate}" var="initTR">
+										<option value="${initTR.ctaxRate}" id="ctaxRate">${initTR.ctaxRate}</option>
 									</c:forEach>
 								</select>
 							</div>
@@ -303,8 +303,8 @@
 								</div>
 								<select class="custom-select" name="">
 									<option value=""></option>
-									<c:forEach items="" var="">
-										<option value="">${}</option>
+									<c:forEach items="" >
+										<option value="">{}</option>
 									</c:forEach>
 								</select>
 							</div>
@@ -630,9 +630,9 @@
 								
 							  </tr>
 							</thead>
-							<c:forEach items="${}" var="">
+							<c:forEach items="" var="">
 								<tr>
-									<form action=" " method="post" id="estimateTable">
+									<form method="post" id="estimateTable">
 										<td style="white-space: normal; text-align: left;" data-dismiss="modal" id="estimateSheetId"><a href="orderinput.html">見積番号1</a></td>
 									</form>
 									<td style="white-space: normal; text-align: left;" id="estimateDate">見積日1</td>
@@ -720,8 +720,8 @@
 									</div>
 									<select class="custom-select" name="productStatusCategory" id="initCustomerRank">
 										<option selected></option>
-										<c:forEach items="${}" value="">
-											<option value="${}" >${}</option>
+										<c:forEach items="">
+											<option value="" >{}</option>
 										</c:forEach>
 									</select>
 								</div>
@@ -735,8 +735,8 @@
 									</div>
 									<select class="custom-select" name="productStockCategory" id="inputCutoffGroup">
 										<option selected></option>
-										<c:forEach items="${}" value="">
-											<option value="${}">${}</option>
+										<c:forEach items="">
+											<option value="">{}</option>
 										</c:forEach>
 									</select>
 								</div>
@@ -772,7 +772,7 @@
 								
 								</tr>
 							</thead>
-							<c:forEach items="${}" var="">
+							<c:forEach items="" var="">
 								<tr>
 									<td style="white-space: normal; text-align: left;" onclick="selectCustomerCode();" data-dismiss="modal" id="modalCustomerCode"><a href="">顧客コード1</a></td>
 									<td style="white-space: normal; text-align: left;" onclick="selectCustomerCode();" data-dismiss="modal" id="modalCustomerName"><a href="">顧客名1</a></td>
@@ -846,7 +846,7 @@
 										<div class="input-group-prepend">
 											<div class="input-group-text">仕入先商品コード</div>
 										</div>
-										<input type="text" valeu="" class="form-control" id="inputSupplierCode">
+										<input type="text" value="{}" class="form-control" id="inputSupplierCode">
 									</div>
 								</div>
 								<div class="col-4">
@@ -855,7 +855,7 @@
 										<div class="input-group-prepend">
 											<div class="input-group-text">JANコード</div>
 										</div>
-										<input type="text" valeu="" class="form-control" id="inputJANPCode">
+										<input type="text" value="" class="form-control" id="inputJANPCode">
 									</div>
 								</div>
 							</div>
@@ -869,8 +869,8 @@
 										</div>
 										<select class="custom-select" id="inputSetTypeCategory">
 											<option selected></option>
-											<c:forEach items="${}" value="">
-												<option value="${}">${}</option>
+											<c:forEach items="{}" >
+												<option value="{}">{}</option>
 											</c:forEach>
 										</select>
 									</div>
@@ -884,8 +884,8 @@
 										</div>
 										<select class="custom-select" id="inputProductStandardCategory">
 											<option selected></option>
-											<c:forEach items="${}" value="">
-												<option value="${}">${}</option>
+											<c:forEach items="{}">
+												<option value="{}">{}</option>
 											</c:forEach>
 										</select>
 									</div>
@@ -897,7 +897,7 @@
 									<div class="input-group-prepend">
 										<div class="input-group-text">分類状況</div>
 									</div>
-									<input type="text" valeu="" class="form-control" id="inputProductStatusCategory">
+									<input type="text" value="" class="form-control" id="inputProductStatusCategory">
 									</div>
 								</div>
 							</div>
@@ -909,7 +909,7 @@
 									<div class="input-group-prepend">
 										<div class="input-group-text">商品名</div>
 									</div>
-									<input type="text" valeu="" class="form-control" id="inputProductName">
+									<input type="text" value="" class="form-control" id="inputProductName">
 								</div>
 								</div>
 								<div class="col-6">
@@ -918,7 +918,7 @@
 									<div class="input-group-prepend">
 										<div class="input-group-text">商品名カナ</div>
 									</div>
-									<input type="text" valeu="" class="form-control" id="inputProductNameKana">
+									<input type="text" value="" class="form-control" id="inputProductNameKana">
 								</div>
 								</div>
 							</div>
@@ -946,7 +946,7 @@
 								<th scope="col" class="th_back_black" style="cursor: pointer; height: 30px;" onclick="sort('supplierName');">仕入先名</th> 
 							</tr>
 						</thead>
-						<c:forEach items="${}" var="">
+						<c:forEach items="{}" var="">
 							<tr>
 								<td style="white-space: normal; text-align: left;" onclick="selectProductCode(this)" data-dismiss="modal" id="modalProductCode1"><a href="">商品コード1</a></td>
 								<td style="white-space: normal; text-align: left;" onclick="selectProductCode(this)" data-dismiss="modal" id="modalProductName1"><a href="">商品名1</a></td>
