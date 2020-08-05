@@ -28,7 +28,7 @@ public class CreateAJAXControllers {
 		
 		map.put("configModalUpdate", ordersearchAJAX);
 		
-		map.put("shipdateGet", estimateCategoryAJAX);
+		map.put("estimateCategoryGet", estimateCategoryAJAX);
 		
 		map.put("searchModalSupplier", supplierAJAX);
 		
