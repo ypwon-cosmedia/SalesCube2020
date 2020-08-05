@@ -17,7 +17,7 @@ import common.controller.BaseAJAXController;
 import estimate.common.beans.CategoryBean;
 import estimate.common.dao.CategoryDAO;
 
-public class CategoryController extends BaseAJAXController{
+public class CategoryModalAJAXController extends BaseAJAXController{
 	
 	public void execService(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
