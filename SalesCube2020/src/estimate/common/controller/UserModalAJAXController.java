@@ -1,5 +1,5 @@
 package estimate.common.controller;
 
-public class UserSearchController {
+public class UserModalAJAXController {
 
 }
