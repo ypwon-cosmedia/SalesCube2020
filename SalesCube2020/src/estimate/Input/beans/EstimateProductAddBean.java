@@ -11,6 +11,9 @@ public class EstimateProductAddBean {
 	/** No */
 	private Integer lineNo;
 	
+	/** 見積書伝票番号 */
+	private String estimateSheetId;
+	
 	/** 商品コード */
 	private String productCode;
 
@@ -53,6 +56,20 @@ public class EstimateProductAddBean {
 	 */
 	public void setLineNo(Integer lineNo) {
 		this.lineNo = lineNo;
+	}
+
+	/**
+	 * @return the estimateSheetId
+	 */
+	public String getEstimateSheetId() {
+		return estimateSheetId;
+	}
+
+	/**
+	 * @param estimateSheetId the estimateSheetId to set
+	 */
+	public void setEstimateSheetId(String estimateSheetId) {
+		this.estimateSheetId = estimateSheetId;
 	}
 
 	/**
@@ -135,7 +152,7 @@ public class EstimateProductAddBean {
 	/**
 	 * @param unitRetailPrice the unitRetailPrice to set
 	 */
-	public void setUnitRetailPrice(int unitRetailPrice) {
+	public void setUnitRetailPrice(Integer unitRetailPrice) {
 		this.unitRetailPrice = unitRetailPrice;
 	}
 
@@ -168,14 +185,14 @@ public class EstimateProductAddBean {
 	}
 
 	/**
-	 * @return the creDateTM
+	 * @return the creDate
 	 */
 	public String getCreDate() {
 		return creDate;
 	}
 
 	/**
-	 * @param creDateTM the creDateTM to set
+	 * @param creDate the creDate to set
 	 */
 	public void setCreDate(String creDate) {
 		this.creDate = creDate;
@@ -194,5 +211,6 @@ public class EstimateProductAddBean {
 	public void setCreUser(String creUser) {
 		this.creUser = creUser;
 	}
+
 
 }

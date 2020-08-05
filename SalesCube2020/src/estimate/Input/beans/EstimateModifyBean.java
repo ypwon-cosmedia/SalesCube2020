@@ -68,12 +68,14 @@ public class EstimateModifyBean {
 	/** 伝票合計 */
 	private Integer estimateTotal;
 	
+	/** 仕入金額合計 */
+	private int costTotal;
+	
 	/** 更新日時 */
 	private String updDate;
 	
 	/** 更新者 */
 	private String updUser;
-	
 
 	/**
 	 * @return the estimateSheetId
@@ -356,31 +358,45 @@ public class EstimateModifyBean {
 	}
 
 	/**
-	 * @return the creDateTM
+	 * @return the costTotal
 	 */
-	public String getCreDate() {
+	public int getCostTotal() {
+		return costTotal;
+	}
+
+	/**
+	 * @param costTotal the costTotal to set
+	 */
+	public void setCostTotal(int costTotal) {
+		this.costTotal = costTotal;
+	}
+
+	/**
+	 * @return the updDate
+	 */
+	public String getUpdDate() {
 		return updDate;
 	}
 
 	/**
-	 * @param creDateTM the creDateTM to set
+	 * @param updDate the updDate to set
 	 */
-	public void setCreDate(String creDateTM) {
-		this.updDate = creDateTM;
+	public void setUpdDate(String updDate) {
+		this.updDate = updDate;
 	}
 
 	/**
-	 * @return the creUser
+	 * @return the updUser
 	 */
-	public String getCreUser() {
+	public String getUpdUser() {
 		return updUser;
 	}
 
 	/**
-	 * @param creUser the creUser to set
+	 * @param updUser the updUser to set
 	 */
-	public void setCreUser(String creUser) {
-		this.updUser = creUser;
+	public void setUpdUser(String updUser) {
+		this.updUser = updUser;
 	}
 	
 

@@ -365,11 +365,6 @@
       }
       location.href = '/SalesCube2020/SalesCube?action=moveUnitPriceInquiry';
     }
-    
-    /* 単価計算 */
-    function unitPriceCalculation(obj){
-    	
-    }
 
   </script>
 </html>

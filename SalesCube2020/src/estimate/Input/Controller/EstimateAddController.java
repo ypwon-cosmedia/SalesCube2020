@@ -93,10 +93,12 @@ public class EstimateAddController extends BaseController {
 		bean.setRetailPriceTotal(Integer.parseInt(request.getParameter("retailPriceTotal")));
 		bean.setCtaxPriceTotal(Integer.parseInt(request.getParameter("taxPriceTotal")));
 		bean.setEstimateTotal(Integer.parseInt(request.getParameter("estimateTotal")));
+		bean.setCostTotal(Integer.parseInt(request.getParameter("costTotal")));
 		bean.setCreUser(request.getParameter("userName"));
 		
 		//見積商品登録用の値の配列を取得
-		String[] lineNo = request.getParameterValues("lineNo");
+		//String[] lineNo = request.getParameterValues("lineNo");
+		String   estimateSheetId = request.getParameter("estimateSheetId"); //見積番号(固定)
 		String[] productCode = request.getParameterValues("productCode");
 		String[] productAbstract = request.getParameterValues("productAbstract");
 		String[] quantity = request.getParameterValues("quantity");
@@ -105,22 +107,24 @@ public class EstimateAddController extends BaseController {
 		String[] unitRetailPrice = request.getParameterValues("unitRetailPrice");
 		String[] retailPrice = request.getParameterValues("retailPrice");
 		String[] productRemarks = request.getParameterValues("productRemarks");
-		String[] creUser = request.getParameterValues("userName");
+		String   creUser = request.getParameter("userName"); //作成者(固定)
 		
 		//見積商品登録用のbeanに値をセット
 		if(productCode != null) {
-			for(int i = 0; i<lineNo.length; i++) {				
+			for(int i = 0; i<productCode.length; i++) {
 				EstimateProductAddBean productBean = new EstimateProductAddBean();
-				productBean.setLineNo(Integer.parseInt(lineNo[i]));
+				//productBean.setLineNo(Integer.parseInt(lineNo[i]));
+				productBean.setLineNo(i + 1);
+				productBean.setEstimateSheetId(estimateSheetId); //見積番号(固定)
 				productBean.setProductCode(productCode[i]);
 				productBean.setProductAbstract(productAbstract[i]);
-				productBean.setQuantity(Integer.parseInt(quantity[i]));
-				productBean.setUnitCost(Integer.parseInt(unitCost[i]));
-				productBean.setCost(Integer.parseInt(cost[i]));
-				productBean.setUnitRetailPrice(Integer.parseInt(unitRetailPrice[i]));
-				productBean.setRetailPrice(Integer.parseInt(retailPrice[i]));
+				productBean.setQuantity(parseInt(quantity[i]));
+				productBean.setUnitCost(parseInt(unitCost[i]));
+				productBean.setCost(parseInt(cost[i]));
+				productBean.setUnitRetailPrice(parseInt(unitRetailPrice[i]));
+				productBean.setRetailPrice(parseInt(retailPrice[i]));
 				productBean.setProductRemarks(productRemarks[i]);
-				productBean.setCreUser(creUser[i]);
+				productBean.setCreUser(creUser); //作成者(固定)
 				list.add(productBean);
 			}
 		}
@@ -129,7 +133,7 @@ public class EstimateAddController extends BaseController {
 			int result = dao.addEstimate(bean); //(見積商品を除く)見積登録
 			int result2 = dao.addEstimateProduct(list); //見積商品登録
 			
-			if(result == 999 || result2 == 999) {
+			if(result == 999 || result2 == 0) {
 				request.setAttribute("status","err");
 			} else {
 				request.setAttribute("status","success");
@@ -150,5 +154,23 @@ public class EstimateAddController extends BaseController {
 			
 		return forwardURL;
 		
+	}
+	
+	
+	public static int parseInt(String value, int defaultValue) {
+		 
+	    try {
+	        // intに変換して返す
+	        return Integer.parseInt(value);
+	    } catch ( NumberFormatException e ) {
+	        // デフォルト値を返す
+	        return defaultValue;
+	    }
+	}
+	
+	public static int parseInt(String value) {
+		 
+	    // int変換して返す
+	    return parseInt(value, 0);
 	}
 }

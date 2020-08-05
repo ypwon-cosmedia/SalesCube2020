@@ -68,12 +68,14 @@ public class EstimateAddBean {
 	/** 伝票合計 */
 	private int estimateTotal;
 	
+	/** 仕入金額合計 */
+	private int costTotal;
+	
 	/** 作成日時 */
 	private String creDate;
 	
 	/** 作成者 */
 	private String creUser;
-	
 
 	/**
 	 * @return the estimateSheetId
@@ -356,17 +358,31 @@ public class EstimateAddBean {
 	}
 
 	/**
-	 * @return the creDateTM
+	 * @return the costTotal
+	 */
+	public int getCostTotal() {
+		return costTotal;
+	}
+
+	/**
+	 * @param costTotal the costTotal to set
+	 */
+	public void setCostTotal(int costTotal) {
+		this.costTotal = costTotal;
+	}
+
+	/**
+	 * @return the creDate
 	 */
 	public String getCreDate() {
 		return creDate;
 	}
 
 	/**
-	 * @param creDateTM the creDateTM to set
+	 * @param creDate the creDate to set
 	 */
-	public void setCreDate(String creDateTM) {
-		this.creDate = creDateTM;
+	public void setCreDate(String creDate) {
+		this.creDate = creDate;
 	}
 
 	/**
@@ -382,6 +398,7 @@ public class EstimateAddBean {
 	public void setCreUser(String creUser) {
 		this.creUser = creUser;
 	}
+
 	
 
 }
