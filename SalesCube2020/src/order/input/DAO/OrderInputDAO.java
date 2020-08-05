@@ -230,7 +230,7 @@ public class OrderInputDAO extends BaseDAO{
 	}
 	
 	/* 配送業者コンボボックス */
-	public List<OrderInputBean> getDcName(OrderInputBean bean2) throws SQLException, ClassNotFoundException {
+	public List<OrderInputBean> getDcName() throws SQLException, ClassNotFoundException {
 		
 		List<OrderInputBean> list = new ArrayList<>();
 		
@@ -250,6 +250,7 @@ public class OrderInputDAO extends BaseDAO{
 	 	while (result.next()) {
 	 		OrderInputBean bean = new OrderInputBean();
 	 		bean.setCategoryCodeName(result.getString("CATEGORY_CODE_NAME"));
+	 		bean.setCategoryCode(result.getString("CATEGORY_CODE"));
 	 		list.add(bean);
 	 	}
 	 
@@ -258,7 +259,7 @@ public class OrderInputDAO extends BaseDAO{
 	}
 	
 	/* 配送時間帯コンボボックス */
-	public List<OrderInputBean> getDcTimezone(OrderInputBean bean2) throws SQLException, ClassNotFoundException {
+	public List<OrderInputBean> getDcTimezone() throws SQLException, ClassNotFoundException {
 		
 		List<OrderInputBean> list = new ArrayList<>();
 		
@@ -278,6 +279,7 @@ public class OrderInputDAO extends BaseDAO{
 	 	while (result.next()) {
 	 		OrderInputBean bean = new OrderInputBean();
 	 		bean.setCategoryCodeName(result.getString("CATEGORY_CODE_NAME"));
+	 		bean.setCategoryCode(result.getString("CATEGORY_CODE"));
 	 		list.add(bean);
 	 	}
 	 	
@@ -286,7 +288,7 @@ public class OrderInputDAO extends BaseDAO{
 	}
 	
 	/* 消費税率コンボボックス */
-	public List<OrderInputBean> getTaxRate(OrderInputBean bean3) throws SQLException, ClassNotFoundException {
+	public List<OrderInputBean> getTaxRate() throws SQLException, ClassNotFoundException {
 		
 		List<OrderInputBean> list = new ArrayList<>();
 		

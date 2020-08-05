@@ -1,11 +1,8 @@
 package order.input.controller;
 
 import java.io.IOException;
-import java.math.BigDecimal;
 import java.sql.SQLException;
-import java.util.ArrayList;
 import java.util.List;
-import java.util.MissingResourceException;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
@@ -37,23 +34,18 @@ public class OrderInputController extends BaseController {
 		return forwardURL;
 	}
 	
-	/* 受注新規登録 */
+	/* 受注新規登録 初期値 */
 	private String orderInput(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException, SQLException, ClassNotFoundException {
 		
 		OrderInputDAO dao = new OrderInputDAO();
-		
-		OrderInputBean bean1 = new OrderInputBean();
-		bean1.setDcName(request.getParameter("dcName"));
-		List<OrderInputBean> list1 = new ArrayList<>();
-		
-		OrderInputBean bean2 = new OrderInputBean();
-		bean2.setDcTimezone(request.getParameter("dcTimezone"));
-		OrderInputBean bean3 = new OrderInputBean();
-		bean3.setCtaxRate(request.getParameter("ctaxRate"));
-		
-		request.setAttribute("initDcName", bean1);
-		request.setAttribute("initDcTimezone", bean2);
-		request.setAttribute("initTaxRate", bean3);
+
+		List<OrderInputBean> list1 = dao.getDcName();
+		List<OrderInputBean> list2 = dao.getDcTimezone();
+		List<OrderInputBean> list3 = dao.getTaxRate();
+
+		request.setAttribute("initDcName", list1);
+		request.setAttribute("initDcTimezone", list2);
+		request.setAttribute("initTaxRate", list3);
 		
 		return "order\\orderinput.jsp";
 		

@@ -1,6 +1,5 @@
 package order.input.beans;
 
-import java.math.BigDecimal;
 import java.sql.Date;
 
 /** 
@@ -151,6 +150,17 @@ public class OrderInputBean {
 	
 	/* 区分コード名 */
 	private String categoryCodeName;
+	
+	/* 区分コード */
+	private String categoryCode;
+
+	public String getCategoryCode() {
+		return categoryCode;
+	}
+
+	public void setCategoryCode(String categoryCode) {
+		this.categoryCode = categoryCode;
+	}
 
 	public String getCategoryCodeName() {
 		return categoryCodeName;
