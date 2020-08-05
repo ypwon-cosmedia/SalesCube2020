@@ -7,9 +7,11 @@ import java.util.MissingResourceException;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import common.controller.BaseAJAXController;
 import order.search.dao.OrderSearchDAO;
+import user.beans.UserInfoBean;
 
 public class OrderSearchAJAXController extends BaseAJAXController{
 
@@ -24,16 +26,14 @@ public class OrderSearchAJAXController extends BaseAJAXController{
 	private void configModalUpdate(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
 		OrderSearchDAO dao = new OrderSearchDAO();
+		HttpSession session = request.getSession(true);
 		
-		String[] showlistname = request.getParameterValues("showlistname");
 		String[] showlistvalue = request.getParameterValues("showlistvalue");
-		String[] notshowlistname = request.getParameterValues("notshowlistname");
-		String[] notshowlistvalue = request.getParameterValues("notshowlistvalue");
 		String searchsubject = request.getParameter("searchsubject");
-		
-		
+		UserInfoBean userID = (UserInfoBean) session.getAttribute("userInfo");
+			
 		try {
-			dao.configUpdate(showlistname, showlistvalue, notshowlistname, notshowlistvalue, searchsubject);
+			dao.configUpdate(showlistvalue, searchsubject, userID.getUserID());
 		} catch (ClassNotFoundException | MissingResourceException | SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

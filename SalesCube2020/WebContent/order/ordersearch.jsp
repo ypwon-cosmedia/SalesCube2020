@@ -1099,9 +1099,6 @@
 			type:'post',
 			data:{
 				"showlistvalue": showlistvalue,
-				"showlistname": showlistname,
-				"notshowlistvalue": notshowlistvalue,
-				"notshowlistname": notshowlistname,
 				"searchsubject" : sel_view
 			},
 			dataType:'text',

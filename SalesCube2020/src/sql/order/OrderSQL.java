@@ -78,11 +78,11 @@ public class OrderSQL {
 		String sql;
 		
 		sql = 	"delete from detail_disp_item_cfg_xxxxx " +
-				"where USER_ID = " + userID + " " +
+				"where USER_ID = '" + userID + "' " +
 				"and " +
-				"DETAIL_ID = " + detailID + " " +
+				"DETAIL_ID = '" + detailID + "' " +
 				"and " +
-				"TARGET = " + target;
+				"TARGET = '" + target + "'";
 		
 		return sql;
 	}
@@ -90,12 +90,12 @@ public class OrderSQL {
 	public String insertConfigModal(String detailID, String target, String userID, int seq, String itemID) {
 		String sql;
 		
-		sql = 	"INSERT INTO detail_disp_item_cfg_xxxxx (USER_ID,DETAIL_ID,TARGET,ITEM_ID,SEQ)" +
-				"VALUES(" +
-				userID + ", " +
-				detailID + ", " +
-				target + ", " +
-				itemID + ", " +
+		sql = 	"INSERT INTO detail_disp_item_cfg_xxxxx(USER_ID,DETAIL_ID,TARGET,ITEM_ID,SEQ) " +
+				"VALUES('" +
+				userID + "', '" +
+				detailID + "', '" +
+				target + "', '" +
+				itemID + "', " +
 				seq + ")";
 		
 		return sql;
