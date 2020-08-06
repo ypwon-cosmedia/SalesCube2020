@@ -9,7 +9,10 @@ package estimate.Input.beans;
  */
 public class InitEstimateProductBean {
 	/** No */
-	private int lineNo;
+	private Integer lineNo;
+	
+	/** 見積書伝票番号 */
+	private String estimateSheetId;
 	
 	/** 商品コード */
 	private String productCode;
@@ -18,19 +21,19 @@ public class InitEstimateProductBean {
 	private String productAbstract;
 	
 	/** 数量 */
-	private int quantity;
+	private Integer quantity;
 	
 	/** 仕入単価 */
-	private int unitCost;
+	private Integer unitCost;
 	
 	/** 仕入金額 */
-	private int cost;
+	private Integer cost;
 	
 	/** 売価単価 */
-	private int unitRetailPrice;
+	private Integer unitRetailPrice;
 	
 	/** 売上金額 */
-	private int retailPrice;
+	private Integer retailPrice;
 	
 	/** 備考 */
 	private String productRemarks;
@@ -38,15 +41,29 @@ public class InitEstimateProductBean {
 	/**
 	 * @return the lineNo
 	 */
-	public int getLineNo() {
+	public Integer getLineNo() {
 		return lineNo;
 	}
 
 	/**
 	 * @param lineNo the lineNo to set
 	 */
-	public void setLineNo(int lineNo) {
+	public void setLineNo(Integer lineNo) {
 		this.lineNo = lineNo;
+	}
+
+	/**
+	 * @return the estimateSheetId
+	 */
+	public String getEstimateSheetId() {
+		return estimateSheetId;
+	}
+
+	/**
+	 * @param estimateSheetId the estimateSheetId to set
+	 */
+	public void setEstimateSheetId(String estimateSheetId) {
+		this.estimateSheetId = estimateSheetId;
 	}
 
 	/**
@@ -80,70 +97,70 @@ public class InitEstimateProductBean {
 	/**
 	 * @return the quantity
 	 */
-	public int getQuantity() {
+	public Integer getQuantity() {
 		return quantity;
 	}
 
 	/**
 	 * @param quantity the quantity to set
 	 */
-	public void setQuantity(int quantity) {
+	public void setQuantity(Integer quantity) {
 		this.quantity = quantity;
 	}
 
 	/**
 	 * @return the unitCost
 	 */
-	public int getUnitCost() {
+	public Integer getUnitCost() {
 		return unitCost;
 	}
 
 	/**
 	 * @param unitCost the unitCost to set
 	 */
-	public void setUnitCost(int unitCost) {
+	public void setUnitCost(Integer unitCost) {
 		this.unitCost = unitCost;
 	}
 
 	/**
 	 * @return the cost
 	 */
-	public int getCost() {
+	public Integer getCost() {
 		return cost;
 	}
 
 	/**
 	 * @param cost the cost to set
 	 */
-	public void setCost(int cost) {
+	public void setCost(Integer cost) {
 		this.cost = cost;
 	}
 
 	/**
 	 * @return the unitRetailPrice
 	 */
-	public int getUnitRetailPrice() {
+	public Integer getUnitRetailPrice() {
 		return unitRetailPrice;
 	}
 
 	/**
 	 * @param unitRetailPrice the unitRetailPrice to set
 	 */
-	public void setUnitRetailPrice(int unitRetailPrice) {
+	public void setUnitRetailPrice(Integer unitRetailPrice) {
 		this.unitRetailPrice = unitRetailPrice;
 	}
 
 	/**
 	 * @return the retailPrice
 	 */
-	public int getRetailPrice() {
+	public Integer getRetailPrice() {
 		return retailPrice;
 	}
 
 	/**
 	 * @param retailPrice the retailPrice to set
 	 */
-	public void setRetailPrice(int retailPrice) {
+	public void setRetailPrice(Integer retailPrice) {
 		this.retailPrice = retailPrice;
 	}
 

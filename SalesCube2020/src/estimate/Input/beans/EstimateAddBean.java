@@ -60,16 +60,16 @@ public class EstimateAddBean {
 	private String memo;
 	
 	/** 金額合計 */
-	private int retailPriceTotal;
+	private Integer retailPriceTotal;
 	
 	/** 消費税 */
-	private int ctaxPriceTotal;
+	private Integer ctaxPriceTotal;
 	
 	/** 伝票合計 */
-	private int estimateTotal;
+	private Integer estimateTotal;
 	
 	/** 仕入金額合計 */
-	private int costTotal;
+	private Integer costTotal;
 	
 	/** 作成日時 */
 	private String creDate;
@@ -318,56 +318,56 @@ public class EstimateAddBean {
 	/**
 	 * @return the retailPriceTotal
 	 */
-	public int getRetailPriceTotal() {
+	public Integer getRetailPriceTotal() {
 		return retailPriceTotal;
 	}
 
 	/**
 	 * @param retailPriceTotal the retailPriceTotal to set
 	 */
-	public void setRetailPriceTotal(int retailPriceTotal) {
+	public void setRetailPriceTotal(Integer retailPriceTotal) {
 		this.retailPriceTotal = retailPriceTotal;
 	}
 
 	/**
 	 * @return the ctaxPriceTotal
 	 */
-	public int getCtaxPriceTotal() {
+	public Integer getCtaxPriceTotal() {
 		return ctaxPriceTotal;
 	}
 
 	/**
 	 * @param ctaxPriceTotal the ctaxPriceTotal to set
 	 */
-	public void setCtaxPriceTotal(int ctaxPriceTotal) {
+	public void setCtaxPriceTotal(Integer ctaxPriceTotal) {
 		this.ctaxPriceTotal = ctaxPriceTotal;
 	}
 
 	/**
 	 * @return the estimateTotal
 	 */
-	public int getEstimateTotal() {
+	public Integer getEstimateTotal() {
 		return estimateTotal;
 	}
 
 	/**
 	 * @param estimateTotal the estimateTotal to set
 	 */
-	public void setEstimateTotal(int estimateTotal) {
+	public void setEstimateTotal(Integer estimateTotal) {
 		this.estimateTotal = estimateTotal;
 	}
 
 	/**
 	 * @return the costTotal
 	 */
-	public int getCostTotal() {
+	public Integer getCostTotal() {
 		return costTotal;
 	}
 
 	/**
 	 * @param costTotal the costTotal to set
 	 */
-	public void setCostTotal(int costTotal) {
+	public void setCostTotal(Integer costTotal) {
 		this.costTotal = costTotal;
 	}
 

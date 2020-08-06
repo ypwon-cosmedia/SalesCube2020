@@ -33,7 +33,7 @@ public class EstimateModifyBean {
 	private String estimateCondition;
 	
 	/** 消費税率 */
-	private String ctaxRate;
+	private double ctaxRate;
 	
 	/** 提出先名 */
 	private String submitName;
@@ -192,14 +192,14 @@ public class EstimateModifyBean {
 	/**
 	 * @return the ctaxRate
 	 */
-	public String getCtaxRate() {
+	public double getCtaxRate() {
 		return ctaxRate;
 	}
 
 	/**
 	 * @param ctaxRate the ctaxRate to set
 	 */
-	public void setCtaxRate(String ctaxRate) {
+	public void setCtaxRate(double ctaxRate) {
 		this.ctaxRate = ctaxRate;
 	}
 

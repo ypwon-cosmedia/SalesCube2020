@@ -14,11 +14,14 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import common.controller.BaseController;
+import estimate.Input.API.estimateInputAPI;
 import estimate.Input.beans.EstimateAddBean;
 import estimate.Input.beans.EstimateProductAddBean;
 import estimate.Input.beans.TaxRateBean;
 import estimate.Input.dao.EstimateAddDAO;
 import estimate.Input.dao.EstimateInputCommonDAO;
+import estimate.common.beans.CategoryBean;
+import estimate.common.dao.CategoryDAO;
 import master.setProduct.DAO.SetProductDAO;
 import master.setProduct.beans.SetProductBean;
 
@@ -52,12 +55,10 @@ public class EstimateAddController extends BaseController {
 		
 		String forwardURL     = "estimate/estimateadd.jsp";
 
-		EstimateInputCommonDAO dao =  new EstimateInputCommonDAO();
-		List<TaxRateBean> taxRateList = dao.getTaxRate();
-		
-		//+ 顧客敬称取得
-		
-		request.setAttribute("taxRateList",taxRateList);
+		estimateInputAPI api = new estimateInputAPI();
+
+		request.setAttribute("taxRateList",api.getTaxRateList());
+		request.setAttribute("submitPreList",api.getCategoryList(10));
 			
 		return forwardURL;
 		
@@ -65,8 +66,6 @@ public class EstimateAddController extends BaseController {
 	
 	private String estimateAdd(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException, ClassNotFoundException, SQLException {
-		
-		String forwardURL     = "estimate/estimateadd.jsp";
 		
 		EstimateAddDAO dao = new EstimateAddDAO();
 		EstimateAddBean bean = new EstimateAddBean(); //(見積商品を除く)見積登録用のbean
@@ -144,15 +143,7 @@ public class EstimateAddController extends BaseController {
 			e.printStackTrace();
 		}
 		
-			
-		EstimateInputCommonDAO dao2 =  new EstimateInputCommonDAO();
-		List<TaxRateBean> taxRateList = dao2.getTaxRate();
-		
-		//+ 顧客敬称取得
-		
-		request.setAttribute("taxRateList",taxRateList);
-			
-		return forwardURL;
+		return moveEstimateAdd(request, response);
 		
 	}
 	
