@@ -1091,7 +1091,6 @@
 		
 		var showlistvalue = $("#showSearchResult option").map(function() {return $(this).val();}).get();
 
-		alert(showlistvalue);
 		jQuery.ajaxSettings.traditional = true;
 		
 		$.ajax({
@@ -1106,6 +1105,7 @@
 				$("#AddOption > tr").remove();								
 			}
 		});
+		$('#resultCount').text("0");
 	}
 
 	$("#select_view").focusout();
@@ -1197,6 +1197,7 @@
 			headcontents += '</tr>';
 
 			$('#AddHead').append(headcontents);
+			$('#resultCount').text("0");
 		}
 	}
 	
