@@ -89,8 +89,8 @@
 						<div class="input-group mb-2">
 							<div class="input-group-prepend">
                                    <div class="input-group-text">検索対象</div>
-                                   <select id="select_view" onchange="changeSearch()">
-                                       <option value="伝票">伝票</option>
+                                   <select id="select_view" onchange="changeSearch()" name="select_view">
+                                       <option value="伝票" selected>伝票</option>
                                        <option value="明細">明細</option>
                                    </select>
 						    </div>
@@ -102,7 +102,7 @@
 							<div class="input-group-prepend">
 								<div class="input-group-text">受注番号</div>
 							</div>
-						<input type="number" class="form-control" id="inlineFormInputGroup" name="data1" pattern="[]{0,10}"maxlength="10">
+						<input type="number" class="form-control" id="orderNumber" name="orderNo" pattern="[]{0,10}"maxlength="10">
 						</div>
 					</div>
 					<div class="col-4">
@@ -111,7 +111,7 @@
 							<div class="input-group-prepend">
 								<div class="input-group-text">受付番号</div>
 							</div>
-						<input type="text"  class="form-control" id="inlineFormInputGroup" name="data1" maxlength="30">
+						<input type="text"  class="form-control" id="repNo" name="repNo" maxlength="30">
 						</div>
                     </div>
 				</div>	
@@ -124,7 +124,7 @@
 							<div class="input-group-prepend">
 								<div class="input-group-text">受注日</div>
 							</div>
-						<input type="date"  class="form-control" id="inlineFormInputGroup" name="data1" max="9999-12-31">
+						<input type="date"  class="form-control" id="orderDayStart" name="orderDayStart" max="9999-12-31">
 						</div>
                     </div>
                     ~
@@ -132,7 +132,7 @@
 						<label class="sr-only" for="inlineFormInputGroup"></label>
 						<div class="input-group mb-2">
 
-						<input type="date"  class="form-control" id="inlineFormInputGroup" name="data1" max="9999-12-31">
+						<input type="date"  class="form-control" id="orderDayEnd" name="orderDayEnd" max="9999-12-31">
 						</div>
                     </div>
 				</div>	
@@ -145,7 +145,7 @@
 							<div class="input-group-prepend">
 								<div class="input-group-text">出荷日</div>
 							</div>
-						<input type="date"  class="form-control" id="inlineFormInputGroup" name="data1" max="9999-12-31">
+						<input type="date"  class="form-control" id="shipDayStart" name="shipDayStart" max="9999-12-31">
 						</div>
                     </div>
                     ~
@@ -153,7 +153,7 @@
 						<label class="sr-only" for="inlineFormInputGroup"></label>
 						<div class="input-group mb-2">
 
-						<input type="date"  class="form-control" id="inlineFormInputGroup" name="data1" max="9999-12-31"> 
+						<input type="date"  class="form-control" id="shipDayEnd" name="shipDayEnd" max="9999-12-31"> 
 						</div>
                     </div>
 				</div>	
@@ -166,7 +166,7 @@
 							<div class="input-group-prepend">
 								<div class="input-group-text">納期指定日</div>
 							</div>
-						<input type="date"  class="form-control" id="inlineFormInputGroup" name="data1" max="9999-12-31">
+						<input type="date"  class="form-control" id="deliveryDayStart" name="deliveryDayStart" max="9999-12-31">
 						</div>
                     </div>
                     ~
@@ -174,7 +174,7 @@
 						<label class="sr-only" for="inlineFormInputGroup"></label>
 						<div class="input-group mb-2">
 
-						<input type="date"  class="form-control" id="inlineFormInputGroup" name="data1" max="9999-12-31">
+						<input type="date"  class="form-control" id="deliveryDayEnd" name="deliveryDayEnd" max="9999-12-31">
 						</div>
                     </div>
 				</div>	
@@ -187,7 +187,7 @@
 							<div class="input-group-prepend">
                                    <div class="input-group-text">顧客コード</div>
                             </div>
-                            <input type="text" class="form-control" id="customerCodeInput" name="data1" maxlength="15">
+                            <input type="text" class="form-control" id="customerCodeInput" name="customerCodeInput" maxlength="15">
                             <button type="button" class="btn btn-outline-secondary" data-toggle="modal" data-target="#setQuotationCondition" style="background-image: url(btn_search.png); border: 0px; outline: 0px; padding: 15px; margin: 0; height: 16px">
 							</button>
 					    </div>
@@ -198,7 +198,7 @@
 							<div class="input-group-prepend">
 								<div class="input-group-text">顧客名</div>
 							</div>
-                            <input type="text"  class="form-control" id="customerNameInput" name="data1" maxlength="60">
+                            <input type="text"  class="form-control" id="customerNameInput" name="customerNameInput" maxlength="60">
                             <button type="button" class="btn btn-outline-secondary" data-toggle="modal" data-target="#setQuotationCondition" style="background-image: url(btn_search.png); border: 0px; outline: 0px; padding: 15px; margin: 0; height: 16px">
 							</button>
 						</div>
@@ -215,31 +215,31 @@
 							</div>
 							&nbsp;&nbsp;&nbsp;
 							<div class="form-check form-check-inline">
-								<input class="form-check-input" type="checkbox" id="inlineCheckbox1" value="option1">
+								<input class="form-check-input" type="checkbox" id="inlineCheckbox1" value="option1" name="withdrawl">
 								<label class="form-check-label" for="inlineCheckbox1">掛売</label>
 							</div>
 							<div class="form-check form-check-inline">
-								<input class="form-check-input" type="checkbox" id="inlineCheckbox1" value="option1">
+								<input class="form-check-input" type="checkbox" id="inlineCheckbox1" value="option2" name="withdrawl">
 								<label class="form-check-label" for="inlineCheckbox1">現金</label>
 							</div>
 							<div class="form-check form-check-inline">
-								<input class="form-check-input" type="checkbox" id="inlineCheckbox1" value="option1">
+								<input class="form-check-input" type="checkbox" id="inlineCheckbox1" value="option3" name="withdrawl">
 								<label class="form-check-label" for="inlineCheckbox1">サンプル</label>
 							</div>
 							<div class="form-check form-check-inline">
-								<input class="form-check-input" type="checkbox" id="inlineCheckbox1" value="option1">
+								<input class="form-check-input" type="checkbox" id="inlineCheckbox1" value="option4" name="withdrawl">
 								<label class="form-check-label" for="inlineCheckbox1">代引き</label>
 							</div>
 							<div class="form-check form-check-inline">
-								<input class="form-check-input" type="checkbox" id="inlineCheckbox1" value="option1">
+								<input class="form-check-input" type="checkbox" id="inlineCheckbox1" value="option5" name="withdrawl">
 								<label class="form-check-label" for="inlineCheckbox1">クレジット</label>
 							</div>
 							<div class="form-check form-check-inline">
-								<input class="form-check-input" type="checkbox" id="inlineCheckbox1" value="option1">
+								<input class="form-check-input" type="checkbox" id="inlineCheckbox1" value="option6" name="withdrawl">
 								<label class="form-check-label" for="inlineCheckbox1">先入金</label>
 							</div>
 							<div class="form-check form-check-inline">
-								<input class="form-check-input" type="checkbox" id="inlineCheckbox1" value="option1">
+								<input class="form-check-input" type="checkbox" id="inlineCheckbox1" value="option7" name="withdrawl">
 								<label class="form-check-label" for="inlineCheckbox1">通販サイト1経由</label>
 							</div>
                         </div>                        
@@ -254,7 +254,7 @@
 							<div class="input-group-prepend">
                                    <div class="input-group-text">商品コード</div>
                             </div>
-                            <input type="text"  class="form-control" id="productCodeInput" name="data1" maxlength="20">
+                            <input type="text"  class="form-control" id="productCodeInput" name="productCodeInput" maxlength="20">
                             <button type="button" class="btn btn-outline-secondary" data-toggle="modal" data-target="#setproductsearch" style="background-image: url(btn_search.png); border: 0px; outline: 0px; padding: 15px; margin: 0; height: 16px"></button>
 					    </div>
 					</div>
@@ -265,7 +265,7 @@
 							<div class="input-group-prepend">
 								<div class="input-group-text">商品名</div>
 							</div>
-                            <input type="text"  class="form-control" id="productNameInput" name="data1" maxlength="60">
+                            <input type="text"  class="form-control" id="productNameInput" name="productNameInput" maxlength="60">
                             <button type="button" class="btn btn-outline-secondary" data-toggle="modal" data-target="#setproductsearch" style="background-image: url(btn_search.png); border: 0px; outline: 0px; padding: 15px; margin: 0; height: 16px"></button>
 						</div>
 					</div>                  
@@ -324,7 +324,7 @@
 							<div class="input-group-prepend">
                                    <div class="input-group-text">仕入先コード</div>
                             </div>
-                            <input type="text"  class="form-control" id="supplierCodeInput" name="data1" maxlength="10">
+                            <input type="text"  class="form-control" id="supplierCodeInput" name="supplierCodeInput" maxlength="10">
                             <button type="button" class="btn btn-outline-secondary" data-toggle="modal" data-target="#openSearchSupplier" style="background-image: url(btn_search.png); border: 0px; outline: 0px; padding: 15px; margin: 0; height: 16px"></button>
 					    </div>
 					</div>
@@ -335,7 +335,7 @@
 							<div class="input-group-prepend">
 								<div class="input-group-text">仕入先名</div>
 							</div>
-                            <input type="text"  class="form-control" id="supplierNameInput" name="data1" maxlength="60">
+                            <input type="text"  class="form-control" id="supplierNameInput" name="supplierNameInput" maxlength="60">
                             <button type="button" class="btn btn-outline-secondary" data-toggle="modal" data-target="#openSearchSupplier" style="background-image: url(btn_search.png); border: 0px; outline: 0px; padding: 15px; margin: 0; height: 16px"></button>
 						</div>
 					</div>                
@@ -343,7 +343,7 @@
 			</div><br>
 			<div align="right">
 				<input type="button" value="初期化" class="btn btn-outline-secondary" onclick="initForm();">
-				<input type="submit" value="検索" class="btn btn-outline-secondary">
+				<input type="button" value="検索" class="btn btn-outline-secondary" onclick="search();">
 			</div>
 			<br>
 		</div>
@@ -354,7 +354,9 @@
 		
 		<div class="container">
 			<div class="row">
-				<div class="col-5" style="position:static; left: 0px;">検索結果件数：0件</div>
+				<div class="col-5" style="position:static; left: 0px;">
+					検索結果件数：<span id="resultCount">0</span>件
+				</div>
 				<div class="col-4">
 					<a href="#">1</a>
 					<a href="#">2</a>
@@ -1088,10 +1090,8 @@
 		}
 		
 		var showlistvalue = $("#showSearchResult option").map(function() {return $(this).val();}).get();
-		var showlistname = $("#showSearchResult option").map(function() {return $(this).text();}).get();
-		var notshowlistvalue = $("#notShowSearchResult option").map(function() {return $(this).val();}).get();
-		var notshowlistname = $("#notShowSearchResult option").map(function() {return $(this).text();}).get();
-		
+
+		alert(showlistvalue);
 		jQuery.ajaxSettings.traditional = true;
 		
 		$.ajax({
@@ -1103,8 +1103,7 @@
 			},
 			dataType:'text',
 			success:function(data){	
-								
-			
+				$("#AddOption > tr").remove();								
 			}
 		});
 	}
@@ -1114,7 +1113,7 @@
 	function changeSearch(){
 		$("select#showSearchResult option").remove();
 		$("select#notShowSearchResult option").remove();
-
+		$("#AddOption > tr").remove();
 		var opt = $("#select_view option:selected");
 
 		document.getElementById("select_view_text").innerHTML = opt.text();
@@ -1310,10 +1309,67 @@
 				}
 			});
 		}
+		
 		function initproductModal(){
 			$("#productResult > tr").remove();
 			$('#productSearchResultCount').text("0");
 			$("#product")[0].reset(); 
+		}
+		
+		function search(){
+			var selArr = [];
+			var checkedData = [];
+			for(var i = 0; i<document.getElementById('showSearchResult').length; i++){
+				selArr[i] = document.getElementById('showSearchResult')[i].value
+			}
+
+			$("input[name='withdrawl']:checked").each(function() {
+				var test = $(this).val();
+				checkedData.push(test);
+			});
+
+			jQuery.ajaxSettings.traditional = true;
+			
+			$.ajax({
+				url:'/SalesCube2020/SalesCubeAJAX?action=orderSearch',
+				type:'post',
+				data:{
+					"selectView": $("#select_view option:selected").val(),
+					"orderNo": $("#orderNumber").val(),
+					"repNo": $("#repNo").val(),
+					"orderDayStart": $("#orderDayStart").val(),
+					"orderDayEnd": $("#orderDayEnd").val(),
+					"shipDayStart": $("#shipDayStart").val(),
+					"shipDayEnd": $("#shipDayStart").val(),
+					"deliveryDayStart": $("#shipDayStart").val(),
+					"deliveryDayEnd": $("#shipDayStart").val(),
+					"withdrawl": checkedData,
+					"productCodeInput": $("#productCodeInput").val(),
+					"productNameInput": $("#productNameInput").val(),
+					"product1": $("#product1").val(),
+					"product2": $("#product2").val(),
+					"product3": $("#product3").val(),
+					"supplierCodeInput": $("#supplierCodeInput").val(),
+					"supplierNameInput": $("#supplierNameInput").val(),
+					"rowCount": $("#rowCount option:selected").val(),
+					"list":selArr
+				},
+				dataType:'json',
+				success:function(data){	
+					$("#AddOption > tr").remove();
+					for(var i = 0; i<Object.keys(data).length; i++){
+						var headcontents= '';
+						headcontents += '<tr>';
+						for(var j = 0; j < selArr.length; j++){
+							headcontents += '<td>' + data[i][j] + '</td>';
+						}
+						headcontents += '</tr>';
+						$('#AddOption').append(headcontents);						
+					}
+					
+					$('#resultCount').text(+Object.keys(data).length);
+				}
+			});
 		}
 
 </script>

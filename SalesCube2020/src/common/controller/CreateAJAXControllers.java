@@ -27,6 +27,8 @@ public class CreateAJAXControllers {
 		map.put("productSearch", productAJAX);
 		
 		map.put("configModalUpdate", ordersearchAJAX);
+		map.put("orderSearch", ordersearchAJAX);
+		
 		
 		map.put("estimateCategoryGet", estimateCategoryAJAX);
 		

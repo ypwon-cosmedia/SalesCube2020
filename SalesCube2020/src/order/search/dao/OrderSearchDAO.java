@@ -1,11 +1,15 @@
 package order.search.dao;
 
 import java.sql.Connection;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
-import java.util.MissingResourceException;
+import java.util.*;
 
 import common.dao.BaseDAO;
+import order.search.beans.OrderSearchBean;
+import order.search.beans.OrderSearchResultBillBean;
+import order.search.beans.OrderSearchResultDetailBean;
 import sql.order.OrderSQL;
 
 public class OrderSearchDAO extends BaseDAO{
@@ -39,5 +43,48 @@ public class OrderSearchDAO extends BaseDAO{
 		con.commit();
 		con.close();
 		stmt.close();		
+	}
+	
+	public List<String[]> orderSearch(OrderSearchBean bean, String[] inputlist, String rowCount) throws ClassNotFoundException, MissingResourceException, SQLException {
+		
+		Connection con;
+		Statement stmt = null;
+		ResultSet result = null;
+		OrderSQL sqllist = new OrderSQL();
+
+		String sql;
+		
+		con = super.getConnection();
+		stmt = con.createStatement();
+		
+		if(bean.getSelectView().equals("伝票")) {
+			List<String[]> resultlist = new ArrayList<String[]>();
+			sql = sqllist.searchOrderBill(bean,inputlist,rowCount);
+			result = stmt.executeQuery(sql);
+			while(result.next()) {
+				String[] tmp = new String[inputlist.length];
+				for(int i = 0; i<inputlist.length; i++) {
+					tmp[i] = result.getString(i+1);
+				}
+				resultlist.add(tmp);
+			}
+			
+			super.releaseDB(con, stmt, result);
+			return resultlist;
+		} else {
+			List<String[]> resultlist = new ArrayList<String[]>();
+			sql = sqllist.searchOrderDetail(bean,inputlist,rowCount);
+			result = stmt.executeQuery(sql);
+			while(result.next()) {
+				String[] tmp = new String[inputlist.length];
+				for(int i = 0; i<inputlist.length; i++) {
+					tmp[i] = result.getString(i+1);
+				}
+				resultlist.add(tmp);
+			}
+			super.releaseDB(con, stmt, result);
+			return resultlist;
+		}
+		
 	}
 }

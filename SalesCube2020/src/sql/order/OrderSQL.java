@@ -1,5 +1,7 @@
 package sql.order;
 
+import order.search.beans.OrderSearchBean;
+
 public class OrderSQL {
 	
 	public String initCategory() {
@@ -38,7 +40,8 @@ public class OrderSQL {
 				"AND " + 
 				"a.TARGET = '"+ target + "' " +
 				"AND " + 
-				"b.ITEM_ID = a.ITEM_ID";
+				"b.ITEM_ID = a.ITEM_ID " + 
+				"ORDER BY b.SEQ";
 		
 		return sql;
 	}
@@ -820,5 +823,64 @@ public class OrderSQL {
 		
 		return sql;
 		
+	}
+	
+	public String searchOrderBill(OrderSearchBean bean, String[] inputlist, String rowCount) {
+		
+		String sql;
+		
+		sql = "SELECT";
+		
+		for(int i = 0; i <inputlist.length; i++) {
+			sql = sql + " " + inputlist[i] + ",";
+		}
+		
+		sql = sql.substring(0, sql.length()-1) + " ";
+		
+		sql = sql +
+				"FROM " + 
+				"ro_slip_trn_xxxxx AS rstx " + 
+				"LEFT OUTER JOIN " + 
+				"category_trn_xxxxx AS ctx1 " + 
+				"ON rstx.tax_shift_category = ctx1.category_code " + 
+				"AND ctx1.category_id = '29' " + 
+				"LEFT OUTER JOIN " + 
+				"category_trn_xxxxx AS ctx2 " + 
+				"ON rstx.sales_cm_category = ctx2.category_code " + 
+				"AND ctx2.category_id = '32' " + 
+				"ORDER BY rstx.ro_slip_id ";
+
+		return sql;
+	}
+	
+	public String searchOrderDetail(OrderSearchBean bean, String[] inputlist, String rowCount) {
+		
+		String sql;
+
+
+		sql = "SELECT";
+		
+		for(int i = 0; i <inputlist.length; i++) {
+			sql = sql + " " + inputlist[i] + ",";
+		}
+		
+		sql = sql.substring(0, sql.length()-1) + " ";
+		
+		sql = sql + 
+				"FROM " + 
+				"ro_line_trn_xxxxx AS rltx " + 
+				"LEFT OUTER JOIN " + 
+				"ro_slip_trn_xxxxx AS rstx " + 
+				"USING(ro_slip_id) " + 
+				"LEFT OUTER JOIN " + 
+				"category_trn_xxxxx AS ctx1 " + 
+				"ON rstx.tax_shift_category = ctx1.category_code " + 
+				"AND ctx1.category_id = '29' " + 
+				"LEFT OUTER JOIN " + 
+				"category_trn_xxxxx AS ctx2 " + 
+				"ON rstx.sales_cm_category = ctx2.category_code " + 
+				"AND ctx2.category_id = '32' ";
+		
+		return sql;
 	}
 }
