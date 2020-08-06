@@ -95,7 +95,7 @@
        <br><br>
 
        
-       <button type="button" class="btn btn-outline-secondary" data-toggle="modal" data-target="#customerSearch">
+       <button type="button" class="btn btn-outline-secondary" data-toggle="modal" data-target="#customerSearch" onclick="initCustomer()">
         ↓
         </button>
 
@@ -110,7 +110,7 @@
                         </button>
                 </div>
                  
-                <form action="" method="post">
+                <form action="" method="post" id="customer">
                     <div class="modal-body">
                       <div class="row">
                         <div class="col-4">
@@ -119,7 +119,7 @@
                             <div class="input-group-prepend">
                                 <div class="input-group-text">顧客コード</div>
                             </div>
-                            <input type="text"  class="form-control" id="inlineFormInputGroup" name="customerCode">
+                            <input type="text"  class="form-control" id="customerCode" name="customerCode">
                           </div>
                         </div>
                       </div>
@@ -133,7 +133,7 @@
                             <div class="input-group-prepend">
                                 <div class="input-group-text">顧客名</div>
                             </div>
-                            <input type="text"  class="form-control" id="inlineFormInputGroup" name="customerName">
+                            <input type="text"  class="form-control" id="customerName" name="customerName">
                           </div>
                         </div>&emsp;&emsp;&emsp;
                       
@@ -144,7 +144,7 @@
                             <div class="input-group-prepend">
                                 <div class="input-group-text">顧客名カナ</div>
                             </div>
-                            <input type="text"  class="form-control" id="inlineFormInputGroup" name="customerKana"> 
+                            <input type="text"  class="form-control" id="customerKana" name="customerKana"> 
                           </div>
                         </div>
                       </div>
@@ -173,16 +173,16 @@
               
                     <div class="rounded float-right">
                       <button type="button" class="btn btn-primary" onclick="initCustomer()">初期化</button>&ensp;
-                      <input type="button" value="検索" class="btn btn-primary" onclick="customerSearch1()">&ensp;
+                      <input type="button" value="検索" class="btn btn-primary" onclick="customerSearch1()">&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;
                     </div>
                     <br>
                     <br>
                 </form>
 
-                  <div id="resultCustomer" >
+                  <div id="resultCustomer" hidden>
                     <div class="modal-body">
                       <div class="float-left" style="position:static; left: 0px;">
-                        	  検索結果件数： 
+                        	  検索結果件数： <span id="customerSearchResultCount">0</span>件
                       </div>
                     </div>
                     <br>
@@ -191,7 +191,7 @@
                   
                   <!--顧客検索結果テーブル-->
                   	<div class="modal-body scroll-table" style="background-color: rgb(255, 255, 255);" >
-                    	<table id="order_detail_info" class="table table_1 table-bordered scrolltable">
+                    	<table id="order_detail_info" class="table table_1 table-bordered scrolltable" >
                       	<thead class="thead-light">
                         	<tr>
 	                          <th scope="col" class="scrolltablehead" style="cursor: pointer; height: 30px;" onclick="sort('customerCode');">顧客コード</th>
@@ -205,8 +205,8 @@
                           	</tr>
                       	</thead>
                       	
-                     		<tbody class="modal-body scroll-table">
-                      		<c:forEach items="${customerSearch}" var="customer">
+                     	 <tbody class="modal-body scroll-table" id="customerResult" >
+                      	 		<c:forEach items="${customerSearch}" var="customer">
 		                        <tr>
 		                          <td style="text-align: left;" ><span class="cursor-pointer" onclick="test(this)" id="customerCode,customerName" data-dismiss="modal">${customer.customerCode}</span></td>
 		                          <td class="customerName" style="text-align: left;">${customer.customerName}</td>
@@ -218,7 +218,8 @@
 		                          <td class="customerDeptName" style="text-align: left;">${customer.customerDeptName}</td>
 		                        </tr>
                       		</c:forEach>
-                      		
+				  		</tbody>
+				  			
                     	</table>
                     	<br>
                   	</div>
@@ -247,7 +248,7 @@
             $("[name='cutoffGroup']").val("");
 
             //テーブルの非表示
-            document.getElementById("serchResult").setAttribute('hidden','hidden');
+            document.getElementById("resultCustomer").setAttribute('hidden','hidden');
     	}
      	
      	//顧客コード及び顧客名の値をセット
@@ -267,7 +268,7 @@
      	
 		function customerSearch1() {
 			
-		//	$('#resultCustomer').removeAttr('hidden');	//検索結果表示表示
+			$('#resultCustomer').removeAttr('hidden');	//検索結果表示
 			
 			var formString = $("form[id=customer]").serialize();
 			var tmp = "";
@@ -280,7 +281,6 @@
 				dataType:'json',
 				success:function(data){	
 					$("#customerResult > tr").remove();
-					alert(Object.keys(data).length);
 					for(var i = 0; i<Object.keys(data).length; i++){
 						var headcontents= '';
 						headcontents += '<tr>';
@@ -295,6 +295,7 @@
 						headcontents += '</tr>';
 						$('#customerResult').append(headcontents);						
 					}
+					$('#customerSearchResultCount').text(+Object.keys(data).length);
 				}
 			});
 		}

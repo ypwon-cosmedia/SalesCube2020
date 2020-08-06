@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 
 <!DOCTYPE html>
 <html>
@@ -214,7 +215,7 @@
       <br>
     </form>
       
-      <div id="resultHidden">
+      <div id="resultHidden" hidden>
 
         <div class="container" style="background-color: white;">
           <div class="panel panel-default" >
@@ -227,7 +228,7 @@
                 <td class="table_item">商品名</td>
                 <td>${searchResult.productName}</td>
                 <td class="table_item">売単価</td>
-                <td class="td_width180">${searchResult.retailPrice}</td>
+                <td class="td_width180"><fmt:parseNumber value="${searchResult.retailPrice}" integerOnly="true" /></td>
               </tr>
               <tr class="tr_line-height10">
                 <td class="table_item">備考</td>
@@ -279,7 +280,7 @@
                       <td>${slide.lineNo}</td>
                       <td>${slide.dataFromTo}</td>	
                       <td>${slide.discountRate}<span>%</span></td>
-                      <td>0</td>
+                      <td><fmt:parseNumber value="${searchResult.retailPrice * (1- (slide.discountRate / 100 ))}" integerOnly="true" /></td>
                     </tr>
                 </c:forEach>
               </tbody>
@@ -319,8 +320,8 @@
                 <td class="table_item">受注残数</td>
               </tr>
               <tr class="tr_line-height10">
-                <td>${searchResult.stockQuantity}</td>
-                <td>${searchResult.quantityTotal}</td>
+                <td><fmt:parseNumber value="${searchResult.stockQuantity}" integerOnly="true" /></td>
+                <td><fmt:parseNumber value="${searchResult.quantityTotal}" integerOnly="true" /></td>
               </tr>
             </table>       
             
@@ -350,10 +351,11 @@
   <script>
 	  /* 画面読み込み時、リクエストスコープに"status"に"result"が保存されている場合、結果画面を表示する */
 	  window.onload = function () {
-		  if(${status} == result){
+		  if("${status}" == "result"){
 		      document.getElementById("resultHidden").removeAttribute("hidden");
-		      }
-		    }
+		  } else if("${status}" == "err") {
+			  alert("該当データが存在しませんでした。");
+		  } else{}
 	  };
       
     /* 入力値の初期化 */
@@ -361,7 +363,7 @@
       if(!confirm("入力内容を初期化してよろしいですか？")){
         return;
       }
-      location.reload();
+      location.href = '/SalesCube2020/SalesCube?action=moveUnitPriceInquiry';
     }
 
   </script>

@@ -1,6 +1,7 @@
 package estimate.Input.dao;
 
 import java.sql.Connection;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.time.LocalDateTime;
@@ -19,7 +20,7 @@ public class EstimateAddDAO extends BaseDAO {
 		
 		Connection con;
 		Statement stmt = null;
-	 	int result = 0;	
+	 	int result = 0;
 	 	String  sql;
 	 	
 	 	//変数宣言
@@ -31,7 +32,7 @@ public class EstimateAddDAO extends BaseDAO {
 	 	String title			  = bean.getTitle();
 	 	String deliveryName		  = bean.getDeliveryName();
 	 	String estimateCondition  = bean.getEstimateCondition();
-	 	String ctaxRate			  = bean.getCtaxRate();
+	 	double ctaxRate			  = bean.getCtaxRate();
 	 	String submitName		  = bean.getSubmitName();
 	 	String submitPre		  = bean.getSubmitPre();
 	 	String customerCode		  = bean.getCustomerCode();
@@ -43,8 +44,11 @@ public class EstimateAddDAO extends BaseDAO {
 	 	Integer retailPriceTotal  = bean.getRetailPriceTotal();
 	 	Integer ctaxPriceTotal	  = bean.getCtaxPriceTotal();
 	 	Integer estimateTotal	  = bean.getEstimateTotal();
-	 	String creDate		      = bean.getCreDate();
+	 	Integer costTotal		  = bean.getCostTotal();
 	 	String creUser			  = bean.getCreUser();
+	 	
+		LocalDateTime ldt           = LocalDateTime.now();
+		String creDate              = ldt.toString();
 	 	
 	 	//SQL変換
 	 	String estimateSheetIdSQL;
@@ -55,7 +59,6 @@ public class EstimateAddDAO extends BaseDAO {
 	 	String titleSQL;
 	 	String deliveryNameSQL;
 	 	String estimateConditionSQL;
-	 	String ctaxRateSQL;
 	 	String submitNameSQL;
 	 	String submitPreSQL;
 	 	String customerCodeSQL;
@@ -67,6 +70,7 @@ public class EstimateAddDAO extends BaseDAO {
 	 	Integer retailPriceTotalSQL;
 	 	Integer ctaxPriceTotalSQL;
 	 	Integer estimateTotalSQL;
+	 	Integer costTotalSQL;
 	 	String creDateSQL;
 	 	String creUserSQL;
 	 	
@@ -94,10 +98,7 @@ public class EstimateAddDAO extends BaseDAO {
 		else {deliveryNameSQL = "'" + deliveryName + "'";}
 		
 		if(estimateCondition==null || estimateCondition.equals("")) {estimateConditionSQL = null;} 
-		else {estimateConditionSQL = "'" + estimateCondition + "'";}
-		
-		if(ctaxRate==null || ctaxRate.equals("")) {ctaxRateSQL = null;} 
-		else {ctaxRateSQL = "'" + ctaxRate + "'";}
+		else {estimateConditionSQL = "'" + estimateCondition + "'";}	
 		
 		if(submitName==null || submitName.equals("")) {submitNameSQL = null;} 
 		else {submitNameSQL = "'" + submitName + "'";}
@@ -132,6 +133,9 @@ public class EstimateAddDAO extends BaseDAO {
 		if(estimateTotal==null) {estimateTotalSQL = null;} 
 		else {estimateTotalSQL = estimateTotal;}
 		
+		if(costTotal==null) {costTotalSQL = null;} 
+		else {costTotalSQL = costTotal;}
+		
 		if(creDate==null || creDate.equals("")) {creDateSQL = null;} 
 		else {creDateSQL = "'" + creDate + "'";}
 		
@@ -162,7 +166,8 @@ public class EstimateAddDAO extends BaseDAO {
 	 		      "MEMO, " + 
 	 		      "RETAIL_PRICE_TOTAL, " + 
 	 		      "CTAX_PRICE_TOTAL, " + 
-	 		      "ESTIMATE_TOTAL, " + 
+	 		      "ESTIMATE_TOTAL, " +
+	 		      "COST_TOTAL, " + 
 	 		      "CRE_DATETM, " +
 	 		      "CRE_USER) " +
 	 		  "values " +
@@ -174,7 +179,7 @@ public class EstimateAddDAO extends BaseDAO {
 			 		     titleSQL + ", " +
 			 		     deliveryNameSQL + ", " +
 			 		     estimateConditionSQL + ", " +
-			 		     ctaxRateSQL + ", " +
+			 		     ctaxRate + ", " +
 			 		     submitNameSQL + ", " +
 			 		     submitPreSQL + ", " +
 			 		     customerCodeSQL + ", " +
@@ -186,6 +191,7 @@ public class EstimateAddDAO extends BaseDAO {
 			 		     retailPriceTotalSQL + ", " +
 			 		     ctaxPriceTotalSQL + ", " +
 			 		     estimateTotalSQL + ", " +
+			 		     costTotalSQL + ", " +
 			 		     creDateSQL + ", " +
 			 		     creUserSQL + ")";
 			 	
@@ -210,7 +216,9 @@ public class EstimateAddDAO extends BaseDAO {
 	 	int result = 0;
 	 	String  sql;
 	 	
+	 	//見積商品登録の変数宣言
 	 	Integer lineNo;
+	 	String estimateSheetId;
 	 	String productCode;
 	 	String productAbstract;
 	 	Integer quantity;
@@ -221,10 +229,13 @@ public class EstimateAddDAO extends BaseDAO {
 	 	String productRemarks;
 	 	String creUser;
 	 	
+	 	//現在の時間を取得
 		LocalDateTime ldt           = LocalDateTime.now();
 		String creDate              = ldt.toString();
 	 	
+		//見積商品登録をnullの場合のSQLに合わせて変換した値を格納する変数宣言
 	 	Integer lineNoSQL;
+	 	String estimateSheetIdSQL;
 	 	String productCodeSQL;
 	 	String productAbstractSQL;
 	 	Integer quantitySQL;
@@ -239,9 +250,15 @@ public class EstimateAddDAO extends BaseDAO {
 	 	con = super.getConnection();	
 	 	stmt = con.createStatement();
 	 	
+	 	//最大見積伝票行IDの取得
+	 	Integer estimateLineId = getMaxEstimateLineId();
+	 	
+	 	
 	 	for(EstimateProductAddBean bean : list) {
 	 		
+	 		estimateLineId++; //登録を繰り返すごとに最大見積伝票行IDを1ずつ増やしていく
 			lineNo = bean.getLineNo();
+			estimateSheetId = bean.getEstimateSheetId();
 			productCode = bean.getProductCode();
 			productAbstract = bean.getProductAbstract();
 			quantity = bean.getQuantity();
@@ -254,6 +271,9 @@ public class EstimateAddDAO extends BaseDAO {
 	 		
 			if(lineNo==null) {lineNoSQL = null;} 
 			else {lineNoSQL = lineNo;}
+			
+			if(estimateSheetId==null) {estimateSheetIdSQL = null;} 
+			else {estimateSheetIdSQL = estimateSheetId;}
 			
 			if(productCode==null || productCode.equals("")) {productCodeSQL = null;} 
 			else {productCodeSQL = "'" + productCode + "'";}
@@ -286,7 +306,9 @@ public class EstimateAddDAO extends BaseDAO {
 			else {creUserSQL = "'" + creUser + "'";}
 	 	
 	 		sql = "insert into estimate_line_trn_xxxxx (" +
+	 					"ESTIMATE_LINE_ID, " +
 	 					"LINE_NO, " +
+	 					"ESTIMATE_SHEET_ID, " +
 	 					"PRODUCT_CODE, " +
 	 					"PRODUCT_ABSTRACT, " +
 	 					"QUANTITY, " +
@@ -298,7 +320,9 @@ public class EstimateAddDAO extends BaseDAO {
 	 					"CRE_DATETM, " +
 	 					"CRE_USER)" +
 	 			  "values(" +
+	 					estimateLineId + ", " +
 	 			  		lineNoSQL + ", " +
+	 			  		estimateSheetIdSQL + ", " +
 	 			  		productCodeSQL + ", " +
 	 			  		productAbstractSQL + ", " +
 	 			  		quantitySQL + ", " +
@@ -318,6 +342,32 @@ public class EstimateAddDAO extends BaseDAO {
 	 	
 	 	return result;
 	 	
+	}
+	
+	
+	public Integer getMaxEstimateLineId () throws ClassNotFoundException, MissingResourceException, SQLException {
+		Connection con;
+		Statement stmt= null;
+	 	ResultSet result=null;
+	 	String  sql;
+	 	
+	 	Integer maxEstimateLineId=0; //最大見積伝票行ID
+	 	
+	 	con = super.getConnection();
+	 	stmt = con.createStatement();
+	 	
+	 	//最大見積伝票行IDを取得するSQL
+	 	sql = "SELECT max(ESTIMATE_LINE_ID) as MAX_ESTIMATE_LINE_ID from estimate_line_trn_xxxxx";
+	 	
+	 	result = stmt.executeQuery(sql);
+	 	
+	 	while(result.next()){
+	 		maxEstimateLineId = Integer.parseInt(result.getString("MAX_ESTIMATE_LINE_ID"));
+	 	}
+	 	
+	 	super.releaseDB(con,stmt,result);
+	 	
+	 	return maxEstimateLineId;
 	}
 
 

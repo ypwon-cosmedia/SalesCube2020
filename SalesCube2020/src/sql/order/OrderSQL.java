@@ -1,6 +1,10 @@
 package sql.order;
 
+
 import order.search.beans.OrderSearchBean;
+
+import order.common.bill.beans.OrderCommonBillBean;
+
 
 public class OrderSQL {
 	
@@ -106,19 +110,50 @@ public class OrderSQL {
 	
 	/* 見積モーダル */
 	/* 見積検索 */
-	public String billSearch(String estimateSheetId) {
+	public String billSearch(String estimateSheetId, String estimateDate, String submitName, String title, OrderCommonBillBean bean) {
 		
 		String sql;
 		
+		if(bean.getEstimateSheetId() == null || bean.getEstimateSheetId().equals("")) {
+			bean.setEstimateSheetId("%' OR ESTIMATE_SHEET_ID IS NULL");
+		}else {
+			bean.setEstimateSheetId(bean.getEstimateSheetId().concat("%'"));
+		}
+		if(bean.getEstimateDate() == null || bean.getEstimateDate().equals("")) {
+			bean.setEstimateDate("%' OR ESTIMATE_DATE IS NULL");
+		}else {
+			bean.setEstimateDate(bean.getEstimateDate().concat("%'"));
+		}
+		if(bean.getSubmitName() == null || bean.getSubmitName().equals("")) {
+			bean.setSubmitName("%' OR SUBMIT_NAME IS NULL");
+		}else {
+			bean.setSubmitName(bean.getSubmitName().concat("%'"));
+		}
+		if(bean.getTitle() == null || bean.getTitle().equals("")) {
+			bean.setTitle("%' OR TITLE IS NULL");
+		}else {
+			bean.setTitle(bean.getTitle().concat("%'"));
+		}
+			
 		sql = "SELECT " +		
 				"ESTIMATE_SHEET_ID, " +
 				"ESTIMATE_DATE, " +
 				"SUBMIT_NAME, " +
-			"TITLE " +
+				"TITLE " +
 			"FROM "	+
 				"estimate_sheet_trn_xxxxx " +
 			"WHERE " + 
-				"EstimateSheetId = '" + estimateSheetId + "'";
+				"(ESTIMATE_SHEET_ID LIKE '" + bean.getEstimateSheetId() + "'" +
+			") AND " + 
+				"(ESTIMATE_DATE LIKE '" + bean.getEstimateDate() + "'" +
+			") AND " +
+				"(SUBMIT_NAME LIKE '" + bean.getSubmitName() + "'" +
+			") AND " +
+				"(TITLE LIKE '" + bean.getTitle() +"'" + 
+			") GROUP BY " +
+				"ESTIMATE_SHEET_ID " +
+			"ORDER BY " + 
+				"ESTIMATE_SHEET_ID";
 		
 		return sql;
 		
@@ -135,6 +170,7 @@ public class OrderSQL {
 				"estimate_sheet_trn_xxxxx AS estx " +
 			"WHERE " +
 				"estx.ESTIMATE_SHEET_ID = '" + estimateSheetId + "'";
+		
 		return sql;
 		
 	}
@@ -179,7 +215,7 @@ public class OrderSQL {
 	
 	/* 見積番号押下 納入先情報反映 */
 	public String billToDelivery(String estimateSheetId) {
-		
+	
 		String sql;
 		
 		sql = "SELECT DISTINCT " + 
@@ -792,7 +828,7 @@ public class OrderSQL {
 		
 		String sql;
 		
-		sql = "SELECT CATEGORY_CODE_NAME " + 
+		sql = "SELECT CATEGORY_CODE_NAME, CATEGORY_CODE " + 
 				"FROM category_trn_xxxxx " + 
 				"WHERE CATEGORY_ID='36'";
 		
@@ -805,7 +841,7 @@ public class OrderSQL {
 		
 		String sql;
 		
-		sql = "SELECT CATEGORY_CODE_NAME " + 
+		sql = "SELECT CATEGORY_CODE_NAME, CATEGORY_CODE " + 
 				"FROM category_trn_xxxxx " + 
 				"WHERE CATEGORY_ID='37'";
 		
@@ -824,6 +860,7 @@ public class OrderSQL {
 		return sql;
 		
 	}
+
 	
 	public String searchOrderBill(OrderSearchBean bean, String[] inputlist, String rowCount) {
 		
@@ -883,4 +920,7 @@ public class OrderSQL {
 		
 		return sql;
 	}
+
+
+
 }

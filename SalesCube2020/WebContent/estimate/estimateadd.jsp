@@ -191,7 +191,7 @@
       <br><br><br>
     </div>
 
-    <form action="/SalesCube2020/SalesCube?action=searchSetProduct" method="post" name="mainform">
+    <form action="/SalesCube2020/SalesCube?action=estimateAdd" method="post" name="mainform">
       <div class="container" style="background-color: white;">
         <div class="panel panel-default" >
 			    <div class="panel-heading row mb-2 col-4">
@@ -207,7 +207,7 @@
 						    	<div class="input-group-prepend">
 						    		<div class="input-group-text"  style="background-color: pink;">見積番号</div>
 						  		</div>
-						   	  <input type="text" value="" class="form-control" id="inlineFormInputGroup" name="productCode" pattern="^[0-9A-Za-z]+$" onchange="test3()">
+						   	  <input type="text" value="" class="form-control" id="inlineFormInputGroup" name="estimateSheetId" pattern="^[0-9A-Za-z]+$" onchange="test3()">
 					  		</div>
               </div>
 
@@ -217,7 +217,7 @@
 						    	<div class="input-group-prepend">
 						    		<div class="input-group-text" style="background-color: pink;">見積日</div>
 						  		</div>
-                  <input type="date">
+                  <input type="date" name="estimateDate">
 					  		</div>
               </div>
 
@@ -227,7 +227,7 @@
 						    	<div class="input-group-prepend">
 						    		<div class="input-group-text">納期または出荷日</div>
 						  		</div>
-                   <input type="text" value="" class="form-control" id="inlineFormInputGroup" name="productCode">
+                   <input type="text" value="" class="form-control" id="inlineFormInputGroup" name="deliveryInfo">
                    <button type="button" class="ModalButton"  data-toggle="modal" data-target="#setShipDate">
                     <img src="btn_search.png" style="vertical-align: middle; cursor: pointer; width: 32px; height: 32px;">
                   </button>
@@ -242,7 +242,7 @@
 						    	<div class="input-group-prepend">
 						    		<div class="input-group-text">有効期限</div>
 						  		</div>
-                  <input type="date">
+                  <input type="date" name="validDate">
 					  		</div>
               </div>
 
@@ -252,7 +252,7 @@
 						    	<div class="input-group-prepend">
 						    		<div class="input-group-text">入力担当者</div>
 						  		</div>
-						   	  <input type="text" value="管理者" class="form-control" id="inlineFormInputGroup" name="productCode" readonly>
+						   	  <input type="text" value="管理者" class="form-control" id="inlineFormInputGroup" name="userName" readonly>
 					  		</div>
               </div>
 
@@ -262,7 +262,7 @@
 						    	<div class="input-group-prepend">
 						    		<div class="input-group-text">件名</div>
 						  		</div>
-						   	  <input type="text" value="" class="form-control" id="inlineFormInputGroup" name="productCode">
+						   	  <input type="text" value="" class="form-control" id="inlineFormInputGroup" name="title">
 					  		</div>
 				  		</div>
             </div>
@@ -274,7 +274,7 @@
 						    	<div class="input-group-prepend">
 						    		<div class="input-group-text">納入先</div>
 						  		</div>
-						   	  <input type="text" value="貴社指定場所" class="form-control" id="inlineFormInputGroup" name="productCode">
+						   	  <input type="text" value="貴社指定場所" class="form-control" id="inlineFormInputGroup" name="deliveryName">
 					  		</div>
               </div>
             </div>
@@ -286,7 +286,7 @@
 						    	<div class="input-group-prepend">
 						    		<div class="input-group-text">見積条件</div>
 						  		</div>
-                  <textarea cols="3" style="width: 750px;"></textarea>
+                  <textarea cols="3" style="width: 750px;" name="estimateCondition"></textarea>
                   <button type="button" class="ModalButton"  data-toggle="modal" data-target="#setQuotationCondition">
                     <img src="btn_search.png" style="vertical-align: middle; cursor: pointer; width: 32px; height: 32px;">
                   </button>
@@ -301,7 +301,7 @@
 						    	<div class="input-group-prepend">
 						    		<div class="input-group-text">消費税率</div>
 						  		</div>
-                  <select class="custom-select" name="" id="taxRate" onchange="totalCalculation()">
+                  <select class="custom-select" name="ctaxRate" id="taxRate" onchange="totalCalculation()">
                     <option value="0">消費税なし</option>
                     <c:forEach var="taxRateList" items="${taxRateList}">
 						<option value="${taxRateList.taxRate}">${taxRateList.taxRate}</option>
@@ -333,7 +333,7 @@
                   <div class="input-group-prepend">
                     <div class="input-group-text" style="background-color: pink;">提出先名</div>
                   </div>
-                  <input type="text" value="" class="form-control" id="submitName" name="productCode">&emsp;&emsp;
+                  <input type="text" value="" class="form-control" id="submitName" name="submitName">&emsp;&emsp;
                 </div>
               </div>
 
@@ -343,7 +343,7 @@
                   <div class="input-group-prepend">
                     <div class="input-group-text">提出先敬称</div>
                   </div>
-                  <select class="custom-select" name="">
+                  <select class="custom-select" name=submitPre>
                     <option></option>
                     <c:forEach var="submitPre" items="${submitPre}">
 						<option value="${submitPre.categoryCode}">${submitPre.categoryCodeName}</option>
@@ -384,7 +384,7 @@
                     <div class="input-group-prepend">
                       <div class="input-group-text">顧客名</div>
                     </div>
-                    <input type="text" value="" class="form-control" name="productCode" id="customerName" readonly>
+                    <input type="text" value="" class="form-control" name="customerName" id="customerName" readonly>
                   </div>
                 </div>
               </div>
@@ -396,7 +396,7 @@
                     <div class="input-group-prepend">
                       <div class="input-group-text">備考</div>
                     </div>
-                      <input type="text" value="" class="form-control" name="productCode"  id="customerRemarks" readonly>
+                      <input type="text" value="" class="form-control" name="customerRemarks"  id="customerRemarks" readonly>
                   </div>
                 </div>
               </div>
@@ -408,7 +408,7 @@
                     <div class="input-group-prepend">
                       <div class="input-group-text">コメント</div>
                     </div>
-                      <input type="text" value="" class="form-control" name="productCode"  id="customerComment" readonly>
+                      <input type="text" value="" class="form-control" name="customerComment"  id="customerComment" readonly>
                   </div>
                 </div>
               </div>
@@ -433,7 +433,7 @@
                   <div class="input-group-prepend">
                     <div class="input-group-text">摘要</div>
                   </div>
-                  <textarea name="" cols="100"></textarea>
+                  <textarea name="remarks" cols="100"></textarea>
                 </div>
               </div>
             </div>
@@ -445,7 +445,7 @@
                   <div class="input-group-prepend">
                     <div class="input-group-text">メモ</div>
                   </div>
-                  <textarea name="" cols="100"></textarea>
+                  <textarea name="memo" cols="100"></textarea>
                 </div>
               </div>
             </div>
@@ -470,14 +470,14 @@
 
         <tbody>
           <tr id="tr1">
-            <td rowspan="2"><div id="tableNo1"></div></td>
-            <td rowspan="2" class="backpink"><input type="text" name="" id="productCode1" value="" style="width: 110px;" onchange="test(this)">
+            <td rowspan="2">1</td>
+            <td rowspan="2" class="backpink"><input type="text" name="productCode" id="productCode1" value="" style="width: 110px;" onchange="test(this)">
               <input type="image" name="" src="btn_search.png" tabindex="101" onclick="" style="vertical-align: middle; cursor: pointer; width: 22px;"></td>
-            <td rowspan="2"><textarea name="" rows="3" style="width: 200px;" id="productAbstract1"></textarea></td>
-            <td class="backpink"><input type="text" name="" value="" id="quantity1" style="width: 75px;" onchange="quantityChange(this)"></td>
-            <td><input type="text" name="" value="" id="unitCost1" style="background-color:rgb(177, 177, 177); width: 75px;" readonly></td>
-            <td class="backpink"><input type="text" name="" id="unitRetailPrice1" style="width: 75px;" onchange="unitRetailPriceChange(this)"></td>
-            <td rowspan="2"><textarea name="" rows="3" style="width: 200px;" id="remarks1"></textarea></td>
+            <td rowspan="2"><textarea name="productAbstract" rows="3" style="width: 200px;" id="productAbstract1"></textarea></td>
+            <td class="backpink"><input type="text" name="quantity" value="" id="quantity1" style="width: 75px;" onchange="quantityChange(this)"></td>
+            <td><input type="text" name="unitCost" value="" id="unitCost1" style="background-color:rgb(177, 177, 177); width: 75px;" readonly></td>
+            <td class="backpink"><input type="text" name="unitRetailPrice" id="unitRetailPrice1" style="width: 75px;" onchange="unitRetailPriceChange(this)"></td>
+            <td rowspan="2"><textarea name="productRemarks" value="" rows="3" style="width: 200px;" id="remarks1"></textarea></td>
             <td><button type="button" class="btn btn-primary table-button"  onclick="deleteLineForm(this)" id="delete1">削除</button></td>
           </tr>
 
@@ -513,36 +513,32 @@
           <td>￥<span id="grossProfit">0</span></td>
           <td><span id="grossProfitMargin">0.00</span> %</td>
           <td>￥<span id="retailPriceTotal">0</span></td>
-          <td>￥<span id="taxTotal">0</span></td>
+          	<input type="hidden" value="0" id="inputRetailPriceTotal" name="retailPriceTotal">
+          <td>￥<span id="taxPriceTotal">0</span></td>
+          	<input type="hidden" value="0" id="inputTaxPriceTotal" name="taxPriceTotal">
           <td>￥<span id="estimateTotal">0</span></td>
+          	<input type="hidden" value="0" id="inputEstimateTotal" name="estimateTotal">
+          	<input type="hidden" value="0" id="inputCostTotal" name="costTotal">
         </tr>
         </tbody>
       </table>
     </div>
 
     <div class="container" style="text-align:center">
-      <button type="button" class="btn btn-primary" style="width:200px; height:50px;">登録</button>
+      <input type="submit" class="btn btn-primary" value="登録" style="width:200px; height:50px;">
     </div>
     <br><br>
+  </form>
 
   </body>
 
   <script>
-    window.onload = function onLoad() {
-            target = document.getElementById("tableNo1");
-            target.innerHTML = "1";
-            //target = document.getElementById("tableNo2");
-            //target.innerHTML = "2";
-    }
-
-
-
     /* 入力値の初期化 */
 	function initForm() {
 		if(!confirm("入力内容を初期化してよろしいですか？")){
 			return;
 		}
-		location.reload();
+		location.href = '/SalesCube2020/SalesCube?action=moveEstimateAdd';
 	}
 
 	/* 登録 */
@@ -562,14 +558,14 @@
 		var tableNo = ($("#estimate tr").length + 1) / 2; //新しく追加するNo、( (テーブルの行数(見出し1行+ データ行*2n) + 1(新しい行数にするための補完))/2) = 新規に追加する見出しNoになる)
         $('#estimate > tbody:last').append(
           '<tr>' +
-            '<td rowspan="2"><div id="tableNo' + tableNo + '"></div></td>' +
-            '<td rowspan="2" class="backpink"><input type="text" name="" id="productCode' + tableNo + '" value="" style="width: 110px;" onchange="test(this)">' +
+            '<td rowspan="2">' + tableNo + '</td>' +
+            '<td rowspan="2" class="backpink"><input type="text" name="productCode" id="productCode' + tableNo + '" value="" style="width: 110px;" onchange="test(this)">' +
               '<input type="image" name="" src="btn_search.png" tabindex="101" onclick="" style="vertical-align: middle; cursor: pointer; width: 22px;"></td>' +
-            '<td rowspan="2"><textarea name="" rows="3" style="width: 200px;" id="productAbstract' + tableNo + '"></textarea></td>' +
-            '<td class="backpink"><input type="text" name="" value="" id="quantity' + tableNo + '" style="width: 75px;" onchange="quantityChange(this)"></td>' +
-            '<td><input type="text" name="" value="" id="unitCost' + tableNo + '" style="background-color:rgb(177, 177, 177); width: 75px;" readonly></td>' +
-            '<td class="backpink"><input type="text" name="" id="unitRetailPrice' + tableNo + '" style="width: 75px;" onchange="unitRetailPriceChange(this)"></td>' +
-            '<td rowspan="2"><textarea name="" rows="3" style="width: 200px;" id="remarks' + tableNo + '"></textarea></td>' +
+            '<td rowspan="2"><textarea name="productAbstract" rows="3" style="width: 200px;" id="productAbstract' + tableNo + '"></textarea></td>' +
+            '<td class="backpink"><input type="text" name="quantity" value="" id="quantity' + tableNo + '" style="width: 75px;" onchange="quantityChange(this)"></td>' +
+            '<td><input type="text" name="unitCost" value="" id="unitCost' + tableNo + '" style="background-color:rgb(177, 177, 177); width: 75px;" readonly></td>' +
+            '<td class="backpink"><input type="text" name="unitRetailPrice" id="unitRetailPrice' + tableNo + '" style="width: 75px;" onchange="unitRetailPriceChange(this)"></td>' +
+            '<td rowspan="2"><textarea name="productRemarks" value="" rows="3" style="width: 200px;" id="remarks' + tableNo + '"></textarea></td>' +
             '<td><button type="button" class="btn btn-primary table-button"  onclick="deleteLineForm(this)"  id="delete' + tableNo + '">削除</button></td>' +
           '</tr>' +
 
@@ -579,9 +575,6 @@
             '<td class="backpink"><input type="text" name="retailPrice" value="" id="retailPrice' + tableNo + '" style="width: 75px; background-color:rgb(177, 177, 177);" readonly></td>' +
             '<td><button type="button" class="btn btn-primary table-button" onclick="previousCopy(this)" id="previousCopy' + tableNo + '">前行複写</button></td>' +
           '</tr>' );
-
-          target = document.getElementById("tableNo" + tableNo);
-            target.innerHTML = tableNo;
 			});
 
 
@@ -786,7 +779,8 @@
             }
           }
         document.getElementById("retailPriceTotal").innerHTML = retailPriceTotal; //金額合計に入力
-
+        document.getElementById("inputRetailPriceTotal").value = retailPriceTotal;
+        
         //仕入金額合計計算
         var costArray = document.getElementsByName("cost"); //各売上金額の配列を取得
         var costTotal = 0;
@@ -796,13 +790,14 @@
               costTotal += parseInt(costArray[i].value);
             }
           }
+        document.getElementById("inputCostTotal").value = costTotal; //仕入れ金額を入力(hidden)
         
         //粗利益計算 (金額合計 - 仕入金額合計) + 値入力
         var grossProfit = retailPriceTotal - costTotal;
         document.getElementById("grossProfit").innerHTML = grossProfit; //粗利益に入力
 
         //粗利益率計算 ( (粗利益/金額合計) * 100 ) ※小数第三位を四捨五入 + 値入力
-        var grossProfitMargin = Math.round( (grossProfit/retailPriceTotal)*100*100 )/100;
+        var grossProfitMargin = Math.round( ( grossProfit / retailPriceTotal )*100*100 )/100;
         if(retailPriceTotal == 0){
           grossProfitMargin = 0;
         }
@@ -810,12 +805,14 @@
 
         //消費税計算 (金額合計 * 消費税) + 値入力
         var taxRate = document.getElementById('taxRate').value;
-        var taxTotal = Math.floor( (retailPriceTotal * taxRate) /100 );//小数点以下切り捨て
-        document.getElementById("taxTotal").innerHTML = taxTotal; //消費税に入力
+        var taxPriceTotal = Math.floor( (retailPriceTotal * taxRate ) /100 );//小数点以下切り捨て
+        document.getElementById("taxPriceTotal").innerHTML = taxPriceTotal; //消費税に入力
+        document.getElementById("inputTaxPriceTotal").value = taxPriceTotal;
 
         //伝票合計 (金額合計 + 消費税) + 値入力
-        var estimateTotal = retailPriceTotal + taxTotal;
-        document.getElementById("estimateTotal").innerHTML = estimateTotal; //伝票合計に入力   
+        var estimateTotal = retailPriceTotal + taxPriceTotal;
+        document.getElementById("estimateTotal").innerHTML = estimateTotal; //伝票合計に入力
+        document.getElementById("inputEstimateTotal").value = estimateTotal;
         
         } 
 
@@ -871,8 +868,17 @@
 				if(!confirm("すでに登録済みの見積番号です。編集画面に遷移しますか？")){
 					return;
 				}
-				location.href = 'estimatemodify.html';
+				location.href = 'estimate/estimatemodify.html';
 			}
+      
+	  /* 画面読み込み時、リクエストスコープに"status"に"success"が保存されている場合、登録完了のメッセージを表示する */
+	  window.onload = function () {
+		  if("${status}" == "success"){
+			  alert("登録が完了しました。");
+		  } else if("${status}" == "err") {
+			  alert("登録に失敗しました。");
+		  } else{}
+	  }; 
 
   </script>
 </html>

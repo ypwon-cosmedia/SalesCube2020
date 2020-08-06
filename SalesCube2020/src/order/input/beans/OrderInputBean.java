@@ -1,6 +1,5 @@
 package order.input.beans;
 
-import java.math.BigDecimal;
 import java.sql.Date;
 
 /** 
@@ -42,7 +41,7 @@ public class OrderInputBean {
 	private String dcTimezone;
 	
 	/* 消費税率 */
-	private BigDecimal ctaxRate;
+	private String ctaxRate;
 	
 	/* 顧客コード */
 	private String customerCode;
@@ -151,6 +150,17 @@ public class OrderInputBean {
 	
 	/* 区分コード名 */
 	private String categoryCodeName;
+	
+	/* 区分コード */
+	private String categoryCode;
+
+	public String getCategoryCode() {
+		return categoryCode;
+	}
+
+	public void setCategoryCode(String categoryCode) {
+		this.categoryCode = categoryCode;
+	}
 
 	public String getCategoryCodeName() {
 		return categoryCodeName;
@@ -240,11 +250,11 @@ public class OrderInputBean {
 		this.dcTimezone = dcTimezone;
 	}
 
-	public BigDecimal getCtaxRate() {
+	public String getCtaxRate() {
 		return ctaxRate;
 	}
 
-	public void setCtaxRate(BigDecimal ctaxRate) {
+	public void setCtaxRate(String ctaxRate) {
 		this.ctaxRate = ctaxRate;
 	}
 

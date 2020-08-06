@@ -5,6 +5,7 @@ import java.util.HashMap;
 import common.modal.customer.controller.CustomerModalAJAXController;
 import common.modal.product.controller.ProductModalAJAXController;
 import common.modal.supplier.controller.SupplierModalAJAXController;
+import estimate.Input.Controller.EstimateInputCommonController;
 import estimate.common.controller.EstimateCategoryModalAJAXController;
 import estimate.common.controller.EstimateConfigurationModalAJAXController;
 import estimate.common.controller.UserModalAJAXController;
@@ -23,6 +24,7 @@ public class CreateAJAXControllers {
 		BaseAJAXController estimateConfigurationAJAX = new EstimateConfigurationModalAJAXController();
 		BaseAJAXController customerAJAX = new CustomerModalAJAXController();
 		BaseAJAXController userAJAX = new UserModalAJAXController();
+		BaseAJAXController estimateInputCommonAJAX = new EstimateInputCommonController();
 		
 		map.put("productSearch", productAJAX);
 		
@@ -40,6 +42,9 @@ public class CreateAJAXControllers {
 		map.put("customerSearch", customerAJAX);
 		
 		map.put("userSearch", userAJAX);
+		
+		map.put("estimateCustomerSearch", estimateInputCommonAJAX);
+		map.put("estimateProductSearch", estimateInputCommonAJAX);
 		
 		return map;
 	}

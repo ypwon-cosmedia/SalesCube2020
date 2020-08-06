@@ -70,7 +70,14 @@ public class UnitPriceInquiryController extends BaseController {
 		request.setAttribute("searchResult",searchResultBean);
 		request.setAttribute("quantitySlideSettingList",quantitySlideSettingList);
 		request.setAttribute("orderStatementList",orderStatementList);
-		request.setAttribute("status","result");
+		
+		String productName = searchResultBean.getProductName();
+		
+		if(productName == null ) {
+			request.setAttribute("status","err");
+		} else {
+			request.setAttribute("status","result");
+		}
 			
 		return forwardURL;
 		

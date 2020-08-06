@@ -10,7 +10,7 @@ public class SupplierSearchResultBean {
 	//仕入れ先担当者
 	private String supplierPCName;
 	//区分データ名(取引先区分)
-	private String supplierCMCategory;
+	private String categoryCodeName;
 	//備考
 	private String remarks;
 	
@@ -32,17 +32,17 @@ public class SupplierSearchResultBean {
 	public void setSupplierPCName(String supplierPCName) {
 		this.supplierPCName = supplierPCName;
 	}
-	public String getSupplierCMCategory() {
-		return supplierCMCategory;
-	}
-	public void setSupplierCMCategory(String supplierCMCategory) {
-		this.supplierCMCategory = supplierCMCategory;
-	}
 	public String getRemarks() {
 		return remarks;
 	}
 	public void setRemarks(String remarks) {
 		this.remarks = remarks;
+	}
+	public String getCategoryCodeName() {
+		return categoryCodeName;
+	}
+	public void setCategoryCodeName(String categoryCodeName) {
+		this.categoryCodeName = categoryCodeName;
 	}
 	
 

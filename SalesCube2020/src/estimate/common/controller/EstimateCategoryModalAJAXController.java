@@ -23,15 +23,15 @@ public class EstimateCategoryModalAJAXController extends BaseAJAXController{
 		
 		String action = request.getParameter("action");
 		
-		if(action.equals("shipdateGet")) categoryGet(request, response); 
+		if(action.equals("estimateCategoryGet")) categoryGet(request, response); 
 			
 
 	}
 	
 	private void categoryGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		
+
 		CategoryDAO dao = new CategoryDAO();
-		int categoryId = Integer.parseInt( request.getParameter("categoryId") );//区分IDを受け取る
+		int categoryId = Integer.parseInt( request.getParameter("categoryId"));//区分IDを受け取る
 		
 		List<CategoryBean> list = new ArrayList<>();
 		Gson gson = new Gson();
