@@ -65,7 +65,7 @@
 			<script>
 
             		 function writeShipdates(){
-            			 var radio = document.getElementsByName('radioQuotation');	//idがshipdateの要素を取得
+            			 var radio = document.getElementsByName('radioQuotation');	//idがradioQuotationの要素を取得
             			 	// 選択状態の値を取得
 							for ( var checkedShipdate="", i=radio.length; i--; ) {	//radioボタンの回数分繰り返す
 								if ( radio[i].checked ) {							//選択されていたら

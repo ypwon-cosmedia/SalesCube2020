@@ -11,7 +11,6 @@ import java.util.MissingResourceException;
 import common.dao.BaseDAO;
 import common.modal.supplier.beans.SupplierSearchBean;
 import common.modal.supplier.beans.SupplierSearchResultBean;
-import estimate.common.beans.CategoryBean;
 
 public class SupplierDAO extends BaseDAO{
 
@@ -25,23 +24,59 @@ public class SupplierDAO extends BaseDAO{
 		
 		con = super.getConnection();
 		stmt = con.createStatement();
-
+		
+		String inputSupplierCode = search.getSupplierCode();
+		String inputSupplierName = search.getSupplierName();
+		String inputSupplierKana = search.getSupplierKana();
 		String sql;
-
+		
+		//検索項目がnullの場合の処理と部分検索の準備
+		if(inputSupplierCode == null || inputSupplierCode.equals("")) {//inputSupplierCode
+	 		search.setSupplierCode("%");
+	 	}
+	 	else {
+	 		search.setSupplierCode("%" + search.getSupplierCode() + "%");
+	 	}
+		
+		if(inputSupplierName == null || inputSupplierName.equals("")) {//inputSupplierName
+	 		search.setSupplierName("%");
+	 	}
+	 	else {
+	 		search.setSupplierName("%" + search.getSupplierName() + "%");
+	 	}
+		
+		if(inputSupplierKana == null || inputSupplierKana.equals("")) {//inputSupplierKana
+	 		search.setSupplierKana("%");
+	 	}
+	 	else {
+	 		search.setSupplierKana("%" + search.getSupplierKana() + "%");
+	 	}
+		
+		//setした値を受け取る
+		inputSupplierCode = search.getSupplierCode();
+		inputSupplierName = search.getSupplierName();
+		inputSupplierKana = search.getSupplierKana();
+		
 		sql = "SELECT "
-				+ "SUPPLIER_CODE, "
-				+ "SUPPLIER_NAME, "
-				+ "SUPPLIER_PC_NAME "
-				+ "CATEGORY_CODE_NAME, "
-				+ "REMARKS "
-			+ "FROM supplier_mst_xxxxx " 
-				+ "LEFT OUTER JOIN category_trn_xxxxx " 
-					+ "ON supplier_mst_xxxxx.SUPPLIER_CM_CATEGORY = category_trn_xxxxx.CATEGORY_CODE " 
-					+ "AND category_trn_xxxxx.CATEGORY_ID='13'"
-			;/*+ "WHERE"
-			+ " SUPPLIER_CODE=" + "' 1 '"
-			+ " SUPPLIER_NAME=" + "' あんぱんまん食品 '"
-			+ " SUPPLIER_KANA=" + "' アンパンマンショクヒン '" ;*/
+				+ "SUP.SUPPLIER_CODE, "
+				+ "SUP.SUPPLIER_NAME, "
+				+ "SUP.SUPPLIER_PC_NAME, "
+				+ "CT.CATEGORY_CODE_NAME, "
+				+ "SUP.REMARKS "
+			+ "FROM SUPPLIER_MST_XXXXX AS SUP " 
+				+ "LEFT OUTER JOIN CATEGORY_TRN_XXXXX AS CT " 
+					+ "ON SUP.SUPPLIER_CM_CATEGORY = CT.CATEGORY_CODE " 
+					+ "AND CT.CATEGORY_ID='13'"
+			+ "WHERE"
+			+ " SUPPLIER_CODE LIKE" + "'"
+					+ inputSupplierCode
+					+ "' AND"
+			+ " SUPPLIER_NAME LIKE" + "'"
+					+ inputSupplierName
+					+ "' AND"
+			+ " SUPPLIER_KANA LIKE" + "'"
+					+ inputSupplierKana
+					+ "';" ;
 		
 		result = stmt.executeQuery(sql);
 		
@@ -54,6 +89,9 @@ public class SupplierDAO extends BaseDAO{
 			supplier.setCategoryCodeName( result.getString("CATEGORY_CODE_NAME") );
 			supplier.setRemarks( result.getString("REMARKS") );
 	 		
+			if(supplier.getCategoryCodeName()== null || supplier.getCategoryCodeName().equals("")) {supplier.setCategoryCodeName("");};
+			if(supplier.getRemarks()== null || supplier.getRemarks().equals("")) {supplier.setRemarks("");};
+			
 	 		list.add(supplier);
 	 	}
 	 	

@@ -32,10 +32,11 @@
             white-space: nowrap;
             
         }
-        .table thead th{
+        .tableSticky thead tr th{
             position: sticky;
             position: -webkit-sticky;
             top: 0;
+            
             z-index: 1;
         }
 
@@ -65,14 +66,13 @@
 
 
        &emsp;&emsp;
-    <!-- ＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊ ここから ＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊ -->
-
         <!-- ボタン（仕入れ先検索用）data-targetの変更必要 -->
         
-        <button type="button" class="btn btn-outline-danger" data-toggle="modal" data-target="#openSearchSupplier">
+        <button type="button" class="btn btn-outline-danger" data-toggle="modal" data-target="#openSearchSupplier" onclick="initSupplier()">
             →
         </button>
-
+        <input type="text" id="ProductModalSupplierCode" name="ProductModalSupplierCode" placeholder="仕入れ先コード" value="">
+        <input type="text" id="ProductModalSupplierName" name="ProductModalSupplierName" placeholder="仕入れ先名" value="">
 
             <div class="modal fade" id="openSearchSupplier" tabindex="-1" role="dialog" aria-labelledby="label1" aria-hidden="true">
                 <div class="modal-dialog modal-lg" role="document">
@@ -86,8 +86,8 @@
 
                         <div class="modal-body">
                             <!-- 検索部 -->
-                                <p style="color: red;"><!--EL式"$"該当する仕入れ先情報は存在しません--></p>
-                                
+                            <div id="supplierSearchError">
+                            </div>
 
                             <form action="" id="searchSupplier">
                                 <div class="row">
@@ -96,7 +96,7 @@
                                             <div class="input-group-prepend">
                                                 <div class="input-group-text">仕入れ先コード</div>
                                             </div>
-                                        <input type="text" name="supplierCode" class="form-control" id="">
+                                        <input type="text" name="inputSupplierCode" class="form-control" id="">
                                         </div>
                                     </div>
                                 </div>
@@ -107,7 +107,7 @@
                                             <div class="input-group-prepend">
                                                 <div class="input-group-text">仕入れ先名</div>
                                             </div>
-                                        <input type="text" name="supplierName" class="form-control" id="">
+                                        <input type="text" name="inputSupplierName" class="form-control" id="">
                                         </div>
                                     </div>
                                     <div class="col-6">
@@ -115,7 +115,7 @@
                                             <div class="input-group-prepend">
                                                 <div class="input-group-text">仕入れ先カナ</div>
                                             </div>
-                                        <input type="text" name="supplierKana" class="form-control" id="" pattern="[\uFF66-\uFF9D]*">
+                                        <input type="text" name="inputSupplierKana" class="form-control" id="" pattern="[\uFF66-\uFF9D]*">
                                         </div>
                                     </div>
                                 </div>
@@ -123,7 +123,7 @@
                                 
                                 <div class="row float-right">
                                     <input type="button" value="初期化" class="btn btn-primary" onclick="initSupplier()">&emsp;
-                                    <input type="button" value="検索" class="btn btn-primary" onclick="existSerchResult(); this.form.reportValidity()">&emsp;
+                                    <input type="button" value="検索" class="btn btn-primary" onclick="searchSupplier()">&emsp;<!-- this.form.reportValidity();  -->
                                 </div>
                             </form>
                                 <br><br>
@@ -131,9 +131,9 @@
                                 <!-- テーブル部（検索結果） -->
                                 <div id="serchResult" hidden="hidden">
                                 
-                                	検索結果件数：<br>
+                                	<div><p id="searchResultAmount"></p></div>
 
-                                <table class="table table-bordered" id="supplierTable">
+                                <table class="tableSticky table table-bordered">
                                     <!-- ヘッダ部 -->
                                     <thead class="thead-light">
                                     <tr>
@@ -145,14 +145,11 @@
                                     </tr>
                                     </thead>
                                     <!-- 内部 -->
-                                    <tbody></tbody>
-                                    <tr>
-                                        <td class="cursor-pointer">1</td>
-                                        <td>アンパンマン食品</td>
-                                        <td>ジャムおじさん</td>
-                                        <td>現金</td>
-                                        <td>アンパンマンのことならお任せしたかったよ</td>
-                                    </tr>
+                                    <tbody id="supplierTable">
+                                    
+                                    <!--  ここにテーブルの項目が生成される  -->
+                                    
+                                    </tbody>
                                 </table>
                                 </div>
                         </div>
@@ -169,25 +166,27 @@
             <script>
           		//初期化
                 function initSupplier(){
-          			//テキストボックス
-                    $("[name='supplierCode']").val("");
-                    $("[name='supplierName']").val("");
-                    $("[name='supplierKana']").val("");
+          			//テキストボックスの初期化
+                    $("[name='inputSupplierCode']").val("");
+                    $("[name='inputSupplierName']").val("");
+                    $("[name='inputSupplierKana']").val("");
 
                     //テーブルの非表示
                     document.getElementById("serchResult").setAttribute('hidden','hidden');
+                    
+                    //エラーメッセージの削除
+                    $("#supplierSearchError").empty();
                 }
+              	
+              	//仕入れ先コードを押下した際の処理
+              	function selectSupplierCode(code, name){
+              		document.getElementById('ProductModalSupplierCode').value = code;
+              		document.getElementById('ProductModalSupplierName').value = name;
+              	}
           		
-                function existSerchResult(){
-                    //if(resultCount <= 0){ 検索結果が0件
-                        //テーブルの表示
-                        document.getElementById("serchResult").removeAttribute('hidden');
-                    //}
-                }
-                
+              	//仕入れ先検索
                 function searchSupplier() {
-    				
-    				var formString = $("form[id=searchSupplier]").serialize();//オブジェクトをバイト列に変換
+    				var formString = $("form[id=searchSupplier]").serialize();//オブジェクトをバイト列に変換(serialize)
     				var tmp = "";
     				
     				$.ajax({
@@ -197,23 +196,38 @@
     					dataType:'json',	//応答データの種類
     					
     					success:function(data){	//成功時
+                            document.getElementById("serchResult").removeAttribute('hidden');//テーブルの表示
     						$("#supplierTable > tr").remove();//テーブルをクリア
-               			 	
  	            		 		var tableAdd = document.getElementById('supplierTable');	//idがsupplierTableの要素を取得
- 	            		 		for(var i = 0; i<Object.keys(data).length; i++){			//受け取ったdataの数だけ、繰り返す
- 	            		 			var headcontents= '';
- 	       							headcontents += '<tr>';
- 	       							headcontents += '<td style="white-space: normal; text-align: left;" onclick="selectcustomerCode()" data-dismiss="modal" id="customerCode1"><a href="">'+data[i].supplierCode+'</a></td>';
- 	       							headcontents += '<td style="white-space: normal; text-align: left;">'+data[i].supplierName+'</td>';
- 	       							headcontents += '<td style="white-space: normal; text-align: left;">'+data[i].supplierPCName+'</td>';  
- 	       							headcontents += '<td style="white-space: normal; text-align: left;">'+data[i].categoryCodeName+'</td>';
- 	       							headcontents += '<td style="white-space: normal; text-align: left;">'+data[i].remarks+'</td>';
- 	       							headcontents += '</tr>';
- 	       							$('#supplierTable').append(headcontents);					
- 	            		    	}
+ 	            		 		//検索結果がない場合
+ 	            		 		if(Object.keys(data).length == 0){
+ 	            		 			var message = '<p style="color: red;">該当する仕入れ先情報は存在しません</p>';
+ 	            		 			$("#supplierSearchError").empty();//エラーメッセージの削除
+ 	            		 			$("#supplierSearchError").append(message);	//エラーメッセージの表示
+ 	            		 		//検索結果がある場合
+ 	            		 		}else{
+ 	            		 			//エラーメッセージ
+ 	            		 			$("#supplierSearchError").empty();//エラーメッセージの削除
+ 	            		 			//検索結果件数の設定
+ 	            		 			$("#searchResultAmount").empty();//検索結果件数の設定の削除
+ 	            		 			$("#searchResultAmount").append('検索結果件数：' + Object.keys(data).length + '件');	//検索結果件数の設定の表示
+ 	            		 			
+	            		 			for(var i = 0; i<Object.keys(data).length; i++){	//受け取ったdataの数だけ、繰り返す
+	            		 				var headcontents= '';
+	       								headcontents += '<tr>';
+	       								headcontents += '<td style="white-space: normal; text-align: left;" onclick="selectSupplierCode('+data[i].supplierCode+",'"+data[i].supplierName+"'"+')" data-dismiss="modal"><a href="">'+data[i].supplierCode+'</a></td>';
+	       								headcontents += '<td style="white-space: normal; text-align: left;">'+data[i].supplierName+'</td>';
+	       								headcontents += '<td style="white-space: normal; text-align: left;">'+data[i].supplierPCName+'</td>';  
+	       								headcontents += '<td style="white-space: normal; text-align: left;">'+data[i].categoryCodeName+'</td>';
+	       								headcontents += '<td style="white-space: normal; text-align: left;">'+data[i].remarks+'</td>';
+	       								headcontents += '</tr>';
+	       								$("#supplierTable").append(headcontents);					
+	            		    		} 	            		 			
+ 	            		 		}
     					}
     				});
     			}
+
             </script>
     </body>
 </html>
