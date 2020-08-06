@@ -1,9 +1,11 @@
 package estimate.Input.dao;
 
 import java.sql.Connection;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.MissingResourceException;
 
@@ -11,11 +13,122 @@ import common.dao.BaseDAO;
 import estimate.Input.beans.EstimateAddBean;
 import estimate.Input.beans.EstimateModifyBean;
 import estimate.Input.beans.EstimateProductAddBean;
+import estimate.Input.beans.InitEstimateBean;
+import estimate.Input.beans.InitEstimateProductBean;
+import estimate.Input.beans.TaxRateBean;
 
 
 public class EstimateModifyDAO extends BaseDAO {
 	
-
+	/* 見積情報取得 */
+	public InitEstimateBean getEstimate(String estimateSheetId) throws ClassNotFoundException, MissingResourceException, SQLException {
+		
+		Connection con;
+	 	Statement stmt=null;
+	 	ResultSet result=null;
+	 	String  sql;
+	 	
+	 	InitEstimateBean bean = new InitEstimateBean();
+	 	
+	 	con = super.getConnection();
+	 	stmt = con.createStatement();
+	 	
+	 	sql="select " + 
+	 			"ESTIMATE_DATE, " + 
+	 			"DELIVERY_INFO, " + 
+	 			"VALID_DATE, " + 
+	 			"USER_NAME, " + 
+	 			"TITLE, " + 
+	 			"DELIVERY_NAME, " + 
+	 			"ESTIMATE_CONDITION, " + 
+	 			"CTAX_RATE, " + 
+	 			"SUBMIT_NAME, " + 
+	 			"SUBMIT_PRE, " + 
+	 			"CUSTOMER_CODE, " + 
+	 			"CUSTOMER_NAME, " + 
+	 			"CUSTOMER_REMARKS, " + 
+	 			"CUSTOMER_COMMENT_DATA, " + 
+	 			"REMARKS, " + 
+	 			"MEMO " + 
+	 		"from estimate_sheet_trn_xxxxx " + 
+	 		"where ESTIMATE_SHEET_ID = " + estimateSheetId;
+	 	
+	 	result = stmt.executeQuery(sql);
+	 	
+	 	bean.setEstimateSheetId(estimateSheetId);
+	 	
+	 	if(result.next()) {
+	 		bean.setEstimateDate(result.getString("ESTIMATE_DATE"));
+	 		bean.setDeliveryInfo(result.getString("DELIVERY_INFO"));
+	 		bean.setValidDate(result.getString("VALID_DATE"));
+	 		bean.setUserName(result.getString("USER_NAME"));
+	 		bean.setTitle(result.getString("TITLE"));
+	 		bean.setDeliveryName(result.getString("DELIVERY_NAME"));
+	 		bean.setEstimateCondition(result.getString("ESTIMATE_CONDITION"));
+	 		bean.setCtaxRate(result.getDouble("CTAX_RATE"));
+	 		bean.setSubmitName(result.getString("SUBMIT_NAME"));
+	 		bean.setSubmitPre(result.getString("SUBMIT_PRE"));
+	 		bean.setCustomerCode(result.getString("CUSTOMER_CODE"));
+	 		bean.setCustomerName(result.getString("CUSTOMER_NAME"));
+	 		bean.setCustomerRemarks(result.getString("CUSTOMER_REMARKS"));
+	 		bean.setCustomerComment(result.getString("CUSTOMER_COMMENT_DATA"));
+	 		bean.setRemarks(result.getString("REMARKS"));
+	 		bean.setMemo(result.getString("MEMO"));
+	 	}
+	 	
+	 	super.releaseDB(con,stmt,result);
+	 	
+		return bean;
+	}
+	
+	/* 見積商品情報取得 */
+	public List<InitEstimateProductBean> getEstimateProduct(String estimateSheetId) throws ClassNotFoundException, MissingResourceException, SQLException {
+		
+		Connection con;
+	 	Statement stmt=null;
+	 	ResultSet result=null;
+	 	String  sql;
+	 	
+	 	List<InitEstimateProductBean> list = new ArrayList<InitEstimateProductBean>();
+	 	
+	 	con = super.getConnection();
+	 	stmt = con.createStatement();
+	 	
+	 	sql="select " + 
+	 			"LINE_NO, " + 
+	 			"PRODUCT_CODE, " + 
+	 			"PRODUCT_ABSTRACT, " + 
+	 			"QUANTITY, " + 
+	 			"UNIT_COST, " + 
+	 			"COST, " + 
+	 			"UNIT_RETAIL_PRICE, " + 
+	 			"RETAIL_PRICE, " + 
+	 			"REMARKS " + 
+	 		"from estimate_line_trn_xxxxx " + 
+	 		"where ESTIMATE_SHEET_ID = " + estimateSheetId;
+	 	
+	 	result = stmt.executeQuery(sql);
+	 	
+	 	while(result.next()) {
+	 		InitEstimateProductBean bean = new InitEstimateProductBean();
+	 		bean.setLineNo(Integer.parseInt(result.getString("LINE_NO")));
+	 		bean.setProductCode(result.getString("PRODUCT_CODE"));
+	 		bean.setProductAbstract(result.getString("PRODUCT_ABSTRACT"));
+	 		bean.setQuantity(result.getInt("QUANTITY"));
+	 		bean.setUnitCost(result.getInt("UNIT_COST"));
+	 		bean.setCost(result.getInt("COST"));
+	 		bean.setUnitRetailPrice(result.getInt("UNIT_RETAIL_PRICE"));
+	 		bean.setRetailPrice(result.getInt("RETAIL_PRICE"));
+	 		bean.setProductRemarks(result.getString("REMARKS"));
+	 		list.add(bean);
+	 	}
+	 	
+	 	super.releaseDB(con,stmt,result);
+	 	
+		return list;
+	}
+	
+	/* 見積更新 */
 	public int modifyEstimate(EstimateModifyBean bean) throws ClassNotFoundException, MissingResourceException, SQLException {
 		
 		Connection con;
@@ -32,7 +145,7 @@ public class EstimateModifyDAO extends BaseDAO {
 	 	String title			  = bean.getTitle();
 	 	String deliveryName		  = bean.getDeliveryName();
 	 	String estimateCondition  = bean.getEstimateCondition();
-	 	String ctaxRate			  = bean.getCtaxRate();
+	 	double ctaxRate			  = bean.getCtaxRate();
 	 	String submitName		  = bean.getSubmitName();
 	 	String submitPre		  = bean.getSubmitPre();
 	 	String customerCode		  = bean.getCustomerCode();
@@ -44,8 +157,11 @@ public class EstimateModifyDAO extends BaseDAO {
 	 	Integer retailPriceTotal  = bean.getRetailPriceTotal();
 	 	Integer ctaxPriceTotal	  = bean.getCtaxPriceTotal();
 	 	Integer estimateTotal	  = bean.getEstimateTotal();
-	 	String creDate		      = bean.getCreDate();
-	 	String creUser			  = bean.getCreUser();
+	 	String updUser			  = bean.getUpdUser();
+	 	
+	 	//現在時刻の取得
+		LocalDateTime ldt           = LocalDateTime.now();
+		String updDate              = ldt.toString();
 	 	
 	 	//SQL変換
 	 	String estimateSheetIdSQL;
@@ -56,7 +172,6 @@ public class EstimateModifyDAO extends BaseDAO {
 	 	String titleSQL;
 	 	String deliveryNameSQL;
 	 	String estimateConditionSQL;
-	 	String ctaxRateSQL;
 	 	String submitNameSQL;
 	 	String submitPreSQL;
 	 	String customerCodeSQL;
@@ -68,8 +183,8 @@ public class EstimateModifyDAO extends BaseDAO {
 	 	Integer retailPriceTotalSQL;
 	 	Integer ctaxPriceTotalSQL;
 	 	Integer estimateTotalSQL;
-	 	String creDateSQL;
-	 	String creUserSQL;
+	 	String updDateSQL;
+	 	String updUserSQL;
 	 	
 	 	
 	 	//nullの場合の処理
@@ -96,9 +211,6 @@ public class EstimateModifyDAO extends BaseDAO {
 		
 		if(estimateCondition==null || estimateCondition.equals("")) {estimateConditionSQL = null;} 
 		else {estimateConditionSQL = "'" + estimateCondition + "'";}
-		
-		if(ctaxRate==null || ctaxRate.equals("")) {ctaxRateSQL = null;} 
-		else {ctaxRateSQL = "'" + ctaxRate + "'";}
 		
 		if(submitName==null || submitName.equals("")) {submitNameSQL = null;} 
 		else {submitNameSQL = "'" + submitName + "'";}
@@ -133,16 +245,16 @@ public class EstimateModifyDAO extends BaseDAO {
 		if(estimateTotal==null) {estimateTotalSQL = null;} 
 		else {estimateTotalSQL = estimateTotal;}
 		
-		if(creDate==null || creDate.equals("")) {creDateSQL = null;} 
-		else {creDateSQL = "'" + creDate + "'";}
+		if(updDate==null || updDate.equals("")) {updDateSQL = null;} 
+		else {updDateSQL = "'" + updDate + "'";}
 		
-		if(creUser==null || creUser.equals("")) {creUserSQL = null;} 
-		else {creUserSQL = "'" + creUser + "'";}
+		if(updUser==null || updUser.equals("")) {updUserSQL = null;} 
+		else {updUserSQL = "'" + updUser + "'";}
 		
 		con = super.getConnection();
 	 	stmt = con.createStatement();
 	 	
-	 	//見積登録をするSQL
+	 	//見積更新をするSQL
 	 	sql = "update estimate_sheet_trn_xxxxx set " +
 	 		      "ESTIMATE_DATE = " + estimateDateSQL + ", " +
 	 		      "DELIVERY_INFO = " + deliveryInfoSQL + ", " +
@@ -151,7 +263,7 @@ public class EstimateModifyDAO extends BaseDAO {
 	 		      "TITLE = " + titleSQL + ", " +
 	 		      "DELIVERY_NAME = " + deliveryNameSQL + ", " +
 	 		      "ESTIMATE_CONDITION = " + estimateConditionSQL + ", " +
-	 		      "CTAX_RATE = " + ctaxRateSQL + ", " +
+	 		      "CTAX_RATE = " + ctaxRate + ", " +
 	 		      "SUBMIT_NAME = " + submitNameSQL + ", " +
 	 		      "SUBMIT_PRE = " + submitPreSQL + ", " +
 	 		      "CUSTOMER_CODE = " + customerCodeSQL + ", " +
@@ -163,8 +275,8 @@ public class EstimateModifyDAO extends BaseDAO {
 	 		      "RETAIL_PRICE_TOTAL = " + retailPriceTotalSQL + ", " +
 	 		      "CTAX_PRICE_TOTAL = " + ctaxPriceTotalSQL + ", " +
 	 		      "ESTIMATE_TOTAL = " + estimateTotalSQL + ", " +
-	 		      "CRE_DATETM = " + creDateSQL + ", " +
-	 		      "CRE_USER = " + creUserSQL +
+	 		      "CRE_DATETM = " + updDateSQL + ", " +
+	 		      "CRE_USER = " + updUserSQL +
 	 		  "where ESTIMATE_SHEET_ID = " + estimateSheetIdSQL;
 			 	
 		try {
@@ -178,6 +290,61 @@ public class EstimateModifyDAO extends BaseDAO {
 		}
 		
 		return result;
+	}
+	
+	
+	/* 見積削除 */
+	public int deleteEstimate(String estimateSheetId) throws ClassNotFoundException, MissingResourceException, SQLException {
+		Connection con;
+		Statement stmt= null;
+	 	int result=0;
+	 	String  sql;
+	 	
+	 	con = super.getConnection();
+	 	stmt = con.createStatement();
+	 	
+	 	//見積を削除するSQL
+	 	sql = "delete from estimate_sheet_trn_xxxxx where ESTIMATE_SHEET_ID = " + estimateSheetId;	 	
+	 	
+	 	try {
+	 		result = stmt.executeUpdate(sql);
+	 		con.commit();
+	 	} catch (SQLException e) {
+	 		result = 999;
+	 		e.printStackTrace();
+	 	} finally {
+	 		super.releaseDB(con,stmt);
+	 	}
+	 	
+	 	return result;
+	}
+	
+	
+	
+	/* 見積商品情報削除 */
+	public int deleteEstimateProduct(String estimateSheetId) throws ClassNotFoundException, MissingResourceException, SQLException {
+		Connection con;
+		Statement stmt= null;
+	 	int result=0;
+	 	String  sql;
+	 	
+	 	con = super.getConnection();
+	 	stmt = con.createStatement();
+	 	
+	 	//見積商品を削除するSQL
+	 	sql = "delete from estimate_line_trn_xxxxx where ESTIMATE_SHEET_ID = " + estimateSheetId;	 	
+	 	
+	 	try {
+	 		result = stmt.executeUpdate(sql);
+	 		con.commit();
+	 	} catch (SQLException e) {
+	 		result = 999;
+	 		e.printStackTrace();
+	 	} finally {
+	 		super.releaseDB(con,stmt);
+	 	}
+	 	
+	 	return result;
 	}
 
 	 			
