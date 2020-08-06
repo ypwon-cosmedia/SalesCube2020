@@ -55,11 +55,11 @@ public class CommonSQL {
 		return sql;
 	}
 
-
+	//顧客検索モーダル
 	public String customerModalSearch(CustomerModalSearchBean bean) {
 		String sql;
 		
-		sql = "select CUSTOMER_CODE, CUSTOMER_NAME, CUSTOMER_TEL,CUSTOMER_PC_NAME, ctxa.CATEGORY_CODE_NAME as SALES_CM_CATEGORY, ctxb.CATEGORY_CODE_NAME as CUTOFF_GROUP, CUSTOMER_OFFICE_NAME,CUSTOMER_DEPT_NAME from CUSTOMER_MST_XXXXX as cmx " + 
+		sql = "select CUSTOMER_CODE, CUSTOMER_NAME, CUSTOMER_TEL, CUSTOMER_PC_NAME, ctxa.CATEGORY_CODE_NAME as SALES_CM_CATEGORY, ctxb.CATEGORY_CODE_NAME as CUTOFF_GROUP, CUSTOMER_OFFICE_NAME, CUSTOMER_DEPT_NAME from CUSTOMER_MST_XXXXX as cmx " + 
 				"left outer join " +  
 				"(select * " +
 				"from CATEGORY_TRN_XXXXX " +

@@ -95,7 +95,7 @@
        <br><br>
 
        
-       <button type="button" class="btn btn-outline-secondary" data-toggle="modal" data-target="#customerSearch" onclick="initCustomer()">
+       <button type="button" class="btn btn-outline-secondary" data-toggle="modal" data-target="#customerSearch" onclick="initCustomer() ; getCutoffGroup()">
         ↓
         </button>
 
@@ -109,8 +109,12 @@
                             <span aria-hidden="true">&times;</span>
                         </button>
                 </div>
-                 
-                <form action="" method="post" id="customer">
+                
+               <form action="" id="cutoff">
+               	<input type ="hidden" name="categoryId" value="11">
+               </form>
+               
+                <form action="" method="post" id="customer" >
                     <div class="modal-body">
                       <div class="row">
                         <div class="col-4">
@@ -158,13 +162,9 @@
                               <div class="input-group-prepend">
                                 <div class="input-group-text">支払条件</div>
                               </div>
-                              <select class="custom-select" name="cutoffGroup" id="cutoffGroup">
-                                <option selected></option>
-                                <c:forEach items="${cutoffGroup}" var="cutoffGroup">
-                                  <option value="${cutoffGroup.categoryCode}">${cutoffGroup.categoryCodeName}</option>
-                                </c:forEach> 
-                                
-                              </select>
+                              <select id="SelectCutoffGroup" name="cutoffGroup">
+                                                                                              
+                              </select>                              
                             </div>
                         </div>
                       </div>
@@ -206,18 +206,6 @@
                       	</thead>
                       	
                      	 <tbody class="modal-body scroll-table" id="customerResult" >
-                      	 		<c:forEach items="${customerSearch}" var="customer">
-		                        <tr>
-		                          <td style="text-align: left;" ><span class="cursor-pointer" onclick="test(this)" id="customerCode,customerName" data-dismiss="modal">${customer.customerCode}</span></td>
-		                          <td class="customerName" style="text-align: left;">${customer.customerName}</td>
-		                          <td class="customerTEL" style="text-align: left;">${customer.customerTEL}</td>
-		                          <td class="customerPCName" style="text-align: left;">${customer.customerPCName}</td>
-		                          <td class="salesCmCattegory" style="text-align: left;">${customer.salesCmCategory}</td>
-		                          <td class="cutoffGroup" style="text-align: left;">${customer.cutoffGroup}</td>
-		                          <td class="customerOfficeName" style="text-align: left;">${customer.customerOfficeName}</td>
-		                          <td class="customerDeptName" style="text-align: left;">${customer.customerDeptName}</td>
-		                        </tr>
-                      		</c:forEach>
 				  		</tbody>
 				  			
                     	</table>
@@ -251,6 +239,34 @@
             document.getElementById("resultCustomer").setAttribute('hidden','hidden');
     	}
      	
+     	
+     	//支払条件コンボボックス
+     	function getCutoffGroup(){
+     		var formString = $("form[id=cutoff]").serialize();
+			var tmp = "";
+			alert("call")
+			$.ajax({
+				url:'/SalesCube2020/SalesCubeAJAX?action=estimateCategoryGet',
+				type:'post',
+				data:formString,
+				dataType:'json',
+				success:function(data){
+					$("#SelectCutoffGroup").empty();
+					
+					var headcontents = '<option value =""></option>';	
+					$('#SelectCutoffGroup').append(headcontents);
+					
+					for(var i = 0; i<Object.keys(data).length; i++){
+						var headcontents = '<option value ="'+data[i].categoryCode+'">'+data[i].categoryCodeName+'</option>';	
+						$('#SelectCutoffGroup').append(headcontents);
+					}
+					
+				}
+			});
+		}
+     		
+     	
+     	
      	//顧客コード及び顧客名の値をセット
       	function test(obj) {
       	     var customer = obj.id ;
@@ -261,7 +277,7 @@
       	 }
      	
       	function selectCustomerCode(){
-    		var productCode = document.getElementById("customerCode1").innerText;
+    		var customerCode = document.getElementById("customerCode1").innerText;
     		
     		document.getElementById("customerCodeInput").value = customerCode;
     	}

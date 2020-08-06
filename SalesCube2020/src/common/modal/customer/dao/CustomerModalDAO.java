@@ -11,6 +11,7 @@ import common.dao.BaseDAO;
 import common.modal.customer.beans.CustomerModalResultBean;
 import common.modal.customer.beans.CustomerModalSearchBean;
 import common.modal.product.beans.ProductModalSearchBean;
+import estimate.common.beans.CategoryBean;
 import sql.common.CommonSQL;
 
 public class CustomerModalDAO extends BaseDAO {
@@ -51,4 +52,5 @@ public class CustomerModalDAO extends BaseDAO {
 		
 		return list;
 	}
+	
 }
