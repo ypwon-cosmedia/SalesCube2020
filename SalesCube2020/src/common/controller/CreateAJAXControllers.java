@@ -45,6 +45,7 @@ public class CreateAJAXControllers {
 		
 		map.put("estimateCustomerSearch", estimateInputCommonAJAX);
 		map.put("estimateProductSearch", estimateInputCommonAJAX);
+		map.put("confirmEstimateSheetId", estimateInputCommonAJAX);
 		
 		return map;
 	}
