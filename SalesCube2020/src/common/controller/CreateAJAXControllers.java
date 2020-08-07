@@ -36,7 +36,8 @@ public class CreateAJAXControllers {
 		
 		map.put("searchModalSupplier", supplierAJAX);
 		
-		map.put("estimateCfgGet", estimateConfigurationAJAX);
+		map.put("estimateShowCfgGet", estimateConfigurationAJAX);
+		map.put("estimateNotShowCfgGet", estimateConfigurationAJAX);
 		map.put("estimateCfgUpd", estimateConfigurationAJAX);
 		
 		map.put("customerSearch", customerAJAX);
@@ -45,6 +46,7 @@ public class CreateAJAXControllers {
 		
 		map.put("estimateCustomerSearch", estimateInputCommonAJAX);
 		map.put("estimateProductSearch", estimateInputCommonAJAX);
+		map.put("confirmEstimateSheetId", estimateInputCommonAJAX);
 		
 		return map;
 	}

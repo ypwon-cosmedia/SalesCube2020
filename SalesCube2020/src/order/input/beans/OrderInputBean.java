@@ -11,16 +11,16 @@ import java.sql.Date;
 
 public class OrderInputBean {
 	/* 受注番号 */
-	private Integer roSlipId;
+	private String roSlipId;
 
 	/* 受注日 */
-	private Date roDate;
+	private String roDate;
 	
 	/* 出荷日 */
-	private Date shipDate;
+	private String shipDate;
 	
 	/* 納期指定日 */
-	private Date deliveryDate;
+	private String deliveryDate;
 	
 	/* 受付番号 */
 	private String receptNo;
@@ -113,19 +113,19 @@ public class OrderInputBean {
 	private String rackCode;
 	
 	/* 数量 */
-	private Integer quantity;
+	private String quantity;
 	
 	/* 仕入単価 */
-	private Integer unitCost;
+	private String unitCost;
 	
 	/* 仕入金額 */
-	private Integer cost;
+	private String cost;
 	
 	/* 売上単価 */
-	private Integer unitRetailPrice;
+	private String unitRetailPrice;
 	
 	/* 売価金額 */
-	private Integer retailPrice;
+	private String retailPrice;
 	
 	/* 備考 */
 	private String inputProductRemarks;
@@ -143,7 +143,7 @@ public class OrderInputBean {
 	private String retailPriceTotal;
 	
 	/* 消費税 */
-	private Integer ctaxPriceTotal;
+	private String ctaxPriceTotal;
 	
 	/* 伝票合計 */
 	private String priceTotal;
@@ -170,35 +170,35 @@ public class OrderInputBean {
 		this.categoryCodeName = categoryCodeName;
 	}
 
-	public Integer getRoSlipId() {
+	public String getRoSlipId() {
 		return roSlipId;
 	}
 
-	public void setRoSlipId(Integer roSlipId) {
+	public void setRoSlipId(String roSlipId) {
 		this.roSlipId = roSlipId;
 	}
 
-	public Date getRoDate() {
+	public String getRoDate() {
 		return roDate;
 	}
 
-	public void setRoDate(Date roDate) {
-		this.roDate = roDate;
+	public void setRoDate(String roDate2) {
+		this.roDate = roDate2;
 	}
 
-	public Date getShipDate() {
+	public String getShipDate() {
 		return shipDate;
 	}
 
-	public void setShipDate(Date shipDate) {
+	public void setShipDate(String shipDate) {
 		this.shipDate = shipDate;
 	}
 
-	public Date getDeliveryDate() {
+	public String getDeliveryDate() {
 		return deliveryDate;
 	}
 
-	public void setDeliveryDate(Date deliveryDate) {
+	public void setDeliveryDate(String deliveryDate) {
 		this.deliveryDate = deliveryDate;
 	}
 
@@ -442,43 +442,43 @@ public class OrderInputBean {
 		this.rackCode = rackCode;
 	}
 
-	public Integer getQuantity() {
+	public String getQuantity() {
 		return quantity;
 	}
 
-	public void setQuantity(Integer quantity) {
+	public void setQuantity(String quantity) {
 		this.quantity = quantity;
 	}
 
-	public Integer getUnitCost() {
+	public String getUnitCost() {
 		return unitCost;
 	}
 
-	public void setUnitCost(Integer unitCost) {
+	public void setUnitCost(String unitCost) {
 		this.unitCost = unitCost;
 	}
 
-	public Integer getCost() {
+	public String getCost() {
 		return cost;
 	}
 
-	public void setCost(Integer cost) {
+	public void setCost(String cost) {
 		this.cost = cost;
 	}
 
-	public Integer getUnitRetailPrice() {
+	public String getUnitRetailPrice() {
 		return unitRetailPrice;
 	}
 
-	public void setUnitRetailPrice(Integer unitRetailPrice) {
+	public void setUnitRetailPrice(String unitRetailPrice) {
 		this.unitRetailPrice = unitRetailPrice;
 	}
 
-	public Integer getRetailPrice() {
+	public String getRetailPrice() {
 		return retailPrice;
 	}
 
-	public void setRetailPrice(Integer retailPrice) {
+	public void setRetailPrice(String retailPrice) {
 		this.retailPrice = retailPrice;
 	}
 
@@ -522,11 +522,11 @@ public class OrderInputBean {
 		this.retailPriceTotal = retailPriceTotal;
 	}
 
-	public Integer getCtaxPriceTotal() {
+	public String getCtaxPriceTotal() {
 		return ctaxPriceTotal;
 	}
 
-	public void setCtaxPriceTotal(Integer ctaxPriceTotal) {
+	public void setCtaxPriceTotal(String ctaxPriceTotal) {
 		this.ctaxPriceTotal = ctaxPriceTotal;
 	}
 

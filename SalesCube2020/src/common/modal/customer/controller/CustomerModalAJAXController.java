@@ -20,6 +20,8 @@ import common.controller.BaseController;
 import common.modal.customer.beans.CustomerModalResultBean;
 import common.modal.customer.beans.CustomerModalSearchBean;
 import common.modal.customer.dao.CustomerModalDAO;
+import estimate.common.beans.CategoryBean;
+import estimate.common.dao.CategoryDAO;
 
 public class CustomerModalAJAXController extends BaseAJAXController {
 	
@@ -28,8 +30,9 @@ public class CustomerModalAJAXController extends BaseAJAXController {
 			String action = request.getParameter("action");
 			
 			if(action.equals("customerSearch")) customerSearch(request,response);
-			
+
 		}
+		
 		
 		private void customerSearch(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 			
@@ -39,6 +42,8 @@ public class CustomerModalAJAXController extends BaseAJAXController {
 			bean.setCustomerName(request.getParameter("customerName"));
 			bean.setCustomerKana(request.getParameter("customerKana"));
 			bean.setCutoffGroup(request.getParameter("cutoffGroup"));
+			//System.out.println(request.getParameter("cutoffGroup"));
+			//System.out.println(request.getParameter("customerCode"));
 			
 			List<CustomerModalResultBean> list = new ArrayList<>();
 			Gson gson = new Gson();
@@ -54,5 +59,7 @@ public class CustomerModalAJAXController extends BaseAJAXController {
 				e.printStackTrace();
 			}
 		}
+		
+
 	
 }

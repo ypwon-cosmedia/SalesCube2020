@@ -74,6 +74,14 @@
 			</div><br><br><br>
 		</div><br>
 
+		<!-- 登録・更新 完了/エラー メッセージ -->
+		<div style="width:100%; text-align:center; margin-bottom:20px;">
+				 <span class="action_errors" style="color: red">${inputErr}</span>
+				 <span class="action_errors" style="color: red">${inputCmp}</span>
+				 <span class="action_errors" style="color: red">${updateErr}</span>
+				 <span class="action_errors" style="color: red">${updateCmp}</span>
+       </div>
+	
 		<form method="post">
 			<!-- 受注伝票情報 -->
 			<div class="container" style="background-color: white;"><div class="panel panel-default">
@@ -303,8 +311,8 @@
 								</div>
 								<select class="custom-select" name="">
 									<option value=""></option>
-									<c:forEach items="" >
-										<option value="">{}</option>
+									<c:forEach items="${deliveryInfo}" var="del">
+										<option value="${del.}">${}</option>
 									</c:forEach>
 								</select>
 							</div>
@@ -970,94 +978,6 @@
 							<button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
 						</div>
 					</div>
-				</div>
-			</div>
-		</div>
-
-		<!-- modal page (suppliersearch)-->
-		<div class="modal fade" id="openSearchSupplier" tabindex="-1" role="dialog" aria-labelledby="label1" aria-hidden="true">
-			<div class="modal-dialog modal-lg" role="document">
-				<div class="modal-content">
-					<div class="modal-header">
-						<h5 class="modal-title" id="label1">仕入先検索</h5>
-						<button type="button" class="close" data-dismiss="modal" aria-label="Close">
-							<span aria-hidden="true">&times;</span>
-						</button>
-					</div>
-
-					<div class="modal-body">
-						<!-- 検索部 -->
-						<div class="row">
-							<div class="col-5">
-								<div class="input-group mb-2">
-									<div class="input-group-prepend">
-										<div class="input-group-text">仕入先コード</div>
-									</div>
-									<input type="text" class="form-control" id="">
-								</div>
-							</div>
-						</div>
-							
-						<div class="row">
-							<div class="col-5">
-								<div class="input-group mb-2">
-									<div class="input-group-prepend">
-										<div class="input-group-text">仕入先名</div>
-									</div>
-									<input type="text"  class="form-control" id="">
-								</div>
-							</div>
-							<div class="col-6">
-								<div class="input-group mb-2">
-									<div class="input-group-prepend">
-										<div class="input-group-text">仕入先カナ</div>
-									</div>
-									<input type="text"  class="form-control" id="">
-								</div>
-							</div>
-						</div>
-							
-						<div class="row float-right">
-							<button class="btn btn-secondary">初期化</button>&emsp;
-							<button class="btn btn-secondary">検索</button>&emsp;
-						</div>
-						<br><br>
-						<!-- テーブル部（検索結果） -->
-						検索結果件数：2件<br>
-
-						<table class="table table-bordered">
-							<!-- ヘッダ部 -->
-							<thead class="thead-dark">
-								<tr>
-									<th>仕入先コード</th>
-									<th>仕入先名</th>
-									<th>担当者</th>
-									<th>取引区分</th>
-									<th>備考</th>
-								</tr>
-							</thead>
-							<!-- 内部 -->
-							<tr>
-								<td class="cursor-pointer" id="supplierCode1" onclick="selectSupplierCode()" data-dismiss="modal"><a href="">1</a></td>
-								<td id="supplierName1" onclick="selectSupplierCode()" data-dismiss="modal"><a href="">アンパンマン食品</a></td>
-								<td>ジャムおじさん</td>
-								<td>現金</td>
-								<td>アンパンマンのことならお任せしたかったよ</td>
-							</tr>
-							<tr>
-								<td class="cursor-pointer">10</td>
-								<td>とことこ寝具</td>
-								<td>寝巻</td>
-								<td>サンプル</td>
-								<td>ふかふかお布団</td>
-							</tr>
-						</table>
-					</div>
-
-					<div class="modal-footer">
-						<button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-					</div>
-
 				</div>
 			</div>
 		</div>
