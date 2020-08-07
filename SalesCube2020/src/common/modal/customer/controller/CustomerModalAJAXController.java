@@ -60,6 +60,5 @@ public class CustomerModalAJAXController extends BaseAJAXController {
 			}
 		}
 		
-
 	
 }
