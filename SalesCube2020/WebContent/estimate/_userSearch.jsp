@@ -97,6 +97,9 @@
         ↓
         </button>
 		
+		<input type="text" id="UserModalUserId" name="UserModalUserId" placeholder="担当者コード" value="">
+        <input type="text" id="UserModalNameKnj" name="UserModalNameKnj" placeholder="担当者名" value="">
+        
 		<div class="modal fade" id="userSearch" tabindex="-1" role="dialog" aria-labelledby="label1" aria-hidden="true">
         <div class="modal-dialog modal-lg" role="document">
             <div class="modal-content">
@@ -107,8 +110,19 @@
                             <span aria-hidden="true">&times;</span>
                         </button>
                 </div>
-                 
-                <form action="" method="post">
+                
+                <!-- 検索部エラーメッセージ表示 -->
+                <div id="userSearchError"></div>
+                
+                <form action="" id="dept">
+               	<input type ="hidden" name="deptId" value="">
+               </form>
+               
+               <form action="" id="role">
+               	<input type ="hidden" name="roleId" value="">
+               </form>
+                
+                <form action="" method="post" id="user">
                     <div class="modal-body">
                       <div class="row">
                         <div class="col-4">
@@ -142,7 +156,7 @@
                             <div class="input-group-prepend">
                                 <div class="input-group-text">担当者カナ</div>
                             </div>
-                            <input type="text"  class="form-control" id="nameKane" name="nameKana">
+                            <input type="text"  class="form-control" id="nameKana" name="nameKana">
                           </div>
                         </div>
                       </div>
@@ -156,11 +170,8 @@
                               <div class="input-group-prepend">
                                 <div class="input-group-text">部門</div>
                               </div>
-                              <select class="custom-select" name="deptId" id="deptId" >
-                                <option selected></option>
-                                <c:forEach items="${deptIdList}" var="deptIdList">
-                                  <option value="${deptIdList.deptId}">${deptIdList.name}</option>
-                                </c:forEach>
+                              <select class="custom-select" name="deptId" id="SelectDeptId" >
+                                
                               </select>
                             </div>
                         </div>
@@ -171,11 +182,8 @@
                               <div class="input-group-prepend">
                                 <div class="input-group-text">権限</div>
                               </div>
-                              <select class="custom-select" name="roleId">
-                                <option selected></option>
-                                <c:forEach items="${roleIdList}" var="roleIdList">
-                                  <option value="${roleIdList.roleId}">${roleIdlist.name}</option>              
-                                </c:forEach>
+                              <select class="custom-select" name="roleId" id="SelectRoleId">
+                                
                               </select>
                             </div>
                         </div>
@@ -185,18 +193,18 @@
 
                     <div class="rounded float-right">
                       <button type="button" class="btn btn-primary" onclick="initUser()">初期化</button>&ensp;
-                      <input type="button" value="検索" class="btn btn-primary" onclick="userSearch()">&ensp;
+                      <input type="button" value="検索" class="btn btn-primary" onclick="userSearch1()">&ensp;
                     </div>
                     <br>
                     <br>
                 </form>
 
 
-                <div id="resultUser" hidden>
-                  <div class="modal-body">
-                    <div class="float-left" style="position:static; left: 0px;">
-                     		検索結果件数： <span id="userSearchResultCount">0</span>件 
-                    </div>
+                <div id="resultCustomer" hidden="hidden">
+                    <div class="modal-body">
+                      <div class="float-left" style="position:static; left: 0px;">
+                        	  <span id="userSearchResultCount"></span>
+                      </div>
                     <br>
                   </div>
 
@@ -211,15 +219,8 @@
                         </tr>
                       </thead>
                       
-                      <tbody class="modal-body scroll-table" id="userResult">
-                        <c:forEach items="${userSearch}" var="user">
-                          <tr>
-                            <td style="text-align: left;"><span class="cursor-pointer" onclick="test(this)" id="customerCode,customerName" data-dismiss="modal">${user.userId}</span></td>>
-                            <td style="text-align: left; ">${user.nameKnj}</td>
-                            <td style="text-align: left; ">${user.deptId}</td>
-                          </tr>
-                        </c:forEach>
-                      </tbody>
+                      	<tbody class="modal-body scroll-table" id="userResult" >
+				  		</tbody>
                       
                     </table>
                     <br>
@@ -246,26 +247,70 @@
              $("[name='roleId']").val("");	
              //テーブルの非表示
              document.getElementById("resultUser").setAttribute('hidden','hidden');
+             
+           //エラーメッセージの削除
+             $("#userSearchError").empty();
      	}
-      	
-      	function test(obj) {
-     	     var user = obj.id ;
-     	     var list = user.split(",");
-
-     	      document.getElementById("userId").value = list[0];
-     	      document.getElementById("nameKnj").value = list[1];
-     	 }
-    	
-     	function selectCustomerCode(){
-   		var userId = document.getElementById("userId1").innerText;
-   		
-   		document.getElementById("customerCodeInput").value = customerCode;
-   		}
       
-function userSearch() {
-			
-			$('#resultUser').removeAttr('hidden');	//検索結果表示
-			
+      	//部門コンボボックス
+     	function getCutoffGroup(){
+     		var formString = $("form[id=dept]").serialize();
+			var tmp = "";
+			alert("call")
+			$.ajax({
+				url:'/SalesCube2020/SalesCubeAJAX?action=estimateCategoryGet',
+				type:'post',
+				data:formString,
+				dataType:'json',
+				success:function(data){
+					$("#SelectDeptId").empty();
+					
+					var headcontents = '<option value =""></option>';	
+					$('#SelectDeptId').append(headcontents);
+					
+					for(var i = 0; i<Object.keys(data).length; i++){
+						var headcontents = '<option value ="'+data[i].deptId+'">'+data[i].name+'</option>';	
+						$('#SelectDeptId').append(headcontents);
+					}
+					
+				}
+			});
+		}
+      	
+     	//権限コンボボックス
+     	function getCutoffGroup(){
+     		var formString = $("form[id=role]").serialize();
+			var tmp = "";
+			alert("call")
+			$.ajax({
+				url:'/SalesCube2020/SalesCubeAJAX?action=estimateCategoryGet',
+				type:'post',
+				data:formString,
+				dataType:'json',
+				success:function(data){
+					$("#SelectRoleId").empty();
+					
+					var headcontents = '<option value =""></option>';	
+					$('#SelectRoleId').append(headcontents);
+					
+					for(var i = 0; i<Object.keys(data).length; i++){
+						var headcontents = '<option value ="'+data[i].roleId+'">'+data[i].name+'</option>';	
+						$('#SelectRoleId').append(headcontents);
+					}
+					
+				}
+			});
+		}
+     	
+     	
+     	//担当者コード及び担当者名の値をセット。※親画面で書くコード
+     	function selectCustomerCode(code, name){
+      		document.getElementById('UserModalUserId').value = code;
+      		document.getElementById('UserModalNameKnj').value = name;
+      	}
+      	    	
+      
+		function userSearch1() {
 			var formString = $("form[id=user]").serialize();
 			var tmp = "";
 			
@@ -276,23 +321,40 @@ function userSearch() {
 				data:formString,
 				dataType:'json',
 				success:function(data){	
+					document.getElementById("resultUser").removeAttribute('hidden');//テーブルの表示
 					$("#userResult > tr").remove();
-					for(var i = 0; i<Object.keys(data).length; i++){
-						var headcontents= '';
-						headcontents += '<tr>';
-						headcontents += '<td style="white-space: normal; text-align: left;" onclick="selectUserId()" data-dismiss="modal" id="userId1"><a href="">'+data[i].userId+'</a></td>';
-						headcontents += '<td style="white-space: normal; text-align: left;">'+data[i].nameKnj+'</td>';
-						headcontents += '<td style="white-space: normal; text-align: left;">'+data[i].deptId+'</td>';  
-
-						headcontents += '</tr>';
-						$('#userResult').append(headcontents);						
+						var tableAdd = document.getElementById('userResult');
+					
+					if(Object.keys(data).length == 0){
+						var message = '<p style="color: red;">該当する担当者情報は存在しません</p>';
+     		 			$("#userSearchError").empty();//エラーメッセージの削除
+     		 			$("#userSearchError").append(message);	//エラーメッセージの表示
+     		 			document.getElementById("resultUser").setAttribute('hidden','hidden');
+     		 		//検索結果がある場合
+     		 		}else{
+     		 		//エラーメッセージ
+     		 			$("#userSearchError").empty();//エラーメッセージの削除
+     		 		//険悪結果件数の設定
+     		 			$("#userSearchResultCount").empty();
+     		 			$('#userSearchResultCount').append('検索結果件数：' + Object.keys(data).length + '件');	//検索結果件数の設定の表示
+     		 			
+     		 																	
+						for(var i = 0; i<Object.keys(data).length; i++){
+							var headcontents= '';
+							headcontents += '<tr>';
+							headcontents += '<td style="white-space: normal; text-align: left;" onclick="selectCustomerCode('+data[i].userId+",'"+data[i].nameKnj+"'"+')" data-dismiss="modal" ><a href="">'+data[i].userId+'</a></td>';
+							headcontents += '<td style="white-space: normal; text-align: left;">'+data[i].nameKnj+'</td>';
+							headcontents += '<td style="white-space: normal; text-align: left;">'+data[i].deptId+'</td>';  							
+							headcontents += '</tr>';
+							$('#customerResult').append(headcontents);						
+						}
+						
 					}
-					$('#userSearchResultCount').text(+Object.keys(data).length);
 				}
 			});
 		}
      	
       </script>  
-		
-</body>
+      
+	</body>
 </html>

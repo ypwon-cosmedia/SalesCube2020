@@ -40,10 +40,12 @@ public class OrderMoveController extends BaseController{
 	private String moveOrderInput (HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException, ClassNotFoundException, SQLException {
 		
 		OrderInputDAO dao = new OrderInputDAO();
+		ProductModalInit init = new ProductModalInit();
 
 		List<OrderInputBean> list1 = dao.getDcName();
 		List<OrderInputBean> list2 = dao.getDcTimezone();
 		List<OrderInputBean> list3 = dao.getTaxRate();
+		init.initCombobox(request, response);
 
 		request.setAttribute("initDcName", list1);
 		request.setAttribute("initDcTimezone", list2);
@@ -54,6 +56,9 @@ public class OrderMoveController extends BaseController{
 	}
 	
 	private String moveOrderUpdate (HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		
+		ProductModalInit init = new ProductModalInit();
+		init.initCombobox(request, response);
 		
 		return "order\\orderupdate.jsp";
 	}
