@@ -204,6 +204,8 @@
  	            		 			var message = '<p style="color: red;">該当する仕入れ先情報は存在しません</p>';
  	            		 			$("#supplierSearchError").empty();//エラーメッセージの削除
  	            		 			$("#supplierSearchError").append(message);	//エラーメッセージの表示
+ 	            		 		
+ 	                               document.getElementById("serchResult").setAttribute('hidden','hidden');//テーブルの非表示
  	            		 		//検索結果がある場合
  	            		 		}else{
  	            		 			//エラーメッセージ
