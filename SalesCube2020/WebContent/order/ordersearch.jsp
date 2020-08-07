@@ -388,7 +388,7 @@
 		</tbody>
 	</table>
 </div>
-
+<%@ include file= "../common/productSearch.jsp" %>
 <!-- modal page (customersearch)-->
 <div class="modal fade" id="setQuotationCondition" tabindex="-1" role="dialog" aria-labelledby="label1" aria-hidden="true" data-backdrop="static">
 	<div class="modal-dialog modal-lg" role="document">
@@ -526,156 +526,6 @@
 			</div>
 		</div>
 	</div>
-</div>
-
-<!-- modal page (productsearch)-->
-<div class="modal fade" id="setproductsearch" tabindex="-1" role="dialog" aria-labelledby="label1" aria-hidden="true">
-	<div class="modal-dialog modal-lg" role="document">
-		<div class="modal-content">
-			
-			<div class="modal-header">
-				<h5 class="modal-title" id="label1">商品検索</h5>
-					<button type="button" class="close" data-dismiss="modal" aria-label="Close">
-						<span aria-hidden="true">&times;</span>
-					</button>
-			</div>
-			 
-			<form action="" method="post" id="product">
-				<div class="modal-body">
-				  <div class="row">
-					<div class="col-4">
-					  <label class="sr-only" for="inlineFormInputGroup"></label>
-					  <div class="input-group mb-2">
-						<div class="input-group-prepend">
-							<div class="input-group-text">商品コード</div>
-						</div>
-						<input type="text"  class="form-control" id="productCode" name="productCode">
-					  </div>
-					</div>
-					<div class="col-4">
-					  <label class="sr-only" for="inlineFormInputGroup"></label>
-					  <div class="input-group mb-2">
-						<div class="input-group-prepend">
-							<div class="input-group-text">仕入先商品コード</div>
-						</div>
-						<input type="text"  class="form-control" id="supllierPcode" name="supllierPcode">
-					  </div>
-					</div>
-					<div class="col-4">
-					  <label class="sr-only" for="inlineFormInputGroup"></label>
-					  <div class="input-group mb-2">
-						<div class="input-group-prepend">
-							<div class="input-group-text">JANコード</div>
-						</div>
-						<input type="text"  class="form-control" id="janPcode" name="janPcode">
-					  </div>
-					</div>
-				  </div>
-
-				  <div class="row">
-					<div class="col-4">
-						<label class="sr-only" for="inlineFormInputGroup"></label>
-						<div class="input-group mb-2">
-						  <div class="input-group-prepend">
-							<div class="input-group-text">セット分類</div>
-						  </div>
-						  <select class="custom-select" id="setTypeCategory" name="setTypeCategory">
-							<option selected></option>
-							<c:forEach var="options" items="${setProduct}">
-								<option value = "${options.categoryCode}">${options.categoryCodeName}</option>
-							</c:forEach>
-							  
-						  </select>
-						</div>
-					</div>
-
-					<div class="col-4">
-					  <label class="sr-only" for="inlineFormInputGroup">productStockCategory</label>
-						<div class="input-group mb-2">
-						  <div class="input-group-prepend">
-							<div class="input-group-text">標準化分類</div>
-						  </div>
-						  <select class="custom-select" id="productStandardCategory"name="productStandardCategory">
-							<option selected></option> 
-							<c:forEach var="options" items="${standard}">
-							  <option value = "${options.categoryCode}">${options.categoryCodeName}</option>
-							</c:forEach>
-						  </select>
-						</div>
-					</div>
-
-					<div class="col-4">
-						<label class="sr-only" for="inlineFormInputGroup">productStockCategory</label>
-						  <div class="input-group mb-2">
-							<div class="input-group-prepend">
-							  <div class="input-group-text">分類状況</div>
-							</div>
-							<select class="custom-select" id="productStatusCategory" name="productStatusCategory">
-							  <option selected></option>
-							  <c:forEach var="options" items="${classStatus}">
-							    <option value = "${options.categoryCode}">${options.categoryCodeName}</option>
-							  </c:forEach>
-							</select>
-						  </div>
-						</div>
-				  </div>
-
-				  <div class="row">
-					<div class="col-6">
-					  <label class="sr-only" for="inlineFormInputGroup"></label>
-					  <div class="input-group mb-2">
-						<div class="input-group-prepend">
-							<div class="input-group-text">商品名</div>
-						</div>
-						<input type="text"  class="form-control" id="productName" name="productName">
-					  </div>
-					</div>
-					<div class="col-6">
-					  <label class="sr-only" for="inlineFormInputGroup"></label>
-					  <div class="input-group mb-2">
-						<div class="input-group-prepend">
-							<div class="input-group-text">商品名カナ</div>
-						</div>
-						<input type="text"  class="form-control" id="productKana" name="productKana">
-					  </div>
-					</div>
-				  </div>
-				</div>
-				<br>
-
-				<div class="rounded float-right">
-				  <button type="button" class="btn btn-outline-secondary" onclick="initproductModal();">初期化</button>&ensp;
-				  <button type="button" class="btn btn-outline-secondary" onclick="productSearch();">検索</button>&ensp;
-				</div>
-			  </form>
-
-			  <div class="modal-body">
-				<div class="float-left" style="position:static; left: 0px;">
-				  検索結果件数：<span id="productSearchResultCount">0</span>件
-				</div>
-			  </div>
-
-			  <div class="modal-body" style="background-color: rgb(255, 255, 255);">
-				<table id="order_detail_info" class="table table-bordered">
-				  <thead class="thead-dark">
-					<tr>
-					  <th scope="col" class="rd_top_left th_back_black" style="cursor: pointer; height: 30px;" onclick="sort('productCode');">商品コード</th>
-					  <th scope="col" class="th_back_black" style="cursor: pointer; height: 30px;" onclick="sort('productName');">商品名</th>
-					  <th scope="col" class="th_back_black" style="cursor: pointer; height: 30px;" onclick="sort('supplierName');">仕入先名</th> 
-					</tr>
-				  </thead>
-				  <tbody id="productResult">
-				  </tbody>
-				</table>
-				<br>
-
-			<div class="modal-footer">
-				<button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-			</div>
-
-		</div>
-	</div>
-</div>
 </div>
 
 <!-- modal page (suppliersearch)-->
@@ -980,19 +830,13 @@
 		
 	}
 
-	function selectProductCode(obj){
-		
-		var productCode = obj.innerText;
+	function selectProductModal(code, name){
 
-		document.getElementById("productCodeInput").value = productCode;
+		document.getElementById("productCodeInput").value = code;
+		document.getElementById("productNameInput").value = name;
 	}
 	
-	function selectProductName(obj){
-		
-		var productName = obj.innerText;
 
-		document.getElementById("productNameInput").value = productName;
-	}
 
 	function selectSupplierCode(){
 		var supplierCode = document.getElementById("supplierCode1").innerText;
@@ -1290,38 +1134,8 @@
 		    var temp = "${Category2}"; 
 		    $("#product2").val(temp);
 		});
+				
 		
-		function productSearch() {
-			
-			var formString = $("form[id=product]").serialize();
-			var tmp = "";
-			
-			$.ajax({
-				url:'/SalesCube2020/SalesCubeAJAX?action=productSearch',
-				type:'post',
-				data:formString,
-				dataType:'json',
-				success:function(data){	
-					$("#productResult > tr").remove();
-					for(var i = 0; i<Object.keys(data).length; i++){
-						var headcontents= '';
-						headcontents += '<tr>';
-						headcontents += '<td style="white-space: normal; text-align: left;" onclick="selectProductCode(this)" data-dismiss="modal"><a href="">'+data[i].productCode+'</a></td>';
-						headcontents += '<td style="white-space: normal; text-align: left;" onclick="selectProductName(this)" data-dismiss="modal"><a href="">'+data[i].productName+'</a></td>';
-						headcontents += '<td style="white-space: normal; text-align: left;">'+(data[i].supplierName==null ? '' : data[i].supplierName)+'</td>';   
-						headcontents += '</tr>';
-						$('#productResult').append(headcontents);						
-					}
-					$('#productSearchResultCount').text(+Object.keys(data).length);
-				}
-			});
-		}
-		
-		function initproductModal(){
-			$("#productResult > tr").remove();
-			$('#productSearchResultCount').text("0");
-			$("#product")[0].reset(); 
-		}
 		
 		function search(){
 			var selArr = [];
@@ -1381,7 +1195,6 @@
 		
 		class ToCSV {
 		    constructor() {
-		        // CSV 버튼에 이벤트 등록
 		        document.querySelector('#csvDownloadButton').addEventListener('click', e => {
 		            e.preventDefault()
 		            this.getCSV('mycsv.csv')
@@ -1395,30 +1208,23 @@
 		        const BOM = "\uFEFF";
 		        csv = BOM + csv
 
-		        // CSV 파일을 위한 Blob 만들기
 		        csvFile = new Blob([csv], {type: "text/csv"})
 
-		        // Download link를 위한 a 엘리먼스 생성
 		        downloadLink = document.createElement("a")
 
-		        // 다운받을 csv 파일 이름 지정하기
 		        downloadLink.download = filename;
 
-		        // 위에서 만든 blob과 링크를 연결
 		        downloadLink.href = window.URL.createObjectURL(csvFile)
 
-		        // 링크가 눈에 보일 필요는 없으니 숨겨줍시다.
 		        downloadLink.style.display = "none"
 
-		        // HTML 가장 아래 부분에 링크를 붙여줍시다.
 		        document.body.appendChild(downloadLink)
 
-		        // 클릭 이벤트를 발생시켜 실제로 브라우저가 '다운로드'하도록 만들어줍시다.
 		        downloadLink.click()
 		    }
 
 		    getCSV(filename) {
-		        // csv를 담기 위한 빈 Array를 만듭시다.
+
 
 		        var csv = []
 		        var rows = document.querySelectorAll("#AddHead > tr")
@@ -1443,7 +1249,6 @@
 		            csv.push(row.join(","))
 		        }
 		        
-		        // Download CSV
 		        this.downloadCSV(csv.join("\n"), filename)
 		    }
 		}
