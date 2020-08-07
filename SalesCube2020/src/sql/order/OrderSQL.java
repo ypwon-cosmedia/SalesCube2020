@@ -583,6 +583,29 @@ public class OrderSQL {
 		
 	}
 	
+	/* 顧客納入先コンボボックス */
+	public String initDeliveryName(String customerCode) {
+		
+		String sql;
+		
+		sql = "SELECT " + 
+				"DELIVERY_NAME " + 
+			"FROM " + 
+				"delivery_mst_xxxxx AS dmx " + 
+				"LEFT OUTER JOIN " + 
+					"(SELECT * FROM customer_rel_xxxxx WHERE CUST_REL_CATEGORY='01') AS crx " + 
+				"ON " + 
+					"dmx.DELIVERY_CODE=crx.REL_CODE " + 
+				"LEFT OUTER JOIN " + 
+					"customer_mst_xxxxx " + 
+				"USING(CUSTOMER_CODE) " + 
+			"WHERE " + 
+				"CUSTOMER_CODE='" + customerCode + "'";
+		
+		return sql;
+		
+	}
+	
 	/* 受注削除 */
 	public String deleteOrderInfo(String roSlipId) {
 		
@@ -799,30 +822,7 @@ public class OrderSQL {
 		return sql;
 		
 	}
-	
-	/* 顧客納入先コンボボックス */
-	public String initDeliveryName(String customerCode) {
 		
-		String sql;
-		
-		sql = "SELECT " + 
-				"DELIVERY_NAME " + 
-			"FROM " + 
-				"delivery_mst_xxxxx AS dmx " + 
-				"LEFT OUTER JOIN " + 
-					"(SELECT * FROM customer_rel_xxxxx WHERE CUST_REL_CATEGORY='01') AS crx " + 
-				"ON " + 
-					"dmx.DELIVERY_CODE=crx.REL_CODE " + 
-				"LEFT OUTER JOIN " + 
-					"customer_mst_xxxxx " + 
-				"USING(CUSTOMER_CODE) " + 
-			"WHERE " + 
-				"CUSTOMER_CODE='" + customerCode + "'";
-		
-		return sql;
-		
-	}
-	
 	/* 配送業者コンボボックス */
 	public String initDcName() {
 		
