@@ -46,9 +46,11 @@
 	</div>
 	<!-- Optional JavaScript -->
     <!-- jQuery first, then Popper.js, then Bootstrap JS -->
-    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+	<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery.tablesorter/2.31.0/js/jquery.tablesorter.min.js"></script>
     <%@ include file= "../common/menubar.jsp" %>
 	<br>
 
@@ -61,7 +63,7 @@
         <div class="btn-group mr-2 " role="group" aria-label="First group">
           <button type="button" class="btn btn-secondary" style="font-size: 12px;" onclick="initPage();">F1<br>初期化</button>
           <button type="button" class="btn btn-secondary" style="font-size: 12px;" onclick="submitForm();">F2<br>検索</button>
-          <button type="button" class="btn btn-secondary" style="font-size: 12px;" onclick="excelOut();">F3<br>Excel出力<br></button>
+          <button type="button" class="btn btn-secondary" style="font-size: 12px;" id="csvDownloadButton">F3<br>Excel出力<br></button>
           <button type="button" class="btn btn-secondary" style="font-size: 12px;" data-toggle="modal" data-target="#setSlipConfiguration">F4<br>設定<br></button>
           <button type="button" class="btn btn-secondary" style="font-size: 12px;">F5<br></button>
           <button type="button" class="btn btn-secondary" style="font-size: 12px;">F6<br></button>
@@ -854,7 +856,8 @@
 	</div>
 </div>
 
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.2/jquery.min.js"></script>
+
+
 <script>
 	var unselectedArr = [];
 	var selectedArr = [];
@@ -882,6 +885,9 @@
 
 	$(document).ready(function(){
 		var loop=0;
+		
+		$('#order_detail_info').tablesorter();
+		
 		<c:forEach var="test" items="${configDetailShow}">
 		detailSelectedArr[loop] = {
 				    value:"${test.categoryCode}",
@@ -1225,10 +1231,10 @@
 				objSel.add(objOption);
 			}
 		}
+		
+		
 	}
 
-	
-	
 		//カテゴリー
 		function selectPro1(){
 	
@@ -1372,7 +1378,79 @@
 				}
 			});
 		}
+		
+		class ToCSV {
+		    constructor() {
+		        // CSV 버튼에 이벤트 등록
+		        document.querySelector('#csvDownloadButton').addEventListener('click', e => {
+		            e.preventDefault()
+		            this.getCSV('mycsv.csv')
+		        })
+		    }
 
+		    downloadCSV(csv, filename) {
+		        let csvFile;
+		        let downloadLink;
+		        
+		        const BOM = "\uFEFF";
+		        csv = BOM + csv
+
+		        // CSV 파일을 위한 Blob 만들기
+		        csvFile = new Blob([csv], {type: "text/csv"})
+
+		        // Download link를 위한 a 엘리먼스 생성
+		        downloadLink = document.createElement("a")
+
+		        // 다운받을 csv 파일 이름 지정하기
+		        downloadLink.download = filename;
+
+		        // 위에서 만든 blob과 링크를 연결
+		        downloadLink.href = window.URL.createObjectURL(csvFile)
+
+		        // 링크가 눈에 보일 필요는 없으니 숨겨줍시다.
+		        downloadLink.style.display = "none"
+
+		        // HTML 가장 아래 부분에 링크를 붙여줍시다.
+		        document.body.appendChild(downloadLink)
+
+		        // 클릭 이벤트를 발생시켜 실제로 브라우저가 '다운로드'하도록 만들어줍시다.
+		        downloadLink.click()
+		    }
+
+		    getCSV(filename) {
+		        // csv를 담기 위한 빈 Array를 만듭시다.
+
+		        var csv = []
+		        var rows = document.querySelectorAll("#AddHead > tr")
+
+		        for (let i = 0; i < rows.length; i++) {
+		            const row = [], cols = rows[i].querySelectorAll("td, th")
+
+		            for (let j = 0; j < cols.length; j++)
+		                row.push(cols[j].innerText)
+
+		            csv.push(row.join(","))
+		        }
+
+		        var rows = document.querySelectorAll("#AddOption > tr")
+
+		        for (let i = 0; i < rows.length; i++) {
+		            const row = [], cols = rows[i].querySelectorAll("td, th")
+
+		            for (let j = 0; j < cols.length; j++)
+		                row.push(cols[j].innerText)
+
+		            csv.push(row.join(","))
+		        }
+		        
+		        // Download CSV
+		        this.downloadCSV(csv.join("\n"), filename)
+		    }
+		}
+
+		document.addEventListener('DOMContentLoaded', e => {
+		    new ToCSV()
+		})
 </script>
 </body>
 </html>

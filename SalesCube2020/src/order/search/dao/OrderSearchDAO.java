@@ -8,8 +8,6 @@ import java.util.*;
 
 import common.dao.BaseDAO;
 import order.search.beans.OrderSearchBean;
-import order.search.beans.OrderSearchResultBillBean;
-import order.search.beans.OrderSearchResultDetailBean;
 import sql.order.OrderSQL;
 
 public class OrderSearchDAO extends BaseDAO{

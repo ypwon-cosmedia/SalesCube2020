@@ -133,7 +133,7 @@ public class OrderSearchAJAXController extends BaseAJAXController{
 			else if(tmp[i].equals("customerCode")) tmp[i] = "rstx.customer_code";
 			else if(tmp[i].equals("customerName")) tmp[i] = "rstx.customer_name";
 			else if(tmp[i].equals("customerSlipNo")) tmp[i] = "rstx.customer_slip_no";
-			else if(tmp[i].equals("cutoffGroup")) tmp[i] = "rstx.cutoff_group";
+			else if(tmp[i].equals("cutoffGroup")) tmp[i] = "ctx3.category_code_name";
 			else if(tmp[i].equals("deliveryDate")) tmp[i] = "rstx.delivery_date";
 			else if(tmp[i].equals("lineRemarks")) tmp[i] = "rltx.remarks";
 			else if(tmp[i].equals("priceTotal")) tmp[i] = "PRICE_TOTAL";
