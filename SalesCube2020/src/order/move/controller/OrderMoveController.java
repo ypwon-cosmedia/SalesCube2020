@@ -10,6 +10,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import common.controller.BaseController;
+import common.modal.product.init.ProductModalInit;
 import order.common.init.DAO.OrderInitDAO;
 import order.input.DAO.OrderInputDAO;
 import order.input.beans.OrderInputBean;
@@ -62,7 +63,7 @@ public class OrderMoveController extends BaseController{
 		OrderInitDAO dao = new OrderInitDAO();
 		HttpSession session = request.getSession(true);
 		UserInfoBean userID = (UserInfoBean) session.getAttribute("userInfo");
-		
+		ProductModalInit init = new ProductModalInit();
 		
 		try {
 			
@@ -71,9 +72,7 @@ public class OrderMoveController extends BaseController{
 			request.setAttribute("configBillShow", dao.initConfigModalShow("0301", "1", userID.getUserID()));
 			request.setAttribute("configDetailNotShow", dao.initConfigModalNotShow("0301", "2", userID.getUserID()));
 			request.setAttribute("configBillNotShow", dao.initConfigModalNotShow("0301", "1", userID.getUserID()));
-			request.setAttribute("setProduct", dao.initComboBox("2"));
-			request.setAttribute("standard", dao.initComboBox("3"));
-			request.setAttribute("classStatus", dao.initComboBox("16"));
+			init.initCombobox(request, response);
 		} catch (ClassNotFoundException | SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
