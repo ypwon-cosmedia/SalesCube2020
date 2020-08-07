@@ -5,6 +5,10 @@
 
 <!doctype html>
 <html lang="en">
+
+	<%@ include file="/common/productSearch.jsp" %>
+	<%@ include file="/common/_customerSearch.jsp" %>
+
 	<head>
 		<!-- Required meta tags -->
 		<meta charset="utf-8">
@@ -45,9 +49,10 @@
 	<body style="background-color: gainsboro;">
 		<!-- Optional JavaScript -->
 		<!-- jQuery first, then Popper.js, then Bootstrap JS -->
-		<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
-		<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
-		<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+		 <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
 		<%@ include file= "../common/menubar.jsp" %>
 		<br><br>
 
@@ -176,7 +181,7 @@
 								<select class="custom-select" name="">
 									<option value=""></option>
 									<c:forEach items="${initDcName}" var="initDN">
-										<option value="${initDN.CategoryId}">${initDN.CategoryCodeName}</option>
+										<option value="${initDN.categoryCode}">${initDN.categoryCodeName}</option>
 									</c:forEach>
 								</select>
 							</div>
@@ -192,7 +197,7 @@
 								<select class="custom-select" name="">
 									<option value=""></option>
 									<c:forEach items="${initDcTimezone}" var="initDT">
-										<option value="${initDT.CategoryId}">${initDT.CategoryCodeName}</option>
+										<option value="${initDT.categoryCode}">${initDT.categoryCodeName}</option>
 									</c:forEach>
 								</select>
 							</div>
@@ -312,7 +317,7 @@
 								<select class="custom-select" name="">
 									<option value=""></option>
 <!--									<c:forEach items="${deliveryInfo}">	-->
-<!--										<option value="${}"></option>	-->
+<!--										<option value=""></option>	-->
 <!--									</c:forEach> -->
 								</select>
 							</div>
@@ -558,520 +563,7 @@
 			</form>
 		</div><br>
 
-		<!-- Modal伝票呼出 -->
-		<div class="modal fade" id="openOrder" tabindex="-1" role="dialog" aria-labelledby="label1" aria-hidden="true">
-			<div class="modal-dialog modal-lg" role="document">
-				<div class="modal-content">
-					<div class="modal-header">
-						<h5 class="modal-title" id="label1">伝票呼出</h5>
-							<button type="button" class="close" data-dismiss="modal" aria-label="Close">
-								<span aria-hidden="true">&times;</span>
-							</button>
-					</div>
-					<div class="modal-body">			
-						見積伝票検索
-						<form action=" " method="post">
-							<div class="row">
-								<div class="col-4">
-									<label class="sr-only" for="inlineFormInputGroup">UserId</label>
-									<div class="input-group mb-2">
-										<div class="input-group-prepend">
-											<div class="input-group-text">見積番号</div>
-										</div>
-										<input type="text"  class="form-control" id="inputEstimateSheetId">
-									</div>
-								</div>
-							</div>
-							<div class="row">
-								<div class="col-4">
-									<label class="sr-only" for="inlineFormInputGroup"></label>
-									<div class="input-group mb-2">
-										<div class="input-group-prepend">
-											<div class="input-group-text">見積日</div>
-										</div>
-									<input type="date"  class="form-control" id="inputEstimateDate1" name="data1">
-									</div>
-								</div>
-								~
-								<div class="col-4">
-									<label class="sr-only" for="inlineFormInputGroup"></label>
-									<div class="input-group mb-2">
-			
-									<input type="date"  class="form-control" id="inputEstimateDate2" name="data1">
-									</div>
-								</div>
-							</div>
-							<div class="row">
-								<div class="col-4">
-									<label class="sr-only" for="inlineFormI4putGroup"></label>
-									<div class="input-group mb-2">
-										<div class="input-group-prepend">
-											   <div class="input-group-text">提出先名</div>
-										</div>
-										<input type="text" class="form-control" id="inputSubmitName" name="data1">
-									</div>
-								</div>
-								<div class="col-4">
-									<label class="sr-only" for="inlineFormInputGroup"></label>
-									<div class="input-group mb-2">
-										<div class="input-group-prepend">
-											<div class="input-group-text">件名</div>
-										</div>
-										<input type="text"  class="form-control" id="inputTitle" name="data1">
-									</div>
-								</div>                   
-							</div>
-							<div class="float-left" style="position:static; left: 0px;">検索結果件数：0件</div>
-							<div align="right">
-								<button type="button" class="btn btn-outline-secondary" onclick="initFormOrder();">初期化</button>&ensp;
-								<input type="button" value="検索" class="btn btn-outline-secondary">
-							</div>
-						</form>
-						<br>
-						<table id="order_detail_info" class="table table-bordered">
-							<thead class="thead-dark">
-							  <tr>
-								<th scope="col" class="rd_top_left th_back_black" style="cursor: pointer; height: 30px;" onclick="sort('productCode');">見積番号</th>
-								<th scope="col" class="th_back_black" style="cursor: pointer; height: 30px;" onclick="sort('productName');">見積日</th>
-								<th scope="col" class="th_back_black" style="cursor: pointer; height: 30px;" onclick="sort('supplierName');">提出先名</th>
-								<th scope="col" class="th_back_black" style="cursor: pointer; height: 30px;" onclick="sort('supplierName');">件名</th>
-								
-							  </tr>
-							</thead>
-							<c:forEach items="" var="">
-								<tr>
-									<form method="post" id="estimateTable">
-										<td style="white-space: normal; text-align: left;" data-dismiss="modal" id="estimateSheetId"><a href="orderinput.html">見積番号1</a></td>
-									</form>
-									<td style="white-space: normal; text-align: left;" id="estimateDate">見積日1</td>
-									<td style="white-space: normal; text-align: left;" id="submitName">提出先名1</td>
-									<td style="white-space: normal; text-align: left;" id="title">件名1</td>
-								</tr>
-								<tr>
-									<td style="white-space: normal; text-align: left;">見積番号2</td>
-									<td style="white-space: normal; text-align: left;">見積日2</td>
-									<td style="white-space: normal; text-align: left;">提出先名2</td>
-									<td style="white-space: normal; text-align: left;">件名2</td>
-		
-								</tr>
-								<tr>
-									<td style="white-space: normal; text-align: left;">見積番号3</td>
-									<td style="white-space: normal; text-align: left;">見積日3</td>
-									<td style="white-space: normal; text-align: left;">提出先名3</td>
-									<td style="white-space: normal; text-align: left;">件名3</td>
-								</tr>
-							</c:forEach>
-						</table>
-						<br>
-					</div>
-					<div class="modal-footer">
-						<button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-					</div>
-				</div>
-			</div>
-		</div>
 
-		<!-- modal page (customersearch)-->
-<!-- 		<div class="modal fade" id="customersearch" tabindex="-1" role="dialog" aria-labelledby="label1" aria-hidden="true" data-backdrop="static">
-			<div class="modal-dialog modal-lg" role="document">
-				<div class="modal-content">
-					
-					<div class="modal-header">
-						<h5 class="modal-title" id="label1">顧客検索</h5>
-							<button type="button" class="close" data-dismiss="modal" aria-label="Close">
-								<span aria-hidden="true">&times;</span>
-							</button>
-					</div>
-					
-					<form action="" method="post">
-						<div class="modal-body">
-						<div class="row">
-							<div class="col-4">
-								<label class="sr-only" for="modalCustomerCodeFor">UserId</label>
-								<div class="input-group mb-2">
-									<div class="input-group-prepend">
-										<div class="input-group-text">顧客コード</div>
-									</div>
-									<input type="text"  class="form-control" id="inputCustomerCode">
-								</div>
-							</div>
-						</div>
-
-						<div class="row">
-							<div class="col-4">
-								<label class="sr-only" for="inlineFormInputGroup">UserName</label>
-								<div class="input-group mb-2">
-									<div class="input-group-prepend">
-										<div class="input-group-text">顧客名</div>
-									</div>
-									<input type="text"  class="form-control" id="inputCustomerName">
-								</div>
-							</div>
-						
-							<div class="col-4">
-								<label class="sr-only" for="inlineFormInputGroup">UserKana</label>
-								<div class="input-group mb-2">
-									<div class="input-group-prepend">
-										<div class="input-group-text">顧客名カナ</div>
-									</div>
-									<input type="text"  class="form-control" id="inputCustomerNameKana">
-								</div>
-							</div>
-						</div>
-
-						<div class="row">
-							<div class="col-4">
-								<label class="sr-only" for="inlineFormInputGroup">productStatusCategory</label>
-								<div class="input-group mb-2">
-									<div class="input-group-prepend">
-										<div class="input-group-text">顧客ランク</div>
-									</div>
-									<select class="custom-select" name="productStatusCategory" id="initCustomerRank">
-										<option selected></option>
-										<c:forEach items="">
-											<option value="" >{}</option>
-										</c:forEach>
-									</select>
-								</div>
-							</div>
-
-							<div class="col-5">
-							<label class="sr-only" for="inlineFormInputGroup">productStockCategory</label>
-								<div class="input-group mb-2">
-									<div class="input-group-prepend">
-										<div class="input-group-text">支払条件</div>
-									</div>
-									<select class="custom-select" name="productStockCategory" id="inputCutoffGroup">
-										<option selected></option>
-										<c:forEach items="">
-											<option value="">{}</option>
-										</c:forEach>
-									</select>
-								</div>
-							</div>
-						</div>
-						</div>
-						<br>
-
-						<div class="rounded float-right">
-							<button type="button" class="btn btn-outline-secondary" onclick="initFormCustomer();">初期化</button>&ensp;
-							<input type="submit" value="検索" class="btn btn-outline-secondary">&ensp;
-						</div><br>
-					</form><br>
-
-					<div class="modal-body">
-						<div class="float-left" style="position:static; left: 0px;">
-							検索結果件数：3件
-						</div>
-					</div>
-
-					<div class="modal-body" style="background-color: rgb(255, 255, 255);">
-						<table id="order_detail_info" class="table table-bordered">
-							<thead class="thead-dark">
-								<tr>
-								<th scope="col" class="rd_top_left th_back_black" style="cursor: pointer; height: 30px;" onclick="sort('productCode');">顧客コード</th>
-								<th scope="col" class="th_back_black" style="cursor: pointer; height: 30px;" onclick="sort('productName');">顧客名</th>
-								<th scope="col" class="th_back_black" style="cursor: pointer; height: 30px;" onclick="sort('supplierName');">TEL</th>
-								<th scope="col" class="th_back_black" style="cursor: pointer; height: 30px;" onclick="sort('supplierName');">担当者</th>
-								<th scope="col" class="th_back_black" style="cursor: pointer; height: 30px;" onclick="sort('supplierName');">取引区分</th>
-								<th scope="col" class="th_back_black" style="cursor: pointer; height: 30px;" onclick="sort('supplierName');">支払条件</th>
-								<th scope="col" class="th_back_black" style="cursor: pointer; height: 30px;" onclick="sort('supplierName');">事務所名</th>
-								<th scope="col" class="th_back_black" style="cursor: pointer; height: 30px;" onclick="sort('supplierName');">部署名</th>
-								
-								</tr>
-							</thead>
-							<c:forEach items="" var="">
-								<tr>
-									<td style="white-space: normal; text-align: left;" onclick="selectCustomerCode();" data-dismiss="modal" id="modalCustomerCode"><a href="">顧客コード1</a></td>
-									<td style="white-space: normal; text-align: left;" onclick="selectCustomerCode();" data-dismiss="modal" id="modalCustomerName"><a href="">顧客名1</a></td>
-									<td style="white-space: normal; text-align: left;" id="modalCustomerTEL">TEL1</td>
-									<td style="white-space: normal; text-align: left;" id="modalCustomerPCName">担当者1</td>
-									<td style="white-space: normal; text-align: left;" id="modalSalesCmCategory">取引区分1</td>
-									<td style="white-space: normal; text-align: left;" id="modalCutoffGroup">支払条件1</td>
-									<td style="white-space: normal; text-align: left;" id="modalCustomerOfficeName">事務所名1</td>
-									<td style="white-space: normal; text-align: left;" id="modalCustomerDeftName">部署名1</td>
-								</tr>
-								<tr>
-									<td style="white-space: normal; text-align: left;">顧客コード2</td>
-									<td style="white-space: normal; text-align: left;">顧客名2</td>
-									<td style="white-space: normal; text-align: left;">TEL2</td>
-									<td style="white-space: normal; text-align: left;">担当者2</td>
-									<td style="white-space: normal; text-align: left;">取引区分2</td>
-									<td style="white-space: normal; text-align: left;">支払条件2</td>
-									<td style="white-space: normal; text-align: left;">事務所名2</td>
-									<td style="white-space: normal; text-align: left;">部署名2</td>
-								</tr>
-								<tr>
-									<td style="white-space: normal; text-align: left;">顧客コード3</td>
-									<td style="white-space: normal; text-align: left;">顧客名3</td>
-									<td style="white-space: normal; text-align: left;">TEL3</td>
-									<td style="white-space: normal; text-align: left;">担当者3</td>
-									<td style="white-space: normal; text-align: left;">取引区分3</td>
-									<td style="white-space: normal; text-align: left;">支払条件3</td>
-									<td style="white-space: normal; text-align: left;">事務所名3</td>
-									<td style="white-space: normal; text-align: left;">部署名3</td>
-								</tr>
-							</c:forEach>
-						</table>
-						<br>
-
-						<div class="modal-footer">
-							<button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-						</div>
-
-					</div>
-				</div>
-			</div>
-		</div>
- -->
-		<!-- modal page (productsearch)-->
-<!--		<div class="modal fade" id="setproductsearch" tabindex="-1" role="dialog" aria-labelledby="label1" aria-hidden="true">
-			<div class="modal-dialog modal-lg" role="document">
-				<div class="modal-content">
-					
-					<div class="modal-header">
-						<h5 class="modal-title" id="label1">商品検索</h5>
-						<button type="button" class="close" data-dismiss="modal" aria-label="Close">
-							<span aria-hidden="true">&times;</span>
-						</button>
-					</div>
-					
-					<form action="" method="post">
-						<div class="modal-body">
-							<div class="row">
-								<div class="col-4">
-									<label class="sr-only" for="inlineFormInputGroup"></label>
-									<div class="input-group mb-2">
-										<div class="input-group-prepend">
-											<div class="input-group-text">商品コード</div>
-										</div>
-										<input type="text" value="" class="form-control" id="inputProductCode">
-									</div>
-								</div>
-								<div class="col-4">
-									<label class="sr-only" for="inlineFormInputGroup"></label>
-									<div class="input-group mb-2">
-										<div class="input-group-prepend">
-											<div class="input-group-text">仕入先商品コード</div>
-										</div>
-										<input type="text" value="{}" class="form-control" id="inputSupplierCode">
-									</div>
-								</div>
-								<div class="col-4">
-									<label class="sr-only" for="inlineFormInputGroup"></label>
-									<div class="input-group mb-2">
-										<div class="input-group-prepend">
-											<div class="input-group-text">JANコード</div>
-										</div>
-										<input type="text" value="" class="form-control" id="inputJANPCode">
-									</div>
-								</div>
-							</div>
-
-							<div class="row">
-								<div class="col-4">
-									<label class="sr-only" for="inlineFormInputGroup"></label>
-									<div class="input-group mb-2">
-										<div class="input-group-prepend">
-											<div class="input-group-text">セット分類</div>
-										</div>
-										<select class="custom-select" id="inputSetTypeCategory">
-											<option selected></option>
-											<c:forEach items="{}" >
-												<option value="{}">{}</option>
-											</c:forEach>
-										</select>
-									</div>
-								</div>
-
-								<div class="col-4">
-								<label class="sr-only" for="inlineFormInputGroup">productStockCategory</label>
-									<div class="input-group mb-2">
-										<div class="input-group-prepend">
-											<div class="input-group-text">標準化分類</div>
-										</div>
-										<select class="custom-select" id="inputProductStandardCategory">
-											<option selected></option>
-											<c:forEach items="{}">
-												<option value="{}">{}</option>
-											</c:forEach>
-										</select>
-									</div>
-								</div>
-
-								<div class="col-4">
-									<label class="sr-only" for="inlineFormInputGroup"></label>
-									<div class="input-group mb-2">
-									<div class="input-group-prepend">
-										<div class="input-group-text">分類状況</div>
-									</div>
-									<input type="text" value="" class="form-control" id="inputProductStatusCategory">
-									</div>
-								</div>
-							</div>
-
-							<div class="row">
-								<div class="col-6">
-								<label class="sr-only" for="inlineFormInputGroup"></label>
-								<div class="input-group mb-2">
-									<div class="input-group-prepend">
-										<div class="input-group-text">商品名</div>
-									</div>
-									<input type="text" value="" class="form-control" id="inputProductName">
-								</div>
-								</div>
-								<div class="col-6">
-								<label class="sr-only" for="inlineFormInputGroup"></label>
-								<div class="input-group mb-2">
-									<div class="input-group-prepend">
-										<div class="input-group-text">商品名カナ</div>
-									</div>
-									<input type="text" value="" class="form-control" id="inputProductNameKana">
-								</div>
-								</div>
-							</div>
-						</div>
-						<br>
-
-						<div class="rounded float-right">
-						<button type="button" class="btn btn-outline-secondary" onclick="initFormProductSearch();">初期化</button>&ensp;
-						<input type="submit" value="検索" class="btn btn-outline-secondary">&ensp;
-						</div>
-					</form>
-
-					<div class="modal-body">
-						<div class="float-left" style="position:static; left: 0px;">
-						検索結果件数：3件
-						</div>
-					</div>
-
-					<div class="modal-body" style="background-color: rgb(255, 255, 255);">
-						<table id="order_detail_info" class="table table-bordered">
-						<thead class="thead-dark">
-							<tr>
-								<th scope="col" class="rd_top_left th_back_black" style="cursor: pointer; height: 30px;" onclick="sort('productCode');">商品コード</th>
-								<th scope="col" class="th_back_black" style="cursor: pointer; height: 30px;" onclick="sort('productName');">商品名</th>
-								<th scope="col" class="th_back_black" style="cursor: pointer; height: 30px;" onclick="sort('supplierName');">仕入先名</th> 
-							</tr>
-						</thead>
-						<c:forEach items="{}" var="">
-							<tr>
-								<td style="white-space: normal; text-align: left;" onclick="selectProductCode(this)" data-dismiss="modal" id="modalProductCode1"><a href="">商品コード1</a></td>
-								<td style="white-space: normal; text-align: left;" onclick="selectProductCode(this)" data-dismiss="modal" id="modalProductName1"><a href="">商品名1</a></td>
-								<td style="white-space: normal; text-align: left;" id="ModalSupplierName">仕入先名1</td>
-							</tr>
-							<tr>
-								<td style="white-space: normal; text-align: left;">商品コード2</td>
-								<td style="white-space: normal; text-align: left;">商品名2</td>
-								<td style="white-space: normal; text-align: left;">仕入先名2</td>
-							</tr>
-							<tr>
-								<td style="white-space: normal; text-align: left;">商品コード3</td>
-								<td style="white-space: normal; text-align: left;">商品名3</td>
-								<td style="white-space: normal; text-align: left;">仕入先名3</td>
-							</tr>
-						</c:forEach>
-						</table>
-						<br>
-
-						<div class="modal-footer">
-							<button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-						</div>
-					</div>
-				</div>
-			</div>
-		</div>
--->
-		<!-- modal page (stocksearch)-->
-<!--		<div class="modal fade" id="openSearchStock" tabindex="-1" role="dialog" aria-labelledby="label1" aria-hidden="true">
-			<div class="modal-dialog modal-lg" role="document">
-				<div class="modal-content">
-					<div class="modal-header">
-						<h5 class="modal-title" id="label1">商品在庫情報</h5>
-						<button type="button" class="close" data-dismiss="modal" aria-label="Close">
-							<span aria-hidden="true">&times;</span>
-						</button>
-					</div>
-					<div class="modal-body">			
-						<table class="table table-bordered">
-							<tr>
-								<th bgcolor="black"><font color="white" id="productCode">商品コード</font></th>
-								<td>テストコード</td>
-								<th bgcolor="black"><font color="white" id="productPCode">仕入先商品コード</font></th>
-								<td>テストコード</td>
-								<th bgcolor="black"><font color="white" id="setTypeCategory">セット分類</font></th>
-								<td>テスト分類</td>
-							</tr>
-							<tr>
-								<th bgcolor="black"><font color="white" id="productName">商品名</font></th>
-								<td>テスト名</td>
-								<th bgcolor="black"><font color="white" id="warehouseName">倉庫名</font></th>
-								<td>テスト名</td>
-								<th bgcolor="black"><font color="white" id="rackCode">棚番</font></th>
-								<td>テスト棚番</td>
-							</tr>
-							<tr>
-								<th bgcolor="black"><font color="white" id="productStatusCategory">分類-状態</font></th>
-								<td>テスト分類</td>
-								<th bgcolor="black"><font color="white" id="productStockCategory">分類-保管</font></th>
-								<td>テスト分類</td>
-							</tr>
-						</table>
-						<br>           
-						<table class="table table-bordered">
-							<tr>
-								<th bgcolor="black"><font color="white" id="stockQuantity">現在庫総数</font></th>
-								<th bgcolor="black"><font color="white" id="quantitySum">受注残数</font></th>
-							</tr>
-							<tr>
-								<td>123</td>
-								<td>123</td>
-							</tr>
-						</table>       
-						
-								受注残明細
-								<table class="table table-bordered">
-									<tr>
-										<th bgcolor="black"><font color="white">受注番号-行</font></th>
-										<th bgcolor="black"><font color="white">出荷日</font></th>
-										<th bgcolor="black"><font color="white">受注残数</font></th>
-									</tr>
-									<tr>
-										<form action=" " method="post" id="stockTable">
-											<td id="roSlipLine"><a href="orderupdate.html" id="roSlipLine">123</a></td>
-										</form>
-										<td id="shipDate">123</td>
-										<td id="quantity">123</td>
-									</tr>
-									<tr>
-										<td><a href="#">123</a></td>
-										<td>123</td>
-										<td>123</td>
-									</tr>
-									<tr>
-										<td><a href="#">123</a></td>
-										<td>123</td>
-										<td>123</td>
-									</tr>
-									<tr>
-										<td><a href="#">123</a></td>
-										<td>123</td>
-										<td>123</td>
-									</tr>
-									<tr>
-										<td><a href="#">123</a></td>
-										<td>123</td>
-										<td>123</td>
-									</tr>
-								</table>
-					</div>
-					<div class="modal-footer">
-						<button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-					</div>
-				</div>
-			</div>
-		</div>
--->
 		<script>
 			var globalTmp;
 
@@ -1101,7 +593,7 @@
 			}
 
 			/* 顧客検索の初期化 */
-			function initFormCustomer(){
+/*			function initFormCustomer(){
 				if(!confirm("入力内容を初期化してよろしいですか？")){
 					return;
 				}
@@ -1116,30 +608,30 @@
 				target5 = document.getElementById("inputCutoffGroup");
 				target5.value = null;
 			}
-
+*/
 			/* 商品検索の初期化 */
-			function initFormProductSearch(){
+/*			function initFormProductSearch(){
 				if(!confirm("入力内容を初期化してよろしいですか？")){
 					return;
 				}
-				target1 = document.getElementById("inputProductCode");
+				target1 = document.getElementById("productCode");
 				target1.value = null;
-				target2 = document.getElementById("inputSupplierCode");
+				target2 = document.getElementById("supllierPcode");
 				target2.value = null;
-				target3 = document.getElementById("inputJANPCode");
+				target3 = document.getElementById("janPcode");
 				target3.value = null;
-				target4 = document.getElementById("inputSetTypeCategory");
+				target4 = document.getElementById("setTypeCategory");
 				target4.value = null;
-				target5 = document.getElementById("inputProductStandardCategory");
+				target5 = document.getElementById("productStandardCategory");
 				target5.value = null;
-				target6 = document.getElementById("inputProductStatusCategory");
+				target6 = document.getElementById("productStatusCategory");
 				target6.value = null;
-				target7 = document.getElementById("inputProductName");
+				target7 = document.getElementById("productName");
 				target7.value = null;
-				target8 = document.getElementById("inputProductNameKana");
+				target8 = document.getElementById("productKana");
 				target8.value = null;
 			}
-
+*/
 			/* 登録 */
 			function addForm() {
 				var test = confirm("入力内容を登録します。よろしいですか？");
@@ -1381,7 +873,7 @@
 			}
 
 			/* 顧客モーダルから親画面にリンク */
-			function selectCustomerCode(){
+			function selectcustomerCode(){
 				var customerCode = document.getElementById("modalCustomerCode").innerText;
 				var customerName = document.getElementById("modalCustomerName").innerText;
 				document.getElementById("customerCodeInput").value = customerCode;
@@ -1389,7 +881,7 @@
 			}
 
 			/* 商品モーダルから親画面にリンク */
-			function selectProductCode(obj){
+			function selectProductModal(obj){
 				var tableNo = globalTmp.substr(16);
 				var productCode = document.getElementById("modalProductCode1").innerText;
 				var productName = document.getElementById("modalProductName1").innerText;
@@ -1400,7 +892,7 @@
 			/* 新規登録画面から顧客モーダルに顧客コード渡す */
 			function customerCodetoModal(obj){
 				var customerCode = document.getElementById("customerCodeInput").value;
-				document.getElementById("inputCustomerCode").value = customerCode;
+				document.getElementById("customerCode").value = customerCode;
 			}
 
 			/* 新規登録画面から商品モーダルに商品コードを渡す */
@@ -1408,7 +900,7 @@
 				globalTmp = obj.id;
 				var tableNo = globalTmp.substr(16);
 				var productCode = document.getElementById("productCodeInput" + tableNo).value;
-				document.getElementById("inputProductCode").value = productCode;
+				document.getElementById("productCode").value = productCode;
 			}
 			
 			/* stockModal to parent */
@@ -1428,6 +920,7 @@
 			function moveUpdate(){
 				window.location.href = "file:///C:/Users/cosmedia/Desktop/%E5%85%B1%E6%9C%89/LINE%20WORKS%20Drive/.%20Shared_folder/2020%E5%B9%B4%E5%85%B1%E6%9C%89fileserver/SalesCube/SalesCube/%E5%8F%97%E6%B3%A8/HTML/orderupdate.html";
 			}
+			
 
 		</script>
 	</body>
