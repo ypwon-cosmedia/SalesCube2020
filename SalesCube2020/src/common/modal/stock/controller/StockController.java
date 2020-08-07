@@ -7,6 +7,9 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import common.modal.stock.beans.StockBean;
+import common.modal.stock.dao.StockDAO;
+
 public class StockController {
 	
 	public void execService(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -24,6 +27,13 @@ public class StockController {
 
 	/* 在庫モーダルへ商品情報 */
 	private void moveStock(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException, SQLException, ClassNotFoundException {
+		
+		StockDAO dao = new StockDAO();
+		StockBean bean = new StockBean();
+		
+		bean = dao.OrderToStock();
+		
+		
 		
 	}
 }

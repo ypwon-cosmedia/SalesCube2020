@@ -28,7 +28,7 @@ public class OrderInputController extends BaseController {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
-		}else if(action.equals("orderupdate")) {
+		}else if(action.equals("orderupdateCmp")) {
 				try {
 					forwardURL = orderUpdate(request, response);
 				} catch (ClassNotFoundException | ServletException | IOException | SQLException e) {

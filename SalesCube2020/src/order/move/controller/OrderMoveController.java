@@ -30,7 +30,13 @@ public class OrderMoveController extends BaseController{
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
-		else if(action.equals("orderupdate")) forwardURL = moveOrderUpdate(request, response);
+		else if(action.equals("orderupdate"))
+			try {
+				forwardURL = moveOrderUpdate(request, response);
+			} catch (ClassNotFoundException | ServletException | IOException | SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 		else if(action.equals("ordersearch")) forwardURL = moveOrderSearch(request, response);
 		else if(action.equals("onlineorder")) forwardURL = moveOnlineOrder(request, response);
 		
@@ -46,16 +52,20 @@ public class OrderMoveController extends BaseController{
 		List<OrderInputBean> list2 = dao.getDcTimezone();
 		List<OrderInputBean> list3 = dao.getTaxRate();
 		init.initCombobox(request, response);
+		
+		HttpSession session = request.getSession(true);
+		UserInfoBean userID = (UserInfoBean) session.getAttribute("userInfo");
 
 		request.setAttribute("initDcName", list1);
 		request.setAttribute("initDcTimezone", list2);
 		request.setAttribute("initTaxRate", list3);
+		request.setAttribute("user", userID);
 		
 		return "order\\orderinput.jsp";
 		
 	}
 	
-	private String moveOrderUpdate (HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+	private String moveOrderUpdate (HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException, ClassNotFoundException, SQLException {
 		
 		ProductModalInit init = new ProductModalInit();
 		init.initCombobox(request, response);

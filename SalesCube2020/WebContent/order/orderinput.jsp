@@ -49,10 +49,10 @@
 	<body style="background-color: gainsboro;">
 		<!-- Optional JavaScript -->
 		<!-- jQuery first, then Popper.js, then Bootstrap JS -->
-		 <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
-    <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+		<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"></script>
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
+		<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+		<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
 		<%@ include file= "../common/menubar.jsp" %>
 		<br><br>
 
@@ -160,7 +160,7 @@
 								<div class="input-group-prepend">
 									<div class="input-group-text">入力担当者</div>
 								</div>
-								<input type="text" value=""  class="form-control" readonly>
+								<input type="text" value="${user.userName}" class="form-control" readonly >
 							</div>
 						</div>
 						<div class="col-4">
@@ -558,7 +558,7 @@
 
 		<!-- 登録ボタン -->
 		<div align="center">
-			<form action="" method="post">
+			<form action="orderinputCmp" method="post">
 				<input type="submit" class="btn btn-outline-secondary w-auto" value="登録" onclick="addForm();">
 			</form>
 		</div><br>
@@ -918,7 +918,7 @@
 
 			/* 編集画面に遷移 */
 			function moveUpdate(){
-				window.location.href = "file:///C:/Users/cosmedia/Desktop/%E5%85%B1%E6%9C%89/LINE%20WORKS%20Drive/.%20Shared_folder/2020%E5%B9%B4%E5%85%B1%E6%9C%89fileserver/SalesCube/SalesCube/%E5%8F%97%E6%B3%A8/HTML/orderupdate.html";
+				window.location.href = '/SalesCube2020/SalesCube?action=orderupdate';
 			}
 			
 
