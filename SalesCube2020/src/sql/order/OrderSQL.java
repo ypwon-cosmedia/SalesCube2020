@@ -931,14 +931,12 @@ public class OrderSQL {
 				"GROUP BY (rstx.RO_SLIP_ID) " +
 				"ORDER BY (rstx.RO_SLIP_ID)";
 				
-		System.out.println(sql);
 		return sql;
 	}
 	
 	public String searchOrderDetail(OrderSearchBean bean, String[] inputlist, String rowCount) {
 		
 		String sql;
-
 
 		sql = "SELECT";
 		

@@ -1182,7 +1182,14 @@
 						var headcontents= '';
 						headcontents += '<tr>';
 						for(var j = 0; j < selArr.length; j++){
-							headcontents += '<td>' + data[i][j] + '</td>';
+							var tmp;
+							if(data[i][j] == null)
+								tmp = "";
+							else if(isNaN(data[i][j]) == false)
+								tmp = Math.floor(data[i][j]);
+							else
+								tmp = data[i][j];
+							headcontents += '<td>' + tmp + '</td>';
 						}
 						headcontents += '</tr>';
 						$('#AddOption').append(headcontents);						
