@@ -1,7 +1,5 @@
 package order.input.beans;
 
-import java.sql.Date;
-
 /** 
  * 
  * 作成日：2020/08/03

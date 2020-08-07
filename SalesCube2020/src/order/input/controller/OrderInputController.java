@@ -21,16 +21,9 @@ public class OrderInputController extends BaseController {
 		String forwardURL = "/menu.jsp";
 		String action = request.getParameter("action");
 				
-		if(action.equals("orderinput")) {
-				try {
-					forwardURL = orderInput(request, response);
-				} catch (ClassNotFoundException | ServletException | IOException | SQLException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				}
-		}else if(action.equals("orderinputCmp")) {
+		if(action.equals("orderinputCmp")) {
 			try {
-				forwardURL = orderInputCmp(request, response);
+				forwardURL = orderInput(request, response);
 			} catch (ClassNotFoundException | ServletException | IOException | SQLException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
@@ -42,50 +35,13 @@ public class OrderInputController extends BaseController {
 					// TODO Auto-generated catch block
 					e.printStackTrace();
 				}
-		}else if(action.equals("productCodeToInfo")) {
-			try {
-				forwardURL = productCodeToInfo(request, response);
-			} catch (ClassNotFoundException | ServletException | IOException | SQLException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
 		}
 		
 		return forwardURL;
 	}
 	
-	/* 受注新規登録 初期値 */
-	private String orderInput(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException, SQLException, ClassNotFoundException {
-		
-		OrderInputDAO dao = new OrderInputDAO();
-
-		List<OrderInputBean> list1 = dao.getDcName();
-		List<OrderInputBean> list2 = dao.getDcTimezone();
-		List<OrderInputBean> list3 = dao.getTaxRate();
-
-		request.setAttribute("initDcName", list1);
-		request.setAttribute("initDcTimezone", list2);
-		request.setAttribute("initTaxRate", list3);
-		
-		return "order\\orderinput.jsp";
-		
-	}
-	
-	/* 受注明細 商品コードから商品情報 */
-	public String productCodeToInfo(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException, SQLException, ClassNotFoundException {
-		
-		OrderInputDAO dao = new OrderInputDAO();
-		
-		
-		
-		return "order\\orderinput.jsp";
-	}
-	
-	/* 在庫モーダルへ商品情報 */
-	
-	
 	/* 受注新規登録 */
-	private String orderInputCmp(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException, SQLException, ClassNotFoundException {
+	private String orderInput(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException, SQLException, ClassNotFoundException {
 		
 		OrderInputDAO dao = new OrderInputDAO();
 		

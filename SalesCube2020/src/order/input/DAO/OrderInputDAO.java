@@ -357,9 +357,9 @@ public class OrderInputDAO extends BaseDAO{
 
 	 	stmt = con.prepareStatement(sql);
 	 	
-	 	stmt.setDate(1, bean.getRoDate());
-	 	stmt.setDate(2, bean.getShipDate());
-	 	stmt.setDate(3, bean.getDeliveryDate());
+	 	stmt.setString(1, bean.getRoDate());
+	 	stmt.setString(2, bean.getShipDate());
+	 	stmt.setString(3, bean.getDeliveryDate());
 	 	stmt.setString(4, bean.getReceptNo());
 	 	stmt.setString(5, bean.getCustomerSlipNo());
 	 	stmt.setString(6, bean.getUserName());
@@ -387,7 +387,7 @@ public class OrderInputDAO extends BaseDAO{
 	 	stmt.setString(27, bean.getDeliveryFax());
 	 	stmt.setString(28, bean.getDeliveryEmail());
 	 	stmt.setString(29, bean.getRetailPriceTotal());
-	 	stmt.setInt(30, bean.getCtaxPriceTotal());
+	 	stmt.setString(30, bean.getCtaxPriceTotal());
 	 	stmt.setString(31, bean.getPriceTotal());
 
 	 	try {
@@ -422,11 +422,11 @@ public class OrderInputDAO extends BaseDAO{
 	 	stmt.setString(2, bean.getProductName());
 	 	stmt.setString(3, bean.getProductRemarks());
 	 	stmt.setString(4, bean.getRackCode());
-	 	stmt.setInt(5, bean.getQuantity());
-	 	stmt.setInt(6, bean.getUnitCost());
-	 	stmt.setInt(7, bean.getCost());
-	 	stmt.setInt(8, bean.getUnitRetailPrice());
-	 	stmt.setInt(9, bean.getRetailPrice());
+	 	stmt.setString(5, bean.getQuantity());
+	 	stmt.setString(6, bean.getUnitCost());
+	 	stmt.setString(7, bean.getCost());
+	 	stmt.setString(8, bean.getUnitRetailPrice());
+	 	stmt.setString(9, bean.getRetailPrice());
 	 	stmt.setString(10, bean.getInputProductRemarks());
 	 	stmt.setString(11, bean.getEadRemarks());
 	 	

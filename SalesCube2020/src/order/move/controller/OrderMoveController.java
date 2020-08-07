@@ -2,6 +2,7 @@ package order.move.controller;
 
 import java.io.IOException;
 import java.sql.SQLException;
+import java.util.List;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
@@ -10,6 +11,8 @@ import javax.servlet.http.HttpSession;
 
 import common.controller.BaseController;
 import order.common.init.DAO.OrderInitDAO;
+import order.input.DAO.OrderInputDAO;
+import order.input.beans.OrderInputBean;
 import user.beans.UserInfoBean;
 
 public class OrderMoveController extends BaseController{
@@ -19,7 +22,13 @@ public class OrderMoveController extends BaseController{
 		String forwardURL = "/menu.jsp";
 		String action = request.getParameter("action");
 		
-		if(action.equals("orderinput")) forwardURL = moveOrderInput(request, response);
+		if(action.equals("orderinput"))
+			try {
+				forwardURL = moveOrderInput(request, response);
+			} catch (ClassNotFoundException | ServletException | IOException | SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 		else if(action.equals("orderupdate")) forwardURL = moveOrderUpdate(request, response);
 		else if(action.equals("ordersearch")) forwardURL = moveOrderSearch(request, response);
 		else if(action.equals("onlineorder")) forwardURL = moveOnlineOrder(request, response);
@@ -27,9 +36,20 @@ public class OrderMoveController extends BaseController{
 		return forwardURL;
 	}
 	
-	private String moveOrderInput (HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+	private String moveOrderInput (HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException, ClassNotFoundException, SQLException {
+		
+		OrderInputDAO dao = new OrderInputDAO();
+
+		List<OrderInputBean> list1 = dao.getDcName();
+		List<OrderInputBean> list2 = dao.getDcTimezone();
+		List<OrderInputBean> list3 = dao.getTaxRate();
+
+		request.setAttribute("initDcName", list1);
+		request.setAttribute("initDcTimezone", list2);
+		request.setAttribute("initTaxRate", list3);
 		
 		return "order\\orderinput.jsp";
+		
 	}
 	
 	private String moveOrderUpdate (HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
