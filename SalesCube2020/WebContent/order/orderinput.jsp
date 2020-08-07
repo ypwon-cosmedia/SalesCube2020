@@ -311,9 +311,9 @@
 								</div>
 								<select class="custom-select" name="">
 									<option value=""></option>
-									<c:forEach items="${deliveryInfo}" var="del">
-										<option value="${del.}">${}</option>
-									</c:forEach>
+<!--									<c:forEach items="${deliveryInfo}">	-->
+<!--										<option value="${}"></option>	-->
+<!--									</c:forEach> -->
 								</select>
 							</div>
 						</div>
@@ -672,7 +672,7 @@
 		</div>
 
 		<!-- modal page (customersearch)-->
-		<div class="modal fade" id="customersearch" tabindex="-1" role="dialog" aria-labelledby="label1" aria-hidden="true" data-backdrop="static">
+<!-- 		<div class="modal fade" id="customersearch" tabindex="-1" role="dialog" aria-labelledby="label1" aria-hidden="true" data-backdrop="static">
 			<div class="modal-dialog modal-lg" role="document">
 				<div class="modal-content">
 					
@@ -823,9 +823,9 @@
 				</div>
 			</div>
 		</div>
-
+ -->
 		<!-- modal page (productsearch)-->
-		<div class="modal fade" id="setproductsearch" tabindex="-1" role="dialog" aria-labelledby="label1" aria-hidden="true">
+<!--		<div class="modal fade" id="setproductsearch" tabindex="-1" role="dialog" aria-labelledby="label1" aria-hidden="true">
 			<div class="modal-dialog modal-lg" role="document">
 				<div class="modal-content">
 					
@@ -981,9 +981,9 @@
 				</div>
 			</div>
 		</div>
-
+-->
 		<!-- modal page (stocksearch)-->
-		<div class="modal fade" id="openSearchStock" tabindex="-1" role="dialog" aria-labelledby="label1" aria-hidden="true">
+<!--		<div class="modal fade" id="openSearchStock" tabindex="-1" role="dialog" aria-labelledby="label1" aria-hidden="true">
 			<div class="modal-dialog modal-lg" role="document">
 				<div class="modal-content">
 					<div class="modal-header">
@@ -1071,7 +1071,7 @@
 				</div>
 			</div>
 		</div>
-
+-->
 		<script>
 			var globalTmp;
 
