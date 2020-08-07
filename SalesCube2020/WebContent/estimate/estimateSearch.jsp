@@ -461,15 +461,12 @@
 				if(!confirm("検索結果をExcelファイルでダウンロードしますか？")){
 		           	return;
 		    	}
-		  
-		//顧客モダルから親画面への値遷移    
-		  function test(obj) {
-		       var customer = obj.id ;
-		       var list = customer.split(",");
-
-		        document.getElementById("customerCode").value = list[0];
-		        document.getElementById("customerName").value = list[1];
-		   }
+		  }
+				
+	      	function selectCustomerCode(code, name){
+          		document.getElementById('CustomerModalCustomerCode').value = code;
+          		document.getElementById('CustomerModalCustomerName').value = name;
+          	}
 		 </script>
 	</body>
 </html>

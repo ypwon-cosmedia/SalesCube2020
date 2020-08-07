@@ -98,7 +98,10 @@
        <button type="button" class="btn btn-outline-secondary" data-toggle="modal" data-target="#customerSearch" onclick="initCustomer() ; getCutoffGroup()">
         ↓
         </button>
-
+        <input type="text" id="CustomerModalCustomerCode" name="CustomerModalCustomerCode" placeholder="顧客コード" value="">
+        <input type="text" id="CustomerModalCustomerName" name="CustomerModalCustomerName" placeholder="顧客名" value="">
+		
+		
 		<div class="modal fade" id="customerSearch" tabindex="-1" role="dialog" aria-labelledby="label1" aria-hidden="true">
         <div class="modal-dialog modal-lg" role="document">
             <div class="modal-content">
@@ -109,6 +112,8 @@
                             <span aria-hidden="true">&times;</span>
                         </button>
                 </div>
+                <!-- 検索部エラーメッセージ表示 -->
+                <div id="customerSearchError"></div>
                 
                <form action="" id="cutoff">
                	<input type ="hidden" name="categoryId" value="11">
@@ -179,10 +184,10 @@
                     <br>
                 </form>
 
-                  <div id="resultCustomer" hidden>
+                  <div id="resultCustomer" hidden="hidden">
                     <div class="modal-body">
                       <div class="float-left" style="position:static; left: 0px;">
-                        	  検索結果件数： <span id="customerSearchResultCount">0</span>件
+                        	  <span id="customerSearchResultCount"></span>
                       </div>
                     </div>
                     <br>
@@ -237,6 +242,9 @@
 
             //テーブルの非表示
             document.getElementById("resultCustomer").setAttribute('hidden','hidden');
+            
+          //エラーメッセージの削除
+            $("#customerSearchError").empty();
     	}
      	
      	
@@ -267,25 +275,15 @@
      		
      	
      	
-     	//顧客コード及び顧客名の値をセット
-      	function test(obj) {
-      	     var customer = obj.id ;
-      	     var list = customer.split(",");
-
-      	      document.getElementById("customerCode").value = list[0];
-      	      document.getElementById("customerName").value = list[1];
-      	 }
+     	//顧客コード及び顧客名の値をセット。※親画面で書くコード
+      	function selectCustomerCode(code, name){
+              		document.getElementById('CustomerModalCustomerCode').value = code;
+              		document.getElementById('CustomerModalCustomerName').value = name;
+              	}
      	
-      	function selectCustomerCode(){
-    		var customerCode = document.getElementById("customerCode1").innerText;
-    		
-    		document.getElementById("customerCodeInput").value = customerCode;
-    	}
-     	
+      	
+     	//顧客検索結果
 		function customerSearch1() {
-			
-			$('#resultCustomer').removeAttr('hidden');	//検索結果表示
-			
 			var formString = $("form[id=customer]").serialize();
 			var tmp = "";
 			
@@ -296,22 +294,40 @@
 				data:formString,
 				dataType:'json',
 				success:function(data){	
+					document.getElementById("resultCustomer").removeAttribute('hidden');//テーブルの表示
 					$("#customerResult > tr").remove();
-					for(var i = 0; i<Object.keys(data).length; i++){
-						var headcontents= '';
-						headcontents += '<tr>';
-						headcontents += '<td style="white-space: normal; text-align: left;" onclick="selectcustomerCode()" data-dismiss="modal" id="customerCode1"><a href="">'+data[i].customerCode+'</a></td>';
-						headcontents += '<td style="white-space: normal; text-align: left;">'+data[i].customerName+'</td>';
-						headcontents += '<td style="white-space: normal; text-align: left;">'+data[i].customerTEL+'</td>';  
-						headcontents += '<td style="white-space: normal; text-align: left;">'+data[i].customerPCName+'</td>';
-						headcontents += '<td style="white-space: normal; text-align: left;">'+data[i].salesCmCategory+'</td>';
-						headcontents += '<td style="white-space: normal; text-align: left;">'+data[i].cutoffGroup+'</td>';
-						headcontents += '<td style="white-space: normal; text-align: left;">'+data[i].customerOfficeName+'</td>';
-						headcontents += '<td style="white-space: normal; text-align: left;">'+data[i].customerDeptName+'</td>';
-						headcontents += '</tr>';
-						$('#customerResult').append(headcontents);						
+						var tableAdd = document.getElementById('customerResult');
+					
+					if(Object.keys(data).length == 0){
+						var message = '<p style="color: red;">該当する顧客情報は存在しません</p>';
+     		 			$("#customerSearchError").empty();//エラーメッセージの削除
+     		 			$("#customerSearchError").append(message);	//エラーメッセージの表示
+     		 			document.getElementById("resultCustomer").setAttribute('hidden','hidden');
+     		 		//検索結果がある場合
+     		 		}else{
+     		 		//エラーメッセージ
+     		 			$("#customerSearchError").empty();//エラーメッセージの削除
+     		 		//険悪結果件数の設定
+     		 			$("#customerSearchResultCount").empty();
+     		 			$('#customerSearchResultCount').append('検索結果件数：' + Object.keys(data).length + '件');	//検索結果件数の設定の表示
+     		 			
+     		 																	
+						for(var i = 0; i<Object.keys(data).length; i++){
+							var headcontents= '';
+							headcontents += '<tr>';
+							headcontents += '<td style="white-space: normal; text-align: left;" onclick="selectCustomerCode('+data[i].customerCode+",'"+data[i].customerName+"'"+')" data-dismiss="modal" ><a href="">'+data[i].customerCode+'</a></td>';
+							headcontents += '<td style="white-space: normal; text-align: left;">'+data[i].customerName+'</td>';
+							headcontents += '<td style="white-space: normal; text-align: left;">'+data[i].customerTEL+'</td>';  
+							headcontents += '<td style="white-space: normal; text-align: left;">'+data[i].customerPCName+'</td>';
+							headcontents += '<td style="white-space: normal; text-align: left;">'+data[i].salesCmCategory+'</td>';
+							headcontents += '<td style="white-space: normal; text-align: left;">'+data[i].cutoffGroup+'</td>';
+							headcontents += '<td style="white-space: normal; text-align: left;">'+data[i].customerOfficeName+'</td>';
+							headcontents += '<td style="white-space: normal; text-align: left;">'+data[i].customerDeptName+'</td>';
+							headcontents += '</tr>';
+							$('#customerResult').append(headcontents);						
+						}
+						
 					}
-					$('#customerSearchResultCount').text(+Object.keys(data).length);
 				}
 			});
 		}
