@@ -3,6 +3,7 @@ package order.input.controller;
 import java.io.IOException;
 import java.sql.Date;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.servlet.ServletException;
@@ -44,6 +45,7 @@ public class OrderInputController extends BaseController {
 	private String orderInput(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException, SQLException, ClassNotFoundException {
 		
 		OrderInputDAO dao = new OrderInputDAO();
+		List<OrderInputBean> list = new ArrayList<>();
 		
 		String roDate = request.getParameter("roDate");
 		String shipDate = nullOrEmpty(request.getParameter("shipDate"));
@@ -74,17 +76,17 @@ public class OrderInputController extends BaseController {
 		String deliveryTel = nullOrEmpty(request.getParameter("deliveryTel"));
 		String deliveryFax = nullOrEmpty(request.getParameter("deliveryFax"));
 		String deliveryEmail = nullOrEmpty(request.getParameter("deliveryEmail"));
-		String productCode = nullOrEmpty(request.getParameter("productCode"));
-		String productName = nullOrEmpty(request.getParameter("productName"));
-		String productRemarks = nullOrEmpty(request.getParameter("productRemarks"));
-		String rackCode = nullOrEmpty(request.getParameter("rackCode"));
-		String quantity = nullOrEmpty(request.getParameter("quantity"));
-		String unitCost = nullOrEmpty(request.getParameter("unitCost"));
-		String cost = nullOrEmpty(request.getParameter("cost"));
-		String unitRetailPrice = nullOrEmpty(request.getParameter("unitRetailPrice"));
-		String retailPrice = nullOrEmpty(request.getParameter("retailPrice"));
-		String inputProductRemarks = nullOrEmpty(request.getParameter("inputProductRemarks"));
-		String eadRemarks = nullOrEmpty(request.getParameter("eadRemarks"));
+		String[] productCode = request.getParameterValues("productCode");
+		String[] productName = request.getParameterValues("productName");
+		String[] productRemarks = request.getParameterValues("productRemarks");
+		String[] rackCode = request.getParameterValues("rackCode");
+		String[] quantity = request.getParameterValues("quantity");
+		String[] unitCost = request.getParameterValues("unitCost");
+		String[] cost = request.getParameterValues("cost");
+		String[] unitRetailPrice = request.getParameterValues("unitRetailPrice");
+		String[] retailPrice = request.getParameterValues("retailPrice");
+		String[] inputProductRemarks = request.getParameterValues("inputProductRemarks");
+		String[] eadRemarks = request.getParameterValues("eadRemarks");
 		String prossProfit = nullOrEmpty(request.getParameter("prossProfit"));
 		String grossProfitRatio = nullOrEmpty(request.getParameter("grossProfitRatio"));
 		String retailPriceTotal = nullOrEmpty(request.getParameter("retailPriceTotal"));
@@ -121,25 +123,31 @@ public class OrderInputController extends BaseController {
 		bean.setDeliveryTel(deliveryTel);
 		bean.setDeliveryFax(deliveryFax);
 		bean.setDeliveryEmail(deliveryEmail);
-		bean.setProductCode(productCode);
-		bean.setProductName(productName);
-		bean.setProductRemarks(productRemarks);
-		bean.setRackCode(rackCode);
-		bean.setQuantity(quantity);
-		bean.setUnitCost(unitCost);
-		bean.setCost(cost);
-		bean.setUnitRetailPrice(unitRetailPrice);
-		bean.setRetailPrice(retailPrice);
-		bean.setInputProductRemarks(inputProductRemarks);
-		bean.setEadRemarks(eadRemarks);
-		bean.setProssProfit(prossProfit);
-		bean.setGrossProfitRatio(grossProfitRatio);
-		bean.setRetailPriceTotal(retailPriceTotal);
-		bean.setCtaxPriceTotal(ctaxPriceTotal);
-		bean.setPriceTotal(priceTotal);
+		bean.setProssProfit(Integer.parseInt(prossProfit));
+		bean.setGrossProfitRatio(Integer.parseInt(grossProfitRatio));
+		bean.setRetailPriceTotal(Integer.parseInt(retailPriceTotal));
+		bean.setCtaxPriceTotal(Integer.parseInt(ctaxPriceTotal));
+		bean.setPriceTotal(Integer.parseInt(priceTotal));		
 		
+		OrderInputBean bean2 = new OrderInputBean();
+		
+		for(int i = 0; i < productCode.length; i++) {
+			bean2.setProductCode(Integer.parseInt(productCode[i]));
+			bean2.setProductName(productName[i]);
+			bean2.setProductRemarks(productRemarks[i]);
+			bean2.setRackCode(rackCode[i]);
+			bean2.setQuantity(Integer.parseInt(quantity[i]));
+			bean2.setUnitCost(Integer.parseInt(unitCost[i]));
+			bean2.setCost(Integer.parseInt(cost[i]));
+			bean2.setUnitRetailPrice(Integer.parseInt(unitRetailPrice[i]));
+			bean2.setRetailPrice(Integer.parseInt(retailPrice[i]));
+			bean2.setInputProductRemarks(inputProductRemarks[i]);
+			bean2.setEadRemarks(eadRemarks[i]);
+			list.add(bean2);
+		}
+				
 		int result1 = dao.orderInputInfo(bean);
-		int result2 = dao.orderInputDetail(bean);
+		int result2 = dao.orderInputDetail(list);
 		
 		if(result1 == 0 && result2 == 0) {
 			String message1 = "登録できませんでした。<br>";
@@ -158,6 +166,7 @@ public class OrderInputController extends BaseController {
 	private String orderUpdate(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException, SQLException, ClassNotFoundException {
 		
 		OrderInputDAO dao = new OrderInputDAO();
+		List<OrderInputBean> list = new ArrayList<>();
 		
 		String roDate = request.getParameter("roDate");
 		String shipDate = nullOrEmpty(request.getParameter("shipDate"));
@@ -188,17 +197,17 @@ public class OrderInputController extends BaseController {
 		String deliveryTel = nullOrEmpty(request.getParameter("deliveryTel"));
 		String deliveryFax = nullOrEmpty(request.getParameter("deliveryFax"));
 		String deliveryEmail = nullOrEmpty(request.getParameter("deliveryEmail"));
-		String productCode = nullOrEmpty(request.getParameter("productCode"));
-		String productName = nullOrEmpty(request.getParameter("productName"));
-		String productRemarks = nullOrEmpty(request.getParameter("productRemarks"));
-		String rackCode = nullOrEmpty(request.getParameter("rackCode"));
-		String quantity = nullOrEmpty(request.getParameter("quantity"));
-		String unitCost = nullOrEmpty(request.getParameter("unitCost"));
-		String cost = nullOrEmpty(request.getParameter("cost"));
-		String unitRetailPrice = nullOrEmpty(request.getParameter("unitRetailPrice"));
-		String retailPrice = nullOrEmpty(request.getParameter("retailPrice"));
-		String inputProductRemarks = nullOrEmpty(request.getParameter("inputProductRemarks"));
-		String eadRemarks = nullOrEmpty(request.getParameter("eadRemarks"));
+		String[] productCode = request.getParameterValues("productCode");
+		String[] productName = request.getParameterValues("productName");
+		String[] productRemarks = request.getParameterValues("productRemarks");
+		String[] rackCode = request.getParameterValues("rackCode");
+		String[] quantity = request.getParameterValues("quantity");
+		String[] unitCost = request.getParameterValues("unitCost");
+		String[] cost = request.getParameterValues("cost");
+		String[] unitRetailPrice = request.getParameterValues("unitRetailPrice");
+		String[] retailPrice = request.getParameterValues("retailPrice");
+		String[] inputProductRemarks = request.getParameterValues("inputProductRemarks");
+		String[] eadRemarks = request.getParameterValues("eadRemarks");
 		String prossProfit = nullOrEmpty(request.getParameter("prossProfit"));
 		String grossProfitRatio = nullOrEmpty(request.getParameter("grossProfitRatio"));
 		String retailPriceTotal = nullOrEmpty(request.getParameter("retailPriceTotal"));
@@ -235,25 +244,31 @@ public class OrderInputController extends BaseController {
 		bean.setDeliveryTel(deliveryTel);
 		bean.setDeliveryFax(deliveryFax);
 		bean.setDeliveryEmail(deliveryEmail);
-		bean.setProductCode(productCode);
-		bean.setProductName(productName);
-		bean.setProductRemarks(productRemarks);
-		bean.setRackCode(rackCode);
-		bean.setQuantity(quantity);
-		bean.setUnitCost(unitCost);
-		bean.setCost(cost);
-		bean.setUnitRetailPrice(unitRetailPrice);
-		bean.setRetailPrice(retailPrice);
-		bean.setInputProductRemarks(inputProductRemarks);
-		bean.setEadRemarks(eadRemarks);
-		bean.setProssProfit(prossProfit);
-		bean.setGrossProfitRatio(grossProfitRatio);
-		bean.setRetailPriceTotal(retailPriceTotal);
-		bean.setCtaxPriceTotal(ctaxPriceTotal);
-		bean.setPriceTotal(priceTotal);
+		bean.setProssProfit(Integer.parseInt(prossProfit));
+		bean.setGrossProfitRatio(Integer.parseInt(grossProfitRatio));
+		bean.setRetailPriceTotal(Integer.parseInt(retailPriceTotal));
+		bean.setCtaxPriceTotal(Integer.parseInt(ctaxPriceTotal));
+		bean.setPriceTotal(Integer.parseInt(priceTotal));		
 		
-		int result1 = dao.orderInputInfo(bean);
-		int result2 = dao.orderInputDetail(bean);
+		OrderInputBean bean2 = new OrderInputBean();
+		
+		for(int i = 0; i < productCode.length; i++) {
+			bean2.setProductCode(Integer.parseInt(productCode[i]));
+			bean2.setProductName(productName[i]);
+			bean2.setProductRemarks(productRemarks[i]);
+			bean2.setRackCode(rackCode[i]);
+			bean2.setQuantity(Integer.parseInt(quantity[i]));
+			bean2.setUnitCost(Integer.parseInt(unitCost[i]));
+			bean2.setCost(Integer.parseInt(cost[i]));
+			bean2.setUnitRetailPrice(Integer.parseInt(unitRetailPrice[i]));
+			bean2.setRetailPrice(Integer.parseInt(retailPrice[i]));
+			bean2.setInputProductRemarks(inputProductRemarks[i]);
+			bean2.setEadRemarks(eadRemarks[i]);
+			list.add(bean2);
+		}
+				
+		int result1 = dao.orderUpdateInfo(bean);
+		int result2 = dao.orderUpdateDetail(list);
 		
 		if(result1 == 0 && result2 == 0) {
 			String message1 = "更新できませんでした。<br>";

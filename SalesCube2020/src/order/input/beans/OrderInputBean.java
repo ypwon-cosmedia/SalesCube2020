@@ -9,7 +9,7 @@ package order.input.beans;
 
 public class OrderInputBean {
 	/* 受注番号 */
-	private String roSlipId;
+	private Integer roSlipId;
 
 	/* 受注日 */
 	private String roDate;
@@ -99,7 +99,7 @@ public class OrderInputBean {
 	private String deliveryEmail;
 	
 	/* 商品コード */
-	private String productCode;
+	private Integer productCode;
 	
 	/* 商品名 */
 	private String productName;
@@ -111,19 +111,19 @@ public class OrderInputBean {
 	private String rackCode;
 	
 	/* 数量 */
-	private String quantity;
+	private Integer quantity;
 	
 	/* 仕入単価 */
-	private String unitCost;
+	private Integer unitCost;
 	
 	/* 仕入金額 */
-	private String cost;
+	private Integer cost;
 	
 	/* 売上単価 */
-	private String unitRetailPrice;
+	private Integer unitRetailPrice;
 	
 	/* 売価金額 */
-	private String retailPrice;
+	private Integer retailPrice;
 	
 	/* 備考 */
 	private String inputProductRemarks;
@@ -132,19 +132,19 @@ public class OrderInputBean {
 	private String eadRemarks;
 	
 	/* 粗利益 */
-	private String prossProfit;
+	private Integer prossProfit;
 	
 	/* 粗利益率 */
-	private String grossProfitRatio;
+	private double grossProfitRatio;
 	
 	/* 金額合計 */
-	private String retailPriceTotal;
+	private Integer retailPriceTotal;
 	
 	/* 消費税 */
-	private String ctaxPriceTotal;
+	private Integer ctaxPriceTotal;
 	
 	/* 伝票合計 */
-	private String priceTotal;
+	private Integer priceTotal;
 	
 	/* 区分コード名 */
 	private String categoryCodeName;
@@ -168,11 +168,11 @@ public class OrderInputBean {
 		this.categoryCodeName = categoryCodeName;
 	}
 
-	public String getRoSlipId() {
+	public Integer getRoSlipId() {
 		return roSlipId;
 	}
 
-	public void setRoSlipId(String roSlipId) {
+	public void setRoSlipId(Integer roSlipId) {
 		this.roSlipId = roSlipId;
 	}
 
@@ -408,11 +408,11 @@ public class OrderInputBean {
 		this.deliveryEmail = deliveryEmail;
 	}
 
-	public String getProductCode() {
+	public Integer getProductCode() {
 		return productCode;
 	}
 
-	public void setProductCode(String productCode) {
+	public void setProductCode(Integer productCode) {
 		this.productCode = productCode;
 	}
 
@@ -440,43 +440,43 @@ public class OrderInputBean {
 		this.rackCode = rackCode;
 	}
 
-	public String getQuantity() {
+	public Integer getQuantity() {
 		return quantity;
 	}
 
-	public void setQuantity(String quantity) {
+	public void setQuantity(Integer quantity) {
 		this.quantity = quantity;
 	}
 
-	public String getUnitCost() {
+	public Integer getUnitCost() {
 		return unitCost;
 	}
 
-	public void setUnitCost(String unitCost) {
+	public void setUnitCost(Integer unitCost) {
 		this.unitCost = unitCost;
 	}
 
-	public String getCost() {
+	public Integer getCost() {
 		return cost;
 	}
 
-	public void setCost(String cost) {
+	public void setCost(Integer cost) {
 		this.cost = cost;
 	}
 
-	public String getUnitRetailPrice() {
+	public Integer getUnitRetailPrice() {
 		return unitRetailPrice;
 	}
 
-	public void setUnitRetailPrice(String unitRetailPrice) {
+	public void setUnitRetailPrice(Integer unitRetailPrice) {
 		this.unitRetailPrice = unitRetailPrice;
 	}
 
-	public String getRetailPrice() {
+	public Integer getRetailPrice() {
 		return retailPrice;
 	}
 
-	public void setRetailPrice(String retailPrice) {
+	public void setRetailPrice(Integer retailPrice) {
 		this.retailPrice = retailPrice;
 	}
 
@@ -496,43 +496,43 @@ public class OrderInputBean {
 		this.eadRemarks = eadRemarks;
 	}
 
-	public String getProssProfit() {
+	public Integer getProssProfit() {
 		return prossProfit;
 	}
 
-	public void setProssProfit(String prossProfit) {
+	public void setProssProfit(Integer prossProfit) {
 		this.prossProfit = prossProfit;
 	}
 
-	public String getGrossProfitRatio() {
+	public double getGrossProfitRatio() {
 		return grossProfitRatio;
 	}
 
-	public void setGrossProfitRatio(String grossProfitRatio) {
+	public void setGrossProfitRatio(double grossProfitRatio) {
 		this.grossProfitRatio = grossProfitRatio;
 	}
 
-	public String getRetailPriceTotal() {
+	public Integer getRetailPriceTotal() {
 		return retailPriceTotal;
 	}
 
-	public void setRetailPriceTotal(String retailPriceTotal) {
+	public void setRetailPriceTotal(Integer retailPriceTotal) {
 		this.retailPriceTotal = retailPriceTotal;
 	}
 
-	public String getCtaxPriceTotal() {
+	public Integer getCtaxPriceTotal() {
 		return ctaxPriceTotal;
 	}
 
-	public void setCtaxPriceTotal(String ctaxPriceTotal) {
+	public void setCtaxPriceTotal(Integer ctaxPriceTotal) {
 		this.ctaxPriceTotal = ctaxPriceTotal;
 	}
 
-	public String getPriceTotal() {
+	public Integer getPriceTotal() {
 		return priceTotal;
 	}
 
-	public void setPriceTotal(String priceTotal) {
+	public void setPriceTotal(Integer priceTotal) {
 		this.priceTotal = priceTotal;
 	}
 	

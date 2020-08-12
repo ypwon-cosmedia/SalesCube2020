@@ -449,7 +449,7 @@ public class OrderSQL {
 				"rstx.DELIVERY_PC_PRE, " + 
 				"rstx.DELIVERY_TEL, " + 
 				"rstx.DELIVERY_FAX, " + 
-				"rstx.DELIVERY_EMAIL, " + 
+				"rstx.DELIVERY_EMAIL " + 
 			"FROM " + 
 				"ro_slip_trn_xxxxx AS rstx " + 
 				"LEFT OUTER JOIN " + 
@@ -487,7 +487,7 @@ public class OrderSQL {
 				"rltx.UNIT_RETAIL_PRICE, " + 
 				"rltx.RETAIL_PRICE, " + 
 				"rltx.REMARKS, " + 
-				"rltx.EAD_REMARKS, " + 
+				"rltx.EAD_REMARKS " + 
 			"FROM " + 
 				"ro_line_trn_xxxxx AS rltx " + 
 				"LEFT OUTER JOIN " + 

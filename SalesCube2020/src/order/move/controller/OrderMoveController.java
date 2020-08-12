@@ -63,17 +63,21 @@ public class OrderMoveController extends BaseController{
 	
 	private String moveOrderUpdate (HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException, ClassNotFoundException, SQLException {
 		
+		String roSlipId = request.getParameter("roSlipId");
+		
 		OrderInputDAO dao = new OrderInputDAO();
 		ProductModalInit init = new ProductModalInit();
 
 		List<OrderInputBean> list1 = dao.getDcName();
 		List<OrderInputBean> list2 = dao.getDcTimezone();
 		List<OrderInputBean> list3 = dao.getTaxRate();
+		OrderInputBean bean = dao.getOrderInfo(roSlipId);
 		init.initCombobox(request, response);
 
 		request.setAttribute("initDcName", list1);
 		request.setAttribute("initDcTimezone", list2);
 		request.setAttribute("initTaxRate", list3);
+		request.setAttribute("order", bean);
 
 		return "order\\orderupdate.jsp";
 	}
