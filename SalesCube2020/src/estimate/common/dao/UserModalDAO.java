@@ -8,7 +8,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import common.dao.BaseDAO;
-import common.modal.customer.beans.CustomerModalResultBean;
 import estimate.common.beans.UserModalResultBean;
 import estimate.common.beans.UserModalSearchBean;
 import sql.estimate.EstimateSQL;
@@ -41,7 +40,7 @@ public class UserModalDAO extends BaseDAO {
 
 			list.add(bean1);
 		}
-		
+		System.out.println("listSize;"+list.size());
 		super.releaseDB(con,stmt,result);
 		
 		return list;

@@ -15,7 +15,7 @@ import estimate.common.beans.GetDeptBean;
 public class DeptGetDAO extends BaseDAO {
 	
 	//部門情報を取得する
-	public  List<GetDeptBean> DeptGet(String deptId) throws SQLException, ClassNotFoundException{
+	public  List<GetDeptBean> DeptGet() throws SQLException, ClassNotFoundException{
 		
 		List<GetDeptBean> list = new ArrayList<> ();
 		
@@ -31,7 +31,7 @@ public class DeptGetDAO extends BaseDAO {
 	 	sql = "SELECT "
 	 			+ "DEPT_ID, "
 	 			+ "NAME"
-	 		+ "FROM"
+	 		+ "FROM "
 	 			+ "DEPT_MST_XXXXX "
 	 		+ "' ORDER BY "
 	 			+ "DEPT_ID ";
@@ -42,7 +42,7 @@ public class DeptGetDAO extends BaseDAO {
 	 			while( result.next() ) {//部門情報をリストに登録
 	 				GetDeptBean category = new GetDeptBean();
 	 				category.setDeptId(result.getString("DEPT_ID"));
-	 				category.setName(result.getString("NAME"));
+	 				category.setDeptName(result.getString("NAME"));
 	 				
 	 				list.add(category);	
 	 			}

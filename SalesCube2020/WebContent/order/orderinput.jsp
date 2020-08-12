@@ -7,6 +7,7 @@
 <html lang="en">
 
 	<%@ include file="/common/productSearch.jsp" %>
+	<%@ include file="/common/bill.jsp" %>
 	<%@ include file="/common/_customerSearch.jsp" %>
 
 	<head>
@@ -316,9 +317,7 @@
 								</div>
 								<select class="custom-select" name="">
 									<option value=""></option>
-<!--									<c:forEach items="${deliveryInfo}">	-->
-<!--										<option value=""></option>	-->
-<!--									</c:forEach> -->
+
 								</select>
 							</div>
 						</div>

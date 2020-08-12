@@ -52,14 +52,10 @@ public class OrderMoveController extends BaseController{
 		List<OrderInputBean> list2 = dao.getDcTimezone();
 		List<OrderInputBean> list3 = dao.getTaxRate();
 		init.initCombobox(request, response);
-		
-		HttpSession session = request.getSession(true);
-		UserInfoBean userID = (UserInfoBean) session.getAttribute("userInfo");
 
 		request.setAttribute("initDcName", list1);
 		request.setAttribute("initDcTimezone", list2);
 		request.setAttribute("initTaxRate", list3);
-		request.setAttribute("user", userID);
 		
 		return "order\\orderinput.jsp";
 		
@@ -67,9 +63,22 @@ public class OrderMoveController extends BaseController{
 	
 	private String moveOrderUpdate (HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException, ClassNotFoundException, SQLException {
 		
-		ProductModalInit init = new ProductModalInit();
-		init.initCombobox(request, response);
+		String roSlipId = request.getParameter("roSlipId");
 		
+		OrderInputDAO dao = new OrderInputDAO();
+		ProductModalInit init = new ProductModalInit();
+
+		List<OrderInputBean> list1 = dao.getDcName();
+		List<OrderInputBean> list2 = dao.getDcTimezone();
+		List<OrderInputBean> list3 = dao.getTaxRate();
+		OrderInputBean bean = dao.getOrderInfo(roSlipId);
+		init.initCombobox(request, response);
+
+		request.setAttribute("initDcName", list1);
+		request.setAttribute("initDcTimezone", list2);
+		request.setAttribute("initTaxRate", list3);
+		request.setAttribute("order", bean);
+
 		return "order\\orderupdate.jsp";
 	}
 

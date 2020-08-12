@@ -45,6 +45,8 @@ public class CreateAJAXControllers {
 		map.put("customerSearch", customerAJAX);
 		
 		map.put("userSearch", userAJAX);
+		map.put("deptSearch", userAJAX);
+		map.put("roleSearch", userAJAX);
 		
 		map.put("estimateCustomerSearch", estimateInputCommonAJAX);
 		map.put("estimateProductSearch", estimateInputCommonAJAX);

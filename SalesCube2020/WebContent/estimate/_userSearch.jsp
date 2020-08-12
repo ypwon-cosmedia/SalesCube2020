@@ -131,7 +131,7 @@
                             <div class="input-group-prepend">
                                 <div class="input-group-text">担当者コード</div>
                             </div>
-                            <input type="text"  class="form-control" id="userId" name="userId" >
+                            <input type="text"  class="form-control" id="userId" name="userId" value="USERID">
                           </div>
                         </div>
                       </div>
@@ -200,7 +200,7 @@
                 </form>
 
 
-                <div id="resultCustomer" hidden="hidden">
+                <div id="resultUser" hidden="hidden">
                     <div class="modal-body">
                       <div class="float-left" style="position:static; left: 0px;">
                         	  <span id="userSearchResultCount"></span>
@@ -258,7 +258,7 @@
 			var tmp = "";
 			alert("call")
 			$.ajax({
-				url:'/SalesCube2020/SalesCubeAJAX?action=estimateCategoryGet',
+				url:'/SalesCube2020/SalesCubeAJAX?action=getDeptSearch',
 				type:'post',
 				data:formString,
 				dataType:'json',
@@ -283,7 +283,7 @@
 			var tmp = "";
 			alert("call")
 			$.ajax({
-				url:'/SalesCube2020/SalesCubeAJAX?action=estimateCategoryGet',
+				url:'/SalesCube2020/SalesCubeAJAX?action=getRoleSearch',
 				type:'post',
 				data:formString,
 				dataType:'json',
@@ -309,8 +309,9 @@
       		document.getElementById('UserModalNameKnj').value = name;
       	}
       	    	
-      
+      //担当者検索結果
 		function userSearch1() {
+    	  alert("userSearch1");
 			var formString = $("form[id=user]").serialize();
 			var tmp = "";
 			
@@ -321,6 +322,7 @@
 				data:formString,
 				dataType:'json',
 				success:function(data){	
+					alert("success");
 					document.getElementById("resultUser").removeAttribute('hidden');//テーブルの表示
 					$("#userResult > tr").remove();
 						var tableAdd = document.getElementById('userResult');
@@ -342,11 +344,11 @@
 						for(var i = 0; i<Object.keys(data).length; i++){
 							var headcontents= '';
 							headcontents += '<tr>';
-							headcontents += '<td style="white-space: normal; text-align: left;" onclick="selectCustomerCode('+data[i].userId+",'"+data[i].nameKnj+"'"+')" data-dismiss="modal" ><a href="">'+data[i].userId+'</a></td>';
+							headcontents += '<td style="white-space: normal; text-align: left;" onclick="selectUserCode('+data[i].userId+",'"+data[i].nameKnj+"'"+')" data-dismiss="modal" ><a href="">'+data[i].userId+'</a></td>';
 							headcontents += '<td style="white-space: normal; text-align: left;">'+data[i].nameKnj+'</td>';
 							headcontents += '<td style="white-space: normal; text-align: left;">'+data[i].deptId+'</td>';  							
 							headcontents += '</tr>';
-							$('#customerResult').append(headcontents);						
+							$('#userResult').append(headcontents);						
 						}
 						
 					}

@@ -6,7 +6,7 @@ public class GetRoleBean {
 	private String roleId;
 	
 	//ロール名
-	private String name;
+	private String roleName;
 
 	/**
 	 * @return the roleId
@@ -26,14 +26,14 @@ public class GetRoleBean {
 	 * @return the roleName
 	 */
 	public String getRoleName() {
-		return name;
+		return roleName;
 	}
 
 	/**
 	 * @param roleName the roleName to set
 	 */
 	public void setRoleName(String roleName) {
-		this.name = roleName;
+		this.roleName = roleName;
 	}
 	
 }

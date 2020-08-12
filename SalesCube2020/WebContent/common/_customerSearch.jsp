@@ -1,106 +1,12 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-    
-<!DOCTYPE html>
-<html lang="en">
-	<head>
-		<meta charset="UTF-8">
-		<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-		
-		<!-- Bootstrap CSS -->
-    	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
-		<title>customerSearch</title>
-		
-		<style type="text/css">
-        .container {
-            width: 1120px;
-            max-width: none !important;
-        }
-        .table tr td {
-            background-color: white;
-        }
-
-        .table {
-          white-space: nowrap;
-        } 
-        
-        .cursor-pointer{
- 		 	    cursor: pointer;
- 		 	    color : blue;
-		    }
-      
-        .clear-decoration {
-                border: none;  /* 枠線を消す */
-                outline: none; /* クリックしたときに表示される枠線を消す */
-                background: transparent; /* 背景の灰色を消す */
-            }
-
-            
-        .table_1{
-          border-collapse: collapse;
-          border-spacing: 0;
-          height: 250px;
-          display: block;
-          overflow-x: scroll;
-          overflow-y: scroll;
-          white-space: nowrap;
-        }
-
-        .table_1 thead tr th{
-            position: sticky;
-            position: -webkit-sticky;
-            top: 0;
-            
-            z-index: 1;
-        }
-      
-      .table_2{
-            
-            border-collapse: collapse;
-            border-spacing: 0;
-
-            height: auto;
-            display: block;
-            overflow-x: scroll;
-          
-            white-space: nowrap;
-            
-        }
-        .scrollnum{
-            position: sticky;
-            position: -webkit-sticky;
-            top: 0;
-            left: 0;
-            z-index: 1;
-        }
-        
-        .example3 li {
-          display: inline-block;
-          height:35px;line-height:35px;
-          width:35px;text-align:center;
-          border:1px #ccc solid;color:#000053;
-          border-radius: 5px / 5px;
-          }
-    	</style>
-    	
-    	
-	</head>
-
-	<body style="background-color: gainsboro;">
-       <!-- Optional JavaScript -->
-       <!-- jQuery first, then Popper.js, then Bootstrap JS -->
-       <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
-       <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
-       <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
-       <br><br>
-
-       
-       <button type="button" class="btn btn-outline-secondary" data-toggle="modal" data-target="#customerSearch" onclick="initCustomer() ; getCutoffGroup()">
+     <!-- ここが顧客検索モダールボタン --> 
+     <!--   <button type="button" class="btn btn-outline-secondary" data-toggle="modal" data-target="#customerSearch" onclick="initCustomer() ; getCutoffGroup()">
         ↓
         </button>
         <input type="text" id="CustomerModalCustomerCode" name="CustomerModalCustomerCode" placeholder="顧客コード" value="">
-        <input type="text" id="CustomerModalCustomerName" name="CustomerModalCustomerName" placeholder="顧客名" value="">
-		
+        <input type="text" id="CustomerModalCustomerName" name="CustomerModalCustomerName" placeholder="顧客名" value="">    
+	-->
 		
 		<div class="modal fade" id="customerSearch" tabindex="-1" role="dialog" aria-labelledby="label1" aria-hidden="true">
         <div class="modal-dialog modal-lg" role="document">
@@ -334,5 +240,3 @@
      	
       </script>  
       
-	</body>
-</html>

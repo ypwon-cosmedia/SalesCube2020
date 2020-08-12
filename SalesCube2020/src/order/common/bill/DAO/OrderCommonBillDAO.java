@@ -41,6 +41,8 @@ public class OrderCommonBillDAO extends BaseDAO{
 	 		list.add(bean2);
 	 	}
 	 	
+	 	super.releaseDB(con, stmt, result);
+	 	
 	 	return list;
 	}
 	
@@ -62,6 +64,8 @@ public class OrderCommonBillDAO extends BaseDAO{
 	 	
 	 	OrderCommonBillBean bean = new OrderCommonBillBean();
 	 	bean.setCtaxRate(result.getString("estx.CTAX_RATE"));
+	 	
+	 	super.releaseDB(con, stmt, result);
 	 	
 	 	return bean;
 	 	
@@ -91,6 +95,8 @@ public class OrderCommonBillDAO extends BaseDAO{
 	 	bean.setCtaxRate(result.getString("c.CATEGORY_CODE_NAME"));
 	 	bean.setCtaxRate(result.getString("estx.CUSTOMER_REMARKS"));
 	 	bean.setCtaxRate(result.getString("estx.CUSTOMER_COMMENT_DATA"));
+	 	
+	 	super.releaseDB(con, stmt, result);
 	 	
 	 	return bean;
 	 	
@@ -125,6 +131,8 @@ public class OrderCommonBillDAO extends BaseDAO{
 	 	bean.setCtaxRate(result.getString("dmx.DELIVERY_TEL"));
 	 	bean.setCtaxRate(result.getString("dmx.DELIVERY_FAX"));
 	 	bean.setCtaxRate(result.getString("dmx.DELIVERY_EMAIL"));
+	 	
+	 	super.releaseDB(con, stmt, result);
 	 	
 	 	return bean;
 	 	
