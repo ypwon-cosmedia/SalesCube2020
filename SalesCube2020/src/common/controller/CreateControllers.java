@@ -95,7 +95,7 @@ public class CreateControllers {
 		map.put( "logout", userObj);
 		
 		map.put( "orderinput", orderObj);
-		map.put( "orderedit", orderObj);
+		map.put( "orderupdate", orderObj);
 		map.put( "ordersearch", orderObj);
 		map.put( "onlineorder", orderObj);
 		
