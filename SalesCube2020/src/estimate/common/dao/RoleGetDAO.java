@@ -31,7 +31,7 @@ public class RoleGetDAO extends BaseDAO{
 				+ "NAME "
 			+ "FROM "
 				+ "ROLE_MST_XXXXX "
-			+ "' ORDER BY "
+			+ "ORDER BY "
  				+ "ROLE_ID ";
 		
 		result = stmt.executeQuery(sql);

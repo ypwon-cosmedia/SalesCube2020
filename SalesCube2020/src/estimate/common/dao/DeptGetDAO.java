@@ -8,8 +8,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import common.dao.BaseDAO;
-import estimate.Input.beans.TaxRateBean;
-import estimate.common.beans.CategoryBean;
 import estimate.common.beans.GetDeptBean;
 
 public class DeptGetDAO extends BaseDAO {
@@ -30,10 +28,10 @@ public class DeptGetDAO extends BaseDAO {
 	 	
 	 	sql = "SELECT "
 	 			+ "DEPT_ID, "
-	 			+ "NAME"
+	 			+ "NAME "
 	 		+ "FROM "
 	 			+ "DEPT_MST_XXXXX "
-	 		+ "' ORDER BY "
+	 		+ "ORDER BY "
 	 			+ "DEPT_ID ";
 	 	
 	 	result = stmt.executeQuery(sql);

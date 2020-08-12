@@ -89,6 +89,7 @@ public class UserModalAJAXController extends BaseAJAXController {
 						
 			response.setContentType("application/x-json; charset=UTF-8");
 			response.getWriter().print(jArray);
+			
 		} catch (ClassNotFoundException | SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

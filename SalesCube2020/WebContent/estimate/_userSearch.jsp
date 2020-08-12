@@ -93,7 +93,7 @@
        <br><br>
 
        
-       <button type="button" class="btn btn-outline-secondary" data-toggle="modal" data-target="#userSearch" onclick="initUser()" >
+       <button type="button" class="btn btn-outline-secondary" data-toggle="modal" data-target="#userSearch" onclick="initUser() ; getDeptCategory() ; getRoleCategory()" >
         ↓
         </button>
 		
@@ -253,12 +253,12 @@
      	}
       
       	//部門コンボボックス
-     	function getCutoffGroup(){
+     	function getDeptCategory(){
      		var formString = $("form[id=dept]").serialize();
 			var tmp = "";
 			alert("call")
 			$.ajax({
-				url:'/SalesCube2020/SalesCubeAJAX?action=getDeptSearch',
+				url:'/SalesCube2020/SalesCubeAJAX?action=deptSearch',
 				type:'post',
 				data:formString,
 				dataType:'json',
@@ -269,7 +269,7 @@
 					$('#SelectDeptId').append(headcontents);
 					
 					for(var i = 0; i<Object.keys(data).length; i++){
-						var headcontents = '<option value ="'+data[i].deptId+'">'+data[i].name+'</option>';	
+						var headcontents = '<option value ="'+data[i].deptId+'">'+data[i].deptName+'</option>';	
 						$('#SelectDeptId').append(headcontents);
 					}
 					
@@ -278,12 +278,12 @@
 		}
       	
      	//権限コンボボックス
-     	function getCutoffGroup(){
+     	function getRoleCategory(){
      		var formString = $("form[id=role]").serialize();
 			var tmp = "";
 			alert("call")
 			$.ajax({
-				url:'/SalesCube2020/SalesCubeAJAX?action=getRoleSearch',
+				url:'/SalesCube2020/SalesCubeAJAX?action=roleSearch',
 				type:'post',
 				data:formString,
 				dataType:'json',
@@ -294,7 +294,7 @@
 					$('#SelectRoleId').append(headcontents);
 					
 					for(var i = 0; i<Object.keys(data).length; i++){
-						var headcontents = '<option value ="'+data[i].roleId+'">'+data[i].name+'</option>';	
+						var headcontents = '<option value ="'+data[i].roleId+'">'+data[i].roleName+'</option>';	
 						$('#SelectRoleId').append(headcontents);
 					}
 					
@@ -304,8 +304,9 @@
      	
      	
      	//担当者コード及び担当者名の値をセット。※親画面で書くコード
-     	function selectCustomerCode(code, name){
-      		document.getElementById('UserModalUserId').value = code;
+     	function selectUserId(id, name){
+     		alert();
+      		document.getElementById('UserModalUserId').value = id;
       		document.getElementById('UserModalNameKnj').value = name;
       	}
       	    	
@@ -344,7 +345,7 @@
 						for(var i = 0; i<Object.keys(data).length; i++){
 							var headcontents= '';
 							headcontents += '<tr>';
-							headcontents += '<td style="white-space: normal; text-align: left;" onclick="selectUserCode('+data[i].userId+",'"+data[i].nameKnj+"'"+')" data-dismiss="modal" ><a href="">'+data[i].userId+'</a></td>';
+							headcontents += '<td style="white-space: normal; text-align: left;" onclick="selectUserId('+"'"+data[i].userId+"'"+",'"+data[i].nameKnj+"'"+')" data-dismiss="modal" ><a href="">'+data[i].userId+'</a></td>';
 							headcontents += '<td style="white-space: normal; text-align: left;">'+data[i].nameKnj+'</td>';
 							headcontents += '<td style="white-space: normal; text-align: left;">'+data[i].deptId+'</td>';  							
 							headcontents += '</tr>';
