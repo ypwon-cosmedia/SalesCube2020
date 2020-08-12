@@ -30,14 +30,14 @@
         	<input type="hidden" name="categoryId" value="34">
         </form>
         <!-- ＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊確認用＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊
-        	ボタン（納期または出荷日）data-targetの変更必要
+        	ボタン（納期または出荷日）data-targetの変更必要-->
         <button type="button" class="btn btn-outline-secondary" data-toggle="modal" data-target="#setShipDate" onclick="categoryShow()">
         →
         </button>
         
         <input type="text" id="deliveryInfo">
-        -->
-        s
+        
+        
             <div class="modal fade" id="setShipDate" tabindex="-1" role="dialog" aria-labelledby="label1" aria-hidden="true">
                 <div class="modal-dialog" role="document">
                     <div class="modal-content">

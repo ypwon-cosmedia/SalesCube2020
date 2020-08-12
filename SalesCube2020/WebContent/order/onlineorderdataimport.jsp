@@ -86,7 +86,7 @@
 							<div class="input-group-prepend">
 								<div class="input-group-text">受注データ※</div>
 							</div>
-						<input type="file"  class="form-control" id="inlineFormInputGroup" name="data1">
+						<input type="file" class="form-control" id="uploadcsv">
 						</div>
 					</div>
 				</div>	
@@ -113,7 +113,7 @@
 <br>
 
 <div class="container" style="background-color: rgb(255, 255, 255);" id="setProductList">
-    <table id="mytable" name="mytable" class="table table-bordered">
+    <table id="mytable" class="table table-bordered">
 		<thead class="thead-dark">
     	<tr align="center">
 				<th scope="col" class="sort rd_top_left th_back_black" style="cursor: pointer; height: 30px;">受注番号</th>
@@ -121,14 +121,12 @@
         <th scope="col" class="sort th_back_black" style="cursor: pointer; height: 30px;">受注日</th>
       </tr>
 		</thead>
-		<tbody class="list">
-			<c:forEach var="product" items="${searchData}" varStatus="status">   
-			    <tr>	      
+		<tbody class="list">  
+		  <tr>	      
             <td class="productName" style="white-space: normal; text-align: left;">受注番号1</td>
             <td class="productName" style="white-space: normal; text-align: left;">顧客名1</td>	
             <td class="productName" style="white-space: normal; text-align: left;">2020/02/02</td>
-			    </tr>
-			</c:forEach>
+		  </tr>
 		</tbody>
 	</table>
 </div>
@@ -141,10 +139,27 @@
 	}
 
 	function importData(){
-		if(!confirm("オンライン受注データファイルを取り込みますか？")){
+	  if(!confirm("オンライン受注データファイルを取り込みますか？")){
         return;
       }
-      document.getElementById('mainform').submit();
+      var fileUpload = document.getElementById("uploadcsv");
+      if(fileUpload.value != null){
+    	  var uploadFile = new FormData();
+    	  var files = $("#uploadcsv").get(0).files;
+    	  if(files.length>0){
+    		  uploadFile.append("csvdoc", files[0]);
+    		  $.ajax({
+                  url: "/Controller/Action",
+                  contentType: false,
+                  processData: false,
+                  data: uploadFile,
+                  type: 'POST',
+                  success: function () {
+                     alert("test");
+                  }
+              });
+    	  }
+      }
   }
    
 </script>
