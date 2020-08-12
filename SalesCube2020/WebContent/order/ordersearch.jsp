@@ -43,14 +43,16 @@
 </head>
 <body style="background-color: gainsboro;">
 	<div id = "test">
+		<input type="hidden" id="hiddenSort">
 	</div>
 	<!-- Optional JavaScript -->
     <!-- jQuery first, then Popper.js, then Bootstrap JS -->
     <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
-    <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
-	<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery.tablesorter/2.31.0/js/jquery.tablesorter.min.js"></script>
+    <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script> 
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery.tablesorter/2.31.3/js/jquery.tablesorter.min.js"></script> 
+       
     <%@ include file= "../common/menubar.jsp" %>
 	<br>
 
@@ -217,31 +219,31 @@
 							</div>
 							&nbsp;&nbsp;&nbsp;
 							<div class="form-check form-check-inline">
-								<input class="form-check-input" type="checkbox" id="inlineCheckbox1" value="option1" name="withdrawl">
+								<input class="form-check-input" type="checkbox" id="inlineCheckbox1" value="0" name="withdrawl">
 								<label class="form-check-label" for="inlineCheckbox1">掛売</label>
 							</div>
 							<div class="form-check form-check-inline">
-								<input class="form-check-input" type="checkbox" id="inlineCheckbox1" value="option2" name="withdrawl">
+								<input class="form-check-input" type="checkbox" id="inlineCheckbox1" value="1" name="withdrawl">
 								<label class="form-check-label" for="inlineCheckbox1">現金</label>
 							</div>
 							<div class="form-check form-check-inline">
-								<input class="form-check-input" type="checkbox" id="inlineCheckbox1" value="option3" name="withdrawl">
+								<input class="form-check-input" type="checkbox" id="inlineCheckbox1" value="2" name="withdrawl">
 								<label class="form-check-label" for="inlineCheckbox1">サンプル</label>
 							</div>
 							<div class="form-check form-check-inline">
-								<input class="form-check-input" type="checkbox" id="inlineCheckbox1" value="option4" name="withdrawl">
+								<input class="form-check-input" type="checkbox" id="inlineCheckbox1" value="3" name="withdrawl">
 								<label class="form-check-label" for="inlineCheckbox1">代引き</label>
 							</div>
 							<div class="form-check form-check-inline">
-								<input class="form-check-input" type="checkbox" id="inlineCheckbox1" value="option5" name="withdrawl">
+								<input class="form-check-input" type="checkbox" id="inlineCheckbox1" value="4" name="withdrawl">
 								<label class="form-check-label" for="inlineCheckbox1">クレジット</label>
 							</div>
 							<div class="form-check form-check-inline">
-								<input class="form-check-input" type="checkbox" id="inlineCheckbox1" value="option6" name="withdrawl">
+								<input class="form-check-input" type="checkbox" id="inlineCheckbox1" value="5" name="withdrawl">
 								<label class="form-check-label" for="inlineCheckbox1">先入金</label>
 							</div>
 							<div class="form-check form-check-inline">
-								<input class="form-check-input" type="checkbox" id="inlineCheckbox1" value="option7" name="withdrawl">
+								<input class="form-check-input" type="checkbox" id="inlineCheckbox1" value="6" name="withdrawl">
 								<label class="form-check-label" for="inlineCheckbox1">通販サイト1経由</label>
 							</div>
                         </div>                        
@@ -359,7 +361,7 @@
 				<div class="col-5" style="position:static; left: 0px;">
 					検索結果件数：<span id="resultCount">0</span>件
 				</div>
-				<div class="col-4">
+				<div class="col-4" id="paging">
 					<a href="#">1</a>
 					<a href="#">2</a>
 					<a href="#">3</a>
@@ -734,10 +736,11 @@
 	}
 
 	$(document).ready(function(){
+
+		$('table').tablesorter();
+		
 		var loop=0;
-		
-		$('#order_detail_info').tablesorter();
-		
+				
 		<c:forEach var="test" items="${configDetailShow}">
 		detailSelectedArr[loop] = {
 				    value:"${test.categoryCode}",
@@ -803,7 +806,7 @@
 
 		headcontents += '<tr>';
 		for(var i = 0; i < selectedArr.length; i++){
-			headcontents += '<th scope="col" class="sort th_back_black" style="cursor: pointer; height: 30px;">'+ selectedArr[i].name +'</th>';
+			headcontents += '<th scope="col" class="sort th_back_black" style="cursor: pointer; height: 30px;"><a onclick="searchandsort(this)">'+ selectedArr[i].name +'</a></th>';
 		}               
 		headcontents += '</tr>';
 
@@ -903,7 +906,7 @@
 			
 			headcontents += '<tr>';
 			for(var i = 0; i < selectedArr.length; i++){
-				headcontents += '<th scope="col" class="sort th_back_black" style="cursor: pointer; height: 30px;">'+ selectedArr[i].name +'</th>';
+				headcontents += '<th scope="col" class="sort th_back_black" style="cursor: pointer; height: 30px;"><a onclick="searchandsort(this)">'+ selectedArr[i].name +'</a></th>';
 			}               
 			headcontents += '</tr>';
 
@@ -932,7 +935,7 @@
 			
 			headcontents += '<tr>';
 			for(var i = 0; i < detailSelectedArr.length; i++){
-				headcontents += '<th scope="col" class="sort th_back_black" style="cursor: pointer; height: 30px;">'+ detailSelectedArr[i].name +'</th>';
+				headcontents += '<th scope="col" class="sort th_back_black" style="cursor: pointer; height: 30px;"><a onclick="searchandsort(this)">'+ detailSelectedArr[i].name +'</a></th>';
 			}               
 			headcontents += '</tr>';
 
@@ -1013,7 +1016,7 @@
 			
 			headcontents += '<tr>';
 			for(var i = 0; i < selectedArr.length; i++){
-				headcontents += '<th scope="col" class="sort th_back_black" style="cursor: pointer; height: 30px;">'+ selectedArr[i].name +'</th>';
+				headcontents += '<th scope="col" class="sort th_back_black" style="cursor: pointer; height: 30px;" ><a onclick="searchandsort(this)">'+ selectedArr[i].name +'</a></th>';
 			}               
 			headcontents += '</tr>';
 
@@ -1042,7 +1045,7 @@
 			
 			headcontents += '<tr>';
 			for(var i = 0; i < detailSelectedArr.length; i++){
-				headcontents += '<th scope="col" class="sort th_back_black" style="cursor: pointer; height: 30px;">'+ detailSelectedArr[i].name +'</th>';
+				headcontents += '<th scope="col" class="sort th_back_black" style="cursor: pointer; height: 30px;"><a onclick="searchandsort(this)">'+ detailSelectedArr[i].name +'</a></th>';
 			}               
 			headcontents += '</tr>';
 
@@ -1052,6 +1055,7 @@
 	}
 	
 	window.onload = function(){
+
 		var loop=0;
 		
 		<c:forEach var="test" items="${category}" >
@@ -1173,12 +1177,86 @@
 					"supplierCodeInput": $("#supplierCodeInput").val(),
 					"supplierNameInput": $("#supplierNameInput").val(),
 					"rowCount": $("#rowCount option:selected").val(),
-					"list":selArr
+					"list":selArr,
+				},
+				dataType:'json',
+				success:function(data){	
+					var count;
+					$("#AddOption > tr").remove();
+					for(var i = 0; i<Object.keys(data).length - 3; i++){
+						var headcontents= '';
+						headcontents += '<tr>';
+						for(var j = 0; j < selArr.length; j++){
+							var tmp;
+							if(data[i][j] == null)
+								tmp = "";
+							else if(isNaN(data[i][j]) == false)
+								tmp = Math.floor(data[i][j]);
+							else
+								tmp = data[i][j];
+							headcontents += '<td>' + tmp + '</td>';
+						}
+						
+						headcontents += '</tr>';
+						$('#AddOption').append(headcontents);						
+					}
+
+					$('#resultCount').text(data[Object.keys(data).length-2]["totalCount"]);
+					
+					alert(data[Object.keys(data).length-1]["totalPage"]);
+					$("#paging > a").remove();
+					for(var i = 0; i<data[Object.keys(data).length-1]["totalPage"]; i++){
+						$("#paging").append('<a href="#" onclick="paging('+(i+1)+')">'+(i+1)+'</a> ');
+					}
+				}
+			});
+		}
+		
+		function searchandsort(obj){
+			var selArr = [];
+			var checkedData = [];
+			for(var i = 0; i<document.getElementById('showSearchResult').length; i++){
+				selArr[i] = document.getElementById('showSearchResult')[i].value
+			}
+
+			$("input[name='withdrawl']:checked").each(function() {
+				var test = $(this).val();
+				checkedData.push(test);
+			});
+			var sorting = $(obj).text();
+			document.getElementById("hiddenSort").value = sorting;
+			
+			jQuery.ajaxSettings.traditional = true;
+			
+			$.ajax({
+				url:'/SalesCube2020/SalesCubeAJAX?action=orderSearch',
+				type:'post',
+				data:{
+					"selectView": $("#select_view option:selected").val(),
+					"orderNo": $("#orderNumber").val(),
+					"repNo": $("#repNo").val(),
+					"orderDayStart": $("#orderDayStart").val(),
+					"orderDayEnd": $("#orderDayEnd").val(),
+					"shipDayStart": $("#shipDayStart").val(),
+					"shipDayEnd": $("#shipDayStart").val(),
+					"deliveryDayStart": $("#shipDayStart").val(),
+					"deliveryDayEnd": $("#shipDayStart").val(),
+					"withdrawl": checkedData,
+					"productCodeInput": $("#productCodeInput").val(),
+					"productNameInput": $("#productNameInput").val(),
+					"product1": $("#product1").val(),
+					"product2": $("#product2").val(),
+					"product3": $("#product3").val(),
+					"supplierCodeInput": $("#supplierCodeInput").val(),
+					"supplierNameInput": $("#supplierNameInput").val(),
+					"rowCount": $("#rowCount option:selected").val(),
+					"list": selArr, 
+					"sorting": sorting
 				},
 				dataType:'json',
 				success:function(data){	
 					$("#AddOption > tr").remove();
-					for(var i = 0; i<Object.keys(data).length; i++){
+					for(var i = 0; i<Object.keys(data).length - 3; i++){
 						var headcontents= '';
 						headcontents += '<tr>';
 						for(var j = 0; j < selArr.length; j++){
@@ -1195,7 +1273,81 @@
 						$('#AddOption').append(headcontents);						
 					}
 					
-					$('#resultCount').text(+Object.keys(data).length);
+					$('#resultCount').text(data[Object.keys(data).length-2]["totalCount"]);
+					$("#paging > a").remove();
+					for(var i = 0; i<data[Object.keys(data).length-1]["totalPage"]; i++){
+						$("#paging").append('<a href="#" onclick="paging('+(i+1)+')">'+(i+1)+'</a> ');
+					}
+				}
+			});
+		}
+		
+		function paging(num){
+			var selArr = [];
+			var checkedData = [];
+			for(var i = 0; i<document.getElementById('showSearchResult').length; i++){
+				selArr[i] = document.getElementById('showSearchResult')[i].value
+			}
+
+			$("input[name='withdrawl']:checked").each(function() {
+				var test = $(this).val();
+				checkedData.push(test);
+			});
+			var sorting = document.getElementById("hiddenSort").value;
+			
+			jQuery.ajaxSettings.traditional = true;
+			
+			$.ajax({
+				url:'/SalesCube2020/SalesCubeAJAX?action=orderSearch',
+				type:'post',
+				data:{
+					"selectView": $("#select_view option:selected").val(),
+					"orderNo": $("#orderNumber").val(),
+					"repNo": $("#repNo").val(),
+					"orderDayStart": $("#orderDayStart").val(),
+					"orderDayEnd": $("#orderDayEnd").val(),
+					"shipDayStart": $("#shipDayStart").val(),
+					"shipDayEnd": $("#shipDayStart").val(),
+					"deliveryDayStart": $("#shipDayStart").val(),
+					"deliveryDayEnd": $("#shipDayStart").val(),
+					"withdrawl": checkedData,
+					"productCodeInput": $("#productCodeInput").val(),
+					"productNameInput": $("#productNameInput").val(),
+					"product1": $("#product1").val(),
+					"product2": $("#product2").val(),
+					"product3": $("#product3").val(),
+					"supplierCodeInput": $("#supplierCodeInput").val(),
+					"supplierNameInput": $("#supplierNameInput").val(),
+					"rowCount": $("#rowCount option:selected").val(),
+					"list": selArr, 
+					"sorting": sorting,
+					"paging": num
+				},
+				dataType:'json',
+				success:function(data){	
+					$("#AddOption > tr").remove();
+					for(var i = 0; i<Object.keys(data).length - 3; i++){
+						var headcontents= '';
+						headcontents += '<tr>';
+						for(var j = 0; j < selArr.length; j++){
+							var tmp;
+							if(data[i][j] == null)
+								tmp = "";
+							else if(isNaN(data[i][j]) == false)
+								tmp = Math.floor(data[i][j]);
+							else
+								tmp = data[i][j];
+							headcontents += '<td>' + tmp + '</td>';
+						}
+						headcontents += '</tr>';
+						$('#AddOption').append(headcontents);						
+					}
+					
+					$('#resultCount').text(data[Object.keys(data).length-2]["totalCount"]);
+					$("#paging > a").remove();
+					for(var i = 0; i<data[Object.keys(data).length-1]["totalPage"]; i++){
+						$("#paging").append('<a href="#" onclick="paging('+(i+1)+')">'+(i+1)+'</a> ');
+					}
 				}
 			});
 		}
@@ -1218,15 +1370,10 @@
 		        csvFile = new Blob([csv], {type: "text/csv"})
 
 		        downloadLink = document.createElement("a")
-
 		        downloadLink.download = filename;
-
 		        downloadLink.href = window.URL.createObjectURL(csvFile)
-
 		        downloadLink.style.display = "none"
-
 		        document.body.appendChild(downloadLink)
-
 		        downloadLink.click()
 		    }
 

@@ -865,7 +865,7 @@ public class OrderSQL {
 	}
 
 	
-	public String searchOrderBill(OrderSearchBean bean, String[] inputlist, String rowCount) {
+	public String searchOrderBill(OrderSearchBean bean, String[] inputlist, String rowCount, String sort, int currentPage) {
 		
 		String sql;
 		
@@ -913,7 +913,7 @@ public class OrderSQL {
 				"AND " +
 				"(pmx.product_name " + com.stringIsNull(bean.getProductName()) +
 				"AND " +
-				"(rstx.SALES_CM_CATEGORY " + stringArrayIsNull(bean.getWithdrawl()) +
+				"(rstx.CUTOFF_GROUP " + stringArrayIsNull(bean.getWithdrawl()) +
 				"AND " +
 				"(rstx.customer_code " + com.stringIsNull(bean.getCustomerCode()) +
 				"AND " +
@@ -929,12 +929,77 @@ public class OrderSQL {
 				"AND " +
 				"(rstx.delivery_name " + com.stringIsNull(bean.getSupplierName()) +
 				"GROUP BY (rstx.RO_SLIP_ID) " +
-				"ORDER BY (rstx.RO_SLIP_ID)";
+				"ORDER BY (" + sort + ")" +
+			 	"LIMIT " + rowCount + " OFFSET " + Integer.parseInt(rowCount)*(currentPage-1);
 				
 		return sql;
 	}
 	
-	public String searchOrderDetail(OrderSearchBean bean, String[] inputlist, String rowCount) {
+	public String getOrderBillCount(OrderSearchBean bean) {
+		
+		String sql;
+		
+		sql = "SELECT ";
+		
+		sql+= "COUNT(*) ";
+		
+		sql = sql +
+				"FROM " + 
+				"ro_slip_trn_xxxxx AS rstx " +  
+				"LEFT OUTER JOIN " + 
+				"category_trn_xxxxx AS ctx1 " + 
+				"ON rstx.tax_shift_category = ctx1.category_code " + 
+				"AND ctx1.category_id = '29' " + 
+				"LEFT OUTER JOIN " + 
+				"category_trn_xxxxx AS ctx2 " + 
+				"ON rstx.sales_cm_category = ctx2.category_code " + 
+				"AND ctx2.category_id = '32' " +
+				"LEFT OUTER JOIN " + 
+				"category_trn_xxxxx AS ctx3 " + 
+				"ON rstx.cutoff_group = ctx3.category_code " + 
+				"AND ctx3.category_id = '5' " +
+				"LEFT OUTER JOIN " + 
+				"ro_line_trn_xxxxx AS rltx " +
+				"USING(RO_SLIP_ID) " +
+				"LEFT OUTER JOIN " + 
+				"product_mst_xxxxx as pmx " + 
+				"USING(PRODUCT_CODE) " +
+				"WHERE " +
+				"(rstx.ro_slip_id " + com.stringIsNull(bean.getOrderNo()) +
+				"AND " +
+				"(rstx.recept_no " + com.stringIsNull(bean.getRepNo()) +
+				"AND " +
+				"(rstx.ro_date " + dateIsNull(bean.getOrderDayStart(),bean.getOrderDayEnd()) +
+				"AND " +
+				"(rstx.ship_date " + dateIsNull(bean.getShipDayStart(),bean.getShipDayEnd()) +
+				"AND " +
+				"(rstx.delivery_date " + dateIsNull(bean.getDeliveryDayStart(),bean.getDeliveryDayEnd()) +
+				"AND " +
+				"(rltx.product_code " + com.stringIsNull(bean.getProductCode()) +
+				"AND " +
+				"(pmx.product_name " + com.stringIsNull(bean.getProductName()) +
+				"AND " +
+				"(rstx.CUTOFF_GROUP " + stringArrayIsNull(bean.getWithdrawl()) +
+				"AND " +
+				"(rstx.customer_code " + com.stringIsNull(bean.getCustomerCode()) +
+				"AND " +
+				"(rstx.customer_name " + com.stringIsNull(bean.getCustomerName()) +
+				"AND " +
+				"(pmx.product_1 " + com.stringIsNull(bean.getProduct1()) +
+				"AND " +
+				"(pmx.product_2 " + com.stringIsNull(bean.getProduct2()) +
+				"AND " +
+				"(pmx.product_3 " + com.stringIsNull(bean.getProduct3()) +
+				"AND " +
+				"(rstx.delivery_code " + com.stringIsNull(bean.getSupplierCode()) +
+				"AND " +
+				"(rstx.delivery_name " + com.stringIsNull(bean.getSupplierName()) +
+				"GROUP BY (rstx.RO_SLIP_ID) ";
+		
+		return sql;
+	}
+	
+	public String searchOrderDetail(OrderSearchBean bean, String[] inputlist, String rowCount, String sort, int currentPage) {
 		
 		String sql;
 
@@ -982,7 +1047,7 @@ public class OrderSQL {
 				"AND " +
 				"(pmx.product_name " + com.stringIsNull(bean.getProductName()) +
 				"AND " +
-				"(rstx.SALES_CM_CATEGORY " + stringArrayIsNull(bean.getWithdrawl()) +
+				"(rstx.CUTOFF_GROUP " + stringArrayIsNull(bean.getWithdrawl()) +
 				"AND " +
 				"(rstx.customer_code " + com.stringIsNull(bean.getCustomerCode()) +
 				"AND " +
@@ -998,8 +1063,73 @@ public class OrderSQL {
 				"AND " +
 				"(rstx.delivery_name " + com.stringIsNull(bean.getSupplierName()) +
 				"GROUP BY (CONCAT(rltx.ro_slip_id, '-', rltx.line_no))" +
-				"ORDER BY (rltx.ro_slip_id)";
+				"ORDER BY (" + sort + ")" +
+				"LIMIT " + rowCount + " OFFSET " + Integer.parseInt(rowCount)*(currentPage-1);
 		
+		return sql;
+	}
+
+	public String getOrderDetailCount(OrderSearchBean bean) {
+		
+		String sql;
+		
+		sql = "SELECT ";
+		
+		sql+= "COUNT(*) ";
+		
+		sql = sql + 
+				"FROM " + 
+				"ro_line_trn_xxxxx AS rltx " + 
+				"LEFT OUTER JOIN " + 
+				"ro_slip_trn_xxxxx AS rstx " + 
+				"USING(ro_slip_id) " + 
+				"LEFT OUTER JOIN " + 
+				"category_trn_xxxxx AS ctx1 " + 
+				"ON rstx.tax_shift_category = ctx1.category_code " + 
+				"AND ctx1.category_id = '29' " + 
+				"LEFT OUTER JOIN " + 
+				"category_trn_xxxxx AS ctx2 " + 
+				"ON rstx.sales_cm_category = ctx2.category_code " + 
+				"AND ctx2.category_id = '32' " +
+				"LEFT OUTER JOIN " + 
+				"category_trn_xxxxx AS ctx3 " + 
+				"ON rstx.sales_cm_category = ctx2.category_code " + 
+				"AND ctx2.category_id = '5' " +
+				"LEFT OUTER JOIN " + 
+				"product_mst_xxxxx as pmx " + 
+				"USING(PRODUCT_CODE) " +
+				"WHERE " +
+				"(rstx.ro_slip_id " + com.stringIsNull(bean.getOrderNo()) +
+				"AND " +
+				"(rstx.recept_no " + com.stringIsNull(bean.getRepNo()) +
+				"AND " +
+				"(rstx.ro_date " + dateIsNull(bean.getOrderDayStart(),bean.getOrderDayEnd()) +
+				"AND " +
+				"(rstx.ship_date " + dateIsNull(bean.getShipDayStart(),bean.getShipDayEnd()) +
+				"AND " +
+				"(rstx.delivery_date " + dateIsNull(bean.getDeliveryDayStart(),bean.getDeliveryDayEnd()) +
+				"AND " +
+				"(rltx.product_code " + com.stringIsNull(bean.getProductCode()) +
+				"AND " +
+				"(pmx.product_name " + com.stringIsNull(bean.getProductName()) +
+				"AND " +
+				"(rstx.CUTOFF_GROUP " + stringArrayIsNull(bean.getWithdrawl()) +
+				"AND " +
+				"(rstx.customer_code " + com.stringIsNull(bean.getCustomerCode()) +
+				"AND " +
+				"(rstx.customer_name " + com.stringIsNull(bean.getCustomerName()) +
+				"AND " +
+				"(pmx.product_1 " + com.stringIsNull(bean.getProduct1()) +
+				"AND " +
+				"(pmx.product_2 " + com.stringIsNull(bean.getProduct2()) +
+				"AND " +
+				"(pmx.product_3 " + com.stringIsNull(bean.getProduct3()) +
+				"AND " +
+				"(rstx.delivery_code " + com.stringIsNull(bean.getSupplierCode()) +
+				"AND " +
+				"(rstx.delivery_name " + com.stringIsNull(bean.getSupplierName()) +
+				"GROUP BY (CONCAT(rltx.ro_slip_id, '-', rltx.line_no))";
+
 		return sql;
 	}
 
@@ -1024,11 +1154,11 @@ public class OrderSQL {
 			tmp += "LIKE '%' OR 1 = 1) ";
 		}
 		else { 
-			tmp += "IN( ";
+			tmp += "IN( '";
 			for(int i = 0; i <str.length; i++) {
-				tmp += str[i] + ",";
+				tmp += str[i] + "',";
 			}
-			tmp = tmp.substring(0, tmp.length()-1) + ") ";
+			tmp = tmp.substring(0, tmp.length()-1) + ")) ";
 		}
 		
 		

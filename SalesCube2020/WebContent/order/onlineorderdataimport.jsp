@@ -44,10 +44,11 @@
     <!-- jQuery first, then Popper.js, then Bootstrap JS -->
     
     <%@ include file= "../common/menubar.jsp" %>
-    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
-    
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+	<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery.tablesorter/2.31.0/js/jquery.tablesorter.min.js"></script>    
 	<br>
     <div class="container" id="main_function">
       <h3 class="float-left">オンライン受注データ取込</h3>
@@ -72,7 +73,7 @@
       </div>
       <br><br><br>
       </div>
-      <form action="#" method="post" name="mainform" id="mainform">
+      <form action="/SalesCube2020/SalesCubeAJAX?action=uploadcsv" method="post" name="mainform" id="mainform" enctype="multipart/form-data">
 		<div class="container" style="background-color: white;"><div class="panel panel-default" >
 			<div class="panel-heading row mb-2 col-4">
 				<h5><br>検索条件</h5>
@@ -86,7 +87,7 @@
 							<div class="input-group-prepend">
 								<div class="input-group-text">受注データ※</div>
 							</div>
-						<input type="file" class="form-control" id="uploadcsv">
+						<input type="file" class="form-control" id="uploadcsv" name="uploadcsv">
 						</div>
 					</div>
 				</div>	
@@ -95,6 +96,7 @@
 			<div align="right">
 				<input type="button" value="初期化" class="btn btn-outline-secondary" onclick="initPage();">
 				<input type="button" value="取込" class="btn btn-outline-secondary" onclick="importData()">
+				<input type="submit">
 			</div>
 			<br>
 		</div>
@@ -143,16 +145,20 @@
         return;
       }
       var fileUpload = document.getElementById("uploadcsv");
+      
       if(fileUpload.value != null){
     	  var uploadFile = new FormData();
     	  var files = $("#uploadcsv").get(0).files;
+    	  
     	  if(files.length>0){
     		  uploadFile.append("csvdoc", files[0]);
     		  $.ajax({
-                  url: "/Controller/Action",
-                  contentType: false,
-                  processData: false,
-                  data: uploadFile,
+                  url: "/SalesCube2020/SalesCubeAJAX?action=uploadcsv",
+                  contentType : false,
+                  enctype : "multipart/form-data",
+                  processData : false,
+                  cache : false,
+                  data: {"uploadcsv": uploadFile},
                   type: 'POST',
                   success: function () {
                      alert("test");

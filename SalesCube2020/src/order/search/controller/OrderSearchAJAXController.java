@@ -14,6 +14,7 @@ import javax.servlet.http.HttpSession;
 
 import com.google.gson.Gson;
 import com.google.gson.JsonArray;
+import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 
 import common.controller.BaseAJAXController;
@@ -29,7 +30,14 @@ public class OrderSearchAJAXController extends BaseAJAXController{
 		String action = request.getParameter("action");
 		
 		if(action.equals("configModalUpdate")) configModalUpdate(request, response);
-		else if(action.equals("orderSearch")) orderSearch(request, response);
+		else if(action.equals("orderSearch"))
+			try {
+				orderSearch(request, response);
+			} catch (ClassNotFoundException | MissingResourceException | ServletException | IOException
+					| SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 	}
 	
 	private void configModalUpdate(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -51,12 +59,18 @@ public class OrderSearchAJAXController extends BaseAJAXController{
 		
 	}
 	
-	private void orderSearch(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+	private void orderSearch(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException, ClassNotFoundException, MissingResourceException, SQLException {
 
 		OrderSearchDAO dao = new OrderSearchDAO();
 		OrderSearchBean bean = new OrderSearchBean();
 		Gson gson = new Gson();
 		String[] res;
+		
+		String tmp;
+		int count;
+		int totalCount;
+		int totalPage;
+		int currentPage;
 		
 		bean.setSelectView(request.getParameter("selectView"));
 		bean.setOrderNo(request.getParameter("orderNo"));
@@ -78,19 +92,70 @@ public class OrderSearchAJAXController extends BaseAJAXController{
 		bean.setSupplierCode(request.getParameter("supplierCode"));
 		bean.setSupplierName(request.getParameter("supplierName"));
 		
-		if(bean.getSelectView().equals("伝票")) res = billChanger(request.getParameterValues("list"));
-		else res = detailChanger(request.getParameterValues("list"));
+		String sort = request.getParameter("sorting");
+		if(sort == null)
+			sort = "";
 		
-		String rowCount = request.getParameter("rowCount");
+		if(bean.getSelectView().equals("伝票")) {
+			res = billChanger(request.getParameterValues("list"));
+			sort = orderBillChanger(sort);
+			totalCount = dao.getBillCount(bean);
+			
+		} else {
+			res = detailChanger(request.getParameterValues("list"));
+			sort = orderDetailChanger(sort);
+			totalCount = dao.getDetailCount(bean);
+		}
+		
+		
+		if(sort.equals("") && bean.getSelectView().equals("伝票"))
+			sort = "rstx.RO_SLIP_ID";
+		else if(sort.equals("") && bean.getSelectView().equals("明細"))
+			sort = "CONCAT(rltx.ro_slip_id, '-', rltx.line_no)";
+				
+		
+		tmp = (String) request.getParameter("rowCount");
+		count = Integer.parseInt(tmp);
+
+		totalPage = totalCount/count;
+		
+		if(totalCount%count != 0) {
+			totalPage++;
+		}
+		
+
+		tmp = (String) request.getParameter("paging");
+			
+		if(tmp == null) {
+			currentPage=1;
+		}else {
+			currentPage = Integer.parseInt(tmp);
+		}
 		
 		try {
-			List<String[]> list = dao.orderSearch(bean, res, rowCount);
+			List<String[]> list = dao.orderSearch(bean, res, Integer.toString(count), sort, currentPage);
+			
+			JsonObject jobj = new JsonObject();
+			jobj.addProperty("currentPage", currentPage);
+			
+			JsonObject jobj1 = new JsonObject();
+			jobj1.addProperty("totalCount", totalCount);
+			
+			JsonObject jobj2 = new JsonObject();
+			jobj2.addProperty("totalPage", totalPage);
 			
 			String data = gson.toJson(list);
 			JsonArray jArray = new JsonParser().parse(data).getAsJsonArray();
+			jArray.add(jobj);
+			jArray.add(jobj1);
+			jArray.add(jobj2);
+			
 			
 			response.setContentType("application/x-json; charset=UTF-8");
 			response.getWriter().print(jArray);
+			
+			
+			
 		} catch (ClassNotFoundException | MissingResourceException | SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -105,7 +170,7 @@ public class OrderSearchAJAXController extends BaseAJAXController{
 			else if(tmp[i].equals("customerCode")) tmp[i] = "rstx.CUSTOMER_CODE";
 			else if(tmp[i].equals("customerName")) tmp[i] = "rstx.CUSTOMER_NAME";
 			else if(tmp[i].equals("customerSlipNo")) tmp[i] = "rstx.CUSTOMER_SLIP_NO";
-			else if(tmp[i].equals("cutoffGroup")) tmp[i] = "rstx.CUTOFF_GROUP";
+			else if(tmp[i].equals("cutoffGroup")) tmp[i] = "ctx2.category_code_name";
 			else if(tmp[i].equals("deliveryDate")) tmp[i] = "rstx.DELIVERY_DATE";
 			else if(tmp[i].equals("priceTotal")) tmp[i] = "rstx.PRICE_TOTAL";
 			else if(tmp[i].equals("profit")) tmp[i] = "(rstx.retail_price_total - rstx.cost_total)";
@@ -115,7 +180,7 @@ public class OrderSearchAJAXController extends BaseAJAXController{
 			else if(tmp[i].equals("retailPriceTotal")) tmp[i] = "rstx.RETAIL_PRICE_TOTAL";
 			else if(tmp[i].equals("roDate")) tmp[i] = "rstx.RO_DATE";
 			else if(tmp[i].equals("roSlipId")) tmp[i] = "rstx.RO_SLIP_ID";
-			else if(tmp[i].equals("salesCmCategory")) tmp[i] = "ctx2.category_code_name";
+			else if(tmp[i].equals("salesCmCategory")) tmp[i] = "ctx3.category_code_name";
 			else if(tmp[i].equals("shipDate")) tmp[i] = "rstx.SHIP_DATE";
 			else if(tmp[i].equals("taxShiftCategory")) tmp[i] = "ctx1.category_code_name";
 			else if(tmp[i].equals("userId")) tmp[i] = "rstx.USER_ID";
@@ -159,6 +224,36 @@ public class OrderSearchAJAXController extends BaseAJAXController{
 			else if(tmp[i].equals("userName")) tmp[i] = "rstx.user_name";
 			
 		}
+		
+		return tmp;
+	}
+	
+	private String orderBillChanger(String tmp) {
+		
+		if(tmp.equals("消費税")) tmp = "rstx.CTAX_PRICE_TOTAL";
+		else if(tmp.equals("顧客コード")) tmp = "rstx.CUSTOMER_CODE";
+		else if(tmp.equals("顧客名")) tmp = "rstx.CUSTOMER_NAME";
+		else if(tmp.equals("客先伝票番号")) tmp = "rstx.CUSTOMER_SLIP_NO";
+		else if(tmp.equals("支払条件")) tmp = "ctx2.category_code_name";
+		else if(tmp.equals("納期指定日")) tmp = "rstx.DELIVERY_DATE";
+		else if(tmp.equals("伝票合計")) tmp = "rstx.PRICE_TOTAL";
+		else if(tmp.equals("粗利益")) tmp = "(rstx.retail_price_total - rstx.cost_total)";
+		else if(tmp.equals("粗利益率")) tmp = "((rstx.retail_price_total - rstx.cost_total) /retail_price_total)*100";
+		else if(tmp.equals("受付番号")) tmp = "rstx.RECEPT_NO";
+		else if(tmp.equals("摘要")) tmp = "rstx.REMARKS";
+		else if(tmp.equals("金額合計")) tmp = "rstx.RETAIL_PRICE_TOTAL";
+		else if(tmp.equals("受注日")) tmp = "rstx.RO_DATE";
+		else if(tmp.equals("受注番号")) tmp = "rstx.RO_SLIP_ID";
+		else if(tmp.equals("取引区分")) tmp = "ctx3.category_code_name";
+		else if(tmp.equals("出荷日")) tmp = "rstx.SHIP_DATE";
+		else if(tmp.equals("税転嫁")) tmp = "ctx1.category_code_name";
+		else if(tmp.equals("入力担当者コード")) tmp = "rstx.USER_ID";
+		else if(tmp.equals("入力担当者名")) tmp = "rstx.USER_NAME";
+		
+		return tmp;
+	}
+	
+	private String orderDetailChanger(String tmp) {
 		
 		return tmp;
 	}
