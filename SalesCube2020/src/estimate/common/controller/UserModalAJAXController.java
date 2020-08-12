@@ -51,10 +51,10 @@ public class UserModalAJAXController extends BaseAJAXController {
 		bean.setDeptId(request.getParameter("deptId"));
 		bean.setRoleId(request.getParameter("roleId"));
 		
-		System.out.print("UserId:");System.out.println(bean.getUserId());
-		System.out.print("UserId:");System.out.println(request.getParameter("userId"));
-		System.out.print("deptId:");System.out.println(request.getParameter("deptId"));
-		System.out.print("roleId:");System.out.println(request.getParameter("roleId"));
+		//System.out.print("UserId:");System.out.println(bean.getUserId());
+		//System.out.print("UserId:");System.out.println(request.getParameter("userId"));
+		//System.out.print("deptId:");System.out.println(request.getParameter("deptId"));
+		//System.out.print("roleId:");System.out.println(request.getParameter("roleId"));
 		
 		List<UserModalResultBean> list = new ArrayList<>();
 		Gson gson = new Gson();
