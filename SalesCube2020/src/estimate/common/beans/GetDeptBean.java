@@ -6,7 +6,7 @@ public class GetDeptBean {
 	private String deptId;
 	
 	//部門名
-	private String name;
+	private String deptName;
 
 	/**
 	 * @return the deptId
@@ -25,15 +25,15 @@ public class GetDeptBean {
 	/**
 	 * @return the name
 	 */
-	public String getName() {
-		return name;
+	public String getDeptName() {
+		return deptName;
 	}
 
 	/**
 	 * @param name the name to set
 	 */
-	public void setName(String name) {
-		this.name = name;
+	public void setDeptName(String deptName) {
+		this.deptName = deptName;
 	}
 	
 	

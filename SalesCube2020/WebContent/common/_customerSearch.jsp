@@ -1,4 +1,4 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
+ <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
     
 <!DOCTYPE html>
@@ -95,12 +95,12 @@
        <br><br>
 
        
-       <button type="button" class="btn btn-outline-secondary" data-toggle="modal" data-target="#customerSearch" onclick="initCustomer() ; getCutoffGroup()">
+     <!--   <button type="button" class="btn btn-outline-secondary" data-toggle="modal" data-target="#customerSearch" onclick="initCustomer() ; getCutoffGroup()">
         ↓
         </button>
         <input type="text" id="CustomerModalCustomerCode" name="CustomerModalCustomerCode" placeholder="顧客コード" value="">
-        <input type="text" id="CustomerModalCustomerName" name="CustomerModalCustomerName" placeholder="顧客名" value="">
-		
+        <input type="text" id="CustomerModalCustomerName" name="CustomerModalCustomerName" placeholder="顧客名" value="">    
+	-->
 		
 		<div class="modal fade" id="customerSearch" tabindex="-1" role="dialog" aria-labelledby="label1" aria-hidden="true">
         <div class="modal-dialog modal-lg" role="document">
