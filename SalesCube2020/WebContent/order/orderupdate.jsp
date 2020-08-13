@@ -10,6 +10,7 @@
 		<%@ include file="/common/productSearch.jsp" %>
 		<%@ include file="/common/bill.jsp" %>
 		<%@ include file="/common/_customerSearch.jsp" %>
+		<%@ include file="/common/stock.jsp" %>
 		
 		<!-- Required meta tags -->
 		<meta charset="utf-8">
@@ -310,7 +311,6 @@
 									<div class="input-group-text">顧客納入先</div>
 								</div>
 								<select class="custom-select" name="">
-									<option value=""></option>
 
 								</select>
 							</div>
@@ -558,6 +558,11 @@
 
 
 		<script>
+		
+			window.onload = function() {
+				calc();
+			};
+			
 			var globalTmp;
 
 			/* 受注編集の初期化 */

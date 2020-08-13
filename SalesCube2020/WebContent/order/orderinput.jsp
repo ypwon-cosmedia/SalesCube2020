@@ -9,6 +9,7 @@
 	<%@ include file="/common/productSearch.jsp" %>
 	<%@ include file="/common/bill.jsp" %>
 	<%@ include file="/common/_customerSearch.jsp" %>
+	<%@ include file="/common/stock.jsp" %>
 
 	<head>
 		<!-- Required meta tags -->
@@ -103,7 +104,7 @@
 								<div class="input-group-prepend">
 									<div class="input-group-text">受注番号</div>
 								</div>
-								<input type="text" value="" class="form-control" maxlength='10' pattern="^[0-9]+$" onchange="moveUpdate()">
+								<input type="text" value="" class="form-control" maxlength='10' pattern="^[0-9]+$" onchange="moveUpdate()" id="roSlipId">
 							</div>
 						</div>
 						<div class="col-4">
@@ -236,7 +237,7 @@
 									<div class="input-group-text" style = "background-color: pink;">顧客コード</div>
 								</div>
 								<input type="text" value="" class="form-control" id="customerCodeInput" maxlength='15' data-required-error="顧客コードは入力必須項目です" required>
-								<button type="button" class="btn btn-outline-secondary" data-toggle="modal" data-target="#customersearch" onclick="customerCodetoModal();">検索</button>
+								<button type="button" class="btn btn-outline-secondary" data-toggle="modal" data-target="#customerSearch" onclick="customerCodetoModal();">検索</button>
 							</div>
 						</div>
 						<div class="col-4">
@@ -317,7 +318,9 @@
 								</div>
 								<select class="custom-select" name="">
 									<option value=""></option>
-
+<!--									<c:forEach items="">-->
+<!--										<option value=""></option>-->
+<!--									</c:forEach>-->
 								</select>
 							</div>
 						</div>
@@ -563,7 +566,7 @@
 		</div><br>
 
 
-		<script>
+		<script>		
 			var globalTmp;
 
 			/* 受注新規登録の初期化 */
@@ -608,29 +611,7 @@
 				target5.value = null;
 			}
 */
-			/* 商品検索の初期化 */
-/*			function initFormProductSearch(){
-				if(!confirm("入力内容を初期化してよろしいですか？")){
-					return;
-				}
-				target1 = document.getElementById("productCode");
-				target1.value = null;
-				target2 = document.getElementById("supllierPcode");
-				target2.value = null;
-				target3 = document.getElementById("janPcode");
-				target3.value = null;
-				target4 = document.getElementById("setTypeCategory");
-				target4.value = null;
-				target5 = document.getElementById("productStandardCategory");
-				target5.value = null;
-				target6 = document.getElementById("productStatusCategory");
-				target6.value = null;
-				target7 = document.getElementById("productName");
-				target7.value = null;
-				target8 = document.getElementById("productKana");
-				target8.value = null;
-			}
-*/
+
 			/* 登録 */
 			function addForm() {
 				var test = confirm("入力内容を登録します。よろしいですか？");
@@ -917,7 +898,18 @@
 
 			/* 編集画面に遷移 */
 			function moveUpdate(){
-				window.location.href = '/SalesCube2020/SalesCube?action=orderupdate';
+				var roSlipId = document.getElementById("roSlipId").value;
+				var form = document.createElement("form");
+				form.setAttribute("charset", "UTF-8");
+				form.setAttribute("method", "post");
+				form.setAttribute("action", "/SalesCube2020/SalesCube?action=orderupdate");
+				var input = document.createElement("input");
+				input.setAttribute("type", "hidden");
+				input.setAttribute("name", "roSlipId");
+				input.setAttribute("value", roSlipId);
+				form.appendChild(input);
+				document.body.appendChild(form);
+				form.submit();
 			}
 			
 

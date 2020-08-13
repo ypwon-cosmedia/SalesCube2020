@@ -104,11 +104,10 @@ public class OrderInputDAO extends BaseDAO{
 		 	stmt.setInt(9, bean.getRetailPrice());
 		 	stmt.setString(10, bean.getInputProductRemarks());
 		 	stmt.setString(11, bean.getEadRemarks());
-		 	list.add(bean);
+		 	result = stmt.executeUpdate();
 	 	}
 	 	
 	 	try {
-	 		result = stmt.executeUpdate();
 	 		System.out.println("登録完了");
 	 		con.commit();
 	 	}catch(SQLException e){
@@ -468,8 +467,8 @@ public class OrderInputDAO extends BaseDAO{
 	 
 	}
 	
-	/* 新規登録→受注更新 */
-	public OrderInputBean getOrderInfo(String roSlipId) throws SQLException, ClassNotFoundException {
+	/* 新規登録画面→受注更新画面 */
+	public OrderInputBean getOrderInfo(Integer roSlipId) throws SQLException, ClassNotFoundException {
 		
 		OrderInputBean bean = new OrderInputBean();
 		
@@ -528,11 +527,11 @@ public class OrderInputDAO extends BaseDAO{
 	 		bean.setProductName(result.getString("pmx.PRODUCT_NAME"));
 	 		bean.setProductRemarks(result.getString("pmx.REMARKS"));
 	 		bean.setRackCode(result.getString("rltx.RACK_CODE_SRC"));
-	 		bean.setQuantity(Integer.parseInt(result.getString("rltx.QUANTITY")));
-	 		bean.setUnitCost(Integer.parseInt(result.getString("rltx.UNIT_COST")));
-	 		bean.setCost(Integer.parseInt(result.getString("rltx.COST")));
-	 		bean.setUnitRetailPrice(Integer.parseInt(result.getString("rltx.UNIT_RETAIL_PRICE")));
-	 		bean.setRetailPrice(Integer.parseInt(result.getString("rltx.RETAIL_PRICE")));
+	 		bean.setQuantity(Integer.parseInt(result.getString("rltx.QUANTITY").substring(0, result.getString("rltx.QUANTITY").length() - 4)));
+	 		bean.setUnitCost(Integer.parseInt(result.getString("rltx.UNIT_COST").substring(0, result.getString("rltx.UNIT_COST").length() - 4)));
+	 		bean.setCost(Integer.parseInt(result.getString("rltx.COST").substring(0, result.getString("rltx.COST").length() - 4)));
+	 		bean.setUnitRetailPrice(Integer.parseInt(result.getString("rltx.UNIT_RETAIL_PRICE").substring(0, result.getString("rltx.UNIT_RETAIL_PRICE").length() - 4)));
+	 		bean.setRetailPrice(Integer.parseInt(result.getString("rltx.RETAIL_PRICE").substring(0, result.getString("rltx.RETAIL_PRICE").length() - 4)));
 	 		bean.setInputProductRemarks(result.getString("rltx.REMARKS"));
 	 		bean.setEadRemarks(result.getString("rltx.EAD_REMARKS"));
 	 	}

@@ -11,6 +11,7 @@ import javax.servlet.http.HttpSession;
 
 import common.controller.BaseController;
 import common.modal.product.init.ProductModalInit;
+import estimate.common.controller.EstimateCategoryModalAJAXController;
 import order.common.init.DAO.OrderInitDAO;
 import order.input.DAO.OrderInputDAO;
 import order.input.beans.OrderInputBean;
@@ -47,11 +48,13 @@ public class OrderMoveController extends BaseController{
 		
 		OrderInputDAO dao = new OrderInputDAO();
 		ProductModalInit init = new ProductModalInit();
+//		EstimateCategoryModalAJAXController est = new EstimateCategoryModalAJAXController();
 
 		List<OrderInputBean> list1 = dao.getDcName();
 		List<OrderInputBean> list2 = dao.getDcTimezone();
 		List<OrderInputBean> list3 = dao.getTaxRate();
 		init.initCombobox(request, response);
+//		est.categoryGet(request, response);
 
 		request.setAttribute("initDcName", list1);
 		request.setAttribute("initDcTimezone", list2);
@@ -63,7 +66,8 @@ public class OrderMoveController extends BaseController{
 	
 	private String moveOrderUpdate (HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException, ClassNotFoundException, SQLException {
 		
-		String roSlipId = request.getParameter("roSlipId");
+		Integer roSlipId = Integer.parseInt(request.getParameter("roSlipId"));
+		
 		
 		OrderInputDAO dao = new OrderInputDAO();
 		ProductModalInit init = new ProductModalInit();
@@ -71,9 +75,11 @@ public class OrderMoveController extends BaseController{
 		List<OrderInputBean> list1 = dao.getDcName();
 		List<OrderInputBean> list2 = dao.getDcTimezone();
 		List<OrderInputBean> list3 = dao.getTaxRate();
-		OrderInputBean bean = dao.getOrderInfo(roSlipId);
 		init.initCombobox(request, response);
-
+		
+		OrderInputBean bean = new OrderInputBean();
+		bean = dao.getOrderInfo(roSlipId);
+		
 		request.setAttribute("initDcName", list1);
 		request.setAttribute("initDcTimezone", list2);
 		request.setAttribute("initTaxRate", list3);
