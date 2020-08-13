@@ -31,12 +31,12 @@
 	   width: 1120px;
 	   max-width: none !important;
 	   }
-	   .sort.desc:after {
-		  content:"▼";
-		}
-		.sort.asc:after {
-		  content:"▲";
-		}
+	  .sort.desc:after {
+	   content:"▼";
+       }
+	  .sort.asc:after {
+	   content:"▲";
+	   }
     </style>
     
 <title>受注検索</title>
@@ -44,6 +44,7 @@
 <body style="background-color: gainsboro;">
 	<div id = "test">
 		<input type="hidden" id="hiddenSort">
+		<input type="hidden" id="hiddenPaging" value="1">
 	</div>
 	<!-- Optional JavaScript -->
     <!-- jQuery first, then Popper.js, then Bootstrap JS -->
@@ -51,7 +52,7 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
     <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script> 
-       
+    <script type="text/javascript" src="common/shotcuts.js"></script>   
     <%@ include file= "../common/menubar.jsp" %>
 	<br>
 
@@ -63,17 +64,17 @@
         
         <div class="btn-group mr-2 " role="group" aria-label="First group">
           <button type="button" class="btn btn-secondary" style="font-size: 12px;" onclick="initPage();">F1<br>初期化</button>
-          <button type="button" class="btn btn-secondary" style="font-size: 12px;" onclick="submitForm();">F2<br>検索</button>
+          <button type="button" class="btn btn-secondary" style="font-size: 12px;" onclick="search();">F2<br>検索</button>
           <button type="button" class="btn btn-secondary" style="font-size: 12px;" id="csvDownloadButton">F3<br>Excel出力<br></button>
-          <button type="button" class="btn btn-secondary" style="font-size: 12px;" data-toggle="modal" data-target="#setSlipConfiguration">F4<br>設定<br></button>
-          <button type="button" class="btn btn-secondary" style="font-size: 12px;">F5<br></button>
-          <button type="button" class="btn btn-secondary" style="font-size: 12px;">F6<br></button>
-          <button type="button" class="btn btn-secondary" style="font-size: 12px;">F7<br></button>
-          <button type="button" class="btn btn-secondary" style="font-size: 12px;">F8<br></button>
-          <button type="button" class="btn btn-secondary" style="font-size: 12px;">F9<br></button>
-          <button type="button" class="btn btn-secondary" style="font-size: 12px;">F10<br></button>
-          <button type="button" class="btn btn-secondary" style="font-size: 12px;">F11<br></button>
-		  <button type="button" class="btn btn-secondary" style="font-size: 12px;">F12<br></button>
+          <button type="button" class="btn btn-secondary" style="font-size: 12px;" id="openConfigModal" data-toggle="modal" data-target="#setSlipConfiguration">F4<br>設定<br></button>
+          <button type="button" class="btn btn-secondary" style="font-size: 12px;" disabled>F5<br></button>
+          <button type="button" class="btn btn-secondary" style="font-size: 12px;" disabled>F6<br></button>
+          <button type="button" class="btn btn-secondary" style="font-size: 12px;" disabled>F7<br></button>
+          <button type="button" class="btn btn-secondary" style="font-size: 12px;" disabled>F8<br></button>
+          <button type="button" class="btn btn-secondary" style="font-size: 12px;" disabled>F9<br></button>
+          <button type="button" class="btn btn-secondary" style="font-size: 12px;" disabled>F10<br></button>
+          <button type="button" class="btn btn-secondary" style="font-size: 12px;" disabled>F11<br></button>
+		  <button type="button" class="btn btn-secondary" style="font-size: 12px;" disabled>F12<br></button>
 
         </div>
       </div>
@@ -191,7 +192,7 @@
                                    <div class="input-group-text">顧客コード</div>
                             </div>
                             <input type="text" class="form-control" id="customerCodeInput" name="customerCodeInput" maxlength="15">
-                            <button type="button" class="btn btn-outline-secondary" data-toggle="modal" data-target="#customerSearch" style="background-image: url(btn_search.png); border: 0px; outline: 0px; padding: 15px; margin: 0; height: 16px" onclick="getCutoffGroup();">>
+                            <button type="button" class="btn btn-outline-secondary" data-toggle="modal" data-target="#customerSearch" style="background-image: url(btn_search.png); border: 0px; outline: 0px; padding: 15px; margin: 0; height: 16px" onclick="getCutoffGroup();">
 							</button>
 					    </div>
 					</div>
@@ -379,7 +380,7 @@
 <br>
 
 <div class="container" style="background-color: rgb(255, 255, 255);" id="outputtable">
-    <table id="order_detail_info" class="table table-bordered">
+    <table id="order_detail_info" class="table table-bordered" style="background-color: white; table-layout:fixed;"> 
 		<thead class="thead-dark" id="AddHead">
 		</thead>
 		<tbody class="list" id="AddOption">
@@ -390,95 +391,7 @@
 <!-- modal page (customersearch)-->
 <%@ include file= "../common/_customerSearch.jsp" %>
 <!-- modal page (suppliersearch)-->
-<div class="modal fade" id="openSearchSupplier" tabindex="-1" role="dialog" aria-labelledby="label1" aria-hidden="true">
-	<div class="modal-dialog modal-lg" role="document">
-		<div class="modal-content">
-			<div class="modal-header">
-				<h5 class="modal-title" id="label1">仕入れ先検索</h5>
-					<button type="button" class="close" data-dismiss="modal" aria-label="Close">
-						<span aria-hidden="true">&times;</span>
-					</button>
-			</div>
-
-			<div class="modal-body">
-				<!-- 検索部 -->
-
-					<div class="row">
-						<div class="col-5">
-							<div class="input-group mb-2">
-								<div class="input-group-prepend">
-									<div class="input-group-text">仕入れ先コード</div>
-								</div>
-							<input type="text" class="form-control" id="">
-							</div>
-						</div>
-					</div>
-					
-					<div class="row">
-						<div class="col-5">
-							<div class="input-group mb-2">
-								<div class="input-group-prepend">
-									<div class="input-group-text">仕入れ先名</div>
-								</div>
-							<input type="text"  class="form-control" id="">
-							</div>
-						</div>
-						<div class="col-6">
-							<div class="input-group mb-2">
-								<div class="input-group-prepend">
-									<div class="input-group-text">仕入れ先カナ</div>
-								</div>
-							<input type="text"  class="form-control" id="">
-							</div>
-						</div>
-					</div>
-					
-					<div class="row float-right">
-						<button class="btn btn-secondary">初期化</button>&emsp;
-						<button class="btn btn-secondary">検索</button>&emsp;
-					</div>
-					<br><br>
-					<!-- テーブル部（検索結果） -->
-					検索結果件数：2件<br>
-
-					<table class="table table-bordered">
-						<!-- ヘッダ部 -->
-						<thead class="thead-dark">
-						<tr>
-							<th>仕入れ先コード</th>
-							<th>仕入れ先名</th>
-							<th>担当者</th>
-							<th>取引区分</th>
-							<th>備考</th>
-						</tr>
-						</thead>
-						<!-- 内部 -->
-						<tr>
-							<td class="cursor-pointer" id="supplierCode1" onclick="selectSupplierCode()" data-dismiss="modal"><a href="">1</a></td>
-							<td id="supplierName1" onclick="selectSupplierCode()" data-dismiss="modal"><a href="">アンパンマン食品</a></td>
-							<td>ジャムおじさん</td>
-							<td>現金</td>
-							<td>アンパンマンのことならお任せしたかったよ</td>
-						</tr>
-						<tr>
-							<td class="cursor-pointer">10</td>
-							<td>とことこ寝具</td>
-							<td>寝巻</td>
-							<td>サンプル</td>
-							<td>ふかふかお布団</td>
-						</tr>
-					</table>
-
-			</div>
-
-			<div class="modal-footer">
-				<button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-			</div>
-
-		</div>
-	</div>
-</div>
-
+<%@ include file= "../common/_supplierSearch.jsp" %>
 <!-- modal page(configuration)-->
 <div class="modal fade" id="setSlipConfiguration" tabindex="-1" role="dialog" aria-labelledby="label1" aria-hidden="true">
 	<div class="modal-dialog" role="document">
@@ -543,6 +456,7 @@
 	var detailSelectedArr = [];
 	var mylist = [];
 	var orderBy = "ASC";
+	var startPage;
 
 	function initPage(){
 		if(!confirm("入力内容を初期化してよろしいですか？")){
@@ -627,7 +541,7 @@
 
 		headcontents += '<tr>';
 		for(var i = 0; i < selectedArr.length; i++){
-			headcontents += '<th scope="col" class="sort th_back_black" style="cursor: pointer; height: 30px;"><a onclick="searchandsort(this)">'+ selectedArr[i].name +'</a></th>';
+			headcontents += '<th scope="col" class="sort th_back_black" style="cursor: pointer; height: 30px; width: 135px; font-size: 10pt;"><a onclick="searchandsort(this)">'+ selectedArr[i].name +'</a></th>';
 		}               
 		headcontents += '</tr>';
 
@@ -655,15 +569,10 @@
 		document.getElementById("productNameInput").value = name;
 	}
 	
-	function selectSupplierCode(){
-		var supplierCode = document.getElementById("supplierCode1").innerText;
-		var supplierName = document.getElementById("supplierName1").innerText;
-
-		document.getElementById("supplierCodeInput").value = supplierCode;
-		document.getElementById("supplierNameInput").value = supplierName;
+	function selectSupplierCode(code, name){
+		document.getElementById("supplierCodeInput").value = code;
+		document.getElementById("supplierNameInput").value = name;
 	}
-
-
 
 	$("#sel_up").click(function() {
 		var opt = $("#showSearchResult option:selected");
@@ -742,7 +651,7 @@
 			
 			headcontents += '<tr>';
 			for(var i = 0; i < selectedArr.length; i++){
-				headcontents += '<th scope="col" class="sort th_back_black" style="cursor: pointer; height: 30px;"><a onclick="searchandsort(this)">'+ selectedArr[i].name +'</a></th>';
+				headcontents += '<th scope="col" class="sort th_back_black" style="cursor: pointer; height: 30px; width: 135px; font-size: 10pt;"><a onclick="searchandsort(this)">'+ selectedArr[i].name +'</a></th>';
 			}               
 			headcontents += '</tr>';
 
@@ -769,7 +678,7 @@
 			
 			headcontents += '<tr>';
 			for(var i = 0; i < detailSelectedArr.length; i++){
-				headcontents += '<th scope="col" class="sort th_back_black" style="cursor: pointer; height: 30px;"><a onclick="searchandsort(this)">'+ detailSelectedArr[i].name +'</a></th>';
+				headcontents += '<th scope="col" class="sort th_back_black" style="cursor: pointer; height: 30px; width: 135px; font-size: 10pt;"><a onclick="searchandsort(this)">'+ detailSelectedArr[i].name +'</a></th>';
 			}               
 			headcontents += '</tr>';
 
@@ -848,7 +757,7 @@
 			
 			headcontents += '<tr>';
 			for(var i = 0; i < selectedArr.length; i++){
-				headcontents += '<th scope="col" class="sort th_back_black" style="cursor: pointer; height: 30px;" ><a onclick="searchandsort(this)">'+ selectedArr[i].name +'</a></th>';
+				headcontents += '<th scope="col" class="sort th_back_black" style="cursor: pointer; height: 30px; width: 135px; font-size: 10pt;" ><a onclick="searchandsort(this)">'+ selectedArr[i].name +'</a></th>';
 			}               
 			headcontents += '</tr>';
 
@@ -875,7 +784,7 @@
 			
 			headcontents += '<tr>';
 			for(var i = 0; i < detailSelectedArr.length; i++){
-				headcontents += '<th scope="col" class="sort th_back_black" style="cursor: pointer; height: 30px;"><a onclick="searchandsort(this)">'+ detailSelectedArr[i].name +'</a></th>';
+				headcontents += '<th scope="col" class="sort th_back_black" style="cursor: pointer; height: 30px; width: 135px; font-size: 10pt;"><a onclick="searchandsort(this)">'+ detailSelectedArr[i].name +'</a></th>';
 			}               
 			headcontents += '</tr>';
 
@@ -1034,11 +943,25 @@
 						}
 
 						$('#resultCount').text(count);
-						
 						$("#paging > a").remove();
-						for(var i = 0; i<data[Object.keys(data).length-1]["totalPage"]; i++){
-							$("#paging").append('<a href="#" onclick="paging('+(i+1)+')">'+(i+1)+'</a> ');
+						
+						var lastCount = data[Object.keys(data).length-1]["totalPage"];
+						var pagingNo;
+						var num = 1;
+						num *= 1;
+						
+						if(lastCount > (num+5)){
+							pagingNo = num+5;
+						} else {
+							pagingNo = lastCount;
 						}
+
+						
+						$("#paging").append('<a href="#" onclick="paging(1)">'+'最初へ'+'</a> ');
+						for(var i = num ; i<=pagingNo ; i++){
+							$("#paging").append('<a href="#" onclick="paging('+(i)+')">'+(i)+'</a> ');
+						}
+						$("#paging").append('<a href="#" onclick="paging('+(lastCount)+')">'+'最後へ'+'</a> ');
 					} else {
 						alert("検索結果がありません。");
 					}
@@ -1116,9 +1039,28 @@
 					
 					$('#resultCount').text(data[Object.keys(data).length-2]["totalCount"]);
 					$("#paging > a").remove();
-					for(var i = 0; i<data[Object.keys(data).length-1]["totalPage"]; i++){
-						$("#paging").append('<a href="#" onclick="paging('+(i+1)+')">'+(i+1)+'</a> ');
+					
+					var lastCount = data[Object.keys(data).length-1]["totalPage"];
+					var pagingNo;
+					var num = document.getElementById("hiddenPaging").value;
+					num *= 1;
+					if(lastCount > (num+3)){
+						pagingNo = num+3;
+					} else {
+						pagingNo = lastCount;
 					}
+
+					if(num-3 <= 0){
+						num = 1;
+					} else {
+						num -= 2;
+					}
+
+					$("#paging").append('<a href="#" onclick="paging(1)">'+'最初へ'+'</a> ');
+					for(var i = num ; i<=pagingNo ; i++){
+						$("#paging").append('<a href="#" onclick="paging('+(i)+')">'+(i)+'</a> ');
+					}
+					$("#paging").append('<a href="#" onclick="paging('+(lastCount)+')">'+'最後へ'+'</a> ');
 				}
 			});
 		}
@@ -1135,6 +1077,9 @@
 				checkedData.push(test);
 			});
 			var sorting = document.getElementById("hiddenSort").value;
+
+			document.getElementById("hiddenPaging").value = num;
+			
 			
 			jQuery.ajaxSettings.traditional = true;
 			
@@ -1187,12 +1132,45 @@
 					
 					$('#resultCount').text(data[Object.keys(data).length-2]["totalCount"]);
 					$("#paging > a").remove();
-					for(var i = 0; i<data[Object.keys(data).length-1]["totalPage"]; i++){
-						$("#paging").append('<a href="#" onclick="paging('+(i+1)+')">'+(i+1)+'</a> ');
+					
+					var lastCount = data[Object.keys(data).length-1]["totalPage"];
+					var pagingNo;
+
+					if(lastCount > (num+3)){
+						pagingNo = num+3;
+					} else {
+						pagingNo = lastCount;
 					}
+
+					if(num-3 <= 0){
+						num = 1;
+					} else {
+						num -= 2;
+					}
+
+					if(num == 1)
+						pagingNo = 6;
+					$("#paging").append('<a href="#" onclick="paging(1)">'+'最初へ'+'</a> ');
+					for(var i = num ; i<=pagingNo ; i++){
+						$("#paging").append('<a href="#" onclick="paging('+(i)+')">'+(i)+'</a> ');
+					}
+					$("#paging").append('<a href="#" onclick="paging('+(lastCount)+')">'+'最後へ'+'</a> ');
 				}
 			});
 		}
+		
+		shortcut.add("F1", function() {
+			initPage();
+		});
+		shortcut.add("F2", function() {
+		    search();
+		});
+		shortcut.add("F3", function() {
+		    document.getElementById("csvDownloadButton").click();
+		});
+		shortcut.add("F4", function() {
+			document.getElementById("openConfigModal").click();
+		});
 		
 		class ToCSV {
 		    constructor() {
