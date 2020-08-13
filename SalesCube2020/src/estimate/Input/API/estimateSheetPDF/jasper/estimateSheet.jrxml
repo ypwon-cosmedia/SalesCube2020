@@ -1,0 +1,475 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Created with Jaspersoft Studio version 6.13.0.final using JasperReports Library version 6.13.0-46ada4d1be8f3c5985fd0b6146f3ed44caed6f05  -->
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="estimateSheet" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="8205df46-edbc-4e7a-af71-4d45207edc49">
+	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="One Empty Record"/>
+	<style name="Table_TH" mode="Opaque" backcolor="#F0F8FF">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+			<topPen lineWidth="0.5" lineColor="#000000"/>
+			<leftPen lineWidth="0.5" lineColor="#000000"/>
+			<bottomPen lineWidth="0.5" lineColor="#000000"/>
+			<rightPen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="Table_CH" mode="Opaque" backcolor="#BFE1FF">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+			<topPen lineWidth="0.5" lineColor="#000000"/>
+			<leftPen lineWidth="0.5" lineColor="#000000"/>
+			<bottomPen lineWidth="0.5" lineColor="#000000"/>
+			<rightPen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="Table_TD" mode="Opaque" backcolor="#FFFFFF">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+			<topPen lineWidth="0.5" lineColor="#000000"/>
+			<leftPen lineWidth="0.5" lineColor="#000000"/>
+			<bottomPen lineWidth="0.5" lineColor="#000000"/>
+			<rightPen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<parameter name="customerCode" class="java.lang.String"/>
+	<parameter name="customerName" class="java.lang.String"/>
+	<parameter name="title" class="java.lang.String"/>
+	<parameter name="estimateTotal" class="java.lang.Integer"/>
+	<parameter name="validDate" class="java.lang.String"/>
+	<parameter name="deliveryInfo" class="java.lang.String"/>
+	<parameter name="estimateCondition" class="java.lang.String"/>
+	<parameter name="deliveryName" class="java.lang.String"/>
+	<parameter name="remarks" class="java.lang.String"/>
+	<parameter name="estimateSheetId" class="java.lang.String"/>
+	<parameter name="nowTime" class="java.lang.String"/>
+	<queryString>
+		<![CDATA[]]>
+	</queryString>
+	<field name="lineNo" class="java.lang.Integer"/>
+	<field name="productCode" class="java.lang.String"/>
+	<field name="productAbstract" class="java.lang.String"/>
+	<field name="quantity" class="java.lang.Integer"/>
+	<field name="unitRetailPrice" class="java.lang.Integer"/>
+	<field name="retailPrice" class="java.lang.Integer"/>
+	<field name="productRemarks" class="java.lang.String"/>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="21" splitType="Stretch">
+			<staticText>
+				<reportElement x="50" y="0" width="60" height="21" uuid="4022798e-907d-4e66-b852-8e3b71cc65af"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="IPAexm" size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[御見積書]]></text>
+			</staticText>
+		</band>
+	</title>
+	<pageHeader>
+		<band height="389" splitType="Stretch">
+			<line>
+				<reportElement x="39" y="0" width="470" height="1" uuid="1a41cb8b-992a-4e4a-8823-f35dec4cf5ce"/>
+			</line>
+			<staticText>
+				<reportElement x="20" y="21" width="61" height="20" uuid="515c8a0c-d915-4c42-96ac-38c5be631e1e"/>
+				<textElement>
+					<font fontName="IPAexm"/>
+				</textElement>
+				<text><![CDATA[お客様番号：]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="20" y="41" width="260" height="20" uuid="8d52241c-2c06-4b4b-9028-6f8dd1eff34a"/>
+				<textElement textAlignment="Left">
+					<font fontName="IPAexm"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{customerName}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="81" y="21" width="109" height="20" uuid="2072a702-3472-4084-b3a6-0cea406e41bc"/>
+				<textElement textAlignment="Left">
+					<font fontName="IPAexm"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{customerCode}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="390" y="19" width="40" height="21" uuid="6eba61b6-f530-4026-b69e-ef8a24ec0282"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="IPAexm"/>
+				</textElement>
+				<text><![CDATA[発行日：]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="390" y="39" width="70" height="20" uuid="042203f3-a554-4829-af56-426bb8075dad"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="IPAexm"/>
+				</textElement>
+				<text><![CDATA[御見積番号：]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="460" y="39" width="110" height="21" uuid="ca6501a1-0414-4856-b05c-e130fc93df11"/>
+				<textElement textAlignment="Left" verticalAlignment="Middle">
+					<font fontName="IPAexm"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{estimateSheetId}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="380" y="83" width="189" height="19" uuid="561dd6ac-7339-474e-9ba5-8459b822f26a"/>
+				<textElement>
+					<font fontName="IPAexm" size="12"/>
+				</textElement>
+				<text><![CDATA[株式会社 アーク情報システム]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="390" y="102" width="100" height="15" uuid="6c1ad6e3-5759-43b1-8a4d-c5465c90b738"/>
+				<textElement>
+					<font fontName="IPAexm"/>
+				</textElement>
+				<text><![CDATA[〒999-9999]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="390" y="117" width="100" height="13" uuid="9da2410e-6b0e-4b2d-81e4-9dee54950fc5"/>
+				<textElement>
+					<font fontName="IPAexm"/>
+				</textElement>
+				<text><![CDATA[東京都千代田区五番町]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="390" y="133" width="100" height="30" uuid="adba6f44-9535-419d-9280-b388b45d2c66"/>
+				<textElement textAlignment="Left">
+					<font fontName="IPAexm"/>
+				</textElement>
+				<text><![CDATA[TEL 03-3234-9999
+FAX 03-3234-8888]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="390" y="163" width="130" height="15" uuid="36f6445e-01bc-4f11-bf20-330ba45ca3e3"/>
+				<textElement>
+					<font fontName="IPAexm"/>
+				</textElement>
+				<text><![CDATA[代表取締役社長  アーク太郎]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="20" y="171" width="180" height="19" uuid="cb557374-fb92-4385-9097-e07e0c1830a2"/>
+				<textElement>
+					<font fontName="IPAexm"/>
+				</textElement>
+				<text><![CDATA[下記件名につき御見積申し上げます。]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="20" y="191" width="30" height="14" uuid="497a3323-a6ca-4cff-8515-0aa757d22d35"/>
+				<textElement>
+					<font fontName="IPAexm"/>
+				</textElement>
+				<text><![CDATA[件名：]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="50" y="191" width="240" height="14" uuid="c9f1e7d7-aa99-49fc-b65f-18424ed45084"/>
+				<textElement textAlignment="Left">
+					<font fontName="IPAexm"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{title}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="20" y="215" width="90" height="20" uuid="5d938ec8-77c4-4835-b71f-98341ed72be3"/>
+				<textElement verticalAlignment="Bottom">
+					<font fontName="IPAexm"/>
+				</textElement>
+				<text><![CDATA[御見積金額(税込)：]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="20" y="235" width="90" height="20" uuid="f539938f-f913-449d-8a5b-8d9ff031e58b"/>
+				<textElement verticalAlignment="Bottom">
+					<font fontName="IPAexm"/>
+				</textElement>
+				<text><![CDATA[御見積有効期限：]]></text>
+			</staticText>
+			<line>
+				<reportElement x="20" y="234" width="270" height="1" uuid="ec0f8f27-87f1-407e-bf7e-d43894ad6875"/>
+			</line>
+			<line>
+				<reportElement x="20" y="255" width="270" height="1" uuid="5f447c16-3607-44be-b7f9-e9bded43e7de"/>
+			</line>
+			<staticText>
+				<reportElement x="250" y="215" width="21" height="19" uuid="3a51d0e3-007a-4b1d-8119-c0c1cc989653"/>
+				<textElement textAlignment="Center" verticalAlignment="Bottom">
+					<font fontName="IPAexm"/>
+				</textElement>
+				<text><![CDATA[円]]></text>
+			</staticText>
+			<textField pattern="#,##0">
+				<reportElement x="110" y="215" width="141" height="20" uuid="5ed057a5-0bc2-47e2-879c-54d57dfe1a06"/>
+				<textElement textAlignment="Right" verticalAlignment="Bottom">
+					<font fontName="IPAexm"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{estimateTotal}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="170" y="235" width="100" height="20" uuid="2e0c45ba-49d5-4455-b22a-821040045118"/>
+				<textElement textAlignment="Center" verticalAlignment="Bottom">
+					<font fontName="IPAexm"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{validDate}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="20" y="256" width="90" height="20" uuid="1d744bf4-f7ac-4180-bd3b-a899747c2666"/>
+				<textElement textAlignment="Left" verticalAlignment="Middle">
+					<font fontName="IPAexm"/>
+				</textElement>
+				<text><![CDATA[納期または出荷日：]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="20" y="275" width="70" height="20" uuid="61a0d1ef-3de0-4404-b9b9-eee744445f17"/>
+				<textElement textAlignment="Left" verticalAlignment="Middle">
+					<font fontName="IPAexm"/>
+				</textElement>
+				<text><![CDATA[お支払い条件：]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="20" y="295" width="40" height="20" uuid="e01c4d83-1d82-4360-aba3-4d1e8a703559"/>
+				<textElement textAlignment="Left" verticalAlignment="Middle">
+					<font fontName="IPAexm"/>
+				</textElement>
+				<text><![CDATA[納入先：]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="20" y="320" width="30" height="20" uuid="57e50397-50dd-4246-b223-67227baff46b"/>
+				<textElement textAlignment="Left" verticalAlignment="Top">
+					<font fontName="IPAexm"/>
+				</textElement>
+				<text><![CDATA[摘要：]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="110" y="256" width="270" height="20" uuid="8ba32137-6fe8-485f-93cd-a1a14d608e33"/>
+				<textElement textAlignment="Left" verticalAlignment="Middle">
+					<font fontName="IPAexm"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{deliveryInfo}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="90" y="275" width="290" height="20" uuid="64eb8394-1b6b-4798-bafb-655dac4618f6"/>
+				<textElement textAlignment="Left" verticalAlignment="Middle">
+					<font fontName="IPAexm"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{estimateCondition}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="60" y="295" width="319" height="20" uuid="3c13743a-42e4-45be-9472-9e744c9de9b1"/>
+				<textElement textAlignment="Left" verticalAlignment="Middle">
+					<font fontName="IPAexm"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{deliveryName}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="50" y="320" width="328" height="40" uuid="aa516755-a585-4c7f-86ac-c73d3cecb694"/>
+				<textElement textAlignment="Left" verticalAlignment="Top">
+					<font fontName="IPAexm"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{remarks}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="390" y="1" width="100" height="18" uuid="7b353efd-b94a-444c-ac42-1e91f3ecc264"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font fontName="IPAexm"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$V{PAGE_NUMBER}]]></textFieldExpression>
+			</textField>
+			<textField evaluationTime="Report">
+				<reportElement x="490" y="1" width="100" height="18" uuid="4bfe88db-6550-45af-8194-79542e262f3d"/>
+				<textElement textAlignment="Left" verticalAlignment="Middle">
+					<font fontName="IPAexm"/>
+				</textElement>
+				<textFieldExpression><![CDATA[" / " + $V{PAGE_NUMBER}]]></textFieldExpression>
+			</textField>
+			<line>
+				<reportElement x="19" y="388" width="522" height="1" uuid="9c1f67e6-1e12-457b-8bfa-9ee1329bb956"/>
+			</line>
+			<textField>
+				<reportElement x="430" y="19" width="138" height="20" uuid="fcc4c820-8acc-44dd-81cb-efbadecee3a4"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="IPAexm"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{nowTime}]]></textFieldExpression>
+			</textField>
+		</band>
+	</pageHeader>
+	<columnHeader>
+		<band height="23">
+			<staticText>
+				<reportElement x="20" y="0" width="39" height="22" uuid="5a8d067d-4f27-4158-95ac-0a3d2223a920"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="IPAexm"/>
+				</textElement>
+				<text><![CDATA[行番]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="220" y="0" width="50" height="22" uuid="f9bfaa52-9940-422c-a855-63a84388bdfd"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="IPAexm"/>
+				</textElement>
+				<text><![CDATA[数量]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="59" y="0" width="161" height="22" uuid="5d7c89c4-cd92-4e46-b22f-536489cbcd98"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="IPAexm"/>
+				</textElement>
+				<text><![CDATA[ 商品コード・商品名]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="320" y="0" width="70" height="22" uuid="2a0dee50-fd3a-422b-8fd5-6dbd28bc00b1"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="IPAexm"/>
+				</textElement>
+				<text><![CDATA[金額]]></text>
+			</staticText>
+			<line>
+				<reportElement x="19" y="0" width="1" height="23" uuid="cc5c649b-51ba-44eb-9ed3-f991c06eee6a"/>
+			</line>
+			<staticText>
+				<reportElement x="270" y="0" width="50" height="22" uuid="3fb85560-cadb-42b4-9fb9-a139f53ea4fe"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="IPAexm"/>
+				</textElement>
+				<text><![CDATA[単価]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="390" y="0" width="151" height="22" uuid="de7f8f24-d11f-4138-800f-043b388f5ebc"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="IPAexm"/>
+				</textElement>
+				<text><![CDATA[備考]]></text>
+			</staticText>
+			<line>
+				<reportElement x="20" y="22" width="521" height="1" uuid="8f69e27e-2c5e-41bb-b9fc-e90d0352c037"/>
+			</line>
+			<line>
+				<reportElement x="59" y="-1" width="1" height="24" uuid="4cdc1099-baff-405a-a326-1c2fe1670883"/>
+			</line>
+			<line>
+				<reportElement x="219" y="-1" width="1" height="24" uuid="ba3cb7b1-23e2-4b4e-b6db-5fd583e13094"/>
+			</line>
+			<line>
+				<reportElement x="269" y="-1" width="1" height="24" uuid="6cc851e9-27dd-4302-9619-a2c3a0a76fdd"/>
+			</line>
+			<line>
+				<reportElement x="319" y="-1" width="1" height="24" uuid="f14c3207-c99d-45e8-86eb-e0e430aeefe5"/>
+			</line>
+			<line>
+				<reportElement x="389" y="-1" width="1" height="24" uuid="1516d0cd-f762-4c3c-9b7c-6295321e75af"/>
+			</line>
+			<line>
+				<reportElement x="540" y="-1" width="1" height="24" uuid="70359910-1150-4271-a871-20078b1260af"/>
+			</line>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="39" splitType="Stretch">
+			<textField>
+				<reportElement x="21" y="0" width="38" height="38" uuid="4d256811-572d-4d63-ba9c-c06d21f0fcdc">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="3ba0d5a5-e914-46e4-aee5-c9e0d8335dda"/>
+				</reportElement>
+				<textElement textAlignment="Left" verticalAlignment="Middle">
+					<font fontName="IPAexm"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{lineNo}]]></textFieldExpression>
+			</textField>
+			<line>
+				<reportElement x="59" y="0" width="1" height="39" uuid="fb96d464-5f5d-4a50-a923-2543612844ad"/>
+			</line>
+			<textField>
+				<reportElement x="60" y="0" width="159" height="18" uuid="c342001e-6f36-4fe3-adcd-2b5f2e34cabb">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="0050e91b-f3a1-4dda-a744-a31507e4cb42"/>
+				</reportElement>
+				<textElement verticalAlignment="Middle">
+					<font fontName="IPAexm"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{productCode}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="60" y="18" width="159" height="20" uuid="9b4455e2-c42a-4b00-b50b-ffb51d7d8091">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="cc509d2d-a0d3-41b2-83c4-991265134e71"/>
+				</reportElement>
+				<textElement verticalAlignment="Middle">
+					<font fontName="IPAexm"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{productAbstract}]]></textFieldExpression>
+			</textField>
+			<line>
+				<reportElement x="20" y="-1" width="521" height="1" uuid="1c48e20d-3f8c-4f62-8f91-88900116b692"/>
+			</line>
+			<line>
+				<reportElement x="219" y="0" width="1" height="38" uuid="7a11857a-a7b2-4fe5-ab43-34992166fe06"/>
+			</line>
+			<line>
+				<reportElement x="269" y="0" width="1" height="38" uuid="7a53421f-97aa-431e-aec6-fe66ee80390a"/>
+			</line>
+			<line>
+				<reportElement x="319" y="0" width="1" height="38" uuid="06ccd0ef-375c-4a5b-8699-2527446f7ad1"/>
+			</line>
+			<line>
+				<reportElement x="389" y="0" width="1" height="38" uuid="761de78b-38ad-4855-bd62-3bbd86c5cb51"/>
+			</line>
+			<line>
+				<reportElement x="540" y="0" width="1" height="38" uuid="b7690d4b-f039-440e-ab47-2762f584a593"/>
+			</line>
+			<line>
+				<reportElement x="19" y="38" width="522" height="1" uuid="426367eb-5e60-4443-8fcb-b09eba6bb3e0"/>
+			</line>
+			<textField pattern="#,##0">
+				<reportElement x="220" y="-1" width="49" height="40" uuid="9b19b013-ef35-4fdf-ba46-3d709612c920">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="7f14044f-135f-4a24-a8da-46ab6d13fc6e"/>
+				</reportElement>
+				<textElement verticalAlignment="Middle">
+					<font fontName="IPAexm"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{quantity}]]></textFieldExpression>
+			</textField>
+			<textField pattern="#,##0">
+				<reportElement x="271" y="-1" width="48" height="40" uuid="0da6d003-3497-4142-a92b-626bca8b5578">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="4cc0aff7-e28b-48c1-9a3b-a730cd21c861"/>
+				</reportElement>
+				<textElement verticalAlignment="Middle">
+					<font fontName="IPAexm"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{unitRetailPrice}]]></textFieldExpression>
+			</textField>
+			<textField pattern="#,##0">
+				<reportElement x="320" y="-1" width="69" height="40" uuid="2154a627-a3ec-4bfc-b72b-8fc0aa2e24c9">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="43241293-e461-4c21-8526-45708f84a981"/>
+				</reportElement>
+				<textElement verticalAlignment="Middle">
+					<font fontName="IPAexm"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{retailPrice}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="390" y="0" width="151" height="38" uuid="ac227051-f00e-4b8a-9dfa-a84acff781e2">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="c1c6ea12-b20c-4a20-9896-f491b9f6216a"/>
+				</reportElement>
+				<textElement verticalAlignment="Middle">
+					<font fontName="IPAexm"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{productRemarks}]]></textFieldExpression>
+			</textField>
+			<line>
+				<reportElement x="19" y="-1" width="1" height="40" uuid="d0faccdb-8e2e-47cf-a8aa-5c82f607d03b"/>
+			</line>
+		</band>
+	</detail>
+	<pageFooter>
+		<band height="70" splitType="Stretch">
+			<staticText>
+				<reportElement x="0" y="16" width="549" height="54" uuid="8346f2ac-1bc9-4c98-b588-a6395be4e9c1"/>
+				<textElement>
+					<font fontName="IPAexm"/>
+				</textElement>
+				<text><![CDATA[【ご注意：以下について予めご了承ください】 
+●上記に記載の金額以外に、ご注文時のお取引条件によっては弊社の規定・規約やご利用案内に示す手数料や送料を別途ご負担いただく場合があります。
+●本お見積書の有効期限は１ヶ月です。見積有効期限を超えた場合は、本書に記載の内容は一切保証されません。
+]]></text>
+			</staticText>
+		</band>
+	</pageFooter>
+	<summary>
+		<band height="42" splitType="Stretch"/>
+	</summary>
+</jasperReport>

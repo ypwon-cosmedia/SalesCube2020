@@ -15,6 +15,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import common.controller.BaseController;
 import estimate.Input.API.estimateInputAPI;
+import estimate.Input.API.estimateSheetPDF.estimateSheetJasper;
 import estimate.Input.beans.EstimateAddBean;
 import estimate.Input.beans.EstimateModifyBean;
 import estimate.Input.beans.EstimateProductAddBean;
@@ -54,7 +55,7 @@ public class EstimateModifyController extends BaseController {
 	}
 	
 	/* 見積編集画面に遷移 */
-	private String moveEstimateModify(HttpServletRequest request, HttpServletResponse response)
+	public String moveEstimateModify(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException, ClassNotFoundException, SQLException {
 		
 		String forwardURL     = "estimate/estimatemodify.jsp";
@@ -144,56 +145,41 @@ public class EstimateModifyController extends BaseController {
 			}
 		}
 
-		
-		
-		
-		
 		try {
 			int result = mdao.modifyEstimate(bean); //(見積商品を除く)見積更新
 			int result2 = mdao.deleteEstimateProduct(estimateSheetId); //見積商品削除
 			int result3 = adao.addEstimateProduct(list); //見積商品登録
 			
 			if(result == 999 || result2 ==999 || result3 == 0) {
-				request.setAttribute("status","err");
+				request.setAttribute("status","modifyErr");
 			} else {
-				request.setAttribute("status","success");
+				request.setAttribute("status","modifySuccess");
 			}
 			
 		} catch (ClassNotFoundException | MissingResourceException | SQLException e) {
-			request.setAttribute("status","err");
+			request.setAttribute("status","modifyErr");
 			e.printStackTrace();
-		}
-		
-		
-		EstimateModifyDAO dao2 = new EstimateModifyDAO();
-		//InitEstimateBean bean = dao.getEstimate(estimateSheetId); //見積情報取得
-		InitEstimateBean bean2 = dao2.getEstimate("11223344"); //見積情報取得(テスト用)
-		
-		List<InitEstimateProductBean> list2 = dao2.getEstimateProduct("11223344"); //見積商品情報取得(テスト用) 
-		
-		request.setAttribute("estimate",bean2); //見積情報登録
-		request.setAttribute("estimateProductList",list2); //見積商品情報登録
-		
-		
-		
+		}	
 			
 		return moveEstimateModify(request, response);
 		
 	}
 	
+	/* PDF出力 */
 	private String estimatePdfOutput(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException, ClassNotFoundException, SQLException {
 		
-		String forwardURL     = "";
+		estimateSheetJasper jasper = new estimateSheetJasper();
+		String estimateSheetId = request.getParameter("estimateSheetId");
+		jasper.outputPdf(estimateSheetId);
 			
-		return forwardURL;
+		return moveEstimateModify(request, response);
 		
 	}
 	
+	/* 見積削除 */
 	private String estimateDelete(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException, ClassNotFoundException, SQLException {
-		
-		String forwardURL     = "estimate/estimateadd.jsp";
 		
 		EstimateModifyDAO mdao = new EstimateModifyDAO();
 		String estimateSheetId = request.getParameter("estimateSheetId");
@@ -202,16 +188,14 @@ public class EstimateModifyController extends BaseController {
 		
 		if(result == 999 || result2 == 999) {
 			request.setAttribute("status","deleteErr");
+			return  moveEstimateModify(request, response);
 		} else {
 			request.setAttribute("status","deleteSuccess");
 		}
 		
-		//見積登録画面で必要なコンボボックスの初期値取得
-		estimateInputAPI api = new estimateInputAPI();
-		request.setAttribute("taxRateList",api.getTaxRateList());
-		request.setAttribute("submitPreList",api.getCategoryList(10));
+		EstimateAddController controller = new EstimateAddController();
 		
-		return forwardURL;
+		return controller.moveEstimateAdd(request, response); //登録画面に遷移
 		
 	}
 	

@@ -175,7 +175,7 @@
       <div class="btn-toolbar float-right" role="toolbar" aria-label="Toolbar with button groups">
         <div class="btn-group mr-2 " role="group" aria-label="First group">
           <button type="button" class="btn btn-secondary" style="font-size: 12px;" onclick="initForm()">F1<br>初期化</button>
-          <button type="button" class="btn btn-secondary" style="font-size: 12px;" onclick="" disabled>F2<br>登録</button>
+          <button type="button" class="btn btn-secondary" style="font-size: 12px;" id="addButton" onclick="addForm()" disabled>F2<br>登録</button>
           <button type="button" class="btn btn-secondary" style="font-size: 12px;" disabled>F3<br></button>
           <button type="button" class="btn btn-secondary" style="font-size: 12px;" disabled>F4<br></button>
           <button type="button" class="btn btn-secondary" style="font-size: 12px;" disabled>F5<br></button>
@@ -190,8 +190,11 @@
       </div>
       <br><br><br>
     </div>
+    <div class="container">
+    	<div><h5 id="message" style="color:#ff0000;"></h5></div>
+    </div>
 
-    <form action="/SalesCube2020/SalesCube?action=estimateAdd" method="post" name="mainform">
+    <form action="/SalesCube2020/SalesCube?action=estimateAdd" method="post" name="addform">
       <div class="container" style="background-color: white;">
         <div class="panel panel-default" >
 			    <div class="panel-heading row mb-2 col-4">
@@ -207,7 +210,7 @@
 						    	<div class="input-group-prepend">
 						    		<div class="input-group-text"  style="background-color: pink;">見積番号</div>
 						  		</div>
-						   	  <input type="text" value="" class="form-control" id="inlineFormInputGroup" name="estimateSheetId" pattern="^[0-9A-Za-z]+$" onchange="idConfirm(this)">
+						   	  <input type="text" value="" class="form-control" id="inlineFormInputGroup" name="estimateSheetId" pattern="^[0-9A-Za-z]+$" onchange="idConfirm(this)" required>
 					  		</div>
               </div>
 
@@ -217,7 +220,7 @@
 						    	<div class="input-group-prepend">
 						    		<div class="input-group-text" style="background-color: pink;">見積日</div>
 						  		</div>
-                  <input type="date" name="estimateDate">
+                  <input type="date" name="estimateDate" required>
 					  		</div>
               </div>
 
@@ -333,7 +336,7 @@
                   <div class="input-group-prepend">
                     <div class="input-group-text" style="background-color: pink;">提出先名</div>
                   </div>
-                  <input type="text" value="" class="form-control" id="submitName" name="submitName">&emsp;&emsp;
+                  <input type="text" value="" class="form-control" id="submitName" name="submitName" required>&emsp;&emsp;
                 </div>
               </div>
 
@@ -356,7 +359,6 @@
             </div><br>
 
             <div class="container" style="width: auto" >
-
               <div class="panel-heading row mb-2 col-4" >
                 <h6><br>既存顧客情報</h6>
               </div><hr width="1015">
@@ -369,7 +371,7 @@
                     <div class="input-group-prepend">
                       <div class="input-group-text">顧客コード</div>
                     </div>
-                      <input type="text" value="" class="form-control" name="customerCode" id="customerCode" onchange="test2()">
+                      <input type="text" value="" class="form-control" name="customerCode" id="customerCode" onchange="getCustomer(this)">
                       <button type="button" class="ModalButton"  data-toggle="modal" data-target="#customerSearch">
                         <img src="btn_search.png" style="vertical-align: middle; cursor: pointer; width: 32px; height: 32px;">
                       </button>
@@ -453,6 +455,7 @@
         </div><p>&nbsp;</p>
       </div><br>
     
+      <!-- 見積商品一覧のテーブル -->
       <div class="container" style="background-color: rgb(255, 255, 255);">
         <table id="estimate" class="table table-bordered" style="font-size:8pt; width: 1120px;  position:relative;right:15px">
           <thead class="thead-dark">
@@ -471,12 +474,12 @@
         <tbody>
           <tr id="tr1">
             <td rowspan="2">1</td>
-            <td rowspan="2" class="backpink"><input type="text" name="productCode" id="productCode1" value="" style="width: 110px;" onchange="test(this)">
+            <td rowspan="2" class="backpink"><input type="text" name="productCode" id="productCode1" value="" style="width: 110px;" onchange="getProduct(this)" required>
               <input type="image" name="" src="btn_search.png" tabindex="101" onclick="" style="vertical-align: middle; cursor: pointer; width: 22px;"></td>
             <td rowspan="2"><textarea name="productAbstract" rows="3" style="width: 200px;" id="productAbstract1"></textarea></td>
-            <td class="backpink"><input type="text" name="quantity" value="" id="quantity1" style="width: 75px;" onchange="quantityChange(this)"></td>
+            <td class="backpink"><input type="number" name="quantity" value="" id="quantity1" style="width: 75px;" onchange="quantityChange(this)" required></td>
             <td><input type="text" name="unitCost" value="" id="unitCost1" style="background-color:rgb(177, 177, 177); width: 75px;" readonly></td>
-            <td class="backpink"><input type="text" name="unitRetailPrice" id="unitRetailPrice1" style="width: 75px;" onchange="unitRetailPriceChange(this)"></td>
+            <td class="backpink"><input type="number" name="unitRetailPrice" id="unitRetailPrice1" style="width: 75px;" onchange="unitRetailPriceChange(this)" required></td>
             <td rowspan="2"><textarea name="productRemarks" value="" rows="3" style="width: 200px;" id="remarks1"></textarea></td>
             <td><button type="button" class="btn btn-primary table-button"  onclick="deleteLineForm(this)" id="delete1">削除</button></td>
           </tr>
@@ -496,7 +499,7 @@
 			<button type="button" class="btn btn-primary" id="addLine">行追加</button>
 		</div><br>
 
-
+	<!-- 金額合計等のテーブル -->
     <div class="container" style="background-color: rgb(255, 255, 255);">
       <table id="sum" class="table table-bordered" style="font-size:15pt ; width: 1120px;  position:relative;right:15px">
         <thead class="thead-dark">
@@ -525,17 +528,19 @@
     </div>
 
     <div class="container" style="text-align:center">
-      <input type="submit" class="btn btn-primary" value="登録" style="width:200px; height:50px;">
+      <input type="submit" class="btn btn-primary" id="addButton2" value="登録" style="width:200px; height:50px;" disabled>
     </div>
     <br><br>
   </form>
   
   <form action="/SalesCube2020/SalesCube?action=moveEstimateModify" method="post" name="moveEstimateModifyform">
-	<input type="hidden" name="estimateSheetId" value="" id="inputEstimateSheetId">
+	<input type="hidden" name="estimateSheetId" value="" id="sendEstimateSheetId">
   </form>
 
   </body>
 
+
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.2/jquery.min.js"></script>
   <script>
     /* 入力値の初期化 */
 	function initForm() {
@@ -547,13 +552,11 @@
 
 	/* 登録 */
 	function addForm() {
-		var test = confirm("入力内容を登録します。よろしいですか？");
-		test;
-		if(test == false){
+		if(!confirm("入力内容を登録します。よろしいですか？")){
 			return;
-		} /* else
-		window.location.href = '/SalesCube2020/SalesCube?action=orderinput'; */
-		location.reload();
+		}
+		var form = document.addform;
+		form.submit();
 	}
 	
 
@@ -563,12 +566,12 @@
         $('#estimate > tbody:last').append(
           '<tr>' +
             '<td rowspan="2">' + tableNo + '</td>' +
-            '<td rowspan="2" class="backpink"><input type="text" name="productCode" id="productCode' + tableNo + '" value="" style="width: 110px;" onchange="test(this)">' +
+            '<td rowspan="2" class="backpink"><input type="text" name="productCode" id="productCode' + tableNo + '" value="" style="width: 110px;" onchange="getProduct(this)" required>' +
               '<input type="image" name="" src="btn_search.png" tabindex="101" onclick="" style="vertical-align: middle; cursor: pointer; width: 22px;"></td>' +
             '<td rowspan="2"><textarea name="productAbstract" rows="3" style="width: 200px;" id="productAbstract' + tableNo + '"></textarea></td>' +
-            '<td class="backpink"><input type="text" name="quantity" value="" id="quantity' + tableNo + '" style="width: 75px;" onchange="quantityChange(this)"></td>' +
+            '<td class="backpink"><input type="number" name="quantity" value="" id="quantity' + tableNo + '" style="width: 75px;" onchange="quantityChange(this)" required></td>' +
             '<td><input type="text" name="unitCost" value="" id="unitCost' + tableNo + '" style="background-color:rgb(177, 177, 177); width: 75px;" readonly></td>' +
-            '<td class="backpink"><input type="text" name="unitRetailPrice" id="unitRetailPrice' + tableNo + '" style="width: 75px;" onchange="unitRetailPriceChange(this)"></td>' +
+            '<td class="backpink"><input type="number" name="unitRetailPrice" id="unitRetailPrice' + tableNo + '" style="width: 75px;" onchange="unitRetailPriceChange(this)" required></td>' +
             '<td rowspan="2"><textarea name="productRemarks" value="" rows="3" style="width: 200px;" id="remarks' + tableNo + '"></textarea></td>' +
             '<td><button type="button" class="btn btn-primary table-button"  onclick="deleteLineForm(this)"  id="delete' + tableNo + '">削除</button></td>' +
           '</tr>' +
@@ -719,8 +722,14 @@
       function quantityChange(obj){
         var tableNo_id = obj.id;
         var tableNo = tableNo_id.substr(8); //対象のtableNo：数量が変化した列のtableNoを取得
+        
+        setPrice(tableNo);
+      }
+      
+      /* 金額セット */
+      function setPrice(tableNo){
 
-        var quantity = obj.value; //対象の数量取得
+        var quantity = document.getElementById('quantity' + tableNo).value; //対象の数量取得
 
         if(quantity != null && quantity != ""){
           var unitCost = document.getElementById('unitCost' + tableNo).value; //対象の仕入れ単価取得
@@ -735,12 +744,12 @@
             cost_id.value = cost; //対象のcostに仕入金額を入力
           }
 
-          if(unitRetailPrice != null && unitRetailPrice != ""){
           //売価金額入力
-          var retailPrice_id = document.getElementById('retailPrice' + tableNo);//対象のretailPriceのidがあるタグ
-          retailPrice_id.value = retailPrice; //対象のretailPriceに仕入金額を入力
+          if(unitRetailPrice != null && unitRetailPrice != ""){
+	          var retailPrice_id = document.getElementById('retailPrice' + tableNo);//対象のretailPriceのidがあるタグ
+	          retailPrice_id.value = retailPrice; //対象のretailPriceに仕入金額を入力
           } else {
-            retailPrice_id.value = 0; //対象のretailPriceに0を入力
+           	  retailPrice_id.value = 0; //対象のretailPriceに0を入力
           }
 
           totalCalculation();
@@ -819,88 +828,85 @@
         document.getElementById("inputEstimateTotal").value = estimateTotal;
         
         } 
-
-      /* 商品入力 */
-      function test(obj) {
-        var productAbstract = "おいしいもも"; //商品名・摘要
-        var unitCost = 200; //仕入単価
-        var unitRetailPrice = 300; //売上単価
-
-        //tableNo取得
-        var tableNo_id = obj.id;
-        var tableNo = tableNo_id.substr(11); //対象のtableNo：値を変更した列のtableNoを取得
-
-        //商品名・摘要入力
-        var productAbstract_id = document.getElementById('productAbstract' + tableNo);//対象のproductAbstractのidがあるタグ
-        productAbstract_id.value = productAbstract; //対象のproductAbstractに仕入金額を入力 
-
-        //仕入単価入力
-        var unitRetailPrice_id = document.getElementById('unitRetailPrice' + tableNo);//対象のunitRetailPriceのidがあるタグ
-        unitRetailPrice_id.value = unitRetailPrice; //対象のunitRetailPriceに仕入金額を入力
-
-        //売上単価入力
-        var unitCost_id = document.getElementById('unitCost' + tableNo);//対象のunitCostのidがあるタグ
-        unitCost_id.value = unitCost; //対象のunitCostに仕入金額を入力
-      }
-
-      /* 顧客入力 */
-      function test2() {
-        var customerName = "仲村龍一郎"; //
-        var customerRemarks = "パーティーやるならここ！"; //
-        var customerComment = "小さいパーティーから大きいパーティーまで何でもお任せ！"; //
-        var submitName = "仲村龍一郎"; //
-
-        //顧客名入力
-        var customerName_id = document.getElementById('customerName');//対象のcustomerNameのidがあるタグ
-        customerName_id.value = customerName; //対象のcustomerNameに仕入金額を入力 
-
-        //備考入力
-        var customerRemarks_id = document.getElementById('customerRemarks');//対象のcustomerRemarksのidがあるタグ
-        customerRemarks_id.value = customerRemarks; //対象のcustomerRemarksに仕入金額を入力 
-
-        //コメント入力
-        var customerComment_id = document.getElementById('customerComment');//対象のcustomerCommentのidがあるタグ
-        customerComment_id.value = customerComment; //対象のcustomerCommentに仕入金額を入力 
-
-        //提出先名入力
-        var submitName_id = document.getElementById('submitName');//対象のsubmitNameのidがあるタグ
-        submitName_id.value = submitName; //対象のsubmitNameに仕入金額を入力
-      }
-
-      /* 編集画面遷移 */
-			function test3() {
-				if(!confirm("すでに登録済みの見積番号です。編集画面に遷移しますか？")){
-					return;
-				}
-				location.href = 'estimate/estimatemodify.html';
-			}
       
-	  /* 画面読み込み時、リクエストスコープに"status"に"success"が保存されている場合、登録完了のメッセージを表示する */
+	  /* 画面読み込み時、リクエストスコープに"status"に値が保存されている場合、各メッセージを表示する */
 	  window.onload = function () {
-		  if("${status}" == "success"){
-			  alert("登録が完了しました。");
-		  } else if("${status}" == "err") {
-			  alert("登録に失敗しました。");
+		  if("${status}" == "addErr"){
+			  document.getElementById("message").innerHTML = "登録に失敗しました";
+		  } else if("${status}" == "deleteSuccess") {
+			  document.getElementById("message").innerHTML = "削除が完了しました";
 		  } else{}
 	  }; 
 	  
-	  /* 見積番号に重複がないか確認する(※重複がある場合は編集画面に遷移するか確認) */
-	  function idConfirm(obj){
-		  var estimateSheetId = obj.value;
-		  
-		  
-		  if(true){ //ajaxで登録されている見積番号か確認をし、trueならこの処理(今はテスト用)
-			  if(!confirm("すでに登録済みの見積番号です。編集画面に遷移しますか？")){
-					return;
-		  }
-		  document.getElementById('inputEstimateSheetId').value = estimateSheetId;
-		  var form = document.moveEstimateModifyform;
-		  form.submit();
-		  } else {
-			  //登録されていない番号のときの処理
-		  }
-		  
-	  }
+	  /* ajaxで見積番号に重複がないか確認 */
+	  function idConfirm(obj) {
+		  var inputEstimateSheetId = obj.value;
+			$.ajax({
+				url:'/SalesCube2020/SalesCubeAJAX?action=confirmEstimateSheetId',
+				type:'post',
+				data:{"estimateSheetId": inputEstimateSheetId },
+				dataType:'json',
+				success:function(data){	
+					  if(data == "OK"){ //ajaxで登録されている見積番号か確認をし、trueならこの処理(今はテスト用)
+						  if(!confirm("すでに登録済みの見積番号です。編集画面に遷移しますか？")){
+							  document.getElementById('addButton').setAttribute('disabled', 'disabled')//#addButton(ファンクションボタン)の非活性化
+							  document.getElementById('addButton2').setAttribute('disabled', 'disabled')//#addButton2(画面中央下ボタン)の非活性化
+								return;
+					  	  }
+						  document.getElementById('sendEstimateSheetId').value = inputEstimateSheetId;
+						  var form = document.moveEstimateModifyform;
+						  form.submit();
+					  } else {
+						  alert("登録されていない見積番号です。新規登録可能です。");
+						  document.getElementById('addButton').removeAttribute('disabled')//#addButton(ファンクションボタン)の非活性化を解除
+						  document.getElementById('addButton2').removeAttribute('disabled')//#addButton2(画面中央下ボタン)の非活性化を解除
+					  }
+       		    }
+			});
+		}
+	  
+	  /* ajaxで入力した顧客コードに対応する顧客情報取得 */
+	  function getCustomer(obj) {
+		  var inputCustomerCode = obj.value;
+			$.ajax({
+				url:'/SalesCube2020/SalesCubeAJAX?action=estimateCustomerSearch',
+				type:'post',
+				data:{"customerCode": inputCustomerCode },
+				dataType:'json',
+				success:function(data){
+					if(data.customerName == null || data.customerName == ""){
+						alert("該当する顧客情報は存在しません");
+					} else {
+					document.getElementById('submitName').value = data.customerName;
+					document.getElementById('customerName').value = data.customerName;
+					document.getElementById('customerRemarks').value = data.customerRemarks;
+					document.getElementById('customerComment').value = data.customerComment;
+					}
+       		    }
+			});
+		}
+	  
+	  /* ajaxで入力した商品コードに対応する商品情報取得 */
+	  function getProduct(obj) {
+		  var inputProductCode = obj.value;
+          var tableNo = obj.id.substr(11); //対象のtableNo：商品コードを入力したtableNo取得
+			$.ajax({
+				url:'/SalesCube2020/SalesCubeAJAX?action=estimateProductSearch',
+				type:'post',
+				data:{"productCode": inputProductCode },
+				dataType:'json',
+				success:function(data){
+					if(data.productAbstract == null || data.productAbstract == ""){
+						alert("該当する商品情報は存在しません");
+					} else {
+						document.getElementById('productAbstract' + tableNo).value = data.productAbstract;
+						document.getElementById('unitCost' + tableNo).value = data.unitCost;
+						document.getElementById('unitRetailPrice' + tableNo).value = data.unitRetailPrice;
+						setPrice(tableNo);
+					}
+       		    }
+			});
+		}
 
   </script>
 </html>
