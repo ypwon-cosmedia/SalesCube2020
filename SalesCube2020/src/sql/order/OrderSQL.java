@@ -960,7 +960,7 @@ public class OrderSQL {
 				"AND " +
 				"(pmx.product_3 " + com.stringIsNull(bean.getProduct3()) +
 				"AND " +
-				"(rstx.delivery_code " + com.stringIsNull(bean.getSupplierCode()) +
+				"(pmx.supplier_code " + com.stringIsNull(bean.getSupplierCode()) +
 				"AND " +
 				"(rstx.delivery_name " + com.stringIsNull(bean.getSupplierName()) +
 				"GROUP BY (rstx.RO_SLIP_ID) " +
@@ -1026,7 +1026,7 @@ public class OrderSQL {
 				"AND " +
 				"(pmx.product_3 " + com.stringIsNull(bean.getProduct3()) +
 				"AND " +
-				"(rstx.delivery_code " + com.stringIsNull(bean.getSupplierCode()) +
+				"(pmx.supplier_code " + com.stringIsNull(bean.getSupplierCode()) +
 				"AND " +
 				"(rstx.delivery_name " + com.stringIsNull(bean.getSupplierName()) +
 				"GROUP BY (rstx.RO_SLIP_ID) ";
@@ -1094,7 +1094,7 @@ public class OrderSQL {
 				"AND " +
 				"(pmx.product_3 " + com.stringIsNull(bean.getProduct3()) +
 				"AND " +
-				"(rstx.delivery_code " + com.stringIsNull(bean.getSupplierCode()) +
+				"(pmx.supplier_code " + com.stringIsNull(bean.getSupplierCode()) +
 				"AND " +
 				"(rstx.delivery_name " + com.stringIsNull(bean.getSupplierName()) +
 				"GROUP BY (CONCAT(rltx.ro_slip_id, '-', rltx.line_no)) " +
@@ -1160,7 +1160,7 @@ public class OrderSQL {
 				"AND " +
 				"(pmx.product_3 " + com.stringIsNull(bean.getProduct3()) +
 				"AND " +
-				"(rstx.delivery_code " + com.stringIsNull(bean.getSupplierCode()) +
+				"(pmx.supplier_code " + com.stringIsNull(bean.getSupplierCode()) +
 				"AND " +
 				"(rstx.delivery_name " + com.stringIsNull(bean.getSupplierName()) +
 				"GROUP BY (CONCAT(rltx.ro_slip_id, '-', rltx.line_no))" ;
