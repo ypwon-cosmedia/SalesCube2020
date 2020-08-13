@@ -29,7 +29,7 @@ public class UserModalDAO extends BaseDAO {
 		String sql;
 		
 		sql = sqllist.userModalSearch(bean);
-		
+		System.out.println(sql);
 		result = stmt.executeQuery(sql);
 		
 		while(result.next()) {
