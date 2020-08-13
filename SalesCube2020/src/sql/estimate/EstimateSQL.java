@@ -54,20 +54,32 @@ public class EstimateSQL {
 				"ESTIMATE_SHEET_TRN_XXXXX " +
 				"left outer join " +
 				"(select CATEGORY_ID, CATEGORY_CODE, CATEGORY_CODE_NAME " +
-				"from CATEGORY_TRN_XXXXX  where CATEGORY_ID='10') " +
+				"from " +
+				"CATEGORY_TRN_XXXXX  where CATEGORY_ID='10') " +
 				"as ctx " +
 				"ON ESTIMATE_SHEET_TRN_XXXXX.SUBMIT_PRE = a.CATEGORY_CODE " +
-				"where (ESTIMATE_SHEET_ID LIKE '%' OR ESTIMATE_SHEET_ID IS NULL) " +
-				"AND(ESTIMATE_DATE LIKE '%' OR ESTIMATE_DATE IS NULL) " +
-				"AND(VALID_DATE LIKE '%' OR VALID_DATE IS NULL) " +
-				"AND(USER_ID LIKE '%' OR USER_ID IS NULL) "+
-				"AND(USER_NAME LIKE '%' OR USER_NAME IS NULL) " +
-				"AND(TITLE LIKE '%' OR TITLE IS NULL) " +
-				"AND(REMARKS LIKE '%' OR REMARKS IS NULL) " +
-				"AND(SUBMIT_NAME LIKE '%' OR SUBMIT_NAME IS NULL) " +
-				"AND(CUSTOMER_CODE LIKE '%' OR CUSTOMER_CODE IS NULL) " +
-				"AND(CUSTOMER_NAME LIKE '%' OR CUSTOMER_NAME IS NULL) " +
-				"order by ESTIMATE_SHEET_ID ";
+				"where " +
+				"(ESTIMATE_SHEET_ID LIKE '%' OR ESTIMATE_SHEET_ID IS NULL) " +
+				"AND " +
+				"(ESTIMATE_DATE LIKE '%' OR ESTIMATE_DATE IS NULL) " +
+				"AND " +
+				"(VALID_DATE LIKE '%' OR VALID_DATE IS NULL) " +
+				"AND " +
+				"(USER_ID LIKE '%' OR USER_ID IS NULL) " +
+				"AND " +
+				"(USER_NAME LIKE '%' OR USER_NAME IS NULL) " +
+				"AND " +
+				"(TITLE LIKE '%' OR TITLE IS NULL) " +
+				"AND " +
+				"(REMARKS LIKE '%' OR REMARKS IS NULL) " +
+				"AND " +
+				"(SUBMIT_NAME LIKE '%' OR SUBMIT_NAME IS NULL) " +
+				"AND " +
+				"(CUSTOMER_CODE LIKE '%' OR CUSTOMER_CODE IS NULL) " +
+				"AND " +
+				"(CUSTOMER_NAME LIKE '%' OR CUSTOMER_NAME IS NULL) " +
+				"order by " +
+				"ESTIMATE_SHEET_ID ";
 		return sql;	
 	}
 }
