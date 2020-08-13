@@ -40,11 +40,11 @@ public class EstimateConfigurationModalAJAXController extends BaseAJAXController
 		List<EstimateConfigurationBean> list = new ArrayList<>();
 		HttpSession session = request.getSession();
 		
-		//確認用（ユーザーIDがないため）--------------------------------------------------
+		/*確認用（ユーザーIDがないため）--------------------------------------------------
 		UserInfoBean test = new UserInfoBean();
 		test.setUserID("est");
 		session.setAttribute("userInfo", test);
-		//------------------------------------------------------------------------
+		------------------------------------------------------------------------*/
 		
 		UserInfoBean userInfo = (UserInfoBean) session.getAttribute("userInfo");
 		String userId = userInfo.getUserID();
@@ -73,11 +73,6 @@ public class EstimateConfigurationModalAJAXController extends BaseAJAXController
 		List<EstimateConfigurationBean> list = new ArrayList<>();
 		HttpSession session = request.getSession();
 		
-		//確認用（ユーザーIDがないため）----------------------------------------
-		UserInfoBean test = new UserInfoBean();
-		test.setUserID("est");
-		session.setAttribute("userInfo", test);
-		//確認用---------------------------------------------------------
 		
 		UserInfoBean userInfo = (UserInfoBean) session.getAttribute("userInfo");
 		String userId = userInfo.getUserID();
@@ -116,11 +111,6 @@ public class EstimateConfigurationModalAJAXController extends BaseAJAXController
 				System.out.println("from jsp:"+showItems[i]);
 			}
 		}
-		//確認用（ユーザーIDがないため）----------------------------------------
-		UserInfoBean test = new UserInfoBean();
-		test.setUserID("est");
-		session.setAttribute("userInfo", test);
-		//確認用---------------------------------------------------------
 		
 		UserInfoBean userInfo = (UserInfoBean) session.getAttribute("userInfo");
 		String userId = userInfo.getUserID();
