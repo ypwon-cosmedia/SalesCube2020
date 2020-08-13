@@ -9,7 +9,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
- <link rel="import" href="C:/Users/cosmedia/Desktop/bootstrap-4.0.0-dist/menu.html">
+<link rel="import" href="C:/Users/cosmedia/Desktop/bootstrap-4.0.0-dist/menu.html">
 <style type="text/css">
       .menuGroup {
           -moz-border-bottom-colors: none;
@@ -465,17 +465,6 @@
         location.reload();
 	}
 
-	function excelOut(){
-		if(!confirm("検索結果をExcelファイルでダウンロードしますか？")){
-           	return;
-    	}
-
-	}
-	
-	function submitForm(){
-		document.getElementById('mainform').submit();
-	}
-
 	$(document).ready(function(){
 	
 		var loop=0;
@@ -908,13 +897,13 @@
 					"deliveryDayStart": $("#shipDayStart").val(),
 					"deliveryDayEnd": $("#shipDayStart").val(),
 					"withdrawl": checkedData,
-					"productCodeInput": $("#productCodeInput").val(),
-					"productNameInput": $("#productNameInput").val(),
+					"productCode": $("#productCodeInput").val(),
+					"productName": $("#productNameInput").val(),
 					"product1": $("#product1").val(),
 					"product2": $("#product2").val(),
 					"product3": $("#product3").val(),
-					"supplierCodeInput": $("#supplierCodeInput").val(),
-					"supplierNameInput": $("#supplierNameInput").val(),
+					"supplierCode": $("#supplierCodeInput").val(),
+					"supplierName": $("#supplierNameInput").val(),
 					"rowCount": $("#rowCount option:selected").val(),
 					"list":selArr,
 					"orderBy": orderBy
@@ -956,12 +945,13 @@
 							pagingNo = lastCount;
 						}
 
-						
-						$("#paging").append('<a href="#" onclick="paging(1)">'+'最初へ'+'</a> ');
+						if(lastCount > 6 && num != 1)
+							$("#paging").append('<a href="#" onclick="paging(1)">'+'最初へ'+'</a> ');
 						for(var i = num ; i<=pagingNo ; i++){
 							$("#paging").append('<a href="#" onclick="paging('+(i)+')">'+(i)+'</a> ');
 						}
-						$("#paging").append('<a href="#" onclick="paging('+(lastCount)+')">'+'最後へ'+'</a> ');
+						if(lastCount > 6 && (num+2) != lastCount)
+							$("#paging").append('<a href="#" onclick="paging('+(lastCount)+')">'+'最後へ'+'</a> ');
 					} else {
 						alert("検索結果がありません。");
 					}
@@ -1055,12 +1045,13 @@
 					} else {
 						num -= 2;
 					}
-
-					$("#paging").append('<a href="#" onclick="paging(1)">'+'最初へ'+'</a> ');
+					if(lastCount > 6 && num != 1)
+						$("#paging").append('<a href="#" onclick="paging(1)">'+'最初へ'+'</a> ');
 					for(var i = num ; i<=pagingNo ; i++){
 						$("#paging").append('<a href="#" onclick="paging('+(i)+')">'+(i)+'</a> ');
 					}
-					$("#paging").append('<a href="#" onclick="paging('+(lastCount)+')">'+'最後へ'+'</a> ');
+					if(lastCount > 6 && (num+2) != lastCount)
+						$("#paging").append('<a href="#" onclick="paging('+(lastCount)+')">'+'最後へ'+'</a> ');
 				}
 			});
 		}
@@ -1150,11 +1141,14 @@
 
 					if(num == 1)
 						pagingNo = 6;
-					$("#paging").append('<a href="#" onclick="paging(1)">'+'最初へ'+'</a> ');
+					if(lastCount > 6 && num != 1)
+						$("#paging").append('<a href="#" onclick="paging(1)">'+'最初へ'+'</a> ');
 					for(var i = num ; i<=pagingNo ; i++){
 						$("#paging").append('<a href="#" onclick="paging('+(i)+')">'+(i)+'</a> ');
 					}
-					$("#paging").append('<a href="#" onclick="paging('+(lastCount)+')">'+'最後へ'+'</a> ');
+					if(lastCount > 6 && (num+2) != lastCount)
+						$("#paging").append('<a href="#" onclick="paging('+(lastCount)+')">'+'最後へ'+'</a> ');
+					
 				}
 			});
 		}
@@ -1172,11 +1166,40 @@
 			document.getElementById("openConfigModal").click();
 		});
 		
+		function getTimeStamp() {
+			  var d = new Date();
+			  var s =
+			    leadingZeros(d.getFullYear(), 4) + '-' +
+			    leadingZeros(d.getMonth() + 1, 2) + '-' +
+			    leadingZeros(d.getDate(), 2) + ' ' +
+
+			    leadingZeros(d.getHours(), 2) + "-" +
+			    leadingZeros(d.getMinutes(), 2) + "-" +
+			    leadingZeros(d.getSeconds(), 2);
+
+			  return s;
+			}
+
+			function leadingZeros(n, digits) {
+			  var zero = '';
+			  n = n.toString();
+
+			  if (n.length < digits) {
+			    for (i = 0; i < digits - n.length; i++)
+			      zero += '0';
+			  }
+			  return zero + n;
+			}
+
+
 		class ToCSV {
 		    constructor() {
 		        document.querySelector('#csvDownloadButton').addEventListener('click', e => {
+		        	if(!confirm("検索結果をExcelファイルでダウンロードしますか？")){
+		               	return;
+		        	}
 		            e.preventDefault()
-		            this.getCSV('mycsv.csv')
+		            this.getCSV('受注検索('+ getTimeStamp() +').csv')
 		        })
 		    }
 
