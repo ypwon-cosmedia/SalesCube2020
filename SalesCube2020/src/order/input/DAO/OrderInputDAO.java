@@ -146,6 +146,7 @@ public class OrderInputDAO extends BaseDAO{
 	 		list.add(bean);
 	 	}
 	 	
+	 	
 	 	super.releaseDB(con, stmt, result);
 	 	
 	 	return list;

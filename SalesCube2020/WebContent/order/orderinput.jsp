@@ -89,7 +89,7 @@
 				 <span class="action_errors" style="color: red">${updateCmp}</span>
        </div>
 	
-		<form method="post">
+		<form='/SalesCube/SalesCube?action=orderupdateCmp' method="post">
 			<!-- 受注伝票情報 -->
 			<div class="container" style="background-color: white;"><div class="panel panel-default">
 				<div class="panel-heading row mb-2 col-4">
@@ -162,7 +162,7 @@
 								<div class="input-group-prepend">
 									<div class="input-group-text">入力担当者</div>
 								</div>
-								<input type="text" value="${user.userName}" class="form-control" readonly >
+								<input type="text" value="" class="form-control" readonly >
 							</div>
 						</div>
 						<div class="col-4">
@@ -560,11 +560,9 @@
 
 		<!-- 登録ボタン -->
 		<div align="center">
-			<form action="orderinputCmp" method="post">
 				<input type="submit" class="btn btn-outline-secondary w-auto" value="登録" onclick="addForm();">
-			</form>
 		</div><br>
-
+	</form>
 
 		<script>		
 			var globalTmp;

@@ -81,7 +81,7 @@ public class StockDAO extends BaseDAO {
 	}
 	
 	/* 受注番号-行押下  編集画面に受注伝票反映 */
-	public StockBean StockToOrder(String roSlipId) throws SQLException, ClassNotFoundException {
+	public OrderInputBean StockToOrder(String roSlipId) throws SQLException, ClassNotFoundException {
 		
 		Connection con;
 	 	Statement stmt = null;
@@ -98,38 +98,52 @@ public class StockDAO extends BaseDAO {
 	 	
 	 	OrderInputBean bean = new OrderInputBean();
 	 	
-	 	bean.setRoSlipId(Integer.parseInt(result.getString("")));
-	 	bean.setRoDate(result.getString(""));
-	 	bean.setShipDate(result.getString(""));
-	 	bean.setDeliveryDate(result.getString(""));
-	 	bean.setDeliveryDate(deliveryDate);
-	 	bean.setReceptNo(receptNo);
-	 	bean.setCustomerSlipNo(customerSlipNo);
-	 	bean.setUserName(userName);
-	 	bean.setRemarks(remarks);
-	 	bean.setDcName(dcName);
-	 	bean.setDcTimezone(dcTimezone);
-	 	bean.setCtaxRate(ctaxRate);
-	 	bean.setCustomerCode(customerCode);
-	 	bean.setCustomerName(customerName);
-	 	bean.setTaxShiftCategory(taxShiftCategory);
-	 	bean.setCutoffGroup(cutoffGroup);
-	 	bean.setSalesCmCategory(salesCmCategory);
-	 	bean.setCustomerRemarks(customerRemarks);
-	 	bean.setCustomerCommentData(customerCommentData);
-	 	bean.setDeliveryName(deliveryName);
-	 	bean.setDeliveryOfficeName(deliveryOfficeName);
-	 	bean.setDeliveryDeptName(deliveryDeptName);
-	 	bean.setDeliveryZipCode(deliveryZipCode);
-	 	bean.setDeliveryAddress1(deliveryAddress1);
-	 	bean.setDeliveryAddress2(deliveryAddress2);
-	 	bean.setDeliveryPcName(deliveryPcName);
-	 	bean.setDeliveryPcKana(deliveryPcKana);
-	 	bean.setDeliveryPcPre(deliveryPcPre);
-	 	bean.setDeliveryTel(deliveryTel);
-	 	bean.setDeliveryFax(deliveryFax);
-	 	bean.setDeliveryEmail(deliveryEmail);
-	 	bean.setProductCode(productCode);
+	 	bean.setRoSlipId(Integer.parseInt(result.getString("RO_SLIP_ID")));
+	 	bean.setRoDate(result.getString("RO_DATE"));
+	 	bean.setShipDate(result.getString("SHIP_DATE"));
+	 	bean.setDeliveryDate(result.getString("DELIVERY_DATE"));
+	 	bean.setReceptNo(result.getString("RECEPT_NO"));
+	 	bean.setCustomerSlipNo(result.getString("CUSTOMER_SLIP_NO"));
+	 	bean.setUserName(result.getString("USER_NAME"));
+	 	bean.setRemarks(result.getString("REMARKS"));
+	 	bean.setDcName(result.getString("DC_NAME"));
+	 	bean.setDcTimezone(result.getString("DC_TIMEZONE"));
+	 	bean.setCtaxRate(result.getString("CTAX_RATE"));
+	 	bean.setCustomerCode(result.getString("rstx.CUSTOMER_CODE"));
+	 	bean.setCustomerName(result.getString("rstx.CUSTOMER_NAME"));
+	 	bean.setTaxShiftCategory(result.getString("a.CATEGORY_CODE_NAME"));
+	 	bean.setCutoffGroup(result.getString("b.CATEGORY_CODE_NAME"));
+	 	bean.setSalesCmCategory(result.getString("c.CATEGORY_CODE_NAME"));
+	 	bean.setCustomerRemarks(result.getString("rstx.CUSTOMER_REMARKS"));
+	 	bean.setCustomerCommentData(result.getString("rstx.CUSTOMER_COMMENT_DATA"));
+	 	bean.setDeliveryName(result.getString("DELIVERY_NAME"));
+	 	bean.setDeliveryOfficeName(result.getString("DELIVERY_OFFICE_NAME"));
+	 	bean.setDeliveryDeptName(result.getString("DELIVERY_DEPT_NAME"));
+	 	bean.setDeliveryZipCode(result.getString("DELIVERY_ZIP_CODE"));
+	 	bean.setDeliveryAddress1(result.getString("DELIVERY_ADDRESS_1"));
+	 	bean.setDeliveryAddress2(result.getString("DELIVERY_ADDRESS_2"));
+	 	bean.setDeliveryPcName(result.getString("DELIVERY_PC_NAME"));
+	 	bean.setDeliveryPcKana(result.getString("DELIVERY_PC_KANA"));
+	 	bean.setDeliveryPcPre(result.getString("DELIVERY_PC_PRE"));
+	 	bean.setDeliveryTel(result.getString("DELIVERY_TEL"));
+	 	bean.setDeliveryFax(result.getString("DELIVERY_FAX"));
+	 	bean.setDeliveryEmail(result.getString("DELIVERY_EMAIL"));
+	 	bean.setProductCode(Integer.parseInt(result.getString("DELIVERY_ZIP_CODE")));
+	 	bean.setProductRemarks(result.getString("DELIVERY_ZIP_CODE"));
+	 	bean.setRackCode(result.getString("rltx.PRODUCT_CODE"));
+	 	bean.setQuantity(Integer.parseInt(result.getString("pmx.PRODUCT_NAME")));
+	 	bean.setUnitCost(Integer.parseInt(result.getString("rltx.PRODUCT_REMARKS")));
+	 	bean.setCost(Integer.parseInt(result.getString("pmx.RACK_CODE")));
+	 	bean.setUnitRetailPrice(Integer.parseInt(result.getString("rltx.QUANTITY")));
+	 	bean.setRetailPrice(Integer.parseInt(result.getString("rltx.UNIT_COST")));
+	 	bean.setInputProductRemarks(result.getString("rltx.COST"));
+	 	bean.setEadRemarks(result.getString("rltx.UNIT_RETAIL_PRICE"));
+	 	bean.setProssProfit(Integer.parseInt(result.getString("rltx.RETAIL_PRICE")));
+	 	bean.setGrossProfitRatio(Integer.parseInt(result.getString("rltx.PRODUCT_ABSTRACT")));
+	 	bean.setRetailPriceTotal(Integer.parseInt(result.getString("rltx.EAD_REMARKS")));
+	 	bean.setRetailPriceTotal(Integer.parseInt(result.getString("rstn.RETAIL_PRICE_TOTAL")));
+	 	bean.setCtaxPriceTotal(Integer.parseInt(result.getString("rstn.CTAX_PRICE_TOTAL")));
+	 	bean.setPriceTotal(Integer.parseInt(result.getString("rstn.PRICE_TOTAL")));
 	 	
 	 	
 	 	

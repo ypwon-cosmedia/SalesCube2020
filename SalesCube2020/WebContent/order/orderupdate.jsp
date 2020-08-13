@@ -83,7 +83,7 @@
 			</div><br><br><br>
 		</div><br>
 
-		<form="" method="post">
+		<form='/SalesCube/SalesCube?action=orderupdateCmp' method="post">
 			<!-- 受注伝票情報 -->
 			<div class="container" style="background-color: white;"><div class="panel panel-default">
 				<div class="panel-heading row mb-2 col-4">
@@ -175,7 +175,6 @@
 									<div class="input-group-text">配送業者</div>
 								</div>
 								<select class="custom-select" name="">
-									<option value=""></option>
 									<c:forEach items="${initDcName}" var="initDN">
 										<option value="${initDN.categoryCode}">${initDN.categoryCodeName}</option>
 									</c:forEach>
@@ -191,7 +190,6 @@
 									<div class="input-group-text">配送時間帯</div>
 								</div>
 								<select class="custom-select" name="">
-									<option value=""></option>
 									<c:forEach items="${initDcTimezone}" var="initDT">
 										<option value="${initDT.categoryCode}">${initDT.categoryCodeName}</option>
 									</c:forEach>
@@ -205,7 +203,6 @@
 									<div class="input-group-text">消費税率</div>
 								</div>
 								<select class="custom-select" name="">
-									<option value=""></option>
 									<c:forEach items="${initTaxRate}" var="initTR">
 										<option value="${initTR.ctaxRate}" id="ctaxRate">${initTR.ctaxRate}</option>
 									</c:forEach>
@@ -423,7 +420,6 @@
 					</div>
 				</div><br>
 			</div></div><br><br>
-		</form>
 
 		<!-- 受注明細テーブル -->
 		<div class="container" style="background-color: rgb(255, 255, 255);">
@@ -551,11 +547,9 @@
 
 		<!-- 更新ボタン -->
 		<div align="center">
-			<form action="orderupdateCmp" method="post">
 				<input type="submit" class="btn btn-outline-secondary w-auto" value="更新" onclick="updateForm();">
-			</form>
 		</div><br>
-
+	</form>
 
 		<script>
 		
