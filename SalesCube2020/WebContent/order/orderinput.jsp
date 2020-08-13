@@ -89,7 +89,7 @@
 				 <span class="action_errors" style="color: red">${updateCmp}</span>
        </div>
 	
-		<form='/SalesCube/SalesCube?action=orderupdateCmp' method="post">
+		<form action="/SalesCube2020/SalesCube?action=orderinputCmp" method="post">
 			<!-- 受注伝票情報 -->
 			<div class="container" style="background-color: white;"><div class="panel panel-default">
 				<div class="panel-heading row mb-2 col-4">
@@ -432,7 +432,6 @@
 					</div>
 				</div><br>
 			</div></div><br><br>
-		</form>
 
 		<!-- 受注明細テーブル -->
 		<div class="container" style="background-color: rgb(255, 255, 255);">
@@ -511,7 +510,7 @@
 					</tr>
 					<tr>
 						<td rowspan="2">
-							<button type="button" class="btn btn-outline-secondary" data-toggle="modal" data-target="#openSearchStock" id="openSearchStock1">在庫</button>
+							<button type="button" class="btn btn-outline-secondary" data-toggle="modal" data-target="#openSearchStock" id="openSearchStock1" onclick="openStock(this);">在庫</button>
 						</td>
 					</tr>
 					<tr></tr>
@@ -910,6 +909,24 @@
 				form.submit();
 			}
 			
+			/* 在庫モーダル開く */
+			function openStock(obj){
+				var tmp = obj.id;
+				var tableNo = tmp.substr(15);
+				var productCodeInput = document.getElementById("productCodeInput" + tableNo).value;
+				alert(productCode);
+				var form = document.createElement("form");
+				form.setAttribute("charset", "UTF-8");
+				form.setAttribute("method", "post");
+				form.setAttribute("action", "/SalesCube2020/SalesCube?action=stocksearch");
+				var input = document.createElement("input");
+				input.setAttribute("type", "hidden");
+				input.setAttribute("name", "productCodeInput");
+				input.setAttribute("value", productCodeInput);
+				form.appendChild(input);
+				document.body.appendChild(form);
+				form.submit();
+			}
 
 		</script>
 	</body>
