@@ -84,7 +84,7 @@
               
                     <div class="rounded float-right">
                       <button type="button" class="btn btn-primary" onclick="initCustomer()">初期化</button>&ensp;
-                      <input type="button" value="検索" class="btn btn-primary" onclick="customerSearch1()">&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;
+                      <input type="button" value="検索" class="btn btn-primary" onclick="customerSearch1()">&ensp;&ensp;
                     </div>
                     <br>
                     <br>
@@ -158,7 +158,6 @@
      	function getCutoffGroup(){
      		var formString = $("form[id=cutoff]").serialize();
 			var tmp = "";
-			alert("call")
 			$.ajax({
 				url:'/SalesCube2020/SalesCubeAJAX?action=estimateCategoryGet',
 				type:'post',
@@ -180,14 +179,6 @@
 		}
      		
      	
-     	
-     	//顧客コード及び顧客名の値をセット。※親画面で書くコード
-      	function selectCustomerCode(code, name){
-              		document.getElementById('CustomerModalCustomerCode').value = code;
-              		document.getElementById('CustomerModalCustomerName').value = name;
-              	}
-     	
-      	
      	//顧客検索結果
 		function customerSearch1() {
 			var formString = $("form[id=customer]").serialize();
