@@ -865,7 +865,7 @@ public class OrderSQL {
 	}
 
 	
-	public String searchOrderBill(OrderSearchBean bean, String[] inputlist, String rowCount, String sort, int currentPage) {
+	public String searchOrderBill(OrderSearchBean bean, String[] inputlist, String rowCount, String sort, int currentPage, String orderBy) {
 		
 		String sql;
 		
@@ -913,7 +913,7 @@ public class OrderSQL {
 				"AND " +
 				"(pmx.product_name " + com.stringIsNull(bean.getProductName()) +
 				"AND " +
-				"(rstx.CUTOFF_GROUP " + stringArrayIsNull(bean.getWithdrawl()) +
+				"(rstx.sales_cm_category " + stringArrayIsNull(bean.getWithdrawl()) +
 				"AND " +
 				"(rstx.customer_code " + com.stringIsNull(bean.getCustomerCode()) +
 				"AND " +
@@ -929,7 +929,7 @@ public class OrderSQL {
 				"AND " +
 				"(rstx.delivery_name " + com.stringIsNull(bean.getSupplierName()) +
 				"GROUP BY (rstx.RO_SLIP_ID) " +
-				"ORDER BY (" + sort + ")" +
+				"ORDER BY (" + sort + ") " + orderBy + " " +
 			 	"LIMIT " + rowCount + " OFFSET " + Integer.parseInt(rowCount)*(currentPage-1);
 				
 		return sql;
@@ -979,7 +979,7 @@ public class OrderSQL {
 				"AND " +
 				"(pmx.product_name " + com.stringIsNull(bean.getProductName()) +
 				"AND " +
-				"(rstx.CUTOFF_GROUP " + stringArrayIsNull(bean.getWithdrawl()) +
+				"(rstx.sales_cm_category " + stringArrayIsNull(bean.getWithdrawl()) +
 				"AND " +
 				"(rstx.customer_code " + com.stringIsNull(bean.getCustomerCode()) +
 				"AND " +
@@ -999,7 +999,7 @@ public class OrderSQL {
 		return sql;
 	}
 	
-	public String searchOrderDetail(OrderSearchBean bean, String[] inputlist, String rowCount, String sort, int currentPage) {
+	public String searchOrderDetail(OrderSearchBean bean, String[] inputlist, String rowCount, String sort, int currentPage, String orderBy) {
 		
 		String sql;
 
@@ -1027,8 +1027,8 @@ public class OrderSQL {
 				"AND ctx2.category_id = '32' " +
 				"LEFT OUTER JOIN " + 
 				"category_trn_xxxxx AS ctx3 " + 
-				"ON rstx.sales_cm_category = ctx2.category_code " + 
-				"AND ctx2.category_id = '5' " +
+				"ON rstx.CUTOFF_GROUP = ctx3.category_code " + 
+				"AND ctx3.category_id = '5' " +
 				"LEFT OUTER JOIN " + 
 				"product_mst_xxxxx as pmx " + 
 				"USING(PRODUCT_CODE) " +
@@ -1047,7 +1047,7 @@ public class OrderSQL {
 				"AND " +
 				"(pmx.product_name " + com.stringIsNull(bean.getProductName()) +
 				"AND " +
-				"(rstx.CUTOFF_GROUP " + stringArrayIsNull(bean.getWithdrawl()) +
+				"(rstx.sales_cm_category " + stringArrayIsNull(bean.getWithdrawl()) +
 				"AND " +
 				"(rstx.customer_code " + com.stringIsNull(bean.getCustomerCode()) +
 				"AND " +
@@ -1062,8 +1062,8 @@ public class OrderSQL {
 				"(rstx.delivery_code " + com.stringIsNull(bean.getSupplierCode()) +
 				"AND " +
 				"(rstx.delivery_name " + com.stringIsNull(bean.getSupplierName()) +
-				"GROUP BY (CONCAT(rltx.ro_slip_id, '-', rltx.line_no))" +
-				"ORDER BY (" + sort + ")" +
+				"GROUP BY (CONCAT(rltx.ro_slip_id, '-', rltx.line_no)) " +
+				"ORDER BY (" + sort + ") " + orderBy + " " +
 				"LIMIT " + rowCount + " OFFSET " + Integer.parseInt(rowCount)*(currentPage-1);
 		
 		return sql;
@@ -1113,7 +1113,7 @@ public class OrderSQL {
 				"AND " +
 				"(pmx.product_name " + com.stringIsNull(bean.getProductName()) +
 				"AND " +
-				"(rstx.CUTOFF_GROUP " + stringArrayIsNull(bean.getWithdrawl()) +
+				"(rstx.sales_cm_category " + stringArrayIsNull(bean.getWithdrawl()) +
 				"AND " +
 				"(rstx.customer_code " + com.stringIsNull(bean.getCustomerCode()) +
 				"AND " +
@@ -1128,7 +1128,7 @@ public class OrderSQL {
 				"(rstx.delivery_code " + com.stringIsNull(bean.getSupplierCode()) +
 				"AND " +
 				"(rstx.delivery_name " + com.stringIsNull(bean.getSupplierName()) +
-				"GROUP BY (CONCAT(rltx.ro_slip_id, '-', rltx.line_no))";
+				"GROUP BY (CONCAT(rltx.ro_slip_id, '-', rltx.line_no))" ;
 
 		return sql;
 	}

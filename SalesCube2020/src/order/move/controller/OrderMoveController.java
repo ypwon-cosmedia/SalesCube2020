@@ -106,6 +106,10 @@ public class OrderMoveController extends BaseController{
 		} catch (ClassNotFoundException | SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
+		} catch (NullPointerException e) {
+			String message = "ログインした後で利用できます。\nログインしてください。";
+			request.setAttribute("loginError", message);
+			return "login.jsp";
 		}
 	
 		return "order\\ordersearch.jsp";

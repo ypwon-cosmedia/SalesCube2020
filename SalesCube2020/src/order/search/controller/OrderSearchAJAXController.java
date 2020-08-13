@@ -132,8 +132,10 @@ public class OrderSearchAJAXController extends BaseAJAXController{
 			currentPage = Integer.parseInt(tmp);
 		}
 		
+		String orderBy = request.getParameter("orderBy");
+		
 		try {
-			List<String[]> list = dao.orderSearch(bean, res, Integer.toString(count), sort, currentPage);
+			List<String[]> list = dao.orderSearch(bean, res, Integer.toString(count), sort, currentPage, orderBy);
 			
 			JsonObject jobj = new JsonObject();
 			jobj.addProperty("currentPage", currentPage);
@@ -170,7 +172,7 @@ public class OrderSearchAJAXController extends BaseAJAXController{
 			else if(tmp[i].equals("customerCode")) tmp[i] = "rstx.CUSTOMER_CODE";
 			else if(tmp[i].equals("customerName")) tmp[i] = "rstx.CUSTOMER_NAME";
 			else if(tmp[i].equals("customerSlipNo")) tmp[i] = "rstx.CUSTOMER_SLIP_NO";
-			else if(tmp[i].equals("cutoffGroup")) tmp[i] = "ctx2.category_code_name";
+			else if(tmp[i].equals("cutoffGroup")) tmp[i] = "ctx3.category_code_name";
 			else if(tmp[i].equals("deliveryDate")) tmp[i] = "rstx.DELIVERY_DATE";
 			else if(tmp[i].equals("priceTotal")) tmp[i] = "rstx.PRICE_TOTAL";
 			else if(tmp[i].equals("profit")) tmp[i] = "(rstx.retail_price_total - rstx.cost_total)";
@@ -180,7 +182,7 @@ public class OrderSearchAJAXController extends BaseAJAXController{
 			else if(tmp[i].equals("retailPriceTotal")) tmp[i] = "rstx.RETAIL_PRICE_TOTAL";
 			else if(tmp[i].equals("roDate")) tmp[i] = "rstx.RO_DATE";
 			else if(tmp[i].equals("roSlipId")) tmp[i] = "rstx.RO_SLIP_ID";
-			else if(tmp[i].equals("salesCmCategory")) tmp[i] = "ctx3.category_code_name";
+			else if(tmp[i].equals("salesCmCategory")) tmp[i] = "ctx2.category_code_name";
 			else if(tmp[i].equals("shipDate")) tmp[i] = "rstx.SHIP_DATE";
 			else if(tmp[i].equals("taxShiftCategory")) tmp[i] = "ctx1.category_code_name";
 			else if(tmp[i].equals("userId")) tmp[i] = "rstx.USER_ID";
@@ -234,7 +236,7 @@ public class OrderSearchAJAXController extends BaseAJAXController{
 		else if(tmp.equals("顧客コード")) tmp = "rstx.CUSTOMER_CODE";
 		else if(tmp.equals("顧客名")) tmp = "rstx.CUSTOMER_NAME";
 		else if(tmp.equals("客先伝票番号")) tmp = "rstx.CUSTOMER_SLIP_NO";
-		else if(tmp.equals("支払条件")) tmp = "ctx2.category_code_name";
+		else if(tmp.equals("支払条件")) tmp = "ctx3.category_code_name";
 		else if(tmp.equals("納期指定日")) tmp = "rstx.DELIVERY_DATE";
 		else if(tmp.equals("伝票合計")) tmp = "rstx.PRICE_TOTAL";
 		else if(tmp.equals("粗利益")) tmp = "(rstx.retail_price_total - rstx.cost_total)";
@@ -244,7 +246,7 @@ public class OrderSearchAJAXController extends BaseAJAXController{
 		else if(tmp.equals("金額合計")) tmp = "rstx.RETAIL_PRICE_TOTAL";
 		else if(tmp.equals("受注日")) tmp = "rstx.RO_DATE";
 		else if(tmp.equals("受注番号")) tmp = "rstx.RO_SLIP_ID";
-		else if(tmp.equals("取引区分")) tmp = "ctx3.category_code_name";
+		else if(tmp.equals("取引区分")) tmp = "ctx2.category_code_name";
 		else if(tmp.equals("出荷日")) tmp = "rstx.SHIP_DATE";
 		else if(tmp.equals("税転嫁")) tmp = "ctx1.category_code_name";
 		else if(tmp.equals("入力担当者コード")) tmp = "rstx.USER_ID";
@@ -254,6 +256,36 @@ public class OrderSearchAJAXController extends BaseAJAXController{
 	}
 	
 	private String orderDetailChanger(String tmp) {
+		
+		if(tmp.equals("仕入金額")) tmp = "rltx.cost";
+		else if(tmp.equals("消費税")) tmp = "rstx.CTAX_PRICE_TOTAL";
+		else if(tmp.equals("顧客コード")) tmp = "rstx.customer_code";
+		else if(tmp.equals("顧客名")) tmp = "rstx.customer_name";
+		else if(tmp.equals("客先伝票番号")) tmp = "rstx.customer_slip_no";
+		else if(tmp.equals("支払条件")) tmp = "ctx3.category_code_name";
+		else if(tmp.equals("納期指定日")) tmp = "rstx.delivery_date";
+		else if(tmp.equals("備考")) tmp = "rltx.remarks";
+		else if(tmp.equals("伝票合計")) tmp = "PRICE_TOTAL";
+		else if(tmp.equals("商品名")) tmp = "rltx.product_abstract";
+		else if(tmp.equals("商品コード")) tmp = "rltx.product_code";
+		else if(tmp.equals("粗利益")) tmp = "CTAX_PRICE_TOTAL";
+		else if(tmp.equals("粗利益率")) tmp = "CTAX_PRICE_TOTAL";
+		else if(tmp.equals("数量")) tmp = "rltx.quantity";
+		else if(tmp.equals("受付番号")) tmp = "rstx.recept_no";
+		else if(tmp.equals("摘要")) tmp = "rstx.remarks";
+		else if(tmp.equals("受注残数")) tmp = "rltx.rest_quantity";
+		else if(tmp.equals("売上金額")) tmp = "rltx.retail_price";
+		else if(tmp.equals("金額合計")) tmp = "(rltx.retail_price + rltx.ctax_price)";
+		else if(tmp.equals("受注日")) tmp = "rstx.ro_date";
+		else if(tmp.equals("受注番号 - 行")) tmp = "CONCAT(rltx.ro_slip_id, '-', rltx.line_no)";
+		else if(tmp.equals("引出区分")) tmp = "ctx2.category_code_name";
+		else if(tmp.equals("出荷日")) tmp = "rstx.ship_date";
+		else if(tmp.equals("完納区分")) tmp = "IF(rltx.status = \"0\", \"未納\" , \"\")";
+		else if(tmp.equals("税転嫁")) tmp = "ctx1.category_code_name";
+		else if(tmp.equals("仕入単価")) tmp = "rltx.unit_cost";
+		else if(tmp.equals("売上単価")) tmp = "rltx.unit_retail_price";
+		else if(tmp.equals("入力担当者コード")) tmp = "rstx.user_id";
+		else if(tmp.equals("入力担当者名")) tmp = "rstx.user_name";
 		
 		return tmp;
 	}

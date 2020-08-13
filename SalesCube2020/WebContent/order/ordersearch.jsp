@@ -51,7 +51,6 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
     <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script> 
-    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery.tablesorter/2.31.3/js/jquery.tablesorter.min.js"></script> 
        
     <%@ include file= "../common/menubar.jsp" %>
 	<br>
@@ -192,7 +191,7 @@
                                    <div class="input-group-text">顧客コード</div>
                             </div>
                             <input type="text" class="form-control" id="customerCodeInput" name="customerCodeInput" maxlength="15">
-                            <button type="button" class="btn btn-outline-secondary" data-toggle="modal" data-target="#setQuotationCondition" style="background-image: url(btn_search.png); border: 0px; outline: 0px; padding: 15px; margin: 0; height: 16px">
+                            <button type="button" class="btn btn-outline-secondary" data-toggle="modal" data-target="#customerSearch" style="background-image: url(btn_search.png); border: 0px; outline: 0px; padding: 15px; margin: 0; height: 16px" onclick="getCutoffGroup();">>
 							</button>
 					    </div>
 					</div>
@@ -203,7 +202,7 @@
 								<div class="input-group-text">顧客名</div>
 							</div>
                             <input type="text"  class="form-control" id="customerNameInput" name="customerNameInput" maxlength="60">
-                            <button type="button" class="btn btn-outline-secondary" data-toggle="modal" data-target="#setQuotationCondition" style="background-image: url(btn_search.png); border: 0px; outline: 0px; padding: 15px; margin: 0; height: 16px">
+                            <button type="button" class="btn btn-outline-secondary" data-toggle="modal" data-target="#customerSearch" style="background-image: url(btn_search.png); border: 0px; outline: 0px; padding: 15px; margin: 0; height: 16px" onclick="getCutoffGroup();">
 							</button>
 						</div>
 					</div>                  
@@ -362,9 +361,6 @@
 					検索結果件数：<span id="resultCount">0</span>件
 				</div>
 				<div class="col-4" id="paging">
-					<a href="#">1</a>
-					<a href="#">2</a>
-					<a href="#">3</a>
 				</div>			
 				<div class="col-3 float-left">
 					ページあたりの表示件数
@@ -392,144 +388,7 @@
 </div>
 <%@ include file= "../common/productSearch.jsp" %>
 <!-- modal page (customersearch)-->
-<div class="modal fade" id="setQuotationCondition" tabindex="-1" role="dialog" aria-labelledby="label1" aria-hidden="true" data-backdrop="static">
-	<div class="modal-dialog modal-lg" role="document">
-		<div class="modal-content">
-			
-			<div class="modal-header">
-				<h5 class="modal-title" id="label1">顧客検索</h5>
-					<button type="button" class="close" data-dismiss="modal" aria-label="Close">
-						<span aria-hidden="true">&times;</span>
-					</button>
-			</div>
-			 
-			<form action="" method="post">
-				<div class="modal-body">
-				  <div class="row">
-					<div class="col-4">
-					  <label class="sr-only" for="inlineFormInputGroup">UserId</label>
-					  <div class="input-group mb-2">
-						<div class="input-group-prepend">
-							<div class="input-group-text">顧客コード</div>
-						</div>
-						<input type="text"  class="form-control" id="inlineFormInputGroup">
-					  </div>
-					</div>
-				  </div>
-				
-
-			   
-				  <div class="row">
-					<div class="col-4">
-					  <label class="sr-only" for="inlineFormInputGroup">UserName</label>
-					  <div class="input-group mb-2">
-						<div class="input-group-prepend">
-							<div class="input-group-text">顧客名</div>
-						</div>
-						<input type="text"  class="form-control" id="inlineFormInputGroup">
-					  </div>
-					</div>
-				  
-
-					<div class="col-4">
-					  <label class="sr-only" for="inlineFormInputGroup">UserKana</label>
-					  <div class="input-group mb-2">
-						<div class="input-group-prepend">
-							<div class="input-group-text">顧客名カナ</div>
-						</div>
-						<input type="text"  class="form-control" id="inlineFormInputGroup">
-					  </div>
-					</div>
-				  </div>
-				
-				  
-			   
-				  <div class="row">
-					<div class="col-6">
-					  <label class="sr-only" for="inlineFormInputGroup">productStockCategory</label>
-						<div class="input-group mb-2">
-						  <div class="input-group-prepend">
-							<div class="input-group-text">支払条件</div>
-						  </div>
-						  <select class="custom-select" name="productStockCategory">
-							<option selected></option>
-							  <option value=""></option>
-						  </select>
-						</div>
-					</div>
-				  </div>
-				</div>
-				<br>
-
-				<div class="rounded float-right">
-				  <button type="button" class="btn btn-outline-secondary" onclick="">初期化</button>&ensp;
-				  <input type="submit" value="検索" class="btn btn-outline-secondary">&ensp;
-				</div><br>
-			  </form><br>
-
-			  <div class="modal-body">
-				<div class="float-left" style="position:static; left: 0px;">
-				  検索結果件数：3件
-				</div>
-			  </div>
-
-			  <div class="modal-body" style="background-color: rgb(255, 255, 255);">
-				<table id="order_detail_info" class="table table-bordered">
-				  <thead class="thead-dark">
-					<tr>
-					  <th scope="col" class="rd_top_left th_back_black" style="cursor: pointer; height: 30px;" onclick="sort('productCode');">顧客コード</th>
-					  <th scope="col" class="th_back_black" style="cursor: pointer; height: 30px;" onclick="sort('productName');">顧客名</th>
-					  <th scope="col" class="th_back_black" style="cursor: pointer; height: 30px;" onclick="sort('supplierName');">TEL</th>
-					  <th scope="col" class="th_back_black" style="cursor: pointer; height: 30px;" onclick="sort('supplierName');">担当者</th>
-					  <th scope="col" class="th_back_black" style="cursor: pointer; height: 30px;" onclick="sort('supplierName');">取引区分</th>
-					  <th scope="col" class="th_back_black" style="cursor: pointer; height: 30px;" onclick="sort('supplierName');">支払条件</th>
-					  <th scope="col" class="th_back_black" style="cursor: pointer; height: 30px;" onclick="sort('supplierName');">事務所名</th>
-					  <th scope="col" class="th_back_black" style="cursor: pointer; height: 30px;" onclick="sort('supplierName');">部署名</th>
-					  
-					</tr>
-				  </thead>
-					<tr>
-					  <td style="white-space: normal; text-align: left;" onclick="selectCustomerCode();" data-dismiss="modal" id="customerCode1"><a href="">顧客コード1</a></td>
-					  <td style="white-space: normal; text-align: left;" onclick="selectCustomerCode();" data-dismiss="modal" id="customerName1"><a href="">顧客名1</a></td>
-					  <td style="white-space: normal; text-align: left;">TEL1</td>
-					  <td style="white-space: normal; text-align: left;">担当者1</td>
-					  <td style="white-space: normal; text-align: left;">取引区分1</td>
-					  <td style="white-space: normal; text-align: left;">支払条件1</td>
-					  <td style="white-space: normal; text-align: left;">事務所名1</td>
-					  <td style="white-space: normal; text-align: left;">部署名1</td>
-					</tr>
-					<tr>
-						<td style="white-space: normal; text-align: left;">顧客コード2</td>
-						<td style="white-space: normal; text-align: left;">顧客名2</td>
-						<td style="white-space: normal; text-align: left;">TEL2</td>
-						<td style="white-space: normal; text-align: left;">担当者2</td>
-						<td style="white-space: normal; text-align: left;">取引区分2</td>
-						<td style="white-space: normal; text-align: left;">支払条件2</td>
-						<td style="white-space: normal; text-align: left;">事務所名2</td>
-						<td style="white-space: normal; text-align: left;">部署名2</td>
-					  </tr>
-					  <tr>
-						<td style="white-space: normal; text-align: left;">顧客コード3</td>
-						<td style="white-space: normal; text-align: left;">顧客名3</td>
-						<td style="white-space: normal; text-align: left;">TEL3</td>
-						<td style="white-space: normal; text-align: left;">担当者3</td>
-						<td style="white-space: normal; text-align: left;">取引区分3</td>
-						<td style="white-space: normal; text-align: left;">支払条件3</td>
-						<td style="white-space: normal; text-align: left;">事務所名3</td>
-						<td style="white-space: normal; text-align: left;">部署名3</td>
-					  </tr>
-				</table>
-				<br>
-
-			<div class="modal-footer">
-				<button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-			</div>
-
-			</div>
-		</div>
-	</div>
-</div>
-
+<%@ include file= "../common/_customerSearch.jsp" %>
 <!-- modal page (suppliersearch)-->
 <div class="modal fade" id="openSearchSupplier" tabindex="-1" role="dialog" aria-labelledby="label1" aria-hidden="true">
 	<div class="modal-dialog modal-lg" role="document">
@@ -639,28 +498,6 @@
 				<div class="row container">
 				&emsp;
 				<select size="7" id="notShowSearchResult" name="notShowSearchResult" style="width: 160px;">
-					<!--
-					<option value="見積番号">見積番号</option>
-					<option value="見積日">見積日</option>
-					<option value="有効期限">有効期限</option>
-					<option value="伝票合計">伝票合計</option>
-					<option value="件名">件名</option>
-					<option value="提出先名">提出先名</option>
-					<option value="提出先敬称">提出先敬称</option>
-					<option value="顧客コード">顧客コード</option>
-					<option value="顧客名">顧客名</option>
-					
-					<option value="10">粗利益</option>
-					<option value="11">粗利益率</option>
-					<option value="12">金額合計</option>
-					<option value="13">消費税</option>
-					<option value="14">納期または出荷日</option>
-					<option value="15">入力担当者名</option>
-					<option value="16">入力担当者コード</option>
-					<option value="17">摘要</option>
-					<option value="18">納入先</option>
-					<option value="19">見積条件</option>
-					-->
 
 				</select>
 				&emsp;
@@ -674,18 +511,7 @@
 				
 				&emsp;
 				<select size="7" id="showSearchResult" name="showSearchResult" style="width: 160px;">
-					<!--
-					<option value="粗利益">粗利益</option>
-					<option value="粗利益率">粗利益率</option>
-					<option value="金額合計">金額合計</option>
-					<option value="消費税">消費税</option>
-					<option value="納期または出荷日">納期または出荷日</option>
-					<option value="入力担当者名">入力担当者名</option>
-					<option value="入力担当者コード">入力担当者コード</option>
-					<option value="摘要">摘要</option>
-					<option value="納入先">納入先</option>
-					<option value="見積条件">見積条件</option>
-					-->
+
 				</select>
 					&emsp;
 					<table>
@@ -700,7 +526,7 @@
 
 			<div class="modal-footer">
 				<button type="button" class="btn btn-primary" onclick="initConfig();">初期化</button>                            
-				<button type="button" class="btn btn-primary" onclick="modifyConfig();" data-dismiss="modal">更新</button>                            
+				<button type="button" class="btn btn-primary" onclick="modifyConfig();" data-dismiss="modal" id="configModalConfirm">更新</button>                            
 				<button type="button" class="btn btn-primary" data-dismiss="modal">閉じる</button>
 			</div>
 
@@ -716,6 +542,7 @@
 	var detailUnselectedArr = [];
 	var detailSelectedArr = [];
 	var mylist = [];
+	var orderBy = "ASC";
 
 	function initPage(){
 		if(!confirm("入力内容を初期化してよろしいですか？")){
@@ -736,9 +563,7 @@
 	}
 
 	$(document).ready(function(){
-
-		$('table').tablesorter();
-		
+	
 		var loop=0;
 				
 		<c:forEach var="test" items="${configDetailShow}">
@@ -775,10 +600,6 @@
 			  };
   		loop++;
 		</c:forEach>
-//		unselectedArr = ["見積番号", "見積日", "有効期限", "伝票合計", "件名", "提出先名", "提出先敬称", "顧客コード", "顧客名"];
-//		selectedArr = ["粗利益", "粗利益率", "金額合計", "消費税", "納期または出荷日", "入力担当者名", "入力担当者コード", "摘要", "納入先", "見積条件"];
-//		detailUnselectedArr = ["出荷日","納期指定日","受付番号","入力担当者コード","入力担当者名","摘要","[明細]顧客コード","[明細]完納区分","[明細]売上単価","[明細]仕入金額","[明細]売価金額","粗利益","粗利益率","金額合計","消費税","伝票合計","受注残数"];
-//		detailSelectedArr = ["受注番号-行","受注日","顧客名","[明細]商品名","[明細]数量","[明細]仕入単価","[明細]備考"];
 
 		var headcontents= '';
 
@@ -823,24 +644,17 @@
 		$('#showSearchResult option:selected').appendTo('#notShowSearchResult');
 		$('#showSearchResult option:selected').remove();
 	}
-	
-	function selectCustomerCode(){
-		var customerCode = document.getElementById("customerCode1").innerText;
-		var customerName = document.getElementById("customerName1").innerText;
-
-		document.getElementById("customerCodeInput").value = customerCode;
-		document.getElementById("customerNameInput").value = customerName;
 		
+	function selectCustomerCode(code, name){
+		document.getElementById("customerCodeInput").value = code;
+		document.getElementById("customerNameInput").value = name;		
 	}
 
 	function selectProductModal(code, name){
-
 		document.getElementById("productCodeInput").value = code;
 		document.getElementById("productNameInput").value = name;
 	}
 	
-
-
 	function selectSupplierCode(){
 		var supplierCode = document.getElementById("supplierCode1").innerText;
 		var supplierName = document.getElementById("supplierName1").innerText;
@@ -867,27 +681,49 @@
 
 	function initConfig(){
 
+		var e = document.getElementById("select_view");
+		var sel_view = e.options[e.selectedIndex].value;
+
 		$("select#showSearchResult option").remove();
 		$("select#notShowSearchResult option").remove();
-
-		for(var i = 0; i < selectedArr.length; i++){
-			$("#showSearchResult").append("<option value = " + selectedArr[i].value + ">" + selectedArr[i].name + "</option>")
-		}
-
-		for(var i = 0; i < unselectedArr.length; i++){
-			$("#notShowSearchResult").append("<option value = " + unselectedArr[i].value + ">" + unselectedArr[i].name + "</option>")
+		
+		if(sel_view == "伝票"){
+			for(var i = 0; i < selectedArr.length; i++){
+				$("#showSearchResult").append("<option value = " + selectedArr[i].value + ">" + selectedArr[i].name + "</option>")
+			}
+	
+			for(var i = 0; i < unselectedArr.length; i++){
+				$("#notShowSearchResult").append("<option value = " + unselectedArr[i].value + ">" + unselectedArr[i].name + "</option>")
+			}
+		} else {
+			for(var i = 0; i < selectedArr.length; i++){
+				$("#showSearchResult").append("<option value = " + detailSelectedArr[i].value + ">" + selectedArr[i].name + "</option>")
+			}
+	
+			for(var i = 0; i < unselectedArr.length; i++){
+				$("#notShowSearchResult").append("<option value = " + detailUnselectedArr[i].value + ">" + unselectedArr[i].name + "</option>")
+			}
+			
 		}
 	}
 
 	function modifyConfig(){
+		document.getElementById("configModalConfirm").setAttribute("data-dismiss","modal");
+		var exists = false; 
+		$('#showSearchResult option').each(function(){ if (this.value == 'roSlipId') { exists = true; return false; } });
+		
+		if(exists == false){
+			initConfig();
+			alert("error");
+			document.getElementById("configModalConfirm").removeAttribute("data-dismiss");
+		}
+		
 		var e = document.getElementById("select_view");
 		var sel_view = e.options[e.selectedIndex].value;
 
 		if(sel_view == "伝票"){
 			selectedArr = [];
 			unselectedArr = [];
-//			selectedArr = $("#showSearchResult>option").map(function() { return $(this).text(); });
-//			unselectedArr = $("#notShowSearchResult>option").map(function() { return $(this).text(); });
 			for(var i = 0; i<document.getElementById('showSearchResult').length; i++){
 				selectedArr[i] = {
 						value:document.getElementById('showSearchResult')[i].value,
@@ -915,8 +751,6 @@
 		else {
 			detailSelectedArr = [];
 			detailUnselectedArr = [];
-//			detailSelectedArr = $("#showSearchResult>option").map(function() { return $(this).text(); });
-//			detailUnselectedArr = $("#notShowSearchResult>option").map(function() { return $(this).text(); });
 			for(var i = 0; i<document.getElementById('showSearchResult').length; i++){
 				detailSelectedArr[i] = {
 						value:document.getElementById('showSearchResult')[i].value,
@@ -996,8 +830,6 @@
 		if(sel_view == "伝票"){
 			selectedArr = [];
 			unselectedArr = [];
-//			selectedArr = $("#showSearchResult>option").map(function() { return $(this).text(); });
-//			unselectedArr = $("#notShowSearchResult>option").map(function() { return $(this).text(); });
 			for(var i = 0; i<document.getElementById('showSearchResult').length; i++){
 				selectedArr[i] = {
 						value:document.getElementById('showSearchResult')[i].value,
@@ -1025,8 +857,6 @@
 		else {
 			detailSelectedArr = [];
 			detailUnselectedArr = [];
-//			detailSelectedArr = $("#showSearchResult>option").map(function() { return $(this).text(); });
-//			detailUnselectedArr = $("#notShowSearchResult>option").map(function() { return $(this).text(); });
 			for(var i = 0; i<document.getElementById('showSearchResult').length; i++){
 				detailSelectedArr[i] = {
 						value:document.getElementById('showSearchResult')[i].value,
@@ -1178,36 +1008,41 @@
 					"supplierNameInput": $("#supplierNameInput").val(),
 					"rowCount": $("#rowCount option:selected").val(),
 					"list":selArr,
+					"orderBy": orderBy
 				},
 				dataType:'json',
 				success:function(data){	
-					var count;
-					$("#AddOption > tr").remove();
-					for(var i = 0; i<Object.keys(data).length - 3; i++){
-						var headcontents= '';
-						headcontents += '<tr>';
-						for(var j = 0; j < selArr.length; j++){
-							var tmp;
-							if(data[i][j] == null)
-								tmp = "";
-							else if(isNaN(data[i][j]) == false)
-								tmp = Math.floor(data[i][j]);
-							else
-								tmp = data[i][j];
-							headcontents += '<td>' + tmp + '</td>';
+					var count = data[Object.keys(data).length-2]["totalCount"];
+					if(count != "0"){
+						$("#AddOption > tr").remove();
+						for(var i = 0; i<Object.keys(data).length - 3; i++){
+							var headcontents= '';
+							headcontents += '<tr>';
+							for(var j = 0; j < selArr.length; j++){
+								var tmp;
+								if(data[i][j] == null)
+									tmp = "";
+								else if(isNaN(data[i][j]) == false)
+									tmp = Math.floor(data[i][j]);
+								else
+									tmp = data[i][j];
+								headcontents += '<td>' + tmp + '</td>';
+							}
+							
+							headcontents += '</tr>';
+							$('#AddOption').append(headcontents);						
 						}
-						
-						headcontents += '</tr>';
-						$('#AddOption').append(headcontents);						
-					}
 
-					$('#resultCount').text(data[Object.keys(data).length-2]["totalCount"]);
-					
-					alert(data[Object.keys(data).length-1]["totalPage"]);
-					$("#paging > a").remove();
-					for(var i = 0; i<data[Object.keys(data).length-1]["totalPage"]; i++){
-						$("#paging").append('<a href="#" onclick="paging('+(i+1)+')">'+(i+1)+'</a> ');
+						$('#resultCount').text(count);
+						
+						$("#paging > a").remove();
+						for(var i = 0; i<data[Object.keys(data).length-1]["totalPage"]; i++){
+							$("#paging").append('<a href="#" onclick="paging('+(i+1)+')">'+(i+1)+'</a> ');
+						}
+					} else {
+						alert("検索結果がありません。");
 					}
+					
 				}
 			});
 		}
@@ -1227,6 +1062,11 @@
 			document.getElementById("hiddenSort").value = sorting;
 			
 			jQuery.ajaxSettings.traditional = true;
+			
+			if(orderBy == "ASC")
+				orderBy = "DESC"
+			else
+				orderBy = "ASC"
 			
 			$.ajax({
 				url:'/SalesCube2020/SalesCubeAJAX?action=orderSearch',
@@ -1251,7 +1091,8 @@
 					"supplierNameInput": $("#supplierNameInput").val(),
 					"rowCount": $("#rowCount option:selected").val(),
 					"list": selArr, 
-					"sorting": sorting
+					"sorting": sorting,
+					"orderBy": orderBy
 				},
 				dataType:'json',
 				success:function(data){	
@@ -1321,7 +1162,8 @@
 					"rowCount": $("#rowCount option:selected").val(),
 					"list": selArr, 
 					"sorting": sorting,
-					"paging": num
+					"paging": num,
+					"orderBy": orderBy
 				},
 				dataType:'json',
 				success:function(data){	
