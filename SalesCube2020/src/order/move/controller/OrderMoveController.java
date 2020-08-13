@@ -68,7 +68,6 @@ public class OrderMoveController extends BaseController{
 		
 		Integer roSlipId = Integer.parseInt(request.getParameter("roSlipId"));
 		
-		
 		OrderInputDAO dao = new OrderInputDAO();
 		ProductModalInit init = new ProductModalInit();
 

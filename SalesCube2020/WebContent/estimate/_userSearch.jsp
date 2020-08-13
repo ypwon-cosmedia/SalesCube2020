@@ -256,7 +256,6 @@
      	function getDeptCategory(){
      		var formString = $("form[id=dept]").serialize();
 			var tmp = "";
-			alert("call")
 			$.ajax({
 				url:'/SalesCube2020/SalesCubeAJAX?action=deptSearch',
 				type:'post',
@@ -281,7 +280,6 @@
      	function getRoleCategory(){
      		var formString = $("form[id=role]").serialize();
 			var tmp = "";
-			alert("call")
 			$.ajax({
 				url:'/SalesCube2020/SalesCubeAJAX?action=roleSearch',
 				type:'post',
@@ -305,14 +303,12 @@
      	
      	//担当者コード及び担当者名の値をセット。※親画面で書くコード
      	function selectUserId(id, name){
-     		alert();
       		document.getElementById('UserModalUserId').value = id;
       		document.getElementById('UserModalNameKnj').value = name;
       	}
       	    	
       //担当者検索結果
 		function userSearch1() {
-    	  alert("userSearch1");
 			var formString = $("form[id=user]").serialize();
 			var tmp = "";
 			
@@ -323,7 +319,6 @@
 				data:formString,
 				dataType:'json',
 				success:function(data){	
-					alert("success");
 					document.getElementById("resultUser").removeAttribute('hidden');//テーブルの表示
 					$("#userResult > tr").remove();
 						var tableAdd = document.getElementById('userResult');
@@ -337,7 +332,7 @@
      		 		}else{
      		 		//エラーメッセージ
      		 			$("#userSearchError").empty();//エラーメッセージの削除
-     		 		//険悪結果件数の設定
+     		 		//検索結果件数の設定
      		 			$("#userSearchResultCount").empty();
      		 			$('#userSearchResultCount').append('検索結果件数：' + Object.keys(data).length + '件');	//検索結果件数の設定の表示
      		 			

@@ -413,9 +413,44 @@ public class OrderSQL {
 		
 	}
 	
+	/* 受注番号-行押下 編集画面に明細情報反映 */
+	public String linkUpdateDetail(String roSlipId) {
+		
+		String sql;
+		
+		sql = "SELECT DISTINCT " +
+				"rltx.PRODUCT_CODE, " +
+				"pmx.PRODUCT_NAME, " +
+				"rltx.PRODUCT_REMARKS, " +
+				"pmx.RACK_CODE, " +
+				"rltx.QUANTITY, " +
+				"rltx.UNIT_COST, " +
+				"rltx.COST, " +
+				"rltx.UNIT_RETAIL_PRICE, " +
+				"rltx.RETAIL_PRICE, " +
+				"rltx.PRODUCT_ABSTRACT, " +
+				"rltx.EAD_REMARKS, " +
+				"rstn.RETAIL_PRICE_TOTAL, " +
+				"rstn.CTAX_PRICE_TOTAL, " +
+				"rstn.PRICE_TOTAL " +
+			"FROM " +
+				"ro_line_trn_xxxxx AS rltx " +
+				"LEFT OUTER JOIN " +
+					"product_mst_xxxxx AS pmx " +
+					"USING(PRODUCT_CODE) " +
+				"LEFT OUTER JOIN " +
+					"ro_slip_trn_xxxxx AS rstn " +
+					"USING(RO_SLIP_ID) " +
+			"WHERE " +
+				"RO_SLIP_ID LIKE '" + roSlipId + "'";
+		
+		return sql;
+		
+	}
+	
 	/* 受注新規登録画面から受注編集画面 */
 	/* 受注番号入力 受注編集の受注、顧客、納入先反映 */
-	public String moveOrderUpdateInfo(String roSlipId) {
+	public String moveOrderUpdateInfo(Integer roSlipId) {
 		
 		String sql;
 		
@@ -472,7 +507,7 @@ public class OrderSQL {
 	}
 	
 	/* 受注番号入力 受注編集の受注明細反映 */
-	public String moveOrderUpdateDetail(String roSlipId) {
+	public String moveOrderUpdateDetail(Integer roSlipId) {
 		
 		String sql;
 		

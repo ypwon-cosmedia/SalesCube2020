@@ -77,8 +77,8 @@ public class UserModalAJAXController extends BaseAJAXController {
 		bean.setDeptId(request.getParameter("deptId"));
 		bean.setDeptName(request.getParameter("deptName"));
 		
-		System.out.println(request.getParameter("deptId"));
-		System.out.println(request.getParameter("deptName"));
+		//System.out.println(request.getParameter("deptId"));
+		//System.out.println(request.getParameter("deptName"));
 		
 		List<GetDeptBean> list = dao.DeptGet();
 		Gson gson = new Gson();
@@ -102,8 +102,8 @@ public class UserModalAJAXController extends BaseAJAXController {
 		bean.setRoleId(request.getParameter("roleId"));
 		bean.setRoleName(request.getParameter("roleName"));
 		
-		System.out.println(request.getParameter("roleId"));
-		System.out.println(request.getParameter("roleName"));
+		//System.out.println(request.getParameter("roleId"));
+		//System.out.println(request.getParameter("roleName"));
 		
 		List<GetRoleBean> list = dao.RoleGet();
 		Gson gson = new Gson();
