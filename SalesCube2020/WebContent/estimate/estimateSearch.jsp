@@ -8,6 +8,7 @@
 	
 	<%@ include file="/common/_customerSearch.jsp" %>
 	<%@ include file="/estimate/_userSearch.jsp" %>
+	<%@ include file="/estimate/_estimateConfiguration.jsp" %>
 
   <head>
     <!-- Required meta tags -->
@@ -157,7 +158,7 @@
               </a>
               <div class="dropdown-menu" aria-labelledby="navbarDropdown">
                 <a class="dropdown-item" href="estimateadd.html">見積入力</a>
-                <a class="dropdown-item" href="estimateSearch.html">見積検索</a>
+                <a class="dropdown-item" href="estimateSearch.jsp">見積検索</a>
                 <a class="dropdown-item" href="unitpriceinquiry.html">単価照会</a>
               </div>
             </li>
@@ -187,7 +188,7 @@
             <button type="button" class="btn btn-secondary" style="font-size: 12px;" onclick="initForm()">F1<br>初期化</button>
             <button type="button" class="btn btn-secondary" style="font-size: 12px;" onclick="estimateSearch()">F2<br>検索</button>
             <button type="button" class="btn btn-secondary" style="font-size: 12px;" onclick="excelOut()">F3<br>Excel出力</button>
-            <button type="button" class="btn btn-secondary" style="font-size: 12px;" data-toggle="modal" data-target="#setSlipConfiguration">F4<br>設定</button>
+            <button type="button" class="btn btn-secondary" style="font-size: 12px;" data-toggle="modal" data-target="#setSlipConfiguration" onclick="configGet()">F4<br>設定</button>
             <button type="button" class="btn btn-secondary" style="font-size: 12px;" disabled>F5<br></button>
             <button type="button" class="btn btn-secondary" style="font-size: 12px;" disabled>F6<br></button>
             <button type="button" class="btn btn-secondary" style="font-size: 12px;" disabled>F7<br></button>
@@ -211,27 +212,27 @@
           <form action="" method="post">
             <div class="row">
               <div class="col-4">
-                <label class="sr-only" for="inlineFormInputGroup">productCode</label>
+                <label class="sr-only" for="inlineFormInputGroup">estimateSheetId</label>
                 <div class="input-group mb-2">
                   <div class="input-group-prepend">
                       <div class="input-group-text">見積番号</div>
                   </div>
-                  <input type="text"  class="form-control" id="inlineFormInputGroup">
+                  <input type="text"  class="form-control" id="estimateSheetId" name="estimateSheetId">
                 </div>
               </div>
               <div class="col-7">
-                <label class="sr-only" for="inlineFormInputGroup">productName</label>
+                <label class="sr-only" for="inlineFormInputGroup">estimateDate</label>
                 <div style="display: flex;">
                 <div class="input-group"  style="height: 38px;">
                   <div class="input-group-prepend">
                     <div class="input-group-text">見積日</div>
                   </div>
-                  <input type="date">&ensp; 
+                  <input type="date" id="estimateDateStart" name="estimateDateStart" max="9999-12-31">&ensp; 
                   <div style="margin-top: 7px;">～</div>
                 </div>
 
                 <div class="input-group" style="height: 38px; right: 45px;">
-                  <input type="date">
+                  <input type="date" id="estimateDateEnd" name="estimateDateEnd" max="9999-12-31">
                 </div>
                 </div>
 
@@ -240,18 +241,18 @@
             <br>
             <div class="row">
               <div class="col-7">
-                <label class="sr-only" for="inlineFormInputGroup">productKana</label>
+                <label class="sr-only" for="inlineFormInputGroup">validDate</label>
                 <div style="display: flex;">
                   <div class="input-group"  style="height: 38px;">
                     <div class="input-group-prepend">
                       <div class="input-group-text">有効期限</div>
                     </div>
-                    <input type="date"> &ensp; 
+                    <input type="date" id="validDateStart" name="validDateStart" max="9999-12-31"> &ensp; 
                     <div style="margin-top: 7px;">～</div>
                   </div>
   
                   <div class="input-group" style="height: 38px; right: 30px;">
-                    <input type="date">
+                    <input type="date" id="validDateEnd" name="validDateEnd" max="9999-12-31">
                   </div>
                   </div>
   
@@ -261,7 +262,7 @@
 
             <div class="row">
               <div class="col-4">
-                <label class="sr-only" for="inlineFormInputGroup">quantityDiscount</label>
+                <label class="sr-only" for="inlineFormInputGroup">userId</label>
                 <div class="input-group mb-2">
                   <div class="input-group-prepend">
                     <div class="input-group-text">入力担当者コード</div>
@@ -272,7 +273,7 @@
               </div>
 
               <div class="col-4">
-                <label class="sr-only" for="inlineFormInputGroup">quantityDiscount</label>
+                <label class="sr-only" for="inlineFormInputGroup">userName</label>
                 <div class="input-group mb-2">
                   <div class="input-group-prepend">
                     <div class="input-group-text">入力担当者名</div>
@@ -285,41 +286,41 @@
             <br>
             <div class="row">
               <div class="col-4">
-                <label class="sr-only" for="inlineFormInputGroup">quantityDiscount</label>
+                <label class="sr-only" for="inlineFormInputGroup">title</label>
                 <div class="input-group mb-2">
                   <div class="input-group-prepend">
                     <div class="input-group-text">件名</div>
                   </div>
-                <input type="text"  class="form-control" id="inlineFormInputGroup">
+                <input type="text"  class="form-control" id="title" name="title">
                 </div>
               </div>
 
               <div class="col-4">
-                <label class="sr-only" for="inlineFormInputGroup">quantityDiscount</label>
+                <label class="sr-only" for="inlineFormInputGroup">remarks</label>
                 <div class="input-group mb-2">
                   <div class="input-group-prepend">
                     <div class="input-group-text">摘要</div>
                   </div>
-                <input type="text"  class="form-control" id="inlineFormInputGroup">
+                <input type="text"  class="form-control" id="remarks" name="remarks">
                 </div>
               </div>
             </div>
             <br>
             <div class="row">
               <div class="col-8">
-                <label class="sr-only" for="inlineFormInputGroup">quantityDiscount</label>
+                <label class="sr-only" for="inlineFormInputGroup">submitName</label>
                 <div class="input-group mb-2">
                   <div class="input-group-prepend">
                     <div class="input-group-text">提出先名</div>
                   </div>
-                <input type="text"  class="form-control" id="inlineFormInputGroup">
+                <input type="text"  class="form-control" id="submitName" name="submitName">
                 </div>
               </div>
             </div>
             <br>
             <div class="row">
               <div class="col-4">
-                <label class="sr-only" for="inlineFormInputGroup">quantityDiscount</label>
+                <label class="sr-only" for="inlineFormInputGroup">customerCode</label>
                 <div class="input-group mb-2">
                   <div class="input-group-prepend">
                     <div class="input-group-text">顧客コード</div>
@@ -330,7 +331,7 @@
               </div>
 
               <div class="col-4">
-                <label class="sr-only" for="inlineFormInputGroup">quantityDiscount</label>
+                <label class="sr-only" for="inlineFormInputGroup">customerName</label>
                 <div class="input-group mb-2">
                   <div class="input-group-prepend">
                     <div class="input-group-text">顧客名</div>
@@ -353,7 +354,7 @@
       <div id="resultHidden" hidden>
         <div class="container">
             <div class="float-left" style="position:static; left: 0px;">
-              検索結果件数：3件
+              検索結果件数：<span id="resultCount">0</span>件
             </div>
       
           
@@ -369,7 +370,7 @@
 
       <div class="container">
           <div class="rounded float-right">
-            ページあたりの表示件数
+            		ページあたりの表示件数
             <select id="rowCount" name="rowCount">
               <option value="10">10</option>
               <option value="50">50</option>
@@ -457,7 +458,7 @@
 		        if(!confirm("入力内容を初期化してよろしいですか？")){
 		              return;
 		        }
-		        window.location.href = 'estimateSearch.html';
+		        window.location.href = 'estimateSearch.jsp';
 		      }
 		  
 		  function excelOut(){
