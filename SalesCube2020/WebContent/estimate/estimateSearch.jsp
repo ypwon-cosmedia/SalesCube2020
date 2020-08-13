@@ -188,7 +188,7 @@
             <button type="button" class="btn btn-secondary" style="font-size: 12px;" onclick="initForm()">F1<br>初期化</button>
             <button type="button" class="btn btn-secondary" style="font-size: 12px;" onclick="estimateSearch()">F2<br>検索</button>
             <button type="button" class="btn btn-secondary" style="font-size: 12px;" onclick="excelOut()">F3<br>Excel出力</button>
-            <button type="button" class="btn btn-secondary" style="font-size: 12px;" data-toggle="modal" data-target="#setSlipConfiguration" onclick="configGet()">F4<br>設定</button>
+            <button type="button" class="btn btn-secondary" style="font-size: 12px;" data-toggle="modal" data-target="#setSlipConfiguration" onclick="configGet() ; initButton()">F4<br>設定</button>
             <button type="button" class="btn btn-secondary" style="font-size: 12px;" disabled>F5<br></button>
             <button type="button" class="btn btn-secondary" style="font-size: 12px;" disabled>F6<br></button>
             <button type="button" class="btn btn-secondary" style="font-size: 12px;" disabled>F7<br></button>
