@@ -63,7 +63,7 @@
                                 <table>
                                 <tr><td>&ensp;</td></tr>
                                 <tr><td>&ensp;</td></tr>
-                                <tr><td><button name="" class="btn btn-primary" style="width: 40px;height: 40px;" onclick="moveSelected()">→</button></td></tr>
+                                <tr><td><button name="" class="btn btn-primary" style="width: 40px;height: 40px;" onclick="moveSelected(); moveVertical(1)">→</button></td></tr>
                                 <tr><td><button name="" class="btn btn-primary" style="width: 40px;height: 40px;" onclick="moveUnselected()">←</button></td></tr>
                                 </table>
                             

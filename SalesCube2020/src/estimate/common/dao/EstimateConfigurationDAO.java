@@ -118,11 +118,13 @@ public class EstimateConfigurationDAO extends BaseDAO{
 		
 		Connection con;
 		Statement stmt = null;
-		ResultSet result = null;
+		int result = 0;
 		PreparedStatement pstm = null;
 		
 		String deleteSql;//表示項目の削除用のSQL
 		String insertSql;//表示項目の登録用のSQL
+		
+		try {
 		
 		con = super.getConnection();
 		stmt = con.createStatement();
@@ -137,7 +139,7 @@ public class EstimateConfigurationDAO extends BaseDAO{
 		
 		stmt.executeUpdate(deleteSql);//表示項目をリストから削除
 		
-		System.out.println("delete");
+		System.out.println("-----FINISH delete-----");
 		
 		//表示項目の登録用のSQL
 		insertSql = "INSERT "
@@ -150,14 +152,14 @@ public class EstimateConfigurationDAO extends BaseDAO{
 					+ "CRE_DATETM, " 	//Now()
 					+ "UPD_DATETM ) " 	//Now()
 				+ "VALUES( " 
-					+ "'?', " 			//userId
-					+ "'?', "			//'0201'
-					+ "'?', " 			//'1'
-					+ "'?', " 			//showItems[]の項目
-					+ "'?', " 			//自動採番  （見積番号に注意）
-					+ "NOW(), " 
-					+ "NOW() " 
-				+ ")";
+					+ "?, " 			//userId
+					+ "?, "				//'0201'
+					+ "?, " 			//'1'
+					+ "?, " 			//showItems[]の項目
+					+ "?, " 			//自動採番  （見積番号に注意）
+					+ "?, " 
+					+ "? " 
+				+ ");";
 		
 		pstm = con.prepareStatement(insertSql);
 		
@@ -167,21 +169,28 @@ public class EstimateConfigurationDAO extends BaseDAO{
 		pstm.setString(3, "1");
 		pstm.setString(4, "estimateSheetId");
 		pstm.setInt(5, 1);
-		pstm.executeUpdate();
+		pstm.setTimestamp(6, java.sql.Timestamp.valueOf(java.time.LocalDateTime.now()));
+		pstm.setTimestamp(7, java.sql.Timestamp.valueOf(java.time.LocalDateTime.now()));
+		result = pstm.executeUpdate();
 		
-		System.out.println("estimateSheetId");
-		
-		for(int i=0; i<showItems.length; i++) {
-		//showItems[i]を動的に入れる
-			pstm = con.prepareStatement(insertSql);
-			pstm.setString(4, showItems[i]);
-			pstm.setInt(5, (i+2));
-			pstm.executeUpdate();
+		if(showItems != null) {
+			for(int i=0; i<showItems.length; i++) {
+			//showItems[i]を動的に入れる
+				pstm.setString(4, showItems[i]);
+				pstm.setInt(5, (i+2));
+				result = pstm.executeUpdate();
+				
+				System.out.println(" i+2:"+ (i+2)+" result:"+result+ " ItemId:"+showItems[i]);
+			}
 		}
+		con.commit();	//"pstm"をコミットして登録
 		
-		System.out.println("updateComplete");
+		System.out.println("-----FINISH update-----");
+		pstm.close();
+		super.releaseDB(con, stmt);//DBの開放
 		
-		super.releaseDB(con, stmt, result);//DBの開放
- 	
+		}catch (SQLException e){
+			  e.printStackTrace();
+		}
 	}
 }
