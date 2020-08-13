@@ -5,6 +5,10 @@
 
 <!doctype html>
 <html lang="en">
+	
+	<%@ include file="/common/_customerSearch.jsp" %>
+	<%@ include file="/estimate/_userSearch.jsp" %>
+
   <head>
     <!-- Required meta tags -->
     <meta charset="utf-8">
@@ -262,9 +266,8 @@
                   <div class="input-group-prepend">
                     <div class="input-group-text">入力担当者コード</div>
                   </div>
-                <input type="text"  class="form-control" id="inlineFormInputGroup">
-               <!---- <input type="image" name="" src="btn_search.png" tabindex="101" onclick="" style="vertical-align: middle; cursor: pointer; width: 32px;"> -->
-               <button type="button" style="height: 32px; width: 32px;" class="clear-decoration"><img src="btn_search.png" data-toggle="modal" data-target="#userSearch"></button>
+                <input type="text"  class="form-control" id="UserModalUserId" name="UserModalUserId">
+               <button type="button" style="height: 32px; width: 32px;" class="clear-decoration"><img src="btn_search.png" data-toggle="modal" data-target="#userSearch" onclick="initUser() ; getDeptCategory() ; getRoleCategory()"></button>
                 </div>
               </div>
 
@@ -274,8 +277,8 @@
                   <div class="input-group-prepend">
                     <div class="input-group-text">入力担当者名</div>
                   </div>
-                <input type="text"  class="form-control" id="inlineFormInputGroup">
-                <button type="button" style="height: 32px; width: 32px;" class="clear-decoration"><img src="btn_search.png" data-toggle="modal" data-target="#userSearch"></button>
+                <input type="text"  class="form-control" id="UserModalNameKnj" name="UserModalNameKnj">
+                <button type="button" style="height: 32px; width: 32px;" class="clear-decoration"><img src="btn_search.png" data-toggle="modal" data-target="#userSearch" onclick="initUser() ; getDeptCategory() ; getRoleCategory()"></button>
                 </div>
               </div>
             </div>
@@ -321,8 +324,8 @@
                   <div class="input-group-prepend">
                     <div class="input-group-text">顧客コード</div>
                   </div>
-                <input type="text"  class="form-control" id="customerCode">
-                <button type="button" style="height: 32px; width: 32px;" class="clear-decoration"><img src="btn_search.png" data-toggle="modal" data-target="#customerSearch"></button>
+                <input type="text"  class="form-control" id="CustomerModalCustomerCode" name="CustomerModalCustomerCode">
+                <button type="button" style="height: 32px; width: 32px;" class="clear-decoration"><img src="btn_search.png" data-toggle="modal" data-target="#customerSearch" onclick="initCustomer() ; getCutoffGroup()"></button>
                 </div>
               </div>
 
@@ -332,8 +335,8 @@
                   <div class="input-group-prepend">
                     <div class="input-group-text">顧客名</div>
                   </div>
-                <input type="text"  class="form-control" id="customerName">
-                <button type="button" style="height: 32px; width: 32px;" class="clear-decoration"><img src="btn_search.png" data-toggle="modal" data-target="#customerSearch"></button>
+                <input type="text"  class="form-control" id="CustomerModalCustomerName" name="CustomerModalCustomerName">
+                <button type="button" style="height: 32px; width: 32px;" class="clear-decoration"><img src="btn_search.png" data-toggle="modal" data-target="#customerSearch" onclick="initCustomer() ; getCutoffGroup()"></button>
                 </div>
               </div>
             </div>
@@ -405,7 +408,7 @@
               <th scope="col" class="th_back_black" style="cursor: pointer; ">見積条件</th>
             </tr>
           </thead>
-          <c:forEach items="${}" var="" >
+          
             <tr>
               <td style="text-align: left;" class="scrollnum"><a href="estimatemodify.html" class="cursor-pointer">1</a></td>
               <td style="text-align: left;">2015/08/12</td>
@@ -427,7 +430,7 @@
               <td style="text-align: left;">代引き</td>
               <td style="text-align: left;">201684</td>
 			</tr>
-          </c:forEach> 
+          
         </table>
       </div>
       
@@ -462,11 +465,19 @@
 		           	return;
 		    	}
 		  }
-				
+			
+		  //顧客コード・顧客名の値をセット
 	      	function selectCustomerCode(code, name){
           		document.getElementById('CustomerModalCustomerCode').value = code;
           		document.getElementById('CustomerModalCustomerName').value = name;
           	}
+		  
+	      //担当者コード・担当者名の値をセット
+	     	function selectUserId(id, name){
+	      		document.getElementById('UserModalUserId').value = id;
+	      		document.getElementById('UserModalNameKnj').value = name;
+	      	}
+		  
 		 </script>
 	</body>
 </html>
