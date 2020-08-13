@@ -37,7 +37,11 @@ public class UserModalDAO extends BaseDAO {
 			bean1.setUserId(result.getString("USER_ID"));
 			bean1.setNameKnj(result.getString("NAME_KNJ"));
 			bean1.setDeptId(result.getString("DEPT_ID"));		
-
+			
+			if(bean1.getUserId()== null || bean1.getUserId().equals("")) {bean1.setUserId("");};
+			if(bean1.getNameKnj()== null || bean1.getNameKnj().equals("")) {bean1.setNameKnj("");};
+			if(bean1.getDeptId()== null || bean1.getDeptId().equals("")) {bean1.setDeptId("");};
+			
 			list.add(bean1);
 		}
 		System.out.println("listSize;"+list.size());

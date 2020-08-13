@@ -216,7 +216,7 @@
 							headcontents += '<td style="white-space: normal; text-align: left;">'+data[i].customerName+'</td>';
 							headcontents += '<td style="white-space: normal; text-align: left;">'+data[i].customerTEL+'</td>';  
 							headcontents += '<td style="white-space: normal; text-align: left;">'+data[i].customerPCName+'</td>';
-							headcontents += '<td style="white-space: normal; text-align: left;">'+data[i].salesCmCategory+'</td>';
+							headcontents += '<td style="white-space: normal; text-align: left;">'+data[i].SalesCmCategory+'</td>';
 							headcontents += '<td style="white-space: normal; text-align: left;">'+data[i].cutoffGroup+'</td>';
 							headcontents += '<td style="white-space: normal; text-align: left;">'+data[i].customerOfficeName+'</td>';
 							headcontents += '<td style="white-space: normal; text-align: left;">'+data[i].customerDeptName+'</td>';
