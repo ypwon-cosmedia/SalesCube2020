@@ -186,7 +186,7 @@
         
           <div class="btn-group mr-2 " role="group" aria-label="First group">
             <button type="button" class="btn btn-secondary" style="font-size: 12px;" onclick="initForm()">F1<br>初期化</button>
-            <button type="button" class="btn btn-secondary" style="font-size: 12px;" onclick="estimateSearch()">F2<br>検索</button>
+            <button type="button" class="btn btn-secondary" style="font-size: 12px;" onclick="estimateHidden()">F2<br>検索</button>
             <button type="button" class="btn btn-secondary" style="font-size: 12px;" onclick="excelOut()">F3<br>Excel出力</button>
             <button type="button" class="btn btn-secondary" style="font-size: 12px;" data-toggle="modal" data-target="#setSlipConfiguration" onclick="configGet() ; initButton()">F4<br>設定</button>
             <button type="button" class="btn btn-secondary" style="font-size: 12px;" disabled>F5<br></button>
@@ -344,7 +344,7 @@
 
             <div class="rounded float-right">
               <button type="button" class="btn btn-primary" onclick="initForm()">初期化</button>
-              <input type="button" value="検索" class="btn btn-primary" onclick="estimateSearch()">
+              <input type="button" value="検索" class="btn btn-primary" onclick="estimateHidden()">
             </div><br>
           </form><br>
         </div><br>
@@ -438,21 +438,12 @@
       <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.2/jquery.min.js"></script>
 	  <script>
 	  
-	  function estimateSearch(){
-		  $('#resultHidden').removeAttr('hidden');
-		  $('#resultHidden2').removeAttr('hidden');
-	}
-	  
-	  function a(){
-		  var showResult = document.getElementById('showSearchResult');   //optionタグを入れる箇所の指定
-		          for( var i = 0; i < showName.length ; i++ ){
-		              var option = document.createElement('option');              //optionタグの生成
-		              option.setAttribute('value', showID[i]);                    //value値の挿入
-		              option.innerHTML = showName[i];                             //HTMLで表示する項目名
-		              showResult.appendChild(option);                             //selectにoptionタグを挿入
-		          }
-		        }
-
+	  	//表示処理
+		  function estimateHidden(){
+			  $('#resultHidden').removeAttr('hidden');
+			  $('#resultHidden2').removeAttr('hidden');
+		  }
+		
 		  //初期化処理
 		  function initForm() {
 		        if(!confirm("入力内容を初期化してよろしいですか？")){
@@ -461,6 +452,7 @@
 		        window.location.href = 'estimateSearch.jsp';
 		      }
 		  
+		  //Excel出力
 		  function excelOut(){
 				if(!confirm("検索結果をExcelファイルでダウンロードしますか？")){
 		           	return;
