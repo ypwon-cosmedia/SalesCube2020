@@ -6,6 +6,7 @@ import common.modal.customer.controller.CustomerModalAJAXController;
 import common.modal.product.controller.ProductModalAJAXController;
 import common.modal.supplier.controller.SupplierModalAJAXController;
 import estimate.Input.Controller.EstimateInputCommonController;
+import estimate.Search.controller.EstimateSearchAJAXController;
 import estimate.common.controller.EstimateCategoryModalAJAXController;
 import estimate.common.controller.EstimateConfigurationModalAJAXController;
 import estimate.common.controller.UserModalAJAXController;
@@ -27,6 +28,7 @@ public class CreateAJAXControllers {
 		BaseAJAXController userAJAX = new UserModalAJAXController();
 		BaseAJAXController estimateInputCommonAJAX = new EstimateInputCommonController();
 		BaseAJAXController onlineAJAX = new OrderOnlineAJAXController();
+		BaseAJAXController estimateSearchAJAX = new EstimateSearchAJAXController();
 		
 		map.put("productSearch", productAJAX);
 		
@@ -44,6 +46,7 @@ public class CreateAJAXControllers {
 		
 		map.put("customerSearch", customerAJAX);
 		
+		map.put("estimateSearch", userAJAX);
 		map.put("userSearch", userAJAX);
 		map.put("deptSearch", userAJAX);
 		map.put("roleSearch", userAJAX);

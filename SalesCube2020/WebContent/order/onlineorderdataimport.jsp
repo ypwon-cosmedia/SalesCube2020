@@ -49,6 +49,7 @@
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
     <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
 	<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery.tablesorter/2.31.0/js/jquery.tablesorter.min.js"></script>    
+	<script type="text/javascript" src="common/shotcuts.js"></script>
 	<br>
     <div class="container" id="main_function">
       <h3 class="float-left">オンライン受注データ取込</h3>
@@ -95,8 +96,8 @@
             
 			<div align="right">
 				<input type="button" value="初期化" class="btn btn-outline-secondary" onclick="initPage();">
-				<input type="button" value="取込" class="btn btn-outline-secondary" onclick="importData()">
-				<input type="submit">
+				<input type="submit" value="取込" class="btn btn-outline-secondary" id="importData">
+
 			</div>
 			<br>
 		</div>
@@ -134,39 +135,17 @@
 </div>
 <script>
 	function initPage(){
-		if(!confirm("入力内容を初期化してよろしいですか？")){
-        return;
-    	}
-      location.reload();
+		document.getElementById("importData").click();
 	}
+	
+	shortcut.add("F1", function() {
+		initPage();
+	});
 
-	function importData(){
-	  if(!confirm("オンライン受注データファイルを取り込みますか？")){
-        return;
-      }
-      var fileUpload = document.getElementById("uploadcsv");
-      
-      if(fileUpload.value != null){
-    	  var uploadFile = new FormData();
-    	  var files = $("#uploadcsv").get(0).files;
-    	  
-    	  if(files.length>0){
-    		  uploadFile.append("csvdoc", files[0]);
-    		  $.ajax({
-                  url: "/SalesCube2020/SalesCubeAJAX?action=uploadcsv",
-                  contentType : false,
-                  enctype : "multipart/form-data",
-                  processData : false,
-                  cache : false,
-                  data: {"uploadcsv": uploadFile},
-                  type: 'POST',
-                  success: function () {
-                     alert("test");
-                  }
-              });
-    	  }
-      }
-  }
+	shortcut.add("F3", function() {
+		document.getElementById("importData").click();
+	});
+
    
 </script>
 </body>

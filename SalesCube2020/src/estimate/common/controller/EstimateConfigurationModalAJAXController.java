@@ -37,17 +37,14 @@ public class EstimateConfigurationModalAJAXController extends BaseAJAXController
 	private void configShowGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
 		EstimateConfigurationDAO dao = new EstimateConfigurationDAO();
-		
-		//showの項目を取得
 		List<EstimateConfigurationBean> list = new ArrayList<>();
-		
 		HttpSession session = request.getSession();
 		
-		//確認用（ユーザーIDがないため）--------------------------------------------------
+		/*確認用（ユーザーIDがないため）--------------------------------------------------
 		UserInfoBean test = new UserInfoBean();
-		test.setUserID("a");
+		test.setUserID("est");
 		session.setAttribute("userInfo", test);
-		//------------------------------------------------------------------------
+		------------------------------------------------------------------------*/
 		
 		UserInfoBean userInfo = (UserInfoBean) session.getAttribute("userInfo");
 		String userId = userInfo.getUserID();
@@ -73,22 +70,15 @@ public class EstimateConfigurationModalAJAXController extends BaseAJAXController
 	private void configNotShowGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
 		EstimateConfigurationDAO dao = new EstimateConfigurationDAO();
-		
-		//notShowの項目を取得
 		List<EstimateConfigurationBean> list = new ArrayList<>();
-		
 		HttpSession session = request.getSession();
 		
-		//確認用（ユーザーIDがないため）----------------------------------------
-		UserInfoBean test = new UserInfoBean();
-		test.setUserID("a");
-		session.setAttribute("userInfo", test);
-		//確認用---------------------------------------------------------
 		
 		UserInfoBean userInfo = (UserInfoBean) session.getAttribute("userInfo");
 		String userId = userInfo.getUserID();
 		
 		Gson gson = new Gson();
+		
 		try {
 			list = dao.notShowConfigurationGet(userId);//非表示項目のリストを取得
 		
@@ -108,9 +98,36 @@ public class EstimateConfigurationModalAJAXController extends BaseAJAXController
 			e.printStackTrace();
 		}
 	}
-	
-	private void configUpd(HttpServletRequest request, HttpServletResponse response) {
-		// TODO Auto-generated method stub
+	//設定の表示項目の更新
+	private void configUpd(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		
+		EstimateConfigurationDAO dao = new EstimateConfigurationDAO();
+		String[] showItems = request.getParameterValues("showList");
+		HttpSession session = request.getSession();
+		
+		if(showItems != null) {
+			System.out.println("showItems;"+showItems.length);
+			for(int i=0; i<showItems.length; i++) {
+				System.out.println("from jsp:"+showItems[i]);
+			}
+		}
+		
+		UserInfoBean userInfo = (UserInfoBean) session.getAttribute("userInfo");
+		String userId = userInfo.getUserID();
+		
+		System.out.println("userId:" + userId);//userId:EstimateTest
+		
+		try {
+			
+			dao.UpdateConfig(userId, showItems);	//表示項目の設定を行う
+			
+		} catch (ClassNotFoundException e) {
+			e.printStackTrace();
+		} catch (MissingResourceException e) {
+			e.printStackTrace();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
 		
 	}
 	

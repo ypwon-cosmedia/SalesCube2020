@@ -1,37 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<!DOCTYPE html>
-<html lang="en">
-  <head>
-    <!-- Required meta tags -->
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-
-    <!-- Bootstrap CSS -->
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
-
-    <title>SalesCube configure</title>
-    <style type="text/css">
-        .container {
-            width: 1120px;
-            max-width: none !important;
-        }
-    </style>
-  </head>
-    <body style="background-color: gainsboro;">
-       <!-- Optional JavaScript -->
-       <!-- jQuery first, then Popper.js, then Bootstrap JS -->
-       <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
-       <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
-       <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
-       <br><br>
-       
-       
-       &emsp;&emsp;
-        <!-- ボタン（設定）data-targetの変更必要 -->
-        <button type="button" class="btn btn-outline-success" data-toggle="modal" data-target="#setSlipConfiguration" onclick="configGet()">
-            	←
-        </button>
 
             <div class="modal fade" id="setSlipConfiguration" tabindex="-1" role="dialog" aria-labelledby="label1" aria-hidden="true">
                 <div class="modal-dialog" role="document">
@@ -53,7 +21,7 @@
                             <br>
                             <div class="row container">
                             &emsp;
-                            <select size="7" name="notShowSearchResult" id="notShowSearchResult" style="width: 160px;">
+                            <select size="7" name="notShowSearchResult" id="notShowSearchResult" style="width: 160px;" onchange="rightLeft()">
                                 
                                 <!-- **********ここに非表示のoptionタグを挿入*********** 例 option value=itemId>itemName</option -->
 
@@ -63,12 +31,12 @@
                                 <table>
                                 <tr><td>&ensp;</td></tr>
                                 <tr><td>&ensp;</td></tr>
-                                <tr><td><button name="" class="btn btn-primary" style="width: 40px;height: 40px;" onclick="moveSelected()">→</button></td></tr>
-                                <tr><td><button name="" class="btn btn-primary" style="width: 40px;height: 40px;" onclick="moveUnselected()">←</button></td></tr>
+                                <tr><td><button name="" class="btn btn-primary" style="width: 40px;height: 40px;" id="rightButton" disabled onclick="moveSelected(); moveVertical(1); rightLeft()">→</button></td></tr>
+                                <tr><td><button name="" class="btn btn-primary" style="width: 40px;height: 40px;" id="leftButton" disabled onclick="moveUnselected(); rightLeft()">←</button></td></tr>
                                 </table>
                             
                             &emsp;
-                            <select size="7" name="showSearchResult" id="showSearchResult" style="width: 160px;" onchange="buttonStyle(this)">
+                            <select size="7" name="showSearchResult" id="showSearchResult" style="width: 160px;" onchange="buttonStyle(this); rightLeft()">
                                 <!-- **********ここに表示のoptionタグを挿入*********** 例 option value=itemId>itemName</option -->
 
                             </select>
@@ -84,7 +52,7 @@
                         </div>
 
                         <div class="modal-footer">
-                            <button type="button" class="btn btn-primary" onclick="configGet()">初期化</button>                            
+                            <button type="button" class="btn btn-primary" onclick="configGet(); initButton()">初期化</button>                            
                             <button type="button" class="btn btn-primary" onclick="updateShowItem()" data-dismiss="modal">更新</button>                            
                             <button type="button" class="btn btn-primary" data-dismiss="modal">閉じる</button>
                         </div>
@@ -97,7 +65,7 @@
 
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.2/jquery.min.js"></script>
     <script>
-
+    
 	//表示・非表示リストの取得
     function configGet(){
     	
@@ -111,14 +79,14 @@
         		
         		$('#showSearchResult option').remove();							//optionの項目の削除
 				
-        		/*見積番号を不可視の状態で挿入
+        		/*見積番号を不可視の状態で挿入------------------------------
         		var hide = '<span><option value="'
         					+ data[0].itemId 
         					+ '">' 
         					+ data[0].itemName 
         					+'</option></span>';
         		$('#showSearchResult').append(hide);							//spanにoptionタグを挿入
-        		*/
+        		-------------------------------------------------------*/
         		
         		//見積番号以外の表示項目を挿入
         		var showResult = document.getElementById('showSearchResult');   //optionタグを入れる箇所の指定
@@ -156,25 +124,18 @@
 	
     //表示項目の更新
     function updateShowItem(){
-    	//表示項目のリストを取得
-    	var opt = document.getElementById('showSearchResult');
-    	alert(opt.options.length);
-    	for(i=0; i<opt.options.length; i++){
-        	document.write(opt.options[i].value);
-        	document.write('<br>');
-    	}
-    	/*
-    	var formString = formStr.serialize();//オブジェクトをバイト列に変換
+    	var opts = $("#showSearchResult option").map(function() {return $(this).val();}).get();
+    	jQuery.ajaxSettings.traditional = true;		//これを true に設定すると、.serialize() メソッドでのシリアライズ化を行わない
     	$.ajax({
 			url:'/SalesCube2020/SalesCubeAJAX?action=estimateCfgUpd',  //アクセス先のパス
-			type:'post',		//通信に利用するHTTPメソッド
-			data:formString,	//送信するデータ
-			dataType:'json',	//応答データの種類
+			type:'post',				//通信に利用するHTTPメソッド
+			data:{'showList' : opts},	//送信するデータ(「キー名: 値」)
+			dataType:'json',			//応答データの種類
 			
 			success:function(data){	//成功時
 				alert("success");
 			}
-    	});*/
+    	});
     }
     
     //右への移動(非表示から表示)
@@ -204,6 +165,24 @@
             }
         }
     }
+    function rightLeft(){
+        //左ボタン
+		var showOpt = document.getElementById('showSearchResult');
+		var leftButton = document.getElementById('leftButton');
+        if(showOpt.options.length != 0){
+        	leftButton.disabled = false;
+        }else{
+        	leftButton.disabled = true;
+        }
+        //右ボタン
+		var notOpt = document.getElementById('notShowSearchResult');
+		var rightButton = document.getElementById('rightButton');
+        if(notOpt.options.length != 0){
+        	rightButton.disabled = false;
+        }else{
+        	rightButton.disabled = true;
+        }
+    }
     
     //上下の移動(「「mode = -1」なら上、「mode = 1」なら下へ移動)
     function moveVertical(mode){
@@ -216,8 +195,12 @@
         buttonStyle(Opt);
     }
 	
+	//ボタンの初期化
+	function initButton(){
+		document.getElementById('rightButton').disabled = true;
+		document.getElementById('leftButton').disabled  = true;
+		document.getElementById('upButton').disabled 	= true;
+		document.getElementById('downButton').disabled  = true;
+	}
     
     </script>
-
-    </body>
-</html>

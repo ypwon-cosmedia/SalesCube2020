@@ -1,6 +1,7 @@
 package estimate.common.dao;
 
 import java.sql.Connection;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
@@ -111,5 +112,85 @@ public class EstimateConfigurationDAO extends BaseDAO{
 	super.releaseDB(con, stmt, result);//DBの開放
  	return list;//List<EstimateConfigurationBean>型のlistを戻り値として返す
  	
+	}
+	
+	public void UpdateConfig(String userId, String[] showItems) throws SQLException, ClassNotFoundException{
+		
+		Connection con;
+		Statement stmt = null;
+		int result = 0;
+		PreparedStatement pstm = null;
+		
+		String deleteSql;//表示項目の削除用のSQL
+		String insertSql;//表示項目の登録用のSQL
+		
+		try {
+		
+		con = super.getConnection();
+		stmt = con.createStatement();
+		
+		//表示項目の削除用のSQL
+		deleteSql = "DELETE "
+					+ "FROM DETAIL_DISP_ITEM_CFG_XXXXX "
+					+ "WHERE "
+						+ "USER_ID='" + userId + "' "
+						+ "AND TARGET = '1' "
+						+ "AND DETAIL_ID='0201';";
+		
+		stmt.executeUpdate(deleteSql);//表示項目をリストから削除
+		
+		System.out.println("-----FINISH delete-----");
+		
+		//表示項目の登録用のSQL
+		insertSql = "INSERT "
+				+ "INTO DETAIL_DISP_ITEM_CFG_XXXXX " 
+					+ "(USER_ID, " 		//ログインユーザのID
+					+ "DETAIL_ID, " 	//'0201'
+					+ "TARGET, " 		//'1'(伝票）
+					+ "ITEM_ID, " 		//項目のID
+					+ "SEQ, " 			//順番号
+					+ "CRE_DATETM, " 	//Now()
+					+ "UPD_DATETM ) " 	//Now()
+				+ "VALUES( " 
+					+ "?, " 			//userId
+					+ "?, "				//'0201'
+					+ "?, " 			//'1'
+					+ "?, " 			//showItems[]の項目
+					+ "?, " 			//自動採番  （見積番号に注意）
+					+ "?, " 
+					+ "? " 
+				+ ");";
+		
+		pstm = con.prepareStatement(insertSql);
+		
+		//見積番号を1番目に登録する
+		pstm.setString(1, userId);
+		pstm.setString(2, "0201");
+		pstm.setString(3, "1");
+		pstm.setString(4, "estimateSheetId");
+		pstm.setInt(5, 1);
+		pstm.setTimestamp(6, java.sql.Timestamp.valueOf(java.time.LocalDateTime.now()));
+		pstm.setTimestamp(7, java.sql.Timestamp.valueOf(java.time.LocalDateTime.now()));
+		result = pstm.executeUpdate();
+		
+		if(showItems != null) {
+			for(int i=0; i<showItems.length; i++) {
+			//showItems[i]を動的に入れる
+				pstm.setString(4, showItems[i]);
+				pstm.setInt(5, (i+2));
+				result = pstm.executeUpdate();
+				
+				System.out.println(" i+2:"+ (i+2)+" result:"+result+ " ItemId:"+showItems[i]);
+			}
+		}
+		con.commit();	//"pstm"をコミットして登録
+		
+		System.out.println("-----FINISH update-----");
+		pstm.close();
+		super.releaseDB(con, stmt);//DBの開放
+		
+		}catch (SQLException e){
+			  e.printStackTrace();
+		}
 	}
 }
