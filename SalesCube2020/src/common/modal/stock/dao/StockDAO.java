@@ -80,8 +80,8 @@ public class StockDAO extends BaseDAO {
 	 	return list;
 	}
 	
-	/* 受注番号-行押下  編集画面に受注伝票反映 */
-	public OrderInputBean StockToOrder(String roSlipId) throws SQLException, ClassNotFoundException {
+	/* 受注番号-行押下  編集画面へ */
+	public OrderInputBean StockToOrder(Integer roSlipId) throws SQLException, ClassNotFoundException {
 		
 		Connection con;
 	 	Statement stmt = null;
@@ -145,7 +145,7 @@ public class StockDAO extends BaseDAO {
 	 	bean.setCtaxPriceTotal(Integer.parseInt(result.getString("rstn.CTAX_PRICE_TOTAL")));
 	 	bean.setPriceTotal(Integer.parseInt(result.getString("rstn.PRICE_TOTAL")));
 	 	
-	 	
+	 	super.releaseDB(con, stmt, result);
 	 	
 	 	return bean;
 	 	

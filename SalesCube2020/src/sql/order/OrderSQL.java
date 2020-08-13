@@ -321,7 +321,7 @@ public class OrderSQL {
 	}
 	
 	/* 受注番号-行押下  編集画面に受注伝票反映 */
-	public String linkUpdateOrder(String roSlipId) {
+	public String linkUpdateOrder(Integer roSlipId) {
 		
 		String sql;
 		
