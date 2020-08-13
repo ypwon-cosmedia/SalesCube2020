@@ -111,14 +111,14 @@
         		
         		$('#showSearchResult option').remove();							//optionの項目の削除
 				
-        		/*見積番号を不可視の状態で挿入
+        		/*見積番号を不可視の状態で挿入------------------------------
         		var hide = '<span><option value="'
         					+ data[0].itemId 
         					+ '">' 
         					+ data[0].itemName 
         					+'</option></span>';
         		$('#showSearchResult').append(hide);							//spanにoptionタグを挿入
-        		*/
+        		-------------------------------------------------------*/
         		
         		//見積番号以外の表示項目を挿入
         		var showResult = document.getElementById('showSearchResult');   //optionタグを入れる箇所の指定
@@ -157,24 +157,27 @@
     //表示項目の更新
     function updateShowItem(){
     	//表示項目のリストを取得
-    	var opt = document.getElementById('showSearchResult');
-    	alert(opt.options.length);
-    	for(i=0; i<opt.options.length; i++){
-        	document.write(opt.options[i].value);
-        	document.write('<br>');
-    	}
+    	//var opt = document.getElementById('showSearchResult');
+    	//var opts = opt.options;	//selectの中のオプションの全ての値を取得
+    	
+    	//alert(opts.length);
     	/*
-    	var formString = formStr.serialize();//オブジェクトをバイト列に変換
+    	for(i=0; i<opts.length; i++){
+        	document.write(opts[i].value);
+        	document.write('<br>');
+    	}*/
+    	var opts = $("#showSearchResult option").map(function() {return $(this).val();}).get();
+    	jQuery.ajaxSettings.traditional = true;		//これを true に設定すると、.serialize() メソッドでのシリアライズ化を行わない
     	$.ajax({
 			url:'/SalesCube2020/SalesCubeAJAX?action=estimateCfgUpd',  //アクセス先のパス
-			type:'post',		//通信に利用するHTTPメソッド
-			data:formString,	//送信するデータ
-			dataType:'json',	//応答データの種類
+			type:'post',				//通信に利用するHTTPメソッド
+			data:{'showList' : opts},	//送信するデータ(「キー名: 値」)
+			dataType:'json',			//応答データの種類
 			
 			success:function(data){	//成功時
 				alert("success");
 			}
-    	});*/
+    	});
     }
     
     //右への移動(非表示から表示)
