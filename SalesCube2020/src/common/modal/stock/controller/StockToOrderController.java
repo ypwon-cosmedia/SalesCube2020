@@ -11,7 +11,7 @@ import common.modal.stock.dao.StockDAO;
 import order.input.beans.OrderInputBean;
 
 public class StockToOrderController {
-	
+
 	public String execService(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
 		String forwardURL = "/menu.jsp";

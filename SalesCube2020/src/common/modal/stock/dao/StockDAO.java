@@ -13,7 +13,7 @@ import order.input.beans.OrderInputBean;
 import sql.order.OrderSQL;
 
 public class StockDAO extends BaseDAO {
-	
+
 	/* 受注入力画面から商品コードをもとに商品在庫モーダルの初期値設定 */
 	public StockBean OrderToStock(String productCode) throws SQLException, ClassNotFoundException {
 		

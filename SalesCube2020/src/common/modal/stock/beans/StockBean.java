@@ -1,7 +1,7 @@
 package common.modal.stock.beans;
 
 public class StockBean {
-
+ 
 	/* 商品コード */
 	private String productCode;
 	

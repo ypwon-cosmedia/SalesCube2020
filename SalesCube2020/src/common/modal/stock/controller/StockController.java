@@ -14,7 +14,7 @@ import common.modal.stock.dao.StockDAO;
 import order.input.beans.OrderInputBean;
 
 public class StockController {
-	
+
 	public void execService(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
 		String action = request.getParameter("action");
