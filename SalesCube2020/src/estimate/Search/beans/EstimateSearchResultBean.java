@@ -55,6 +55,9 @@ public class EstimateSearchResultBean {
 	
 	//伝票合計
 	private int estimateTotal;
+	
+	//件名
+	private String title;
 
 	/**
 	 * @return the estimateSheetId
@@ -306,6 +309,14 @@ public class EstimateSearchResultBean {
 	 */
 	public void setEstimateTotal(int estimateTotal) {
 		this.estimateTotal = estimateTotal;
+	}
+
+	public String getTitle() {
+		return title;
+	}
+
+	public void setTitle(String title) {
+		this.title = title;
 	}
 	
 	

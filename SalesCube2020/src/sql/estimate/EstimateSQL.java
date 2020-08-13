@@ -11,6 +11,7 @@ public class EstimateSQL {
 			return "LIKE '"+str+"%') ";
 	}
 	
+	//担当者検索
 	public String userModalSearch(UserModalSearchBean bean) {
 		String sql;		
 		
