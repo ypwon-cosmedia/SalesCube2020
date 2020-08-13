@@ -53,7 +53,7 @@
                             <br>
                             <div class="row container">
                             &emsp;
-                            <select size="7" name="notShowSearchResult" id="notShowSearchResult" style="width: 160px;">
+                            <select size="7" name="notShowSearchResult" id="notShowSearchResult" style="width: 160px;" onchange="rightLeft()">
                                 
                                 <!-- **********ここに非表示のoptionタグを挿入*********** 例 option value=itemId>itemName</option -->
 
@@ -63,12 +63,12 @@
                                 <table>
                                 <tr><td>&ensp;</td></tr>
                                 <tr><td>&ensp;</td></tr>
-                                <tr><td><button name="" class="btn btn-primary" style="width: 40px;height: 40px;" onclick="moveSelected(); moveVertical(1)">→</button></td></tr>
-                                <tr><td><button name="" class="btn btn-primary" style="width: 40px;height: 40px;" onclick="moveUnselected()">←</button></td></tr>
+                                <tr><td><button name="" class="btn btn-primary" style="width: 40px;height: 40px;" id="rightButton" disabled onclick="moveSelected(); moveVertical(1); rightLeft()">→</button></td></tr>
+                                <tr><td><button name="" class="btn btn-primary" style="width: 40px;height: 40px;" id="leftButton" disabled onclick="moveUnselected(); rightLeft()">←</button></td></tr>
                                 </table>
                             
                             &emsp;
-                            <select size="7" name="showSearchResult" id="showSearchResult" style="width: 160px;" onchange="buttonStyle(this)">
+                            <select size="7" name="showSearchResult" id="showSearchResult" style="width: 160px;" onchange="buttonStyle(this); rightLeft()">
                                 <!-- **********ここに表示のoptionタグを挿入*********** 例 option value=itemId>itemName</option -->
 
                             </select>
@@ -84,7 +84,7 @@
                         </div>
 
                         <div class="modal-footer">
-                            <button type="button" class="btn btn-primary" onclick="configGet()">初期化</button>                            
+                            <button type="button" class="btn btn-primary" onclick="configGet(); initButton()">初期化</button>                            
                             <button type="button" class="btn btn-primary" onclick="updateShowItem()" data-dismiss="modal">更新</button>                            
                             <button type="button" class="btn btn-primary" data-dismiss="modal">閉じる</button>
                         </div>
@@ -97,7 +97,7 @@
 
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.2/jquery.min.js"></script>
     <script>
-
+    
 	//表示・非表示リストの取得
     function configGet(){
     	
@@ -156,16 +156,6 @@
 	
     //表示項目の更新
     function updateShowItem(){
-    	//表示項目のリストを取得
-    	//var opt = document.getElementById('showSearchResult');
-    	//var opts = opt.options;	//selectの中のオプションの全ての値を取得
-    	
-    	//alert(opts.length);
-    	/*
-    	for(i=0; i<opts.length; i++){
-        	document.write(opts[i].value);
-        	document.write('<br>');
-    	}*/
     	var opts = $("#showSearchResult option").map(function() {return $(this).val();}).get();
     	jQuery.ajaxSettings.traditional = true;		//これを true に設定すると、.serialize() メソッドでのシリアライズ化を行わない
     	$.ajax({
@@ -207,6 +197,24 @@
             }
         }
     }
+    function rightLeft(){
+        //左ボタン
+		var showOpt = document.getElementById('showSearchResult');
+		var leftButton = document.getElementById('leftButton');
+        if(showOpt.options.length != 0){
+        	leftButton.disabled = false;
+        }else{
+        	leftButton.disabled = true;
+        }
+        //右ボタン
+		var notOpt = document.getElementById('notShowSearchResult');
+		var rightButton = document.getElementById('rightButton');
+        if(notOpt.options.length != 0){
+        	rightButton.disabled = false;
+        }else{
+        	rightButton.disabled = true;
+        }
+    }
     
     //上下の移動(「「mode = -1」なら上、「mode = 1」なら下へ移動)
     function moveVertical(mode){
@@ -219,6 +227,13 @@
         buttonStyle(Opt);
     }
 	
+	//ボタンの初期化
+	function initButton(){
+		document.getElementById('rightButton').disabled = true;
+		document.getElementById('leftButton').disabled  = true;
+		document.getElementById('upButton').disabled 	= true;
+		document.getElementById('downButton').disabled  = true;
+	}
     
     </script>
 
