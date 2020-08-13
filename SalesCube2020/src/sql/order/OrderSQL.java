@@ -4,9 +4,12 @@ package sql.order;
 import order.search.beans.OrderSearchBean;
 
 import order.common.bill.beans.OrderCommonBillBean;
+import sql.common.CommonSQL;
 
 
 public class OrderSQL {
+	
+	CommonSQL com = new CommonSQL();
 	
 	public String initCategory() {
 		
@@ -318,8 +321,8 @@ public class OrderSQL {
 	}
 	
 	/* 受注番号-行押下  編集画面に受注伝票反映 */
-	public String linkUpdateOrder(String roSlipId) {
-		
+	public String linkUpdateOrder(Integer roSlipId) {
+	
 		String sql;
 		
 		sql = "SELECT DISTINCT " + 
@@ -410,9 +413,44 @@ public class OrderSQL {
 		
 	}
 	
+	/* 受注番号-行押下 編集画面に明細情報反映 */
+	public String linkUpdateDetail(String roSlipId) {
+		
+		String sql;
+		
+		sql = "SELECT DISTINCT " +
+				"rltx.PRODUCT_CODE, " +
+				"pmx.PRODUCT_NAME, " +
+				"rltx.PRODUCT_REMARKS, " +
+				"pmx.RACK_CODE, " +
+				"rltx.QUANTITY, " +
+				"rltx.UNIT_COST, " +
+				"rltx.COST, " +
+				"rltx.UNIT_RETAIL_PRICE, " +
+				"rltx.RETAIL_PRICE, " +
+				"rltx.PRODUCT_ABSTRACT, " +
+				"rltx.EAD_REMARKS, " +
+				"rstn.RETAIL_PRICE_TOTAL, " +
+				"rstn.CTAX_PRICE_TOTAL, " +
+				"rstn.PRICE_TOTAL " +
+			"FROM " +
+				"ro_line_trn_xxxxx AS rltx " +
+				"LEFT OUTER JOIN " +
+					"product_mst_xxxxx AS pmx " +
+					"USING(PRODUCT_CODE) " +
+				"LEFT OUTER JOIN " +
+					"ro_slip_trn_xxxxx AS rstn " +
+					"USING(RO_SLIP_ID) " +
+			"WHERE " +
+				"RO_SLIP_ID LIKE '" + roSlipId + "'";
+		
+		return sql;
+		
+	}
+	
 	/* 受注新規登録画面から受注編集画面 */
 	/* 受注番号入力 受注編集の受注、顧客、納入先反映 */
-	public String moveOrderUpdateInfo(String roSlipId) {
+	public String moveOrderUpdateInfo(Integer roSlipId) {
 		
 		String sql;
 		
@@ -446,7 +484,7 @@ public class OrderSQL {
 				"rstx.DELIVERY_PC_PRE, " + 
 				"rstx.DELIVERY_TEL, " + 
 				"rstx.DELIVERY_FAX, " + 
-				"rstx.DELIVERY_EMAIL, " + 
+				"rstx.DELIVERY_EMAIL " + 
 			"FROM " + 
 				"ro_slip_trn_xxxxx AS rstx " + 
 				"LEFT OUTER JOIN " + 
@@ -469,7 +507,7 @@ public class OrderSQL {
 	}
 	
 	/* 受注番号入力 受注編集の受注明細反映 */
-	public String moveOrderUpdateDetail(String roSlipId) {
+	public String moveOrderUpdateDetail(Integer roSlipId) {
 		
 		String sql;
 		
@@ -484,7 +522,7 @@ public class OrderSQL {
 				"rltx.UNIT_RETAIL_PRICE, " + 
 				"rltx.RETAIL_PRICE, " + 
 				"rltx.REMARKS, " + 
-				"rltx.EAD_REMARKS, " + 
+				"rltx.EAD_REMARKS " + 
 			"FROM " + 
 				"ro_line_trn_xxxxx AS rltx " + 
 				"LEFT OUTER JOIN " + 
@@ -862,7 +900,7 @@ public class OrderSQL {
 	}
 
 	
-	public String searchOrderBill(OrderSearchBean bean, String[] inputlist, String rowCount) {
+	public String searchOrderBill(OrderSearchBean bean, String[] inputlist, String rowCount, String sort, int currentPage, String orderBy) {
 		
 		String sql;
 		
@@ -876,7 +914,7 @@ public class OrderSQL {
 		
 		sql = sql +
 				"FROM " + 
-				"ro_slip_trn_xxxxx AS rstx " + 
+				"ro_slip_trn_xxxxx AS rstx " +  
 				"LEFT OUTER JOIN " + 
 				"category_trn_xxxxx AS ctx1 " + 
 				"ON rstx.tax_shift_category = ctx1.category_code " + 
@@ -884,16 +922,121 @@ public class OrderSQL {
 				"LEFT OUTER JOIN " + 
 				"category_trn_xxxxx AS ctx2 " + 
 				"ON rstx.sales_cm_category = ctx2.category_code " + 
-				"AND ctx2.category_id = '32' " + 
-				"ORDER BY rstx.ro_slip_id ";
-
+				"AND ctx2.category_id = '32' " +
+				"LEFT OUTER JOIN " + 
+				"category_trn_xxxxx AS ctx3 " + 
+				"ON rstx.cutoff_group = ctx3.category_code " + 
+				"AND ctx3.category_id = '5' " +
+				"LEFT OUTER JOIN " + 
+				"ro_line_trn_xxxxx AS rltx " +
+				"USING(RO_SLIP_ID) " +
+				"LEFT OUTER JOIN " + 
+				"product_mst_xxxxx as pmx " + 
+				"USING(PRODUCT_CODE) " +
+				"WHERE " +
+				"(rstx.ro_slip_id " + com.stringIsNull(bean.getOrderNo()) +
+				"AND " +
+				"(rstx.recept_no " + com.stringIsNull(bean.getRepNo()) +
+				"AND " +
+				"(rstx.ro_date " + dateIsNull(bean.getOrderDayStart(),bean.getOrderDayEnd()) +
+				"AND " +
+				"(rstx.ship_date " + dateIsNull(bean.getShipDayStart(),bean.getShipDayEnd()) +
+				"AND " +
+				"(rstx.delivery_date " + dateIsNull(bean.getDeliveryDayStart(),bean.getDeliveryDayEnd()) +
+				"AND " +
+				"(rltx.product_code " + com.stringIsNull(bean.getProductCode()) +
+				"AND " +
+				"(pmx.product_name " + com.stringIsNull(bean.getProductName()) +
+				"AND " +
+				"(rstx.sales_cm_category " + stringArrayIsNull(bean.getWithdrawl()) +
+				"AND " +
+				"(rstx.customer_code " + com.stringIsNull(bean.getCustomerCode()) +
+				"AND " +
+				"(rstx.customer_name " + com.stringIsNull(bean.getCustomerName()) +
+				"AND " +
+				"(pmx.product_1 " + com.stringIsNull(bean.getProduct1()) +
+				"AND " +
+				"(pmx.product_2 " + com.stringIsNull(bean.getProduct2()) +
+				"AND " +
+				"(pmx.product_3 " + com.stringIsNull(bean.getProduct3()) +
+				"AND " +
+				"(pmx.supplier_code " + com.stringIsNull(bean.getSupplierCode()) +
+				"AND " +
+				"(rstx.delivery_name " + com.stringIsNull(bean.getSupplierName()) +
+				"GROUP BY (rstx.RO_SLIP_ID) " +
+				"ORDER BY (" + sort + ") " + orderBy + " " +
+			 	"LIMIT " + rowCount + " OFFSET " + Integer.parseInt(rowCount)*(currentPage-1);
+				
 		return sql;
 	}
 	
-	public String searchOrderDetail(OrderSearchBean bean, String[] inputlist, String rowCount) {
+	public String getOrderBillCount(OrderSearchBean bean) {
 		
 		String sql;
-
+		
+		sql = "SELECT ";
+		
+		sql+= "COUNT(*) ";
+		
+		sql = sql +
+				"FROM " + 
+				"ro_slip_trn_xxxxx AS rstx " +  
+				"LEFT OUTER JOIN " + 
+				"category_trn_xxxxx AS ctx1 " + 
+				"ON rstx.tax_shift_category = ctx1.category_code " + 
+				"AND ctx1.category_id = '29' " + 
+				"LEFT OUTER JOIN " + 
+				"category_trn_xxxxx AS ctx2 " + 
+				"ON rstx.sales_cm_category = ctx2.category_code " + 
+				"AND ctx2.category_id = '32' " +
+				"LEFT OUTER JOIN " + 
+				"category_trn_xxxxx AS ctx3 " + 
+				"ON rstx.cutoff_group = ctx3.category_code " + 
+				"AND ctx3.category_id = '5' " +
+				"LEFT OUTER JOIN " + 
+				"ro_line_trn_xxxxx AS rltx " +
+				"USING(RO_SLIP_ID) " +
+				"LEFT OUTER JOIN " + 
+				"product_mst_xxxxx as pmx " + 
+				"USING(PRODUCT_CODE) " +
+				"WHERE " +
+				"(rstx.ro_slip_id " + com.stringIsNull(bean.getOrderNo()) +
+				"AND " +
+				"(rstx.recept_no " + com.stringIsNull(bean.getRepNo()) +
+				"AND " +
+				"(rstx.ro_date " + dateIsNull(bean.getOrderDayStart(),bean.getOrderDayEnd()) +
+				"AND " +
+				"(rstx.ship_date " + dateIsNull(bean.getShipDayStart(),bean.getShipDayEnd()) +
+				"AND " +
+				"(rstx.delivery_date " + dateIsNull(bean.getDeliveryDayStart(),bean.getDeliveryDayEnd()) +
+				"AND " +
+				"(rltx.product_code " + com.stringIsNull(bean.getProductCode()) +
+				"AND " +
+				"(pmx.product_name " + com.stringIsNull(bean.getProductName()) +
+				"AND " +
+				"(rstx.sales_cm_category " + stringArrayIsNull(bean.getWithdrawl()) +
+				"AND " +
+				"(rstx.customer_code " + com.stringIsNull(bean.getCustomerCode()) +
+				"AND " +
+				"(rstx.customer_name " + com.stringIsNull(bean.getCustomerName()) +
+				"AND " +
+				"(pmx.product_1 " + com.stringIsNull(bean.getProduct1()) +
+				"AND " +
+				"(pmx.product_2 " + com.stringIsNull(bean.getProduct2()) +
+				"AND " +
+				"(pmx.product_3 " + com.stringIsNull(bean.getProduct3()) +
+				"AND " +
+				"(pmx.supplier_code " + com.stringIsNull(bean.getSupplierCode()) +
+				"AND " +
+				"(rstx.delivery_name " + com.stringIsNull(bean.getSupplierName()) +
+				"GROUP BY (rstx.RO_SLIP_ID) ";
+		
+		return sql;
+	}
+	
+	public String searchOrderDetail(OrderSearchBean bean, String[] inputlist, String rowCount, String sort, int currentPage, String orderBy) {
+		
+		String sql;
 
 		sql = "SELECT";
 		
@@ -916,11 +1059,145 @@ public class OrderSQL {
 				"LEFT OUTER JOIN " + 
 				"category_trn_xxxxx AS ctx2 " + 
 				"ON rstx.sales_cm_category = ctx2.category_code " + 
-				"AND ctx2.category_id = '32' ";
+				"AND ctx2.category_id = '32' " +
+				"LEFT OUTER JOIN " + 
+				"category_trn_xxxxx AS ctx3 " + 
+				"ON rstx.CUTOFF_GROUP = ctx3.category_code " + 
+				"AND ctx3.category_id = '5' " +
+				"LEFT OUTER JOIN " + 
+				"product_mst_xxxxx as pmx " + 
+				"USING(PRODUCT_CODE) " +
+				"WHERE " +
+				"(rstx.ro_slip_id " + com.stringIsNull(bean.getOrderNo()) +
+				"AND " +
+				"(rstx.recept_no " + com.stringIsNull(bean.getRepNo()) +
+				"AND " +
+				"(rstx.ro_date " + dateIsNull(bean.getOrderDayStart(),bean.getOrderDayEnd()) +
+				"AND " +
+				"(rstx.ship_date " + dateIsNull(bean.getShipDayStart(),bean.getShipDayEnd()) +
+				"AND " +
+				"(rstx.delivery_date " + dateIsNull(bean.getDeliveryDayStart(),bean.getDeliveryDayEnd()) +
+				"AND " +
+				"(rltx.product_code " + com.stringIsNull(bean.getProductCode()) +
+				"AND " +
+				"(pmx.product_name " + com.stringIsNull(bean.getProductName()) +
+				"AND " +
+				"(rstx.sales_cm_category " + stringArrayIsNull(bean.getWithdrawl()) +
+				"AND " +
+				"(rstx.customer_code " + com.stringIsNull(bean.getCustomerCode()) +
+				"AND " +
+				"(rstx.customer_name " + com.stringIsNull(bean.getCustomerName()) +
+				"AND " +
+				"(pmx.product_1 " + com.stringIsNull(bean.getProduct1()) +
+				"AND " +
+				"(pmx.product_2 " + com.stringIsNull(bean.getProduct2()) +
+				"AND " +
+				"(pmx.product_3 " + com.stringIsNull(bean.getProduct3()) +
+				"AND " +
+				"(pmx.supplier_code " + com.stringIsNull(bean.getSupplierCode()) +
+				"AND " +
+				"(rstx.delivery_name " + com.stringIsNull(bean.getSupplierName()) +
+				"GROUP BY (CONCAT(rltx.ro_slip_id, '-', rltx.line_no)) " +
+				"ORDER BY (" + sort + ") " + orderBy + " " +
+				"LIMIT " + rowCount + " OFFSET " + Integer.parseInt(rowCount)*(currentPage-1);
 		
 		return sql;
 	}
 
+	public String getOrderDetailCount(OrderSearchBean bean) {
+		
+		String sql;
+		
+		sql = "SELECT ";
+		
+		sql+= "COUNT(*) ";
+		
+		sql = sql + 
+				"FROM " + 
+				"ro_line_trn_xxxxx AS rltx " + 
+				"LEFT OUTER JOIN " + 
+				"ro_slip_trn_xxxxx AS rstx " + 
+				"USING(ro_slip_id) " + 
+				"LEFT OUTER JOIN " + 
+				"category_trn_xxxxx AS ctx1 " + 
+				"ON rstx.tax_shift_category = ctx1.category_code " + 
+				"AND ctx1.category_id = '29' " + 
+				"LEFT OUTER JOIN " + 
+				"category_trn_xxxxx AS ctx2 " + 
+				"ON rstx.sales_cm_category = ctx2.category_code " + 
+				"AND ctx2.category_id = '32' " +
+				"LEFT OUTER JOIN " + 
+				"category_trn_xxxxx AS ctx3 " + 
+				"ON rstx.sales_cm_category = ctx2.category_code " + 
+				"AND ctx2.category_id = '5' " +
+				"LEFT OUTER JOIN " + 
+				"product_mst_xxxxx as pmx " + 
+				"USING(PRODUCT_CODE) " +
+				"WHERE " +
+				"(rstx.ro_slip_id " + com.stringIsNull(bean.getOrderNo()) +
+				"AND " +
+				"(rstx.recept_no " + com.stringIsNull(bean.getRepNo()) +
+				"AND " +
+				"(rstx.ro_date " + dateIsNull(bean.getOrderDayStart(),bean.getOrderDayEnd()) +
+				"AND " +
+				"(rstx.ship_date " + dateIsNull(bean.getShipDayStart(),bean.getShipDayEnd()) +
+				"AND " +
+				"(rstx.delivery_date " + dateIsNull(bean.getDeliveryDayStart(),bean.getDeliveryDayEnd()) +
+				"AND " +
+				"(rltx.product_code " + com.stringIsNull(bean.getProductCode()) +
+				"AND " +
+				"(pmx.product_name " + com.stringIsNull(bean.getProductName()) +
+				"AND " +
+				"(rstx.sales_cm_category " + stringArrayIsNull(bean.getWithdrawl()) +
+				"AND " +
+				"(rstx.customer_code " + com.stringIsNull(bean.getCustomerCode()) +
+				"AND " +
+				"(rstx.customer_name " + com.stringIsNull(bean.getCustomerName()) +
+				"AND " +
+				"(pmx.product_1 " + com.stringIsNull(bean.getProduct1()) +
+				"AND " +
+				"(pmx.product_2 " + com.stringIsNull(bean.getProduct2()) +
+				"AND " +
+				"(pmx.product_3 " + com.stringIsNull(bean.getProduct3()) +
+				"AND " +
+				"(pmx.supplier_code " + com.stringIsNull(bean.getSupplierCode()) +
+				"AND " +
+				"(rstx.delivery_name " + com.stringIsNull(bean.getSupplierName()) +
+				"GROUP BY (CONCAT(rltx.ro_slip_id, '-', rltx.line_no))" ;
 
+		return sql;
+	}
+
+	public String dateIsNull(String str1, String str2) {
+		
+		if((str1 == null || str1.equals("")) && (str2 == null || str2.equals("")))
+			return "between '1900-01-01' and '9999-12-31' OR 1 = 1) ";
+		else if ((str1 != null) && (str2 == null || str2.equals("")))
+			return "between '" + str1 + "' and '9999-12-31') ";
+		else if ((str1 == null || str1.equals("")) && (str2 != null))
+			return "between '1900-01-01' and '" + str2 + "') ";
+		else
+			return "between '" + str1 + "' and '" + str2 + "') ";
+
+	}
+	
+	public String stringArrayIsNull(String[] str) {
+		
+		String tmp = "";
+		
+		if(str == null) {
+			tmp += "LIKE '%' OR 1 = 1) ";
+		}
+		else { 
+			tmp += "IN( '";
+			for(int i = 0; i <str.length; i++) {
+				tmp += str[i] + "',";
+			}
+			tmp = tmp.substring(0, tmp.length()-1) + ")) ";
+		}
+		
+		
+		return tmp;
+	}
 
 }

@@ -8,8 +8,6 @@ import java.util.*;
 
 import common.dao.BaseDAO;
 import order.search.beans.OrderSearchBean;
-import order.search.beans.OrderSearchResultBillBean;
-import order.search.beans.OrderSearchResultDetailBean;
 import sql.order.OrderSQL;
 
 public class OrderSearchDAO extends BaseDAO{
@@ -18,7 +16,7 @@ public class OrderSearchDAO extends BaseDAO{
 	public void configUpdate(String[] showlistvalue, 
 			String searchsubject, String userID) throws ClassNotFoundException, MissingResourceException, SQLException {
 		// TODO Auto-generated method stub
-		
+
 		Connection con;
 		Statement stmt = null;
 		OrderSQL sqllist = new OrderSQL();		
@@ -45,7 +43,7 @@ public class OrderSearchDAO extends BaseDAO{
 		stmt.close();		
 	}
 	
-	public List<String[]> orderSearch(OrderSearchBean bean, String[] inputlist, String rowCount) throws ClassNotFoundException, MissingResourceException, SQLException {
+	public List<String[]> orderSearch(OrderSearchBean bean, String[] inputlist, String rowCount, String sort, int currentPage, String orderBy) throws ClassNotFoundException, MissingResourceException, SQLException {
 		
 		Connection con;
 		Statement stmt = null;
@@ -59,7 +57,7 @@ public class OrderSearchDAO extends BaseDAO{
 		
 		if(bean.getSelectView().equals("伝票")) {
 			List<String[]> resultlist = new ArrayList<String[]>();
-			sql = sqllist.searchOrderBill(bean,inputlist,rowCount);
+			sql = sqllist.searchOrderBill(bean,inputlist,rowCount,sort, currentPage, orderBy);
 			result = stmt.executeQuery(sql);
 			while(result.next()) {
 				String[] tmp = new String[inputlist.length];
@@ -73,7 +71,8 @@ public class OrderSearchDAO extends BaseDAO{
 			return resultlist;
 		} else {
 			List<String[]> resultlist = new ArrayList<String[]>();
-			sql = sqllist.searchOrderDetail(bean,inputlist,rowCount);
+			sql = sqllist.searchOrderDetail(bean,inputlist,rowCount,sort, currentPage, orderBy);
+			System.out.println(sql);
 			result = stmt.executeQuery(sql);
 			while(result.next()) {
 				String[] tmp = new String[inputlist.length];
@@ -85,6 +84,56 @@ public class OrderSearchDAO extends BaseDAO{
 			super.releaseDB(con, stmt, result);
 			return resultlist;
 		}
+		
+	}
+	
+	public int getBillCount(OrderSearchBean bean) throws ClassNotFoundException, MissingResourceException, SQLException {
+		
+		Connection con;
+		Statement stmt = null;
+		ResultSet result = null;
+		OrderSQL sqllist = new OrderSQL();
+
+		String sql;
+		
+		int tmp = 0;
+		
+		con = super.getConnection();
+		stmt = con.createStatement();
+		
+		sql = sqllist.getOrderBillCount(bean);
+		result = stmt.executeQuery(sql);
+		while(result.next()) {
+			tmp++;
+		}
+		
+		super.releaseDB(con, stmt, result);
+		return tmp;
+		
+	}
+	
+	public int getDetailCount(OrderSearchBean bean) throws ClassNotFoundException, MissingResourceException, SQLException {
+		
+		Connection con;
+		Statement stmt = null;
+		ResultSet result = null;
+		OrderSQL sqllist = new OrderSQL();
+
+		String sql;
+		
+		int tmp = 0;
+		
+		con = super.getConnection();
+		stmt = con.createStatement();
+		
+		sql = sqllist.getOrderDetailCount(bean);
+		result = stmt.executeQuery(sql);
+		while(result.next()) {
+			tmp++;
+		}
+		
+		super.releaseDB(con, stmt, result);
+		return tmp;
 		
 	}
 }

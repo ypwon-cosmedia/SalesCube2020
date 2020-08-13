@@ -44,7 +44,15 @@ public class CustomerModalDAO extends BaseDAO {
 			bean1.setCutoffGroup(result.getString("CUTOFF_GROUP"));
 			bean1.setCustomerOfficeName(result.getString("CUSTOMER_OFFICE_NAME"));
 			bean1.setCustomerDeptName(result.getString("CUSTOMER_DEPT_NAME"));
-
+			
+			if(bean1.getCustomerTel()== null || bean1.getCustomerTel().equals("")) {bean1.setCustomerTel("");};
+			if(bean1.getCustomerPcName()== null || bean1.getCustomerPcName().equals("")) {bean1.setCustomerPcName("");};
+			if(bean1.getSalesCmCategory()== null || bean1.getSalesCmCategory().equals("")) {bean1.setSalesCmCategory("");};
+			if(bean1.getCutoffGroup()== null || bean1.getCutoffGroup().equals("")) {bean1.setCutoffGroup("");};
+			if(bean1.getCustomerOfficeName()== null || bean1.getCustomerOfficeName().equals("")) {bean1.setCustomerOfficeName("");};
+			if(bean1.getCustomerDeptName()== null || bean1.getCustomerDeptName().equals("")) {bean1.setCustomerDeptName("");};
+			
+			
 			list.add(bean1);
 		}
 		

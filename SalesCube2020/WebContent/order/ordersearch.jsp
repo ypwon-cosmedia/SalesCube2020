@@ -9,7 +9,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
- <link rel="import" href="C:/Users/cosmedia/Desktop/bootstrap-4.0.0-dist/menu.html">
+<link rel="import" href="C:/Users/cosmedia/Desktop/bootstrap-4.0.0-dist/menu.html">
 <style type="text/css">
       .menuGroup {
           -moz-border-bottom-colors: none;
@@ -31,24 +31,28 @@
 	   width: 1120px;
 	   max-width: none !important;
 	   }
-	   .sort.desc:after {
-		  content:"▼";
-		}
-		.sort.asc:after {
-		  content:"▲";
-		}
+	  .sort.desc:after {
+	   content:"▼";
+       }
+	  .sort.asc:after {
+	   content:"▲";
+	   }
     </style>
     
 <title>受注検索</title>
 </head>
 <body style="background-color: gainsboro;">
 	<div id = "test">
+		<input type="hidden" id="hiddenSort">
+		<input type="hidden" id="hiddenPaging" value="1">
 	</div>
 	<!-- Optional JavaScript -->
     <!-- jQuery first, then Popper.js, then Bootstrap JS -->
-    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script> 
+    <script type="text/javascript" src="common/shotcuts.js"></script>   
     <%@ include file= "../common/menubar.jsp" %>
 	<br>
 
@@ -60,17 +64,17 @@
         
         <div class="btn-group mr-2 " role="group" aria-label="First group">
           <button type="button" class="btn btn-secondary" style="font-size: 12px;" onclick="initPage();">F1<br>初期化</button>
-          <button type="button" class="btn btn-secondary" style="font-size: 12px;" onclick="submitForm();">F2<br>検索</button>
-          <button type="button" class="btn btn-secondary" style="font-size: 12px;" onclick="excelOut();">F3<br>Excel出力<br></button>
-          <button type="button" class="btn btn-secondary" style="font-size: 12px;" data-toggle="modal" data-target="#setSlipConfiguration">F4<br>設定<br></button>
-          <button type="button" class="btn btn-secondary" style="font-size: 12px;">F5<br></button>
-          <button type="button" class="btn btn-secondary" style="font-size: 12px;">F6<br></button>
-          <button type="button" class="btn btn-secondary" style="font-size: 12px;">F7<br></button>
-          <button type="button" class="btn btn-secondary" style="font-size: 12px;">F8<br></button>
-          <button type="button" class="btn btn-secondary" style="font-size: 12px;">F9<br></button>
-          <button type="button" class="btn btn-secondary" style="font-size: 12px;">F10<br></button>
-          <button type="button" class="btn btn-secondary" style="font-size: 12px;">F11<br></button>
-		  <button type="button" class="btn btn-secondary" style="font-size: 12px;">F12<br></button>
+          <button type="button" class="btn btn-secondary" style="font-size: 12px;" onclick="search();">F2<br>検索</button>
+          <button type="button" class="btn btn-secondary" style="font-size: 12px;" id="csvDownloadButton">F3<br>Excel出力<br></button>
+          <button type="button" class="btn btn-secondary" style="font-size: 12px;" id="openConfigModal" data-toggle="modal" data-target="#setSlipConfiguration">F4<br>設定<br></button>
+          <button type="button" class="btn btn-secondary" style="font-size: 12px;" disabled>F5<br></button>
+          <button type="button" class="btn btn-secondary" style="font-size: 12px;" disabled>F6<br></button>
+          <button type="button" class="btn btn-secondary" style="font-size: 12px;" disabled>F7<br></button>
+          <button type="button" class="btn btn-secondary" style="font-size: 12px;" disabled>F8<br></button>
+          <button type="button" class="btn btn-secondary" style="font-size: 12px;" disabled>F9<br></button>
+          <button type="button" class="btn btn-secondary" style="font-size: 12px;" disabled>F10<br></button>
+          <button type="button" class="btn btn-secondary" style="font-size: 12px;" disabled>F11<br></button>
+		  <button type="button" class="btn btn-secondary" style="font-size: 12px;" disabled>F12<br></button>
 
         </div>
       </div>
@@ -188,7 +192,7 @@
                                    <div class="input-group-text">顧客コード</div>
                             </div>
                             <input type="text" class="form-control" id="customerCodeInput" name="customerCodeInput" maxlength="15">
-                            <button type="button" class="btn btn-outline-secondary" data-toggle="modal" data-target="#setQuotationCondition" style="background-image: url(btn_search.png); border: 0px; outline: 0px; padding: 15px; margin: 0; height: 16px">
+                            <button type="button" class="btn btn-outline-secondary" data-toggle="modal" data-target="#customerSearch" style="background-image: url(btn_search.png); border: 0px; outline: 0px; padding: 15px; margin: 0; height: 16px" onclick="getCutoffGroup();">
 							</button>
 					    </div>
 					</div>
@@ -199,7 +203,7 @@
 								<div class="input-group-text">顧客名</div>
 							</div>
                             <input type="text"  class="form-control" id="customerNameInput" name="customerNameInput" maxlength="60">
-                            <button type="button" class="btn btn-outline-secondary" data-toggle="modal" data-target="#setQuotationCondition" style="background-image: url(btn_search.png); border: 0px; outline: 0px; padding: 15px; margin: 0; height: 16px">
+                            <button type="button" class="btn btn-outline-secondary" data-toggle="modal" data-target="#customerSearch" style="background-image: url(btn_search.png); border: 0px; outline: 0px; padding: 15px; margin: 0; height: 16px" onclick="getCutoffGroup();">
 							</button>
 						</div>
 					</div>                  
@@ -215,31 +219,31 @@
 							</div>
 							&nbsp;&nbsp;&nbsp;
 							<div class="form-check form-check-inline">
-								<input class="form-check-input" type="checkbox" id="inlineCheckbox1" value="option1" name="withdrawl">
+								<input class="form-check-input" type="checkbox" id="inlineCheckbox1" value="0" name="withdrawl">
 								<label class="form-check-label" for="inlineCheckbox1">掛売</label>
 							</div>
 							<div class="form-check form-check-inline">
-								<input class="form-check-input" type="checkbox" id="inlineCheckbox1" value="option2" name="withdrawl">
+								<input class="form-check-input" type="checkbox" id="inlineCheckbox1" value="1" name="withdrawl">
 								<label class="form-check-label" for="inlineCheckbox1">現金</label>
 							</div>
 							<div class="form-check form-check-inline">
-								<input class="form-check-input" type="checkbox" id="inlineCheckbox1" value="option3" name="withdrawl">
+								<input class="form-check-input" type="checkbox" id="inlineCheckbox1" value="2" name="withdrawl">
 								<label class="form-check-label" for="inlineCheckbox1">サンプル</label>
 							</div>
 							<div class="form-check form-check-inline">
-								<input class="form-check-input" type="checkbox" id="inlineCheckbox1" value="option4" name="withdrawl">
+								<input class="form-check-input" type="checkbox" id="inlineCheckbox1" value="3" name="withdrawl">
 								<label class="form-check-label" for="inlineCheckbox1">代引き</label>
 							</div>
 							<div class="form-check form-check-inline">
-								<input class="form-check-input" type="checkbox" id="inlineCheckbox1" value="option5" name="withdrawl">
+								<input class="form-check-input" type="checkbox" id="inlineCheckbox1" value="4" name="withdrawl">
 								<label class="form-check-label" for="inlineCheckbox1">クレジット</label>
 							</div>
 							<div class="form-check form-check-inline">
-								<input class="form-check-input" type="checkbox" id="inlineCheckbox1" value="option6" name="withdrawl">
+								<input class="form-check-input" type="checkbox" id="inlineCheckbox1" value="5" name="withdrawl">
 								<label class="form-check-label" for="inlineCheckbox1">先入金</label>
 							</div>
 							<div class="form-check form-check-inline">
-								<input class="form-check-input" type="checkbox" id="inlineCheckbox1" value="option7" name="withdrawl">
+								<input class="form-check-input" type="checkbox" id="inlineCheckbox1" value="6" name="withdrawl">
 								<label class="form-check-label" for="inlineCheckbox1">通販サイト1経由</label>
 							</div>
                         </div>                        
@@ -357,10 +361,7 @@
 				<div class="col-5" style="position:static; left: 0px;">
 					検索結果件数：<span id="resultCount">0</span>件
 				</div>
-				<div class="col-4">
-					<a href="#">1</a>
-					<a href="#">2</a>
-					<a href="#">3</a>
+				<div class="col-4" id="paging">
 				</div>			
 				<div class="col-3 float-left">
 					ページあたりの表示件数
@@ -379,393 +380,18 @@
 <br>
 
 <div class="container" style="background-color: rgb(255, 255, 255);" id="outputtable">
-    <table id="order_detail_info" class="table table-bordered">
+    <table id="order_detail_info" class="table table-bordered" style="background-color: white; table-layout:fixed;"> 
 		<thead class="thead-dark" id="AddHead">
 		</thead>
 		<tbody class="list" id="AddOption">
 		</tbody>
 	</table>
 </div>
-
+<%@ include file= "../common/productSearch.jsp" %>
 <!-- modal page (customersearch)-->
-<div class="modal fade" id="setQuotationCondition" tabindex="-1" role="dialog" aria-labelledby="label1" aria-hidden="true" data-backdrop="static">
-	<div class="modal-dialog modal-lg" role="document">
-		<div class="modal-content">
-			
-			<div class="modal-header">
-				<h5 class="modal-title" id="label1">顧客検索</h5>
-					<button type="button" class="close" data-dismiss="modal" aria-label="Close">
-						<span aria-hidden="true">&times;</span>
-					</button>
-			</div>
-			 
-			<form action="" method="post">
-				<div class="modal-body">
-				  <div class="row">
-					<div class="col-4">
-					  <label class="sr-only" for="inlineFormInputGroup">UserId</label>
-					  <div class="input-group mb-2">
-						<div class="input-group-prepend">
-							<div class="input-group-text">顧客コード</div>
-						</div>
-						<input type="text"  class="form-control" id="inlineFormInputGroup">
-					  </div>
-					</div>
-				  </div>
-				
-
-			   
-				  <div class="row">
-					<div class="col-4">
-					  <label class="sr-only" for="inlineFormInputGroup">UserName</label>
-					  <div class="input-group mb-2">
-						<div class="input-group-prepend">
-							<div class="input-group-text">顧客名</div>
-						</div>
-						<input type="text"  class="form-control" id="inlineFormInputGroup">
-					  </div>
-					</div>
-				  
-
-					<div class="col-4">
-					  <label class="sr-only" for="inlineFormInputGroup">UserKana</label>
-					  <div class="input-group mb-2">
-						<div class="input-group-prepend">
-							<div class="input-group-text">顧客名カナ</div>
-						</div>
-						<input type="text"  class="form-control" id="inlineFormInputGroup">
-					  </div>
-					</div>
-				  </div>
-				
-				  
-			   
-				  <div class="row">
-					<div class="col-6">
-					  <label class="sr-only" for="inlineFormInputGroup">productStockCategory</label>
-						<div class="input-group mb-2">
-						  <div class="input-group-prepend">
-							<div class="input-group-text">支払条件</div>
-						  </div>
-						  <select class="custom-select" name="productStockCategory">
-							<option selected></option>
-							  <option value=""></option>
-						  </select>
-						</div>
-					</div>
-				  </div>
-				</div>
-				<br>
-
-				<div class="rounded float-right">
-				  <button type="button" class="btn btn-outline-secondary" onclick="">初期化</button>&ensp;
-				  <input type="submit" value="検索" class="btn btn-outline-secondary">&ensp;
-				</div><br>
-			  </form><br>
-
-			  <div class="modal-body">
-				<div class="float-left" style="position:static; left: 0px;">
-				  検索結果件数：3件
-				</div>
-			  </div>
-
-			  <div class="modal-body" style="background-color: rgb(255, 255, 255);">
-				<table id="order_detail_info" class="table table-bordered">
-				  <thead class="thead-dark">
-					<tr>
-					  <th scope="col" class="rd_top_left th_back_black" style="cursor: pointer; height: 30px;" onclick="sort('productCode');">顧客コード</th>
-					  <th scope="col" class="th_back_black" style="cursor: pointer; height: 30px;" onclick="sort('productName');">顧客名</th>
-					  <th scope="col" class="th_back_black" style="cursor: pointer; height: 30px;" onclick="sort('supplierName');">TEL</th>
-					  <th scope="col" class="th_back_black" style="cursor: pointer; height: 30px;" onclick="sort('supplierName');">担当者</th>
-					  <th scope="col" class="th_back_black" style="cursor: pointer; height: 30px;" onclick="sort('supplierName');">取引区分</th>
-					  <th scope="col" class="th_back_black" style="cursor: pointer; height: 30px;" onclick="sort('supplierName');">支払条件</th>
-					  <th scope="col" class="th_back_black" style="cursor: pointer; height: 30px;" onclick="sort('supplierName');">事務所名</th>
-					  <th scope="col" class="th_back_black" style="cursor: pointer; height: 30px;" onclick="sort('supplierName');">部署名</th>
-					  
-					</tr>
-				  </thead>
-					<tr>
-					  <td style="white-space: normal; text-align: left;" onclick="selectCustomerCode();" data-dismiss="modal" id="customerCode1"><a href="">顧客コード1</a></td>
-					  <td style="white-space: normal; text-align: left;" onclick="selectCustomerCode();" data-dismiss="modal" id="customerName1"><a href="">顧客名1</a></td>
-					  <td style="white-space: normal; text-align: left;">TEL1</td>
-					  <td style="white-space: normal; text-align: left;">担当者1</td>
-					  <td style="white-space: normal; text-align: left;">取引区分1</td>
-					  <td style="white-space: normal; text-align: left;">支払条件1</td>
-					  <td style="white-space: normal; text-align: left;">事務所名1</td>
-					  <td style="white-space: normal; text-align: left;">部署名1</td>
-					</tr>
-					<tr>
-						<td style="white-space: normal; text-align: left;">顧客コード2</td>
-						<td style="white-space: normal; text-align: left;">顧客名2</td>
-						<td style="white-space: normal; text-align: left;">TEL2</td>
-						<td style="white-space: normal; text-align: left;">担当者2</td>
-						<td style="white-space: normal; text-align: left;">取引区分2</td>
-						<td style="white-space: normal; text-align: left;">支払条件2</td>
-						<td style="white-space: normal; text-align: left;">事務所名2</td>
-						<td style="white-space: normal; text-align: left;">部署名2</td>
-					  </tr>
-					  <tr>
-						<td style="white-space: normal; text-align: left;">顧客コード3</td>
-						<td style="white-space: normal; text-align: left;">顧客名3</td>
-						<td style="white-space: normal; text-align: left;">TEL3</td>
-						<td style="white-space: normal; text-align: left;">担当者3</td>
-						<td style="white-space: normal; text-align: left;">取引区分3</td>
-						<td style="white-space: normal; text-align: left;">支払条件3</td>
-						<td style="white-space: normal; text-align: left;">事務所名3</td>
-						<td style="white-space: normal; text-align: left;">部署名3</td>
-					  </tr>
-				</table>
-				<br>
-
-			<div class="modal-footer">
-				<button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-			</div>
-
-			</div>
-		</div>
-	</div>
-</div>
-
-<!-- modal page (productsearch)-->
-<div class="modal fade" id="setproductsearch" tabindex="-1" role="dialog" aria-labelledby="label1" aria-hidden="true">
-	<div class="modal-dialog modal-lg" role="document">
-		<div class="modal-content">
-			
-			<div class="modal-header">
-				<h5 class="modal-title" id="label1">商品検索</h5>
-					<button type="button" class="close" data-dismiss="modal" aria-label="Close">
-						<span aria-hidden="true">&times;</span>
-					</button>
-			</div>
-			 
-			<form action="" method="post" id="product">
-				<div class="modal-body">
-				  <div class="row">
-					<div class="col-4">
-					  <label class="sr-only" for="inlineFormInputGroup"></label>
-					  <div class="input-group mb-2">
-						<div class="input-group-prepend">
-							<div class="input-group-text">商品コード</div>
-						</div>
-						<input type="text"  class="form-control" id="productCode" name="productCode">
-					  </div>
-					</div>
-					<div class="col-4">
-					  <label class="sr-only" for="inlineFormInputGroup"></label>
-					  <div class="input-group mb-2">
-						<div class="input-group-prepend">
-							<div class="input-group-text">仕入先商品コード</div>
-						</div>
-						<input type="text"  class="form-control" id="supllierPcode" name="supllierPcode">
-					  </div>
-					</div>
-					<div class="col-4">
-					  <label class="sr-only" for="inlineFormInputGroup"></label>
-					  <div class="input-group mb-2">
-						<div class="input-group-prepend">
-							<div class="input-group-text">JANコード</div>
-						</div>
-						<input type="text"  class="form-control" id="janPcode" name="janPcode">
-					  </div>
-					</div>
-				  </div>
-
-				  <div class="row">
-					<div class="col-4">
-						<label class="sr-only" for="inlineFormInputGroup"></label>
-						<div class="input-group mb-2">
-						  <div class="input-group-prepend">
-							<div class="input-group-text">セット分類</div>
-						  </div>
-						  <select class="custom-select" id="setTypeCategory" name="setTypeCategory">
-							<option selected></option>
-							<c:forEach var="options" items="${setProduct}">
-								<option value = "${options.categoryCode}">${options.categoryCodeName}</option>
-							</c:forEach>
-							  
-						  </select>
-						</div>
-					</div>
-
-					<div class="col-4">
-					  <label class="sr-only" for="inlineFormInputGroup">productStockCategory</label>
-						<div class="input-group mb-2">
-						  <div class="input-group-prepend">
-							<div class="input-group-text">標準化分類</div>
-						  </div>
-						  <select class="custom-select" id="productStandardCategory"name="productStandardCategory">
-							<option selected></option> 
-							<c:forEach var="options" items="${standard}">
-							  <option value = "${options.categoryCode}">${options.categoryCodeName}</option>
-							</c:forEach>
-						  </select>
-						</div>
-					</div>
-
-					<div class="col-4">
-						<label class="sr-only" for="inlineFormInputGroup">productStockCategory</label>
-						  <div class="input-group mb-2">
-							<div class="input-group-prepend">
-							  <div class="input-group-text">分類状況</div>
-							</div>
-							<select class="custom-select" id="productStatusCategory" name="productStatusCategory">
-							  <option selected></option>
-							  <c:forEach var="options" items="${classStatus}">
-							    <option value = "${options.categoryCode}">${options.categoryCodeName}</option>
-							  </c:forEach>
-							</select>
-						  </div>
-						</div>
-				  </div>
-
-				  <div class="row">
-					<div class="col-6">
-					  <label class="sr-only" for="inlineFormInputGroup"></label>
-					  <div class="input-group mb-2">
-						<div class="input-group-prepend">
-							<div class="input-group-text">商品名</div>
-						</div>
-						<input type="text"  class="form-control" id="productName" name="productName">
-					  </div>
-					</div>
-					<div class="col-6">
-					  <label class="sr-only" for="inlineFormInputGroup"></label>
-					  <div class="input-group mb-2">
-						<div class="input-group-prepend">
-							<div class="input-group-text">商品名カナ</div>
-						</div>
-						<input type="text"  class="form-control" id="productKana" name="productKana">
-					  </div>
-					</div>
-				  </div>
-				</div>
-				<br>
-
-				<div class="rounded float-right">
-				  <button type="button" class="btn btn-outline-secondary" onclick="initproductModal();">初期化</button>&ensp;
-				  <button type="button" class="btn btn-outline-secondary" onclick="productSearch();">検索</button>&ensp;
-				</div>
-			  </form>
-
-			  <div class="modal-body">
-				<div class="float-left" style="position:static; left: 0px;">
-				  検索結果件数：<span id="productSearchResultCount">0</span>件
-				</div>
-			  </div>
-
-			  <div class="modal-body" style="background-color: rgb(255, 255, 255);">
-				<table id="order_detail_info" class="table table-bordered">
-				  <thead class="thead-dark">
-					<tr>
-					  <th scope="col" class="rd_top_left th_back_black" style="cursor: pointer; height: 30px;" onclick="sort('productCode');">商品コード</th>
-					  <th scope="col" class="th_back_black" style="cursor: pointer; height: 30px;" onclick="sort('productName');">商品名</th>
-					  <th scope="col" class="th_back_black" style="cursor: pointer; height: 30px;" onclick="sort('supplierName');">仕入先名</th> 
-					</tr>
-				  </thead>
-				  <tbody id="productResult">
-				  </tbody>
-				</table>
-				<br>
-
-			<div class="modal-footer">
-				<button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-			</div>
-
-		</div>
-	</div>
-</div>
-</div>
-
+<%@ include file= "../common/_customerSearch.jsp" %>
 <!-- modal page (suppliersearch)-->
-<div class="modal fade" id="openSearchSupplier" tabindex="-1" role="dialog" aria-labelledby="label1" aria-hidden="true">
-	<div class="modal-dialog modal-lg" role="document">
-		<div class="modal-content">
-			<div class="modal-header">
-				<h5 class="modal-title" id="label1">仕入れ先検索</h5>
-					<button type="button" class="close" data-dismiss="modal" aria-label="Close">
-						<span aria-hidden="true">&times;</span>
-					</button>
-			</div>
-
-			<div class="modal-body">
-				<!-- 検索部 -->
-
-					<div class="row">
-						<div class="col-5">
-							<div class="input-group mb-2">
-								<div class="input-group-prepend">
-									<div class="input-group-text">仕入れ先コード</div>
-								</div>
-							<input type="text" class="form-control" id="">
-							</div>
-						</div>
-					</div>
-					
-					<div class="row">
-						<div class="col-5">
-							<div class="input-group mb-2">
-								<div class="input-group-prepend">
-									<div class="input-group-text">仕入れ先名</div>
-								</div>
-							<input type="text"  class="form-control" id="">
-							</div>
-						</div>
-						<div class="col-6">
-							<div class="input-group mb-2">
-								<div class="input-group-prepend">
-									<div class="input-group-text">仕入れ先カナ</div>
-								</div>
-							<input type="text"  class="form-control" id="">
-							</div>
-						</div>
-					</div>
-					
-					<div class="row float-right">
-						<button class="btn btn-secondary">初期化</button>&emsp;
-						<button class="btn btn-secondary">検索</button>&emsp;
-					</div>
-					<br><br>
-					<!-- テーブル部（検索結果） -->
-					検索結果件数：2件<br>
-
-					<table class="table table-bordered">
-						<!-- ヘッダ部 -->
-						<thead class="thead-dark">
-						<tr>
-							<th>仕入れ先コード</th>
-							<th>仕入れ先名</th>
-							<th>担当者</th>
-							<th>取引区分</th>
-							<th>備考</th>
-						</tr>
-						</thead>
-						<!-- 内部 -->
-						<tr>
-							<td class="cursor-pointer" id="supplierCode1" onclick="selectSupplierCode()" data-dismiss="modal"><a href="">1</a></td>
-							<td id="supplierName1" onclick="selectSupplierCode()" data-dismiss="modal"><a href="">アンパンマン食品</a></td>
-							<td>ジャムおじさん</td>
-							<td>現金</td>
-							<td>アンパンマンのことならお任せしたかったよ</td>
-						</tr>
-						<tr>
-							<td class="cursor-pointer">10</td>
-							<td>とことこ寝具</td>
-							<td>寝巻</td>
-							<td>サンプル</td>
-							<td>ふかふかお布団</td>
-						</tr>
-					</table>
-
-			</div>
-
-			<div class="modal-footer">
-				<button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-			</div>
-
-		</div>
-	</div>
-</div>
-
+<%@ include file= "../common/_supplierSearch.jsp" %>
 <!-- modal page(configuration)-->
 <div class="modal fade" id="setSlipConfiguration" tabindex="-1" role="dialog" aria-labelledby="label1" aria-hidden="true">
 	<div class="modal-dialog" role="document">
@@ -785,28 +411,6 @@
 				<div class="row container">
 				&emsp;
 				<select size="7" id="notShowSearchResult" name="notShowSearchResult" style="width: 160px;">
-					<!--
-					<option value="見積番号">見積番号</option>
-					<option value="見積日">見積日</option>
-					<option value="有効期限">有効期限</option>
-					<option value="伝票合計">伝票合計</option>
-					<option value="件名">件名</option>
-					<option value="提出先名">提出先名</option>
-					<option value="提出先敬称">提出先敬称</option>
-					<option value="顧客コード">顧客コード</option>
-					<option value="顧客名">顧客名</option>
-					
-					<option value="10">粗利益</option>
-					<option value="11">粗利益率</option>
-					<option value="12">金額合計</option>
-					<option value="13">消費税</option>
-					<option value="14">納期または出荷日</option>
-					<option value="15">入力担当者名</option>
-					<option value="16">入力担当者コード</option>
-					<option value="17">摘要</option>
-					<option value="18">納入先</option>
-					<option value="19">見積条件</option>
-					-->
 
 				</select>
 				&emsp;
@@ -820,18 +424,7 @@
 				
 				&emsp;
 				<select size="7" id="showSearchResult" name="showSearchResult" style="width: 160px;">
-					<!--
-					<option value="粗利益">粗利益</option>
-					<option value="粗利益率">粗利益率</option>
-					<option value="金額合計">金額合計</option>
-					<option value="消費税">消費税</option>
-					<option value="納期または出荷日">納期または出荷日</option>
-					<option value="入力担当者名">入力担当者名</option>
-					<option value="入力担当者コード">入力担当者コード</option>
-					<option value="摘要">摘要</option>
-					<option value="納入先">納入先</option>
-					<option value="見積条件">見積条件</option>
-					-->
+
 				</select>
 					&emsp;
 					<table>
@@ -846,7 +439,7 @@
 
 			<div class="modal-footer">
 				<button type="button" class="btn btn-primary" onclick="initConfig();">初期化</button>                            
-				<button type="button" class="btn btn-primary" onclick="modifyConfig();" data-dismiss="modal">更新</button>                            
+				<button type="button" class="btn btn-primary" onclick="modifyConfig();" data-dismiss="modal" id="configModalConfirm">更新</button>                            
 				<button type="button" class="btn btn-primary" data-dismiss="modal">閉じる</button>
 			</div>
 
@@ -854,13 +447,16 @@
 	</div>
 </div>
 
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.2/jquery.min.js"></script>
+
+
 <script>
 	var unselectedArr = [];
 	var selectedArr = [];
 	var detailUnselectedArr = [];
 	var detailSelectedArr = [];
 	var mylist = [];
+	var orderBy = "ASC";
+	var startPage;
 
 	function initPage(){
 		if(!confirm("入力内容を初期化してよろしいですか？")){
@@ -869,19 +465,10 @@
         location.reload();
 	}
 
-	function excelOut(){
-		if(!confirm("検索結果をExcelファイルでダウンロードしますか？")){
-           	return;
-    	}
-
-	}
-	
-	function submitForm(){
-		document.getElementById('mainform').submit();
-	}
-
 	$(document).ready(function(){
+	
 		var loop=0;
+				
 		<c:forEach var="test" items="${configDetailShow}">
 		detailSelectedArr[loop] = {
 				    value:"${test.categoryCode}",
@@ -916,10 +503,6 @@
 			  };
   		loop++;
 		</c:forEach>
-//		unselectedArr = ["見積番号", "見積日", "有効期限", "伝票合計", "件名", "提出先名", "提出先敬称", "顧客コード", "顧客名"];
-//		selectedArr = ["粗利益", "粗利益率", "金額合計", "消費税", "納期または出荷日", "入力担当者名", "入力担当者コード", "摘要", "納入先", "見積条件"];
-//		detailUnselectedArr = ["出荷日","納期指定日","受付番号","入力担当者コード","入力担当者名","摘要","[明細]顧客コード","[明細]完納区分","[明細]売上単価","[明細]仕入金額","[明細]売価金額","粗利益","粗利益率","金額合計","消費税","伝票合計","受注残数"];
-//		detailSelectedArr = ["受注番号-行","受注日","顧客名","[明細]商品名","[明細]数量","[明細]仕入単価","[明細]備考"];
 
 		var headcontents= '';
 
@@ -947,7 +530,7 @@
 
 		headcontents += '<tr>';
 		for(var i = 0; i < selectedArr.length; i++){
-			headcontents += '<th scope="col" class="sort th_back_black" style="cursor: pointer; height: 30px;">'+ selectedArr[i].name +'</th>';
+			headcontents += '<th scope="col" class="sort th_back_black" style="cursor: pointer; height: 30px; width: 135px; font-size: 10pt;"><a onclick="searchandsort(this)">'+ selectedArr[i].name +'</a></th>';
 		}               
 		headcontents += '</tr>';
 
@@ -964,39 +547,21 @@
 		$('#showSearchResult option:selected').appendTo('#notShowSearchResult');
 		$('#showSearchResult option:selected').remove();
 	}
-	
-	function selectCustomerCode(){
-		var customerCode = document.getElementById("customerCode1").innerText;
-		var customerName = document.getElementById("customerName1").innerText;
-
-		document.getElementById("customerCodeInput").value = customerCode;
-		document.getElementById("customerNameInput").value = customerName;
 		
+	function selectCustomerCode(code, name){
+		document.getElementById("customerCodeInput").value = code;
+		document.getElementById("customerNameInput").value = name;		
 	}
 
-	function selectProductCode(obj){
-		
-		var productCode = obj.innerText;
-
-		document.getElementById("productCodeInput").value = productCode;
+	function selectProductModal(code, name){
+		document.getElementById("productCodeInput").value = code;
+		document.getElementById("productNameInput").value = name;
 	}
 	
-	function selectProductName(obj){
-		
-		var productName = obj.innerText;
-
-		document.getElementById("productNameInput").value = productName;
+	function selectSupplierCode(code, name){
+		document.getElementById("supplierCodeInput").value = code;
+		document.getElementById("supplierNameInput").value = name;
 	}
-
-	function selectSupplierCode(){
-		var supplierCode = document.getElementById("supplierCode1").innerText;
-		var supplierName = document.getElementById("supplierName1").innerText;
-
-		document.getElementById("supplierCodeInput").value = supplierCode;
-		document.getElementById("supplierNameInput").value = supplierName;
-	}
-
-
 
 	$("#sel_up").click(function() {
 		var opt = $("#showSearchResult option:selected");
@@ -1014,27 +579,49 @@
 
 	function initConfig(){
 
+		var e = document.getElementById("select_view");
+		var sel_view = e.options[e.selectedIndex].value;
+
 		$("select#showSearchResult option").remove();
 		$("select#notShowSearchResult option").remove();
-
-		for(var i = 0; i < selectedArr.length; i++){
-			$("#showSearchResult").append("<option value = " + selectedArr[i].value + ">" + selectedArr[i].name + "</option>")
-		}
-
-		for(var i = 0; i < unselectedArr.length; i++){
-			$("#notShowSearchResult").append("<option value = " + unselectedArr[i].value + ">" + unselectedArr[i].name + "</option>")
+		
+		if(sel_view == "伝票"){
+			for(var i = 0; i < selectedArr.length; i++){
+				$("#showSearchResult").append("<option value = " + selectedArr[i].value + ">" + selectedArr[i].name + "</option>")
+			}
+	
+			for(var i = 0; i < unselectedArr.length; i++){
+				$("#notShowSearchResult").append("<option value = " + unselectedArr[i].value + ">" + unselectedArr[i].name + "</option>")
+			}
+		} else {
+			for(var i = 0; i < selectedArr.length; i++){
+				$("#showSearchResult").append("<option value = " + detailSelectedArr[i].value + ">" + selectedArr[i].name + "</option>")
+			}
+	
+			for(var i = 0; i < unselectedArr.length; i++){
+				$("#notShowSearchResult").append("<option value = " + detailUnselectedArr[i].value + ">" + unselectedArr[i].name + "</option>")
+			}
+			
 		}
 	}
 
 	function modifyConfig(){
+		document.getElementById("configModalConfirm").setAttribute("data-dismiss","modal");
+		var exists = false; 
+		$('#showSearchResult option').each(function(){ if (this.value == 'roSlipId') { exists = true; return false; } });
+		
+		if(exists == false){
+			initConfig();
+			alert("error");
+			document.getElementById("configModalConfirm").removeAttribute("data-dismiss");
+		}
+		
 		var e = document.getElementById("select_view");
 		var sel_view = e.options[e.selectedIndex].value;
 
 		if(sel_view == "伝票"){
 			selectedArr = [];
 			unselectedArr = [];
-//			selectedArr = $("#showSearchResult>option").map(function() { return $(this).text(); });
-//			unselectedArr = $("#notShowSearchResult>option").map(function() { return $(this).text(); });
 			for(var i = 0; i<document.getElementById('showSearchResult').length; i++){
 				selectedArr[i] = {
 						value:document.getElementById('showSearchResult')[i].value,
@@ -1053,7 +640,7 @@
 			
 			headcontents += '<tr>';
 			for(var i = 0; i < selectedArr.length; i++){
-				headcontents += '<th scope="col" class="sort th_back_black" style="cursor: pointer; height: 30px;">'+ selectedArr[i].name +'</th>';
+				headcontents += '<th scope="col" class="sort th_back_black" style="cursor: pointer; height: 30px; width: 135px; font-size: 10pt;"><a onclick="searchandsort(this)">'+ selectedArr[i].name +'</a></th>';
 			}               
 			headcontents += '</tr>';
 
@@ -1062,8 +649,6 @@
 		else {
 			detailSelectedArr = [];
 			detailUnselectedArr = [];
-//			detailSelectedArr = $("#showSearchResult>option").map(function() { return $(this).text(); });
-//			detailUnselectedArr = $("#notShowSearchResult>option").map(function() { return $(this).text(); });
 			for(var i = 0; i<document.getElementById('showSearchResult').length; i++){
 				detailSelectedArr[i] = {
 						value:document.getElementById('showSearchResult')[i].value,
@@ -1082,7 +667,7 @@
 			
 			headcontents += '<tr>';
 			for(var i = 0; i < detailSelectedArr.length; i++){
-				headcontents += '<th scope="col" class="sort th_back_black" style="cursor: pointer; height: 30px;">'+ detailSelectedArr[i].name +'</th>';
+				headcontents += '<th scope="col" class="sort th_back_black" style="cursor: pointer; height: 30px; width: 135px; font-size: 10pt;"><a onclick="searchandsort(this)">'+ detailSelectedArr[i].name +'</a></th>';
 			}               
 			headcontents += '</tr>';
 
@@ -1143,8 +728,6 @@
 		if(sel_view == "伝票"){
 			selectedArr = [];
 			unselectedArr = [];
-//			selectedArr = $("#showSearchResult>option").map(function() { return $(this).text(); });
-//			unselectedArr = $("#notShowSearchResult>option").map(function() { return $(this).text(); });
 			for(var i = 0; i<document.getElementById('showSearchResult').length; i++){
 				selectedArr[i] = {
 						value:document.getElementById('showSearchResult')[i].value,
@@ -1163,7 +746,7 @@
 			
 			headcontents += '<tr>';
 			for(var i = 0; i < selectedArr.length; i++){
-				headcontents += '<th scope="col" class="sort th_back_black" style="cursor: pointer; height: 30px;">'+ selectedArr[i].name +'</th>';
+				headcontents += '<th scope="col" class="sort th_back_black" style="cursor: pointer; height: 30px; width: 135px; font-size: 10pt;" ><a onclick="searchandsort(this)">'+ selectedArr[i].name +'</a></th>';
 			}               
 			headcontents += '</tr>';
 
@@ -1172,8 +755,6 @@
 		else {
 			detailSelectedArr = [];
 			detailUnselectedArr = [];
-//			detailSelectedArr = $("#showSearchResult>option").map(function() { return $(this).text(); });
-//			detailUnselectedArr = $("#notShowSearchResult>option").map(function() { return $(this).text(); });
 			for(var i = 0; i<document.getElementById('showSearchResult').length; i++){
 				detailSelectedArr[i] = {
 						value:document.getElementById('showSearchResult')[i].value,
@@ -1192,7 +773,7 @@
 			
 			headcontents += '<tr>';
 			for(var i = 0; i < detailSelectedArr.length; i++){
-				headcontents += '<th scope="col" class="sort th_back_black" style="cursor: pointer; height: 30px;">'+ detailSelectedArr[i].name +'</th>';
+				headcontents += '<th scope="col" class="sort th_back_black" style="cursor: pointer; height: 30px; width: 135px; font-size: 10pt;"><a onclick="searchandsort(this)">'+ detailSelectedArr[i].name +'</a></th>';
 			}               
 			headcontents += '</tr>';
 
@@ -1202,6 +783,7 @@
 	}
 	
 	window.onload = function(){
+
 		var loop=0;
 		
 		<c:forEach var="test" items="${category}" >
@@ -1225,10 +807,10 @@
 				objSel.add(objOption);
 			}
 		}
+		
+		
 	}
 
-	
-	
 		//カテゴリー
 		function selectPro1(){
 	
@@ -1284,38 +866,8 @@
 		    var temp = "${Category2}"; 
 		    $("#product2").val(temp);
 		});
+				
 		
-		function productSearch() {
-			
-			var formString = $("form[id=product]").serialize();
-			var tmp = "";
-			
-			$.ajax({
-				url:'/SalesCube2020/SalesCubeAJAX?action=productSearch',
-				type:'post',
-				data:formString,
-				dataType:'json',
-				success:function(data){	
-					$("#productResult > tr").remove();
-					for(var i = 0; i<Object.keys(data).length; i++){
-						var headcontents= '';
-						headcontents += '<tr>';
-						headcontents += '<td style="white-space: normal; text-align: left;" onclick="selectProductCode(this)" data-dismiss="modal"><a href="">'+data[i].productCode+'</a></td>';
-						headcontents += '<td style="white-space: normal; text-align: left;" onclick="selectProductName(this)" data-dismiss="modal"><a href="">'+data[i].productName+'</a></td>';
-						headcontents += '<td style="white-space: normal; text-align: left;">'+(data[i].supplierName==null ? '' : data[i].supplierName)+'</td>';   
-						headcontents += '</tr>';
-						$('#productResult').append(headcontents);						
-					}
-					$('#productSearchResultCount').text(+Object.keys(data).length);
-				}
-			});
-		}
-		
-		function initproductModal(){
-			$("#productResult > tr").remove();
-			$('#productSearchResultCount').text("0");
-			$("#product")[0].reset(); 
-		}
 		
 		function search(){
 			var selArr = [];
@@ -1345,6 +897,104 @@
 					"deliveryDayStart": $("#shipDayStart").val(),
 					"deliveryDayEnd": $("#shipDayStart").val(),
 					"withdrawl": checkedData,
+					"productCode": $("#productCodeInput").val(),
+					"productName": $("#productNameInput").val(),
+					"product1": $("#product1").val(),
+					"product2": $("#product2").val(),
+					"product3": $("#product3").val(),
+					"supplierCode": $("#supplierCodeInput").val(),
+					"supplierName": $("#supplierNameInput").val(),
+					"rowCount": $("#rowCount option:selected").val(),
+					"list":selArr,
+					"orderBy": orderBy
+				},
+				dataType:'json',
+				success:function(data){	
+					var count = data[Object.keys(data).length-2]["totalCount"];
+					if(count != "0"){
+						$("#AddOption > tr").remove();
+						for(var i = 0; i<Object.keys(data).length - 3; i++){
+							var headcontents= '';
+							headcontents += '<tr>';
+							for(var j = 0; j < selArr.length; j++){
+								var tmp;
+								if(data[i][j] == null)
+									tmp = "";
+								else if(isNaN(data[i][j]) == false)
+									tmp = Math.floor(data[i][j]);
+								else
+									tmp = data[i][j];
+								headcontents += '<td>' + tmp + '</td>';
+							}
+							
+							headcontents += '</tr>';
+							$('#AddOption').append(headcontents);						
+						}
+
+						$('#resultCount').text(count);
+						$("#paging > a").remove();
+						
+						var lastCount = data[Object.keys(data).length-1]["totalPage"];
+						var pagingNo;
+						var num = 1;
+						num *= 1;
+						
+						if(lastCount > (num+5)){
+							pagingNo = num+5;
+						} else {
+							pagingNo = lastCount;
+						}
+
+						if(lastCount > 6 && num != 1)
+							$("#paging").append('<a href="#" onclick="paging(1)">'+'最初へ'+'</a> ');
+						for(var i = num ; i<=pagingNo ; i++){
+							$("#paging").append('<a href="#" onclick="paging('+(i)+')">'+(i)+'</a> ');
+						}
+						if(lastCount > 6 && (num+2) != lastCount)
+							$("#paging").append('<a href="#" onclick="paging('+(lastCount)+')">'+'最後へ'+'</a> ');
+					} else {
+						alert("検索結果がありません。");
+					}
+					
+				}
+			});
+		}
+		
+		function searchandsort(obj){
+			var selArr = [];
+			var checkedData = [];
+			for(var i = 0; i<document.getElementById('showSearchResult').length; i++){
+				selArr[i] = document.getElementById('showSearchResult')[i].value
+			}
+
+			$("input[name='withdrawl']:checked").each(function() {
+				var test = $(this).val();
+				checkedData.push(test);
+			});
+			var sorting = $(obj).text();
+			document.getElementById("hiddenSort").value = sorting;
+			
+			jQuery.ajaxSettings.traditional = true;
+			
+			if(orderBy == "ASC")
+				orderBy = "DESC"
+			else
+				orderBy = "ASC"
+			
+			$.ajax({
+				url:'/SalesCube2020/SalesCubeAJAX?action=orderSearch',
+				type:'post',
+				data:{
+					"selectView": $("#select_view option:selected").val(),
+					"orderNo": $("#orderNumber").val(),
+					"repNo": $("#repNo").val(),
+					"orderDayStart": $("#orderDayStart").val(),
+					"orderDayEnd": $("#orderDayEnd").val(),
+					"shipDayStart": $("#shipDayStart").val(),
+					"shipDayEnd": $("#shipDayStart").val(),
+					"deliveryDayStart": $("#shipDayStart").val(),
+					"deliveryDayEnd": $("#shipDayStart").val(),
+					"withdrawl": checkedData,
 					"productCodeInput": $("#productCodeInput").val(),
 					"productNameInput": $("#productNameInput").val(),
 					"product1": $("#product1").val(),
@@ -1353,26 +1003,256 @@
 					"supplierCodeInput": $("#supplierCodeInput").val(),
 					"supplierNameInput": $("#supplierNameInput").val(),
 					"rowCount": $("#rowCount option:selected").val(),
-					"list":selArr
+					"list": selArr, 
+					"sorting": sorting,
+					"orderBy": orderBy
 				},
 				dataType:'json',
 				success:function(data){	
 					$("#AddOption > tr").remove();
-					for(var i = 0; i<Object.keys(data).length; i++){
+					for(var i = 0; i<Object.keys(data).length - 3; i++){
 						var headcontents= '';
 						headcontents += '<tr>';
 						for(var j = 0; j < selArr.length; j++){
-							headcontents += '<td>' + data[i][j] + '</td>';
+							var tmp;
+							if(data[i][j] == null)
+								tmp = "";
+							else if(isNaN(data[i][j]) == false)
+								tmp = Math.floor(data[i][j]);
+							else
+								tmp = data[i][j];
+							headcontents += '<td>' + tmp + '</td>';
 						}
 						headcontents += '</tr>';
 						$('#AddOption').append(headcontents);						
 					}
 					
-					$('#resultCount').text(+Object.keys(data).length);
+					$('#resultCount').text(data[Object.keys(data).length-2]["totalCount"]);
+					$("#paging > a").remove();
+					
+					var lastCount = data[Object.keys(data).length-1]["totalPage"];
+					var pagingNo;
+					var num = document.getElementById("hiddenPaging").value;
+					num *= 1;
+					if(lastCount > (num+3)){
+						pagingNo = num+3;
+					} else {
+						pagingNo = lastCount;
+					}
+
+					if(num-3 <= 0){
+						num = 1;
+					} else {
+						num -= 2;
+					}
+					if(lastCount > 6 && num != 1)
+						$("#paging").append('<a href="#" onclick="paging(1)">'+'最初へ'+'</a> ');
+					for(var i = num ; i<=pagingNo ; i++){
+						$("#paging").append('<a href="#" onclick="paging('+(i)+')">'+(i)+'</a> ');
+					}
+					if(lastCount > 6 && (num+2) != lastCount)
+						$("#paging").append('<a href="#" onclick="paging('+(lastCount)+')">'+'最後へ'+'</a> ');
 				}
 			});
 		}
+		
+		function paging(num){
+			var selArr = [];
+			var checkedData = [];
+			for(var i = 0; i<document.getElementById('showSearchResult').length; i++){
+				selArr[i] = document.getElementById('showSearchResult')[i].value
+			}
 
+			$("input[name='withdrawl']:checked").each(function() {
+				var test = $(this).val();
+				checkedData.push(test);
+			});
+			var sorting = document.getElementById("hiddenSort").value;
+
+			document.getElementById("hiddenPaging").value = num;
+			
+			
+			jQuery.ajaxSettings.traditional = true;
+			
+			$.ajax({
+				url:'/SalesCube2020/SalesCubeAJAX?action=orderSearch',
+				type:'post',
+				data:{
+					"selectView": $("#select_view option:selected").val(),
+					"orderNo": $("#orderNumber").val(),
+					"repNo": $("#repNo").val(),
+					"orderDayStart": $("#orderDayStart").val(),
+					"orderDayEnd": $("#orderDayEnd").val(),
+					"shipDayStart": $("#shipDayStart").val(),
+					"shipDayEnd": $("#shipDayStart").val(),
+					"deliveryDayStart": $("#shipDayStart").val(),
+					"deliveryDayEnd": $("#shipDayStart").val(),
+					"withdrawl": checkedData,
+					"productCodeInput": $("#productCodeInput").val(),
+					"productNameInput": $("#productNameInput").val(),
+					"product1": $("#product1").val(),
+					"product2": $("#product2").val(),
+					"product3": $("#product3").val(),
+					"supplierCodeInput": $("#supplierCodeInput").val(),
+					"supplierNameInput": $("#supplierNameInput").val(),
+					"rowCount": $("#rowCount option:selected").val(),
+					"list": selArr, 
+					"sorting": sorting,
+					"paging": num,
+					"orderBy": orderBy
+				},
+				dataType:'json',
+				success:function(data){	
+					$("#AddOption > tr").remove();
+					for(var i = 0; i<Object.keys(data).length - 3; i++){
+						var headcontents= '';
+						headcontents += '<tr>';
+						for(var j = 0; j < selArr.length; j++){
+							var tmp;
+							if(data[i][j] == null)
+								tmp = "";
+							else if(isNaN(data[i][j]) == false)
+								tmp = Math.floor(data[i][j]);
+							else
+								tmp = data[i][j];
+							headcontents += '<td>' + tmp + '</td>';
+						}
+						headcontents += '</tr>';
+						$('#AddOption').append(headcontents);						
+					}
+					
+					$('#resultCount').text(data[Object.keys(data).length-2]["totalCount"]);
+					$("#paging > a").remove();
+					
+					var lastCount = data[Object.keys(data).length-1]["totalPage"];
+					var pagingNo;
+
+					if(lastCount > (num+3)){
+						pagingNo = num+3;
+					} else {
+						pagingNo = lastCount;
+					}
+
+					if(num-3 <= 0){
+						num = 1;
+					} else {
+						num -= 2;
+					}
+
+					if(num == 1)
+						pagingNo = 6;
+					if(lastCount > 6 && num != 1)
+						$("#paging").append('<a href="#" onclick="paging(1)">'+'最初へ'+'</a> ');
+					for(var i = num ; i<=pagingNo ; i++){
+						$("#paging").append('<a href="#" onclick="paging('+(i)+')">'+(i)+'</a> ');
+					}
+					if(lastCount > 6 && (num+2) != lastCount)
+						$("#paging").append('<a href="#" onclick="paging('+(lastCount)+')">'+'最後へ'+'</a> ');
+					
+				}
+			});
+		}
+		
+		shortcut.add("F1", function() {
+			initPage();
+		});
+		shortcut.add("F2", function() {
+		    search();
+		});
+		shortcut.add("F3", function() {
+		    document.getElementById("csvDownloadButton").click();
+		});
+		shortcut.add("F4", function() {
+			document.getElementById("openConfigModal").click();
+		});
+		
+		function getTimeStamp() {
+			  var d = new Date();
+			  var s =
+			    leadingZeros(d.getFullYear(), 4) + '-' +
+			    leadingZeros(d.getMonth() + 1, 2) + '-' +
+			    leadingZeros(d.getDate(), 2) + ' ' +
+
+			    leadingZeros(d.getHours(), 2) + "-" +
+			    leadingZeros(d.getMinutes(), 2) + "-" +
+			    leadingZeros(d.getSeconds(), 2);
+
+			  return s;
+			}
+
+			function leadingZeros(n, digits) {
+			  var zero = '';
+			  n = n.toString();
+
+			  if (n.length < digits) {
+			    for (i = 0; i < digits - n.length; i++)
+			      zero += '0';
+			  }
+			  return zero + n;
+			}
+
+
+		class ToCSV {
+		    constructor() {
+		        document.querySelector('#csvDownloadButton').addEventListener('click', e => {
+		        	if(!confirm("検索結果をExcelファイルでダウンロードしますか？")){
+		               	return;
+		        	}
+		            e.preventDefault()
+		            this.getCSV('受注検索('+ getTimeStamp() +').csv')
+		        })
+		    }
+
+		    downloadCSV(csv, filename) {
+		        let csvFile;
+		        let downloadLink;
+		        
+		        const BOM = "\uFEFF";
+		        csv = BOM + csv
+
+		        csvFile = new Blob([csv], {type: "text/csv"})
+
+		        downloadLink = document.createElement("a")
+		        downloadLink.download = filename;
+		        downloadLink.href = window.URL.createObjectURL(csvFile)
+		        downloadLink.style.display = "none"
+		        document.body.appendChild(downloadLink)
+		        downloadLink.click()
+		    }
+
+		    getCSV(filename) {
+
+
+		        var csv = []
+		        var rows = document.querySelectorAll("#AddHead > tr")
+
+		        for (let i = 0; i < rows.length; i++) {
+		            const row = [], cols = rows[i].querySelectorAll("td, th")
+
+		            for (let j = 0; j < cols.length; j++)
+		                row.push(cols[j].innerText)
+
+		            csv.push(row.join(","))
+		        }
+
+		        var rows = document.querySelectorAll("#AddOption > tr")
+
+		        for (let i = 0; i < rows.length; i++) {
+		            const row = [], cols = rows[i].querySelectorAll("td, th")
+
+		            for (let j = 0; j < cols.length; j++)
+		                row.push(cols[j].innerText)
+
+		            csv.push(row.join(","))
+		        }
+		        
+		        this.downloadCSV(csv.join("\n"), filename)
+		    }
+		}
+
+		document.addEventListener('DOMContentLoaded', e => {
+		    new ToCSV()
+		})
 </script>
 </body>
 </html>

@@ -40,6 +40,7 @@ public class CreateControllers {
 		BaseController getCategoryObj = new GetCategoryController();
 		BaseController userObj = new UserController();
 		BaseController orderObj = new OrderMoveController();
+		BaseController orderInputObj = new OrderInputController();
 		BaseController orderSearchObj = new OrderSearchController();
 		BaseController estimateAddObj = new EstimateAddController();
 		BaseController estimateModifyObj = new EstimateModifyController();
@@ -95,9 +96,13 @@ public class CreateControllers {
 		map.put( "logout", userObj);
 		
 		map.put( "orderinput", orderObj);
-		map.put( "orderedit", orderObj);
+		map.put( "orderupdate", orderObj);
 		map.put( "ordersearch", orderObj);
 		map.put( "onlineorder", orderObj);
+		
+		map.put( "orderinputCmp", orderInputObj);
+		map.put( "orderupdateCmp", orderInputObj);
+		map.put( "stocksearch", orderInputObj);
 		
 		map.put( "productModalSearch", orderSearchObj);
 		

@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.util.HashMap;
 
 import javax.servlet.ServletException;
+import javax.servlet.annotation.MultipartConfig;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -13,6 +14,7 @@ import com.google.gson.JsonObject;
 import common.controller.BaseAJAXController;
 import common.controller.CreateAJAXControllers;
 
+@MultipartConfig
 public class SalesCubeAJAXServlet extends HttpServlet {
 	
 	private HashMap<String, BaseAJAXController> ajaxControllerList;

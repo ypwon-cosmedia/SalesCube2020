@@ -5,6 +5,11 @@
 
 <!doctype html>
 <html lang="en">
+	
+	<%@ include file="/common/_customerSearch.jsp" %>
+	<%@ include file="/estimate/_userSearch.jsp" %>
+	<%@ include file="/estimate/_estimateConfiguration.jsp" %>
+
   <head>
     <!-- Required meta tags -->
     <meta charset="utf-8">
@@ -153,7 +158,7 @@
               </a>
               <div class="dropdown-menu" aria-labelledby="navbarDropdown">
                 <a class="dropdown-item" href="estimateadd.html">見積入力</a>
-                <a class="dropdown-item" href="estimateSearch.html">見積検索</a>
+                <a class="dropdown-item" href="estimateSearch.jsp">見積検索</a>
                 <a class="dropdown-item" href="unitpriceinquiry.html">単価照会</a>
               </div>
             </li>
@@ -181,9 +186,9 @@
         
           <div class="btn-group mr-2 " role="group" aria-label="First group">
             <button type="button" class="btn btn-secondary" style="font-size: 12px;" onclick="initForm()">F1<br>初期化</button>
-            <button type="button" class="btn btn-secondary" style="font-size: 12px;" onclick="estimateSearch()">F2<br>検索</button>
+            <button type="button" class="btn btn-secondary" style="font-size: 12px;" onclick="estimateHidden()">F2<br>検索</button>
             <button type="button" class="btn btn-secondary" style="font-size: 12px;" onclick="excelOut()">F3<br>Excel出力</button>
-            <button type="button" class="btn btn-secondary" style="font-size: 12px;" data-toggle="modal" data-target="#setSlipConfiguration">F4<br>設定</button>
+            <button type="button" class="btn btn-secondary" style="font-size: 12px;" data-toggle="modal" data-target="#setSlipConfiguration" onclick="configGet() ; initButton()">F4<br>設定</button>
             <button type="button" class="btn btn-secondary" style="font-size: 12px;" disabled>F5<br></button>
             <button type="button" class="btn btn-secondary" style="font-size: 12px;" disabled>F6<br></button>
             <button type="button" class="btn btn-secondary" style="font-size: 12px;" disabled>F7<br></button>
@@ -207,27 +212,27 @@
           <form action="" method="post">
             <div class="row">
               <div class="col-4">
-                <label class="sr-only" for="inlineFormInputGroup">productCode</label>
+                <label class="sr-only" for="inlineFormInputGroup">estimateSheetId</label>
                 <div class="input-group mb-2">
                   <div class="input-group-prepend">
                       <div class="input-group-text">見積番号</div>
                   </div>
-                  <input type="text"  class="form-control" id="inlineFormInputGroup">
+                  <input type="text"  class="form-control" id="estimateSheetId" name="estimateSheetId">
                 </div>
               </div>
               <div class="col-7">
-                <label class="sr-only" for="inlineFormInputGroup">productName</label>
+                <label class="sr-only" for="inlineFormInputGroup">estimateDate</label>
                 <div style="display: flex;">
                 <div class="input-group"  style="height: 38px;">
                   <div class="input-group-prepend">
                     <div class="input-group-text">見積日</div>
                   </div>
-                  <input type="date">&ensp; 
+                  <input type="date" id="estimateDateStart" name="estimateDateStart" max="9999-12-31">&ensp; 
                   <div style="margin-top: 7px;">～</div>
                 </div>
 
                 <div class="input-group" style="height: 38px; right: 45px;">
-                  <input type="date">
+                  <input type="date" id="estimateDateEnd" name="estimateDateEnd" max="9999-12-31">
                 </div>
                 </div>
 
@@ -236,18 +241,18 @@
             <br>
             <div class="row">
               <div class="col-7">
-                <label class="sr-only" for="inlineFormInputGroup">productKana</label>
+                <label class="sr-only" for="inlineFormInputGroup">validDate</label>
                 <div style="display: flex;">
                   <div class="input-group"  style="height: 38px;">
                     <div class="input-group-prepend">
                       <div class="input-group-text">有効期限</div>
                     </div>
-                    <input type="date"> &ensp; 
+                    <input type="date" id="validDateStart" name="validDateStart" max="9999-12-31"> &ensp; 
                     <div style="margin-top: 7px;">～</div>
                   </div>
   
                   <div class="input-group" style="height: 38px; right: 30px;">
-                    <input type="date">
+                    <input type="date" id="validDateEnd" name="validDateEnd" max="9999-12-31">
                   </div>
                   </div>
   
@@ -257,90 +262,89 @@
 
             <div class="row">
               <div class="col-4">
-                <label class="sr-only" for="inlineFormInputGroup">quantityDiscount</label>
+                <label class="sr-only" for="inlineFormInputGroup">userId</label>
                 <div class="input-group mb-2">
                   <div class="input-group-prepend">
                     <div class="input-group-text">入力担当者コード</div>
                   </div>
-                <input type="text"  class="form-control" id="inlineFormInputGroup">
-               <!---- <input type="image" name="" src="btn_search.png" tabindex="101" onclick="" style="vertical-align: middle; cursor: pointer; width: 32px;"> -->
-               <button type="button" style="height: 32px; width: 32px;" class="clear-decoration"><img src="btn_search.png" data-toggle="modal" data-target="#userSearch"></button>
+                <input type="text"  class="form-control" id="UserModalUserId" name="UserModalUserId">
+               <button type="button" style="height: 32px; width: 32px;" class="clear-decoration"><img src="btn_search.png" data-toggle="modal" data-target="#userSearch" onclick="initUser() ; getDeptCategory() ; getRoleCategory()"></button>
                 </div>
               </div>
 
               <div class="col-4">
-                <label class="sr-only" for="inlineFormInputGroup">quantityDiscount</label>
+                <label class="sr-only" for="inlineFormInputGroup">userName</label>
                 <div class="input-group mb-2">
                   <div class="input-group-prepend">
                     <div class="input-group-text">入力担当者名</div>
                   </div>
-                <input type="text"  class="form-control" id="inlineFormInputGroup">
-                <button type="button" style="height: 32px; width: 32px;" class="clear-decoration"><img src="btn_search.png" data-toggle="modal" data-target="#userSearch"></button>
+                <input type="text"  class="form-control" id="UserModalNameKnj" name="UserModalNameKnj">
+                <button type="button" style="height: 32px; width: 32px;" class="clear-decoration"><img src="btn_search.png" data-toggle="modal" data-target="#userSearch" onclick="initUser() ; getDeptCategory() ; getRoleCategory()"></button>
                 </div>
               </div>
             </div>
             <br>
             <div class="row">
               <div class="col-4">
-                <label class="sr-only" for="inlineFormInputGroup">quantityDiscount</label>
+                <label class="sr-only" for="inlineFormInputGroup">title</label>
                 <div class="input-group mb-2">
                   <div class="input-group-prepend">
                     <div class="input-group-text">件名</div>
                   </div>
-                <input type="text"  class="form-control" id="inlineFormInputGroup">
+                <input type="text"  class="form-control" id="title" name="title">
                 </div>
               </div>
 
               <div class="col-4">
-                <label class="sr-only" for="inlineFormInputGroup">quantityDiscount</label>
+                <label class="sr-only" for="inlineFormInputGroup">remarks</label>
                 <div class="input-group mb-2">
                   <div class="input-group-prepend">
                     <div class="input-group-text">摘要</div>
                   </div>
-                <input type="text"  class="form-control" id="inlineFormInputGroup">
+                <input type="text"  class="form-control" id="remarks" name="remarks">
                 </div>
               </div>
             </div>
             <br>
             <div class="row">
               <div class="col-8">
-                <label class="sr-only" for="inlineFormInputGroup">quantityDiscount</label>
+                <label class="sr-only" for="inlineFormInputGroup">submitName</label>
                 <div class="input-group mb-2">
                   <div class="input-group-prepend">
                     <div class="input-group-text">提出先名</div>
                   </div>
-                <input type="text"  class="form-control" id="inlineFormInputGroup">
+                <input type="text"  class="form-control" id="submitName" name="submitName">
                 </div>
               </div>
             </div>
             <br>
             <div class="row">
               <div class="col-4">
-                <label class="sr-only" for="inlineFormInputGroup">quantityDiscount</label>
+                <label class="sr-only" for="inlineFormInputGroup">customerCode</label>
                 <div class="input-group mb-2">
                   <div class="input-group-prepend">
                     <div class="input-group-text">顧客コード</div>
                   </div>
-                <input type="text"  class="form-control" id="customerCode">
-                <button type="button" style="height: 32px; width: 32px;" class="clear-decoration"><img src="btn_search.png" data-toggle="modal" data-target="#customerSearch"></button>
+                <input type="text"  class="form-control" id="CustomerModalCustomerCode" name="CustomerModalCustomerCode">
+                <button type="button" style="height: 32px; width: 32px;" class="clear-decoration"><img src="btn_search.png" data-toggle="modal" data-target="#customerSearch" onclick="initCustomer() ; getCutoffGroup()"></button>
                 </div>
               </div>
 
               <div class="col-4">
-                <label class="sr-only" for="inlineFormInputGroup">quantityDiscount</label>
+                <label class="sr-only" for="inlineFormInputGroup">customerName</label>
                 <div class="input-group mb-2">
                   <div class="input-group-prepend">
                     <div class="input-group-text">顧客名</div>
                   </div>
-                <input type="text"  class="form-control" id="customerName">
-                <button type="button" style="height: 32px; width: 32px;" class="clear-decoration"><img src="btn_search.png" data-toggle="modal" data-target="#customerSearch"></button>
+                <input type="text"  class="form-control" id="CustomerModalCustomerName" name="CustomerModalCustomerName">
+                <button type="button" style="height: 32px; width: 32px;" class="clear-decoration"><img src="btn_search.png" data-toggle="modal" data-target="#customerSearch" onclick="initCustomer() ; getCutoffGroup()"></button>
                 </div>
               </div>
             </div>
 
             <div class="rounded float-right">
               <button type="button" class="btn btn-primary" onclick="initForm()">初期化</button>
-              <input type="button" value="検索" class="btn btn-primary" onclick="estimateSearch()">
+              <input type="button" value="検索" class="btn btn-primary" onclick="estimateHidden()">
             </div><br>
           </form><br>
         </div><br>
@@ -350,7 +354,7 @@
       <div id="resultHidden" hidden>
         <div class="container">
             <div class="float-left" style="position:static; left: 0px;">
-              検索結果件数：3件
+              検索結果件数：<span id="resultCount">0</span>件
             </div>
       
           
@@ -366,7 +370,7 @@
 
       <div class="container">
           <div class="rounded float-right">
-            ページあたりの表示件数
+            		ページあたりの表示件数
             <select id="rowCount" name="rowCount">
               <option value="10">10</option>
               <option value="50">50</option>
@@ -405,7 +409,7 @@
               <th scope="col" class="th_back_black" style="cursor: pointer; ">見積条件</th>
             </tr>
           </thead>
-          <c:forEach items="${}" var="" >
+          
             <tr>
               <td style="text-align: left;" class="scrollnum"><a href="estimatemodify.html" class="cursor-pointer">1</a></td>
               <td style="text-align: left;">2015/08/12</td>
@@ -427,49 +431,46 @@
               <td style="text-align: left;">代引き</td>
               <td style="text-align: left;">201684</td>
 			</tr>
-          </c:forEach> 
+          
         </table>
       </div>
       
       <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.2/jquery.min.js"></script>
 	  <script>
 	  
-	  function estimateSearch(){
-		  $('#resultHidden').removeAttr('hidden');
-		  $('#resultHidden2').removeAttr('hidden');
-	}
-	  
-	  function a(){
-		  var showResult = document.getElementById('showSearchResult');   //optionタグを入れる箇所の指定
-		          for( var i = 0; i < showName.length ; i++ ){
-		              var option = document.createElement('option');              //optionタグの生成
-		              option.setAttribute('value', showID[i]);                    //value値の挿入
-		              option.innerHTML = showName[i];                             //HTMLで表示する項目名
-		              showResult.appendChild(option);                             //selectにoptionタグを挿入
-		          }
-		        }
-
+	  	//表示処理
+		  function estimateHidden(){
+			  $('#resultHidden').removeAttr('hidden');
+			  $('#resultHidden2').removeAttr('hidden');
+		  }
+		
 		  //初期化処理
 		  function initForm() {
 		        if(!confirm("入力内容を初期化してよろしいですか？")){
 		              return;
 		        }
-		        window.location.href = 'estimateSearch.html';
+		        window.location.href = 'estimateSearch.jsp';
 		      }
 		  
+		  //Excel出力
 		  function excelOut(){
 				if(!confirm("検索結果をExcelファイルでダウンロードしますか？")){
 		           	return;
 		    	}
+		  }
+			
+		  //顧客コード・顧客名の値をセット
+	      	function selectCustomerCode(code, name){
+          		document.getElementById('CustomerModalCustomerCode').value = code;
+          		document.getElementById('CustomerModalCustomerName').value = name;
+          	}
 		  
-		//顧客モダルから親画面への値遷移    
-		  function test(obj) {
-		       var customer = obj.id ;
-		       var list = customer.split(",");
-
-		        document.getElementById("customerCode").value = list[0];
-		        document.getElementById("customerName").value = list[1];
-		   }
+	      //担当者コード・担当者名の値をセット
+	     	function selectUserId(id, name){
+	      		document.getElementById('UserModalUserId').value = id;
+	      		document.getElementById('UserModalNameKnj').value = name;
+	      	}
+		  
 		 </script>
 	</body>
 </html>
