@@ -95,6 +95,7 @@ public class EstimateModifyController extends BaseController {
 		bean.setDeliveryInfo(request.getParameter("deliveryInfo"));
 		bean.setValidDate(request.getParameter("validDate"));
 		bean.setUserName(request.getParameter("userName"));
+		bean.setUserId(request.getParameter("userId"));
 		bean.setTitle(request.getParameter("title"));
 		bean.setDeliveryName(request.getParameter("deliveryName"));
 		bean.setEstimateCondition(request.getParameter("estimateCondition"));
@@ -171,7 +172,7 @@ public class EstimateModifyController extends BaseController {
 		
 		estimateSheetJasper jasper = new estimateSheetJasper();
 		String estimateSheetId = request.getParameter("estimateSheetId");
-		jasper.outputPdf(estimateSheetId);
+		jasper.outputPdf(estimateSheetId, response);
 			
 		return moveEstimateModify(request, response);
 		

@@ -23,6 +23,9 @@ public class InitEstimateBean {
 	/** 入力担当者 */
 	private String userName;
 	
+	/** 入力担当者ID */
+	private String userId;
+	
 	/** 件名 */
 	private String title;
 	
@@ -139,6 +142,20 @@ public class InitEstimateBean {
 	 */
 	public void setUserName(String userName) {
 		this.userName = userName;
+	}
+	
+	/**
+	 * @return the userId
+	 */
+	public String getUserId() {
+		return userId;
+	}
+
+	/**
+	 * @param userId the userId to set
+	 */
+	public void setUserId(String userId) {
+		this.userId = userId;
 	}
 
 	/**

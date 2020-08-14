@@ -77,6 +77,7 @@ public class EstimateAddController extends BaseController {
 		bean.setDeliveryInfo(request.getParameter("deliveryInfo"));
 		bean.setValidDate(request.getParameter("validDate"));
 		bean.setUserName(request.getParameter("userName"));
+		bean.setUserId(request.getParameter("userId"));
 		bean.setTitle(request.getParameter("title"));
 		bean.setDeliveryName(request.getParameter("deliveryName"));
 		bean.setEstimateCondition(request.getParameter("estimateCondition"));
