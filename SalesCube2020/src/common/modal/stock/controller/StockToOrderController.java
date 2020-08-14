@@ -7,10 +7,12 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import common.controller.BaseAJAXController;
+import common.controller.BaseController;
 import common.modal.stock.dao.StockDAO;
 import order.input.beans.OrderInputBean;
 
-public class StockToOrderController {
+public class StockToOrderController extends BaseController {
 
 	public String execService(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		

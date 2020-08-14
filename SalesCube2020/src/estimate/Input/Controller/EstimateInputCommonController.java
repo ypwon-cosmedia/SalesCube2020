@@ -115,7 +115,5 @@ public class EstimateInputCommonController extends BaseAJAXController  {
 		} catch (ClassNotFoundException | SQLException e) {
 			e.printStackTrace();
 		}
-		
 	}
-	
 }

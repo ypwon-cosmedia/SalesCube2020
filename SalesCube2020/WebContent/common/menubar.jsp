@@ -34,9 +34,9 @@
               見積
             </a>
             <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-              <a class="dropdown-item" href="#">見積入力</a>
-              <a class="dropdown-item" href="#">見積検索</a>
-              <a class="dropdown-item" href="#">単価照会</a>
+              <a class="dropdown-item" href="/SalesCube2020/SalesCube?action=moveEstimateAdd">見積入力</a>
+              <a class="dropdown-item" href="/SalesCube2020/SalesCube?action=moveEstimateSearch">見積検索</a>
+              <a class="dropdown-item" href="/SalesCube2020/SalesCube?action=moveUnitPriceInquiry">単価照会</a>
             </div>
           </li>
         </ul>

@@ -364,5 +364,4 @@ public class InitEstimateBean {
 	public void setCostTotal(Integer costTotal) {
 		this.costTotal = costTotal;
 	}
-
 }

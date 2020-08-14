@@ -77,10 +77,7 @@ public class UnitPriceInquiryController extends BaseController {
 			request.setAttribute("status","err");
 		} else {
 			request.setAttribute("status","result");
-		}
-			
+		}	
 		return forwardURL;
-		
 	}
-	
 }

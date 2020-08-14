@@ -8,6 +8,9 @@ package estimate.unitPriceInquiry.beans;
  *
  */
 public class UnitPriceInquirySearchResultBean {
+	/** 商品コード */
+	private String productCode;
+	
 	/** 商品名 */
 	private String productName;
 
@@ -50,6 +53,21 @@ public class UnitPriceInquirySearchResultBean {
 	/** 受注残数 */
 	private String quantityTotal;
 
+	
+	/**
+	 * @return the productName
+	 */
+	public String getProductCode() {
+		return productCode;
+	}
+
+	/**
+	 * @param productName the productName to set
+	 */
+	public void setProductCode(String productCode) {
+		this.productCode = productCode;
+	}
+	
 	/**
 	 * @return the productName
 	 */
@@ -245,5 +263,4 @@ public class UnitPriceInquirySearchResultBean {
 	public void setQuantityTotal(String quantityTotal) {
 		this.quantityTotal = quantityTotal;
 	}
-
 }

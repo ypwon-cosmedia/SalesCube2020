@@ -99,7 +99,7 @@ public class OrderInputBean {
 	private String deliveryEmail;
 	
 	/* 商品コード */
-	private Integer productCode;
+	private String productCode;
 	
 	/* 商品名 */
 	private String productName;
@@ -411,11 +411,11 @@ public class OrderInputBean {
 		this.deliveryEmail = deliveryEmail;
 	}
 
-	public Integer getProductCode() {
+	public String getProductCode() {
 		return productCode;
 	}
 
-	public void setProductCode(Integer productCode) {
+	public void setProductCode(String productCode) {
 		this.productCode = productCode;
 	}
 

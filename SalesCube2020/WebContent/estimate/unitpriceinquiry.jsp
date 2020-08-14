@@ -7,7 +7,7 @@
 <html>
 <head>
 <meta charset="utf-8">
-<title>Insert title here</title>
+<title>単価照会</title>
 <!-- Required meta tags -->
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
@@ -15,7 +15,6 @@
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
 
-    <title>単価照会</title>
     <style type="text/css">  
       .table {
         color: #0a0a0a;
@@ -163,7 +162,7 @@
       <div class="btn-toolbar float-right" role="toolbar" aria-label="Toolbar with button groups">
         <div class="btn-group mr-2 " role="group" aria-label="First group">
           <button type="button" class="btn btn-secondary" style="font-size: 12px;" onclick="initForm();">F1<br>初期化</button>
-          <button type="button" class="btn btn-secondary" style="font-size: 12px;" onclick="doSubmit();">F2<br>検索</button>
+          <button type="button" class="btn btn-secondary" style="font-size: 12px;" onclick="unitPriceInquirySearch();">F2<br>検索</button>
           <button type="button" class="btn btn-secondary" style="font-size: 12px;" disabled>F3<br></button>
           <button type="button" class="btn btn-secondary" style="font-size: 12px;" disabled>F4<br></button>
           <button type="button" class="btn btn-secondary" style="font-size: 12px;" disabled>F5<br></button>
@@ -178,8 +177,12 @@
       </div>
       <br><br><br>
     </div>
+    
+    <div class="container">
+      <div><h5 id="message" style="color:#ff0000;"></h5></div>
+    </div>
 
-    <form action="/SalesCube2020/SalesCube?action=unitPriceInquirySearch" method="post" name="mainform">
+    <form action="/SalesCube2020/SalesCube?action=unitPriceInquirySearch" method="post" name="unitpriceinquiryform">
       <div class="container" style="background-color: white;">
         <div class="panel panel-default" >
 			    <div class="panel-heading row mb-2 col-4">
@@ -195,7 +198,7 @@
 						    	<div class="input-group-prepend">
 						    		<div class="input-group-text">商品コード</div>
 						  		</div>
-                    <input type="text" value="" class="form-control" id="inlineFormInputGroup" name="productCode">
+                    <input type="text" value="${searchResult.productCode}" class="form-control" id="inlineFormInputGroup" name="productCode">
                     <button type="button" class="ModalButton"  data-toggle="modal" data-target="#setShipDate">
                       <img src="btn_search.png" style="vertical-align: middle; cursor: pointer; width: 32px; height: 32px;">
                     </button>
@@ -354,7 +357,7 @@
 		  if("${status}" == "result"){
 		      document.getElementById("resultHidden").removeAttribute("hidden");
 		  } else if("${status}" == "err") {
-			  alert("該当データが存在しませんでした。");
+			  document.getElementById("message").innerHTML = "該当データが存在しませんでした。";
 		  } else{}
 	  };
       
@@ -365,6 +368,11 @@
       }
       location.href = '/SalesCube2020/SalesCube?action=moveUnitPriceInquiry';
     }
-
+    
+    /* 単価照会(検索) */
+    function unitPriceInquirySearch() {
+		var form = document.unitpriceinquiryform;
+		form.submit();
+    }
   </script>
 </html>

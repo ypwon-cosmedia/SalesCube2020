@@ -14,7 +14,6 @@
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
 
-    <title>見積編集</title>
     <style type="text/css">  
       .table {
        color: #0a0a0a;
@@ -107,6 +106,9 @@
     </style>
 </head>
   <body style="background-color: gainsboro;">
+    <!-- モーダル -->
+  	<%@ include file="/estimate/_shipdate.jsp" %>
+	<%@ include file="/estimate/_quotationCondition.jsp" %>
     <!-- Optional JavaScript -->
     <!-- jQuery first, then Popper.js, then Bootstrap JS -->
     <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
@@ -158,7 +160,7 @@
             <path fill-rule="evenodd" d="M8 9a3 3 0 1 0 0-6 3 3 0 0 0 0 6z"/>
             <path fill-rule="evenodd" d="M8 1a7 7 0 1 0 0 14A7 7 0 0 0 8 1zM0 8a8 8 0 1 1 16 0A8 8 0 0 1 0 8z"/>
           </svg>
-        	<!-- ${userInfo.nameKNJ} --> 管理者&nbsp;     	
+        	${userInfo.nameKNJ}&nbsp;     	
         </span>
         <form class="form-inline" action="/SalesCube2020/SalesCube?action=logout" method="post">
           <button class="btn btn-outline-success my-2 my-sm-0" type="submit">ログアウト</button>
@@ -231,8 +233,8 @@
 						    	<div class="input-group-prepend">
 						    		<div class="input-group-text">納期または出荷日</div>
 						  		</div>
-                   <input type="text" value="${estimate.deliveryInfo}" class="form-control" id="inlineFormInputGroup" name="deliveryInfo">
-                   <button type="button" class="ModalButton"  data-toggle="modal" data-target="#setShipDate">
+                   <input type="text" value="${estimate.deliveryInfo}" class="form-control" id="deliveryInfo" name="deliveryInfo">
+                   <button type="button" class="ModalButton"  data-toggle="modal" data-target="#setShipDate" onclick="deliveryInfoShow()">
                     <img src="btn_search.png" style="vertical-align: middle; cursor: pointer; width: 32px; height: 32px;">
                   </button>
 					  		</div>
@@ -290,8 +292,8 @@
 						    	<div class="input-group-prepend">
 						    		<div class="input-group-text">見積条件</div>
 						  		</div>
-                  <textarea cols="3" style="width: 750px;" name="estimateCondition" value="${estimate.estimateCondition}">${estimate.estimateCondition}</textarea>
-                  <button type="button" class="ModalButton"  data-toggle="modal" data-target="#setQuotationCondition">
+                  <textarea cols="3" style="width: 750px;" id="estimateCondition" name="estimateCondition" value="${estimate.estimateCondition}">${estimate.estimateCondition}</textarea>
+                  <button type="button" class="ModalButton"  data-toggle="modal" data-target="#setQuotationCondition" onclick="conditionShow()">
                     <img src="btn_search.png" style="vertical-align: middle; cursor: pointer; width: 32px; height: 32px;">
                   </button>
 					  		</div>
@@ -666,14 +668,11 @@
             retailPrice_id.value = trailingRetailPrice; //後行の売上金額を対象の列に移行
 
           }
-
           $( '#estimate tr:last' ).remove();
           $( '#estimate tr:last' ).remove();
-
         } else {
           alert("最前列は削除できません。")
         }
-
         totalCalculation()
       }
 
@@ -776,12 +775,10 @@
 
       /* 売上単価変化 */
       function unitRetailPriceChange(obj) {
-  
         var tableNo_id = obj.id;
         var tableNo = tableNo_id.substr(15); //対象のtableNo：売上単価が変化した列のtableNoを取得
 
         var quantity = document.getElementById('quantity' + tableNo).value; //対象の数量取得
-
 
         var unitRetailPrice = obj.value; //対象の売上単価取得
         var retailPrice = quantity * unitRetailPrice; //売価金額計算(取得)
@@ -799,7 +796,6 @@
 
       /* 合計金額計算 */
       function totalCalculation(){
-
         //金額合計計算 + 値入力
         var retailPriceArray = document.getElementsByName("retailPrice"); //各売上金額の配列を取得
         var retailPriceTotal = 0; 
@@ -844,7 +840,6 @@
         var estimateTotal = retailPriceTotal + taxPriceTotal;
         document.getElementById("estimateTotal").innerHTML = estimateTotal; //伝票合計に入力
         document.getElementById("inputEstimateTotal").value = estimateTotal;
-        
         } 
 
       
@@ -883,9 +878,7 @@
 					break ;
 				}
 		  }
-		  
 		  totalCalculation();
-
 	  };
 	  
 	  /* ajaxで入力した顧客コードに対応する顧客情報取得 */
@@ -938,7 +931,5 @@
 			var form = document.pdfform;
 			form.submit();
 	  }
-	  
-
   </script>
 </html>

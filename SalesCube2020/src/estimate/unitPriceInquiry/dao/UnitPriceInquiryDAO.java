@@ -71,6 +71,8 @@ public class UnitPriceInquiryDAO extends BaseDAO {
 	 	
 	 	UnitPriceInquirySearchResultBean bean = new UnitPriceInquirySearchResultBean();
 		
+	 	bean.setProductCode(productCode);
+	 	
 	 	if (result.next()) {
 	 		bean.setProductName(result.getString("PRODUCT_NAME"));
 	 		bean.setRetailPrice(result.getString("RETAIL_PRICE"));
@@ -166,6 +168,4 @@ public class UnitPriceInquiryDAO extends BaseDAO {
 	 	
 	 	return list;
 	}
-	
-	
 }

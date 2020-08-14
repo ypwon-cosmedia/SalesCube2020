@@ -29,6 +29,7 @@ public class EstimateAddDAO extends BaseDAO {
 	 	String deliveryInfo		  = bean.getDeliveryInfo();
 	 	String validDate		  = bean.getValidDate();
 	 	String userName			  = bean.getUserName();
+	 	String userId			  = bean.getUserId();
 	 	String title			  = bean.getTitle();
 	 	String deliveryName		  = bean.getDeliveryName();
 	 	String estimateCondition  = bean.getEstimateCondition();
@@ -56,6 +57,7 @@ public class EstimateAddDAO extends BaseDAO {
 	 	String deliveryInfoSQL;
 	 	String validDateSQL;
 	 	String userNameSQL;
+	 	String userIdSQL;
 	 	String titleSQL;
 	 	String deliveryNameSQL;
 	 	String estimateConditionSQL;
@@ -90,6 +92,9 @@ public class EstimateAddDAO extends BaseDAO {
 		
 		if(userName==null || userName.equals("")) {userNameSQL = null;} 
 		else {userNameSQL = "'" + userName + "'";}
+		
+		if(userId==null || userId.equals("")) {userIdSQL = null;} 
+		else {userIdSQL = "'" + userId + "'";}
 		
 		if(title==null || title.equals("")) {titleSQL = null;} 
 		else {titleSQL = "'" + title + "'";}
@@ -151,7 +156,8 @@ public class EstimateAddDAO extends BaseDAO {
 	 		      "ESTIMATE_DATE, " + 
 	 		      "DELIVERY_INFO, " + 
 	 		      "VALID_DATE, " + 
-	 		      "USER_NAME, " + 
+	 		      "USER_NAME, " +
+	 		      "USER_ID, " +
 	 		      "TITLE, " +
 	 		      "DELIVERY_NAME, " + 
 	 		      "ESTIMATE_CONDITION, " + 
@@ -176,6 +182,7 @@ public class EstimateAddDAO extends BaseDAO {
 			 		     deliveryInfoSQL + ", " +
 			 		     validDateSQL + ", " +
 			 		     userNameSQL + ", " +
+			 		     userIdSQL + ", " +
 			 		     titleSQL + ", " +
 			 		     deliveryNameSQL + ", " +
 			 		     estimateConditionSQL + ", " +
@@ -368,8 +375,5 @@ public class EstimateAddDAO extends BaseDAO {
 	 	super.releaseDB(con,stmt,result);
 	 	
 	 	return maxEstimateLineId;
-	}
-
-
-	 			
+	}		
 }

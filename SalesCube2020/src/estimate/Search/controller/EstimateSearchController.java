@@ -14,14 +14,19 @@ import common.modal.customer.dao.CustomerModalDAO;
 
 public class EstimateSearchController extends BaseController {
 
-	@Override
-	public String execService(HttpServletRequest request, HttpServletResponse response)
-			throws ServletException, IOException {
+	public String execService(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
 		String forwardURL = "/menu.jsp";
 		String action = request.getParameter("action");
 		
-		if(action.equals("customerModalSearch")) forwardURL = customerSearchResult(request, response);
+		if(action.equals("moveEstimateSearch")) forwardURL = moveCustomerSearch(request, response);
+		else if(action.equals("customerModalSearch")) forwardURL = customerSearchResult(request, response);
+		
+		return forwardURL;
+	}
+	
+	public String moveCustomerSearch(HttpServletRequest request, HttpServletResponse response) {
+		String forwardURL = "estimate\\estimateSearch.jsp";
 		return forwardURL;
 	}
 	
@@ -41,6 +46,5 @@ public class EstimateSearchController extends BaseController {
 		}
 		return "estimate\\estimateSearch.jsp";
 	}
-	
-	
+
 }

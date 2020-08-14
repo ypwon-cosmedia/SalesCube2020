@@ -3,12 +3,17 @@
  */
 package estimate.Input.API.estimateSheetPDF;
 
+import java.io.BufferedOutputStream;
 import java.io.File;
+import java.io.FileInputStream;
+import java.io.IOException;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.HashMap;
 import java.util.List;
+
+import javax.servlet.http.HttpServletResponse;
 
 import estimate.Input.beans.InitEstimateBean;
 import estimate.Input.beans.InitEstimateProductBean;
@@ -21,12 +26,10 @@ import net.sf.jasperreports.engine.JasperReport;
 import net.sf.jasperreports.engine.data.JRBeanCollectionDataSource;
 import net.sf.jasperreports.engine.util.JRLoader;
 
-/**
- * @author cosmedia
- *
- */
+//PDF出力に関するクラス
 public class estimateSheetJasper {
-	public void outputPdf(String estimateSheetId) {
+	//PDF出力を行うメソッド
+	public void outputPdf(String estimateSheetId,  HttpServletResponse response) {
 		try {
 	        // テンプレートの読み込み
 			File jasperFile = new File("C:\\Users\\cosmedia\\git\\SalesCube2020\\SalesCube2020\\src\\estimate\\Input\\API\\estimateSheetPDF\\jasper\\estimateSheet.jrxml");
@@ -66,9 +69,8 @@ public class estimateSheetJasper {
 	        //摘要
 	        if(bean.getRemarks() == null) { params.put("remarks", ""); }
 	        else {params.put("remarks", bean.getRemarks()); }
-	        
-	        params.put("estimateSheetId", estimateSheetId); //見積番号
-	        
+	        //見積番号
+	        params.put("estimateSheetId", estimateSheetId);
 	        //日付取得
 	        Calendar calendar = Calendar.getInstance();
 	        int year = calendar.get(Calendar.YEAR);
@@ -77,28 +79,50 @@ public class estimateSheetJasper {
 	        String nowTime = year + "-" + month + "-" + day;
 	        params.put("nowTime", nowTime); //発行日(現在時刻)
 	       
-	        // 見積商品情報作成（繰り返しデータ）
+	        // 見積商品情報取得（繰り返しデータ）
 	        List<InitEstimateProductBean> list = dao.getEstimateProduct(estimateSheetId);
 	       
 	        // データの設定
 	        JasperPrint print = JasperFillManager.fillReport(jasperReport,  params,  new JRBeanCollectionDataSource(list));
 	       
+	        
 			// 出力ファイルの作成
-            File pdf = new File("C:/Users/cosmedia/Desktop/見積書.pdf");
-
+            File pdf = new File("C:\\Users\\cosmedia\\git\\SalesCube2020\\SalesCube2020\\src\\estimate\\Input\\API\\estimateSheetPDF\\estimateSheet.pdf");
             int k = 1;
             while( pdf.exists() ){
-            	pdf = new File("C:/Users/cosmedia/Desktop/見積書("+ k +").pdf");
+            	pdf = new File("C:\\Users\\cosmedia\\git\\SalesCube2020\\SalesCube2020\\src\\estimate\\Input\\API\\estimateSheetPDF\\estimateSheet("+ k +").pdf");
             		k++;
             	}
+            
 	       
 	        // PDF出力
 	        JasperExportManager.exportReportToPdfFile(print,  pdf.getAbsolutePath());
-	       
+	        
+	        /* PDFをクライアント側でダウンロード */
+	        FileInputStream fis = null;
+	        BufferedOutputStream bos = null;
+	        
+	        //クライアント側に送信するPDFを取得
+            response.setContentType(pdf.getAbsolutePath());
+            //PDF名をヘッダーに加える
+            response.addHeader("Content-Disposition", "attachment; filename="+pdf.getName()+".pdf");
+            //バイト数計算
+            fis = new FileInputStream(pdf);
+            int size = fis.available(); 
+            byte[] buf = new byte[size]; 
+            int readCount = fis.read(buf);
+
+            response.flushBuffer();
+            bos = new BufferedOutputStream(response.getOutputStream());
+            bos.write(buf, 0, readCount);
+            bos.flush();
+            
+            if (fis != null) fis.close(); 
+			if (bos != null) bos.close();
+            
 	   } catch (Exception e) {
 	        System.out.print(e.getMessage());
+	   } finally {
 	   }
-		
-		 System.out.println("終了しました");
 	}
 }

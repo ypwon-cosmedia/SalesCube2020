@@ -47,8 +47,7 @@ public class SalesCubeServlet extends HttpServlet {
     }
 
 	public void init() throws ServletException {
-    
-		
+
 		controllerList = new CreateControllers().newControllers();
     }
 }
