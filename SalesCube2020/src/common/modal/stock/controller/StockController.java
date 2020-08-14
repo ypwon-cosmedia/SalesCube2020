@@ -2,6 +2,8 @@ package common.modal.stock.controller;
 
 import java.io.IOException;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
@@ -9,9 +11,10 @@ import javax.servlet.http.HttpServletResponse;
 
 import common.modal.stock.beans.StockBean;
 import common.modal.stock.dao.StockDAO;
+import order.input.beans.OrderInputBean;
 
 public class StockController {
-	
+
 	public void execService(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
 		String action = request.getParameter("action");
@@ -30,10 +33,15 @@ public class StockController {
 		
 		StockDAO dao = new StockDAO();
 		StockBean bean = new StockBean();
+		List<StockBean> list = new ArrayList<>();
 		
-		bean = dao.OrderToStock();
+		String productCode = request.getParameter("productCode");
 		
+		bean = dao.OrderToStock(productCode);
+		list = dao.OrderToStockDetail(productCode);
 		
+		request.setAttribute("stockLink", bean);
+		request.setAttribute("stockLinkDetail", list);
 		
 	}
 }

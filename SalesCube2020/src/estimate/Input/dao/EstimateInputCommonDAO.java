@@ -51,9 +51,41 @@ public class EstimateInputCommonDAO extends BaseDAO {
 	 	
 	 	return list;
 	}
+	
+	//見積番号が存在するか確認するメソッド
+	public String confirmEstimateSheetId(String estimateSheetId) throws SQLException, ClassNotFoundException {
+		
+		Connection con;
+	 	Statement stmt=null;
+	 	ResultSet result=null;
+	 	String  sql;
+	 	String check = "NG";
+	 	
+	 	con = super.getConnection();
+	 	stmt = con.createStatement();
+	 	
+	 	sql="select ESTIMATE_SHEET_ID " + 
+	 		"from estimate_sheet_trn_xxxxx " + 
+	 		"where ESTIMATE_SHEET_ID = " + estimateSheetId;
+	 	
+	 	result = stmt.executeQuery(sql);
+	 	
+	 	if (result.next()) {
+	 		String getEstimateSheetId = result.getString("ESTIMATE_SHEET_ID"); //一致している見積番号を取得
+		 	if(getEstimateSheetId != null) { //見積番号が登録されている(取得できている)ならば 変数checkをtrueにして返す
+		 		check = "OK";
+		 	} else {
+		 		check = "NG";
+		 	}
+	 	}
+	 	
+	 	super.releaseDB(con,stmt,result);
+	 	
+	 	return check;
+	}
 
 	//顧客情報を取得するメソッド
-	public GetCustomerBean getCustomer(int customerCode) throws SQLException, ClassNotFoundException {
+	public GetCustomerBean getCustomer(String customerCode) throws SQLException, ClassNotFoundException {
 		
 		Connection con;
 	 	Statement stmt=null;
@@ -65,7 +97,7 @@ public class EstimateInputCommonDAO extends BaseDAO {
 	 	
 	 	sql="select CUSTOMER_NAME, " + 
 	 				"REMARKS, " + 
-	 				"COMMENT_DATA" + 
+	 				"COMMENT_DATA " + 
 	 		"from customer_mst_xxxxx " + 
 	 		"where CUSTOMER_CODE = " + customerCode;
 	 	
@@ -77,6 +109,10 @@ public class EstimateInputCommonDAO extends BaseDAO {
 	 		bean.setCustomerName(result.getString("CUSTOMER_NAME"));
 	 		bean.setCustomerRemarks(result.getString("REMARKS"));
 	 		bean.setCustomerComment(result.getString("COMMENT_DATA"));
+	 		
+	 		if(bean.getCustomerName()== null || bean.getCustomerName().equals("")) {bean.setCustomerName("");};
+	 		if(bean.getCustomerRemarks()== null || bean.getCustomerRemarks().equals("")) {bean.setCustomerRemarks("");};
+	 		if(bean.getCustomerComment()== null || bean.getCustomerComment().equals("")) {bean.setCustomerComment("");};
 	 	}
 	 	
 	 	super.releaseDB(con,stmt,result);
@@ -86,7 +122,7 @@ public class EstimateInputCommonDAO extends BaseDAO {
 	
 	
 	//商品情報を取得するメソッド
-	public GetProductBean getProduct(int productCode) throws SQLException, ClassNotFoundException {
+	public GetProductBean getProduct(String productCode) throws SQLException, ClassNotFoundException {
 		
 		Connection con;
 	 	Statement stmt=null;
@@ -110,6 +146,9 @@ public class EstimateInputCommonDAO extends BaseDAO {
 	 		bean.setProductAbstract(result.getString("PRODUCT_NAME"));
 	 		bean.setUnitCost(result.getInt("SUPPLIER_PRICE_YEN"));
 	 		bean.setUnitRetailPrice(result.getInt("RETAIL_PRICE"));
+	 		
+	 		if(bean.getProductAbstract()== null || bean.getProductAbstract().equals("")) {bean.setProductAbstract("");};
+
 	 	}
 	 	
 	 	super.releaseDB(con,stmt,result);

@@ -296,7 +296,7 @@ public class EstimateAddDAO extends BaseDAO {
 			if(retailPrice==null) {retailPriceSQL = null;} 
 			else {retailPriceSQL = retailPrice;}
 			
-			if(productRemarks==null || productRemarks.equals("")) {productRemarksSQL = null;} 
+			if(productRemarks==null || productRemarks.equals("")) {productRemarksSQL = "";} 
 			else {productRemarksSQL = "'" + productRemarks + "'";}
 			
 			if(creDate==null || creDate.equals("")) {creDateSQL = null;} 

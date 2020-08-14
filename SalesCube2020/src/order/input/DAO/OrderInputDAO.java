@@ -11,12 +11,16 @@ import java.sql.PreparedStatement;
 
 import common.dao.BaseDAO;
 import order.input.beans.OrderInputBean;
+import order.input.beans.OrderInputCalcBean;
+import order.input.beans.OrderInputCustomerBean;
+import order.input.beans.OrderInputDeliveryBean;
+import order.input.beans.OrderInputDetailBean;
 import sql.order.OrderSQL;
 
 public class OrderInputDAO extends BaseDAO{
 	
 	/* 受注新規登録 */
-	public int orderInputInfo(OrderInputBean bean) throws SQLException, ClassNotFoundException{
+	public int orderInputInfo(OrderInputBean bean1, OrderInputCustomerBean bean2, OrderInputDeliveryBean bean3, OrderInputCalcBean bean4) throws SQLException, ClassNotFoundException{
 	
 		Connection con;
 	 	PreparedStatement stmt = null;
@@ -29,38 +33,38 @@ public class OrderInputDAO extends BaseDAO{
 
 	 	stmt = con.prepareStatement(sql);
 	 	
-	 	stmt.setString(1, bean.getRoDate());
-	 	stmt.setString(2, bean.getShipDate());
-	 	stmt.setString(3, bean.getDeliveryDate());
-	 	stmt.setString(4, bean.getReceptNo());
-	 	stmt.setString(5, bean.getCustomerSlipNo());
-	 	stmt.setString(6, bean.getUserName());
-	 	stmt.setString(7, bean.getRemarks());
-	 	stmt.setString(8, bean.getDcName());
-	 	stmt.setString(9, bean.getDcTimezone());
-	 	stmt.setString(10, bean.getCtaxRate());
-	 	stmt.setString(11, bean.getCustomerCode());
-	 	stmt.setString(12, bean.getCustomerName());
-	 	stmt.setString(13, bean.getTaxShiftCategory());
-	 	stmt.setString(14, bean.getCutoffGroup());
-	 	stmt.setString(15, bean.getSalesCmCategory());
-	 	stmt.setString(16, bean.getCustomerRemarks());
-	 	stmt.setString(17, bean.getCustomerCommentData());
-	 	stmt.setString(18, bean.getDeliveryName());
-	 	stmt.setString(19, bean.getDeliveryOfficeName());
-	 	stmt.setString(20, bean.getDeliveryDeptName());
-	 	stmt.setString(21, bean.getDeliveryZipCode());
-	 	stmt.setString(21, bean.getDeliveryAddress1());
-	 	stmt.setString(22, bean.getDeliveryAddress2());
-	 	stmt.setString(23, bean.getDeliveryPcName());
-	 	stmt.setString(24, bean.getDeliveryPcKana());
-	 	stmt.setString(25, bean.getDeliveryPcPre());
-	 	stmt.setString(26, bean.getDeliveryTel());
-	 	stmt.setString(27, bean.getDeliveryFax());
-	 	stmt.setString(28, bean.getDeliveryEmail());
-	 	stmt.setInt(29, bean.getRetailPriceTotal());
-	 	stmt.setInt(30, bean.getCtaxPriceTotal());
-	 	stmt.setInt(31, bean.getPriceTotal());
+	 	stmt.setString(1, bean1.getRoDate());
+	 	stmt.setString(2, bean1.getShipDate());
+	 	stmt.setString(3, bean1.getDeliveryDate());
+	 	stmt.setString(4, bean1.getReceptNo());
+	 	stmt.setString(5, bean1.getCustomerSlipNo());
+	 	stmt.setString(6, bean1.getUserName());
+	 	stmt.setString(7, bean1.getRemarks());
+	 	stmt.setString(8, bean1.getDcName());
+	 	stmt.setString(9, bean1.getDcTimezone());
+	 	stmt.setString(10, bean1.getCtaxRate());
+	 	stmt.setString(1, bean2.getCustomerCode());
+	 	stmt.setString(2, bean2.getCustomerName());
+	 	stmt.setString(3, bean2.getTaxShiftCategory());
+	 	stmt.setString(4, bean2.getCutoffGroup());
+	 	stmt.setString(5, bean2.getSalesCmCategory());
+	 	stmt.setString(6, bean2.getCustomerRemarks());
+	 	stmt.setString(7, bean2.getCustomerCommentData());
+	 	stmt.setString(1, bean3.getDeliveryName());
+	 	stmt.setString(2, bean3.getDeliveryOfficeName());
+	 	stmt.setString(3, bean3.getDeliveryDeptName());
+	 	stmt.setString(4, bean3.getDeliveryZipCode());
+	 	stmt.setString(5, bean3.getDeliveryAddress1());
+	 	stmt.setString(6, bean3.getDeliveryAddress2());
+	 	stmt.setString(7, bean3.getDeliveryPcName());
+	 	stmt.setString(8, bean3.getDeliveryPcKana());
+	 	stmt.setString(9, bean3.getDeliveryPcPre());
+	 	stmt.setString(10, bean3.getDeliveryTel());
+	 	stmt.setString(11, bean3.getDeliveryFax());
+	 	stmt.setString(12, bean3.getDeliveryEmail());
+	 	stmt.setInt(1, bean4.getRetailPriceTotal());
+	 	stmt.setInt(2, bean4.getCtaxPriceTotal());
+	 	stmt.setInt(3, bean4.getPriceTotal());
 
 	 	try {
 	 		result = stmt.executeUpdate();
@@ -78,7 +82,7 @@ public class OrderInputDAO extends BaseDAO{
 	}
 	
 	/* 受注新規登録明細 */
-	public int orderInputDetail(List<OrderInputBean> list) throws SQLException, ClassNotFoundException{
+	public int orderInputDetail(List<OrderInputDetailBean> list) throws SQLException, ClassNotFoundException{
 		
 		Connection con;
 	 	PreparedStatement stmt = null;
@@ -92,7 +96,7 @@ public class OrderInputDAO extends BaseDAO{
 	 	stmt = con.prepareStatement(sql);
 	 	result = stmt.executeUpdate();
 	 	
-	 	for (OrderInputBean bean : list) {
+	 	for (OrderInputDetailBean bean : list) {
 		 	stmt.setInt(1, bean.getProductCode());
 		 	stmt.setString(2, bean.getProductName());
 		 	stmt.setString(3, bean.getProductRemarks());
@@ -122,9 +126,9 @@ public class OrderInputDAO extends BaseDAO{
 	}
 
 	/* 取引区分コンボボックス */
-	public List<OrderInputBean> getSalesCmCategory() throws SQLException, ClassNotFoundException{
+	public List<OrderInputCustomerBean> getSalesCmCategory() throws SQLException, ClassNotFoundException{
 		
-		List<OrderInputBean> list = new ArrayList<OrderInputBean>();
+		List<OrderInputCustomerBean> list = new ArrayList<OrderInputCustomerBean>();
 		
 		Connection con;
 	 	Statement stmt = null;
@@ -140,7 +144,7 @@ public class OrderInputDAO extends BaseDAO{
 	 	result = stmt.executeQuery(sql);
 	 	
 	 	while (result.next()) {
-	 		OrderInputBean bean = new OrderInputBean();
+	 		OrderInputCustomerBean bean = new OrderInputCustomerBean();
 	 		bean.setSalesCmCategory(result.getString("SALES_CM_CATEGORY"));
 	 		bean.setCategoryCodeName(result.getString("CATEGORY_CODE_NAME"));
 	 		list.add(bean);
@@ -153,9 +157,9 @@ public class OrderInputDAO extends BaseDAO{
 	}
 	
 	/* 支払条件コンボボックス */
-	public List<OrderInputBean> getCutoffGroup() throws SQLException, ClassNotFoundException {
+	public List<OrderInputCustomerBean> getCutoffGroup() throws SQLException, ClassNotFoundException {
 		
-		List<OrderInputBean> list = new ArrayList<>();
+		List<OrderInputCustomerBean> list = new ArrayList<>();
 		
 		Connection con;
 	 	Statement stmt = null;
@@ -171,7 +175,7 @@ public class OrderInputDAO extends BaseDAO{
 	 	result = stmt.executeQuery(sql);
 	 	
 	 	while (result.next()) {
-	 		OrderInputBean bean = new OrderInputBean();
+	 		OrderInputCustomerBean bean = new OrderInputCustomerBean();
 	 		bean.setCategoryCodeName(result.getString("CATEGORY_CODE_NAME"));
 	 		list.add(bean);
 	 	}
@@ -183,9 +187,9 @@ public class OrderInputDAO extends BaseDAO{
 	}
 	
 	/* 税転嫁コンボボックス */
-	public List<OrderInputBean> getTaxShiftCategory() throws SQLException, ClassNotFoundException {
+	public List<OrderInputCustomerBean> getTaxShiftCategory() throws SQLException, ClassNotFoundException {
 		
-		List<OrderInputBean> list = new ArrayList<>();
+		List<OrderInputCustomerBean> list = new ArrayList<>();
 		
 		Connection con;
 	 	Statement stmt = null;
@@ -201,7 +205,7 @@ public class OrderInputDAO extends BaseDAO{
 	 	result = stmt.executeQuery(sql);
 	 	
 	 	while (result.next()) {
-	 		OrderInputBean bean = new OrderInputBean();
+	 		OrderInputCustomerBean bean = new OrderInputCustomerBean();
 	 		bean.setCategoryCodeName(result.getString("CATEGORY_CODE_NAME"));
 	 		list.add(bean);
 	 	}
@@ -213,9 +217,9 @@ public class OrderInputDAO extends BaseDAO{
 	}
 	
 	/* 顧客納入先コンボボックス */
-	public List<OrderInputBean> getDeliveryName(String customerCode) throws SQLException, ClassNotFoundException {
+	public List<OrderInputDeliveryBean> getDeliveryName(String customerCode) throws SQLException, ClassNotFoundException {
 		
-		List<OrderInputBean> list = new ArrayList<>();
+		List<OrderInputDeliveryBean> list = new ArrayList<>();
 		
 		Connection con;
 	 	Statement stmt = null;
@@ -231,7 +235,7 @@ public class OrderInputDAO extends BaseDAO{
 	 	result = stmt.executeQuery(sql);
 	 	
 	 	while (result.next()) {
-	 		OrderInputBean bean = new OrderInputBean();
+	 		OrderInputDeliveryBean bean = new OrderInputDeliveryBean();
 	 		bean.setDeliveryName(result.getString("DELIVERY_NAME"));
 	 		list.add(bean);
 	 	}
@@ -243,9 +247,9 @@ public class OrderInputDAO extends BaseDAO{
 	}
 	
 	/* 配送業者コンボボックス */
-	public List<OrderInputBean> getDcName() throws SQLException, ClassNotFoundException {
+	public List<OrderInputDeliveryBean> getDcName() throws SQLException, ClassNotFoundException {
 		
-		List<OrderInputBean> list = new ArrayList<>();
+		List<OrderInputDeliveryBean> list = new ArrayList<>();
 		
 		Connection con;
 	 	Statement stmt = null;
@@ -261,7 +265,7 @@ public class OrderInputDAO extends BaseDAO{
 	 	result = stmt.executeQuery(sql);
 	 	
 	 	while (result.next()) {
-	 		OrderInputBean bean = new OrderInputBean();
+	 		OrderInputDeliveryBean bean = new OrderInputDeliveryBean();
 	 		bean.setCategoryCodeName(result.getString("CATEGORY_CODE_NAME"));
 	 		bean.setCategoryCode(result.getString("CATEGORY_CODE"));
 	 		list.add(bean);
@@ -274,9 +278,9 @@ public class OrderInputDAO extends BaseDAO{
 	}
 	
 	/* 配送時間帯コンボボックス */
-	public List<OrderInputBean> getDcTimezone() throws SQLException, ClassNotFoundException {
+	public List<OrderInputDeliveryBean> getDcTimezone() throws SQLException, ClassNotFoundException {
 		
-		List<OrderInputBean> list = new ArrayList<>();
+		List<OrderInputDeliveryBean> list = new ArrayList<>();
 		
 		Connection con;
 	 	Statement stmt = null;
@@ -292,7 +296,7 @@ public class OrderInputDAO extends BaseDAO{
 	 	result = stmt.executeQuery(sql);
 	 	
 	 	while (result.next()) {
-	 		OrderInputBean bean = new OrderInputBean();
+	 		OrderInputDeliveryBean bean = new OrderInputDeliveryBean();
 	 		bean.setCategoryCodeName(result.getString("CATEGORY_CODE_NAME"));
 	 		bean.setCategoryCode(result.getString("CATEGORY_CODE"));
 	 		list.add(bean);
@@ -335,9 +339,9 @@ public class OrderInputDAO extends BaseDAO{
 	}
 	
 	/* 顧客納入先コンボボックス */
-	public List<OrderInputBean> getDelivery() throws SQLException, ClassNotFoundException{
+	public List<OrderInputDeliveryBean> getDelivery() throws SQLException, ClassNotFoundException{
 		
-		List<OrderInputBean> list = new ArrayList<>();
+		List<OrderInputDeliveryBean> list = new ArrayList<>();
 		
 		Connection con;
 	 	Statement stmt = null;
@@ -353,7 +357,7 @@ public class OrderInputDAO extends BaseDAO{
 	 	result = stmt.executeQuery(sql);
 	 	
 	 	while (result.next()) {
-	 		OrderInputBean bean = new OrderInputBean();
+	 		OrderInputDeliveryBean bean = new OrderInputDeliveryBean();
 	 		bean.setDeliveryName(result.getString("DELIVERY_NAME"));
 	 		list.add(bean);
 	 	}
@@ -365,7 +369,7 @@ public class OrderInputDAO extends BaseDAO{
 		
 	
 	/* 受注更新 */
-	public int orderUpdateInfo(OrderInputBean bean) throws SQLException, ClassNotFoundException{
+	public int orderUpdateInfo(OrderInputBean bean1, OrderInputCustomerBean bean2, OrderInputDeliveryBean bean3, OrderInputCalcBean bean4) throws SQLException, ClassNotFoundException{
 		
 		Connection con;
 	 	PreparedStatement stmt = null;
@@ -378,38 +382,38 @@ public class OrderInputDAO extends BaseDAO{
 
 	 	stmt = con.prepareStatement(sql);
 	 	
-	 	stmt.setString(1, bean.getRoDate());
-	 	stmt.setString(2, bean.getShipDate());
-	 	stmt.setString(3, bean.getDeliveryDate());
-	 	stmt.setString(4, bean.getReceptNo());
-	 	stmt.setString(5, bean.getCustomerSlipNo());
-	 	stmt.setString(6, bean.getUserName());
-	 	stmt.setString(7, bean.getRemarks());
-	 	stmt.setString(8, bean.getDcName());
-	 	stmt.setString(9, bean.getDcTimezone());
-	 	stmt.setString(10, bean.getCtaxRate());
-	 	stmt.setString(11, bean.getCustomerCode());
-	 	stmt.setString(12, bean.getCustomerName());
-	 	stmt.setString(13, bean.getTaxShiftCategory());
-	 	stmt.setString(14, bean.getCutoffGroup());
-	 	stmt.setString(15, bean.getSalesCmCategory());
-	 	stmt.setString(16, bean.getCustomerRemarks());
-	 	stmt.setString(17, bean.getCustomerCommentData());
-	 	stmt.setString(18, bean.getDeliveryName());
-	 	stmt.setString(19, bean.getDeliveryOfficeName());
-	 	stmt.setString(20, bean.getDeliveryDeptName());
-	 	stmt.setString(21, bean.getDeliveryZipCode());
-	 	stmt.setString(21, bean.getDeliveryAddress1());
-	 	stmt.setString(22, bean.getDeliveryAddress2());
-	 	stmt.setString(23, bean.getDeliveryPcName());
-	 	stmt.setString(24, bean.getDeliveryPcKana());
-	 	stmt.setString(25, bean.getDeliveryPcPre());
-	 	stmt.setString(26, bean.getDeliveryTel());
-	 	stmt.setString(27, bean.getDeliveryFax());
-	 	stmt.setString(28, bean.getDeliveryEmail());
-	 	stmt.setInt(29, bean.getRetailPriceTotal());
-	 	stmt.setInt(30, bean.getCtaxPriceTotal());
-	 	stmt.setInt(31, bean.getPriceTotal());
+	 	stmt.setString(1, bean1.getRoDate());
+	 	stmt.setString(2, bean1.getShipDate());
+	 	stmt.setString(3, bean1.getDeliveryDate());
+	 	stmt.setString(4, bean1.getReceptNo());
+	 	stmt.setString(5, bean1.getCustomerSlipNo());
+	 	stmt.setString(6, bean1.getUserName());
+	 	stmt.setString(7, bean1.getRemarks());
+	 	stmt.setString(8, bean1.getDcName());
+	 	stmt.setString(9, bean1.getDcTimezone());
+	 	stmt.setString(10, bean1.getCtaxRate());
+	 	stmt.setString(1, bean2.getCustomerCode());
+	 	stmt.setString(2, bean2.getCustomerName());
+	 	stmt.setString(3, bean2.getTaxShiftCategory());
+	 	stmt.setString(4, bean2.getCutoffGroup());
+	 	stmt.setString(5, bean2.getSalesCmCategory());
+	 	stmt.setString(6, bean2.getCustomerRemarks());
+	 	stmt.setString(7, bean2.getCustomerCommentData());
+	 	stmt.setString(1, bean3.getDeliveryName());
+	 	stmt.setString(2, bean3.getDeliveryOfficeName());
+	 	stmt.setString(3, bean3.getDeliveryDeptName());
+	 	stmt.setString(4, bean3.getDeliveryZipCode());
+	 	stmt.setString(5, bean3.getDeliveryAddress1());
+	 	stmt.setString(6, bean3.getDeliveryAddress2());
+	 	stmt.setString(7, bean3.getDeliveryPcName());
+	 	stmt.setString(8, bean3.getDeliveryPcKana());
+	 	stmt.setString(9, bean3.getDeliveryPcPre());
+	 	stmt.setString(10, bean3.getDeliveryTel());
+	 	stmt.setString(11, bean3.getDeliveryFax());
+	 	stmt.setString(12, bean3.getDeliveryEmail());
+	 	stmt.setInt(1, bean4.getRetailPriceTotal());
+	 	stmt.setInt(2, bean4.getCtaxPriceTotal());
+	 	stmt.setInt(3, bean4.getPriceTotal());
 
 	 	try {
 	 		result = stmt.executeUpdate();
@@ -427,7 +431,7 @@ public class OrderInputDAO extends BaseDAO{
 	}
 	
 	/* 受注更新 明細 */
-	public int orderUpdateDetail(List<OrderInputBean> list) throws SQLException, ClassNotFoundException{
+	public int orderUpdateDetail(List<OrderInputDetailBean> list) throws SQLException, ClassNotFoundException{
 		Connection con;
 	 	PreparedStatement stmt = null;
 	 	int result = 0;	
@@ -439,7 +443,7 @@ public class OrderInputDAO extends BaseDAO{
 
 	 	stmt = con.prepareStatement(sql);
 	 	
-	 	for (OrderInputBean bean : list) {
+	 	for (OrderInputDetailBean bean : list) {
 		 	stmt.setInt(1, bean.getProductCode());
 		 	stmt.setString(2, bean.getProductName());
 		 	stmt.setString(3, bean.getProductRemarks());
@@ -471,7 +475,11 @@ public class OrderInputDAO extends BaseDAO{
 	/* 新規登録画面→受注更新画面 */
 	public OrderInputBean getOrderInfo(Integer roSlipId) throws SQLException, ClassNotFoundException {
 		
-		OrderInputBean bean = new OrderInputBean();
+		OrderInputBean bean1 = new OrderInputBean();
+		OrderInputCustomerBean bean2 = new OrderInputCustomerBean();
+		OrderInputDeliveryBean bean3 = new OrderInputDeliveryBean();
+		OrderInputDetailBean bean4 = new OrderInputDetailBean();
+		OrderInputCalcBean bean5 = new OrderInputCalcBean();		
 		
 		Connection con;
 	 	Statement stmt = null;

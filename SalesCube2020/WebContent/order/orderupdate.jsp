@@ -83,7 +83,7 @@
 			</div><br><br><br>
 		</div><br>
 
-		<form='/SalesCube/SalesCube?action=orderupdateCmp' method="post">
+		<form action='/SalesCube2020/SalesCube?action=orderupdateCmp' method="post">
 			<!-- 受注伝票情報 -->
 			<div class="container" style="background-color: white;"><div class="panel panel-default">
 				<div class="panel-heading row mb-2 col-4">

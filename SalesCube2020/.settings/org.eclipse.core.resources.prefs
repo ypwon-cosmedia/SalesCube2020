@@ -4,6 +4,7 @@
 eclipse.preferences.version=1
 encoding//WebContent/menu.jsp=UTF-8
 encoding//WebContent/zipsearch.jsp=UTF-8
+encoding//src/estimate/Input/API/estimateSheetPDF/jasper/estimateSheet.jrxml=UTF-8
 encoding//src/master/customer/DAO/CustomerDAO.java=UTF-8
 encoding//src/master/customer/controller/CustomerController.java=UTF-8
 encoding//src/master/product/DAO/ProductModifyDAO.java=UTF-8
