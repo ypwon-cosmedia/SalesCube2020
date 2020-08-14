@@ -34,7 +34,7 @@
                             <div class="input-group-prepend">
                                 <div class="input-group-text">顧客コード</div>
                             </div>
-                            <input type="text"  class="form-control" id="customerCode" name="customerCode">
+                            <input type="text"  class="form-control"  name="customerCode">
                           </div>
                         </div>
                       </div>
@@ -48,7 +48,7 @@
                             <div class="input-group-prepend">
                                 <div class="input-group-text">顧客名</div>
                             </div>
-                            <input type="text"  class="form-control" id="customerName" name="customerName">
+                            <input type="text"  class="form-control"  name="customerName">
                           </div>
                         </div>&emsp;&emsp;&emsp;
                       
@@ -59,7 +59,7 @@
                             <div class="input-group-prepend">
                                 <div class="input-group-text">顧客名カナ</div>
                             </div>
-                            <input type="text"  class="form-control" id="customerKana" name="customerKana"> 
+                            <input type="text"  class="form-control"  name="customerKana"> 
                           </div>
                         </div>
                       </div>
@@ -229,11 +229,7 @@
 			});
 		}
      	
-		 //顧客コード・顧客名の値をセット
-      	function selectCustomerCode(code, name){
-      		document.getElementById('CustomerModalCustomerCode').value = code;
-      		document.getElementById('CustomerModalCustomerName').value = name;
-      	}
+
      	
       </script>  
       
