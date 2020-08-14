@@ -27,6 +27,4 @@ public class TaxRateBean {
 	public void setTaxRate(BigDecimal taxRate) {
 		this.taxRate = taxRate;
 	}
-	
-	
 }

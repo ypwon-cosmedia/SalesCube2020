@@ -415,7 +415,4 @@ public class EstimateAddBean {
 	public void setCreUser(String creUser) {
 		this.creUser = creUser;
 	}
-
-	
-
 }

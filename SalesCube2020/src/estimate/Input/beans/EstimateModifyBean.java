@@ -20,12 +20,6 @@ public class EstimateModifyBean {
 	/** 有効期限 */
 	private String validDate;
 	
-	/** 入力担当者 */
-	private String userName;
-	
-	/** 入力担当者ID */
-	private String userId;
-	
 	/** 件名 */
 	private String title;
 	
@@ -134,34 +128,6 @@ public class EstimateModifyBean {
 	 */
 	public void setValidDate(String validDate) {
 		this.validDate = validDate;
-	}
-
-	/**
-	 * @return the userName
-	 */
-	public String getUserName() {
-		return userName;
-	}
-
-	/**
-	 * @param userName the userName to set
-	 */
-	public void setUserName(String userName) {
-		this.userName = userName;
-	}
-	
-	/**
-	 * @return the userId
-	 */
-	public String getUserId() {
-		return userId;
-	}
-
-	/**
-	 * @param userId the userId to set
-	 */
-	public void setUserId(String userId) {
-		this.userId = userId;
 	}
 
 	/**
@@ -415,6 +381,4 @@ public class EstimateModifyBean {
 	public void setUpdUser(String updUser) {
 		this.updUser = updUser;
 	}
-	
-
 }

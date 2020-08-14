@@ -36,7 +36,6 @@ public class EstimateModifyDAO extends BaseDAO {
 	 			"DELIVERY_INFO, " + 
 	 			"VALID_DATE, " + 
 	 			"USER_NAME, " +
-	 			"USER_ID, " +
 	 			"TITLE, " + 
 	 			"DELIVERY_NAME, " + 
 	 			"ESTIMATE_CONDITION, " + 
@@ -142,8 +141,7 @@ public class EstimateModifyDAO extends BaseDAO {
 	 	String estimateDate		  = bean.getEstimateDate();
 	 	String deliveryInfo		  = bean.getDeliveryInfo();
 	 	String validDate		  = bean.getValidDate();
-	 	String userName			  = bean.getUserName();
-	 	String userId			  = bean.getUserId();
+	 	//String userName			  = bean.getUserName();
 	 	String title			  = bean.getTitle();
 	 	String deliveryName		  = bean.getDeliveryName();
 	 	String estimateCondition  = bean.getEstimateCondition();
@@ -170,8 +168,7 @@ public class EstimateModifyDAO extends BaseDAO {
 	 	String estimateDateSQL;
 	 	String deliveryInfoSQL;
 	 	String validDateSQL;
-	 	String userNameSQL;
-	 	String userIdSQL;
+	 	//String userNameSQL;
 	 	String titleSQL;
 	 	String deliveryNameSQL;
 	 	String estimateConditionSQL;
@@ -203,11 +200,8 @@ public class EstimateModifyDAO extends BaseDAO {
 		if(validDate==null || validDate.equals("")) {validDateSQL = null;} 
 		else {validDateSQL = "'" + validDate + "'";}
 		
-		if(userName==null || userName.equals("")) {userNameSQL = null;} 
-		else {userNameSQL = "'" + userName + "'";}
-		
-		if(userId==null || userId.equals("")) {userIdSQL = null;} 
-		else {userIdSQL = "'" + userId + "'";}
+		//if(userName==null || userName.equals("")) {userNameSQL = null;} 
+		//else {userNameSQL = "'" + userName + "'";}
 		
 		if(title==null || title.equals("")) {titleSQL = null;} 
 		else {titleSQL = "'" + title + "'";}
@@ -265,8 +259,7 @@ public class EstimateModifyDAO extends BaseDAO {
 	 		      "ESTIMATE_DATE = " + estimateDateSQL + ", " +
 	 		      "DELIVERY_INFO = " + deliveryInfoSQL + ", " +
 	 		      "VALID_DATE = " + validDateSQL + ", " +
-	 		      "USER_NAME = " + userNameSQL + ", " +
-	 		      "USER_ID = " + userIdSQL + ", " +
+	 		      //"USER_NAME = " + userNameSQL + ", " +
 	 		      "TITLE = " + titleSQL + ", " +
 	 		      "DELIVERY_NAME = " + deliveryNameSQL + ", " +
 	 		      "ESTIMATE_CONDITION = " + estimateConditionSQL + ", " +
@@ -352,7 +345,5 @@ public class EstimateModifyDAO extends BaseDAO {
 	 	}
 	 	
 	 	return result;
-	}
-
-	 			
+	}	
 }

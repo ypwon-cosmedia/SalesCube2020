@@ -168,6 +168,4 @@ public class UnitPriceInquiryDAO extends BaseDAO {
 	 	
 	 	return list;
 	}
-	
-	
 }
