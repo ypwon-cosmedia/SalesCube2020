@@ -11,7 +11,7 @@
 			</div>
 			<div class="modal-body">			
 				見積伝票検索
-				<form action=" " method="post">
+				<form action="/SalesCube2020/SalesCube?action=billsearch" method="post">
 					<div class="row">
 						<div class="col-4">
 							<label class="sr-only" for="inlineFormInputGroup">UserId</label>
@@ -65,7 +65,7 @@
 					<div class="float-left" style="position:static; left: 0px;">検索結果件数：0件</div>
 					<div align="right">
 						<button type="button" class="btn btn-outline-secondary" onclick="initFormOrder();">初期化</button>&ensp;
-						<input type="button" value="検索" class="btn btn-outline-secondary">
+						<input type="submit" value="検索" class="btn btn-outline-secondary">
 					</div>
 				</form>
 				<br>
@@ -79,29 +79,17 @@
 								
 					</tr>
 					</thead>
-					<!-- <c:forEach items="" > -->
+					<c:forEach items="${billSearch}" var="bill">
 						<tr>
-							<form method="post" id="estimateTable">
-								<td style="white-space: normal; text-align: left;" data-dismiss="modal" id="estimateSheetId"><a href="orderinput.html">見積番号1</a></td>
+							<form action="/SalesCube2020/SalesCube?action=billlink" method="post" id="estimateTable">
+								<td style="white-space: normal; text-align: left;" data-dismiss="modal" id="estimateSheetId"><a href="orderinput.html">${bill.estimateSheetId}</a></td>
 							</form>
-							<td style="white-space: normal; text-align: left;" id="estimateDate">見積日1</td>
-							<td style="white-space: normal; text-align: left;" id="submitName">提出先名1</td>
-							<td style="white-space: normal; text-align: left;" id="title">件名1</td>
+							<td style="white-space: normal; text-align: left;" id="estimateDate">${bill.estimateDate}</td>
+							<td style="white-space: normal; text-align: left;" id="submitName">${bill.submitName}</td>
+							<td style="white-space: normal; text-align: left;" id="title">${bill.title}</td>
 						</tr>
-						<tr>
-							<td style="white-space: normal; text-align: left;">見積番号2</td>
-							<td style="white-space: normal; text-align: left;">見積日2</td>
-							<td style="white-space: normal; text-align: left;">提出先名2</td>
-							<td style="white-space: normal; text-align: left;">件名2</td>
 
-						</tr>
-						<tr>
-							<td style="white-space: normal; text-align: left;">見積番号3</td>
-							<td style="white-space: normal; text-align: left;">見積日3</td>
-							<td style="white-space: normal; text-align: left;">提出先名3</td>
-							<td style="white-space: normal; text-align: left;">件名3</td>
-						</tr>
-					<!-- </c:forEach> -->
+					</c:forEach>
 				</table>
 				<br>
 			</div>

@@ -20,7 +20,7 @@ public class OrderCommonBillController extends BaseAJAXController {
 		
 		String action = request.getParameter("action");
 				
-		if(action.equals("orderinput")) {
+		if(action.equals("billsearch")) {
 				try {
 					searchEstimate(request, response);
 				} catch (ClassNotFoundException | ServletException | IOException | SQLException e) {
@@ -28,14 +28,14 @@ public class OrderCommonBillController extends BaseAJAXController {
 					e.printStackTrace();
 				}
 		}
-		else if(action.equals("orderlink")) {
+		else if(action.equals("billlink")) {
 			try {
 				EstimateToOrderInput(request, response);
 			} catch (ClassNotFoundException | ServletException | IOException | SQLException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
-	}
+		}
 	}
 	
 	/* 見積検索 */
