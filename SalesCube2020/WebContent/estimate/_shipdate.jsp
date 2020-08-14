@@ -28,7 +28,7 @@
        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
        <br><br>
 
-        <button type="button" class="btn btn-outline-secondary" data-toggle="modal" data-target="#setShipDate" onclick="categoryShow()">
+        <button type="button" class="btn btn-outline-secondary" data-toggle="modal" data-target="#setShipDate" onclick="deliveryInfoShow()">
         →
         </button>
         <input type="text" id="deliveryInfo">
@@ -78,7 +78,7 @@
             			 document.getElementById('deliveryInfo').value = checkedShipdate
             		 }
             		 
-            		 function categoryShow() {
+            		 function deliveryInfoShow() {
             				
             				var formString = $("form[id=shipdateGet]").serialize();//オブジェクトをバイト列に変換
             				var tmp = "";

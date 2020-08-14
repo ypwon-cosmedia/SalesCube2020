@@ -26,7 +26,7 @@
        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
        <br><br>
        
-        <button type="button" class="btn btn-outline-secondary" data-toggle="modal" data-target="#setQuotationCondition" onclick="categoryShows()">
+        <button type="button" class="btn btn-outline-secondary" data-toggle="modal" data-target="#setQuotationCondition" onclick="conditionShow()">
         ↓
         </button>
         <input type="text" id="estimateCondition">
@@ -73,7 +73,7 @@
             			 document.getElementById('estimateCondition').value = checkedShipdate
             		 }
             		 
-            		 function categoryShows() {
+            		 function conditionShow() {
             				
             				var formString = $("form[id=quotationGet]").serialize();			//オブジェクトをバイト列に変換
             				var tmp = "";
