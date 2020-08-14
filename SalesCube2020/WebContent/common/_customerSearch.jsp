@@ -229,5 +229,11 @@
 			});
 		}
      	
+		 //顧客コード・顧客名の値をセット
+      	function selectCustomerCode(code, name){
+      		document.getElementById('CustomerModalCustomerCode').value = code;
+      		document.getElementById('CustomerModalCustomerName').value = name;
+      	}
+     	
       </script>  
       
