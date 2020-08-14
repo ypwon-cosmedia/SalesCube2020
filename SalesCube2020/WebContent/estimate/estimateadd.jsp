@@ -107,6 +107,9 @@
     </style>
 </head>
   <body style="background-color: gainsboro;">
+  	<!-- モーダル -->
+  	<%@ include file="/estimate/_shipdate.jsp" %>
+	<%@ include file="/estimate/_quotationCondition.jsp" %>
     <!-- Optional JavaScript -->
     <!-- jQuery first, then Popper.js, then Bootstrap JS -->
     <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
@@ -230,8 +233,8 @@
 						    	<div class="input-group-prepend">
 						    		<div class="input-group-text">納期または出荷日</div>
 						  		</div>
-                   <input type="text" value="" class="form-control" id="inlineFormInputGroup" name="deliveryInfo">
-                   <button type="button" class="ModalButton"  data-toggle="modal" data-target="#setShipDate">
+                   <input type="text" value="" class="form-control" id="deliveryInfo" name="deliveryInfo">
+                   <button type="button" class="ModalButton"  data-toggle="modal" data-target="#setShipDate" onclick="deliveryInfoShow()" >
                     <img src="btn_search.png" style="vertical-align: middle; cursor: pointer; width: 32px; height: 32px;">
                   </button>
 					  		</div>
@@ -255,7 +258,8 @@
 						    	<div class="input-group-prepend">
 						    		<div class="input-group-text">入力担当者</div>
 						  		</div>
-						   	  <input type="text" value="管理者" class="form-control" id="inlineFormInputGroup" name="userName" readonly>
+						   	  <input type="text" value="${userInfo.nameKNJ}" class="form-control" id="inlineFormInputGroup" name="userName" readonly>
+						   	  <input type="hidden" value="${userInfo.userID}" name="userId">
 					  		</div>
               </div>
 
@@ -289,8 +293,8 @@
 						    	<div class="input-group-prepend">
 						    		<div class="input-group-text">見積条件</div>
 						  		</div>
-                  <textarea cols="3" style="width: 750px;" name="estimateCondition"></textarea>
-                  <button type="button" class="ModalButton"  data-toggle="modal" data-target="#setQuotationCondition">
+                  <textarea cols="3" style="width: 750px;" id="estimateCondition" name="estimateCondition"></textarea>
+                  <button type="button" class="ModalButton"  data-toggle="modal" data-target="#setQuotationCondition" onclick="conditionShow()">
                     <img src="btn_search.png" style="vertical-align: middle; cursor: pointer; width: 32px; height: 32px;">
                   </button>
 					  		</div>
