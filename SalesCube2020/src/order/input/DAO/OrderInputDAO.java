@@ -11,16 +11,12 @@ import java.sql.PreparedStatement;
 
 import common.dao.BaseDAO;
 import order.input.beans.OrderInputBean;
-import order.input.beans.OrderInputCalcBean;
-import order.input.beans.OrderInputCustomerBean;
-import order.input.beans.OrderInputDeliveryBean;
-import order.input.beans.OrderInputDetailBean;
 import sql.order.OrderSQL;
 
 public class OrderInputDAO extends BaseDAO{
 	
 	/* 受注新規登録 */
-	public int orderInputInfo(OrderInputBean bean1, OrderInputCustomerBean bean2, OrderInputDeliveryBean bean3, OrderInputCalcBean bean4) throws SQLException, ClassNotFoundException{
+	public int orderInputInfo(OrderInputBean bean) throws SQLException, ClassNotFoundException{
 	
 		Connection con;
 	 	PreparedStatement stmt = null;
@@ -33,45 +29,173 @@ public class OrderInputDAO extends BaseDAO{
 
 	 	stmt = con.prepareStatement(sql);
 	 	
-	 	stmt.setString(1, bean1.getRoDate());
-	 	stmt.setString(2, bean1.getShipDate());
-	 	stmt.setString(3, bean1.getDeliveryDate());
-	 	stmt.setString(4, bean1.getReceptNo());
-	 	stmt.setString(5, bean1.getCustomerSlipNo());
-	 	stmt.setString(6, bean1.getUserName());
-	 	stmt.setString(7, bean1.getRemarks());
-	 	stmt.setString(8, bean1.getDcName());
-	 	stmt.setString(9, bean1.getDcTimezone());
-	 	stmt.setString(10, bean1.getCtaxRate());
-	 	stmt.setString(1, bean2.getCustomerCode());
-	 	stmt.setString(2, bean2.getCustomerName());
-	 	stmt.setString(3, bean2.getTaxShiftCategory());
-	 	stmt.setString(4, bean2.getCutoffGroup());
-	 	stmt.setString(5, bean2.getSalesCmCategory());
-	 	stmt.setString(6, bean2.getCustomerRemarks());
-	 	stmt.setString(7, bean2.getCustomerCommentData());
-	 	stmt.setString(1, bean3.getDeliveryName());
-	 	stmt.setString(2, bean3.getDeliveryOfficeName());
-	 	stmt.setString(3, bean3.getDeliveryDeptName());
-	 	stmt.setString(4, bean3.getDeliveryZipCode());
-	 	stmt.setString(5, bean3.getDeliveryAddress1());
-	 	stmt.setString(6, bean3.getDeliveryAddress2());
-	 	stmt.setString(7, bean3.getDeliveryPcName());
-	 	stmt.setString(8, bean3.getDeliveryPcKana());
-	 	stmt.setString(9, bean3.getDeliveryPcPre());
-	 	stmt.setString(10, bean3.getDeliveryTel());
-	 	stmt.setString(11, bean3.getDeliveryFax());
-	 	stmt.setString(12, bean3.getDeliveryEmail());
-	 	stmt.setInt(1, bean4.getRetailPriceTotal());
-	 	stmt.setInt(2, bean4.getCtaxPriceTotal());
-	 	stmt.setInt(3, bean4.getPriceTotal());
+	 	stmt.setString(1, bean.getRoDate());
+	 	
+	 	if(bean.getShipDate() == null) {
+	 		stmt.setNull(2,  java.sql.Types.NULL);
+	 	}else {
+	 		stmt.setString(2, bean.getShipDate());
+	 	}
+	 	if(bean.getDeliveryDate() == null) {
+	 		stmt.setNull(3,  java.sql.Types.NULL);
+	 	}else {
+	 		stmt.setString(3, bean.getDeliveryDate());
+	 	}
+	 	if(bean.getReceptNo() == null) {
+	 		stmt.setNull(4,  java.sql.Types.NULL);
+	 	}else {
+	 		stmt.setString(4, bean.getReceptNo());
+	 	}
+	 	if(bean.getCustomerSlipNo() == null) {
+	 		stmt.setNull(5,  java.sql.Types.NULL);
+	 	}else {
+	 		stmt.setString(5, bean.getCustomerSlipNo());
+	 	}
+	 	if(bean.getUserName() == null) {
+	 		stmt.setNull(6,  java.sql.Types.NULL);
+	 	}else {
+	 		stmt.setString(6, bean.getUserName());
+	 	}
+	 	if(bean.getRemarks() == null) {
+	 		stmt.setNull(7,  java.sql.Types.NULL);
+	 	}else {
+	 		stmt.setString(7, bean.getRemarks());
+	 	}
+	 	if(bean.getDcName() == null) {
+	 		stmt.setNull(8,  java.sql.Types.NULL);
+	 	}else {
+	 		stmt.setString(8, bean.getDcName());
+	 	}
+	 	if(bean.getDcTimezone() == null) {
+	 		stmt.setNull(9,  java.sql.Types.NULL);
+	 	}else {
+	 		stmt.setString(9, bean.getDcTimezone());
+	 	}
+	 	if(bean.getCtaxRate() == null) {
+	 		stmt.setNull(10,  java.sql.Types.NULL);
+	 	}else {
+		 	stmt.setString(10, bean.getCtaxRate());
+	 	}
+	 	if(bean.getCustomerCode() == null) {
+	 		stmt.setNull(11,  java.sql.Types.NULL);
+	 	}else {
+	 		stmt.setString(11, bean.getCustomerCode());
+	 	}
+	 	if(bean.getCustomerName() == null) {
+	 		stmt.setNull(12,  java.sql.Types.NULL);
+	 	}else {
+	 		stmt.setString(12, bean.getCustomerName());
+	 	}
+	 	if(bean.getTaxShiftCategory() == null) {
+	 		stmt.setNull(13,  java.sql.Types.NULL);
+	 	}else {
+	 		stmt.setString(13, bean.getTaxShiftCategory());
+	 	}
+	 	if(bean.getCutoffGroup() == null) {
+	 		stmt.setNull(14,  java.sql.Types.NULL);
+	 	}else {
+	 		stmt.setString(14, bean.getCutoffGroup());
+	 	}
+	 	if(bean.getSalesCmCategory() == null) {
+	 		stmt.setNull(15,  java.sql.Types.NULL);
+	 	}else {
+	 		stmt.setString(15, bean.getSalesCmCategory());
+	 	}
+	 	if(bean.getCustomerRemarks() == null) {
+	 		stmt.setNull(16,  java.sql.Types.NULL);
+	 	}else {
+	 		stmt.setString(16, bean.getCustomerRemarks());
+	 	}
+	 	if(bean.getCustomerCommentData() == null) {
+	 		stmt.setNull(17,  java.sql.Types.NULL);
+	 	}else {
+	 		stmt.setString(17, bean.getCustomerCommentData());
+	 	}
+	 	if(bean.getDeliveryName() == null) {
+	 		stmt.setNull(18,  java.sql.Types.NULL);
+	 	}else {
+	 		stmt.setString(18, bean.getDeliveryName());
+	 	}
+	 	if(bean.getDeliveryOfficeName() == null) {
+	 		stmt.setNull(19,  java.sql.Types.NULL);
+	 	}else {
+	 		stmt.setString(19, bean.getDeliveryOfficeName());
+	 	}
+	 	if(bean.getDeliveryDeptName() == null) {
+	 		stmt.setNull(20,  java.sql.Types.NULL);
+	 	}else {
+	 		stmt.setString(20, bean.getDeliveryDeptName());
+	 	}
+	 	if(bean.getDeliveryZipCode() == null) {
+	 		stmt.setNull(21,  java.sql.Types.NULL);
+	 	}else {
+	 		stmt.setString(21, bean.getDeliveryZipCode());
+	 	}
+	 	if(bean.getDeliveryAddress1() == null) {
+	 		stmt.setNull(22,  java.sql.Types.NULL);
+	 	}else {
+	 		stmt.setString(22, bean.getDeliveryAddress1());
+	 	}
+	 	if(bean.getDeliveryAddress2() == null) {
+	 		stmt.setNull(23,  java.sql.Types.NULL);
+	 	}else {
+	 		stmt.setString(23, bean.getDeliveryAddress2());
+	 	}
+	 	if(bean.getDeliveryPcName() == null) {
+	 		stmt.setNull(24,  java.sql.Types.NULL);
+	 	}else {
+	 		stmt.setString(24, bean.getDeliveryPcName());
+	 	}
+	 	if(bean.getDeliveryPcKana() == null) {
+	 		stmt.setNull(25,  java.sql.Types.NULL);
+	 	}else {
+	 		stmt.setString(25, bean.getDeliveryPcKana());
+	 	}
+	 	if(bean.getDeliveryPcPre() == null) {
+	 		stmt.setNull(26,  java.sql.Types.NULL);
+	 	}else {
+	 		stmt.setString(26, bean.getDeliveryPcPre());
+	 	}
+	 	if(bean.getDeliveryTel() == null) {
+	 		stmt.setNull(27,  java.sql.Types.NULL);
+	 	}else {
+	 		stmt.setString(27, bean.getDeliveryTel());
+	 	}
+	 	if(bean.getDeliveryFax() == null) {
+	 		stmt.setNull(28,  java.sql.Types.NULL);
+	 	}else {
+	 		stmt.setString(28, bean.getDeliveryFax());
+	 	}
+	 	if(bean.getDeliveryEmail() == null) {
+	 		stmt.setNull(29,  java.sql.Types.NULL);
+	 	}else {
+	 		stmt.setString(29, bean.getDeliveryEmail());
+	 	}
+	 	if(bean.getRetailPriceTotal() == null) {
+	 		stmt.setNull(30,  java.sql.Types.NULL);
+	 	}else {
+	 		stmt.setInt(30, bean.getRetailPriceTotal());
+	 	}
+	 	if(bean.getCtaxPriceTotal() == null) {
+	 		stmt.setNull(31,  java.sql.Types.NULL);
+	 	}else {
+	 		stmt.setInt(31, bean.getCtaxPriceTotal());
+	 	}
+	 	if(bean.getPriceTotal() == null) {
+	 		stmt.setNull(32,  java.sql.Types.NULL);
+	 	}else {
+	 		stmt.setInt(32, bean.getPriceTotal());
+	 	}
+	 	stmt.setInt(33, bean.getStatus());
 
 	 	try {
+	 		System.out.println(sql);
 	 		result = stmt.executeUpdate();
-	 		System.out.println("登録完了");
+	 		System.out.println("1登録完了");
 	 		con.commit();
 	 	}catch(SQLException e){
 	 		e.printStackTrace();
+	 		System.out.println("2登録できませんでした");
 	 		result = 0;
 	 	}finally {
 	 		super.releaseDB(con,stmt);
@@ -82,7 +206,7 @@ public class OrderInputDAO extends BaseDAO{
 	}
 	
 	/* 受注新規登録明細 */
-	public int orderInputDetail(List<OrderInputDetailBean> list) throws SQLException, ClassNotFoundException{
+	public int orderInputDetail(List<OrderInputBean> list) throws SQLException, ClassNotFoundException{
 		
 		Connection con;
 	 	PreparedStatement stmt = null;
@@ -94,9 +218,8 @@ public class OrderInputDAO extends BaseDAO{
 	 	sql = ordersql.orderInputDetail();
 
 	 	stmt = con.prepareStatement(sql);
-	 	result = stmt.executeUpdate();
 	 	
-	 	for (OrderInputDetailBean bean : list) {
+	 	for (OrderInputBean bean : list) {
 		 	stmt.setInt(1, bean.getProductCode());
 		 	stmt.setString(2, bean.getProductName());
 		 	stmt.setString(3, bean.getProductRemarks());
@@ -112,10 +235,11 @@ public class OrderInputDAO extends BaseDAO{
 	 	}
 	 	
 	 	try {
-	 		System.out.println("登録完了");
+	 		System.out.println("3登録完了");
 	 		con.commit();
 	 	}catch(SQLException e){
 	 		e.printStackTrace();
+	 		System.out.println("4登録できませんでした");
 	 		result = 0;
 	 	}finally {
 	 		super.releaseDB(con,stmt);
@@ -124,252 +248,9 @@ public class OrderInputDAO extends BaseDAO{
 		return result;
 	 
 	}
-
-	/* 取引区分コンボボックス */
-	public List<OrderInputCustomerBean> getSalesCmCategory() throws SQLException, ClassNotFoundException{
-		
-		List<OrderInputCustomerBean> list = new ArrayList<OrderInputCustomerBean>();
-		
-		Connection con;
-	 	Statement stmt = null;
-	 	ResultSet result = null;	
-	 	String  sql;
-	 	
-	 	con = super.getConnection();	
-	 	stmt = con.createStatement();
-	 	
-	 	OrderSQL ordersql = new OrderSQL();
-	 	sql = ordersql.initSalesCmCategory();
-	 	
-	 	result = stmt.executeQuery(sql);
-	 	
-	 	while (result.next()) {
-	 		OrderInputCustomerBean bean = new OrderInputCustomerBean();
-	 		bean.setSalesCmCategory(result.getString("SALES_CM_CATEGORY"));
-	 		bean.setCategoryCodeName(result.getString("CATEGORY_CODE_NAME"));
-	 		list.add(bean);
-	 	}
-	 	
-	 	
-	 	super.releaseDB(con, stmt, result);
-	 	
-	 	return list;
-	}
-	
-	/* 支払条件コンボボックス */
-	public List<OrderInputCustomerBean> getCutoffGroup() throws SQLException, ClassNotFoundException {
-		
-		List<OrderInputCustomerBean> list = new ArrayList<>();
-		
-		Connection con;
-	 	Statement stmt = null;
-	 	ResultSet result = null;	
-	 	String  sql;
-	 	
-	 	con = super.getConnection();	
-	 	stmt = con.createStatement();
-	 	
-	 	OrderSQL ordersql = new OrderSQL();
-	 	sql = ordersql.initCutoffGroup();
-	 	
-	 	result = stmt.executeQuery(sql);
-	 	
-	 	while (result.next()) {
-	 		OrderInputCustomerBean bean = new OrderInputCustomerBean();
-	 		bean.setCategoryCodeName(result.getString("CATEGORY_CODE_NAME"));
-	 		list.add(bean);
-	 	}
-	 	
-	 	super.releaseDB(con, stmt, result);
-	 	
-	 	return list;
-	 	
-	}
-	
-	/* 税転嫁コンボボックス */
-	public List<OrderInputCustomerBean> getTaxShiftCategory() throws SQLException, ClassNotFoundException {
-		
-		List<OrderInputCustomerBean> list = new ArrayList<>();
-		
-		Connection con;
-	 	Statement stmt = null;
-	 	ResultSet result = null;	
-	 	String  sql;
-	 	
-	 	con = super.getConnection();	
-	 	stmt = con.createStatement();
-	 	
-	 	OrderSQL ordersql = new OrderSQL();
-	 	sql = ordersql.initTaxShiftCategory();
-	 	
-	 	result = stmt.executeQuery(sql);
-	 	
-	 	while (result.next()) {
-	 		OrderInputCustomerBean bean = new OrderInputCustomerBean();
-	 		bean.setCategoryCodeName(result.getString("CATEGORY_CODE_NAME"));
-	 		list.add(bean);
-	 	}
-	 	
-	 	super.releaseDB(con, stmt, result);
-	 	
-	 	return list;
-	 	
-	}
-	
-	/* 顧客納入先コンボボックス */
-	public List<OrderInputDeliveryBean> getDeliveryName(String customerCode) throws SQLException, ClassNotFoundException {
-		
-		List<OrderInputDeliveryBean> list = new ArrayList<>();
-		
-		Connection con;
-	 	Statement stmt = null;
-	 	ResultSet result = null;	
-	 	String  sql;
-	 	
-	 	con = super.getConnection();	
-	 	stmt = con.createStatement();
-	 	
-	 	OrderSQL ordersql = new OrderSQL();
-	 	sql = ordersql.initDeliveryName(customerCode);
-	 	
-	 	result = stmt.executeQuery(sql);
-	 	
-	 	while (result.next()) {
-	 		OrderInputDeliveryBean bean = new OrderInputDeliveryBean();
-	 		bean.setDeliveryName(result.getString("DELIVERY_NAME"));
-	 		list.add(bean);
-	 	}
-	 	
-	 	super.releaseDB(con, stmt, result);
-	 	
-	 	return list;
-	 	
-	}
-	
-	/* 配送業者コンボボックス */
-	public List<OrderInputDeliveryBean> getDcName() throws SQLException, ClassNotFoundException {
-		
-		List<OrderInputDeliveryBean> list = new ArrayList<>();
-		
-		Connection con;
-	 	Statement stmt = null;
-	 	ResultSet result = null;	
-	 	String  sql;
-	 	
-	 	con = super.getConnection();	
-	 	stmt = con.createStatement();
-	 	
-	 	OrderSQL ordersql = new OrderSQL();
-	 	sql = ordersql.initDcName();
-	 	
-	 	result = stmt.executeQuery(sql);
-	 	
-	 	while (result.next()) {
-	 		OrderInputDeliveryBean bean = new OrderInputDeliveryBean();
-	 		bean.setCategoryCodeName(result.getString("CATEGORY_CODE_NAME"));
-	 		bean.setCategoryCode(result.getString("CATEGORY_CODE"));
-	 		list.add(bean);
-	 	}
-	 
-	 	super.releaseDB(con, stmt, result);
-	 	
-	 	return list;
-	 	
-	}
-	
-	/* 配送時間帯コンボボックス */
-	public List<OrderInputDeliveryBean> getDcTimezone() throws SQLException, ClassNotFoundException {
-		
-		List<OrderInputDeliveryBean> list = new ArrayList<>();
-		
-		Connection con;
-	 	Statement stmt = null;
-	 	ResultSet result = null;	
-	 	String  sql;
-	 	
-	 	con = super.getConnection();	
-	 	stmt = con.createStatement();
-	 	
-	 	OrderSQL ordersql = new OrderSQL();
-	 	sql = ordersql.initDcTimezone();
-	 	
-	 	result = stmt.executeQuery(sql);
-	 	
-	 	while (result.next()) {
-	 		OrderInputDeliveryBean bean = new OrderInputDeliveryBean();
-	 		bean.setCategoryCodeName(result.getString("CATEGORY_CODE_NAME"));
-	 		bean.setCategoryCode(result.getString("CATEGORY_CODE"));
-	 		list.add(bean);
-	 	}
-	 	
-	 	super.releaseDB(con, stmt, result);
-	 	
-	 	return list;
-	 	
-	}
-	
-	/* 消費税率コンボボックス */
-	public List<OrderInputBean> getTaxRate() throws SQLException, ClassNotFoundException {
-		
-		List<OrderInputBean> list = new ArrayList<>();
-		
-		Connection con;
-	 	Statement stmt = null;
-	 	ResultSet result = null;	
-	 	String  sql;
-	 	
-	 	con = super.getConnection();	
-	 	stmt = con.createStatement();
-	 	
-	 	OrderSQL ordersql = new OrderSQL();
-	 	sql = ordersql.initTaxRate();
-	 	
-	 	result = stmt.executeQuery(sql);
-	 	
-	 	while (result.next()) {
-	 		OrderInputBean bean = new OrderInputBean();
-	 		bean.setCtaxRate(result.getString("TAX_RATE"));
-	 		list.add(bean);
-	 	}
-	 	
-	 	super.releaseDB(con, stmt, result);
-	 	
-	 	return list;
-	 	
-	}
-	
-	/* 顧客納入先コンボボックス */
-	public List<OrderInputDeliveryBean> getDelivery() throws SQLException, ClassNotFoundException{
-		
-		List<OrderInputDeliveryBean> list = new ArrayList<>();
-		
-		Connection con;
-	 	Statement stmt = null;
-	 	ResultSet result = null;	
-	 	String  sql;
-	 	
-	 	con = super.getConnection();	
-	 	stmt = con.createStatement();
-	 	
-	 	OrderSQL ordersql = new OrderSQL();
-	 	sql = ordersql.initTaxRate();
-	 	
-	 	result = stmt.executeQuery(sql);
-	 	
-	 	while (result.next()) {
-	 		OrderInputDeliveryBean bean = new OrderInputDeliveryBean();
-	 		bean.setDeliveryName(result.getString("DELIVERY_NAME"));
-	 		list.add(bean);
-	 	}
-	 	
-	 	super.releaseDB(con, stmt, result);
-	 	
-	 	return list;
-	}
-		
 	
 	/* 受注更新 */
-	public int orderUpdateInfo(OrderInputBean bean1, OrderInputCustomerBean bean2, OrderInputDeliveryBean bean3, OrderInputCalcBean bean4) throws SQLException, ClassNotFoundException{
+	public int orderUpdateInfo(OrderInputBean bean) throws SQLException, ClassNotFoundException{
 		
 		Connection con;
 	 	PreparedStatement stmt = null;
@@ -382,41 +263,42 @@ public class OrderInputDAO extends BaseDAO{
 
 	 	stmt = con.prepareStatement(sql);
 	 	
-	 	stmt.setString(1, bean1.getRoDate());
-	 	stmt.setString(2, bean1.getShipDate());
-	 	stmt.setString(3, bean1.getDeliveryDate());
-	 	stmt.setString(4, bean1.getReceptNo());
-	 	stmt.setString(5, bean1.getCustomerSlipNo());
-	 	stmt.setString(6, bean1.getUserName());
-	 	stmt.setString(7, bean1.getRemarks());
-	 	stmt.setString(8, bean1.getDcName());
-	 	stmt.setString(9, bean1.getDcTimezone());
-	 	stmt.setString(10, bean1.getCtaxRate());
-	 	stmt.setString(1, bean2.getCustomerCode());
-	 	stmt.setString(2, bean2.getCustomerName());
-	 	stmt.setString(3, bean2.getTaxShiftCategory());
-	 	stmt.setString(4, bean2.getCutoffGroup());
-	 	stmt.setString(5, bean2.getSalesCmCategory());
-	 	stmt.setString(6, bean2.getCustomerRemarks());
-	 	stmt.setString(7, bean2.getCustomerCommentData());
-	 	stmt.setString(1, bean3.getDeliveryName());
-	 	stmt.setString(2, bean3.getDeliveryOfficeName());
-	 	stmt.setString(3, bean3.getDeliveryDeptName());
-	 	stmt.setString(4, bean3.getDeliveryZipCode());
-	 	stmt.setString(5, bean3.getDeliveryAddress1());
-	 	stmt.setString(6, bean3.getDeliveryAddress2());
-	 	stmt.setString(7, bean3.getDeliveryPcName());
-	 	stmt.setString(8, bean3.getDeliveryPcKana());
-	 	stmt.setString(9, bean3.getDeliveryPcPre());
-	 	stmt.setString(10, bean3.getDeliveryTel());
-	 	stmt.setString(11, bean3.getDeliveryFax());
-	 	stmt.setString(12, bean3.getDeliveryEmail());
-	 	stmt.setInt(1, bean4.getRetailPriceTotal());
-	 	stmt.setInt(2, bean4.getCtaxPriceTotal());
-	 	stmt.setInt(3, bean4.getPriceTotal());
-
+	 	stmt.setString(1, bean.getRoDate());
+	 	stmt.setString(2, bean.getShipDate());
+	 	stmt.setString(3, bean.getDeliveryDate());
+	 	stmt.setString(4, bean.getReceptNo());
+	 	stmt.setString(5, bean.getCustomerSlipNo());
+	 	stmt.setString(6, bean.getUserName());
+	 	stmt.setString(7, bean.getRemarks());
+	 	stmt.setString(8, bean.getDcName());
+	 	stmt.setString(9, bean.getDcTimezone());
+	 	stmt.setString(10, bean.getCtaxRate());
+	 	stmt.setString(11, bean.getCustomerCode());
+	 	stmt.setString(12, bean.getCustomerName());
+	 	stmt.setString(13, bean.getTaxShiftCategory());
+	 	stmt.setString(14, bean.getCutoffGroup());
+	 	stmt.setString(15, bean.getSalesCmCategory());
+	 	stmt.setString(16, bean.getCustomerRemarks());
+	 	stmt.setString(17, bean.getCustomerCommentData());
+	 	stmt.setString(18, bean.getDeliveryName());
+	 	stmt.setString(19, bean.getDeliveryOfficeName());
+	 	stmt.setString(20, bean.getDeliveryDeptName());
+	 	stmt.setString(21, bean.getDeliveryZipCode());
+	 	stmt.setString(22, bean.getDeliveryAddress1());
+	 	stmt.setString(23, bean.getDeliveryAddress2());
+	 	stmt.setString(24, bean.getDeliveryPcName());
+	 	stmt.setString(25, bean.getDeliveryPcKana());
+	 	stmt.setString(26, bean.getDeliveryPcPre());
+	 	stmt.setString(27, bean.getDeliveryTel());
+	 	stmt.setString(28, bean.getDeliveryFax());
+	 	stmt.setString(29, bean.getDeliveryEmail());
+	 	stmt.setInt(30, bean.getRetailPriceTotal());
+	 	stmt.setInt(31, bean.getCtaxPriceTotal());
+	 	stmt.setInt(32, bean.getPriceTotal());
+	 	
+	 	result = stmt.executeUpdate();
+	 	
 	 	try {
-	 		result = stmt.executeUpdate();
 	 		System.out.println("更新完了");
 	 		con.commit();
 	 	}catch(SQLException e){
@@ -431,7 +313,7 @@ public class OrderInputDAO extends BaseDAO{
 	}
 	
 	/* 受注更新 明細 */
-	public int orderUpdateDetail(List<OrderInputDetailBean> list) throws SQLException, ClassNotFoundException{
+	public int orderUpdateDetail(List<OrderInputBean> list) throws SQLException, ClassNotFoundException{
 		Connection con;
 	 	PreparedStatement stmt = null;
 	 	int result = 0;	
@@ -443,7 +325,7 @@ public class OrderInputDAO extends BaseDAO{
 
 	 	stmt = con.prepareStatement(sql);
 	 	
-	 	for (OrderInputDetailBean bean : list) {
+	 	for (OrderInputBean bean : list) {
 		 	stmt.setInt(1, bean.getProductCode());
 		 	stmt.setString(2, bean.getProductName());
 		 	stmt.setString(3, bean.getProductRemarks());
@@ -455,10 +337,10 @@ public class OrderInputDAO extends BaseDAO{
 		 	stmt.setInt(9, bean.getRetailPrice());
 		 	stmt.setString(10, bean.getInputProductRemarks());
 		 	stmt.setString(11, bean.getEadRemarks());
+	 		result = stmt.executeUpdate();
 	 	}
 	 	
 	 	try {
-	 		result = stmt.executeUpdate();
 	 		System.out.println("明細更新完了");
 	 		con.commit();
 	 	}catch(SQLException e){
@@ -475,12 +357,8 @@ public class OrderInputDAO extends BaseDAO{
 	/* 新規登録画面→受注更新画面 */
 	public OrderInputBean getOrderInfo(Integer roSlipId) throws SQLException, ClassNotFoundException {
 		
-		OrderInputBean bean1 = new OrderInputBean();
-		OrderInputCustomerBean bean2 = new OrderInputCustomerBean();
-		OrderInputDeliveryBean bean3 = new OrderInputDeliveryBean();
-		OrderInputDetailBean bean4 = new OrderInputDetailBean();
-		OrderInputCalcBean bean5 = new OrderInputCalcBean();		
-		
+		OrderInputBean bean = new OrderInputBean();
+
 		Connection con;
 	 	Statement stmt = null;
 	 	ResultSet result = null;
@@ -549,4 +427,247 @@ public class OrderInputDAO extends BaseDAO{
 	 	
 	 	return bean;
 	}
+
+	/* 取引区分コンボボックス */
+	public List<OrderInputBean> getSalesCmCategory() throws SQLException, ClassNotFoundException{
+		
+		List<OrderInputBean> list = new ArrayList<OrderInputBean>();
+		
+		Connection con;
+	 	Statement stmt = null;
+	 	ResultSet result = null;	
+	 	String  sql;
+	 	
+	 	con = super.getConnection();	
+	 	stmt = con.createStatement();
+	 	
+	 	OrderSQL ordersql = new OrderSQL();
+	 	sql = ordersql.initSalesCmCategory();
+	 	
+	 	result = stmt.executeQuery(sql);
+	 	
+	 	while (result.next()) {
+	 		OrderInputBean bean = new OrderInputBean();
+	 		bean.setSalesCmCategory(result.getString("SALES_CM_CATEGORY"));
+	 		bean.setCategoryCodeName(result.getString("CATEGORY_CODE_NAME"));
+	 		list.add(bean);
+	 	}
+	 	
+	 	
+	 	super.releaseDB(con, stmt, result);
+	 	
+	 	return list;
+	}
+	
+	/* 支払条件コンボボックス */
+	public List<OrderInputBean> getCutoffGroup() throws SQLException, ClassNotFoundException {
+		
+		List<OrderInputBean> list = new ArrayList<>();
+		
+		Connection con;
+	 	Statement stmt = null;
+	 	ResultSet result = null;	
+	 	String  sql;
+	 	
+	 	con = super.getConnection();	
+	 	stmt = con.createStatement();
+	 	
+	 	OrderSQL ordersql = new OrderSQL();
+	 	sql = ordersql.initCutoffGroup();
+	 	
+	 	result = stmt.executeQuery(sql);
+	 	
+	 	while (result.next()) {
+	 		OrderInputBean bean = new OrderInputBean();
+	 		bean.setCategoryCodeName(result.getString("CATEGORY_CODE_NAME"));
+	 		list.add(bean);
+	 	}
+	 	
+	 	super.releaseDB(con, stmt, result);
+	 	
+	 	return list;
+	 	
+	}
+	
+	/* 税転嫁コンボボックス */
+	public List<OrderInputBean> getTaxShiftCategory() throws SQLException, ClassNotFoundException {
+		
+		List<OrderInputBean> list = new ArrayList<>();
+		
+		Connection con;
+	 	Statement stmt = null;
+	 	ResultSet result = null;	
+	 	String  sql;
+	 	
+	 	con = super.getConnection();	
+	 	stmt = con.createStatement();
+	 	
+	 	OrderSQL ordersql = new OrderSQL();
+	 	sql = ordersql.initTaxShiftCategory();
+	 	
+	 	result = stmt.executeQuery(sql);
+	 	
+	 	while (result.next()) {
+	 		OrderInputBean bean = new OrderInputBean();
+	 		bean.setCategoryCodeName(result.getString("CATEGORY_CODE_NAME"));
+	 		list.add(bean);
+	 	}
+	 	
+	 	super.releaseDB(con, stmt, result);
+	 	
+	 	return list;
+	 	
+	}
+	
+	/* 顧客納入先コンボボックス */
+	public List<OrderInputBean> getDeliveryName(String customerCode) throws SQLException, ClassNotFoundException {
+		
+		List<OrderInputBean> list = new ArrayList<>();
+		
+		Connection con;
+	 	Statement stmt = null;
+	 	ResultSet result = null;	
+	 	String  sql;
+	 	
+	 	con = super.getConnection();	
+	 	stmt = con.createStatement();
+	 	
+	 	OrderSQL ordersql = new OrderSQL();
+	 	sql = ordersql.initDeliveryName(customerCode);
+	 	
+	 	result = stmt.executeQuery(sql);
+	 	
+	 	while (result.next()) {
+	 		OrderInputBean bean = new OrderInputBean();
+	 		bean.setDeliveryName(result.getString("DELIVERY_NAME"));
+	 		list.add(bean);
+	 	}
+	 	
+	 	super.releaseDB(con, stmt, result);
+	 	
+	 	return list;
+	 	
+	}
+	
+	/* 配送業者コンボボックス */
+	public List<OrderInputBean> getDcName() throws SQLException, ClassNotFoundException {
+		
+		List<OrderInputBean> list = new ArrayList<>();
+		
+		Connection con;
+	 	Statement stmt = null;
+	 	ResultSet result = null;	
+	 	String  sql;
+	 	
+	 	con = super.getConnection();	
+	 	stmt = con.createStatement();
+	 	
+	 	OrderSQL ordersql = new OrderSQL();
+	 	sql = ordersql.initDcName();
+	 	
+	 	result = stmt.executeQuery(sql);
+	 	
+	 	while (result.next()) {
+	 		OrderInputBean bean = new OrderInputBean();
+	 		bean.setCategoryCodeName(result.getString("CATEGORY_CODE_NAME"));
+	 		bean.setCategoryCode(result.getString("CATEGORY_CODE"));
+	 		list.add(bean);
+	 	}
+	 
+	 	super.releaseDB(con, stmt, result);
+	 	
+	 	return list;
+	 	
+	}
+	
+	/* 配送時間帯コンボボックス */
+	public List<OrderInputBean> getDcTimezone() throws SQLException, ClassNotFoundException {
+		
+		List<OrderInputBean> list = new ArrayList<>();
+		
+		Connection con;
+	 	Statement stmt = null;
+	 	ResultSet result = null;	
+	 	String  sql;
+	 	
+	 	con = super.getConnection();	
+	 	stmt = con.createStatement();
+	 	
+	 	OrderSQL ordersql = new OrderSQL();
+	 	sql = ordersql.initDcTimezone();
+	 	
+	 	result = stmt.executeQuery(sql);
+	 	
+	 	while (result.next()) {
+	 		OrderInputBean bean = new OrderInputBean();
+	 		bean.setCategoryCodeName(result.getString("CATEGORY_CODE_NAME"));
+	 		bean.setCategoryCode(result.getString("CATEGORY_CODE"));
+	 		list.add(bean);
+	 	}
+	 	
+	 	super.releaseDB(con, stmt, result);
+	 	
+	 	return list;
+	 	
+	}
+	
+	/* 消費税率コンボボックス */
+	public List<OrderInputBean> getTaxRate() throws SQLException, ClassNotFoundException {
+		
+		List<OrderInputBean> list = new ArrayList<>();
+		
+		Connection con;
+	 	Statement stmt = null;
+	 	ResultSet result = null;	
+	 	String  sql;
+	 	
+	 	con = super.getConnection();	
+	 	stmt = con.createStatement();
+	 	
+	 	OrderSQL ordersql = new OrderSQL();
+	 	sql = ordersql.initTaxRate();
+	 	
+	 	result = stmt.executeQuery(sql);
+	 	
+	 	while (result.next()) {
+	 		OrderInputBean bean = new OrderInputBean();
+	 		bean.setCtaxRate(result.getString("TAX_RATE"));
+	 		list.add(bean);
+	 	}
+	 	
+	 	super.releaseDB(con, stmt, result);
+	 	
+	 	return list;
+	 	
+	}
+	
+	/* 顧客納入先コンボボックス */
+	public List<OrderInputBean> getDelivery() throws SQLException, ClassNotFoundException{
+		
+		List<OrderInputBean> list = new ArrayList<>();
+		
+		Connection con;
+	 	Statement stmt = null;
+	 	ResultSet result = null;	
+	 	String  sql;
+	 	
+	 	con = super.getConnection();	
+	 	stmt = con.createStatement();
+	 	
+	 	OrderSQL ordersql = new OrderSQL();
+	 	sql = ordersql.initTaxRate();
+	 	
+	 	result = stmt.executeQuery(sql);
+	 	
+	 	while (result.next()) {
+	 		OrderInputBean bean = new OrderInputBean();
+	 		bean.setDeliveryName(result.getString("DELIVERY_NAME"));
+	 		list.add(bean);
+	 	}
+	 	
+	 	super.releaseDB(con, stmt, result);
+	 	
+	 	return list;
+	}
+
 }

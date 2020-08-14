@@ -13,9 +13,6 @@ import javax.servlet.http.HttpServletResponse;
 import common.controller.BaseController;
 import order.input.DAO.OrderInputDAO;
 import order.input.beans.OrderInputBean;
-import order.input.beans.OrderInputCalcBean;
-import order.input.beans.OrderInputCustomerBean;
-import order.input.beans.OrderInputDeliveryBean;
 
 
 public class OrderInputController extends BaseController {
@@ -121,35 +118,30 @@ public class OrderInputController extends BaseController {
 		bean.setDcName(dcName);
 		bean.setDcTimezone(dcTimezone);
 		bean.setCtaxRate(ctaxRate);
+		bean.setCustomerCode(customerCode);
+		bean.setCustomerName(customerName);
+		bean.setTaxShiftCategory(taxShiftCategory);
+		bean.setCutoffGroup(cutoffGroup);
+		bean.setSalesCmCategory(salesCmCategory);
+		bean.setCustomerRemarks(customerRemarks);
+		bean.setCustomerCommentData(customerCommentData);
+		bean.setDeliveryName(deliveryName);
+		bean.setDeliveryOfficeName(deliveryOfficeName);
+		bean.setDeliveryDeptName(deliveryDeptName);
+		bean.setDeliveryZipCode(deliveryZipCode);
+		bean.setDeliveryAddress1(deliveryAddress1);
+		bean.setDeliveryAddress2(deliveryAddress2);
+		bean.setDeliveryPcName(deliveryPcName);
+		bean.setDeliveryPcKana(deliveryPcKana);
+		bean.setDeliveryPcPre(deliveryPcPre);
+		bean.setDeliveryTel(deliveryTel);
+		bean.setDeliveryFax(deliveryFax);
+		bean.setDeliveryEmail(deliveryEmail);
+		bean.setRetailPriceTotal(retailPriceTotal);
+		bean.setCtaxPriceTotal(ctaxPriceTotal);
+		bean.setPriceTotal(priceTotal);		
 		
-		OrderInputCustomerBean bean2 = new OrderInputCustomerBean();
-		bean2.setCustomerCode(customerCode);
-		bean2.setCustomerName(customerName);
-		bean2.setTaxShiftCategory(taxShiftCategory);
-		bean2.setCutoffGroup(cutoffGroup);
-		bean2.setSalesCmCategory(salesCmCategory);
-		bean2.setCustomerRemarks(customerRemarks);
-		bean2.setCustomerCommentData(customerCommentData);
-		
-		OrderInputDeliveryBean bean3 = new OrderInputDeliveryBean();
-		bean3.setDeliveryName(deliveryName);
-		bean3.setDeliveryOfficeName(deliveryOfficeName);
-		bean3.setDeliveryDeptName(deliveryDeptName);
-		bean3.setDeliveryZipCode(deliveryZipCode);
-		bean3.setDeliveryAddress1(deliveryAddress1);
-		bean3.setDeliveryAddress2(deliveryAddress2);
-		bean3.setDeliveryPcName(deliveryPcName);
-		bean3.setDeliveryPcKana(deliveryPcKana);
-		bean3.setDeliveryPcPre(deliveryPcPre);
-		bean3.setDeliveryTel(deliveryTel);
-		bean3.setDeliveryFax(deliveryFax);
-		bean3.setDeliveryEmail(deliveryEmail);
-		
-		OrderInputCalcBean bean4 = new OrderInputCalcBean();
-		bean4.setRetailPriceTotal(retailPriceTotal);
-		bean4.setCtaxPriceTotal(ctaxPriceTotal);
-		bean4.setPriceTotal(priceTotal);		
-		
+		OrderInputBean bean2 = new OrderInputBean();
 		if(productCode != null) {
 			for(int i = 0; i < productCode.length; i++) {
 				bean2.setProductCode(Integer.parseInt(productCode[i]));
