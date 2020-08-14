@@ -21,7 +21,17 @@ public class EstimateSearchController extends BaseController {
 		String forwardURL = "/menu.jsp";
 		String action = request.getParameter("action");
 		
-		if(action.equals("customerModalSearch")) forwardURL = customerSearchResult(request, response);
+		System.out.println("controller");
+		
+		if(action.equals("moveEstimateSearch")) forwardURL = moveCustomerSearch(request, response);
+		else if(action.equals("customerModalSearch")) forwardURL = customerSearchResult(request, response);
+		
+		return forwardURL;
+	}
+	
+	private String moveCustomerSearch(HttpServletRequest request, HttpServletResponse response) {
+		String forwardURL = "estimate/estimateSearch.jsp";
+		System.out.println(forwardURL);
 		return forwardURL;
 	}
 	

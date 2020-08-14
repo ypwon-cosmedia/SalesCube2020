@@ -4,6 +4,7 @@ package sql.order;
 import order.search.beans.OrderSearchBean;
 
 import order.common.bill.beans.OrderCommonBillBean;
+import order.input.beans.OrderInputBean;
 import sql.common.CommonSQL;
 
 
@@ -120,22 +121,22 @@ public class OrderSQL {
 		if(bean.getEstimateSheetId() == null || bean.getEstimateSheetId().equals("")) {
 			bean.setEstimateSheetId("%' OR ESTIMATE_SHEET_ID IS NULL");
 		}else {
-			bean.setEstimateSheetId(bean.getEstimateSheetId().concat("%'"));
+			bean.setEstimateSheetId(bean.getEstimateSheetId().concat("%"));
 		}
 		if(bean.getEstimateDate() == null || bean.getEstimateDate().equals("")) {
 			bean.setEstimateDate("%' OR ESTIMATE_DATE IS NULL");
 		}else {
-			bean.setEstimateDate(bean.getEstimateDate().concat("%'"));
+			bean.setEstimateDate(bean.getEstimateDate().concat("%"));
 		}
 		if(bean.getSubmitName() == null || bean.getSubmitName().equals("")) {
 			bean.setSubmitName("%' OR SUBMIT_NAME IS NULL");
 		}else {
-			bean.setSubmitName(bean.getSubmitName().concat("%'"));
+			bean.setSubmitName(bean.getSubmitName().concat("%"));
 		}
 		if(bean.getTitle() == null || bean.getTitle().equals("")) {
 			bean.setTitle("%' OR TITLE IS NULL");
 		}else {
-			bean.setTitle(bean.getTitle().concat("%'"));
+			bean.setTitle(bean.getTitle().concat("%"));
 		}
 			
 		sql = "SELECT " +		
@@ -711,9 +712,10 @@ public class OrderSQL {
 				"DELIVERY_EMAIL, " +
 				"RETAIL_PRICE_TOTAL, " +
 				"CTAX_PRICE_TOTAL, " +
-				"PRICE_TOTAL) " +
+				"PRICE_TOTAL " + 
+				"STATUS) " +
 				"VALUES " + 
-				"(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+				"(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
 		
 		return sql;
 		
@@ -1198,6 +1200,45 @@ public class OrderSQL {
 		
 		
 		return tmp;
+	}
+	
+	/* 商品コード/名→明細 */
+	public String productToDetail(String productCode, String productName, OrderInputBean bean) {
+		
+		String sql;
+		
+		if(bean.getProductCode() == null || bean.getProductCode().equals("")) {
+			bean.setProductCode("%' OR PRODUCT_CODE IS NULL");
+		}else {
+			bean.setProductCode(bean.getProductCode().concat("%"));
+		}
+		if(bean.getProductName() == null || bean.getProductName().equals("")) {
+			bean.setProductName("%' OR PRODUCT_NAME IS NULL");
+		}else {
+			bean.setProductName(bean.getProductName().concat("%"));
+		}
+		
+		sql = "SELECT " + 
+				"pmx.PRODUCT_CODE, " + 
+				"pmx.PRODUCT_NAME, " + 
+				"pmx.REMARKS, " + 
+				"pmx.RACK_CODE, " + 
+				"rltn.QUANTITY, " + 
+				"rltn.COST, " + 
+				"rltn.UNIT_RETAIL_PRICE, " + 
+				"rltn.RETAIL_PRICE, " + 
+				"pmx.REMARKS, " + 
+				"pmx.EAD_REMARKS " + 
+				"FROM product_mst_xxxxx AS pmx " + 
+				"LEFT OUTER JOIN ro_line_trn_xxxxx AS rltn " + 
+				"USING(PRODUCT_CODE) " + 
+				"WHERE " +
+				"(PRODUCT_CODE LIKE '" + bean.getProductCode() + "'" +
+				") AND (PRODUCT_NAME LIKE '" + bean.getProductName() + "'" + 
+				") GROUP BY PRODUCT_CODE";
+		
+		return sql;
+		
 	}
 
 }

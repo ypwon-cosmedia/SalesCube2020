@@ -4,12 +4,14 @@ import java.util.HashMap;
 
 import common.modal.customer.controller.CustomerModalAJAXController;
 import common.modal.product.controller.ProductModalAJAXController;
+import common.modal.stock.controller.StockController;
 import common.modal.supplier.controller.SupplierModalAJAXController;
 import estimate.Input.Controller.EstimateInputCommonController;
 import estimate.Search.controller.EstimateSearchAJAXController;
 import estimate.common.controller.EstimateCategoryModalAJAXController;
 import estimate.common.controller.EstimateConfigurationModalAJAXController;
 import estimate.common.controller.UserModalAJAXController;
+import order.common.bill.Controller.OrderCommonBillController;
 import order.online.controller.OrderOnlineAJAXController;
 import order.search.controller.OrderSearchAJAXController;
 
@@ -29,11 +31,14 @@ public class CreateAJAXControllers {
 		BaseAJAXController estimateInputCommonAJAX = new EstimateInputCommonController();
 		BaseAJAXController onlineAJAX = new OrderOnlineAJAXController();
 		BaseAJAXController estimateSearchAJAX = new EstimateSearchAJAXController();
+		BaseAJAXController stock = new StockController();
+		BaseAJAXController bill = new OrderCommonBillController();
 		
 		map.put("productSearch", productAJAX);
 		
 		map.put("configModalUpdate", ordersearchAJAX);
 		map.put("orderSearch", ordersearchAJAX);
+		map.put("csvOutput", ordersearchAJAX);
 		
 		
 		map.put("estimateCategoryGet", estimateCategoryAJAX);
@@ -56,6 +61,10 @@ public class CreateAJAXControllers {
 		map.put("confirmEstimateSheetId", estimateInputCommonAJAX);
 		
 		map.put("uploadcsv", onlineAJAX);
+		
+		map.put("moveStock", stock);
+		map.put("orderinput", bill);
+		map.put("orderlink", bill);
 		
 		return map;
 	}

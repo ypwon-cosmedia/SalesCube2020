@@ -65,7 +65,7 @@
         <div class="btn-group mr-2 " role="group" aria-label="First group">
           <button type="button" class="btn btn-secondary" style="font-size: 12px;" onclick="initPage();">F1<br>初期化</button>
           <button type="button" class="btn btn-secondary" style="font-size: 12px;" onclick="search();">F2<br>検索</button>
-          <button type="button" class="btn btn-secondary" style="font-size: 12px;" id="csvDownloadButton">F3<br>Excel出力<br></button>
+          <button type="button" class="btn btn-secondary" style="font-size: 12px;" onclick="csvOutput();" id="csvDownloadButton">F3<br>Excel出力<br></button>
           <button type="button" class="btn btn-secondary" style="font-size: 12px;" id="openConfigModal" data-toggle="modal" data-target="#setSlipConfiguration">F4<br>設定<br></button>
           <button type="button" class="btn btn-secondary" style="font-size: 12px;" disabled>F5<br></button>
           <button type="button" class="btn btn-secondary" style="font-size: 12px;" disabled>F6<br></button>
@@ -946,12 +946,12 @@
 						}
 
 						if(lastCount > 6 && num != 1)
-							$("#paging").append('<a href="#" onclick="paging(1)">'+'最初へ'+'</a> ');
+							$("#paging").append('<a href="javascript:void(0);" onclick="paging(1)">'+'<<'+'</a> ');
 						for(var i = num ; i<=pagingNo ; i++){
-							$("#paging").append('<a href="#" onclick="paging('+(i)+')">'+(i)+'</a> ');
+							$("#paging").append('<a href="javascript:void(0);" onclick="paging('+(i)+')">'+(i)+'</a> ');
 						}
 						if(lastCount > 6 && (num+2) != lastCount)
-							$("#paging").append('<a href="#" onclick="paging('+(lastCount)+')">'+'最後へ'+'</a> ');
+							$("#paging").append('<a href="javascript:void(0);" onclick="paging('+(lastCount)+')">'+'>>'+'</a> ');
 					} else {
 						alert("検索結果がありません。");
 					}
@@ -1034,24 +1034,30 @@
 					var pagingNo;
 					var num = document.getElementById("hiddenPaging").value;
 					num *= 1;
-					if(lastCount > (num+3)){
+
+					if(num == 1 && lastCount > 5){
+						pagingNo = num+5;
+					} else if(lastCount > (num+3)){
 						pagingNo = num+3;
 					} else {
 						pagingNo = lastCount;
 					}
 
+					var tmpnum;
+					
 					if(num-3 <= 0){
-						num = 1;
+						tmpnum = 1;
 					} else {
-						num -= 2;
+						tmpnum = num - 2;
 					}
-					if(lastCount > 6 && num != 1)
-						$("#paging").append('<a href="#" onclick="paging(1)">'+'最初へ'+'</a> ');
-					for(var i = num ; i<=pagingNo ; i++){
-						$("#paging").append('<a href="#" onclick="paging('+(i)+')">'+(i)+'</a> ');
+
+					if(lastCount > 6 && tmpnum != 1)
+						$("#paging").append('<a href="javascript:void(0);" onclick="paging(1)">'+'<<'+'</a> ');
+					for(var i = tmpnum ; i<=pagingNo ; i++){
+						$("#paging").append('<a href="javascript:void(0);" onclick="paging('+(i)+')">'+(i)+'</a> ');
 					}
-					if(lastCount > 6 && (num+2) != lastCount)
-						$("#paging").append('<a href="#" onclick="paging('+(lastCount)+')">'+'最後へ'+'</a> ');
+					if(lastCount > 6 && num != lastCount)
+						$("#paging").append('<a href="javascript:void(0);" onclick="paging('+(lastCount)+')">'+'>>'+'</a> ');
 				}
 			});
 		}
@@ -1127,27 +1133,29 @@
 					var lastCount = data[Object.keys(data).length-1]["totalPage"];
 					var pagingNo;
 
-					if(lastCount > (num+3)){
+					if(num == 1 && lastCount > 5){
+						pagingNo = num+5;
+					} else if(lastCount > (num+3)){
 						pagingNo = num+3;
 					} else {
 						pagingNo = lastCount;
 					}
 
+					var tmpnum;
+					
 					if(num-3 <= 0){
-						num = 1;
+						tmpnum = 1;
 					} else {
-						num -= 2;
+						tmpnum = num - 2;
 					}
 
-					if(num == 1)
-						pagingNo = 6;
-					if(lastCount > 6 && num != 1)
-						$("#paging").append('<a href="#" onclick="paging(1)">'+'最初へ'+'</a> ');
-					for(var i = num ; i<=pagingNo ; i++){
-						$("#paging").append('<a href="#" onclick="paging('+(i)+')">'+(i)+'</a> ');
+					if(lastCount > 6 && tmpnum != 1)
+						$("#paging").append('<a href="javascript:void(0);" onclick="paging(1)">'+'<<'+'</a> ');
+					for(var i = tmpnum ; i<=pagingNo ; i++){
+						$("#paging").append('<a href="javascript:void(0);" onclick="paging('+(i)+')">'+(i)+'</a> ');
 					}
-					if(lastCount > 6 && (num+2) != lastCount)
-						$("#paging").append('<a href="#" onclick="paging('+(lastCount)+')">'+'最後へ'+'</a> ');
+					if(lastCount > 6 && num != lastCount)
+						$("#paging").append('<a href="javascript:void(0);" onclick="paging('+(lastCount)+')">'+'>>'+'</a> ');
 					
 				}
 			});
@@ -1190,69 +1198,92 @@
 			  }
 			  return zero + n;
 			}
+		
+		function csvOutput(){
+			var selArr = [];
+			var checkedData = [];
+			for(var i = 0; i<document.getElementById('showSearchResult').length; i++){
+				selArr[i] = document.getElementById('showSearchResult')[i].value
+			}
 
+			$("input[name='withdrawl']:checked").each(function() {
+				var test = $(this).val();
+				checkedData.push(test);
+			});
+			var sorting = document.getElementById("hiddenSort").value;
+		
+			jQuery.ajaxSettings.traditional = true;
+			
+			$.ajax({
+				url:'/SalesCube2020/SalesCubeAJAX?action=csvOutput',
+				type:'post',
+				data:{
+					"selectView": $("#select_view option:selected").val(),
+					"orderNo": $("#orderNumber").val(),
+					"repNo": $("#repNo").val(),
+					"orderDayStart": $("#orderDayStart").val(),
+					"orderDayEnd": $("#orderDayEnd").val(),
+					"shipDayStart": $("#shipDayStart").val(),
+					"shipDayEnd": $("#shipDayStart").val(),
+					"deliveryDayStart": $("#shipDayStart").val(),
+					"deliveryDayEnd": $("#shipDayStart").val(),
+					"withdrawl": checkedData,
+					"productCodeInput": $("#productCodeInput").val(),
+					"productNameInput": $("#productNameInput").val(),
+					"product1": $("#product1").val(),
+					"product2": $("#product2").val(),
+					"product3": $("#product3").val(),
+					"supplierCodeInput": $("#supplierCodeInput").val(),
+					"supplierNameInput": $("#supplierNameInput").val(),
+					"rowCount": $("#rowCount option:selected").val(),
+					"list": selArr, 
+					"sorting": sorting,
+					"orderBy": orderBy
+				},
+				dataType:'json',
+				success:function(data){	
+					
+					var csv = [];
+			        var rows = document.querySelectorAll("#AddHead > tr");
 
-		class ToCSV {
-		    constructor() {
-		        document.querySelector('#csvDownloadButton').addEventListener('click', e => {
-		        	if(!confirm("検索結果をExcelファイルでダウンロードしますか？")){
-		               	return;
-		        	}
-		            e.preventDefault()
-		            this.getCSV('受注検索('+ getTimeStamp() +').csv')
-		        })
-		    }
+			        for (let i = 0; i < rows.length; i++) {
+			            const row = [], cols = rows[i].querySelectorAll("td, th");
+			            for (let j = 0; j < cols.length; j++)
+			                row.push(cols[j].innerText)
 
-		    downloadCSV(csv, filename) {
-		        let csvFile;
-		        let downloadLink;
-		        
-		        const BOM = "\uFEFF";
-		        csv = BOM + csv
-
-		        csvFile = new Blob([csv], {type: "text/csv"})
-
-		        downloadLink = document.createElement("a")
-		        downloadLink.download = filename;
-		        downloadLink.href = window.URL.createObjectURL(csvFile)
-		        downloadLink.style.display = "none"
-		        document.body.appendChild(downloadLink)
-		        downloadLink.click()
-		    }
-
-		    getCSV(filename) {
-
-
-		        var csv = []
-		        var rows = document.querySelectorAll("#AddHead > tr")
-
-		        for (let i = 0; i < rows.length; i++) {
-		            const row = [], cols = rows[i].querySelectorAll("td, th")
-
-		            for (let j = 0; j < cols.length; j++)
-		                row.push(cols[j].innerText)
-
-		            csv.push(row.join(","))
-		        }
-
-		        var rows = document.querySelectorAll("#AddOption > tr")
-
-		        for (let i = 0; i < rows.length; i++) {
-		            const row = [], cols = rows[i].querySelectorAll("td, th")
-
-		            for (let j = 0; j < cols.length; j++)
-		                row.push(cols[j].innerText)
-
-		            csv.push(row.join(","))
-		        }
-		        
-		        this.downloadCSV(csv.join("\n"), filename)
-		    }
+			            csv.push(row.join(","));
+			        }
+					
+					for(let i = 0; i < Object.keys(data).length; i++){
+						const row = [];
+						for(var j = 0; j < selArr.length; j++){
+							row.push(data[i][j]);
+						}
+						csv.push(row.join(","));
+					}
+					
+					
+					downloadCSV(csv.join("\n"), '受注検索('+ getTimeStamp() +').csv');
+				}
+			});
 		}
+		
+		function downloadCSV(csv, filename) {
+	        let csvFile;
+	        let downloadLink;
+	        
+	        const BOM = "\uFEFF";
+	        csv = BOM + csv
 
-		document.addEventListener('DOMContentLoaded', e => {
-		    new ToCSV()
-		})
+	        csvFile = new Blob([csv], {type: "text/csv"})
+
+	        downloadLink = document.createElement("a")
+	        downloadLink.download = filename;
+	        downloadLink.href = window.URL.createObjectURL(csvFile)
+	        downloadLink.style.display = "none"
+	        document.body.appendChild(downloadLink)
+	        downloadLink.click()
+	    }
 </script>
 </body>
 </html>
