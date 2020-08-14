@@ -73,8 +73,8 @@
             			 document.getElementById('estimateCondition').value = checkedShipdate
             		 }
             		 
-            		 window.onload = function() {
-            				alert("test");
+            		 function conditionShow() {
+            				
             				var formString = $("form[id=quotationGet]").serialize();			//オブジェクトをバイト列に変換
             				var tmp = "";
             				

@@ -78,7 +78,7 @@
             			 document.getElementById('deliveryInfo').value = checkedShipdate
             		 }
             		 
-            		 window.onload = function() {
+            		 function deliveryInfoShow() {
             				
             				var formString = $("form[id=shipdateGet]").serialize();//オブジェクトをバイト列に変換
             				var tmp = "";
