@@ -339,7 +339,10 @@
           </div>
       </div>
    </form>
-     
+
+      
+
+
     
       <br><br>
       <!-- 見積検索結果テーブル  -->
@@ -381,7 +384,8 @@
 
 <script>	  
 		  //初期化処理
-		  function initForm(){
+		  function initform(){
+			  alart(1);
 				if(!confirm("入力内容を初期化してよろしいですか？")){
 		           	return;
 		    	}
@@ -461,7 +465,7 @@
 										headcontents += '<td style="white-space: normal; text-align: left;">'+data[i].estimateTotal+'</td>';
 										headcontents += '<td style="white-space: normal; text-align: left;">'+data[i].title+'</td>';
 										headcontents += '</tr>';
-										$('#estimateResult').append(headcontents);
+										$('#estimateResult').append(headcontents);			
 									}
 									
 								}
