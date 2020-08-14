@@ -29,10 +29,11 @@ public class OrderSearchAJAXController extends BaseAJAXController{
 		
 		String action = request.getParameter("action");
 		
-		if(action.equals("configModalUpdate")) configModalUpdate(request, response);
-		else if(action.equals("orderSearch"))
+		
 			try {
-				orderSearch(request, response);
+				if(action.equals("configModalUpdate")) configModalUpdate(request, response);
+				else if(action.equals("orderSearch")) orderSearch(request, response);
+				else if(action.equals("csvOutput")) csvOutput(request, response);
 			} catch (ClassNotFoundException | MissingResourceException | ServletException | IOException
 					| SQLException e) {
 				// TODO Auto-generated catch block
@@ -40,6 +41,74 @@ public class OrderSearchAJAXController extends BaseAJAXController{
 			}
 	}
 	
+	private void csvOutput(HttpServletRequest request, HttpServletResponse response){
+		// TODO Auto-generated method stub
+		
+		OrderSearchDAO dao = new OrderSearchDAO();
+		OrderSearchBean bean = new OrderSearchBean();
+		
+		String[] res;
+		Gson gson = new Gson();
+		
+		bean.setSelectView(request.getParameter("selectView"));
+		bean.setOrderNo(request.getParameter("orderNo"));
+		bean.setRepNo(request.getParameter("repNo"));
+		bean.setOrderDayStart(request.getParameter("orderDayStart"));
+		bean.setOrderDayEnd(request.getParameter("orderDayEnd"));
+		bean.setShipDayStart(request.getParameter("shipDayStart"));
+		bean.setShipDayEnd(request.getParameter("shipDayEnd"));
+		bean.setDeliveryDayStart(request.getParameter("deliveryDayStart"));
+		bean.setDeliveryDayEnd(request.getParameter("deliveryDayEnd"));
+		bean.setCustomerCode(request.getParameter("customerCode"));
+		bean.setCustomerName(request.getParameter("customerName"));
+		bean.setWithdrawl(request.getParameterValues("withdrawl"));
+		bean.setProductCode(request.getParameter("productCode"));
+		bean.setProductName(request.getParameter("productName"));
+		bean.setProduct1(request.getParameter("product1"));
+		bean.setProduct2(request.getParameter("product2"));
+		bean.setProduct3(request.getParameter("product3"));
+		bean.setSupplierCode(request.getParameter("supplierCode"));
+		bean.setSupplierName(request.getParameter("supplierName"));
+		
+		String sort = request.getParameter("sorting");
+		if(sort == null)
+			sort = "";
+		
+		if(bean.getSelectView().equals("伝票")) {
+			res = billChanger(request.getParameterValues("list"));
+			sort = orderBillChanger(sort);
+			
+		} else {
+			res = detailChanger(request.getParameterValues("list"));
+			sort = orderDetailChanger(sort);
+		}
+		
+		if(sort.equals("") && bean.getSelectView().equals("伝票"))
+			sort = "rstx.RO_SLIP_ID";
+		else if(sort.equals("") && bean.getSelectView().equals("明細"))
+			sort = "CONCAT(rltx.ro_slip_id, '-', rltx.line_no)";
+		
+		String orderBy = request.getParameter("orderBy");
+		
+		int count = 100000;
+		int currentPage = 1;
+		
+		try {
+			List<String[]> list = dao.orderSearch(bean, res, Integer.toString(count), sort, currentPage, orderBy);
+			
+			String data = gson.toJson(list);
+			JsonArray jArray = new JsonParser().parse(data).getAsJsonArray();
+			
+			response.setContentType("application/x-json; charset=UTF-8");
+			response.getWriter().print(jArray);
+			
+		} catch (ClassNotFoundException | MissingResourceException | SQLException | IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+	}
+
 	private void configModalUpdate(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
 		OrderSearchDAO dao = new OrderSearchDAO();

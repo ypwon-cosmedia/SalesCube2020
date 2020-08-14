@@ -72,7 +72,6 @@ public class OrderSearchDAO extends BaseDAO{
 		} else {
 			List<String[]> resultlist = new ArrayList<String[]>();
 			sql = sqllist.searchOrderDetail(bean,inputlist,rowCount,sort, currentPage, orderBy);
-			System.out.println(sql);
 			result = stmt.executeQuery(sql);
 			while(result.next()) {
 				String[] tmp = new String[inputlist.length];
