@@ -74,7 +74,7 @@
             		 }
             		 
             		 window.onload = function() {
-            				
+            				alert("test");
             				var formString = $("form[id=quotationGet]").serialize();			//オブジェクトをバイト列に変換
             				var tmp = "";
             				
