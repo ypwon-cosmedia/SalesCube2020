@@ -10,12 +10,9 @@ import java.util.List;
 import java.util.MissingResourceException;
 
 import common.dao.BaseDAO;
-import estimate.Input.beans.EstimateAddBean;
 import estimate.Input.beans.EstimateModifyBean;
-import estimate.Input.beans.EstimateProductAddBean;
 import estimate.Input.beans.InitEstimateBean;
 import estimate.Input.beans.InitEstimateProductBean;
-import estimate.Input.beans.TaxRateBean;
 
 
 public class EstimateModifyDAO extends BaseDAO {
@@ -33,6 +30,7 @@ public class EstimateModifyDAO extends BaseDAO {
 	 	con = super.getConnection();
 	 	stmt = con.createStatement();
 	 	
+	 	//見積情報を取得するSQL
 	 	sql="select " + 
 	 			"ESTIMATE_DATE, " + 
 	 			"DELIVERY_INFO, " + 
@@ -49,13 +47,14 @@ public class EstimateModifyDAO extends BaseDAO {
 	 			"CUSTOMER_REMARKS, " + 
 	 			"CUSTOMER_COMMENT_DATA, " + 
 	 			"REMARKS, " + 
-	 			"MEMO " + 
+	 			"MEMO, " + 
+	 			"ESTIMATE_TOTAL " + 
 	 		"from estimate_sheet_trn_xxxxx " + 
 	 		"where ESTIMATE_SHEET_ID = " + estimateSheetId;
 	 	
 	 	result = stmt.executeQuery(sql);
 	 	
-	 	bean.setEstimateSheetId(estimateSheetId);
+	 	bean.setEstimateSheetId(estimateSheetId); //見積番号を登録
 	 	
 	 	if(result.next()) {
 	 		bean.setEstimateDate(result.getString("ESTIMATE_DATE"));
@@ -74,6 +73,7 @@ public class EstimateModifyDAO extends BaseDAO {
 	 		bean.setCustomerComment(result.getString("CUSTOMER_COMMENT_DATA"));
 	 		bean.setRemarks(result.getString("REMARKS"));
 	 		bean.setMemo(result.getString("MEMO"));
+	 		bean.setEstimateTotal(result.getInt("ESTIMATE_TOTAL"));
 	 	}
 	 	
 	 	super.releaseDB(con,stmt,result);
@@ -275,8 +275,8 @@ public class EstimateModifyDAO extends BaseDAO {
 	 		      "RETAIL_PRICE_TOTAL = " + retailPriceTotalSQL + ", " +
 	 		      "CTAX_PRICE_TOTAL = " + ctaxPriceTotalSQL + ", " +
 	 		      "ESTIMATE_TOTAL = " + estimateTotalSQL + ", " +
-	 		      "CRE_DATETM = " + updDateSQL + ", " +
-	 		      "CRE_USER = " + updUserSQL +
+	 		      "UPD_DATETM = " + updDateSQL + ", " +
+	 		      "UPD_USER = " + updUserSQL +
 	 		  "where ESTIMATE_SHEET_ID = " + estimateSheetIdSQL;
 			 	
 		try {

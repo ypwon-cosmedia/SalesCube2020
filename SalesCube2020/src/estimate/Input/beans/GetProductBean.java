@@ -15,10 +15,10 @@ public class GetProductBean {
 	private String productAbstract;
 	
 	/** 仕入単価 */
-	private int unitCost;
+	private Integer unitCost;
 	
 	/** 売価単価 */
-	private int unitRetailPrice;
+	private Integer unitRetailPrice;
 
 	/**
 	 * @return the productCode
@@ -51,28 +51,28 @@ public class GetProductBean {
 	/**
 	 * @return the unitCost
 	 */
-	public int getUnitCost() {
+	public Integer getUnitCost() {
 		return unitCost;
 	}
 
 	/**
 	 * @param unitCost the unitCost to set
 	 */
-	public void setUnitCost(int unitCost) {
+	public void setUnitCost(Integer unitCost) {
 		this.unitCost = unitCost;
 	}
 
 	/**
 	 * @return the unitRetailPrice
 	 */
-	public int getUnitRetailPrice() {
+	public Integer getUnitRetailPrice() {
 		return unitRetailPrice;
 	}
 
 	/**
 	 * @param unitRetailPrice the unitRetailPrice to set
 	 */
-	public void setUnitRetailPrice(int unitRetailPrice) {
+	public void setUnitRetailPrice(Integer unitRetailPrice) {
 		this.unitRetailPrice = unitRetailPrice;
 	}
 

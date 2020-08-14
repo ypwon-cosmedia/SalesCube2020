@@ -50,7 +50,7 @@ public class EstimateAddController extends BaseController {
 	}
 	
 	
-	private String moveEstimateAdd(HttpServletRequest request, HttpServletResponse response)
+	public String moveEstimateAdd(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException, ClassNotFoundException, SQLException {
 		
 		String forwardURL     = "estimate/estimateadd.jsp";
@@ -133,17 +133,21 @@ public class EstimateAddController extends BaseController {
 			int result2 = dao.addEstimateProduct(list); //見積商品登録
 			
 			if(result == 999 || result2 == 0) {
-				request.setAttribute("status","err");
+				request.setAttribute("status","addErr");
+				return moveEstimateAdd(request, response);
 			} else {
-				request.setAttribute("status","success");
+				request.setAttribute("status","addSuccess");
 			}
 			
 		} catch (ClassNotFoundException | MissingResourceException | SQLException e) {
-			request.setAttribute("status","err");
+			request.setAttribute("status","addErr");
 			e.printStackTrace();
+			return moveEstimateAdd(request, response);
 		}
 		
-		return moveEstimateAdd(request, response);
+		EstimateModifyController controller = new EstimateModifyController();
+		
+		return controller.moveEstimateModify(request, response); //編集画面に遷移
 		
 	}
 	
