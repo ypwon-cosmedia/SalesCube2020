@@ -14,23 +14,31 @@
 	<classpathentry kind="con" path="org.eclipse.jst.j2ee.internal.web.container"/>
 	<classpathentry kind="con" path="org.eclipse.jst.j2ee.internal.module.container"/>
 	<classpathentry kind="lib" path="gson-2.8.5.jar"/>
-	<classpathentry kind="lib" path="C:/Users/cosmedia/Desktop/セールスキューブ/salesCube/jar/bcprov-jdk15on-1.64.jar"/>
-	<classpathentry kind="lib" path="C:/Users/cosmedia/Desktop/セールスキューブ/salesCube/jar/castor-core-1.4.1.jar"/>
-	<classpathentry kind="lib" path="C:/Users/cosmedia/Desktop/セールスキューブ/salesCube/jar/castor-xml-1.4.1.jar"/>
-	<classpathentry kind="lib" path="C:/Users/cosmedia/Desktop/セールスキューブ/salesCube/jar/commons-beanutils-1.9.4.jar"/>
-	<classpathentry kind="lib" path="C:/Users/cosmedia/Desktop/セールスキューブ/salesCube/jar/commons-collections-3.2.2.jar"/>
-	<classpathentry kind="lib" path="C:/Users/cosmedia/Desktop/セールスキューブ/salesCube/jar/commons-collections4-4.2.jar"/>
-	<classpathentry kind="lib" path="C:/Users/cosmedia/Desktop/セールスキューブ/salesCube/jar/commons-digester-2.1.jar"/>
-	<classpathentry kind="lib" path="C:/Users/cosmedia/Desktop/セールスキューブ/salesCube/jar/commons-lang3-3.4.jar"/>
-	<classpathentry kind="lib" path="C:/Users/cosmedia/Desktop/セールスキューブ/salesCube/jar/commons-logging-1.1.1.jar"/>
-	<classpathentry kind="lib" path="C:/Users/cosmedia/Desktop/セールスキューブ/salesCube/jar/ecj-3.21.0.jar"/>
-	<classpathentry kind="lib" path="C:/Users/cosmedia/Desktop/セールスキューブ/salesCube/jar/itext-2.1.7.js8.jar"/>
-	<classpathentry kind="lib" path="C:/Users/cosmedia/Desktop/セールスキューブ/salesCube/jar/jackson-annotations-2.10.0.jar"/>
-	<classpathentry kind="lib" path="C:/Users/cosmedia/Desktop/セールスキューブ/salesCube/jar/jackson-core-2.10.0.jar"/>
-	<classpathentry kind="lib" path="C:/Users/cosmedia/Desktop/セールスキューブ/salesCube/jar/jackson-databind-2.10.0.jar"/>
-	<classpathentry kind="lib" path="C:/Users/cosmedia/Desktop/セールスキューブ/salesCube/jar/jasperreports-6.14.0.jar"/>
-	<classpathentry kind="lib" path="C:/Users/cosmedia/Desktop/セールスキューブ/salesCube/jar/javax.inject-1.jar"/>
-	<classpathentry kind="lib" path="C:/Users/cosmedia/Desktop/セールスキューブ/salesCube/jar/jcommon-1.0.23.jar"/>
-	<classpathentry kind="lib" path="C:/Users/cosmedia/Desktop/セールスキューブ/salesCube/jar/jfreechart-1.0.19.jar"/>
+	<classpathentry kind="lib" path="WebContent/WEB-INF/lib/bcprov-jdk15on-1.64.jar"/>
+	<classpathentry kind="lib" path="WebContent/WEB-INF/lib/castor-core-1.4.1.jar"/>
+	<classpathentry kind="lib" path="WebContent/WEB-INF/lib/castor-xml-1.4.1.jar"/>
+	<classpathentry kind="lib" path="WebContent/WEB-INF/lib/commons-beanutils-1.9.4.jar"/>
+	<classpathentry kind="lib" path="WebContent/WEB-INF/lib/commons-collections-3.2.2.jar"/>
+	<classpathentry kind="lib" path="WebContent/WEB-INF/lib/commons-collections4-4.2.jar"/>
+	<classpathentry kind="lib" path="WebContent/WEB-INF/lib/commons-digester-2.1.jar"/>
+	<classpathentry kind="lib" path="WebContent/WEB-INF/lib/commons-lang3-3.4.jar"/>
+	<classpathentry kind="lib" path="WebContent/WEB-INF/lib/commons-logging-1.1.1.jar"/>
+	<classpathentry kind="lib" path="WebContent/WEB-INF/lib/ecj-3.21.0.jar"/>
+	<classpathentry kind="lib" path="WebContent/WEB-INF/lib/font.jar"/>
+	<classpathentry kind="lib" path="WebContent/WEB-INF/lib/gson-2.8.5.jar"/>
+	<classpathentry kind="lib" path="WebContent/WEB-INF/lib/itext-2.1.7.js8.jar"/>
+	<classpathentry kind="lib" path="WebContent/WEB-INF/lib/jackson-annotations-2.10.0.jar"/>
+	<classpathentry kind="lib" path="WebContent/WEB-INF/lib/jackson-core-2.10.0.jar"/>
+	<classpathentry kind="lib" path="WebContent/WEB-INF/lib/jackson-databind-2.10.0.jar"/>
+	<classpathentry kind="lib" path="WebContent/WEB-INF/lib/jasperreports-6.14.0.jar"/>
+	<classpathentry kind="lib" path="WebContent/WEB-INF/lib/javax.inject-1.jar"/>
+	<classpathentry kind="lib" path="WebContent/WEB-INF/lib/jcommon-1.0.23.jar"/>
+	<classpathentry kind="lib" path="WebContent/WEB-INF/lib/jfreechart-1.0.19.jar"/>
+	<classpathentry kind="lib" path="WebContent/WEB-INF/lib/jstl.jar"/>
+	<classpathentry kind="lib" path="WebContent/WEB-INF/lib/mysql-connector-java-5.1.34-bin.jar"/>
+	<classpathentry kind="lib" path="WebContent/WEB-INF/lib/standard.jar"/>
+	<classpathentry kind="lib" path="WebContent/WEB-INF/lib/taglibs-standard-impl-1.2.1.jar"/>
+	<classpathentry kind="lib" path="WebContent/WEB-INF/lib/taglibs-standard-jstlel-1.2.1.jar"/>
+	<classpathentry kind="lib" path="WebContent/WEB-INF/lib/taglibs-standard-spec-1.2.1.jar"/>
 	<classpathentry kind="output" path="build/classes"/>
 </classpath>
