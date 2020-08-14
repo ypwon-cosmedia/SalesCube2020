@@ -220,7 +220,7 @@ public class OrderInputDAO extends BaseDAO{
 	 	stmt = con.prepareStatement(sql);
 	 	
 	 	for (OrderInputBean bean : list) {
-		 	stmt.setInt(1, bean.getProductCode());
+		 	stmt.setString(1, bean.getProductCode());
 		 	stmt.setString(2, bean.getProductName());
 		 	stmt.setString(3, bean.getProductRemarks());
 		 	stmt.setString(4, bean.getRackCode());
@@ -326,7 +326,7 @@ public class OrderInputDAO extends BaseDAO{
 	 	stmt = con.prepareStatement(sql);
 	 	
 	 	for (OrderInputBean bean : list) {
-		 	stmt.setInt(1, bean.getProductCode());
+		 	stmt.setString(1, bean.getProductCode());
 		 	stmt.setString(2, bean.getProductName());
 		 	stmt.setString(3, bean.getProductRemarks());
 		 	stmt.setString(4, bean.getRackCode());
@@ -410,7 +410,7 @@ public class OrderInputDAO extends BaseDAO{
 	 	result = stmt.executeQuery(sql2);
 	 	
 	 	if (result.next()) {
-	 		bean.setProductCode(Integer.parseInt(result.getString("rltx.PRODUCT_CODE")));
+	 		bean.setProductCode(result.getString("rltx.PRODUCT_CODE"));
 	 		bean.setProductName(result.getString("pmx.PRODUCT_NAME"));
 	 		bean.setProductRemarks(result.getString("pmx.REMARKS"));
 	 		bean.setRackCode(result.getString("rltx.RACK_CODE_SRC"));
@@ -426,6 +426,44 @@ public class OrderInputDAO extends BaseDAO{
 	 	super.releaseDB(con, stmt, result);
 	 	
 	 	return bean;
+	}
+	
+	/* 商品コード/名押下 明細に反映 */
+	public List<OrderInputBean> productLinkToDetail(String productCode, String productName, OrderInputBean bean) throws SQLException, ClassNotFoundException{
+	
+		List<OrderInputBean> list = new ArrayList<OrderInputBean>();
+		
+		Connection con;
+	 	Statement stmt = null;
+	 	ResultSet result = null;	
+	 	String  sql;
+	 	
+	 	con = super.getConnection();	
+	 	stmt = con.createStatement();
+	 	
+	 	OrderSQL ordersql = new OrderSQL();
+	 	sql = ordersql.productToDetail(productCode, productName, bean);
+	 	
+	 	result = stmt.executeQuery(sql);
+	 	
+	 	while (result.next()) {
+	 		bean.setProductCode(result.getString("pmx.PRODUCT_CODE"));
+	 		bean.setProductName(result.getString("pmx.PRODUCT_NAME"));
+	 		bean.setRemarks(result.getString("pmx.REMARKS"));
+	 		bean.setRackCode(result.getString("pmx.RACK_CODE"));
+	 		bean.setQuantity(result.getInt("rltn.QUANTITY"));
+	 		bean.setCost(result.getInt("rltn.COST"));
+	 		bean.setUnitRetailPrice(result.getInt("rltn.UNIT_RETAIL_PRICE"));
+	 		bean.setRetailPrice(result.getInt("rltn.RETAIL_PRICE"));
+	 		bean.setInputProductRemarks(result.getString("pmx.REMARKS"));
+	 		bean.setEadRemarks(result.getString("pmx.EAD_REMARKS"));
+	 		list.add(bean);
+	 	}
+	 	
+	 	super.releaseDB(con, stmt, result);
+	 	
+	 	return list;
+		
 	}
 
 	/* 取引区分コンボボックス */
@@ -452,7 +490,6 @@ public class OrderInputDAO extends BaseDAO{
 	 		bean.setCategoryCodeName(result.getString("CATEGORY_CODE_NAME"));
 	 		list.add(bean);
 	 	}
-	 	
 	 	
 	 	super.releaseDB(con, stmt, result);
 	 	

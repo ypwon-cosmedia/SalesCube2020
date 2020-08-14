@@ -2,6 +2,7 @@ package common.controller;
 
 import java.util.*;
 
+import common.modal.stock.controller.StockToOrderController;
 import estimate.Input.Controller.EstimateAddController;
 import estimate.Input.Controller.EstimateModifyController;
 import estimate.Search.controller.EstimateSearchController;
@@ -46,6 +47,7 @@ public class CreateControllers {
 		BaseController estimateModifyObj = new EstimateModifyController();
 		BaseController estimateSearchObj = new EstimateSearchController();
 		BaseController unitPriceInquiryObj = new UnitPriceInquiryController();
+		BaseController stockObj = new StockToOrderController();
 
 		map.put( "moveAddCustomer", customerObj);
 		map.put( "moveModifyCustomer", customerObj);
@@ -103,6 +105,7 @@ public class CreateControllers {
 		map.put( "orderinputCmp", orderInputObj);
 		map.put( "orderupdateCmp", orderInputObj);
 		map.put( "stocksearch", orderInputObj);
+		map.put( "moveStockToUpdate", stockObj);
 		
 		map.put( "productModalSearch", orderSearchObj);
 		

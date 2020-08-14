@@ -28,7 +28,7 @@ public class EstimateCategoryModalAJAXController extends BaseAJAXController{
 
 	}
 	
-	private void categoryGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+	public void categoryGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
 		CategoryDAO dao = new CategoryDAO();
 		int categoryId = Integer.parseInt( request.getParameter("categoryId"));//区分IDを受け取る
