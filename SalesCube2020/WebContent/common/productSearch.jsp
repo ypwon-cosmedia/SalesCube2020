@@ -21,6 +21,7 @@
 							<div class="input-group-text">商品コード</div>
 						</div>
 						<input type="text"  class="form-control" id="productCode" name="productCode">
+						
 					  </div>
 					</div>
 					<div class="col-4">
