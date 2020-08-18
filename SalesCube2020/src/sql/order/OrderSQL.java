@@ -712,10 +712,11 @@ public class OrderSQL {
 				"DELIVERY_EMAIL, " +
 				"RETAIL_PRICE_TOTAL, " +
 				"CTAX_PRICE_TOTAL, " +
-				"PRICE_TOTAL " + 
-				"STATUS) " +
+				"PRICE_TOTAL, " + 
+				"STATUS, "
+				+ "RO_SLIP_ID) " +
 				"VALUES " + 
-				"(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+				"(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
 		
 		return sql;
 		
@@ -737,9 +738,10 @@ public class OrderSQL {
 				"UNIT_RETAIL_PRICE, " +
 				"RETAIL_PRICE, " +
 				"REMARKS, " +
-				"EAD_REMARKS) " +
+				"EAD_REMARKS, "
+				+ "RO_SLIP_ID) " +
 				"VALUES " +
-				"(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+				"(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
 		
 		return sql;
 		
@@ -784,7 +786,9 @@ public class OrderSQL {
 				"DELIVERY_EMAIL = ?, " +
 				"RETAIL_PRICE_TOTAL = ?, " +
 				"CTAX_PRICE_TOTAL = ?, " +
-				"PRICE_TOTAL = ? " +
+				"PRICE_TOTAL = ?, " +
+				"STATUS = ? " + 
+				"RO_SLIP_ID = ? " +
 			"WHERE RO_SLIP_ID = ?";
 		
 		return sql;
@@ -809,7 +813,8 @@ public class OrderSQL {
 				"UNIT_RETAIL_PRICE = ?, " +
 				"RETAIL_PRICE = ?, " +
 				"REMARKS = ?, " +
-				"EAD_REMARKS = ? " +
+				"EAD_REMARKS = ?, " +
+				"RP_SLIP_ID = ? " +
 			"WHERE RO_SLIP_ID = ?";
 		
 		return sql;

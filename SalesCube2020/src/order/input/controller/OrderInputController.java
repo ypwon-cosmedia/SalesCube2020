@@ -77,7 +77,7 @@ public class OrderInputController extends BaseController {
 		String deliveryFax = nullOrEmpty(request.getParameter("deliveryFax"));
 		String deliveryEmail = nullOrEmpty(request.getParameter("deliveryEmail"));
 		String[] productCode = request.getParameterValues("productCode");
-		String[] productName = request.getParameterValues("productName");
+		String[] productName;
 		String[] productRemarks = request.getParameterValues("productRemarks");
 		String[] rackCode = request.getParameterValues("rackCode");
 		String[] quantity = request.getParameterValues("quantity");
@@ -90,18 +90,75 @@ public class OrderInputController extends BaseController {
 		Integer retailPriceTotal = 0;
 		Integer ctaxPriceTotal = 0;
 		Integer priceTotal = 0;
+
+		if(request.getParameterValues("productCode") == null || request.getParameterValues("productCode")[0].equals("")) {
+			productCode = null ;
+		}else {
+			productCode = request.getParameterValues("productCode");
+		}
+		if(request.getParameterValues("productName") == null || request.getParameterValues("productName").equals("")) {
+			productName = null ;
+		}else {
+			productName = request.getParameterValues("productName");
+		}
+		if(request.getParameterValues("productRemarks") == null || request.getParameterValues("productRemarks").equals("")) {
+			productRemarks = null;
+		}else {
+			productRemarks = request.getParameterValues("productRemarks");
+		}
+		if(request.getParameterValues("rackCode") == null || request.getParameterValues("rackCode").equals("")) {
+			rackCode = null;
+		}else {
+			rackCode = request.getParameterValues("rackCode");
+		}
+		if(request.getParameterValues("quantity") == null || request.getParameterValues("quantity").equals("")) {
+			quantity = null;
+		}else {
+			quantity = request.getParameterValues("quantity");
+		}
+		if(request.getParameterValues("unitCost") == null || request.getParameterValues("unitCost").equals("")) {
+			unitCost = null;
+		}else {
+			unitCost = request.getParameterValues("unitCost");
+		}
+		if(request.getParameterValues("cost") == null || request.getParameterValues("cost").equals("")) {
+			cost = null;
+		}else {
+			cost = request.getParameterValues("cost");
+		}
+		if(request.getParameterValues("unitRetailPrice") == null || request.getParameterValues("unitRetailPrice").equals("")) {
+			unitRetailPrice = null;
+		}else {
+			unitRetailPrice = request.getParameterValues("unitRetailPrice");
+		}
+		if(request.getParameterValues("retailPrice") == null || request.getParameterValues("retailPrice").equals("")) {
+			retailPrice = null;
+		}else {
+			retailPrice = request.getParameterValues("retailPrice");
+		}
+		if(request.getParameterValues("inputProductRemarks") == null || request.getParameterValues("inputProductRemarks").equals("")) {
+			inputProductRemarks = null;
+		}else {
+			inputProductRemarks = request.getParameterValues("inputProductRemarks");
+		}
+		if(request.getParameterValues("eadRemarks") == null || request.getParameterValues("eadRemarks").equals("")) {
+			eadRemarks = null;
+		}else {
+			eadRemarks = request.getParameterValues("eadRemarks");
+		}
 		
-		if(request.getParameter("retailPriceTotal") == null || request.getParameter("retailPriceTotal").contentEquals("")) {
+		
+		if(request.getParameter("retailPriceTotal") == null || request.getParameter("retailPriceTotal").equals("")) {
 			retailPriceTotal = 0;
 		}else {
 			retailPriceTotal = Integer.parseInt(request.getParameter("retailPriceTotal"));
 		}
-		if(request.getParameter("ctaxPriceTotal") == null || request.getParameter("ctaxPriceTotal").contentEquals("")) {
+		if(request.getParameter("ctaxPriceTotal") == null || request.getParameter("ctaxPriceTotal").equals("")) {
 			ctaxPriceTotal = 0;
 		}else {
 			ctaxPriceTotal = Integer.parseInt(request.getParameter("ctaxPriceTotal"));
 		}
-		if(request.getParameter("priceTotal") == null || request.getParameter("priceTotal").contentEquals("")) {
+		if(request.getParameter("priceTotal") == null || request.getParameter("priceTotal").equals("")) {
 			priceTotal = 0;
 		}else {
 			priceTotal = Integer.parseInt(request.getParameter("priceTotal"));
@@ -144,7 +201,7 @@ public class OrderInputController extends BaseController {
 		OrderInputBean bean2 = new OrderInputBean();
 		if(productCode != null) {
 			for(int i = 0; i < productCode.length; i++) {
-				bean2.setProductCode(Integer.parseInt(productCode[i]));
+				bean2.setProductCode(productCode[i]);
 				bean2.setProductName(productName[i]);
 				bean2.setProductRemarks(productRemarks[i]);
 				bean2.setRackCode(rackCode[i]);
@@ -180,7 +237,7 @@ public class OrderInputController extends BaseController {
 		
 		OrderInputDAO dao = new OrderInputDAO();
 		List<OrderInputBean> list = new ArrayList<>();
-		
+
 		String roDate = request.getParameter("roDate");
 		String shipDate = nullOrEmpty(request.getParameter("shipDate"));
 		String deliveryDate = nullOrEmpty(request.getParameter("deliveryDate"));
@@ -266,7 +323,7 @@ public class OrderInputController extends BaseController {
 		OrderInputBean bean2 = new OrderInputBean();
 		
 		for(int i = 0; i < productCode.length; i++) {
-			bean2.setProductCode(Integer.parseInt(productCode[i]));
+			bean2.setProductCode(productCode[i]);
 			bean2.setProductName(productName[i]);
 			bean2.setProductRemarks(productRemarks[i]);
 			bean2.setRackCode(rackCode[i]);
