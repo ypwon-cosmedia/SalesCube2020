@@ -141,7 +141,8 @@ public class UnitPriceInquiryDAO extends BaseDAO {
 	 	sql="select " + 
 	 			"CONCAT(IFNULL(RO_SLIP_ID, '') , '-' ,  IFNULL(LINE_NO, '') ) as ORDER_NUMBER_LINE , " +
 	 			"SHIP_DATE, " +
-	 			"QUANTITY " + 
+	 			"QUANTITY, " +
+	 			"RO_SLIP_ID " +
 	 		"from RO_LINE_TRN_XXXXX " + 
 	 		"left outer join RO_SLIP_TRN_XXXXX using(RO_SLIP_ID) " + 
 	 		"where PRODUCT_CODE = '" + productCode + "'";
@@ -154,6 +155,7 @@ public class UnitPriceInquiryDAO extends BaseDAO {
 	 		bean.setOrderNoLine(result.getString("ORDER_NUMBER_LINE"));
 	 		bean.setShipDate(result.getString("SHIP_DATE"));
 	 		bean.setQuantity(result.getInt("QUANTITY"));
+	 		bean.setRoSlipId(result.getInt("RO_SLIP_ID"));
 	 		list.add(bean);
 	 	}
 	 	

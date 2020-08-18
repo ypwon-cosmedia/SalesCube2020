@@ -110,6 +110,7 @@
   	<%@ include file="/estimate/_shipdate.jsp" %><!-- 納期または出荷日選択モーダル -->
 	<%@ include file="/estimate/_quotationCondition.jsp" %><!-- 見積条件選択モーダル -->
 	<%@ include file="../common/_customerSearch.jsp" %><!-- 顧客検索モーダル -->
+	<%@ include file="../common/productSearch.jsp" %><!-- 商品検索モーダル -->
     <!-- Optional JavaScript -->
     <!-- jQuery first, then Popper.js, then Bootstrap JS -->
     <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
@@ -186,7 +187,7 @@
                    <input type="text" value="" class="form-control" id="deliveryInfo" name="deliveryInfo">
                    <button type="button" class="ModalButton"  data-toggle="modal" data-target="#setShipDate" onclick="deliveryInfoShow()" >
                     <img src="btn_search.png" style="vertical-align: middle; cursor: pointer; width: 32px; height: 32px;">
-                  </button>
+                   </button>
 					  		</div>
 				  		</div>
             </div>
@@ -326,7 +327,7 @@
                       <div class="input-group-text">顧客コード</div>
                     </div>
                       <input type="text" value="" class="form-control" name="customerCode" id="customerCode" onchange="inputGetCustomer(this)">
-                      <button type="button" class="ModalButton"  data-toggle="modal" data-target="#customerSearch">
+                      <button type="button" class="ModalButton"  data-toggle="modal" data-target="#customerSearch" onclick="initCustomer() ; getCutoffGroup()">
                         <img src="btn_search.png" style="vertical-align: middle; cursor: pointer; width: 32px; height: 32px;">
                       </button>
                   </div>
@@ -428,8 +429,10 @@
         <tbody>
           <tr id="tr1">
             <td rowspan="2">1</td>
-            <td rowspan="2" class="backpink"><input type="text" name="productCode" id="productCode1" value="" style="width: 110px;" onchange="getProduct(this)" required>
-              <input type="image" name="" src="btn_search.png" tabindex="101" onclick="" style="vertical-align: middle; cursor: pointer; width: 22px;"></td>
+            <td rowspan="2" class="backpink"><input type="text" name="productCode" id="inputProductCode1" value="" style="width: 110px;" onchange="inputGetProduct(this)" required>
+              <button type="button" id="productSearch1" class="ModalButton"  data-toggle="modal" data-target="#setproductsearch" onclick="productSearchButton(this)" >
+              	<img src="btn_search.png" style="vertical-align: middle; cursor: pointer; width: 22px; height: 22px;">
+              </button></td>
             <td rowspan="2"><textarea name="productAbstract" rows="3" style="width: 200px;" id="productAbstract1"></textarea></td>
             <td class="backpink"><input type="number" name="quantity" value="" id="quantity1" style="width: 75px;" onchange="quantityChange(this)" required></td>
             <td><input type="text" name="unitCost" value="" id="unitCost1" style="background-color:rgb(177, 177, 177); width: 75px;" readonly></td>
@@ -482,12 +485,12 @@
     </div>
 
     <div class="container" style="text-align:center">
-      <input type="submit" class="btn btn-primary" id="addButton2" value="登録" style="width:200px; height:50px;" disabled>
+      <input type="submit" class="btn btn-primary" id="mainAddButton" value="登録" style="width:200px; height:50px;" disabled>
     </div>
     <br><br>
   </form>
   
-  <!-- 編集画面遷移用form -->
+  <!-- 見積編集画面遷移用form -->
   <form action="/SalesCube2020/SalesCube?action=moveEstimateModify" method="post" name="moveEstimateModifyform">
 	<input type="hidden" name="estimateSheetId" value="" id="sendEstimateSheetId">
   </form>
@@ -520,8 +523,10 @@
         $('#estimate > tbody:last').append(
           '<tr>' +
             '<td rowspan="2">' + tableNo + '</td>' +
-            '<td rowspan="2" class="backpink"><input type="text" name="productCode" id="productCode' + tableNo + '" value="" style="width: 110px;" onchange="getProduct(this)" required>' +
-              '<input type="image" name="" src="btn_search.png" tabindex="101" onclick="" style="vertical-align: middle; cursor: pointer; width: 22px;"></td>' +
+            '<td rowspan="2" class="backpink"><input type="text" name="productCode" id="inputProductCode' + tableNo + '" value="" style="width: 110px;" onchange="inputGetProduct(this)" required>' +
+              '<button type="button" id="productSearch' + tableNo + '" class="ModalButton"  data-toggle="modal" data-target="#setproductsearch" onclick="productSearchButton(this)">' +
+              	'<img src="btn_search.png" style="vertical-align: middle; cursor: pointer; width: 22px; height: 22px;">' +
+              '</button></td>' +
             '<td rowspan="2"><textarea name="productAbstract" rows="3" style="width: 200px;" id="productAbstract' + tableNo + '"></textarea></td>' +
             '<td class="backpink"><input type="number" name="quantity" value="" id="quantity' + tableNo + '" style="width: 75px;" onchange="quantityChange(this)" required></td>' +
             '<td><input type="text" name="unitCost" value="" id="unitCost' + tableNo + '" style="background-color:rgb(177, 177, 177); width: 75px;" readonly></td>' +
@@ -554,8 +559,8 @@
           for(var i = iTableNo; i < lastTableNo; i++)  {
             var nextTableNo = i + 1; //後行のtableNo：対象のtableNo+1
 
-            var productCode_id = document.getElementById('productCode' + i); //対象のproductCodeのid
-            var trailingProductCode_id = document.getElementById('productCode' + nextTableNo); //後行のproductCodeのid
+            var productCode_id = document.getElementById('inputProductCode' + i); //対象のinputProductCodeのid
+            var trailingProductCode_id = document.getElementById('inputProductCode' + nextTableNo); //後行のinputProductCodeのid
             var trailingProductCode = trailingProductCode_id.value; //後行のproductCodeのvalueを取得
             productCode_id.value = trailingProductCode; //後行の商品コードを対象の列に移行
 
@@ -603,7 +608,7 @@
           }
           $( '#estimate tr:last' ).remove(); //見積商品テーブルの最後の行を削除(1つのレコードで2行のため、2回行う)
           $( '#estimate tr:last' ).remove();
-        } else { //もし最前レコードの削除をクリックした場合は削除できませんと表示
+        } else { //もし最前レコードの削除をクリックした場合は「最前列は削除できません」とアラート
           alert("最前列は削除できません。")
         }
         totalCalculation()
@@ -617,8 +622,8 @@
         var acquisitionTableNo = tableNo -1; //前行のtableNo：対象のtableNo-1
 
         // 商品コード複写
-        var productCode_id = document.getElementById('productCode' + tableNo);//対象のproductCodeのid
-        var acquisitionProductCode_id = document.getElementById('productCode' + acquisitionTableNo);//前行のproductCodeのid
+        var productCode_id = document.getElementById('inputProductCode' + tableNo);//対象のproductCodeのid
+        var acquisitionProductCode_id = document.getElementById('inputProductCode' + acquisitionTableNo);//前行のinputProductCodeのid
         var acquisitionProductCode = acquisitionProductCode_id.value; //前行のproductCodeのvalueを取得
         productCode_id.value = acquisitionProductCode; //前行の商品コードを対象の列に移行
 
@@ -792,7 +797,7 @@
 					  if(data == "OK"){ //ajaxで登録されている見積番号か確認をし、trueならこの処理(今はテスト用)
 						  if(!confirm("すでに登録済みの見積番号です。編集画面に遷移しますか？")){
 							  document.getElementById('addButton').setAttribute('disabled', 'disabled')//#addButton(ファンクションボタン)の非活性化
-							  document.getElementById('addButton2').setAttribute('disabled', 'disabled')//#addButton2(画面中央下ボタン)の非活性化
+							  document.getElementById('mainAddButton').setAttribute('disabled', 'disabled')//#mainAddButton(画面中央下ボタン)の非活性化
 								return;
 					  	  }
 						  document.getElementById('sendEstimateSheetId').value = inputEstimateSheetId;
@@ -801,7 +806,7 @@
 					  } else {
 						  alert("登録されていない見積番号です。新規登録可能です。");
 						  document.getElementById('addButton').removeAttribute('disabled')//#addButton(ファンクションボタン)の非活性化を解除
-						  document.getElementById('addButton2').removeAttribute('disabled')//#addButton2(画面中央下ボタン)の非活性化を解除
+						  document.getElementById('mainAddButton').removeAttribute('disabled')//#mainAddButton(画面中央下ボタン)の非活性化を解除
 					  }
        		    }
 			});
@@ -818,16 +823,6 @@
 		document.getElementById('customerCode').value = code;
 	  	getCustomer(code);
 	  }
-	  
-	  
-	  
-	  //商品検索モーダル画面から取得した商品コードで商品情報取得
-	  function selectProductModal(code, name){
-		document.getElementById('customerCode').value = code;
-	  	//getCustomer(code);
-	  }
-	  
-	  
 	  
 	  /* ajaxで入力した顧客コードに対応する顧客情報取得 */
 	  function getCustomer(inputCustomerCode) {
@@ -849,10 +844,29 @@
 			});
 		}
 	  
+	  var globalTableNo;
+	  
+	  /* 商品検索モーダル画面に遷移 */
+	  function productSearchButton(obj) {
+		  globalTableNo = obj.id.substr(13); //対象のtableNoをグローバル変数に保存
+		  initproductModal(); //商品検索モーダル画面の初期化
+	  }
+	  
+	  /* 商品検索モーダル画面から取得した商品コードで商品情報取得 */
+	  function selectProductModal(code, name){
+		document.getElementById('inputProductCode' + globalTableNo).value = code;
+		getProduct(code, globalTableNo);
+	  }
+	  
+	  /* 見積画面で選択した商品コードで商品情報を取得 */
+	  function inputGetProduct(obj){
+		  var inputProductCode = obj.value; //入力した商品コード
+		  var tableNo = obj.id.substr(16); //対象のtableNo：商品コードを入力したtableNo取得
+		  getProduct(inputProductCode, tableNo);
+	  }
+	  
 	  /* ajaxで入力した商品コードに対応する商品情報取得 */
-	  function getProduct(obj) {
-		  var inputProductCode = obj.value;
-          var tableNo = obj.id.substr(11); //対象のtableNo：商品コードを入力したtableNo取得
+	  function getProduct(inputProductCode, tableNo) {
 			$.ajax({
 				url:'/SalesCube2020/SalesCubeAJAX?action=estimateProductSearch',
 				type:'post',

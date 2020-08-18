@@ -14,6 +14,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import common.controller.BaseController;
+import common.modal.product.init.ProductModalInit;
 import estimate.Input.API.estimateInputAPI;
 import estimate.Input.beans.EstimateAddBean;
 import estimate.Input.beans.EstimateProductAddBean;
@@ -45,10 +46,11 @@ public class EstimateAddController extends BaseController {
 		String forwardURL     = "estimate/estimateadd.jsp";
 
 		estimateInputAPI api = new estimateInputAPI();
+		ProductModalInit init = new ProductModalInit();
 
 		request.setAttribute("taxRateList",api.getTaxRateList()); //消費税率のコンボボックスを取得する
 		request.setAttribute("submitPreList",api.getCategoryList(10)); //提出先敬称のコンボボックスを取得
-			
+		init.initCombobox(request, response);
 		return forwardURL;
 		
 	}

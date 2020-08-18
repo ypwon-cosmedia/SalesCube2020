@@ -16,6 +16,9 @@ public class OrderStatementBean {
 	
 	/** 受注残数 */
 	private int quantity;
+	
+	/** 受注番号 */
+	private Integer roSlipId;
 
 	/**
 	 * @return the orderNoLine
@@ -57,5 +60,20 @@ public class OrderStatementBean {
 	 */
 	public void setQuantity(int quantity) {
 		this.quantity = quantity;
+	}
+
+	/**
+	 * @return the roSlipId
+	 */
+	public Integer getRoSlipId() {
+		return roSlipId;
+	}
+
+	/**
+	 * @param roSlipId the roSlipId to set
+	 */
+	public void setRoSlipId(Integer roSlipId) {
+		this.roSlipId = roSlipId;
 	}	
+	
 }

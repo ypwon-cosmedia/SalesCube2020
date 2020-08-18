@@ -260,9 +260,7 @@ public class EstimateAddDAO extends BaseDAO {
 	 	//最大見積伝票行IDの取得
 	 	Integer estimateLineId = getMaxEstimateLineId();
 	 	
-	 	
 	 	for(EstimateProductAddBean bean : list) {
-	 		
 	 		estimateLineId++; //登録を繰り返すごとに最大見積伝票行IDを1ずつ増やしていく
 			lineNo = bean.getLineNo();
 			estimateSheetId = bean.getEstimateSheetId();
@@ -303,7 +301,7 @@ public class EstimateAddDAO extends BaseDAO {
 			if(retailPrice==null) {retailPriceSQL = null;} 
 			else {retailPriceSQL = retailPrice;}
 			
-			if(productRemarks==null || productRemarks.equals("")) {productRemarksSQL = "";} 
+			if(productRemarks==null || productRemarks.equals("")) {productRemarksSQL = "''";} 
 			else {productRemarksSQL = "'" + productRemarks + "'";}
 			
 			if(creDate==null || creDate.equals("")) {creDateSQL = null;} 
@@ -340,7 +338,6 @@ public class EstimateAddDAO extends BaseDAO {
 	 			  		productRemarksSQL + ", " +
 	 			  		creDateSQL + ", " +
 	 			  		creUserSQL + ")";
-	 		
 	 		result = stmt.executeUpdate(sql);
 	 		con.commit();
 	 	}

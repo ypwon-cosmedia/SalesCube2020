@@ -277,7 +277,9 @@ public class EstimateModifyDAO extends BaseDAO {
 	 		      "ESTIMATE_TOTAL = " + estimateTotalSQL + ", " +
 	 		      "UPD_DATETM = " + updDateSQL + ", " +
 	 		      "UPD_USER = " + updUserSQL +
-	 		  "where ESTIMATE_SHEET_ID = " + estimateSheetIdSQL;
+	 		  " where ESTIMATE_SHEET_ID = " + estimateSheetIdSQL;
+	 	
+	 	System.out.println(sql);
 			 	
 		try {
 			result = stmt.executeUpdate(sql);
