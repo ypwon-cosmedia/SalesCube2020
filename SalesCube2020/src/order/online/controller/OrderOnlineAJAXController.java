@@ -2,6 +2,8 @@ package order.online.controller;
 
 import java.io.IOException;
 import java.io.InputStream;
+import java.util.ArrayList;
+import java.util.List;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.MultipartConfig;
@@ -23,6 +25,9 @@ public class OrderOnlineAJAXController extends BaseAJAXController{
 	
 	public void uploadcsv(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
+		
+		int maxNum = 0;
+		int minNum = 100;
 		Part filePart = request.getPart("uploadcsv");
 
 		if(filePart != null) {
@@ -35,15 +40,43 @@ public class OrderOnlineAJAXController extends BaseAJAXController{
 	            inputText += c;
 	         }
 			
-			String[] splitText = inputText.split(", |\n");
-						
+			String[] splitText = inputText.split("\n");
+			List<String[]> list = new ArrayList<String[]>();			
 			for(String s : splitText) {
-				System.out.print(s);
+				String[] splitText2 = s.split(",");
+				list.add(splitText2);
 			}
+			
+			for(i = 0; i<list.size(); i++) {
+				if(Integer.parseInt(list.get(i)[0]) > maxNum) {
+					maxNum = Integer.parseInt(list.get(i)[0]);
+				}
+				
+				if(Integer.parseInt(list.get(i)[0]) < minNum) {
+					minNum = Integer.parseInt(list.get(i)[0]);
+				}				
+			}
+			
+			System.out.println("minNum is " + minNum);
+			System.out.println("maxNum is " + maxNum);
+			
+			/* DB入力ループ */
+			//for(i = minNum; i <= maxNum; i++) {
+				//
+				//int roNum = dao.inputInfo(bean);
+				//dao.inputdetail(i, list);
+				//
+			//}
+			
+			/* テーブル表示*/
+			//List<bean> output = new ArrayList<bean>();
+			//request.setAttribute("tableOutput", output);
+			//
+			//return "onlineorder.jsp";
 			
 		} else
 			System.out.println("filePart is null");
 
-			
+			//return "onlineorder.jsp";
 	}
 }

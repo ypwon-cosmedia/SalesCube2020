@@ -192,7 +192,7 @@
                                    <div class="input-group-text">顧客コード</div>
                             </div>
                             <input type="text" class="form-control" id="customerCodeInput" name="customerCodeInput" maxlength="15">
-                            <button type="button" class="btn btn-outline-secondary" data-toggle="modal" data-target="#customerSearch" style="background-image: url(btn_search.png); border: 0px; outline: 0px; padding: 15px; margin: 0; height: 16px" onclick="getCutoffGroup();">
+                            <button type="button" class="btn btn-outline-secondary" data-toggle="modal" data-target="#customerSearch" style="background-image: url(btn_search.png); border: 0px; outline: 0px; padding: 15px; margin: 0; height: 16px" onclick="moveCustomerModal();">
 							</button>
 					    </div>
 					</div>
@@ -203,7 +203,7 @@
 								<div class="input-group-text">顧客名</div>
 							</div>
                             <input type="text"  class="form-control" id="customerNameInput" name="customerNameInput" maxlength="60">
-                            <button type="button" class="btn btn-outline-secondary" data-toggle="modal" data-target="#customerSearch" style="background-image: url(btn_search.png); border: 0px; outline: 0px; padding: 15px; margin: 0; height: 16px" onclick="getCutoffGroup();">
+                            <button type="button" class="btn btn-outline-secondary" data-toggle="modal" data-target="#customerSearch" style="background-image: url(btn_search.png); border: 0px; outline: 0px; padding: 15px; margin: 0; height: 16px" onclick="moveCustomerModal();">
 							</button>
 						</div>
 					</div>                  
@@ -259,7 +259,7 @@
                                    <div class="input-group-text">商品コード</div>
                             </div>
                             <input type="text"  class="form-control" id="productCodeInput" name="productCodeInput" maxlength="20">
-                            <button type="button" class="btn btn-outline-secondary" data-toggle="modal" data-target="#setproductsearch" style="background-image: url(btn_search.png); border: 0px; outline: 0px; padding: 15px; margin: 0; height: 16px"></button>
+                            <button type="button" class="btn btn-outline-secondary" data-toggle="modal" data-target="#setproductsearch" style="background-image: url(btn_search.png); border: 0px; outline: 0px; padding: 15px; margin: 0; height: 16px" onclick="moveProductModal();"></button>
 					    </div>
 					</div>
 					<div class="col-2"></div>
@@ -270,7 +270,7 @@
 								<div class="input-group-text">商品名</div>
 							</div>
                             <input type="text"  class="form-control" id="productNameInput" name="productNameInput" maxlength="60">
-                            <button type="button" class="btn btn-outline-secondary" data-toggle="modal" data-target="#setproductsearch" style="background-image: url(btn_search.png); border: 0px; outline: 0px; padding: 15px; margin: 0; height: 16px"></button>
+                            <button type="button" class="btn btn-outline-secondary" data-toggle="modal" data-target="#setproductsearch" style="background-image: url(btn_search.png); border: 0px; outline: 0px; padding: 15px; margin: 0; height: 16px" onclick="moveProductModal();"></button>
 						</div>
 					</div>                  
 				</div>	
@@ -329,7 +329,7 @@
                                    <div class="input-group-text">仕入先コード</div>
                             </div>
                             <input type="text"  class="form-control" id="supplierCodeInput" name="supplierCodeInput" maxlength="10">
-                            <button type="button" class="btn btn-outline-secondary" data-toggle="modal" data-target="#openSearchSupplier" style="background-image: url(btn_search.png); border: 0px; outline: 0px; padding: 15px; margin: 0; height: 16px"></button>
+                            <button type="button" class="btn btn-outline-secondary" data-toggle="modal" data-target="#openSearchSupplier" style="background-image: url(btn_search.png); border: 0px; outline: 0px; padding: 15px; margin: 0; height: 16px" onclick="moveDeliveryModal();"></button>
 					    </div>
 					</div>
 					<div class="col-2"></div>
@@ -340,7 +340,7 @@
 								<div class="input-group-text">仕入先名</div>
 							</div>
                             <input type="text"  class="form-control" id="supplierNameInput" name="supplierNameInput" maxlength="60">
-                            <button type="button" class="btn btn-outline-secondary" data-toggle="modal" data-target="#openSearchSupplier" style="background-image: url(btn_search.png); border: 0px; outline: 0px; padding: 15px; margin: 0; height: 16px"></button>
+                            <button type="button" class="btn btn-outline-secondary" data-toggle="modal" data-target="#openSearchSupplier" style="background-image: url(btn_search.png); border: 0px; outline: 0px; padding: 15px; margin: 0; height: 16px" onclick="moveDeliveryModal();"></button>
 						</div>
 					</div>                
 				</div>	
@@ -446,8 +446,6 @@
 		</div>
 	</div>
 </div>
-
-
 
 <script>
 	var unselectedArr = [];
@@ -973,7 +971,7 @@
 			});
 			var sorting = $(obj).text();
 			document.getElementById("hiddenSort").value = sorting;
-			
+			var num = document.getElementById("hiddenPaging").value;
 			jQuery.ajaxSettings.traditional = true;
 			
 			if(orderBy == "ASC")
@@ -1005,6 +1003,7 @@
 					"rowCount": $("#rowCount option:selected").val(),
 					"list": selArr, 
 					"sorting": sorting,
+					"paging": num,
 					"orderBy": orderBy
 				},
 				dataType:'json',
@@ -1032,7 +1031,7 @@
 					
 					var lastCount = data[Object.keys(data).length-1]["totalPage"];
 					var pagingNo;
-					var num = document.getElementById("hiddenPaging").value;
+					
 					num *= 1;
 
 					if(num == 1 && lastCount > 5){
@@ -1047,6 +1046,12 @@
 					
 					if(num-3 <= 0){
 						tmpnum = 1;
+					} else if ( num == lastCount) {
+						tmpnum = num - 5;
+					} else if ( num + 1 == lastCount) {
+						tmpnum = num - 4;
+					} else if ( num + 2 == lastCount) {
+						tmpnum = num - 3;
 					} else {
 						tmpnum = num - 2;
 					}
@@ -1145,6 +1150,12 @@
 					
 					if(num-3 <= 0){
 						tmpnum = 1;
+					} else if ( num == lastCount) {
+						tmpnum = num - 5;
+					} else if ( num + 1 == lastCount) {
+						tmpnum = num - 4;
+					} else if ( num + 2 == lastCount) {
+						tmpnum = num - 3;
 					} else {
 						tmpnum = num - 2;
 					}
@@ -1168,38 +1179,41 @@
 		    search();
 		});
 		shortcut.add("F3", function() {
-		    document.getElementById("csvDownloadButton").click();
+			csvOutput();
 		});
 		shortcut.add("F4", function() {
 			document.getElementById("openConfigModal").click();
 		});
 		
 		function getTimeStamp() {
-			  var d = new Date();
-			  var s =
-			    leadingZeros(d.getFullYear(), 4) + '-' +
-			    leadingZeros(d.getMonth() + 1, 2) + '-' +
-			    leadingZeros(d.getDate(), 2) + ' ' +
+		  var d = new Date();
+		  var s =
+		    leadingZeros(d.getFullYear(), 4) + '-' +
+		    leadingZeros(d.getMonth() + 1, 2) + '-' +
+		    leadingZeros(d.getDate(), 2) + ' ' +
 
-			    leadingZeros(d.getHours(), 2) + "-" +
-			    leadingZeros(d.getMinutes(), 2) + "-" +
-			    leadingZeros(d.getSeconds(), 2);
+		    leadingZeros(d.getHours(), 2) + "-" +
+		    leadingZeros(d.getMinutes(), 2) + "-" +
+		    leadingZeros(d.getSeconds(), 2);
 
-			  return s;
-			}
+		  return s;
+		}
 
-			function leadingZeros(n, digits) {
-			  var zero = '';
-			  n = n.toString();
+		function leadingZeros(n, digits) {
+		  var zero = '';
+		  n = n.toString();
 
-			  if (n.length < digits) {
-			    for (i = 0; i < digits - n.length; i++)
-			      zero += '0';
-			  }
-			  return zero + n;
-			}
+		  if (n.length < digits) {
+		    for (i = 0; i < digits - n.length; i++)
+		      zero += '0';
+		  }
+		  return zero + n;
+		}
 		
 		function csvOutput(){
+			if(!confirm("入力内容を初期化してよろしいですか？")){
+	           	return;
+	    	}
 			var selArr = [];
 			var checkedData = [];
 			for(var i = 0; i<document.getElementById('showSearchResult').length; i++){
@@ -1284,6 +1298,21 @@
 	        document.body.appendChild(downloadLink)
 	        downloadLink.click()
 	    }
+		
+		function moveCustomerModal(){
+			document.getElementById("customerCode").value = document.getElementById("customerCodeInput").value;
+			document.getElementById("customerName").value = document.getElementById("customerNameInput").value;
+		}
+		
+		function moveProductModal(){
+			document.getElementById("productCode").value = document.getElementById("productCodeInput").value;
+			document.getElementById("productName").value = document.getElementById("productNameInput").value;
+		}
+		
+		function moveDeliveryModal(){
+			document.getElementById("supplierCode").value = document.getElementById("supplierCodeInput").value;
+			document.getElementById("supplierName").value = document.getElementById("supplierNameInput").value;
+		}
 </script>
 </body>
 </html>

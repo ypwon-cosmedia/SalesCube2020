@@ -2,6 +2,7 @@ package common.servlet;
 
 import java.io.*;
 import javax.servlet.*;
+import javax.servlet.annotation.MultipartConfig;
 import javax.servlet.http.*;
 
 import common.controller.BaseController;
@@ -15,6 +16,7 @@ import user.DAO.*;
 import user.beans.*;
 import user.controller.*;
 
+@MultipartConfig
 public class SalesCubeServlet extends HttpServlet {
 
 

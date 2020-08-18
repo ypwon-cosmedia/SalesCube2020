@@ -19,6 +19,7 @@ import master.product.controller.ProductSearchController;
 import master.setProduct.controller.SetProductController;
 import order.input.controller.OrderInputController;
 import order.move.controller.OrderMoveController;
+import order.online.controller.OrderOnlineController;
 import order.search.controller.OrderSearchController;
 import user.controller.UserController;
 
@@ -48,6 +49,7 @@ public class CreateControllers {
 		BaseController estimateSearchObj = new EstimateSearchController();
 		BaseController unitPriceInquiryObj = new UnitPriceInquiryController();
 		BaseController stockObj = new StockToOrderController();
+		BaseController orderOnlineObj = new OrderOnlineController();
 
 		map.put( "moveAddCustomer", customerObj);
 		map.put( "moveModifyCustomer", customerObj);
@@ -124,6 +126,8 @@ public class CreateControllers {
 		map.put( "moveUnitPriceInquiry", unitPriceInquiryObj);
 		map.put( "unitPriceInquirySearch", unitPriceInquiryObj);
 		
+		map.put( "uploadcsv", orderOnlineObj);
+
         return map;
 
     }
