@@ -290,7 +290,7 @@
               
               <c:forEach var="order" items="${orderStatementList}"> 
 	              <tr class="tr_line-height10">
-	                <td><a href="#">${order.orderNoLine}</a></td>
+	                <td><a href="JavaScript:moveOrderUpdate(${order.roSlipId})">${order.orderNoLine}</a></td>
 	                <td>${order.shipDate}</td>
 	                <td>${order.quantity}</td>
 	              </tr>
@@ -301,6 +301,12 @@
         </div><br><br>
 
       </div>
+      
+	  <!-- 受注編集画面遷移用form -->
+	  <form action="/SalesCube2020/SalesCube?action=orderupdate" method="post" name="moveOrderUpdateform">
+		<input type="hidden" name="roSlipId" value="" id="roSlipId">
+	  </form>
+  
   </body>
 
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.2/jquery.min.js"></script>
@@ -332,5 +338,13 @@
 	function selectProductModal(code, name){
 		document.getElementById('inputProductCode').value = code;
 	}
+    
+    /* 受注残明細の受注番号のリンクから受注編集画面に遷移 */
+    function moveOrderUpdate(roSlipId){
+    	document.getElementById('roSlipId').value = roSlipId;
+		var form = document.moveOrderUpdateform;
+		form.submit();
+    }
+    
   </script>
 </html>
