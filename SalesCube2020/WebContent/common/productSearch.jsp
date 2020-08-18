@@ -31,6 +31,7 @@
 						</div>
 						<input type="text"  class="form-control" id="supllierPcode" name="supllierPcode">
 					  </div>
+					  
 					</div>
 					<div class="col-4">
 					  <label class="sr-only" for="inlineFormInputGroup"></label>
