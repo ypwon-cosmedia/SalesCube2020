@@ -434,7 +434,7 @@
             <td class="backpink"><input type="number" name="quantity" value="" id="quantity1" style="width: 75px;" onchange="quantityChange(this)" required></td>
             <td><input type="text" name="unitCost" value="" id="unitCost1" style="background-color:rgb(177, 177, 177); width: 75px;" readonly></td>
             <td class="backpink"><input type="number" name="unitRetailPrice" id="unitRetailPrice1" style="width: 75px;" onchange="unitRetailPriceChange(this)" required></td>
-            <td rowspan="2"><textarea name="productRemarks" value="" rows="3" style="width: 200px;" id="remarks1"></textarea></td>
+            <td rowspan="2"><textarea name="productRemarks" rows="3" style="width: 200px;" id="remarks1"></textarea></td>
             <td><button type="button" class="btn btn-primary table-button"  onclick="deleteLineForm(this)" id="delete1">削除</button></td>
           </tr>
 
@@ -487,6 +487,7 @@
     <br><br>
   </form>
   
+  <!-- 編集画面遷移用form -->
   <form action="/SalesCube2020/SalesCube?action=moveEstimateModify" method="post" name="moveEstimateModifyform">
 	<input type="hidden" name="estimateSheetId" value="" id="sendEstimateSheetId">
   </form>
@@ -558,51 +559,51 @@
             var trailingProductCode = trailingProductCode_id.value; //後行のproductCodeのvalueを取得
             productCode_id.value = trailingProductCode; //後行の商品コードを対象の列に移行
 
-            /* 商品名・摘要複写 */
+            // 商品名・摘要複写
             var productAbstract_id = document.getElementById('productAbstract' + i);//対象のproductAbstractのid
             var trailingProductAbstract_id = document.getElementById('productAbstract' + nextTableNo);//後行のproductAbstractのid
             var trailingProductAbstract = trailingProductAbstract_id.value; //後行のproductAbstractのvalueを取得
             productAbstract_id.value = trailingProductAbstract; //後行の商品名・摘要を対象の列に移行
 
-            /* 数量複写 */
+            // 数量複写
             var quantity_id = document.getElementById('quantity' + i);//対象のquantityのid
             var trailingQuantity_id = document.getElementById('quantity' + nextTableNo);//後行のquantityのid
             var trailingQuantity = trailingQuantity_id.value; //後行のquantityのvalueを取得
             quantity_id.value = trailingQuantity; //後行の数量複写を対象の列に移行
 
-            /* 仕入単価複写 */
+            // 仕入単価複写
             var unitCost_id = document.getElementById('unitCost' + i);//対象のunitCostのid
             var trailingUnitCost_id = document.getElementById('unitCost' + nextTableNo);//後行のunitCostのid
             var trailingUnitCost = trailingUnitCost_id.value; //後行のunitCostのvalueを取得
             unitCost_id.value = trailingUnitCost; //後行の仕入単価を対象の列に移行
 
-            /* 売上単価複写 */
+            // 売上単価複写
             var unitRetailPrice_id = document.getElementById('unitRetailPrice' + i);//対象のunitRetailPriceのid
             var trailingUnitRetailPrice_id = document.getElementById('unitRetailPrice' + nextTableNo);//後行のunitRetailPriceのid
             var trailingUnitRetailPrice = trailingUnitRetailPrice_id.value; //後行のunitRetailPriceのvalueを取得
             unitRetailPrice_id.value = trailingUnitRetailPrice; //後行の売上単価を対象の列に移行
             
-            /* 備考複写 */
+            // 備考複写
             var remarks_id = document.getElementById('remarks' + i);//対象のremarksのid
             var trailingRemarks_id = document.getElementById('remarks' + nextTableNo);//後行のremarksのid
             var trailingRemarks = trailingRemarks_id.value; //後行のremarksのvalueを取得
             remarks_id.value = trailingRemarks; //後行の備考を対象の列に移行
             
-            /* 仕入金額(仕入単価*数量)複写 */
+            // 仕入金額(仕入単価*数量)複写
             var cost_id = document.getElementById('cost' + i);//対象のcostのid
             var trailingCost_id = document.getElementById('cost' + nextTableNo);//後行のcostのid
             var trailingCost = trailingCost_id.value; //後行のcostのvalueを取得
             cost_id.value = trailingCost; //後行の仕入金額を対象の列に移行
 
-            /* 売上金額(売上単価×数量)複写 */
+            // 売上金額(売上単価×数量)複写
             var retailPrice_id = document.getElementById('retailPrice' + i);//対象のretailPriceのid
             var trailingRetailPrice_id = document.getElementById('retailPrice' + nextTableNo);//後行のretailPriceのid
             var trailingRetailPrice = trailingRetailPrice_id.value; //後行のretailPriceのvalueを取得
             retailPrice_id.value = trailingRetailPrice; //後行の売上金額を対象の列に移行
           }
+          $( '#estimate tr:last' ).remove(); //見積商品テーブルの最後の行を削除(1つのレコードで2行のため、2回行う)
           $( '#estimate tr:last' ).remove();
-          $( '#estimate tr:last' ).remove();
-        } else {
+        } else { //もし最前レコードの削除をクリックした場合は削除できませんと表示
           alert("最前列は削除できません。")
         }
         totalCalculation()
@@ -615,49 +616,49 @@
         var tableNo = tableNo_id.substr(12); //対象のtableNo：ボタンをクリックした列のtableNoを取得
         var acquisitionTableNo = tableNo -1; //前行のtableNo：対象のtableNo-1
 
-        /* 商品コード複写 */
+        // 商品コード複写
         var productCode_id = document.getElementById('productCode' + tableNo);//対象のproductCodeのid
         var acquisitionProductCode_id = document.getElementById('productCode' + acquisitionTableNo);//前行のproductCodeのid
         var acquisitionProductCode = acquisitionProductCode_id.value; //前行のproductCodeのvalueを取得
         productCode_id.value = acquisitionProductCode; //前行の商品コードを対象の列に移行
 
-        /* 商品名・摘要複写 */
+        // 商品名・摘要複写
         var productAbstract_id = document.getElementById('productAbstract' + tableNo);//対象のproductAbstractのid
         var acquisitionProductAbstract_id = document.getElementById('productAbstract' + acquisitionTableNo);//前行のproductAbstractのid
         var acquisitionProductAbstract = acquisitionProductAbstract_id.value; //前行のproductAbstractのvalueを取得
         productAbstract_id.value = acquisitionProductAbstract; //前行の商品名・摘要を対象の列に移行
 
-        /* 数量複写 */
+        // 数量複写
         var quantity_id = document.getElementById('quantity' + tableNo);//対象のquantityのid
         var acquisitionQuantity_id = document.getElementById('quantity' + acquisitionTableNo);//前行のquantityのid
         var acquisitionQuantity = acquisitionQuantity_id.value; //前行のquantityのvalueを取得
         quantity_id.value = acquisitionQuantity; //前行の数量複写を対象の列に移行
 
-        /* 仕入単価複写 */
+        // 仕入単価複写
         var unitCost_id = document.getElementById('unitCost' + tableNo);//対象のunitCostのid
         var acquisitionUnitCost_id = document.getElementById('unitCost' + acquisitionTableNo);//前行のunitCostのid
         var acquisitionUnitCost = acquisitionUnitCost_id.value; //前行のunitCostのvalueを取得
         unitCost_id.value = acquisitionUnitCost; //前行の仕入単価を対象の列に移行
 
-        /* 売上単価複写 */
+        // 売上単価複写
         var unitRetailPrice_id = document.getElementById('unitRetailPrice' + tableNo);//対象のunitRetailPriceのid
         var acquisitionUnitRetailPrice_id = document.getElementById('unitRetailPrice' + acquisitionTableNo);//前行のunitRetailPriceのid
         var acquisitionUnitRetailPrice = acquisitionUnitRetailPrice_id.value; //前行のunitRetailPriceのvalueを取得
         unitRetailPrice_id.value = acquisitionUnitRetailPrice; //前行の売上単価を対象の列に移行
         
-        /* 備考複写 */
+        // 備考複写
         var remarks_id = document.getElementById('remarks' + tableNo);//対象のremarksのid
         var acquisitionRemarks_id = document.getElementById('remarks' + acquisitionTableNo);//前行のremarksのid
         var acquisitionRemarks = acquisitionRemarks_id.value; //前行のremarksのvalueを取得
         remarks_id.value = acquisitionRemarks; //前行の備考を対象の列に移行
         
-        /* 仕入金額(仕入単価*数量)複写 */
+        // 仕入金額(仕入単価*数量)複写
         var cost_id = document.getElementById('cost' + tableNo);//対象のcostのid
         var acquisitionCost_id = document.getElementById('cost' + acquisitionTableNo);//前行のcostのid
         var acquisitionCost = acquisitionCost_id.value; //前行のcostのvalueを取得
         cost_id.value = acquisitionCost; //前行の仕入金額を対象の列に移行
 
-        /* 売上金額(売上単価×数量)複写 */
+        // 売上金額(売上単価×数量)複写
         var retailPrice_id = document.getElementById('retailPrice' + tableNo);//対象のretailPriceのid
         var acquisitionRetailPrice_id = document.getElementById('retailPrice' + acquisitionTableNo);//前行のretailPriceのid
         var acquisitionRetailPrice = acquisitionRetailPrice_id.value; //前行のretailPriceのvalueを取得

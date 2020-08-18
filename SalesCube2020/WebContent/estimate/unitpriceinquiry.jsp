@@ -94,6 +94,8 @@
     </style>
 </head>
   <body style="background-color: gainsboro;">
+    <!-- モーダル -->
+  	<%@ include file="../common/productSearch.jsp" %><!-- 商品検索モーダル -->
     <!-- Optional JavaScript -->
     <!-- jQuery first, then Popper.js, then Bootstrap JS -->
     <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
@@ -148,8 +150,8 @@
 						    	<div class="input-group-prepend">
 						    		<div class="input-group-text">商品コード</div>
 						  		</div>
-                    <input type="text" value="${searchResult.productCode}" class="form-control" id="inlineFormInputGroup" name="productCode">
-                    <button type="button" class="ModalButton"  data-toggle="modal" data-target="#setShipDate">
+                    <input type="text" value="${searchResult.productCode}" class="form-control" id="productCode" name="productCode">
+                    <button type="button" class="ModalButton"  data-toggle="modal" data-target="#setproductsearch" onclick="initproductModal()">
                       <img src="btn_search.png" style="vertical-align: middle; cursor: pointer; width: 32px; height: 32px;">
                     </button>
 					  		</div>
@@ -168,7 +170,7 @@
       <br>
     </form>
       
-      <div id="resultHidden" hidden>
+      <div id="resultHidden" hidden="hidden">
 
         <div class="container" style="background-color: white;">
           <div class="panel panel-default" >
@@ -301,6 +303,7 @@
       </div>
   </body>
 
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.2/jquery.min.js"></script>
   <script>
 	  /* 画面読み込み時、リクエストスコープに"status"に"result"が保存されている場合、結果画面を表示する */
 	  window.onload = function () {
@@ -324,5 +327,11 @@
 		var form = document.unitpriceinquiryform;
 		form.submit();
     }
+    
+	/* 商品モーダルから親画面にリンク */
+	function selectProductModal(obj){
+		//var productCode = document.getElementById("modalProductCode1").innerText;
+		//document.getElementById("productCode1").value = productCode;
+	}
   </script>
 </html>

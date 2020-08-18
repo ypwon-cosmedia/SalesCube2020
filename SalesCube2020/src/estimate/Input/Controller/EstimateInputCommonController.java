@@ -5,29 +5,20 @@ package estimate.Input.Controller;
 
 import java.io.IOException;
 import java.sql.SQLException;
-import java.util.ArrayList;
-import java.util.List;
+
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import com.google.gson.Gson;
-import com.google.gson.JsonArray;
-import com.google.gson.JsonParser;
 
 import common.controller.BaseAJAXController;
-import common.controller.BaseController;
 import estimate.Input.beans.GetCustomerBean;
 import estimate.Input.beans.GetProductBean;
 import estimate.Input.dao.EstimateInputCommonDAO;
-import estimate.common.beans.CategoryBean;
-import estimate.common.dao.CategoryDAO;
 
-/**
- * @author cosmedia
- *
- */
+
 public class EstimateInputCommonController extends BaseAJAXController  {
 
 	public void execService(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {

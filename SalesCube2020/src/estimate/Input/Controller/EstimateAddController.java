@@ -17,19 +17,9 @@ import common.controller.BaseController;
 import estimate.Input.API.estimateInputAPI;
 import estimate.Input.beans.EstimateAddBean;
 import estimate.Input.beans.EstimateProductAddBean;
-import estimate.Input.beans.TaxRateBean;
 import estimate.Input.dao.EstimateAddDAO;
-import estimate.Input.dao.EstimateInputCommonDAO;
-import estimate.common.beans.CategoryBean;
-import estimate.common.dao.CategoryDAO;
-import master.setProduct.DAO.SetProductDAO;
-import master.setProduct.beans.SetProductBean;
 
 
-/**
- * @author cosmedia
- *
- */
 public class EstimateAddController extends BaseController {
 
 	public String execService(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
