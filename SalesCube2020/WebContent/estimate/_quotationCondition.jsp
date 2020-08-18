@@ -86,7 +86,16 @@
             					
             					success:function(data){	//成功時
             						$("#selectQuotation").empty();//ラジオボタンをクリア
-                       			 	
+                       			 		
+         	            		 		for(var i = 0; i<Object.keys(data).length; i++){	//受け取ったdataの数だけ、繰り返す
+    	            		 				var headcontents= '';
+    	       								headcontents += '<label>';
+    	       								headcontents += '<input type="radio" name="radioQuotation" value="' + data[i].categoryCodeName + '">';
+    	       								headcontents += data[i].categoryCodeName ;
+    	       								headcontents += '</label><br>';
+    	       								$("#selectQuotation").append(headcontents);					
+    	            		    		}
+         	            		 		/* 
          	            		 		var radioAdd = document.getElementById('selectQuotation');	//idがselectQuotationの要素を取得
          	            		 		for(var i = 0; i<Object.keys(data).length; i++){			//受け取ったdataの数だけ、繰り返す
          	            		      		var radio = document.createElement('input');			//input要素を作成
@@ -107,6 +116,7 @@
          	            		      		radioAdd.appendChild(label);							//radioAddにラベルを追加する
          	            		      		radioAdd.appendChild(br);								//radioAddに改行を追加する
          	            		    	}
+         	            		 		*/
             					}
             				});
             			}
