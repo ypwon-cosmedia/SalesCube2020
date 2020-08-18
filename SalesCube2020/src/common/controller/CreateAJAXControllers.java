@@ -35,7 +35,8 @@ public class CreateAJAXControllers {
 		BaseAJAXController bill = new OrderCommonBillController();
 		
 		map.put("productSearch", productAJAX);
-		
+		map.put("initProductModal", productAJAX);
+				
 		map.put("configModalUpdate", ordersearchAJAX);
 		map.put("orderSearch", ordersearchAJAX);
 		map.put("csvOutput", ordersearchAJAX);

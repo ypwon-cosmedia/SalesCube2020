@@ -52,11 +52,8 @@
 						  <div class="input-group-prepend">
 							<div class="input-group-text">セット分類</div>
 						  </div>
-						  <select class="custom-select" name="setTypeCategory">
+						  <select class="custom-select" name="setTypeCategory" id="setTypeCategory">
 							<option selected></option>
-							<c:forEach var="options" items="${setProduct}">
-								<option value = "${options.categoryCode}">${options.categoryCodeName}</option>
-							</c:forEach>
 							  
 						  </select>
 						</div>
@@ -68,11 +65,9 @@
 						  <div class="input-group-prepend">
 							<div class="input-group-text">標準化分類</div>
 						  </div>
-						  <select class="custom-select" name="productStandardCategory">
+						  <select class="custom-select" name="productStandardCategory" id="productStandardCategory">
 							<option selected></option> 
-							<c:forEach var="options" items="${standard}">
-							  <option value = "${options.categoryCode}">${options.categoryCodeName}</option>
-							</c:forEach>
+
 						  </select>
 						</div>
 					</div>
@@ -83,11 +78,9 @@
 							<div class="input-group-prepend">
 							  <div class="input-group-text">分類状況</div>
 							</div>
-							<select class="custom-select" name="productStatusCategory">
+							<select class="custom-select" name="productStatusCategory" id="productStockCategory">
 							  <option selected></option>
-							  <c:forEach var="options" items="${classStatus}">
-							    <option value = "${options.categoryCode}">${options.categoryCodeName}</option>
-							  </c:forEach>
+
 							</select>
 						  </div>
 						</div>
@@ -152,35 +145,57 @@
 </div>
 
 <script>
-function productSearch() {
-			
-			var formString = $("form[id=product]").serialize();
-			var tmp = "";
-			
-			$.ajax({
-				url:'/SalesCube2020/SalesCubeAJAX?action=productSearch',
-				type:'post',
-				data:formString,
-				dataType:'json',
-				success:function(data){	
-					$("#productResult > tr").remove();
-					for(var i = 0; i<Object.keys(data).length; i++){
-						var headcontents= '';
-						headcontents += '<tr>';
-						headcontents += '<td style="white-space: normal; text-align: left;" onclick="selectProductModal('+data[i].productCode+",'"+data[i].productName+"'"+')" data-dismiss="modal"><a href="">'+data[i].productCode+'</a></td>';
-						headcontents += '<td style="white-space: normal; text-align: left;" onclick="selectProductModal('+data[i].productCode+",'"+data[i].productName+"'"+')" data-dismiss="modal"><a href="">'+data[i].productName+'</a></td>';
-						headcontents += '<td style="white-space: normal; text-align: left;">'+(data[i].supplierName==null ? '' : data[i].supplierName)+'</td>';   
-						headcontents += '</tr>';
-						$('#productResult').append(headcontents);						
-					}
-					$('#productSearchResultCount').text(+Object.keys(data).length);
-				}
-			});
-		}
+	function productSearch() {	
+		var formString = $("form[id=product]").serialize();
+		var tmp = "";
 		
-	function initproductModal(){
+		$.ajax({
+			url:'/SalesCube2020/SalesCubeAJAX?action=productSearch',
+			type:'post',
+			data:formString,
+			dataType:'json',
+			success:function(data){	
+				$("#productResult > tr").remove();
+				for(var i = 0; i<Object.keys(data).length; i++){
+					var headcontents= '';
+					headcontents += '<tr>';
+					headcontents += '<td style="white-space: normal; text-align: left;" onclick="selectProductModal('+data[i].productCode+",'"+data[i].productName+"'"+')" data-dismiss="modal"><a href="">'+data[i].productCode+'</a></td>';
+					headcontents += '<td style="white-space: normal; text-align: left;" onclick="selectProductModal('+data[i].productCode+",'"+data[i].productName+"'"+')" data-dismiss="modal"><a href="">'+data[i].productName+'</a></td>';
+					headcontents += '<td style="white-space: normal; text-align: left;">'+(data[i].supplierName==null ? '' : data[i].supplierName)+'</td>';   
+					headcontents += '</tr>';
+					$('#productResult').append(headcontents);						
+				}
+				$('#productSearchResultCount').text(+Object.keys(data).length);
+			}
+		});
+	}
+	
+	function initProductModal() {	
 		$("#productResult > tr").remove();
 		$('#productSearchResultCount').text("0");
-		$("#product")[0].reset(); 
+		$("#product")[0].reset();
+		
+		$('#setTypeCategory').children('option:not(:first)').remove();
+		$('#productStandardCategory').children('option:not(:first)').remove();
+		$('#productStockCategory').children('option:not(:first)').remove();
+
+		$.ajax({
+			url:'/SalesCube2020/SalesCubeAJAX?action=initProductModal',
+			dataType:'json',
+			type:'post',
+			success:function(data){	
+				for(var i = 0; i<Object.keys(data.list1).length; i++){
+					$("#setTypeCategory").append("<option value = "+data.list1[i].categoryCode+">"+data.list1[i].categoryCodeName+"</option>");	
+				}
+				for(var i = 0; i<Object.keys(data.list2).length; i++){
+					$("#productStandardCategory").append("<option value = "+data.list2[i].categoryCode+">"+data.list2[i].categoryCodeName+"</option>");
+				}
+				for(var i = 0; i<Object.keys(data.list3).length; i++){
+					$("#productStockCategory").append("<option value = "+data.list3[i].categoryCode+">"+data.list3[i].categoryCodeName+"</option>");
+					
+				}
+			}
+		});
 	}
+	
 </script>

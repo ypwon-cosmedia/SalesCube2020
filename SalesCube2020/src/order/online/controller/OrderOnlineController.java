@@ -16,7 +16,8 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.Part;
 
 import common.controller.BaseController;
-import order.online.beans.OrderOnlineBean;
+import order.online.beans.OrderOnlineBillBean;
+import order.online.beans.OrderOnlineDetailBean;
 
 @MultipartConfig
 public class OrderOnlineController extends BaseController{
@@ -49,39 +50,23 @@ public class OrderOnlineController extends BaseController{
 	         }
 
 			String[] splitText = inputText.split(System.getProperty("line.separator"));
-
+						
 			List<String[]> list = new ArrayList<String[]>();			
 			for(String s : splitText) {	
 				String[] splitText2 = s.split(",");
 				list.add(splitText2);
 			}
 			
-			
-			/* 最大値、最小値計算*/
-			for(i = 0; i<list.size(); i++) {
-				if(Integer.parseInt(list.get(i)[0]) > maxNum) {
-					maxNum = Integer.parseInt(list.get(i)[0]);
-				}
-				
-				if(Integer.parseInt(list.get(i)[0]) < minNum) {
-					minNum = Integer.parseInt(list.get(i)[0]);
-				}				
-			}
-			
-			Collections.sort(list,new Comparator <String[]>() {
-	            public int compare(String[] strings, String[] otherStrings) {
-	                return strings[0].compareTo(otherStrings[0]);
-	            }
-	        });
-			
+			list.remove(0);
+						
 			for (String[] sa : list) {
 	            System.out.println(Arrays.toString(sa));
 	        }
 						
 			int tmpNo = Integer.parseInt(list.get(0)[0]);
 			for(int j = 0; i<list.size(); i++) {
-				//orderInputInfo bean
-				//orderInputDetail bean
+
+				
 				if(j != 0) {
 					if(tmpNo == Integer.parseInt(list.get(i)[0])) {
 						//orderInputDetail(bean)
