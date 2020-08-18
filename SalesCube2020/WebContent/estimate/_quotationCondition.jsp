@@ -88,7 +88,7 @@
             						$("#selectQuotation").empty();//ラジオボタンをクリア
                        			 		
          	            		 		for(var i = 0; i<Object.keys(data).length; i++){	//受け取ったdataの数だけ、繰り返す
-    	            		 				var headcontents= '';
+    	            		 				var headcontents= '';	//ラジオボタンの挿入
     	       								headcontents += '<label>';
     	       								headcontents += '<input type="radio" name="radioQuotation" value="' + data[i].categoryCodeName + '">';
     	       								headcontents += data[i].categoryCodeName ;
