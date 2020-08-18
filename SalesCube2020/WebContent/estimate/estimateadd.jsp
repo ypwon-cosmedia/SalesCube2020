@@ -813,11 +813,21 @@
 		  getCustomer(inputCustomerCode);
 	  }
 	  
-	  //モーダル画面から取得した顧客コードで顧客情報取得
+	  //顧客検索モーダル画面から取得した顧客コードで顧客情報取得
 	  function selectCustomerCode(code, name){
 		document.getElementById('customerCode').value = code;
 	  	getCustomer(code);
 	  }
+	  
+	  
+	  
+	  //商品検索モーダル画面から取得した商品コードで商品情報取得
+	  function selectProductModal(code, name){
+		document.getElementById('customerCode').value = code;
+	  	//getCustomer(code);
+	  }
+	  
+	  
 	  
 	  /* ajaxで入力した顧客コードに対応する顧客情報取得 */
 	  function getCustomer(inputCustomerCode) {

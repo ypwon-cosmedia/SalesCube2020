@@ -150,10 +150,10 @@
 						    	<div class="input-group-prepend">
 						    		<div class="input-group-text">商品コード</div>
 						  		</div>
-                    <input type="text" value="${searchResult.productCode}" class="form-control" id="productCode" name="productCode">
-                    <button type="button" class="ModalButton"  data-toggle="modal" data-target="#setproductsearch" onclick="initproductModal()">
-                      <img src="btn_search.png" style="vertical-align: middle; cursor: pointer; width: 32px; height: 32px;">
-                    </button>
+			                    <input type="text" value="${searchResult.productCode}" class="form-control" id="inputProductCode" name="productCode">
+			                    <button type="button" class="ModalButton"  data-toggle="modal" data-target="#setproductsearch" onclick="initproductModal()">
+			                      <img src="btn_search.png" style="vertical-align: middle; cursor: pointer; width: 32px; height: 32px;">
+			                    </button>
 					  		</div>
               </div>
             </div>
@@ -328,10 +328,9 @@
 		form.submit();
     }
     
-	/* 商品モーダルから親画面にリンク */
-	function selectProductModal(obj){
-		//var productCode = document.getElementById("modalProductCode1").innerText;
-		//document.getElementById("productCode1").value = productCode;
+    /* 商品検索モーダル画面から取得した商品コードで商品情報取得 */
+	function selectProductModal(code, name){
+		document.getElementById('inputProductCode').value = code;
 	}
   </script>
 </html>
