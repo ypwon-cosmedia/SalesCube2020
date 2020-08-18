@@ -7,7 +7,7 @@
 <html>
 <head>
 <meta charset="utf-8">
-<title>Insert title here</title>
+<title>単価照会</title>
 <!-- Required meta tags -->
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
@@ -15,7 +15,6 @@
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
 
-    <title>単価照会</title>
     <style type="text/css">  
       .table {
         color: #0a0a0a;
@@ -95,64 +94,16 @@
     </style>
 </head>
   <body style="background-color: gainsboro;">
+    <!-- モーダル -->
+  	<%@ include file="../common/productSearch.jsp" %><!-- 商品検索モーダル -->
     <!-- Optional JavaScript -->
     <!-- jQuery first, then Popper.js, then Bootstrap JS -->
     <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
-    <nav class="navbar navbar-expand-lg navbar-light bg-light">
-      <a class="navbar-brand" href="/SalesCube2020/SalesCube?action=menu">SalesCube2020</a>
-      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-        <span class="navbar-toggler-icon"></span>
-      </button>
-    
-      <div class="collapse navbar-collapse" id="navbarSupportedContent">
-        <ul class="navbar-nav mr-auto">
-          <li class="nav-item dropdown">
-            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-              マスター
-            </a>
-            <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-              <a class="dropdown-item" href="/SalesCube2020/SalesCube?action=product">商品</a>
-              <a class="dropdown-item" href="/SalesCube2020/SalesCube?action=setProduct">セット商品</a>
-              <a class="dropdown-item" href="/SalesCube2020/SalesCube?action=customer">顧客</a>
-            </div>
-          </li>
-          <li class="nav-item dropdown">
-            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-              受注
-            </a>
-            <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-              <a class="dropdown-item" href="#">受注入力</a>
-              <a class="dropdown-item" href="#">受注検索</a>
-              <a class="dropdown-item" href="#">オンライン受注データ取込</a>
-            </div>
-          </li>
-          <li class="nav-item dropdown">
-            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-              見積
-            </a>
-            <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-              <a class="dropdown-item" href="estimateadd.html">見積入力</a>
-              <a class="dropdown-item" href="estimateSearch.html">見積検索</a>
-              <a class="dropdown-item" href="unitpriceinquiry.html">単価照会</a>
-            </div>
-          </li>
-        </ul>
-        
-        <span class="navbar-text">
-          <svg class="bi bi-person-circle" width="1em" height="1em" viewBox="0 0 16 16" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
-            <path d="M13.468 12.37C12.758 11.226 11.195 10 8 10s-4.757 1.225-5.468 2.37A6.987 6.987 0 0 0 8 15a6.987 6.987 0 0 0 5.468-2.63z"/>
-            <path fill-rule="evenodd" d="M8 9a3 3 0 1 0 0-6 3 3 0 0 0 0 6z"/>
-            <path fill-rule="evenodd" d="M8 1a7 7 0 1 0 0 14A7 7 0 0 0 8 1zM0 8a8 8 0 1 1 16 0A8 8 0 0 1 0 8z"/>
-          </svg>
-        	<!-- ${userInfo.nameKNJ} --> 管理者&nbsp;     	
-        </span>
-        <form class="form-inline" action="/SalesCube2020/SalesCube?action=logout" method="post">
-          <button class="btn btn-outline-success my-2 my-sm-0" type="submit">ログアウト</button>
-        </form>
-      </div>
-    </nav>
+   
+    <!-- メニューバー -->
+   	<%@ include file= "../common/menubar.jsp" %>
 
     <br>
 
@@ -163,7 +114,7 @@
       <div class="btn-toolbar float-right" role="toolbar" aria-label="Toolbar with button groups">
         <div class="btn-group mr-2 " role="group" aria-label="First group">
           <button type="button" class="btn btn-secondary" style="font-size: 12px;" onclick="initForm();">F1<br>初期化</button>
-          <button type="button" class="btn btn-secondary" style="font-size: 12px;" onclick="doSubmit();">F2<br>検索</button>
+          <button type="button" class="btn btn-secondary" style="font-size: 12px;" onclick="unitPriceInquirySearch();">F2<br>検索</button>
           <button type="button" class="btn btn-secondary" style="font-size: 12px;" disabled>F3<br></button>
           <button type="button" class="btn btn-secondary" style="font-size: 12px;" disabled>F4<br></button>
           <button type="button" class="btn btn-secondary" style="font-size: 12px;" disabled>F5<br></button>
@@ -178,8 +129,12 @@
       </div>
       <br><br><br>
     </div>
+    
+    <div class="container">
+      <div><h5 id="message" style="color:#ff0000;"></h5></div>
+    </div>
 
-    <form action="/SalesCube2020/SalesCube?action=unitPriceInquirySearch" method="post" name="mainform">
+    <form action="/SalesCube2020/SalesCube?action=unitPriceInquirySearch" method="post" name="unitpriceinquiryform">
       <div class="container" style="background-color: white;">
         <div class="panel panel-default" >
 			    <div class="panel-heading row mb-2 col-4">
@@ -195,10 +150,10 @@
 						    	<div class="input-group-prepend">
 						    		<div class="input-group-text">商品コード</div>
 						  		</div>
-                    <input type="text" value="${searchResult.productCode}" class="form-control" id="inlineFormInputGroup" name="productCode">
-                    <button type="button" class="ModalButton"  data-toggle="modal" data-target="#setShipDate">
-                      <img src="btn_search.png" style="vertical-align: middle; cursor: pointer; width: 32px; height: 32px;">
-                    </button>
+			                    <input type="text" value="${searchResult.productCode}" class="form-control" id="inputProductCode" name="productCode">
+			                    <button type="button" class="ModalButton"  data-toggle="modal" data-target="#setproductsearch" onclick="initproductModal()">
+			                      <img src="btn_search.png" style="vertical-align: middle; cursor: pointer; width: 32px; height: 32px;">
+			                    </button>
 					  		</div>
               </div>
             </div>
@@ -215,7 +170,7 @@
       <br>
     </form>
       
-      <div id="resultHidden" hidden>
+      <div id="resultHidden" hidden="hidden">
 
         <div class="container" style="background-color: white;">
           <div class="panel panel-default" >
@@ -348,13 +303,14 @@
       </div>
   </body>
 
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.2/jquery.min.js"></script>
   <script>
 	  /* 画面読み込み時、リクエストスコープに"status"に"result"が保存されている場合、結果画面を表示する */
 	  window.onload = function () {
 		  if("${status}" == "result"){
 		      document.getElementById("resultHidden").removeAttribute("hidden");
 		  } else if("${status}" == "err") {
-			  alert("該当データが存在しませんでした。");
+			  document.getElementById("message").innerHTML = "該当データが存在しませんでした。";
 		  } else{}
 	  };
       
@@ -365,6 +321,16 @@
       }
       location.href = '/SalesCube2020/SalesCube?action=moveUnitPriceInquiry';
     }
-
+    
+    /* 単価照会(検索) */
+    function unitPriceInquirySearch() {
+		var form = document.unitpriceinquiryform;
+		form.submit();
+    }
+    
+    /* 商品検索モーダル画面から取得した商品コードで商品情報取得 */
+	function selectProductModal(code, name){
+		document.getElementById('inputProductCode').value = code;
+	}
   </script>
 </html>

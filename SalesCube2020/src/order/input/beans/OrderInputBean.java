@@ -8,6 +8,18 @@ package order.input.beans;
  */
 
 public class OrderInputBean {
+	
+	/* 受注番号最後 */
+	private Integer roSlipLast;
+	
+	public Integer getRoSlipLast() {
+		return roSlipLast;
+	}
+
+	public void setRoSlipLast(Integer roSlipLast) {
+		this.roSlipLast = roSlipLast;
+	}
+
 	/* 受注番号 */
 	private Integer roSlipId;
 

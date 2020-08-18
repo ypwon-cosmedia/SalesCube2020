@@ -17,19 +17,9 @@ import common.controller.BaseController;
 import estimate.Input.API.estimateInputAPI;
 import estimate.Input.beans.EstimateAddBean;
 import estimate.Input.beans.EstimateProductAddBean;
-import estimate.Input.beans.TaxRateBean;
 import estimate.Input.dao.EstimateAddDAO;
-import estimate.Input.dao.EstimateInputCommonDAO;
-import estimate.common.beans.CategoryBean;
-import estimate.common.dao.CategoryDAO;
-import master.setProduct.DAO.SetProductDAO;
-import master.setProduct.beans.SetProductBean;
 
-
-/**
- * @author cosmedia
- *
- */
+/* 見積登録を行うContoller */
 public class EstimateAddController extends BaseController {
 
 	public String execService(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -45,11 +35,10 @@ public class EstimateAddController extends BaseController {
 		}catch(SQLException e) {
 			e.printStackTrace();
 		}
-
   		return forwardURL;
 	}
 	
-	
+	/* 見積登録画面に遷移するメソッド */
 	public String moveEstimateAdd(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException, ClassNotFoundException, SQLException {
 		
@@ -57,13 +46,14 @@ public class EstimateAddController extends BaseController {
 
 		estimateInputAPI api = new estimateInputAPI();
 
-		request.setAttribute("taxRateList",api.getTaxRateList());
-		request.setAttribute("submitPreList",api.getCategoryList(10));
+		request.setAttribute("taxRateList",api.getTaxRateList()); //消費税率のコンボボックスを取得する
+		request.setAttribute("submitPreList",api.getCategoryList(10)); //提出先敬称のコンボボックスを取得
 			
 		return forwardURL;
 		
 	}
 	
+	/* 見積登録を行うメソッド */
 	private String estimateAdd(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException, ClassNotFoundException, SQLException {
 		

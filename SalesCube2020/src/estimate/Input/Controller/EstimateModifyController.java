@@ -16,22 +16,14 @@ import javax.servlet.http.HttpServletResponse;
 import common.controller.BaseController;
 import estimate.Input.API.estimateInputAPI;
 import estimate.Input.API.estimateSheetPDF.estimateSheetJasper;
-import estimate.Input.beans.EstimateAddBean;
 import estimate.Input.beans.EstimateModifyBean;
 import estimate.Input.beans.EstimateProductAddBean;
 import estimate.Input.beans.InitEstimateBean;
 import estimate.Input.beans.InitEstimateProductBean;
-import estimate.Input.beans.TaxRateBean;
 import estimate.Input.dao.EstimateAddDAO;
-import estimate.Input.dao.EstimateInputCommonDAO;
 import estimate.Input.dao.EstimateModifyDAO;
-import estimate.common.beans.CategoryBean;
-import estimate.common.dao.CategoryDAO;
 
-/**
- * @author cosmedia
- *
- */
+
 public class EstimateModifyController extends BaseController {
 
 	public String execService(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -94,8 +86,8 @@ public class EstimateModifyController extends BaseController {
 		bean.setEstimateDate(request.getParameter("estimateDate"));
 		bean.setDeliveryInfo(request.getParameter("deliveryInfo"));
 		bean.setValidDate(request.getParameter("validDate"));
-		bean.setUserName(request.getParameter("userName"));
-		bean.setUserId(request.getParameter("userId"));
+		//bean.setUserName(request.getParameter("userName"));
+		//bean.setUserId(request.getParameter("userId"));
 		bean.setTitle(request.getParameter("title"));
 		bean.setDeliveryName(request.getParameter("deliveryName"));
 		bean.setEstimateCondition(request.getParameter("estimateCondition"));
@@ -214,6 +206,4 @@ public class EstimateModifyController extends BaseController {
 	    // int変換して返す
 	    return parseInt(value, 0);
 	}
-
 }
-

@@ -6,9 +6,6 @@ package estimate.Input.API.estimateSheetPDF;
 import java.io.BufferedOutputStream;
 import java.io.File;
 import java.io.FileInputStream;
-import java.io.IOException;
-import java.time.LocalDateTime;
-import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.HashMap;
 import java.util.List;
@@ -24,7 +21,6 @@ import net.sf.jasperreports.engine.JasperFillManager;
 import net.sf.jasperreports.engine.JasperPrint;
 import net.sf.jasperreports.engine.JasperReport;
 import net.sf.jasperreports.engine.data.JRBeanCollectionDataSource;
-import net.sf.jasperreports.engine.util.JRLoader;
 
 //PDF出力に関するクラス
 public class estimateSheetJasper {
@@ -120,7 +116,6 @@ public class estimateSheetJasper {
             if (fis != null) fis.close(); 
 			if (bos != null) bos.close();
             
-	       
 	   } catch (Exception e) {
 	        System.out.print(e.getMessage());
 	   } finally {

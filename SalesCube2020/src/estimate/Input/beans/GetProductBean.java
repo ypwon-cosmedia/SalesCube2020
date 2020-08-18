@@ -75,5 +75,4 @@ public class GetProductBean {
 	public void setUnitRetailPrice(Integer unitRetailPrice) {
 		this.unitRetailPrice = unitRetailPrice;
 	}
-
 }

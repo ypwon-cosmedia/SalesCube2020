@@ -375,8 +375,5 @@ public class EstimateAddDAO extends BaseDAO {
 	 	super.releaseDB(con,stmt,result);
 	 	
 	 	return maxEstimateLineId;
-	}
-
-
-	 			
+	}		
 }

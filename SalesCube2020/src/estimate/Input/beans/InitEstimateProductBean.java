@@ -177,5 +177,4 @@ public class InitEstimateProductBean {
 	public void setProductRemarks(String productRemarks) {
 		this.productRemarks = productRemarks;
 	}
-
 }

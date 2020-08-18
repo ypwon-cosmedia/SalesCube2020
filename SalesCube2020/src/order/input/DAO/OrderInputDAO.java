@@ -15,9 +15,39 @@ import sql.order.OrderSQL;
 
 public class OrderInputDAO extends BaseDAO{
 	
+	/* 受注番号最後 */
+	public int roSlipLast() throws SQLException, ClassNotFoundException {
+		
+		Connection con;
+	 	Statement stmt = null;
+	 	ResultSet result = null;	
+	 	String sql;
+	 	con = super.getConnection();
+	 	stmt = con.createStatement();
+
+	 	sql = "select " + 
+				"ro_slip_id " + 
+				"from " + 
+				"ro_slip_trn_xxxxx " + 
+				"order by ro_slip_id desc " + 
+				"limit 1 offset 0";
+	 	
+	 	result = stmt.executeQuery(sql);
+	 	
+	 	int num = 0;
+	 	
+	 	while(result.next()) {
+	 		num = result.getInt("RO_SLIP_ID");
+	 	}
+	 	super.releaseDB(con, stmt, result);
+	 	
+	 	return num;	 	
+		
+	}
+	
 	/* 受注新規登録 */
 	public int orderInputInfo(OrderInputBean bean) throws SQLException, ClassNotFoundException{
-	
+		
 		Connection con;
 	 	PreparedStatement stmt = null;
 	 	int result = 0;	
@@ -187,6 +217,7 @@ public class OrderInputDAO extends BaseDAO{
 	 		stmt.setInt(32, bean.getPriceTotal());
 	 	}
 	 	stmt.setInt(33, bean.getStatus());
+	 	stmt.setInt(34, roSlipLast()+1);
 
 	 	try {
 	 		System.out.println(sql);
@@ -231,6 +262,7 @@ public class OrderInputDAO extends BaseDAO{
 		 	stmt.setInt(9, bean.getRetailPrice());
 		 	stmt.setString(10, bean.getInputProductRemarks());
 		 	stmt.setString(11, bean.getEadRemarks());
+		 	stmt.setInt(12, roSlipLast()+1);
 		 	result = stmt.executeUpdate();
 	 	}
 	 	
@@ -264,44 +296,172 @@ public class OrderInputDAO extends BaseDAO{
 	 	stmt = con.prepareStatement(sql);
 	 	
 	 	stmt.setString(1, bean.getRoDate());
-	 	stmt.setString(2, bean.getShipDate());
-	 	stmt.setString(3, bean.getDeliveryDate());
-	 	stmt.setString(4, bean.getReceptNo());
-	 	stmt.setString(5, bean.getCustomerSlipNo());
-	 	stmt.setString(6, bean.getUserName());
-	 	stmt.setString(7, bean.getRemarks());
-	 	stmt.setString(8, bean.getDcName());
-	 	stmt.setString(9, bean.getDcTimezone());
-	 	stmt.setString(10, bean.getCtaxRate());
-	 	stmt.setString(11, bean.getCustomerCode());
-	 	stmt.setString(12, bean.getCustomerName());
-	 	stmt.setString(13, bean.getTaxShiftCategory());
-	 	stmt.setString(14, bean.getCutoffGroup());
-	 	stmt.setString(15, bean.getSalesCmCategory());
-	 	stmt.setString(16, bean.getCustomerRemarks());
-	 	stmt.setString(17, bean.getCustomerCommentData());
-	 	stmt.setString(18, bean.getDeliveryName());
-	 	stmt.setString(19, bean.getDeliveryOfficeName());
-	 	stmt.setString(20, bean.getDeliveryDeptName());
-	 	stmt.setString(21, bean.getDeliveryZipCode());
-	 	stmt.setString(22, bean.getDeliveryAddress1());
-	 	stmt.setString(23, bean.getDeliveryAddress2());
-	 	stmt.setString(24, bean.getDeliveryPcName());
-	 	stmt.setString(25, bean.getDeliveryPcKana());
-	 	stmt.setString(26, bean.getDeliveryPcPre());
-	 	stmt.setString(27, bean.getDeliveryTel());
-	 	stmt.setString(28, bean.getDeliveryFax());
-	 	stmt.setString(29, bean.getDeliveryEmail());
-	 	stmt.setInt(30, bean.getRetailPriceTotal());
-	 	stmt.setInt(31, bean.getCtaxPriceTotal());
-	 	stmt.setInt(32, bean.getPriceTotal());
+	 	
+	 	if(bean.getShipDate() == null) {
+	 		stmt.setNull(2,  java.sql.Types.NULL);
+	 	}else {
+	 		stmt.setString(2, bean.getShipDate());
+	 	}
+	 	if(bean.getDeliveryDate() == null) {
+	 		stmt.setNull(3,  java.sql.Types.NULL);
+	 	}else {
+	 		stmt.setString(3, bean.getDeliveryDate());
+	 	}
+	 	if(bean.getReceptNo() == null) {
+	 		stmt.setNull(4,  java.sql.Types.NULL);
+	 	}else {
+	 		stmt.setString(4, bean.getReceptNo());
+	 	}
+	 	if(bean.getCustomerSlipNo() == null) {
+	 		stmt.setNull(5,  java.sql.Types.NULL);
+	 	}else {
+	 		stmt.setString(5, bean.getCustomerSlipNo());
+	 	}
+	 	if(bean.getUserName() == null) {
+	 		stmt.setNull(6,  java.sql.Types.NULL);
+	 	}else {
+	 		stmt.setString(6, bean.getUserName());
+	 	}
+	 	if(bean.getRemarks() == null) {
+	 		stmt.setNull(7,  java.sql.Types.NULL);
+	 	}else {
+	 		stmt.setString(7, bean.getRemarks());
+	 	}
+	 	if(bean.getDcName() == null) {
+	 		stmt.setNull(8,  java.sql.Types.NULL);
+	 	}else {
+	 		stmt.setString(8, bean.getDcName());
+	 	}
+	 	if(bean.getDcTimezone() == null) {
+	 		stmt.setNull(9,  java.sql.Types.NULL);
+	 	}else {
+	 		stmt.setString(9, bean.getDcTimezone());
+	 	}
+	 	if(bean.getCtaxRate() == null) {
+	 		stmt.setNull(10,  java.sql.Types.NULL);
+	 	}else {
+		 	stmt.setString(10, bean.getCtaxRate());
+	 	}
+	 	if(bean.getCustomerCode() == null) {
+	 		stmt.setNull(11,  java.sql.Types.NULL);
+	 	}else {
+	 		stmt.setString(11, bean.getCustomerCode());
+	 	}
+	 	if(bean.getCustomerName() == null) {
+	 		stmt.setNull(12,  java.sql.Types.NULL);
+	 	}else {
+	 		stmt.setString(12, bean.getCustomerName());
+	 	}
+	 	if(bean.getTaxShiftCategory() == null) {
+	 		stmt.setNull(13,  java.sql.Types.NULL);
+	 	}else {
+	 		stmt.setString(13, bean.getTaxShiftCategory());
+	 	}
+	 	if(bean.getCutoffGroup() == null) {
+	 		stmt.setNull(14,  java.sql.Types.NULL);
+	 	}else {
+	 		stmt.setString(14, bean.getCutoffGroup());
+	 	}
+	 	if(bean.getSalesCmCategory() == null) {
+	 		stmt.setNull(15,  java.sql.Types.NULL);
+	 	}else {
+	 		stmt.setString(15, bean.getSalesCmCategory());
+	 	}
+	 	if(bean.getCustomerRemarks() == null) {
+	 		stmt.setNull(16,  java.sql.Types.NULL);
+	 	}else {
+	 		stmt.setString(16, bean.getCustomerRemarks());
+	 	}
+	 	if(bean.getCustomerCommentData() == null) {
+	 		stmt.setNull(17,  java.sql.Types.NULL);
+	 	}else {
+	 		stmt.setString(17, bean.getCustomerCommentData());
+	 	}
+	 	if(bean.getDeliveryName() == null) {
+	 		stmt.setNull(18,  java.sql.Types.NULL);
+	 	}else {
+	 		stmt.setString(18, bean.getDeliveryName());
+	 	}
+	 	if(bean.getDeliveryOfficeName() == null) {
+	 		stmt.setNull(19,  java.sql.Types.NULL);
+	 	}else {
+	 		stmt.setString(19, bean.getDeliveryOfficeName());
+	 	}
+	 	if(bean.getDeliveryDeptName() == null) {
+	 		stmt.setNull(20,  java.sql.Types.NULL);
+	 	}else {
+	 		stmt.setString(20, bean.getDeliveryDeptName());
+	 	}
+	 	if(bean.getDeliveryZipCode() == null) {
+	 		stmt.setNull(21,  java.sql.Types.NULL);
+	 	}else {
+	 		stmt.setString(21, bean.getDeliveryZipCode());
+	 	}
+	 	if(bean.getDeliveryAddress1() == null) {
+	 		stmt.setNull(22,  java.sql.Types.NULL);
+	 	}else {
+	 		stmt.setString(22, bean.getDeliveryAddress1());
+	 	}
+	 	if(bean.getDeliveryAddress2() == null) {
+	 		stmt.setNull(23,  java.sql.Types.NULL);
+	 	}else {
+	 		stmt.setString(23, bean.getDeliveryAddress2());
+	 	}
+	 	if(bean.getDeliveryPcName() == null) {
+	 		stmt.setNull(24,  java.sql.Types.NULL);
+	 	}else {
+	 		stmt.setString(24, bean.getDeliveryPcName());
+	 	}
+	 	if(bean.getDeliveryPcKana() == null) {
+	 		stmt.setNull(25,  java.sql.Types.NULL);
+	 	}else {
+	 		stmt.setString(25, bean.getDeliveryPcKana());
+	 	}
+	 	if(bean.getDeliveryPcPre() == null) {
+	 		stmt.setNull(26,  java.sql.Types.NULL);
+	 	}else {
+	 		stmt.setString(26, bean.getDeliveryPcPre());
+	 	}
+	 	if(bean.getDeliveryTel() == null) {
+	 		stmt.setNull(27,  java.sql.Types.NULL);
+	 	}else {
+	 		stmt.setString(27, bean.getDeliveryTel());
+	 	}
+	 	if(bean.getDeliveryFax() == null) {
+	 		stmt.setNull(28,  java.sql.Types.NULL);
+	 	}else {
+	 		stmt.setString(28, bean.getDeliveryFax());
+	 	}
+	 	if(bean.getDeliveryEmail() == null) {
+	 		stmt.setNull(29,  java.sql.Types.NULL);
+	 	}else {
+	 		stmt.setString(29, bean.getDeliveryEmail());
+	 	}
+	 	if(bean.getRetailPriceTotal() == null) {
+	 		stmt.setNull(30,  java.sql.Types.NULL);
+	 	}else {
+	 		stmt.setInt(30, bean.getRetailPriceTotal());
+	 	}
+	 	if(bean.getCtaxPriceTotal() == null) {
+	 		stmt.setNull(31,  java.sql.Types.NULL);
+	 	}else {
+	 		stmt.setInt(31, bean.getCtaxPriceTotal());
+	 	}
+	 	if(bean.getPriceTotal() == null) {
+	 		stmt.setNull(32,  java.sql.Types.NULL);
+	 	}else {
+	 		stmt.setInt(32, bean.getPriceTotal());
+	 	}
+	 	stmt.setInt(33, bean.getStatus());
+	 	stmt.setInt(34, roSlipLast()+1);
 	 	
 	 	result = stmt.executeUpdate();
 	 	
 	 	try {
-	 		System.out.println("更新完了");
+	 		System.out.println("1更新完了");
 	 		con.commit();
 	 	}catch(SQLException e){
+	 		System.out.println("2更新できませんでした");
 	 		e.printStackTrace();
 	 		result = 0;
 	 	}finally {
@@ -337,13 +497,15 @@ public class OrderInputDAO extends BaseDAO{
 		 	stmt.setInt(9, bean.getRetailPrice());
 		 	stmt.setString(10, bean.getInputProductRemarks());
 		 	stmt.setString(11, bean.getEadRemarks());
+		 	stmt.setInt(12, roSlipLast()+1);
 	 		result = stmt.executeUpdate();
 	 	}
 	 	
 	 	try {
-	 		System.out.println("明細更新完了");
+	 		System.out.println("3明細更新完了");
 	 		con.commit();
 	 	}catch(SQLException e){
+	 		System.out.println("4明細更新できませんでした");
 	 		e.printStackTrace();
 	 		result = 0;
 	 	}finally {

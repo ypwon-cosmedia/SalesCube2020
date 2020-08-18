@@ -104,7 +104,7 @@
 								<div class="input-group-prepend">
 									<div class="input-group-text">受注番号</div>
 								</div>
-								<input type="text" value="" class="form-control" maxlength='10' pattern="^[0-9]+$" onchange="moveUpdate()" id="roSlipId">
+								<input type="text" value="" class="form-control" maxlength='10' pattern="^[0-9]+$" onchange="moveUpdate()" id="roSlipId" name="roSlipId">
 							</div>
 						</div>
 						<div class="col-4">
@@ -113,7 +113,7 @@
 								<div class="input-group-prepend">
 									<div class="input-group-text" style = "background-color: pink;">受注日※</div>
 								</div>
-								<input type="date" value=""  class="form-control" data-required-error="受注日は入力必須項目です" required>
+								<input type="date" value="" class="form-control" data-required-error="受注日は入力必須項目です" name="roDate" required>
 							</div>
 						</div>
 						<div class="col-4">
@@ -122,7 +122,7 @@
 								<div class="input-group-prepend">
 									<div class="input-group-text">出荷日</div>
 								</div>
-								<input type="date" value=""  class="form-control">
+								<input type="date" value=""  class="form-control" name="shipDate">
 							</div>
 						</div>
 					</div>
@@ -133,7 +133,7 @@
 								<div class="input-group-prepend">
 									<div class="input-group-text">納期指定日</div>
 								</div>
-								<input type="date" value=""  class="form-control">
+								<input type="date" value=""  class="form-control" name="deliveryDate">
 							</div>
 						</div>
 						<div class="col-4">
@@ -142,7 +142,7 @@
 								<div class="input-group-prepend">
 									<div class="input-group-text">受付番号</div>
 								</div>
-								<input type="text" value="" class="form-control"  maxlength='30'>
+								<input type="text" value="" class="form-control"  maxlength='30' name="receptNo">
 							</div>
 						</div>
 						<div class="col-4">
@@ -151,7 +151,7 @@
 								<div class="input-group-prepend">
 									<div class="input-group-text">客先伝票番号</div>
 								</div>
-								<input type="text" value=""  class="form-control"  maxlength='30'>
+								<input type="text" value=""  class="form-control"  maxlength='30' name="customerSlipNo">
 							</div>
 						</div>
 					</div>
@@ -162,7 +162,7 @@
 								<div class="input-group-prepend">
 									<div class="input-group-text">入力担当者</div>
 								</div>
-								<input type="text" value="" class="form-control" readonly >
+								<input type="text" value="" class="form-control" readonly name="userName">
 							</div>
 						</div>
 						<div class="col-4">
@@ -171,7 +171,7 @@
 								<div class="input-group-prepend">
 									<div class="input-group-text">摘要</div>
 								</div>
-								<input type="text" value=""  class="form-control" maxlength='120'>
+								<input type="text" value=""  class="form-control" maxlength='120' name="remarks">
 							</div>
 						</div>
 						<div class="col-4">
@@ -180,7 +180,7 @@
 								<div class="input-group-prepend">
 									<div class="input-group-text">配送業者</div>
 								</div>
-								<select class="custom-select" name="">
+								<select class="custom-select" name="dcName">
 									<option value=""></option>
 									<c:forEach items="${initDcName}" var="initDN">
 										<option value="${initDN.categoryCode}">${initDN.categoryCodeName}</option>
@@ -196,7 +196,7 @@
 								<div class="input-group-prepend">
 									<div class="input-group-text">配送時間帯</div>
 								</div>
-								<select class="custom-select" name="">
+								<select class="custom-select" name="dcTimeZone">
 									<option value=""></option>
 									<c:forEach items="${initDcTimezone}" var="initDT">
 										<option value="${initDT.categoryCode}">${initDT.categoryCodeName}</option>
@@ -210,7 +210,7 @@
 								<div class="input-group-prepend">
 									<div class="input-group-text">消費税率</div>
 								</div>
-								<select class="custom-select" name="">
+								<select class="custom-select" name="ctaxRate">
 									<option value=""></option>
 									<c:forEach items="${initTaxRate}" var="initTR">
 										<option value="${initTR.ctaxRate}" id="ctaxRate">${initTR.ctaxRate}</option>
@@ -236,7 +236,7 @@
 								<div class="input-group-prepend">
 									<div class="input-group-text" style = "background-color: pink;">顧客コード</div>
 								</div>
-								<input type="text" value="" class="form-control" id="customerCodeInput" maxlength='15' data-required-error="顧客コードは入力必須項目です" required>
+								<input type="text" value="" class="form-control" id="customerCodeInput" maxlength='15' data-required-error="顧客コードは入力必須項目です" name="customerCode" required>
 								<button type="button" class="btn btn-outline-secondary" data-toggle="modal" data-target="#customerSearch" onclick="customerCodetoModal();">検索</button>
 							</div>
 						</div>
@@ -246,7 +246,7 @@
 								<div class="input-group-prepend">
 									<div class="input-group-text">顧客名</div>
 								</div>
-								<input type="text" value=""  class="form-control" id="customerNameInput" readonly>
+								<input type="text" value=""  class="form-control" id="customerNameInput" name="customerName" readonly>
 							</div>
 						</div>
 						<div class="col-4">
@@ -255,7 +255,7 @@
 								<div class="input-group-prepend">
 									<div class="input-group-text">税転嫁</div>
 								</div>
-								<input type="text" value="" class="form-control" readonly>
+								<input type="text" value="" class="form-control" name="taxShiftCategory" readonly>
 							</div>
 						</div>
 					</div>
@@ -266,7 +266,7 @@
 								<div class="input-group-prepend">
 									<div class="input-group-text">支払条件</div>
 								</div>
-								<input type="text" value="" class="form-control" readonly>
+								<input type="text" value="" class="form-control" name="cutoffGroup" readonly>
 							</div>
 						</div>
 						<div class="col-4">
@@ -275,7 +275,7 @@
 								<div class="input-group-prepend">
 									<div class="input-group-text">取引区分</div>
 								</div>
-								<input type="text" value="" class="form-control" readonly>
+								<input type="text" value="" class="form-control" name="salesCmCategory" readonly>
 							</div>
 						</div>
 						<div class="col-4">
@@ -284,7 +284,7 @@
 								<div class="input-group-prepend">
 									<div class="input-group-text">備考</div>
 								</div>
-								<input type="text" value="" class="form-control" readonly>
+								<input type="text" value="" class="form-control" name="customerRemarks" readonly>
 							</div>
 						</div>
 					</div>
@@ -295,7 +295,7 @@
 								<div class="input-group-prepend">
 									<div class="input-group-text">コメント</div>
 								</div>
-								<input type="text" value="" class="form-control" readonly>
+								<input type="text" value="" class="form-control" name="customerCommentData" readonly>
 							</div>
 						</div>
 					</div>
@@ -316,7 +316,7 @@
 								<div class="input-group-prepend">
 									<div class="input-group-text">顧客納入先</div>
 								</div>
-								<select class="custom-select" name="">
+								<select class="custom-select" name="deliveryName">
 									<option value=""></option>
 <!--									<c:forEach items="">-->
 <!--										<option value=""></option>-->
@@ -330,7 +330,7 @@
 								<div class="input-group-prepend">
 									<div class="input-group-text">事務所名</div>
 								</div>
-								<input type="text" value="" class="form-control" readonly>
+								<input type="text" value="" class="form-control" name="deliveryOfficeName" readonly>
 							</div>
 						</div>
 						<div class="col-4">
@@ -339,7 +339,7 @@
 								<div class="input-group-prepend">
 									<div class="input-group-text">部署名</div>
 								</div>
-								<input type="text" value="" class="form-control" readonly>
+								<input type="text" value="" class="form-control" name="deliveryDeptName" readonly>
 							</div>
 						</div>
 					</div>
@@ -350,7 +350,7 @@
 								<div class="input-group-prepend">
 									<div class="input-group-text">郵便番号</div>
 								</div>
-								<input type="text" value="" class="form-control" readonly>
+								<input type="text" value="" class="form-control" name="deliveryZipCode" readonly>
 							</div>
 						</div>
 						<div class="col-4">
@@ -359,7 +359,7 @@
 								<div class="input-group-prepend">
 									<div class="input-group-text">住所1</div>
 								</div>
-								<input type="text" value="" class="form-control" readonly>
+								<input type="text" value="" class="form-control" name="deliveryAddress1" readonly>
 							</div>
 						</div>
 						<div class="col-4">
@@ -368,7 +368,7 @@
 								<div class="input-group-prepend">
 									<div class="input-group-text">住所2</div>
 								</div>
-								<input type="text" value="" class="form-control" readonly>
+								<input type="text" value="" class="form-control" name="deliveryAddress2" readonly>
 							</div>
 						</div>
 					</div>
@@ -379,7 +379,7 @@
 								<div class="input-group-prepend">
 									<div class="input-group-text">担当者</div>
 								</div>
-								<input type="text" value="" class="form-control" readonly>
+								<input type="text" value="" class="form-control" name="deliveryPcName" readonly>
 							</div>
 						</div>
 						<div class="col-4">
@@ -388,7 +388,7 @@
 								<div class="input-group-prepend">
 									<div class="input-group-text">担当者カナ</div>
 								</div>
-								<input type="text" value="" class="form-control" readonly>
+								<input type="text" value="" class="form-control" name="deliveryPcKana" readonly>
 							</div>
 						</div>
 						<div class="col-4">
@@ -397,7 +397,7 @@
 								<div class="input-group-prepend">
 									<div class="input-group-text">敬称</div>
 								</div>
-								<input type="text" value="" class="form-control" readonly>
+								<input type="text" value="" class="form-control" name="deliveryPcPre" readonly>
 							</div>
 						</div>
 					</div>
@@ -408,7 +408,7 @@
 								<div class="input-group-prepend">
 									<div class="input-group-text">TEL</div>
 								</div>
-								<input type="text" value="" class="form-control" readonly>
+								<input type="text" value="" class="form-control" name="deliveryTel" readonly>
 							</div>
 						</div>
 						<div class="col-4">
@@ -417,7 +417,7 @@
 								<div class="input-group-prepend">
 									<div class="input-group-text">FAX</div>
 								</div>
-								<input type="text" value="" class="form-control" readonly>
+								<input type="text" value="" class="form-control" name="deliveryFax" readonly>
 							</div>
 						</div>
 						<div class="col-4">
@@ -426,7 +426,7 @@
 								<div class="input-group-prepend">
 									<div class="input-group-text">E-MAIL</div>
 								</div>
-								<input type="text" value="" class="form-control" readonly>
+								<input type="text" value="" class="form-control" name="deliveryEmail" readonly>
 							</div>
 						</div>
 					</div>
@@ -465,21 +465,21 @@
 					<tr>
 						<td rowspan="6"><span id="tableLineNo1">1</span></td>
 						<td rowspan="6">
-							<input type="text" value="" class="form-control" size="2" style="width:100%" id="productCodeInput1"  maxlength='20'>
+							<input type="text" value="" class="form-control" size="2" style="width:100%" id="productCodeInput1"  maxlength='20' name="productCode">
 							<button type="button" class="btn btn-outline-secondary" data-toggle="modal" data-target="#setproductsearch" onclick="productCodetoModal(this);" id="setproductsearch1">検索</button>
 						</td>
-						<td rowspan="3"><span id="productName1"></span></td>
+						<td rowspan="3"><span id="productName1" name="productName"></span></td>
 						<td rowspan="2">
-							<input type="text" value="" class="form-control" size="2" id="rackCode1" readonly>
+							<input type="text" value="" class="form-control" size="2" id="rackCode1" name="rackCode" readonly>
 						</td>
 						<td rowspan="3">
-							<input type="text" value="" class="form-control" size="4" name="unitCost" id="unitCost1" readonly>
+							<input type="text" value="" class="form-control" size="4" name="unitCost" id="unitCost1" name="unitCost" readonly>
 						</td>
 						<td rowspan="3">
-							<input type="text" value="" class="form-control" size="4" name="unitRetailPrice" id="unitRetailPrice1" onchange="quantityCalc2(this)" maxlength='15' pattern="^[0-9]+$">
+							<input type="text" value="" class="form-control" size="4" name="unitRetailPrice" id="unitRetailPrice1" name="unitRetailPrice" onchange="quantityCalc2(this)" maxlength='15' pattern="^[0-9]+$">
 						</td>
 						<td rowspan="3">
-							<textarea name="productRemarks" class="form-control" cols="10" id="inputProductRemarks1" maxlength='120'></textarea>
+							<textarea name="productRemarks" class="form-control" cols="10" id="inputProductRemarks1" name="inputProductRemarks" maxlength='120'></textarea>
 						</td>
 						<td rowspan="3" class="align: middle">
 							<button type="button" class="btn btn-outline-secondary" onclick="deleteLineForm(this);" id="deleteLineForm1">削除</button>
@@ -488,21 +488,21 @@
 					<tr></tr>
 					<tr>
 						<td rowspan="2">
-							<input type="text" value="" class="form-control" size="2" name="quantity" id="quantity1" maxlength='12' pattern="^[0-9]+$" onchange="quantityCalc1(this)">
+							<input type="text" value="" class="form-control" size="2" name="quantity" id="quantity1" name="quantity" maxlength='12' pattern="^[0-9]+$" onchange="quantityCalc1(this)">
 						</td>
 					</tr>
 					<tr>
 						<td rowspan="3">
-							<textarea name="productRemarks" class="form-control" cols="10" id="productRemarks1" readonly></textarea>
+							<textarea name="productRemarks" class="form-control" cols="10" id="productRemarks1" name="productRemarks" readonly></textarea>
 						</td>
 						<td rowspan="3">
-							<input type="text" value="" class="form-control" size="4" name="cost" id="cost1" readonly>
+							<input type="text" value="" class="form-control" size="4" name="cost" id="cost1" name="cost" readonly>
 						</td>
 						<td rowspan="3">
-							<input type="text" value="" class="form-control" size="4" name="retailPrice" id="retailPrice1" readonly>
+							<input type="text" value="" class="form-control" size="4" name="retailPrice" id="retailPrice1" name="retailPrice" readonly>
 						</td>
 						<td rowspan="3">
-							<textarea name="eadRemarks" class="form-control" cols="10" id="eadRemarks1"></textarea>
+							<textarea name="eadRemarks" class="form-control" cols="10" id="eadRemarks1" name="eadRemarks"></textarea>
 						</td>
 						<td rowspan="3">
 							<button type="button" value="" class="btn btn-outline-secondary" id="reprintForm" disabled>前行複写</button>
@@ -546,11 +546,11 @@
 					</tr>
 				</thead>
 				<tbody>
-					<td id="grossProfit">￥0</td>
-					<td id="grossProfitRatio">0.00%</td>
-					<td id="retailPriceTotal">￥0</td>
-					<td id="ctaxPriceTotal">￥0</td>
-					<td id="priceTotal">￥0</td>
+					<td id="grossProfit" name="grossProfit">￥0</td>
+					<td id="grossProfitRatio" name="grossProfitRatio">0.00%</td>
+					<td id="retailPriceTotal" name="retailPriceTotal">￥0</td>
+					<td id="ctaxPriceTotal" name="ctaxPriceTotal">￥0</td>
+					<td id="priceTotal" name="priceTotal">￥0</td>
 				</tbody>
 			</table>
 			<br>
@@ -615,9 +615,8 @@
 				test;
 				if(test == false){
 					return;
-				} /* else
-				window.location.href = '/SalesCube2020/SalesCube?action=orderinput'; */
-				location.reload();
+				}
+
 			}
 	
 			/* 伝票呼出 */
@@ -913,7 +912,7 @@
 			function openStock(obj){
 				var tmp = obj.id;
 				var tableNo = tmp.substr(15);
-				var productCodeInput = document.getElementById("productCodeInput" + tableNo).value;
+				var productCodeInput = document.getElementByName("productCodeInput" + tableNo).value;
 				alert(productCode);
 				var form = document.createElement("form");
 				form.setAttribute("charset", "UTF-8");

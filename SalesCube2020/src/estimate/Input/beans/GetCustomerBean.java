@@ -75,5 +75,4 @@ public class GetCustomerBean {
 	public void setCustomerComment(String customerComment) {
 		this.customerComment = customerComment;
 	}
-
 }

@@ -4,12 +4,9 @@
 package estimate.Input.dao;
 
 import java.sql.Connection;
-import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
-import java.sql.Types;
-import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -17,12 +14,8 @@ import common.dao.BaseDAO;
 import estimate.Input.beans.GetCustomerBean;
 import estimate.Input.beans.GetProductBean;
 import estimate.Input.beans.TaxRateBean;
-import master.customer.beans.DeliveryModifyBean;
 
-/**
- * @author cosmedia
- *
- */
+
 public class EstimateInputCommonDAO extends BaseDAO {
 	
 	//消費税を取得するメソッド

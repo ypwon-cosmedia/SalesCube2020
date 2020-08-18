@@ -11,18 +11,11 @@ import java.util.ArrayList;
 import java.util.List;
 
 import common.dao.BaseDAO;
-import estimate.Input.beans.GetCustomerBean;
 import estimate.unitPriceInquiry.beans.OrderStatementBean;
 import estimate.unitPriceInquiry.beans.QuantitySlideSettingBean;
 import estimate.unitPriceInquiry.beans.UnitPriceInquirySearchResultBean;
-import master.customer.beans.DeliveryModifyBean;
-import master.customer.beans.customerSearchBeans.CustomerInputBean;
-import master.customer.beans.customerSearchBeans.CustomerResultBean;
 
-/**
- * @author cosmedia
- *
- */
+
 public class UnitPriceInquiryDAO extends BaseDAO {
 	
 	//単価照会(商品情報、割引情報)を取得
@@ -168,6 +161,4 @@ public class UnitPriceInquiryDAO extends BaseDAO {
 	 	
 	 	return list;
 	}
-	
-	
 }

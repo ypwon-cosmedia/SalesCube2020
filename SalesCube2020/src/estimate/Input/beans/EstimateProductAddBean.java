@@ -211,6 +211,4 @@ public class EstimateProductAddBean {
 	public void setCreUser(String creUser) {
 		this.creUser = creUser;
 	}
-
-
 }

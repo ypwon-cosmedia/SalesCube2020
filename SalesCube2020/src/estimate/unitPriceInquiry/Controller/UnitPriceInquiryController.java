@@ -5,7 +5,6 @@ package estimate.unitPriceInquiry.Controller;
 
 import java.io.IOException;
 import java.sql.SQLException;
-import java.util.ArrayList;
 import java.util.List;
 
 import javax.servlet.ServletException;
@@ -18,10 +17,7 @@ import estimate.unitPriceInquiry.beans.QuantitySlideSettingBean;
 import estimate.unitPriceInquiry.beans.UnitPriceInquirySearchResultBean;
 import estimate.unitPriceInquiry.dao.UnitPriceInquiryDAO;
 
-/**
- * @author cosmedia
- *
- */
+
 public class UnitPriceInquiryController extends BaseController {
 
 	public String execService(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -77,10 +73,7 @@ public class UnitPriceInquiryController extends BaseController {
 			request.setAttribute("status","err");
 		} else {
 			request.setAttribute("status","result");
-		}
-			
+		}	
 		return forwardURL;
-		
 	}
-	
 }

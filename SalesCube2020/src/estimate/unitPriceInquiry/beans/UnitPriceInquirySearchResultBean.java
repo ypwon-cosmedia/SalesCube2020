@@ -263,5 +263,4 @@ public class UnitPriceInquirySearchResultBean {
 	public void setQuantityTotal(String quantityTotal) {
 		this.quantityTotal = quantityTotal;
 	}
-
 }

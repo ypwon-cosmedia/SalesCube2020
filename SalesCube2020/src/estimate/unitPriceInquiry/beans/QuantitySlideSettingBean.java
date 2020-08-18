@@ -58,6 +58,4 @@ public class QuantitySlideSettingBean {
 	public void setDiscountRate(double discountRate) {
 		this.discountRate = discountRate;
 	}
-	
-	
 }

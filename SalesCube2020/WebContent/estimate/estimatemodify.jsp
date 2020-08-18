@@ -14,7 +14,6 @@
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
 
-    <title>見積編集</title>
     <style type="text/css">  
       .table {
        color: #0a0a0a;
@@ -108,66 +107,17 @@
 </head>
   <body style="background-color: gainsboro;">
     <!-- モーダル -->
-  	<%@ include file="/estimate/_shipdate.jsp" %>
-	<%@ include file="/estimate/_quotationCondition.jsp" %>
+  	<%@ include file="/estimate/_shipdate.jsp" %><!-- 納期または出荷日選択モーダル -->
+	<%@ include file="/estimate/_quotationCondition.jsp" %><!-- 見積条件選択モーダル -->
+	<%@ include file="../common/_customerSearch.jsp" %><!-- 顧客検索モーダル -->
     <!-- Optional JavaScript -->
     <!-- jQuery first, then Popper.js, then Bootstrap JS -->
     <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
-    <nav class="navbar navbar-expand-lg navbar-light bg-light">
-      <a class="navbar-brand" href="/SalesCube2020/SalesCube?action=menu">SalesCube2020</a>
-      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-        <span class="navbar-toggler-icon"></span>
-      </button>
     
-      <div class="collapse navbar-collapse" id="navbarSupportedContent">
-        <ul class="navbar-nav mr-auto">
-          <li class="nav-item dropdown">
-            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-              マスター
-            </a>
-            <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-              <a class="dropdown-item" href="/SalesCube2020/SalesCube?action=product">商品</a>
-              <a class="dropdown-item" href="/SalesCube2020/SalesCube?action=setProduct">セット商品</a>
-              <a class="dropdown-item" href="/SalesCube2020/SalesCube?action=customer">顧客</a>
-            </div>
-          </li>
-          <li class="nav-item dropdown">
-            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-              受注
-            </a>
-            <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-              <a class="dropdown-item" href="#">受注入力</a>
-              <a class="dropdown-item" href="#">受注検索</a>
-              <a class="dropdown-item" href="#">オンライン受注データ取込</a>
-            </div>
-          </li>
-          <li class="nav-item dropdown">
-            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-              見積
-            </a>
-            <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-              <a class="dropdown-item" href="estimateadd.html">見積入力</a>
-              <a class="dropdown-item" href="estimateSearch.html">見積検索</a>
-              <a class="dropdown-item" href="unitpriceinquiry.html">単価照会</a>
-            </div>
-          </li>
-        </ul>
-        
-        <span class="navbar-text">
-          <svg class="bi bi-person-circle" width="1em" height="1em" viewBox="0 0 16 16" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
-            <path d="M13.468 12.37C12.758 11.226 11.195 10 8 10s-4.757 1.225-5.468 2.37A6.987 6.987 0 0 0 8 15a6.987 6.987 0 0 0 5.468-2.63z"/>
-            <path fill-rule="evenodd" d="M8 9a3 3 0 1 0 0-6 3 3 0 0 0 0 6z"/>
-            <path fill-rule="evenodd" d="M8 1a7 7 0 1 0 0 14A7 7 0 0 0 8 1zM0 8a8 8 0 1 1 16 0A8 8 0 0 1 0 8z"/>
-          </svg>
-        	<!-- ${userInfo.nameKNJ} --> 管理者&nbsp;     	
-        </span>
-        <form class="form-inline" action="/SalesCube2020/SalesCube?action=logout" method="post">
-          <button class="btn btn-outline-success my-2 my-sm-0" type="submit">ログアウト</button>
-        </form>
-      </div>
-    </nav>
+    <!-- メニューバー -->
+    <%@ include file= "../common/menubar.jsp" %>
 
     <br>
 
@@ -260,7 +210,6 @@
 						    		<div class="input-group-text">入力担当者</div>
 						  		</div>
 						   	  <input type="text" value="${estimate.userName}" class="form-control" id="inlineFormInputGroup" name="userName" readonly>
-						   	  <input type="hidden" value="${estimate.userID}" name="userId">
 					  		</div>
               </div>
 
@@ -294,7 +243,7 @@
 						    	<div class="input-group-prepend">
 						    		<div class="input-group-text">見積条件</div>
 						  		</div>
-                  <textarea cols="3" style="width: 750px;" id="estimateCondition" name="estimateCondition" value="${estimate.estimateCondition}">${estimate.estimateCondition}</textarea>
+                  <textarea cols="3" style="width: 750px;" id="estimateCondition" name="estimateCondition">${estimate.estimateCondition}</textarea>
                   <button type="button" class="ModalButton"  data-toggle="modal" data-target="#setQuotationCondition" onclick="conditionShow()">
                     <img src="btn_search.png" style="vertical-align: middle; cursor: pointer; width: 32px; height: 32px;">
                   </button>
@@ -376,8 +325,8 @@
                     <div class="input-group-prepend">
                       <div class="input-group-text">顧客コード</div>
                     </div>
-                      <input type="text" value="${estimate.customerCode}" class="form-control" name="customerCode" id="customerCode" onchange="getCustomer(this)">
-                      <button type="button" class="ModalButton"  data-toggle="modal" data-target="#customerSearch">
+                      <input type="text" value="${estimate.customerCode}" class="form-control" name="customerCode" id="customerCode" onchange="inputGetCustomer(this)">
+                      <button type="button" class="ModalButton"  data-toggle="modal" data-target="#customerSearch" onclick="getCutoffGroup()">
                         <img src="btn_search.png" style="vertical-align: middle; cursor: pointer; width: 32px; height: 32px;">
                       </button>
                   </div>
@@ -440,7 +389,7 @@
                   <div class="input-group-prepend">
                     <div class="input-group-text">摘要</div>
                   </div>
-                  <textarea name="remarks" value="${estimate.remarks}" cols="100">${estimate.remarks}</textarea>
+                  <textarea name="remarks" cols="100">${estimate.remarks}</textarea>
                 </div>
               </div>
             </div>
@@ -452,7 +401,7 @@
                   <div class="input-group-prepend">
                     <div class="input-group-text">メモ</div>
                   </div>
-                  <textarea name="memo" value="${estimate.memo}" cols="100">${estimate.memo}</textarea>
+                  <textarea name="memo" cols="100">${estimate.memo}</textarea>
                 </div>
               </div>
             </div>
@@ -482,11 +431,11 @@
 		            <td rowspan="2">${status.count}</td>
 		            <td rowspan="2" class="backpink"><input type="text" name="productCode" id="productCode${status.count}" value="${product.productCode}" style="width: 110px;" onchange="getProduct(this)" required>
 		              <input type="image" name="" src="btn_search.png" tabindex="101" onclick="" style="vertical-align: middle; cursor: pointer; width: 22px;"></td>
-		            <td rowspan="2"><textarea name="productAbstract" rows="3" style="width: 200px;" id="productAbstract${status.count}" value="${product.productAbstract}">${product.productAbstract}</textarea></td>
+		            <td rowspan="2"><textarea name="productAbstract" rows="3" style="width: 200px;" id="productAbstract${status.count}">${product.productAbstract}</textarea></td>
 		            <td class="backpink"><input type="number" name="quantity" value="${product.quantity}" id="quantity${status.count}" style="width: 75px;" onchange="quantityChange(this)" required></td>
 		            <td><input type="text" name="unitCost" value="${product.unitCost}" id="unitCost${status.count}" style="background-color:rgb(177, 177, 177); width: 75px;" readonly></td>
 		            <td class="backpink"><input type="number" name="unitRetailPrice" value="${product.unitRetailPrice}" id="unitRetailPrice${status.count}" style="width: 75px;" onchange="unitRetailPriceChange(this)" required></td>
-		            <td rowspan="2"><textarea name="productRemarks" value="${product.productRemarks}" rows="3" style="width: 200px;" id="remarks${status.count}">${product.productRemarks}</textarea></td>
+		            <td rowspan="2"><textarea name="productRemarks" rows="3" style="width: 200px;" id="remarks${status.count}">${product.productRemarks}</textarea></td>
 		            <td><button type="button" class="btn btn-primary table-button"  onclick="deleteLineForm(this)" id="delete${status.count}">削除</button></td>
 		          </tr>
 		
@@ -581,7 +530,6 @@
 		 form.submit();
 	}
 	
-
       /* 行追加 */
 	$('#addLine').click(function() {
 		var tableNo = ($("#estimate tr").length + 1) / 2; //新しく追加するNo、( (テーブルの行数(見出し1行+ データ行*2n) + 1(新しい行数にするための補完))/2) = 新規に追加する見出しNoになる)
@@ -618,7 +566,7 @@
 
           iTableNo = Number(tableNo);
 
-          /* 後行複写(対象の行まで) */
+          // 後行複写(対象の行まで)
           for(var i = iTableNo; i < lastTableNo; i++)  {
             var nextTableNo = i + 1; //後行のtableNo：対象のtableNo+1
 
@@ -627,57 +575,54 @@
             var trailingProductCode = trailingProductCode_id.value; //後行のproductCodeのvalueを取得
             productCode_id.value = trailingProductCode; //後行の商品コードを対象の列に移行
 
-            /* 商品名・摘要複写 */
+            // 商品名・摘要複写
             var productAbstract_id = document.getElementById('productAbstract' + i);//対象のproductAbstractのid
             var trailingProductAbstract_id = document.getElementById('productAbstract' + nextTableNo);//後行のproductAbstractのid
             var trailingProductAbstract = trailingProductAbstract_id.value; //後行のproductAbstractのvalueを取得
             productAbstract_id.value = trailingProductAbstract; //後行の商品名・摘要を対象の列に移行
 
-            /* 数量複写 */
+            // 数量複写
             var quantity_id = document.getElementById('quantity' + i);//対象のquantityのid
             var trailingQuantity_id = document.getElementById('quantity' + nextTableNo);//後行のquantityのid
             var trailingQuantity = trailingQuantity_id.value; //後行のquantityのvalueを取得
             quantity_id.value = trailingQuantity; //後行の数量複写を対象の列に移行
 
-            /* 仕入単価複写 */
+            // 仕入単価複写
             var unitCost_id = document.getElementById('unitCost' + i);//対象のunitCostのid
             var trailingUnitCost_id = document.getElementById('unitCost' + nextTableNo);//後行のunitCostのid
             var trailingUnitCost = trailingUnitCost_id.value; //後行のunitCostのvalueを取得
             unitCost_id.value = trailingUnitCost; //後行の仕入単価を対象の列に移行
 
-            /* 売上単価複写 */
+            // 売上単価複写
             var unitRetailPrice_id = document.getElementById('unitRetailPrice' + i);//対象のunitRetailPriceのid
             var trailingUnitRetailPrice_id = document.getElementById('unitRetailPrice' + nextTableNo);//後行のunitRetailPriceのid
             var trailingUnitRetailPrice = trailingUnitRetailPrice_id.value; //後行のunitRetailPriceのvalueを取得
             unitRetailPrice_id.value = trailingUnitRetailPrice; //後行の売上単価を対象の列に移行
             
-            /* 備考複写 */
+            // 備考複写
             var remarks_id = document.getElementById('remarks' + i);//対象のremarksのid
             var trailingRemarks_id = document.getElementById('remarks' + nextTableNo);//後行のremarksのid
             var trailingRemarks = trailingRemarks_id.value; //後行のremarksのvalueを取得
             remarks_id.value = trailingRemarks; //後行の備考を対象の列に移行
             
-            /* 仕入金額(仕入単価*数量)複写 */
+            // 仕入金額(仕入単価*数量)複写
             var cost_id = document.getElementById('cost' + i);//対象のcostのid
             var trailingCost_id = document.getElementById('cost' + nextTableNo);//後行のcostのid
             var trailingCost = trailingCost_id.value; //後行のcostのvalueを取得
             cost_id.value = trailingCost; //後行の仕入金額を対象の列に移行
 
-            /* 売上金額(売上単価×数量)複写 */
+            // 売上金額(売上単価×数量)複写
             var retailPrice_id = document.getElementById('retailPrice' + i);//対象のretailPriceのid
             var trailingRetailPrice_id = document.getElementById('retailPrice' + nextTableNo);//後行のretailPriceのid
             var trailingRetailPrice = trailingRetailPrice_id.value; //後行のretailPriceのvalueを取得
             retailPrice_id.value = trailingRetailPrice; //後行の売上金額を対象の列に移行
 
           }
-
           $( '#estimate tr:last' ).remove();
           $( '#estimate tr:last' ).remove();
-
         } else {
           alert("最前列は削除できません。")
         }
-
         totalCalculation()
       }
 
@@ -689,49 +634,49 @@
         var tableNo = tableNo_id.substr(12); //対象のtableNo：ボタンをクリックした列のtableNoを取得
         var acquisitionTableNo = tableNo -1; //前行のtableNo：対象のtableNo-1
 
-        /* 商品コード複写 */
+        // 商品コード複写
         var productCode_id = document.getElementById('productCode' + tableNo);//対象のproductCodeのid
         var acquisitionProductCode_id = document.getElementById('productCode' + acquisitionTableNo);//前行のproductCodeのid
         var acquisitionProductCode = acquisitionProductCode_id.value; //前行のproductCodeのvalueを取得
         productCode_id.value = acquisitionProductCode; //前行の商品コードを対象の列に移行
 
-        /* 商品名・摘要複写 */
+        // 商品名・摘要複写
         var productAbstract_id = document.getElementById('productAbstract' + tableNo);//対象のproductAbstractのid
         var acquisitionProductAbstract_id = document.getElementById('productAbstract' + acquisitionTableNo);//前行のproductAbstractのid
         var acquisitionProductAbstract = acquisitionProductAbstract_id.value; //前行のproductAbstractのvalueを取得
         productAbstract_id.value = acquisitionProductAbstract; //前行の商品名・摘要を対象の列に移行
 
-        /* 数量複写 */
+        // 数量複写
         var quantity_id = document.getElementById('quantity' + tableNo);//対象のquantityのid
         var acquisitionQuantity_id = document.getElementById('quantity' + acquisitionTableNo);//前行のquantityのid
         var acquisitionQuantity = acquisitionQuantity_id.value; //前行のquantityのvalueを取得
         quantity_id.value = acquisitionQuantity; //前行の数量複写を対象の列に移行
 
-        /* 仕入単価複写 */
+        // 仕入単価複写
         var unitCost_id = document.getElementById('unitCost' + tableNo);//対象のunitCostのid
         var acquisitionUnitCost_id = document.getElementById('unitCost' + acquisitionTableNo);//前行のunitCostのid
         var acquisitionUnitCost = acquisitionUnitCost_id.value; //前行のunitCostのvalueを取得
         unitCost_id.value = acquisitionUnitCost; //前行の仕入単価を対象の列に移行
 
-        /* 売上単価複写 */
+        // 売上単価複写
         var unitRetailPrice_id = document.getElementById('unitRetailPrice' + tableNo);//対象のunitRetailPriceのid
         var acquisitionUnitRetailPrice_id = document.getElementById('unitRetailPrice' + acquisitionTableNo);//前行のunitRetailPriceのid
         var acquisitionUnitRetailPrice = acquisitionUnitRetailPrice_id.value; //前行のunitRetailPriceのvalueを取得
         unitRetailPrice_id.value = acquisitionUnitRetailPrice; //前行の売上単価を対象の列に移行
         
-        /* 備考複写 */
+        // 備考複写
         var remarks_id = document.getElementById('remarks' + tableNo);//対象のremarksのid
         var acquisitionRemarks_id = document.getElementById('remarks' + acquisitionTableNo);//前行のremarksのid
         var acquisitionRemarks = acquisitionRemarks_id.value; //前行のremarksのvalueを取得
         remarks_id.value = acquisitionRemarks; //前行の備考を対象の列に移行
         
-        /* 仕入金額(仕入単価*数量)複写 */
+        // 仕入金額(仕入単価*数量)複写
         var cost_id = document.getElementById('cost' + tableNo);//対象のcostのid
         var acquisitionCost_id = document.getElementById('cost' + acquisitionTableNo);//前行のcostのid
         var acquisitionCost = acquisitionCost_id.value; //前行のcostのvalueを取得
         cost_id.value = acquisitionCost; //前行の仕入金額を対象の列に移行
 
-        /* 売上金額(売上単価×数量)複写 */
+        // 売上金額(売上単価×数量)複写
         var retailPrice_id = document.getElementById('retailPrice' + tableNo);//対象のretailPriceのid
         var acquisitionRetailPrice_id = document.getElementById('retailPrice' + acquisitionTableNo);//前行のretailPriceのid
         var acquisitionRetailPrice = acquisitionRetailPrice_id.value; //前行のretailPriceのvalueを取得
@@ -740,7 +685,7 @@
         totalCalculation()
       }
   
-      /* 数量変化 */
+      // 数量変化
       function quantityChange(obj){
         var tableNo_id = obj.id;
         var tableNo = tableNo_id.substr(8); //対象のtableNo：数量が変化した列のtableNoを取得
@@ -748,7 +693,7 @@
         setPrice(tableNo);
       }
       
-      /* 金額セット */
+      /* 金額合計等取得及び設定 */
       function setPrice(tableNo){
 
         var quantity = document.getElementById('quantity' + tableNo).value; //対象の数量取得
@@ -780,12 +725,10 @@
 
       /* 売上単価変化 */
       function unitRetailPriceChange(obj) {
-  
         var tableNo_id = obj.id;
         var tableNo = tableNo_id.substr(15); //対象のtableNo：売上単価が変化した列のtableNoを取得
 
         var quantity = document.getElementById('quantity' + tableNo).value; //対象の数量取得
-
 
         var unitRetailPrice = obj.value; //対象の売上単価取得
         var retailPrice = quantity * unitRetailPrice; //売価金額計算(取得)
@@ -803,7 +746,6 @@
 
       /* 合計金額計算 */
       function totalCalculation(){
-
         //金額合計計算 + 値入力
         var retailPriceArray = document.getElementsByName("retailPrice"); //各売上金額の配列を取得
         var retailPriceTotal = 0; 
@@ -848,7 +790,6 @@
         var estimateTotal = retailPriceTotal + taxPriceTotal;
         document.getElementById("estimateTotal").innerHTML = estimateTotal; //伝票合計に入力
         document.getElementById("inputEstimateTotal").value = estimateTotal;
-        
         } 
 
       
@@ -864,7 +805,7 @@
 			  document.getElementById("message").innerHTML = "削除に失敗しました";
 		  } else{}
 		  
-		  /* 画面読み込み時、消費税率のコンボボックスに登録されている値を選択する */
+		  // 画面読み込み時、消費税率のコンボボックスに登録されている値を選択する
 		  var ctaxRate = ${estimate.ctaxRate} + 0;  //登録されている消費税率を取得
 		  //消費税コンボボックスの要素及び長さを取得
 		  var taxRateList = document.getElementById("taxRate"); //コンボボックスの要素を取得
@@ -876,7 +817,7 @@
 				}
 		  }
 		  
-		  /* 画面読み込み時、提出先敬称のコンボボックスに登録されている値を選択する */
+		  // 画面読み込み時、提出先敬称のコンボボックスに登録されている値を選択する
 		  var submitPre = ${estimate.submitPre} + 0;  //登録されている消費税率を取得
 		  //提出先敬称コンボボックスの要素及び長さを取得
 		  var submitPreList = document.getElementById("submitPre"); //コンボボックスの要素を取得
@@ -887,14 +828,23 @@
 					break ;
 				}
 		  }
-		  
 		  totalCalculation();
-
 	  };
 	  
-	  /* ajaxで入力した顧客コードに対応する顧客情報取得 */
-	  function getCustomer(obj) {
+	  /* 見積画面で入力した顧客コードで顧客情報を取得 */
+	  function inputGetCustomer(obj){
 		  var inputCustomerCode = obj.value;
+		  getCustomer(inputCustomerCode);
+	  }
+	  
+	  /* モーダル画面から取得した顧客コードで顧客情報取得 */
+	  function selectCustomerCode(code, name){
+		document.getElementById('customerCode').value = code;
+	  	getCustomer(code);
+	  }
+	  
+	  /* ajaxで入力した顧客コードに対応する顧客情報取得 */
+	  function getCustomer(inputCustomerCode) {
 			$.ajax({
 				url:'/SalesCube2020/SalesCubeAJAX?action=estimateCustomerSearch',
 				type:'post',
@@ -942,7 +892,5 @@
 			var form = document.pdfform;
 			form.submit();
 	  }
-	  
-
   </script>
 </html>

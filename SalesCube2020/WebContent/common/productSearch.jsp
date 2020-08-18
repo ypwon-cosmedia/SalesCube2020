@@ -21,6 +21,7 @@
 							<div class="input-group-text">商品コード</div>
 						</div>
 						<input type="text"  class="form-control" id="productCode" name="productCode">
+
 					  </div>
 					</div>
 					<div class="col-4">
@@ -29,8 +30,9 @@
 						<div class="input-group-prepend">
 							<div class="input-group-text">仕入先商品コード</div>
 						</div>
-						<input type="text"  class="form-control" id="supllierPcode" name="supllierPcode">
+						<input type="text"  class="form-control" name="supllierPcode">
 					  </div>
+					  
 					</div>
 					<div class="col-4">
 					  <label class="sr-only" for="inlineFormInputGroup"></label>
@@ -38,7 +40,7 @@
 						<div class="input-group-prepend">
 							<div class="input-group-text">JANコード</div>
 						</div>
-						<input type="text"  class="form-control" id="janPcode" name="janPcode">
+						<input type="text"  class="form-control" name="janPcode">
 					  </div>
 					</div>
 				  </div>
@@ -50,7 +52,7 @@
 						  <div class="input-group-prepend">
 							<div class="input-group-text">セット分類</div>
 						  </div>
-						  <select class="custom-select" id="setTypeCategory" name="setTypeCategory">
+						  <select class="custom-select" name="setTypeCategory">
 							<option selected></option>
 							<c:forEach var="options" items="${setProduct}">
 								<option value = "${options.categoryCode}">${options.categoryCodeName}</option>
@@ -66,7 +68,7 @@
 						  <div class="input-group-prepend">
 							<div class="input-group-text">標準化分類</div>
 						  </div>
-						  <select class="custom-select" id="productStandardCategory"name="productStandardCategory">
+						  <select class="custom-select" name="productStandardCategory">
 							<option selected></option> 
 							<c:forEach var="options" items="${standard}">
 							  <option value = "${options.categoryCode}">${options.categoryCodeName}</option>
@@ -81,7 +83,7 @@
 							<div class="input-group-prepend">
 							  <div class="input-group-text">分類状況</div>
 							</div>
-							<select class="custom-select" id="productStatusCategory" name="productStatusCategory">
+							<select class="custom-select" name="productStatusCategory">
 							  <option selected></option>
 							  <c:forEach var="options" items="${classStatus}">
 							    <option value = "${options.categoryCode}">${options.categoryCodeName}</option>
@@ -98,7 +100,7 @@
 						<div class="input-group-prepend">
 							<div class="input-group-text">商品名</div>
 						</div>
-						<input type="text"  class="form-control" id="productName" name="productName">
+						<input type="text"  class="form-control" name="productName">
 					  </div>
 					</div>
 					<div class="col-6">
@@ -107,7 +109,7 @@
 						<div class="input-group-prepend">
 							<div class="input-group-text">商品名カナ</div>
 						</div>
-						<input type="text"  class="form-control" id="productKana" name="productKana">
+						<input type="text"  class="form-control" name="productKana">
 					  </div>
 					</div>
 				  </div>
