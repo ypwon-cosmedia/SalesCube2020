@@ -92,7 +92,7 @@
                                             <div class="input-group-prepend">
                                                 <div class="input-group-text">仕入れ先コード</div>
                                             </div>
-                                        <input type="text" name="inputSupplierCode" class="form-control" id="">
+                                        <input type="text" name="inputSupplierCode" class="form-control" id="supplierCode">
                                         </div>
                                     </div>
                                 </div>
@@ -103,7 +103,7 @@
                                             <div class="input-group-prepend">
                                                 <div class="input-group-text">仕入れ先名</div>
                                             </div>
-                                        <input type="text" name="inputSupplierName" class="form-control" id="">
+                                        <input type="text" name="inputSupplierName" class="form-control" id="supplierName">
                                         </div>
                                     </div>
                                     <div class="col-6">

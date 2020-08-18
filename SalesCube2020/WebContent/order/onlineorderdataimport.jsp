@@ -1,5 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
 
 <!DOCTYPE html>
 <html>
@@ -74,7 +76,7 @@
       </div>
       <br><br><br>
       </div>
-      <form action="/SalesCube2020/SalesCubeAJAX?action=uploadcsv" method="post" name="mainform" id="mainform" enctype="multipart/form-data">
+      <form action="/SalesCube2020/SalesCube?action=uploadcsv" method="post" name="mainform" id="mainform" enctype="multipart/form-data">
 		<div class="container" style="background-color: white;"><div class="panel panel-default" >
 			<div class="panel-heading row mb-2 col-4">
 				<h5><br>検索条件</h5>
@@ -124,18 +126,23 @@
         <th scope="col" class="sort th_back_black" style="cursor: pointer; height: 30px;">受注日</th>
       </tr>
 		</thead>
-		<tbody class="list">  
-		  <tr>	      
-            <td class="productName" style="white-space: normal; text-align: left;">受注番号1</td>
-            <td class="productName" style="white-space: normal; text-align: left;">顧客名1</td>	
-            <td class="productName" style="white-space: normal; text-align: left;">2020/02/02</td>
-		  </tr>
+		<tbody class="list">
+		  <c:forEach var="doc" items="${doc}">
+		    <tr>	      
+              <td style="white-space: normal; text-align: left;">${doc.orderNo}</td>
+              <td style="white-space: normal; text-align: left;">${doc.customerName}</td>	
+              <td style="white-space: normal; text-align: left;">${doc.orderDate}</td>
+		  	</tr>
+		  </c:forEach>  
 		</tbody>
 	</table>
 </div>
 <script>
 	function initPage(){
-		document.getElementById("importData").click();
+		if(!confirm("入力内容を初期化してよろしいですか？")){
+	       	return;
+		}
+		location.href="/SalesCube2020/SalesCube?action=onlineorder";
 	}
 	
 	shortcut.add("F1", function() {
