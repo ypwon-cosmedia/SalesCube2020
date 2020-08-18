@@ -291,7 +291,7 @@ public class OrderInputDAO extends BaseDAO{
 	 	con = super.getConnection();	
 
 	 	OrderSQL ordersql = new OrderSQL();
-	 	sql = ordersql.orderInputInfo();
+	 	sql = ordersql.orderUpdateInfo();
 
 	 	stmt = con.prepareStatement(sql);
 	 	
@@ -453,11 +453,14 @@ public class OrderInputDAO extends BaseDAO{
 	 		stmt.setInt(32, bean.getPriceTotal());
 	 	}
 	 	stmt.setInt(33, bean.getStatus());
-	 	stmt.setInt(34, roSlipLast()+1);
+	 	stmt.setInt(34, bean.getRoSlipId());
+	 	
+	 	System.out.println(bean.getTaxShiftCategory());
 	 	
 	 	result = stmt.executeUpdate();
 	 	
 	 	try {
+	 		System.out.println(sql);
 	 		System.out.println("1更新完了");
 	 		con.commit();
 	 	}catch(SQLException e){
@@ -481,7 +484,7 @@ public class OrderInputDAO extends BaseDAO{
 	 	con = super.getConnection();	
 
 	 	OrderSQL ordersql = new OrderSQL();
-	 	sql = ordersql.orderInputDetail();
+	 	sql = ordersql.orderUpdateDetail();
 
 	 	stmt = con.prepareStatement(sql);
 	 	
@@ -497,11 +500,12 @@ public class OrderInputDAO extends BaseDAO{
 		 	stmt.setInt(9, bean.getRetailPrice());
 		 	stmt.setString(10, bean.getInputProductRemarks());
 		 	stmt.setString(11, bean.getEadRemarks());
-		 	stmt.setInt(12, roSlipLast()+1);
+		 	stmt.setInt(12, bean.getRoSlipId());
 	 		result = stmt.executeUpdate();
 	 	}
 	 	
 	 	try {
+	 		System.out.println(sql);
 	 		System.out.println("3明細更新完了");
 	 		con.commit();
 	 	}catch(SQLException e){
@@ -590,10 +594,10 @@ public class OrderInputDAO extends BaseDAO{
 	 	return bean;
 	}
 	
-	/* 商品コード/名押下 明細に反映 */
-	public List<OrderInputBean> productLinkToDetail(String productCode, String productName, OrderInputBean bean) throws SQLException, ClassNotFoundException{
-	
-		List<OrderInputBean> list = new ArrayList<OrderInputBean>();
+	/* 商品コード押下 明細に反映 */
+	public OrderInputBean productLinkToDetail(String productCode) throws SQLException, ClassNotFoundException{
+		
+		OrderInputBean bean = new OrderInputBean();
 		
 		Connection con;
 	 	Statement stmt = null;
@@ -604,28 +608,72 @@ public class OrderInputDAO extends BaseDAO{
 	 	stmt = con.createStatement();
 	 	
 	 	OrderSQL ordersql = new OrderSQL();
-	 	sql = ordersql.productToDetail(productCode, productName, bean);
+	 	sql = ordersql.productToDetail(productCode);
 	 	
 	 	result = stmt.executeQuery(sql);
 	 	
-	 	while (result.next()) {
-	 		bean.setProductCode(result.getString("pmx.PRODUCT_CODE"));
-	 		bean.setProductName(result.getString("pmx.PRODUCT_NAME"));
-	 		bean.setRemarks(result.getString("pmx.REMARKS"));
-	 		bean.setRackCode(result.getString("pmx.RACK_CODE"));
-	 		bean.setQuantity(result.getInt("rltn.QUANTITY"));
-	 		bean.setCost(result.getInt("rltn.COST"));
-	 		bean.setUnitRetailPrice(result.getInt("rltn.UNIT_RETAIL_PRICE"));
-	 		bean.setRetailPrice(result.getInt("rltn.RETAIL_PRICE"));
-	 		bean.setInputProductRemarks(result.getString("pmx.REMARKS"));
-	 		bean.setEadRemarks(result.getString("pmx.EAD_REMARKS"));
-	 		list.add(bean);
+	 	if (result.next()) {
+		 	bean.setProductCode(result.getString("pmx.PRODUCT_CODE"));
+		 	bean.setProductName(result.getString("pmx.PRODUCT_NAME"));
+		 	bean.setRemarks(result.getString("pmx.REMARKS"));
+		 	bean.setRackCode(result.getString("pmx.RACK_CODE"));
+		 	bean.setQuantity(result.getInt("rltn.QUANTITY"));
+		 	bean.setCost(result.getInt("rltn.COST"));
+		 	bean.setUnitRetailPrice(result.getInt("rltn.UNIT_RETAIL_PRICE"));
+		 	bean.setRetailPrice(result.getInt("rltn.RETAIL_PRICE"));
+		 	bean.setInputProductRemarks(result.getString("rltn.REMARKS"));
+		 	bean.setEadRemarks(result.getString("pmx.EAD_REMARKS"));
 	 	}
 	 	
 	 	super.releaseDB(con, stmt, result);
 	 	
-	 	return list;
+	 	return bean;
 		
+	}
+	
+	/* 顧客コードから顧客情報、納入先情報 */
+	public OrderInputBean customerCodeInfo(String customerCode) throws SQLException, ClassNotFoundException{
+		
+		OrderInputBean bean = new OrderInputBean();
+		
+		Connection con;
+	 	Statement stmt = null;
+	 	ResultSet result = null;	
+	 	String  sql;
+	 	
+	 	con = super.getConnection();	
+	 	stmt = con.createStatement();
+	 	
+	 	OrderSQL ordersql = new OrderSQL();
+	 	sql = ordersql.customerCodeInfo(customerCode);
+	 	
+	 	result = stmt.executeQuery(sql);
+	 	
+	 	while (result.next()) {
+	 		bean.setCustomerCode(result.getString("cmx.CUSTOMER_CODE"));
+	 		bean.setCustomerName(result.getString("cmx.CUSTOMER_NAME"));
+	 		bean.setTaxShiftCategory(result.getString("a.CATEGORY_CODE_NAME"));
+	 		bean.setCutoffGroup(result.getString("b.CATEGORY_CODE_NAME"));
+	 		bean.setSalesCmCategory(result.getString("c.CATEGORY_CODE_NAME"));
+	 		bean.setCustomerRemarks(result.getString("cmx.REMARKS"));
+	 		bean.setCustomerCommentData(result.getString("cmx.COMMENT_DATA"));
+	 		bean.setDeliveryName(result.getString("dmx.DELIVERY_NAME"));
+	 		bean.setDeliveryOfficeName(result.getString("dmx.DELIVERY_OFFICE_NAME"));
+	 		bean.setDeliveryDeptName(result.getString("dmx.DELIVERY_DEPT_NAME"));
+	 		bean.setDeliveryZipCode(result.getString("dmx.DELIVERY_ZIP_CODE"));
+	 		bean.setDeliveryAddress1(result.getString("dmx.DELIVERY_ADDRESS_1"));
+	 		bean.setDeliveryAddress2(result.getString("dmx.DELIVERY_ADDRESS_2"));
+	 		bean.setDeliveryPcName(result.getString("dmx.DELIVERY_PC_NAME"));
+	 		bean.setDeliveryPcKana(result.getString("dmx.DELIVERY_PC_KANA"));
+	 		bean.setDeliveryPcPre(result.getString("d.CATEGORY_CODE_NAME"));
+	 		bean.setDeliveryTel(result.getString("dmx.DELIVERY_TEL"));
+	 		bean.setDeliveryFax(result.getString("dmx.DELIVERY_FAX"));
+	 		bean.setDeliveryEmail(result.getString("dmx.DELIVERY_EMAIL"));
+	 	}
+	 	
+	 	super.releaseDB(con, stmt, result);
+	 	
+	 	return bean;
 	}
 
 	/* 取引区分コンボボックス */

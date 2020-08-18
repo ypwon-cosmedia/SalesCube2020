@@ -236,7 +236,7 @@
 								<div class="input-group-prepend">
 									<div class="input-group-text" style = "background-color: pink;">顧客コード</div>
 								</div>
-								<input type="text" value="" class="form-control" id="customerCodeInput" maxlength='15' data-required-error="顧客コードは入力必須項目です" name="customerCode" required>
+								<input type="text" value="" class="form-control" id="customerCodeInput" maxlength='15' data-required-error="顧客コードは入力必須項目です" name="customerCode" onchange="customerInfo()" required>
 								<button type="button" class="btn btn-outline-secondary" data-toggle="modal" data-target="#customerSearch" onclick="customerCodetoModal();">検索</button>
 							</div>
 						</div>
@@ -465,7 +465,7 @@
 					<tr>
 						<td rowspan="6"><span id="tableLineNo1">1</span></td>
 						<td rowspan="6">
-							<input type="text" value="" class="form-control" size="2" style="width:100%" id="productCodeInput1"  maxlength='20' name="productCode">
+							<input type="text" value="" class="form-control" size="2" style="width:100%" id="productCodeInput1"  maxlength='20' name="productCode" onchange="pCode(this)">
 							<button type="button" class="btn btn-outline-secondary" data-toggle="modal" data-target="#setproductsearch" onclick="productCodetoModal(this);" id="setproductsearch1">検索</button>
 						</td>
 						<td rowspan="3"><span id="productName1" name="productName"></span></td>
@@ -505,7 +505,7 @@
 							<textarea name="eadRemarks" class="form-control" cols="10" id="eadRemarks1" name="eadRemarks"></textarea>
 						</td>
 						<td rowspan="3">
-							<button type="button" value="" class="btn btn-outline-secondary" id="reprintForm" disabled>前行複写</button>
+							<button type="button" value="" class="btn btn-outline-secondary" disabled>前行複写</button>
 						</td>
 					</tr>
 					<tr>
@@ -630,6 +630,7 @@
 	
 			/* 前行複写 */
 			function reprintForm(obj) {
+				alert();
 				var tmp = obj.id;
 				var tableNo = tmp.substr(11);
 				/* 商品コード */
@@ -690,15 +691,15 @@
 				$('#order > tbody:last').append('<tr>'
 					+ '<td rowspan="6"><span id="tableLineNo' + tableNo + '">' + tableNo + '</span></td>'
 					+ '<td rowspan="6">'
-						+ '<input type="text" value="" class="form-control" size="2" style="width:100%" id="productCodeInput' + tableNo + '">'
+						+ '<input type="text" value="" class="form-control" size="2" style="width:100%" name="productCodeInput" id="productCodeInput' + tableNo + '"  onchange="pCode(this)">'
 						+ '<button type="button" class="btn btn-outline-secondary" data-toggle="modal" data-target="#setproductsearch" onclick="productCodetoModal(this);" id="setproductsearch' + tableNo + '">検索</button>'
 					+ '</td>'
-					+ '<td rowspan="3"><span id="productName' + tableNo + '"></span></td>'
-					+ '<td rowspan="2"><input type="text" value="" class="form-control" size="2" id="rackCode' + tableNo + '" readonly></td>'
-					+ '<td rowspan="3"><input type="text" value="" class="form-control" size="4" name="unitCost" id="unitCost' + tableNo + '" readonly></td>'
+					+ '<td rowspan="3"><span name="productName" id="productName' + tableNo + '"></span></td>'
+					+ '<td rowspan="2"><input name="rackCode" type="text" value="" class="form-control" size="2" id="rackCode' + tableNo + '" readonly></td>'
+					+ '<td rowspan="3"><input name="unitCost" type="text" value="" class="form-control" size="4" name="unitCost" id="unitCost' + tableNo + '" readonly></td>'
 					+ '<td rowspan="3">'
-						+ '<input type="text" value="" class="form-control" size="4" name="unitRetailPrice" id="unitRetailPrice' + tableNo + '" onchange="quantityCalc2(this)"></td>'
-					+ '<td rowspan="3"><textarea name="productRemarks" class="form-control" cols="10" id="inputProductRemarks' + tableNo + '"></textarea></td>'
+						+ '<input type="text" value="" class="form-control" size="4" name="unitRetailPrice" name="unitRetailPrice" id="unitRetailPrice' + tableNo + '" onchange="quantityCalc2(this)"></td>'
+					+ '<td rowspan="3"><textarea name="productRemarks" class="form-control" cols="10" name="inputProductRemarks" id="inputProductRemarks' + tableNo + '"></textarea></td>'
 					+ '<td rowspan="3" class="align: middle"><button type="button" class="btn btn-outline-secondary" onclick="deleteLineForm(this);" id="deleteLineForm' + tableNo + '">削除</button></td>'
 					+ '</tr>'
 					+ '<tr></tr>'
@@ -708,10 +709,10 @@
 					+ '</td>'
 					+ '</tr>'
 					+ '<tr>'
-					+ '<td rowspan="3"><textarea name="productRemarks" class="form-control" cols="10" id="productRemarks' + tableNo + '" readonly></textarea></td>'
+					+ '<td rowspan="3"><textarea name="productRemarks" class="form-control" cols="10" name="productRemarks" id="productRemarks' + tableNo + '" readonly></textarea></td>'
 					+ '<td rowspan="3"><input type="text" value="" class="form-control" size="4" name="cost" id="cost' + tableNo + '" readonly></td>'
 					+ '<td rowspan="3"><input type="text" value="" class="form-control" size="4" name="retailPrice" id="retailPrice' + tableNo + '" readonly></td>'
-					+ '<td rowspan="3"><textarea name="eadRemarks" class="form-control" cols="10" id="eadRemarks' + tableNo + '" readonly></textarea></td>'
+					+ '<td rowspan="3"><textarea name="eadRemarks" class="form-control" cols="10" name="eadRemarks" id="eadRemarks' + tableNo + '" readonly></textarea></td>'
 					+ '<td rowspan="3"><button type="button" value="" class="btn btn-outline-secondary" onclick="reprintForm(this);" id="reprintForm' + tableNo + '">前行複写</button></td>'
 					+ '</tr>'
 					+ '<tr>'
@@ -909,24 +910,243 @@
 			}
 			
 			/* 在庫モーダル開く */
-			function openStock(obj){
+			function openStock(obj) {
 				var tmp = obj.id;
 				var tableNo = tmp.substr(15);
-				var productCodeInput = document.getElementByName("productCodeInput" + tableNo).value;
-				alert(productCode);
-				var form = document.createElement("form");
-				form.setAttribute("charset", "UTF-8");
-				form.setAttribute("method", "post");
-				form.setAttribute("action", "/SalesCube2020/SalesCube?action=stocksearch");
-				var input = document.createElement("input");
-				input.setAttribute("type", "hidden");
-				input.setAttribute("name", "productCodeInput");
-				input.setAttribute("value", productCodeInput);
-				form.appendChild(input);
-				document.body.appendChild(form);
-				form.submit();
+				var productCodeInput = document.getElementById("productCodeInput" + tableNo).value;
+				alert(productCodeInput);
+			$.ajax({
+				url:'/SalesCube2020/SalesCubeAJAX?action=stocksearch',
+				type:'post',
+				data:{"productCode": productCodeInput },
+				dataType:'json',
+				success:function(data){
+					alert(productCodeInput);
+					if(data.productCode == null || data.productCode == ""){
+						data.productCode = "";
+					}else {
+						document.getElementById("productCode").value = data.productCode;
+					}
+					if(data.productPCode == null || data.productPCode == ""){
+						data.productPCode = "";
+					}else {
+						document.getElementById("productPCode").value = data.productPCode;
+					}
+					if(data.setTypeCategory == null || data.setTypeCategory == ""){
+						data.setTypeCategory = "";
+					}else {
+						document.getElementById("setTypeCategory").value = data.setTypeCategory;
+					}
+					if(data.productName == null || data.productName == ""){
+						data.productName = "";
+					}else {
+						document.getElementById("productName").value = data.productName;
+					}
+					if(data.warehouseName == null || data.warehouseName == ""){
+						data.warehouseName = "";
+					}else {
+						document.getElementById("warehouseName").value = data.warehouseName;
+					}
+					if(data.rackCode == null || data.rackCode == ""){
+						data.rackCode = "";
+					}else {
+						document.getElementById("rackCode").value = data.rackCode;
+					}
+					if(data.productStatusCategory == null || data.productStatusCategory == ""){
+						data.productStatusCategory = "";
+					}else {
+						document.getElementById("productStatusCategory").value = data.productStatusCategory;
+					}
+					if(data.productStockCategory == null || data.productStockCategory == ""){
+						data.productStockCategory = "";
+					}else {
+						document.getElementById("productStockCategory").value = data.productStockCategory;
+					}
+					if(data.stockQuantity == null || data.stockQuantity == ""){
+						data.stockQuantity = "";
+					}else {
+						document.getElementById("stockQuantity").value = data.stockQuantity;
+					}
+					if(data.quantitySum == null || data.quantitySum == ""){
+						data.quantitySum = "";
+					}else {
+						document.getElementById("quantitySum").value = data.quantitySum;
+					}
+				}
+			});
+		}
+			
+			/* 商品コードから明細表示 ajax */
+			function pCode(obj){
+				globalTmp = obj.id;
+				var tableNo = globalTmp.substr(16);
+				var inputProductCode = document.getElementById("productCodeInput" + tableNo).value;	
+				$.ajax({
+					type: "post",
+					url: '/SalesCube2020/SalesCubeAJAX?action=pcodetoinfo',
+					data: {
+						"productCode": inputProductCode,				
+					},
+					dataType: 'json',
+					success: function(data){
+						if(data.productName == null || data.productName == ""){
+							alert("該当する商品情報は存在しません");
+						} else {
+						document.getElementById('productName' + tableNo).innerHTML = data.productName;
+						}
+						if(data.rackCode == null || data.rackCode == ""){
+							data.rackCode = "";
+						}else {
+							document.getElementById('rackCode' + tableNo).value = data.rackCode;
+						}
+						if(data.unitCost == null || data.unitCost == ""){
+							data.unitCost = "";
+						}else {
+							document.getElementById('unitCost' + tableNo).value = data.unitCost;
+						}
+						if(data.unitRetailPrice == null || data.unitRetailPrice == ""){
+							data.unitRetailPrice = "";
+						}else {
+							document.getElementById('unitRetailPrice' + tableNo).value = data.unitRetailPrice;
+						}
+						if(data.inputProductRemarks == null || data.inputProductRemarks == ""){
+							data.inputProductRemarks = "";
+						}else {
+							document.getElementById('inputProductRemarks' + tableNo).innerHTML = data.inputProductRemarks;
+						}
+						if(data.quantity == null || data.quantity == ""){
+							data.quantity = "";
+						}else {
+							document.getElementById('quantity' + tableNo).value = data.quantity;
+						}
+						if(data.productRemarks == null || data.productRemarks == ""){
+							data.productRemarks = "";
+						}else {
+							document.getElementById('productRemarks' + tableNo).innerHTML = data.productRemarks;
+						}
+						if(data.cost == null || data.cost == ""){
+							data.cost = "";
+						}else {
+							document.getElementById('cost' + tableNo).value = data.cost;
+						}
+						if(data.retailPrice == null || data.retailPrice == ""){
+							data.retailPrice = "";
+						}else {
+							document.getElementById('retailPrice' + tableNo).value = data.retailPrice;
+						}
+						if(data.eadRemarks == null || data.eadRemarks == ""){
+							data.eadRemarks = "";
+						}else {
+							document.getElementById('eadRemarks' + tableNo).innerHTML = data.eadRemarks;
+						}
+						calc(tableNo);
+					}
+				});
 			}
 
+			/* 顧客コードから顧客情報 ajax */
+			function customerInfo() {
+				var cCode = document.getElementById("customerCodeInput").value;
+				alert(cCode);
+			$.ajax({
+				url:'/SalesCube2020/SalesCubeAJAX?action=cuscodetoinfo',
+				type:'post',
+				data:{"customerCode": cCode },
+				dataType:'json',
+				success:function(data){
+					if(data.customerName == null || data.customerName == ""){
+						alert("該当する顧客情報は存在しません");
+					} else {
+						if(data.taxShiftCategory == null || data.taxShiftCategory == ""){
+							data.taxShiftCategory == ""
+						}else{
+							document.getElementById('taxShiftCategory').value = data.taxShiftCategory;
+						}
+						if(data.cutoffGroup == null || data.cutoffGroup == ""){
+							data.cutoffGroup = "";
+						}else{
+							document.getElementById('cutoffGroup').value = data.cutoffGroup;
+						}
+						if(data.salesCmCategory == null || data.salesCmCategory == ""){
+							data.salesCmCategory = "";
+						}else{
+							document.getElementById('salesCmCategory').value = data.salesCmCategory;
+						}
+						if(data.customerRemarks == null || data.customerRemarks == ""){
+							data.customerRemarks = "";
+						}else{
+							document.getElementById('customerRemarks').value = data.customerRemarks;
+						}
+						if(data.customerCommentData == null || data.customerCommentData == ""){
+							data.customerCommentData = "";
+						}else{
+							document.getElementById('customerCommentData').value = data.customerCommentData;
+						}
+						if(data.deliveryName == null || data.deliveryName == ""){
+							data.deliveryName = "";
+						}else{
+							document.getElementById('deliveryName').value = data.deliveryName;
+						}
+						if(data.deliveryOfficeName == null || data.deliveryOfficeName == ""){
+							data.deliveryOfficeName = "";
+						}else{
+							document.getElementById('deliveryOfficeName').value = data.deliveryOfficeName;
+						}
+						if(data.deliveryDeptName == null || data.deliveryDeptName == ""){
+							data.deliveryDeptName = "";
+						}else{
+							document.getElementById('deliveryDeptName').value = data.deliveryDeptName;
+						}
+						if(data.deliveryZipCode == null || data.deliveryZipCode == ""){
+							data.deliveryZipCode = "";
+						}else{
+							document.getElementById('deliveryZipCode').value = data.deliveryZipCode;
+						}
+						if(data.deliveryAddress1 == null || data.deliveryAddress1 == ""){
+							data.deliveryAddress1 = "";
+						}else{
+							document.getElementById('deliveryAddress1').value = data.deliveryAddress1;
+						}
+						if(data.deliveryAddress2 == null || data.deliveryAddress2 == ""){
+							data.deliveryAddress2 = "";
+						}else{
+							document.getElementById('deliveryAddress2').value = data.deliveryAddress2;
+						}
+						if(data.deliveryPcName == null || data.deliveryPcName == ""){
+							data.deliveryPcName = "";
+						}else{
+							document.getElementById('deliveryPcName').value = data.deliveryPcName;
+						}
+						if(data.deliveryPcKana == null || data.deliveryPcKana == ""){
+							data.deliveryPcKana = "";
+						}else{
+							document.getElementById('deliveryPcKana').value = data.deliveryPcKana;
+						}
+						if(data.deliveryPcPre == null || data.deliveryPcPre == ""){
+							data.deliveryPcPre = "";
+						}else{
+							document.getElementById('deliveryPcPre').value = data.deliveryPcPre;
+						}
+						if(data.deliveryTel == null || data.deliveryTel == ""){
+							data.deliveryTel = "";
+						}else{
+							document.getElementById('deliveryTel').value = data.deliveryTel;
+						}
+						if(data.deliveryFax == null || data.deliveryFax == ""){
+							data.deliveryFax = "";
+						}else{
+							document.getElementById('deliveryFax').value = data.deliveryFax;
+						}
+						if(data.deliveryEmail == null || data.deliveryEmail == ""){
+							data.deliveryEmail = "";
+						}else{
+							document.getElementById('deliveryEmail').value = data.deliveryEmail;
+						}
+					}
+       		    }
+			});
+		}
+			
 		</script>
 	</body>
 </html>
