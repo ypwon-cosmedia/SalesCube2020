@@ -36,7 +36,14 @@ public class OrderInputController extends BaseController {
 					// TODO Auto-generated catch block
 					e.printStackTrace();
 				}
-		}
+		}else if(action.equals("deleteOrder")) {
+			try {
+				forwardURL = deleteOrder(request, response);
+			} catch (ClassNotFoundException | ServletException | IOException | SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+	}
 		
 		return forwardURL;
 	}
@@ -431,6 +438,11 @@ public class OrderInputController extends BaseController {
 			str = null;
 		}
 		return str;
+	}
+	
+	private String deleteOrder(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException, SQLException, ClassNotFoundException {
+		
+		return null;
 	}
 	
 }

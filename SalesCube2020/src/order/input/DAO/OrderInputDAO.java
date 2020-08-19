@@ -14,6 +14,33 @@ import order.input.beans.OrderInputBean;
 import sql.order.OrderSQL;
 
 public class OrderInputDAO extends BaseDAO{
+
+	public int deleteOrder(String roSlipId) throws SQLException, ClassNotFoundException{
+
+		Connection con;
+	 	Statement stmt = null;
+	 	int result = 0;
+	 	String sql;
+
+	 	con = super.getConnection();
+	 	stmt = con.createStatement();
+	 	
+	 	OrderSQL ordersql = new OrderSQL();
+	 	sql = ordersql.deleteOrderInfo(roSlipId);
+	 		
+	 	System.out.println(sql);
+	 	try {
+	 		result = stmt.executeUpdate(sql);
+	 		con.commit();
+	 	}catch(SQLException e) {
+	 		result = 1;
+	 	}finally {
+	 		super.releaseDB(con, stmt);	 		
+	 	}
+	 	
+		return result;
+
+	}
 	
 	/* 受注番号最後 */
 	public int roSlipLast() throws SQLException, ClassNotFoundException {

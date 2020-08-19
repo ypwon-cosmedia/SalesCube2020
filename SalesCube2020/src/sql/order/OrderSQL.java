@@ -306,7 +306,11 @@ public class OrderSQL {
 		String sql;
 		
 		sql = "SELECT DISTINCT " + 
-				"CONCAT(rltx.RO_SLIP_ID, '-', rltx.LINE_NO), " + 
+				"CONCAT(" + 
+				"rltx.RO_SLIP_ID, " +
+				"'-', " + 
+				"rltx.LINE_NO" +
+				") as id," + 
 				"rstx.SHIP_DATE, " + 
 				"rltx.QUANTITY " + 
 			"FROM " + 

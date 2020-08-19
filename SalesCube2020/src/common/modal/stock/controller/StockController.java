@@ -10,6 +10,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import com.google.gson.Gson;
+import com.google.gson.JsonArray;
+import com.google.gson.JsonObject;
 
 import common.controller.BaseAJAXController;
 import common.controller.BaseController;
@@ -48,8 +50,14 @@ public class StockController extends BaseAJAXController {
 			list = dao.OrderToStockDetail(productCode);
 			String data = gson.toJson(bean);
 			
+			JsonArray jArray = gson.toJsonTree(list).getAsJsonArray();
+			JsonObject jObject = new JsonObject();
+			
+			jObject.add("bean", new Gson().toJsonTree(data));
+			jObject.add("list", jArray);
+			
 			response.setContentType("application/x-json; charset=UTF-8");
-			response.getWriter().print(data);
+			response.getWriter().print(jObject);
 			
 		}catch (ClassNotFoundException | SQLException e) {
 			e.printStackTrace();
