@@ -31,7 +31,9 @@ public class StockDAO extends BaseDAO {
 	 	result = stmt.executeQuery(sql);
 	 	
 	 	StockBean bean = new StockBean();
-	 	bean.setProductCode(result.getString("pmx.PRODUCT_CODE"));
+	 	
+	 	while(result.next()) {
+	 		bean.setProductCode(result.getString("pmx.PRODUCT_CODE"));
 	 	bean.setSupplierPCode(result.getString("pmx.SUPPLIER_PCODE"));
 	 	bean.setSetTypeCategory(result.getString("b.CATEGORY_CODE_NAME"));
 	 	bean.setProductName(result.getString("pmx.PRODUCT_NAME"));
@@ -41,6 +43,8 @@ public class StockDAO extends BaseDAO {
 	 	bean.setProductStockCategory(result.getString("d.CATEGORY_CODE_NAME"));
 	 	bean.setStockQuantity(result.getString("smx.STOCK_QUANTITY"));
 	 	bean.setQuantity(result.getString("SUM(rltx.QUANTITY)"));
+	 	}
+	 	
 	 	
 	 	super.releaseDB(con, stmt, result);
 	 	
@@ -128,7 +132,7 @@ public class StockDAO extends BaseDAO {
 	 	bean.setDeliveryTel(result.getString("DELIVERY_TEL"));
 	 	bean.setDeliveryFax(result.getString("DELIVERY_FAX"));
 	 	bean.setDeliveryEmail(result.getString("DELIVERY_EMAIL"));
-	 	bean.setProductCode(Integer.parseInt(result.getString("DELIVERY_ZIP_CODE")));
+	 	bean.setProductCode(result.getString("DELIVERY_ZIP_CODE"));
 	 	bean.setProductRemarks(result.getString("DELIVERY_ZIP_CODE"));
 	 	bean.setRackCode(result.getString("rltx.PRODUCT_CODE"));
 	 	bean.setQuantity(Integer.parseInt(result.getString("pmx.PRODUCT_NAME")));

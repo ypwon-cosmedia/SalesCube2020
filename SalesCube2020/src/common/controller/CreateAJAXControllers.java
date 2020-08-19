@@ -33,6 +33,7 @@ public class CreateAJAXControllers {
 		BaseAJAXController estimateSearchAJAX = new EstimateSearchAJAXController();
 		BaseAJAXController stock = new StockController();
 		BaseAJAXController bill = new OrderCommonBillController();
+		BaseAJAXController orderInput = new ProductToOrder();
 		
 		map.put("productSearch", productAJAX);
 		map.put("initProductModal", productAJAX);
@@ -63,7 +64,9 @@ public class CreateAJAXControllers {
 		
 		map.put("uploadcsv", onlineAJAX);
 		
-		map.put("moveStock", stock);
+		map.put("pcodetoinfo", orderInput);
+		map.put("cuscodetoinfo", orderInput);
+		map.put("stocksearch", stock);
 		map.put("orderinput", bill);
 		map.put("orderlink", bill);
 		
