@@ -2,11 +2,16 @@ package order.online.controller;
 
 import java.io.IOException;
 import java.io.InputStream;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.Comparator;
+import java.util.HashMap;
+import java.util.HashSet;
+import java.util.Iterator;
 import java.util.List;
+import java.util.MissingResourceException;
 import java.util.stream.IntStream;
 
 import javax.servlet.ServletException;
@@ -18,6 +23,7 @@ import javax.servlet.http.Part;
 import common.controller.BaseController;
 import order.online.beans.OrderOnlineBillBean;
 import order.online.beans.OrderOnlineDetailBean;
+import order.online.dao.OrderOnlineDAO;
 
 @MultipartConfig
 public class OrderOnlineController extends BaseController{
@@ -38,6 +44,8 @@ public class OrderOnlineController extends BaseController{
 		int maxNum = 0;
 		int minNum = 100;
 		Part filePart = request.getPart("uploadcsv");
+		
+		OrderOnlineDAO dao = new OrderOnlineDAO();
 
 		if(filePart != null) {
 			InputStream fileContent = filePart.getInputStream();
@@ -51,41 +59,94 @@ public class OrderOnlineController extends BaseController{
 
 			String[] splitText = inputText.split(System.getProperty("line.separator"));
 						
-			List<String[]> list = new ArrayList<String[]>();			
+			List<String> list = new ArrayList<String>();
+			
 			for(String s : splitText) {	
 				String[] splitText2 = s.split(",");
-				list.add(splitText2);
-			}
-			
-			list.remove(0);
-						
-			for (String[] sa : list) {
-	            System.out.println(Arrays.toString(sa));
-	        }
-						
-			int tmpNo = Integer.parseInt(list.get(0)[0]);
-			for(int j = 0; i<list.size(); i++) {
-
-				
-				if(j != 0) {
-					if(tmpNo == Integer.parseInt(list.get(i)[0])) {
-						//orderInputDetail(bean)
-						tmpNo = Integer.parseInt(list.get(i)[0]);
-					} else {
-						//orderInputInfo(bean);
-						//orderInputDetail(bean)
-					}
-				} else {
-					//orderInputInfo(bean);
-					//orderInputDetail(bean)
+				for(int j = 0; j < splitText2.length; j++) {
+					String tmptext = splitText[j];
+					list.add(tmptext);
 				}
 			}
 			
-			/* テーブル表示*/
-			//List<bean> output = new ArrayList<bean>();
-			//request.setAttribute("tableOutput", output);
-			//
-			//return "onlineorder.jsp";
+			for(int j = 0; j < 9; j++) {
+				list.remove(j);
+			}
+
+			List<String> infolist = new ArrayList<String>();
+			List<String> detaillist = new ArrayList<String>();
+			
+			for(String s : splitText) {	
+				String[] tmpsplit = s.split(",");
+				String tmptext ="";
+				String detailtemp = "";
+				for(int j = 0; j < 10; j++) {
+					tmptext += tmpsplit[j] + ",";					
+				}
+				for(int j = 10; j < 14; j ++) {
+					detailtemp += tmpsplit[j] + ",";
+				}
+				tmptext = tmptext.substring(0, tmptext.length()-1);
+				detailtemp = tmpsplit[0] + "," + detailtemp.substring(0, detailtemp.length()-1);
+				infolist.add(tmptext);
+				detaillist.add(detailtemp);
+			}
+			
+			infolist.remove(0);
+			detaillist.remove(0);
+			
+			HashSet<String> distinctData = new HashSet<String>(infolist);
+			infolist = new ArrayList<String>(distinctData);
+			
+			Collections.sort(infolist);
+						
+			HashMap<String, String> hs = new HashMap<String, String>();
+            hs.put("1","147");
+            hs.put("2","148");
+            hs.put("3","149");
+            
+			for(int j = 0; j < infolist.size(); j ++) {
+				String tmp[] = infolist.get(j).split(",");
+				OrderOnlineBillBean bean = new OrderOnlineBillBean();
+				bean.setRoDate(tmp[1]);
+				bean.setShipDate(tmp[2]);
+				bean.setDeliveryDate(tmp[3]);
+				bean.setReceptNo(tmp[4]);
+				bean.setCustomerSilpNo(tmp[5]);
+				bean.setRemarks(tmp[6]);
+				bean.setCtaxRate(tmp[7]);
+				bean.setCustomerCode(tmp[8]);
+				bean.setDeliveryCode(tmp[9]);
+				try {
+					int res = dao.onlineInputBill(bean);
+					hs.put(infolist.get(j).split(",")[0], Integer.toString(res));
+				} catch (ClassNotFoundException | MissingResourceException | SQLException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+				//
+			}
+			
+			for(int j = 0; j < detaillist.size(); j ++) {
+				if(hs.containsKey(detaillist.get(j).split(",")[0])) {
+					String tmp = "";
+					tmp += hs.get(detaillist.get(j).split(",")[0]) + "," + detaillist.get(j).substring(detaillist.get(j).indexOf(","));
+					String tmpstr[] = tmp.split(",");
+					System.out.println(tmp);
+					OrderOnlineDetailBean bean = new OrderOnlineDetailBean();
+					bean.setRoSlipId(Integer.parseInt(tmpstr[0]));
+					bean.setProductCode(tmpstr[2]);
+					bean.setQuantity(Integer.parseInt(tmpstr[3]));
+					bean.setUnitRetailPrice(Integer.parseInt(tmpstr[4]));
+					try {
+						dao.onlineInputDetail(bean);
+					} catch (ClassNotFoundException | MissingResourceException | SQLException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					}
+				}					
+			}
+			
 			
 		} else
 			System.out.println("filePart is null");

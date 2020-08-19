@@ -93,7 +93,7 @@
 						<div class="input-group-prepend">
 							<div class="input-group-text">商品名</div>
 						</div>
-						<input type="text"  class="form-control" name="productName">
+						<input type="text"  class="form-control" name="productName" id="productName">
 					  </div>
 					</div>
 					<div class="col-6">
