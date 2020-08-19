@@ -92,7 +92,7 @@
                                             <div class="input-group-prepend">
                                                 <div class="input-group-text">仕入れ先コード</div>
                                             </div>
-                                        <input type="text" name="inputSupplierCode" class="form-control" id="supplierCode">
+                                        <input type="text" name="inputSupplierCode" class="form-control" id="supplierCode" pattern="^[0-9A-Za-z]+$">
                                         </div>
                                     </div>
                                 </div>
@@ -111,7 +111,7 @@
                                             <div class="input-group-prepend">
                                                 <div class="input-group-text">仕入れ先カナ</div>
                                             </div>
-                                        <input type="text" name="inputSupplierKana" class="form-control" id="" pattern="[\uFF66-\uFF9D]*">
+                                        <input type="text" name="inputSupplierKana" class="form-control" id="" pattern="[\u30A1-\u30F6]*">
                                         </div>
                                     </div>
                                 </div>
@@ -119,7 +119,7 @@
                                 
                                 <div class="row float-right">
                                     <input type="button" value="初期化" class="btn btn-primary" onclick="initSupplier()">&emsp;
-                                    <input type="button" value="検索" class="btn btn-primary" onclick="searchSupplier()">&emsp;<!-- this.form.reportValidity();  -->
+                                    <input type="button" value="検索" class="btn btn-primary" id="modalSupplierSearchButton" onclick="">&emsp;
                                 </div>
                             </form>
                                 <br><br>
@@ -160,6 +160,21 @@
             
             <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.2/jquery.min.js"></script>
             <script>
+            
+          	//入力欄が変更された時のパターンチェック
+            var elem = document.getElementById("searchSupplier");	//formをidで取得
+            elem.addEventListener('change', function() {			//入力したときのEventを追加
+                elem.reportValidity();								//form(elem)のpatternの確認
+            });
+            //検索ボタンを押した際の入力チェック 
+            var searchButton = document.getElementById("modalSupplierSearchButton");	//検索ボタンをidで取得
+            //target.addEventListener(type, listener, wantsUntrusted);
+            searchButton.addEventListener("click", function() {		//検索ボタンを押したときのEventを追加
+            	if( elem.reportValidity() == true ){					//form(elem)のpatternの確認
+            		searchSupplier();								//入力チェックが通った場合、仕入れ先を検索を行う
+            	}
+            },false);
+            
           		//初期化
                 function initSupplier(){
           			//テキストボックスの初期化
