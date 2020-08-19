@@ -92,7 +92,7 @@
                                             <div class="input-group-prepend">
                                                 <div class="input-group-text">仕入れ先コード</div>
                                             </div>
-                                        <input type="text" name="inputSupplierCode" class="form-control" id="supplierCode" pattern="^[0-9A-Za-z]+$">
+                                        <input type="text" name="inputSupplierCode" class="form-control" id="supplierCode" pattern="[0-9A-Za-z]{1,10}" title="半角英数字で入力してください(10字以内)">
                                         </div>
                                     </div>
                                 </div>
@@ -111,7 +111,7 @@
                                             <div class="input-group-prepend">
                                                 <div class="input-group-text">仕入れ先カナ</div>
                                             </div>
-                                        <input type="text" name="inputSupplierKana" class="form-control" id="" pattern="[\u30A1-\u30F6]*">
+                                        <input type="text" name="inputSupplierKana" class="form-control" id="" pattern="[\u30A1-\u30F6]*" title="全角カナで入力してください">
                                         </div>
                                     </div>
                                 </div>
