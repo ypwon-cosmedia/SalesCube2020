@@ -59,7 +59,7 @@ public class EstimateInputCommonDAO extends BaseDAO {
 	 	
 	 	sql="select ESTIMATE_SHEET_ID " + 
 	 		"from estimate_sheet_trn_xxxxx " + 
-	 		"where ESTIMATE_SHEET_ID = " + estimateSheetId;
+	 		"where ESTIMATE_SHEET_ID = '" + estimateSheetId + "'";
 	 	
 	 	result = stmt.executeQuery(sql);
 	 	
@@ -92,7 +92,7 @@ public class EstimateInputCommonDAO extends BaseDAO {
 	 				"REMARKS, " + 
 	 				"COMMENT_DATA " + 
 	 		"from customer_mst_xxxxx " + 
-	 		"where CUSTOMER_CODE = " + customerCode;
+	 		"where CUSTOMER_CODE = '" + customerCode + "'";
 	 	
 	 	result = stmt.executeQuery(sql);
 	 	
@@ -129,7 +129,7 @@ public class EstimateInputCommonDAO extends BaseDAO {
 	 				"SUPPLIER_PRICE_YEN, " +
 	 				"RETAIL_PRICE " + 
 	 		"from product_mst_xxxxx " + 
-	 		"where PRODUCT_CODE = " + productCode;
+	 		"where PRODUCT_CODE = '" + productCode + "'";
 	 	
 	 	result = stmt.executeQuery(sql);
 	 	

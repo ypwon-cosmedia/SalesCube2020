@@ -42,9 +42,6 @@ public class UnitPriceInquiryController extends BaseController {
 			throws ServletException, IOException, ClassNotFoundException, SQLException {
 		
 		String forwardURL     = "estimate/unitpriceinquiry.jsp";
-		
-		ProductModalInit init = new ProductModalInit();
-		init.initCombobox(request, response);
 			
 		return forwardURL;
 		

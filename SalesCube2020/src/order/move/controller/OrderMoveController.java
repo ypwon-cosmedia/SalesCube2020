@@ -16,6 +16,7 @@ import order.common.init.DAO.OrderInitDAO;
 import order.input.DAO.OrderInputDAO;
 import order.input.beans.OrderInputBean;
 import user.beans.UserInfoBean;
+import user.controller.UserController;
 
 public class OrderMoveController extends BaseController{
 	
@@ -48,6 +49,7 @@ public class OrderMoveController extends BaseController{
 		
 		OrderInputDAO dao = new OrderInputDAO();
 		ProductModalInit init = new ProductModalInit();
+		
 //		EstimateCategoryModalAJAXController est = new EstimateCategoryModalAJAXController();
 
 		List<OrderInputBean> list1 = dao.getDcName();

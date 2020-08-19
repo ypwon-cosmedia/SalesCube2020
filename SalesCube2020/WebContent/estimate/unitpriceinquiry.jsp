@@ -151,7 +151,7 @@
 						    		<div class="input-group-text">商品コード</div>
 						  		</div>
 			                    <input type="text" value="${searchResult.productCode}" class="form-control" id="inputProductCode" name="productCode">
-			                    <button type="button" class="ModalButton"  data-toggle="modal" data-target="#setproductsearch" onclick="initproductModal()">
+			                    <button type="button" class="ModalButton"  data-toggle="modal" data-target="#setproductsearch" onclick="initProductModal()">
 			                      <img src="btn_search.png" style="vertical-align: middle; cursor: pointer; width: 32px; height: 32px;">
 			                    </button>
 					  		</div>

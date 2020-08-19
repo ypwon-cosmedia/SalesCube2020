@@ -849,7 +849,7 @@
 	  /* 商品検索モーダル画面に遷移 */
 	  function productSearchButton(obj) {
 		  globalTableNo = obj.id.substr(13); //対象のtableNoをグローバル変数に保存
-		  initproductModal(); //商品検索モーダル画面の初期化
+		  initProductModal(); //商品検索モーダル画面の初期化
 	  }
 	  
 	  /* 商品検索モーダル画面から取得した商品コードで商品情報取得 */

@@ -159,8 +159,8 @@
 				for(var i = 0; i<Object.keys(data).length; i++){
 					var headcontents= '';
 					headcontents += '<tr>';
-					headcontents += '<td style="white-space: normal; text-align: left;" onclick="selectProductModal('+data[i].productCode+",'"+data[i].productName+"'"+')" data-dismiss="modal"><a href="">'+data[i].productCode+'</a></td>';
-					headcontents += '<td style="white-space: normal; text-align: left;" onclick="selectProductModal('+data[i].productCode+",'"+data[i].productName+"'"+')" data-dismiss="modal"><a href="">'+data[i].productName+'</a></td>';
+					headcontents += '<td style="white-space: normal; text-align: left;" onclick="selectProductModal(' + "'" + data[i].productCode +"','"+data[i].productName+"'"+')" data-dismiss="modal"><a href="">'+data[i].productCode+'</a></td>';
+					headcontents += '<td style="white-space: normal; text-align: left;" onclick="selectProductModal(' + "'" + data[i].productCode +"','"+data[i].productName+"'"+')" data-dismiss="modal"><a href="">'+data[i].productName+'</a></td>';
 					headcontents += '<td style="white-space: normal; text-align: left;">'+(data[i].supplierName==null ? '' : data[i].supplierName)+'</td>';   
 					headcontents += '</tr>';
 					$('#productResult').append(headcontents);						

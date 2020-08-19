@@ -36,7 +36,14 @@ public class OrderInputController extends BaseController {
 					// TODO Auto-generated catch block
 					e.printStackTrace();
 				}
-		}
+		}else if(action.equals("deleteOrder")) {
+			try {
+				forwardURL = deleteOrder(request, response);
+			} catch (ClassNotFoundException | ServletException | IOException | SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+	}
 		
 		return forwardURL;
 	}
@@ -237,8 +244,10 @@ public class OrderInputController extends BaseController {
 		
 		OrderInputDAO dao = new OrderInputDAO();
 		List<OrderInputBean> list = new ArrayList<>();
+		
+		Integer roSlipId = Integer.parseInt(request.getParameter("roSlipId"));
 
-		String roDate = request.getParameter("roDate");
+		String roDate = nullOrEmpty(request.getParameter("roDate"));
 		String shipDate = nullOrEmpty(request.getParameter("shipDate"));
 		String deliveryDate = nullOrEmpty(request.getParameter("deliveryDate"));
 		String ReceptNo = nullOrEmpty(request.getParameter("ReceptNo"));
@@ -268,7 +277,7 @@ public class OrderInputController extends BaseController {
 		String deliveryFax = nullOrEmpty(request.getParameter("deliveryFax"));
 		String deliveryEmail = nullOrEmpty(request.getParameter("deliveryEmail"));
 		String[] productCode = request.getParameterValues("productCode");
-		String[] productName = request.getParameterValues("productName");
+		String[] productName;
 		String[] productRemarks = request.getParameterValues("productRemarks");
 		String[] rackCode = request.getParameterValues("rackCode");
 		String[] quantity = request.getParameterValues("quantity");
@@ -278,11 +287,82 @@ public class OrderInputController extends BaseController {
 		String[] retailPrice = request.getParameterValues("retailPrice");
 		String[] inputProductRemarks = request.getParameterValues("inputProductRemarks");
 		String[] eadRemarks = request.getParameterValues("eadRemarks");
-		String prossProfit = nullOrEmpty(request.getParameter("prossProfit"));
-		String grossProfitRatio = nullOrEmpty(request.getParameter("grossProfitRatio"));
-		String retailPriceTotal = request.getParameter("retailPriceTotal");
-		String ctaxPriceTotal = request.getParameter("ctaxPriceTotal");
-		String priceTotal = request.getParameter("priceTotal");
+		Integer retailPriceTotal = 0;
+		Integer ctaxPriceTotal = 0;
+		Integer priceTotal = 0;
+		
+		if(request.getParameterValues("productCode") == null || request.getParameterValues("productCode")[0].equals("")) {
+			productCode = null ;
+		}else {
+			productCode = request.getParameterValues("productCode");
+		}
+		if(request.getParameterValues("productName") == null || request.getParameterValues("productName").equals("")) {
+			productName = null ;
+		}else {
+			productName = request.getParameterValues("productName");
+		}
+		if(request.getParameterValues("productRemarks") == null || request.getParameterValues("productRemarks").equals("")) {
+			productRemarks = null;
+		}else {
+			productRemarks = request.getParameterValues("productRemarks");
+		}
+		if(request.getParameterValues("rackCode") == null || request.getParameterValues("rackCode").equals("")) {
+			rackCode = null;
+		}else {
+			rackCode = request.getParameterValues("rackCode");
+		}
+		if(request.getParameterValues("quantity") == null || request.getParameterValues("quantity").equals("")) {
+			quantity = null;
+		}else {
+			quantity = request.getParameterValues("quantity");
+		}
+		if(request.getParameterValues("unitCost") == null || request.getParameterValues("unitCost").equals("")) {
+			unitCost = null;
+		}else {
+			unitCost = request.getParameterValues("unitCost");
+		}
+		if(request.getParameterValues("cost") == null || request.getParameterValues("cost").equals("")) {
+			cost = null;
+		}else {
+			cost = request.getParameterValues("cost");
+		}
+		if(request.getParameterValues("unitRetailPrice") == null || request.getParameterValues("unitRetailPrice").equals("")) {
+			unitRetailPrice = null;
+		}else {
+			unitRetailPrice = request.getParameterValues("unitRetailPrice");
+		}
+		if(request.getParameterValues("retailPrice") == null || request.getParameterValues("retailPrice").equals("")) {
+			retailPrice = null;
+		}else {
+			retailPrice = request.getParameterValues("retailPrice");
+		}
+		if(request.getParameterValues("inputProductRemarks") == null || request.getParameterValues("inputProductRemarks").equals("")) {
+			inputProductRemarks = null;
+		}else {
+			inputProductRemarks = request.getParameterValues("inputProductRemarks");
+		}
+		if(request.getParameterValues("eadRemarks") == null || request.getParameterValues("eadRemarks").equals("")) {
+			eadRemarks = null;
+		}else {
+			eadRemarks = request.getParameterValues("eadRemarks");
+		}
+		
+		
+		if(request.getParameter("retailPriceTotal") == null || request.getParameter("retailPriceTotal").equals("")) {
+			retailPriceTotal = 0;
+		}else {
+			retailPriceTotal = Integer.parseInt(request.getParameter("retailPriceTotal"));
+		}
+		if(request.getParameter("ctaxPriceTotal") == null || request.getParameter("ctaxPriceTotal").equals("")) {
+			ctaxPriceTotal = 0;
+		}else {
+			ctaxPriceTotal = Integer.parseInt(request.getParameter("ctaxPriceTotal"));
+		}
+		if(request.getParameter("priceTotal") == null || request.getParameter("priceTotal").equals("")) {
+			priceTotal = 0;
+		}else {
+			priceTotal = Integer.parseInt(request.getParameter("priceTotal"));
+		}
 		
 		OrderInputBean bean = new OrderInputBean();
 		bean.setRoDate(roDate);
@@ -314,27 +394,28 @@ public class OrderInputController extends BaseController {
 		bean.setDeliveryTel(deliveryTel);
 		bean.setDeliveryFax(deliveryFax);
 		bean.setDeliveryEmail(deliveryEmail);
-		bean.setProssProfit(Integer.parseInt(prossProfit));
-		bean.setGrossProfitRatio(Integer.parseInt(grossProfitRatio));
-		bean.setRetailPriceTotal(Integer.parseInt(retailPriceTotal));
-		bean.setCtaxPriceTotal(Integer.parseInt(ctaxPriceTotal));
-		bean.setPriceTotal(Integer.parseInt(priceTotal));		
+		bean.setRetailPriceTotal(retailPriceTotal);
+		bean.setCtaxPriceTotal(ctaxPriceTotal);
+		bean.setPriceTotal(priceTotal);	
+		bean.setRoSlipId(roSlipId);
 		
 		OrderInputBean bean2 = new OrderInputBean();
 		
-		for(int i = 0; i < productCode.length; i++) {
-			bean2.setProductCode(productCode[i]);
-			bean2.setProductName(productName[i]);
-			bean2.setProductRemarks(productRemarks[i]);
-			bean2.setRackCode(rackCode[i]);
-			bean2.setQuantity(Integer.parseInt(quantity[i]));
-			bean2.setUnitCost(Integer.parseInt(unitCost[i]));
-			bean2.setCost(Integer.parseInt(cost[i]));
-			bean2.setUnitRetailPrice(Integer.parseInt(unitRetailPrice[i]));
-			bean2.setRetailPrice(Integer.parseInt(retailPrice[i]));
-			bean2.setInputProductRemarks(inputProductRemarks[i]);
-			bean2.setEadRemarks(eadRemarks[i]);
-			list.add(bean2);
+		if(productCode != null) {
+			for(int i = 0; i < productCode.length; i++) {
+				bean2.setProductCode(productCode[i]);
+				bean2.setProductName(productName[i]);
+				bean2.setProductRemarks(productRemarks[i]);
+				bean2.setRackCode(rackCode[i]);
+				bean2.setQuantity(Integer.parseInt(quantity[i]));
+				bean2.setUnitCost(Integer.parseInt(unitCost[i]));
+				bean2.setCost(Integer.parseInt(cost[i]));
+				bean2.setUnitRetailPrice(Integer.parseInt(unitRetailPrice[i]));
+				bean2.setRetailPrice(Integer.parseInt(retailPrice[i]));
+				bean2.setInputProductRemarks(inputProductRemarks[i]);
+				bean2.setEadRemarks(eadRemarks[i]);
+				list.add(bean2);
+			}
 		}
 				
 		int result1 = dao.orderUpdateInfo(bean);
@@ -357,6 +438,11 @@ public class OrderInputController extends BaseController {
 			str = null;
 		}
 		return str;
+	}
+	
+	private String deleteOrder(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException, SQLException, ClassNotFoundException {
+		
+		return null;
 	}
 	
 }

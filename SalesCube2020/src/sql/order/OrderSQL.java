@@ -260,7 +260,7 @@ public class OrderSQL {
 		
 		String sql;
 		
-		sql = "SELECT" + 
+		sql = "SELECT " + 
 				"pmx.PRODUCT_CODE, " + 
 				"pmx.SUPPLIER_PCODE, " + 
 				"b.CATEGORY_CODE_NAME, " + 
@@ -308,7 +308,11 @@ public class OrderSQL {
 		String sql;
 		
 		sql = "SELECT DISTINCT " + 
-				"CONCAT(rltx.RO_SLIP_ID, '-', rltx.LINE_NO), " + 
+				"CONCAT(" + 
+				"rltx.RO_SLIP_ID, " +
+				"'-', " + 
+				"rltx.LINE_NO" +
+				") as id," + 
 				"rstx.SHIP_DATE, " + 
 				"rltx.QUANTITY " + 
 			"FROM " + 
@@ -538,8 +542,8 @@ public class OrderSQL {
 		
 	}
 	
-	/* 顧客コード入力 納入先情報反映 */
-	public String customerCodeToDeliveryInfo(String customerCode) {
+	/* 顧客コード入力 */
+	public String customerCodeInfo(String customerCode) {
 		
 		String sql;
 		
@@ -550,21 +554,44 @@ public class OrderSQL {
 				"b.CATEGORY_CODE_NAME, " + 
 				"c.CATEGORY_CODE_NAME, " + 
 				"cmx.REMARKS, " + 
-				"cmx.COMMENT_DATA " + 
+				"cmx.COMMENT_DATA, " + 
+				"dmx.DELIVERY_NAME, " + 
+				"dmx.DELIVERY_OFFICE_NAME, " + 
+				"dmx.DELIVERY_DEPT_NAME, " + 
+				"dmx.DELIVERY_ZIP_CODE, " + 
+				"dmx.DELIVERY_ADDRESS_1, " + 
+				"dmx.DELIVERY_ADDRESS_2, " + 
+				"dmx.DELIVERY_PC_NAME, " + 
+				"dmx.DELIVERY_PC_KANA, " + 
+				"d.CATEGORY_CODE_NAME, " + 
+				"dmx.DELIVERY_TEL, " + 
+				"dmx.DELIVERY_FAX, " + 
+				"dmx.DELIVERY_EMAIL " + 
 			"FROM " + 
-				"customer_mst_xxxxx cmx " + 
+				"customer_mst_xxxxx AS cmx " + 
 				"LEFT OUTER JOIN " + 
 					"(SELECT * FROM category_trn_xxxxx WHERE CATEGORY_ID='29') AS a " + 
-				"ON " + 
+					"ON " + 
 					"cmx.TAX_SHIFT_CATEGORY=a.CATEGORY_CODE " + 
 				"LEFT OUTER JOIN " + 
 					"(SELECT * FROM category_trn_xxxxx WHERE CATEGORY_ID='11') AS b " + 
-				"ON " + 
-					"cmx.CUTOFF_GROUP=b.CATEGORY_CODE \r\n" + 
+					"ON " + 
+					"cmx.CUTOFF_GROUP=b.CATEGORY_CODE " + 
 				"LEFT OUTER JOIN " + 
 					"(SELECT * FROM category_trn_xxxxx WHERE CATEGORY_ID='32') AS c " + 
-				"ON " + 
+					"ON " + 
 					"cmx.SALES_CM_CATEGORY = (c.CATEGORY_CODE + 1) " + 
+				"LEFT OUTER JOIN " + 
+					"(SELECT * FROM customer_rel_xxxxx WHERE CUST_REL_CATEGORY='01') AS crx " + 
+					"USING(CUSTOMER_CODE) " + 
+				"LEFT OUTER JOIN " + 
+					"delivery_mst_xxxxx AS dmx " + 
+					"ON " + 
+					"dmx.DELIVERY_CODE=crx.REL_CODE " + 
+				"LEFT OUTER JOIN " + 
+					"(SELECT * FROM category_trn_xxxxx WHERE CATEGORY_ID='10') AS d " + 
+					"ON " + 
+					"dmx.DELIVERY_PC_PRE_CATEGORY=a.CATEGORY_CODE " + 
 			"WHERE " + 
 				"cmx.CUSTOMER_CODE = '" + customerCode + "'";
 		
@@ -769,9 +796,9 @@ public class OrderSQL {
 				"CTAX_RATE = ?, " + 
 				"CUSTOMER_CODE = ?, " +
 				"CUSTOMER_NAME = ?, " + 
-				"TAX_SHIFT_CATEGORY = ?, " +
-				"CUTOFF_GROUP = ?, " +
-				"SALES_CM_CATEGORY = ?, " + 
+				"TAX_SHIFT_CATEGORY = (SELECT CATEGORY_CODE from category_trn_xxxxx where CATEGORY_ID = 29 AND CATEGORY_CODE_NAME = ?), " +
+				"CUTOFF_GROUP = (SELECT CATEGORY_CODE from category_trn_xxxxx where CATEGORY_ID = 11 AND CATEGORY_CODE_NAME = ?), " +
+				"SALES_CM_CATEGORY = (SELECT CATEGORY_CODE from category_trn_xxxxx where CATEGORY_ID = 32 AND CATEGORY_CODE_NAME = ?), " +
 				"CUSTOMER_REMARKS = ?, " +
 				"CUSTOMER_COMMENT_DATA = ?, " + 
 				"DELIVERY_NAME = ?, " + 
@@ -789,8 +816,7 @@ public class OrderSQL {
 				"RETAIL_PRICE_TOTAL = ?, " +
 				"CTAX_PRICE_TOTAL = ?, " +
 				"PRICE_TOTAL = ?, " +
-				"STATUS = ? " + 
-				"RO_SLIP_ID = ? " +
+				"STATUS = ? " +
 			"WHERE RO_SLIP_ID = ?";
 		
 		return sql;
@@ -815,8 +841,7 @@ public class OrderSQL {
 				"UNIT_RETAIL_PRICE = ?, " +
 				"RETAIL_PRICE = ?, " +
 				"REMARKS = ?, " +
-				"EAD_REMARKS = ?, " +
-				"RP_SLIP_ID = ? " +
+				"EAD_REMARKS = ? " +
 			"WHERE RO_SLIP_ID = ?";
 		
 		return sql;
@@ -1209,21 +1234,10 @@ public class OrderSQL {
 		return tmp;
 	}
 	
-	/* 商品コード/名→明細 */
-	public String productToDetail(String productCode, String productName, OrderInputBean bean) {
+	/* 商品コード→明細 */
+	public String productToDetail(String productCode) {
 		
 		String sql;
-		
-		if(bean.getProductCode() == null || bean.getProductCode().equals("")) {
-			bean.setProductCode("%' OR PRODUCT_CODE IS NULL");
-		}else {
-			bean.setProductCode(bean.getProductCode().concat("%"));
-		}
-		if(bean.getProductName() == null || bean.getProductName().equals("")) {
-			bean.setProductName("%' OR PRODUCT_NAME IS NULL");
-		}else {
-			bean.setProductName(bean.getProductName().concat("%"));
-		}
 		
 		sql = "SELECT " + 
 				"pmx.PRODUCT_CODE, " + 
@@ -1234,15 +1248,14 @@ public class OrderSQL {
 				"rltn.COST, " + 
 				"rltn.UNIT_RETAIL_PRICE, " + 
 				"rltn.RETAIL_PRICE, " + 
-				"pmx.REMARKS, " + 
+				"rltn.REMARKS, " + 
 				"pmx.EAD_REMARKS " + 
 				"FROM product_mst_xxxxx AS pmx " + 
 				"LEFT OUTER JOIN ro_line_trn_xxxxx AS rltn " + 
 				"USING(PRODUCT_CODE) " + 
 				"WHERE " +
-				"(PRODUCT_CODE LIKE '" + bean.getProductCode() + "'" +
-				") AND (PRODUCT_NAME LIKE '" + bean.getProductName() + "'" + 
-				") GROUP BY PRODUCT_CODE";
+				"PRODUCT_CODE = " + productCode + " " +
+				"GROUP BY PRODUCT_CODE";
 		
 		return sql;
 		

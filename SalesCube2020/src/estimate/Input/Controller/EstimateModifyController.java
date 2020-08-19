@@ -62,14 +62,12 @@ public class EstimateModifyController extends BaseController {
 		
 		
 		estimateInputAPI api = new estimateInputAPI(); //コンボボックスの初期値の取得に使用する
-		ProductModalInit init = new ProductModalInit();
 		
 		//リクエストスコープに登録
 		request.setAttribute("estimate",bean); //見積情報登録
 		request.setAttribute("estimateProductList",list); //見積商品情報登録
 		request.setAttribute("taxRateList",api.getTaxRateList()); //消費税率コンボボックス登録
 		request.setAttribute("submitPreList",api.getCategoryList(10)); //提出先敬称コンボボックス登録
-		init.initCombobox(request, response);
 			
 		return forwardURL;
 		

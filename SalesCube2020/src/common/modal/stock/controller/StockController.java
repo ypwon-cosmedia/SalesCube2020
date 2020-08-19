@@ -9,6 +9,10 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.google.gson.Gson;
+import com.google.gson.JsonArray;
+import com.google.gson.JsonObject;
+
 import common.controller.BaseAJAXController;
 import common.controller.BaseController;
 import common.modal.stock.beans.StockBean;
@@ -33,17 +37,30 @@ public class StockController extends BaseAJAXController {
 	/* 在庫モーダルへ商品情報 */
 	private void moveStock(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException, SQLException, ClassNotFoundException {
 		
+		String productCode = request.getParameter("productCode");
+		
 		StockDAO dao = new StockDAO();
 		StockBean bean = new StockBean();
 		List<StockBean> list = new ArrayList<>();
 		
-		String productCode = request.getParameter("productCode");
+		Gson gson = new Gson();
 		
-		bean = dao.OrderToStock(productCode);
-		list = dao.OrderToStockDetail(productCode);
-		
-		request.setAttribute("stockLink", bean);
-		request.setAttribute("stockLinkDetail", list);
-		
+		try {
+			bean = dao.OrderToStock(productCode);
+			list = dao.OrderToStockDetail(productCode);
+			String data = gson.toJson(bean);
+			
+			JsonArray jArray = gson.toJsonTree(list).getAsJsonArray();
+			JsonObject jObject = new JsonObject();
+			
+			jObject.add("bean", new Gson().toJsonTree(data));
+			jObject.add("list", jArray);
+			
+			response.setContentType("application/x-json; charset=UTF-8");
+			response.getWriter().print(jObject);
+			
+		}catch (ClassNotFoundException | SQLException e) {
+			e.printStackTrace();
+		}
 	}
 }

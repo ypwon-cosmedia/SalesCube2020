@@ -13,37 +13,37 @@
 					<div class="modal-body">			
 						<table class="table table-bordered">
 							<tr>
-								<th bgcolor="black"><font color="white" id="productCode">商品コード</font></th>
-								<td>${stockLink.productCode}</td>
-								<th bgcolor="black"><font color="white" id="productPCode">仕入先商品コード</font></th>
-								<td>${stockLink.supplierPCode}</td>
-								<th bgcolor="black"><font color="white" id="setTypeCategory">セット分類</font></th>
-								<td>${stockLink.setTypeCategory}</td>
+								<th bgcolor="black"><font color="white">商品コード</font></th>
+								<td id="stockProductCode"></td>
+								<th bgcolor="black"><font color="white">仕入先商品コード</font></th>
+								<td id="stockProductPCode"></td>
+								<th bgcolor="black"><font color="white">セット分類</font></th>
+								<td id="stockSetTypeCategory"></td>
 							</tr>
 							<tr>
-								<th bgcolor="black"><font color="white" id="productName">商品名</font></th>
-								<td>${stockLink.productName}</td>
-								<th bgcolor="black"><font color="white" id="warehouseName">倉庫名</font></th>
-								<td>${stockLink.warehouseName}</td>
-								<th bgcolor="black"><font color="white" id="rackCode">棚番</font></th>
-								<td>${stockLink.rackCode}</td>
+								<th bgcolor="black"><font color="white">商品名</font></th>
+								<td id="stockProductName"></td>
+								<th bgcolor="black"><font color="white">倉庫名</font></th>
+								<td id="stockWarehouseName"></td>
+								<th bgcolor="black"><font color="white">棚番</font></th>
+								<td id="stockRackCode"></td>
 							</tr>
 							<tr>
-								<th bgcolor="black"><font color="white" id="productStatusCategory">分類-状態</font></th>
-								<td>${stockLink.productStatusCategory}</td>
-								<th bgcolor="black"><font color="white" id="productStockCategory">分類-保管</font></th>
-								<td>${stockLink.productStockCategory}</td>
+								<th bgcolor="black"><font color="white">分類-状態</font></th>
+								<td id="stockProductStatusCategory"></td>
+								<th bgcolor="black"><font color="white">分類-保管</font></th>
+								<td id="stockProductStockCategory"></td>
 							</tr>
 						</table>
 						<br>           
 						<table class="table table-bordered">
 							<tr>
-								<th bgcolor="black"><font color="white" id="stockQuantity">現在庫総数</font></th>
-								<th bgcolor="black"><font color="white" id="quantitySum">受注残数</font></th>
+								<th bgcolor="black"><font color="white">現在庫総数</font></th>
+								<th bgcolor="black"><font color="white">受注残数</font></th>
 							</tr>
 							<tr>
-								<td>${stockLink.stockQuantity}</td>
-								<td>${stockLink.quantity}</td>
+								<td id="stockQuantity"></td>
+								<td id="stockQuantitySum"></td>
 							</tr>
 						</table>       
 						
@@ -54,16 +54,8 @@
 										<th bgcolor="black"><font color="white">出荷日</font></th>
 										<th bgcolor="black"><font color="white">受注残数</font></th>
 									</tr>
-									<c:forEach items="${stockLinkDetail}" var="detail">
-										<tr>
-											<form action=" " method="post" id="stockTable">
-												<td id="roSlipLine"><a href="orderupdate.html" id="roSlipLine">${detail.roSlipId}-${detail.roLineId}</a></td>
-											</form>
-											<td id="shipDate">${detail.shipDate}</td>
-											<td id="quantity">${detail.quantity}</td>
-										</tr>
-									</c:forEach>
-
+									<tbody id= stockbody>
+									</tbody>
 								</table>
 					</div>
 					<div class="modal-footer">
@@ -72,3 +64,4 @@
 				</div>
 			</div>
 		</div>
+		
