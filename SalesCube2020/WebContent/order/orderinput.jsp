@@ -87,6 +87,8 @@
 				 <span class="action_errors" style="color: red">${inputCmp}</span>
 				 <span class="action_errors" style="color: red">${updateErr}</span>
 				 <span class="action_errors" style="color: red">${updateCmp}</span>
+				 <span class="action_errors" style="color: red">${deleteError}</span>
+				 <span class="action_errors" style="color: red">${deleteCmp}</span>
        </div>
 	
 		<form action="/SalesCube2020/SalesCube?action=orderinputCmp" method="post">
@@ -162,7 +164,7 @@
 								<div class="input-group-prepend">
 									<div class="input-group-text">入力担当者</div>
 								</div>
-								<input type="text" value="${user}" class="form-control" readonly name="userName">
+								<input type="text" value="${order.userName}" class="form-control" readonly name="userName">
 							</div>
 						</div>
 						<div class="col-4">
@@ -911,6 +913,7 @@
 
 			/* 商品コードから明細表示 ajax */
 			function pCode(obj){
+				alert();
 				globalTmp = obj.id;
 				var tableNo = globalTmp.substr(16);
 				var inputProductCode = document.getElementById("productCodeInput" + tableNo).value;	
@@ -1100,10 +1103,10 @@
 					}else{
 						document.getElementById('stockProductPCode').innerHTML = tmp['supplierPCode'];
 					}
-					if(tmp['stockSetTypeCategory'] == null || tmp['stockSetTypeCategory'] == ""){
+					if(tmp['setTypeCategory'] == null || tmp['setTypeCategory'] == ""){
 						document.getElementById('stockSetTypeCategory').innerHTML = "";
 					}else{
-						document.getElementById('stockSetTypeCategory').innerHTML = tmp['stockSetTypeCategory'];
+						document.getElementById('stockSetTypeCategory').innerHTML = tmp['setTypeCategory'];
 					}
 					if(tmp['productName'] == null || tmp['productName'] == ""){
 						document.getElementById('stockProductName').innerHTML = "";
@@ -1118,51 +1121,51 @@
 					if(tmp['rackCode'] == null || tmp['rackCode'] == ""){
 						document.getElementById('stockRackCode').innerHTML = "";
 					}else{
-						document.getElementById('stockRackCode').innerHTML = data.bean.rackCode;
+						document.getElementById('stockRackCode').innerHTML = tmp['rackCode'];
 					}
-					if(data.bean.categoryCodeName == null || data.bean.categoryCodeName == ""){
+					if(tmp['productStatusCategory'] == null || tmp['productStatusCategory'] == ""){
 						document.getElementById('stockProductStatusCategory').innerHTML = "";
 					}else{
-						document.getElementById('stockProductStatusCategory').innerHTML = data.bean.categoryCodeName;
+						document.getElementById('stockProductStatusCategory').innerHTML = tmp['productStatusCategory'];
 					}
-					if(data.bean.categoryCodeName == null || data.bean.categoryCodeName == ""){
+					if(tmp['productStockCategory'] == null || tmp['productStockCategory'] == ""){
 						document.getElementById('stockProductStockCategory').innerHTML = "";
 					}else{
-						document.getElementById('stockProductStockCategory').innerHTML = data.bean.categoryCodeName;
+						document.getElementById('stockProductStockCategory').innerHTML = tmp['productStockCategory'];
 					}
-					if(data.bean.stockQuantity == null || data.bean.stockQuantity == ""){
+					if(tmp['stockQuantity'] == null || tmp['stockQuantity'] == ""){
 						document.getElementById('stockQuantity').innerHTML = "";
 					}else{
-						document.getElementById('stockQuantity').innerHTML = data.bean.stockQuantity;
+						document.getElementById('stockQuantity').innerHTML = tmp['stockQuantity'];
 					}
-					if(data.bean.quantitySum == null || data.bean.quantitySum == ""){
+					if(tmp['quantity'] == null || tmp['quantity'] == ""){
 						document.getElementById('stockQuantitySum').innerHTML = "";
 					}else{
-						document.getElementById('stockQuantitySum').innerHTML = data.bean.quantitySum;
+						document.getElementById('stockQuantitySum').innerHTML = tmp['quantity'];
 					}
 					
 					for(var i = 0; i<Object.keys(data.list).length; i++){
 						if(data.list[i].roSlipId == null || data.list[i].roSlipId == "" ){
 							$("#stockbody").append("<tr>");
-							$("#stockbody").append("<td></td>");	
+							$("#stockbody").append("<td><a href=""></a></td>");	
 							$("#stockbody").append("<td>"+data.list[i].shipDate+"</td>");
 							$("#stockbody").append("<td>"+data.list[i].quantity+"</td>");
 							$("#stockbody").append("</tr>");
 						}else if(data.list[i].shipDate == null || data.list[i].shipDate == ""){
 							$("#stockbody").append("<tr>");
-							$("#stockbody").append("<td>"+data.list[i].roSlipId+"</td>");	
+							$("#stockbody").append("<td><a href="">"+data.list[i].roSlipId+"</a></td>");	
 							$("#stockbody").append("<td></td>");
 							$("#stockbody").append("<td>"+data.list[i].quantity+"</td>");
 							$("#stockbody").append("</tr>");
 						}else if(data.list[i].quantity == null || data.list[i].quantity == "" ){
 							$("#stockbody").append("<tr>");
-							$("#stockbody").append("<td>"+data.list[i].roSlipId+"</td>");	
+							$("#stockbody").append("<td><a href="">"+data.list[i].roSlipId+"</a></td>");	
 							$("#stockbody").append("<td>"+data.list[i].shipDate+"</td>");
 							$("#stockbody").append("<td></td>");
 							$("#stockbody").append("</tr>");
 						}else{
 							$("#stockbody").append("<tr>");
-							$("#stockbody").append("<td>"+data.list[i].roSlipId+"</td>");	
+							$("#stockbody").append("<td><a href="">"+data.list[i].roSlipId+"</a></td>");	
 							$("#stockbody").append("<td> "+data.list[i].shipDate+"</td>");
 							$("#stockbody").append("<td> "+data.list[i].quantity+"</td>");
 							$("#stockbody").append("</tr>");

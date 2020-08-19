@@ -11,6 +11,9 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import common.controller.BaseController;
+import master.product.DAO.GetCategoryDAO;
+import master.product.DAO.ProductDeleteDAO;
+import master.product.beans.ProductCategoryAllBean;
 import order.input.DAO.OrderInputDAO;
 import order.input.beans.OrderInputBean;
 
@@ -441,8 +444,25 @@ public class OrderInputController extends BaseController {
 	}
 	
 	private String deleteOrder(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException, SQLException, ClassNotFoundException {
-		
-		return null;
+
+			String forwardURL = "order\\orderinput.jsp";	
+			
+			//Delete
+			String roSlipId = request.getParameter("roSlipId");
+			OrderInputDAO dao = new OrderInputDAO();
+			int check = dao.deleteOrder(roSlipId);
+			
+			//Delete Check
+			if( check == 0 ) {
+				String message = "削除ができませんでした";
+				request.setAttribute("deleteError", message);
+			}else{
+				String message = "削除が完了しました";
+				request.setAttribute("deleteCmp", message);
+			}
+			
+			return forwardURL;
+
 	}
 	
 }
