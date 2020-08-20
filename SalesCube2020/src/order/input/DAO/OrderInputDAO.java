@@ -31,7 +31,7 @@ public class OrderInputDAO extends BaseDAO{
 	 	OrderSQL ordersql = new OrderSQL();
 	 	sql1 = ordersql.deleteOrderInfo(roSlipId);
 	 	sql2 = ordersql.deleteOrderDetail(roSlipId);
-	 		
+	 	
 	 	System.out.println(sql1);
 	 	System.out.println(sql2);
 	 	try {

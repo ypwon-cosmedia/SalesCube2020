@@ -902,12 +902,16 @@
 			}
 
 			/* 商品モーダルから親画面にリンク */
-			function selectProductCode(obj){
+			function selectProductModal(code, name){
 				var tableNo = globalTmp.substr(16);
-				var productCode = document.getElementById("modalProductCode1").innerText;
-				var productName = document.getElementById("modalProductName1").innerText;
-				document.getElementById("productCodeInput" + tableNo).value = productCode;
-				document.getElementById("productName" + tableNo).innerHTML = productName;
+				document.getElementById("customerCodeInput").value = code;
+				document.getElementById("customerNameInput").value = name;
+				document.getElementById("productCodeInput" + tableNo).value = code;
+				document.getElementById("productName" + tableNo).innerHTML = name;
+				
+				var tmp = document.getElementById("productCodeInput" + tableNo);
+				
+				pCode(tmp);
 			}
 
 			/* 親画面から顧客モーダルに顧客コード渡す */

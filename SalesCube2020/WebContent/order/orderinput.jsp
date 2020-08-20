@@ -164,7 +164,7 @@
 								<div class="input-group-prepend">
 									<div class="input-group-text">入力担当者</div>
 								</div>
-								<input type="text" value="${order.userName}" class="form-control" readonly name="userName">
+								<input type="text" value="${userInfo.nameKNJ}" class="form-control" readonly name="userName">
 							</div>
 						</div>
 						<div class="col-4">
@@ -717,7 +717,7 @@
 					+ '<td rowspan="3"><button type="button" value="" class="btn btn-outline-secondary" onclick="reprintForm(this);" id="reprintForm' + tableNo + '">前行複写</button></td>'
 					+ '</tr>'
 					+ '<tr>'
-					+ '<td rowspan="2"><button type="button" class="btn btn-outline-secondary" data-toggle="modal" data-target="#openSearchStock" id="openSearchStock' + tableNo + '">在庫</button></td>'
+					+ '<td rowspan="2"><button type="button" class="btn btn-outline-secondary" data-toggle="modal" data-target="#openSearchStock" id="openSearchStock' + tableNo + '" onclick="openStock(this)">在庫</button></td>'
 					+ '</tr>'
 					+ '<tr></tr>');
 			});
@@ -865,7 +865,10 @@
 				document.getElementById("customerNameInput").value = name;
 				document.getElementById("productCodeInput" + tableNo).value = code;
 				document.getElementById("productName" + tableNo).innerHTML = name;
-				pcode();
+				
+				var tmp = document.getElementById("productCodeInput" + tableNo);
+				
+				pCode(tmp);
 			}
 
 			/* 新規登録画面から顧客モーダルに顧客コード渡す */
@@ -881,14 +884,8 @@
 				var productCode = document.getElementById("productCodeInput" + tableNo).value;
 				document.getElementById("productCode").value = productCode;
 			}
-			
-			/* stockModal to parent */
-			function roSlipLinetoParent(){
-				var form = document.stockTable;
-				form.submit();
-			}
 
-			/* estimateModal to parent */
+			/* 見積番号押下ajax */
 			function estimateSheettoParent(){
 				alert();
 				var form = document.estimateTable;
@@ -913,7 +910,6 @@
 
 			/* 商品コードから明細表示 ajax */
 			function pCode(obj){
-				alert();
 				globalTmp = obj.id;
 				var tableNo = globalTmp.substr(16);
 				var inputProductCode = document.getElementById("productCodeInput" + tableNo).value;	
@@ -1147,25 +1143,25 @@
 					for(var i = 0; i<Object.keys(data.list).length; i++){
 						if(data.list[i].roSlipId == null || data.list[i].roSlipId == "" ){
 							$("#stockbody").append("<tr>");
-							$("#stockbody").append("<td><a href=""></a></td>");	
+							$("#stockbody").append("<td><a href=''></a></td>");	
 							$("#stockbody").append("<td>"+data.list[i].shipDate+"</td>");
 							$("#stockbody").append("<td>"+data.list[i].quantity+"</td>");
 							$("#stockbody").append("</tr>");
 						}else if(data.list[i].shipDate == null || data.list[i].shipDate == ""){
 							$("#stockbody").append("<tr>");
-							$("#stockbody").append("<td><a href="">"+data.list[i].roSlipId+"</a></td>");	
+							$("#stockbody").append("<td><a href='/SalesCube2020/SalesCube?action=orderupdate&roSlipId="+data.list[i].roSlipId.split('-')[0]+"'>"+data.list[i].roSlipId+"</a></td>");	
 							$("#stockbody").append("<td></td>");
 							$("#stockbody").append("<td>"+data.list[i].quantity+"</td>");
 							$("#stockbody").append("</tr>");
 						}else if(data.list[i].quantity == null || data.list[i].quantity == "" ){
 							$("#stockbody").append("<tr>");
-							$("#stockbody").append("<td><a href="">"+data.list[i].roSlipId+"</a></td>");	
+							$("#stockbody").append("<td><a href='/SalesCube2020/SalesCube?action=orderupdate&roSlipId="+data.list[i].roSlipId.split('-')[0]+"'>"+data.list[i].roSlipId+"</a></td>");	
 							$("#stockbody").append("<td>"+data.list[i].shipDate+"</td>");
 							$("#stockbody").append("<td></td>");
 							$("#stockbody").append("</tr>");
 						}else{
 							$("#stockbody").append("<tr>");
-							$("#stockbody").append("<td><a href="">"+data.list[i].roSlipId+"</a></td>");	
+							$("#stockbody").append("<td><a href='/SalesCube2020/SalesCube?action=orderupdate&roSlipId="+data.list[i].roSlipId.split('-')[0]+"'>"+data.list[i].roSlipId+"</a></td>");	
 							$("#stockbody").append("<td> "+data.list[i].shipDate+"</td>");
 							$("#stockbody").append("<td> "+data.list[i].quantity+"</td>");
 							$("#stockbody").append("</tr>");

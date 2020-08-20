@@ -9,6 +9,10 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.google.gson.Gson;
+import com.google.gson.JsonArray;
+import com.google.gson.JsonParser;
+
 import common.controller.BaseAJAXController;
 import common.controller.BaseController;
 import order.common.bill.DAO.OrderCommonBillDAO;
@@ -28,14 +32,6 @@ public class OrderCommonBillController extends BaseAJAXController {
 					e.printStackTrace();
 				}
 		}
-		else if(action.equals("billlink")) {
-			try {
-				EstimateToOrderInput(request, response);
-			} catch (ClassNotFoundException | ServletException | IOException | SQLException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
-		}
 	}
 	
 	/* 見積検索 */
@@ -43,38 +39,28 @@ public class OrderCommonBillController extends BaseAJAXController {
 		
 		List<OrderCommonBillBean> list = new ArrayList<>();
 		OrderCommonBillDAO dao = new OrderCommonBillDAO();
-		
-		
-		String estimateSheetId = request.getParameter("estimateSheetId");
-		String estimateDate = request.getParameter("estimateDate");
-		String submitName = request.getParameter("submitName");
-		String title = request.getParameter("title");
-		
 		OrderCommonBillBean bean = new OrderCommonBillBean();
 		
-		list = dao.billSearch(estimateSheetId, estimateDate, submitName, title, bean);
-
-		request.setAttribute("billSearch", list);
-		
-	}
+		bean.setEstimateSheetId(request.getParameter("estimateSheetId"));
+		bean.setEstimateDate(request.getParameter("estimateDate"));
+		bean.setSubmitName(request.getParameter("submitName"));
+		bean.setTitle(request.getParameter("title"));
 	
-	/* 見積番号押下 受注新規登録画面に反映 */
-	private void EstimateToOrderInput(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException, SQLException, ClassNotFoundException {
+		Gson gson = new Gson();
 		
-		OrderCommonBillDAO dao = new OrderCommonBillDAO();
-		OrderCommonBillBean bean1 = new OrderCommonBillBean();
-		OrderCommonBillBean bean2 = new OrderCommonBillBean();
-		OrderCommonBillBean bean3 = new OrderCommonBillBean();
+		try {
+			list = dao.billSearch(bean);
+			String data = gson.toJson(list);
+			JsonArray jArray = new JsonParser().parse(data).getAsJsonArray();
+			
+			response.setContentType("application/x-json; charset=UTF-8");
+			response.getWriter().print(jArray);
+		} catch (ClassNotFoundException | SQLException e) {
+			
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		
-		String estimateSheetId = request.getParameter("estimateSheetId");
-		
-		bean1 = dao.billToTaxRate(estimateSheetId);
-		bean2 = dao.billToCustomer(estimateSheetId);
-		bean3 = dao.billToDelivery(estimateSheetId);
-		
-		request.setAttribute("stockTaxRate", bean1);
-		request.setAttribute("stockCustomer", bean2);
-		request.setAttribute("stockDelivery", bean3);
-
 	}
+
 }
