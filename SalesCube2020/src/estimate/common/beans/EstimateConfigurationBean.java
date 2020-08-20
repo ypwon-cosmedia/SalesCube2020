@@ -9,6 +9,8 @@ public class EstimateConfigurationBean {
 	private String itemName;
 	//順番号
 	private int seq;
+	//ソート
+	private String sortFlag;
 	
 	
 	public String getItemId() {
@@ -29,5 +31,18 @@ public class EstimateConfigurationBean {
 	public void setSeq(int seq) {
 		this.seq = seq;
 	}
+	/**
+	 * @return the sortFlag
+	 */
+	public String getSortFlag() {
+		return sortFlag;
+	}
+	/**
+	 * @param sortFlag the sortFlag to set
+	 */
+	public void setSortFlag(String sortFlag) {
+		this.sortFlag = sortFlag;
+	}
+
 
 }

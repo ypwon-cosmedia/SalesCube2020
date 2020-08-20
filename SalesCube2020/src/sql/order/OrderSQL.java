@@ -1303,7 +1303,25 @@ public class OrderSQL {
 		return sql;
 	}
 	
-public String onlineInputDetail(OrderOnlineDetailBean bean) {
+	public String onlineInputTotal(String roSlipId) {
+		
+		String sql;
+		
+		sql = "update " + 
+				"ro_slip_trn_xxxxx " + 
+				"set " + 
+				"ctax_price_total = (select sum(ctax_price) from ro_line_trn_xxxxx where ro_slip_id = "+roSlipId+"), " + 
+				"cost_total = (select sum(cost) from ro_line_trn_xxxxx where ro_slip_id = "+roSlipId+"), " + 
+				"retail_price_total = (select sum(retail_price) from ro_line_trn_xxxxx where ro_slip_id = "+roSlipId+"), " + 
+				"price_total = (select sum(retail_price)+sum(ctax_price) from ro_line_trn_xxxxx where ro_slip_id = "+roSlipId+") " +  
+				"where ro_slip_id = " + roSlipId;
+		
+		return sql;
+		
+	}
+
+	
+	public String onlineInputDetail(OrderOnlineDetailBean bean) {
 		
 		String sql;
 		
@@ -1337,7 +1355,7 @@ public String onlineInputDetail(OrderOnlineDetailBean bean) {
 				"(select supplier_price_yen from product_mst_xxxxx where product_code = '" + bean.getProductCode() + "')," + 
 				"(select "+bean.getQuantity()+"*(select supplier_price_yen from product_mst_xxxxx where product_code = '" + bean.getProductCode() + "'))," + 
 				"(select ctax_rate from ro_slip_trn_xxxxx where ro_slip_id= " + bean.getRoSlipId() + ")," + 
-				bean.getQuantity()*bean.getUnitRetailPrice()*(bean.getCtaxRate()/100)+ "," + 
+				"(select ("+bean.getQuantity()+"*"+bean.getUnitRetailPrice()+"*ctax_rate)/100 from (select ctax_rate from ro_slip_trn_xxxxx where ro_slip_id= "+ bean.getRoSlipId() +") as a)," + 
 				bean.getQuantity() + 
 				")";
 		
@@ -1351,5 +1369,22 @@ public String onlineInputDetail(OrderOnlineDetailBean bean) {
 		sql = "select ro_slip_id from ro_slip_trn_xxxxx order by ro_slip_id desc limit 1";
 		
 		return sql;
+	}
+	
+	public String OrderInputResult(String roSlipId) {
+		
+		String sql;
+		
+		sql = "select " + 
+				"ro_slip_id," + 
+				"customer_name," + 
+				"ro_date " + 
+			  "from " + 
+				"ro_slip_trn_xxxxx " + 
+			  "where " + 
+				"ro_slip_id >= " + roSlipId;
+		
+		return sql;
+		
 	}
 }

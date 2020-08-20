@@ -11,6 +11,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import com.google.gson.Gson;
 import com.google.gson.JsonArray;
+import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 
 import common.controller.BaseAJAXController;
@@ -37,7 +38,7 @@ public class OrderCommonBillController extends BaseAJAXController {
 	/* 見積検索 */
 	private void searchEstimate(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException, SQLException, ClassNotFoundException {
 		
-		List<OrderCommonBillBean> list = new ArrayList<>();
+		List<OrderCommonBillBean> list = new ArrayList<OrderCommonBillBean>();
 		OrderCommonBillDAO dao = new OrderCommonBillDAO();
 		OrderCommonBillBean bean = new OrderCommonBillBean();
 		
@@ -50,11 +51,15 @@ public class OrderCommonBillController extends BaseAJAXController {
 		
 		try {
 			list = dao.billSearch(bean);
-			String data = gson.toJson(list);
-			JsonArray jArray = new JsonParser().parse(data).getAsJsonArray();
+			JsonArray jArray = gson.toJsonTree(list).getAsJsonArray();
+			
+			JsonObject jObject = new JsonObject();
+			
+			jObject.add("list", jArray);
 			
 			response.setContentType("application/x-json; charset=UTF-8");
-			response.getWriter().print(jArray);
+			response.getWriter().print(jObject);
+			
 		} catch (ClassNotFoundException | SQLException e) {
 			
 			// TODO Auto-generated catch block

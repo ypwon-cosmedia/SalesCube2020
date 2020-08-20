@@ -11,6 +11,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import common.controller.BaseController;
+import common.modal.product.init.ProductModalInit;
 import master.product.DAO.GetCategoryDAO;
 import master.product.DAO.ProductDeleteDAO;
 import master.product.beans.ProductCategoryAllBean;
@@ -51,7 +52,7 @@ public class OrderInputController extends BaseController {
 			
 		}else if(action.equals("billlink")) {
 			try {
-				EstimateToOrderInput(request, response);
+				forwardURL = EstimateToOrderInput(request, response);
 			} catch (ClassNotFoundException | ServletException | IOException | SQLException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
@@ -477,9 +478,10 @@ public class OrderInputController extends BaseController {
 	}
 	
 	/* 見積番号押下 受注新規登録画面に反映 */
-	private void EstimateToOrderInput(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException, SQLException, ClassNotFoundException {
-		
+	private String EstimateToOrderInput(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException, SQLException, ClassNotFoundException {
+		ProductModalInit init = new ProductModalInit();
 		OrderCommonBillDAO dao = new OrderCommonBillDAO();
+		OrderInputDAO dao2 = new OrderInputDAO();
 		OrderCommonBillBean bean1 = new OrderCommonBillBean();
 		OrderCommonBillBean bean2 = new OrderCommonBillBean();
 		OrderCommonBillBean bean3 = new OrderCommonBillBean();
@@ -490,9 +492,21 @@ public class OrderInputController extends BaseController {
 		bean2 = dao.billToCustomer(estimateSheetId);
 		bean3 = dao.billToDelivery(estimateSheetId);
 		
+		List<OrderInputBean> list1 = dao2.getDcName();
+		List<OrderInputBean> list2 = dao2.getDcTimezone();
+		List<OrderInputBean> list3 = dao2.getTaxRate();
+		init.initCombobox(request, response);
+
+
+		request.setAttribute("initDcName", list1);
+		request.setAttribute("initDcTimezone", list2);
+		request.setAttribute("initTaxRate", list3);
+		
 		request.setAttribute("stockTaxRate", bean1);
 		request.setAttribute("stockCustomer", bean2);
 		request.setAttribute("stockDelivery", bean3);
+		
+		return "order\\orderinput.jsp";
 
 	}
 	

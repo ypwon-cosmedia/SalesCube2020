@@ -141,7 +141,7 @@
         
           <div class="btn-group mr-2 " role="group" aria-label="First group">
             <button type="button" class="btn btn-secondary" style="font-size: 12px;" onclick="initForm()">F1<br>初期化</button>
-            <button type="button" class="btn btn-secondary" style="font-size: 12px;" onclick="estimateHidden()">F2<br>検索</button>
+            <button type="button" class="btn btn-secondary" style="font-size: 12px;" onclick="estimateSearch1() ; estimateSearch2()">F2<br>検索</button>
             <button type="button" class="btn btn-secondary" style="font-size: 12px;" onclick="excelOut()" id="csvDownloadButton">F3<br>Excel出力</button>
             <button type="button" class="btn btn-secondary" style="font-size: 12px;" data-toggle="modal" data-target="#setSlipConfiguration" onclick="configGet() ; initButton()">F4<br>設定</button>
             <button type="button" class="btn btn-secondary" style="font-size: 12px;" disabled>F5<br></button>
@@ -308,16 +308,17 @@
 
             <div class="rounded float-right">
               <button type="button" class="btn btn-primary" onclick="initForm()">初期化</button>
-              <input type="button" value="検索" class="btn btn-primary" onclick="estimateSearch1()">
+              <input type="button" value="検索" class="btn btn-primary" onclick="estimateSearch1() ; estimateSearch2()">
             </div><br>
           <br>
         </div><br>
       </div><br>
 
 
-      <div id="resultEstimate" hidden="hidden">
+      <div id="resultCount" hidden="hidden">
         <div class="container">
             <div class="float-left" style="position:static; left: 0px;">
+            
             <!-- 検索結果件数 -->
               <span id="estimateSearchResultCount"></span>
             </div>
@@ -342,8 +343,10 @@
      
     
       <br><br>
-      <!-- 見積検索結果テーブル  -->
-      <div class="container" style="background-color: rgb(255, 255, 255);" id="resultEstimate" hidden="hidden">
+      
+      
+      <!-- 見積検索結果テーブル  -->      
+  <!--    <div class="container" style="background-color: rgb(255, 255, 255);" id="resultEstimate" hidden="hidden">
         <table id="order_detail_info" class="table table_2 table-bordered" style= "table-layout: auto; width: 1120px;  position:relative;right:15px"> 
           <thead class="thead-light" id="AddHead">
   
@@ -375,100 +378,191 @@
             
         </table>
       </div>
+      -->
+      
+      
+      <!-- 検索結果表示 -->
+      <div class="container" style="background-color: rgb(255, 255, 255);" id="resultEstimate" hidden="hidden">
+    	<table id="order_detail_info" class="table table_2 table-bordered" style= "table-layout: auto; width: 1120px;  position:relative;right:15px"> 
+			<thead class="thead-dark" id="resultHead">
+			</thead>
+			<tbody class="list" id="searchResult">
+			</tbody>
+		</table>
+	</div>
+      
       
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.2/jquery.min.js"></script>
-
-
 <script>	  
-		  //初期化処理
-		  function initForm(){
-				if(!confirm("入力内容を初期化してよろしいですか？")){
-		           	return;
-		    	}
-				location.href = '/SalesCube2020/SalesCube?action=moveEstimateSearch';
-			}
+	  //初期化処理
+	  function initForm(){
+			if(!confirm("入力内容を初期化してよろしいですか？")){
+	           	return;
+	    	}
+			location.href = '/SalesCube2020/SalesCube?action=moveEstimateSearch';
+		}
+	  
+	
+	  //Excel出力
+	  function excelOut(){
+			if(!confirm("検索結果をExcelファイルでダウンロードしますか？")){
+	           	return;
+	    	}
+	  }
 		
-				  //Excel出力
-				  function excelOut(){
-						if(!confirm("検索結果をExcelファイルでダウンロードしますか？")){
-				           	return;
-				    	}
-				  }
-					
-				  //顧客コード・顧客名の値をセット
-			      	function selectCustomerCode(code, name){
-		          		document.getElementById('CustomerModalCustomerCode').value = code;
-		          		document.getElementById('CustomerModalCustomerName').value = name;
-		          	}
-				  
-			      //担当者コード・担当者名の値をセット
-			     	function selectUserId(id, name){
-			      		document.getElementById('UserModalUserId').value = id;
-			      		document.getElementById('UserModalNameKnj').value = name;
-			      	}
-			      
-			      
-			     //見積検索結果
-			     function estimateSearch1() {
-			    	 var formString = $("form[id=estimate]").serialize();
-						var tmp = "";
-						
-						$.ajax({
-							
-							url:'/SalesCube2020/SalesCubeAJAX?action=estimateSearch',
-							type:'post',
-							data:formString,
-							dataType:'json',
-							success:function(data){	
-								document.getElementById("resultEstimate").removeAttribute('hidden');//テーブルの表示
-								$("#estimateResult > tr").remove();
-									var tableAdd = document.getElementById('estimateResult');
-								
-								if(Object.keys(data).length == 0){
-									var message = '<p style="color: red;">該当する見積情報は存在しません</p>';
-			     		 			$("#estimateSearchError").empty();//エラーメッセージの削除
-			     		 			$("#estimateSearchError").append(message);	//エラーメッセージの表示
-			     		 			document.getElementById("resultEstimate").setAttribute('hidden','hidden');
-			     		 		//検索結果がある場合
-			     		 		}else{
-			     		 		//エラーメッセージ
-			     		 			$("#estimateSearchError").empty();//エラーメッセージの削除
-			     		 		//検索結果件数の設定
-			     		 			$("#estimateSearchResultCount").empty();
-			     		 			$('#estimateSearchResultCount').append('検索結果件数：' + Object.keys(data).length + '件');	//検索結果件数の設定の表示
-			     		 			
-			     		 																	
-									for(var i = 0; i<Object.keys(data).length; i++) {
-										var headcontents= '';
-										headcontents += '<tr>';
-										headcontents += '<td style="white-space: normal; text-align: left;"> '+data[i].estimateSheetId+'</td>';
-										headcontents += '<td style="white-space: normal; text-align: left;">'+data[i].estimateDate+'</td>';
-										headcontents += '<td style="white-space: normal; text-align: left;">'+data[i].validDate+'</td>';
-										headcontents += '<td style="white-space: normal; text-align: left;">'+data[i].submitName+'</td>';
-										headcontents += '<td style="white-space: normal; text-align: left;">'+data[i].submitPre+'</td>';
-										headcontents += '<td style="white-space: normal; text-align: left;">'+data[i].customerCode+'</td>';
-										headcontents += '<td style="white-space: normal; text-align: left;">'+data[i].customerName+'</td>';
-										headcontents += '<td style="white-space: normal; text-align: left;">'+data[i].grossProfit+'</td>';
-										headcontents += '<td style="white-space: normal; text-align: left;">'+data[i].grossProfitMargin+'</td>';
-										headcontents += '<td style="white-space: normal; text-align: left;">'+data[i].retailPriceTotal+'</td>';
-										headcontents += '<td style="white-space: normal; text-align: left;">'+data[i].ctaxPriceTotal+'</td>';
-										headcontents += '<td style="white-space: normal; text-align: left;">'+data[i].deliveryInfo+'</td>';
-										headcontents += '<td style="white-space: normal; text-align: left;">'+data[i].userId+'</td>';
-										headcontents += '<td style="white-space: normal; text-align: left;">'+data[i].userName+'</td>';
-										headcontents += '<td style="white-space: normal; text-align: left;">'+data[i].remarks+'</td>';
-										headcontents += '<td style="white-space: normal; text-align: left;">'+data[i].deliveryName+'</td>';
-										headcontents += '<td style="white-space: normal; text-align: left;">'+data[i].estimateCondition+'</td>';
-										headcontents += '<td style="white-space: normal; text-align: left;">'+data[i].estimateTotal+'</td>';
-										headcontents += '<td style="white-space: normal; text-align: left;">'+data[i].title+'</td>';
-										headcontents += '</tr>';
-										$('#estimateResult').append(headcontents);
-									}
-									
-								}
+	  
+	  //顧客コード・顧客名の値をセット
+     	function selectCustomerCode(code, name){
+        		document.getElementById('CustomerModalCustomerCode').value = code;
+        		document.getElementById('CustomerModalCustomerName').value = name;
+        	}
+  
+	  
+	     //担当者コード・担当者名の値をセット
+    	function selectUserId(id, name){
+     		document.getElementById('UserModalUserId').value = id;
+     		document.getElementById('UserModalNameKnj').value = name;
+     	}
+		      
+		      
+	   	//見積検索結果（見出し部）
+	    function estimateSearch1() {
+	   	 var formString = $("form[id=estimate]").serialize();
+			var tmp = "";
+			alert("success1");
+			$.ajax({
+				
+				url:'/SalesCube2020/SalesCubeAJAX?action=estimateCreateTable',
+				type:'post',
+				data:formString,
+				dataType:'json',
+				success:function(data){	
+					alert("success2");
+					document.getElementById("resultEstimate").removeAttribute('hidden'); //テーブルの表示
+					$("#resultHead > tr").remove();
+						var tableAdd = document.getElementById('resultHead');
+						    		 																				
+							var headcontents= '';
+							headcontents += '<tr>';
+							for(var i = 0; i<Object.keys(data).length; i++) {
+								headcontents += '<th scope="col" class="th_back_black"> '+data[i].itemName;
 							}
-						});
-			     }
-		
+							headcontents += '</tr>';
+							$('#resultHead').append(headcontents);								
+					}
+			});
+	    }
+		  
+	   	
+	    //見積検索結果
+	    function estimateSearch2() {
+	   	 var formString = $("form[id=estimate]").serialize();
+			var tmp = "";
+			
+			$.ajax({
+				
+				url:'/SalesCube2020/SalesCubeAJAX?action=estimateSearch',
+				type:'post',
+				data:formString,
+				dataType:'json',
+				success:function(data){	
+					document.getElementById("resultCount").removeAttribute('hidden');//テーブルの表示
+					document.getElementById("resultEstimate").removeAttribute('hidden');//テーブルの表示
+					$("#searchResult > tr").remove();
+						var tableAdd = document.getElementById('searchResult');
+					
+					if(Object.keys(data).length == 0){
+						var message = '<p style="color: red;">該当する見積情報は存在しません</p>';
+	    		 			$("#estimateSearchError").empty(); //エラーメッセージの削除
+	    		 			$("#estimateSearchError").append(message);	//エラーメッセージの表示
+	    		 			document.getElementById("resultEstimate").setAttribute('hidden','hidden');
+	    		 		//検索結果がある場合
+	    		 		}else{
+	    		 			alert("succces3");
+	    		 		//エラーメッセージ
+	    		 			$("#estimateSearchError").empty();//エラーメッセージの削除
+	    		 		//検索結果件数の設定
+	    		 			$("#estimateSearchResultCount").empty();
+	    		 			$('#estimateSearchResultCount').append('検索結果件数：' + Object.keys(data).length + '件');	 //検索結果件数の設定の表示
+	    		 			
+							for(var i = 0; i < Object.keys(data).length; i++) {
+								var headcontents= '';
+								headcontents += '<tr>';
+								
+								for(var j = 0; j < document.getElementById("showSearchResult").options.length; j++) {
+									headcontents += '<td style="white-space: normal; text-align: left;"> '
+									var tmp = Object.keys(data[i])[j];
+									switch(tmp){
+										case "estimateSheetId" :
+											headcontents += data[i].estimateSheetId;
+											break;
+										case "estimateDate" :
+											headcontents += data[i].estimateDate;
+											break;
+										case "deliveryInfo" :
+											headcontents += data[i].deliveryInfo;
+											break;
+										case "validDate" :
+											headcontents += data[i].validDate;
+											break;
+										case "userId" :
+											headcontents += data[i].userId;
+											break;
+										case "userName" :
+											headcontents += data[i].userName;
+											break;
+										case "title" :
+											headcontents += data[i].title;
+											break;
+										case "remarks" :
+											headcontents += data[i].remarks;
+											break;
+										case "deliveryName" :
+											headcontents += data[i].deliveryName;
+											break;
+										case "estimateCondition" :
+											headcontents += data[i].estimateCondition;
+											break;
+										case "submitName" :
+											headcontents += data[i].submitName;
+											break;
+										case "submitPre" :
+											headcontents += data[i].submitPre;
+											break;
+										case "customerCode" :
+											headcontents += data[i].customerCode;
+											break;
+										case "customerName" :
+											headcontents += data[i].customerName;
+											break;
+										case "grossMargin" :
+											headcontents += data[i].grossProfit;
+											break;
+										case "grossMarginRate" :
+											headcontents += data[i].grossProfitMargin;
+											break;
+										case "retailPriceTotal" :
+											headcontents += data[i].retailPriceTotal;
+											break;
+										case "ctaxPriceTotal" :
+											headcontents += data[i].ctaxPriceTotal;
+											break;
+										case "estimateTotal" :
+											headcontents += data[i].estimateTotal;
+											break;
+									}
+									headcontents += '</td>';
+								}
+								headcontents += '</tr>';
+								$('#searchResult').append(headcontents);
+							}
+							
+											
+					}
+				}
+			});
+	    }
+			     			     		
 </script>
 	</body>
 </html>

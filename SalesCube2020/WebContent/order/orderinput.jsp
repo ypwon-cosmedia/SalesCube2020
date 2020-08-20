@@ -213,7 +213,7 @@
 									<div class="input-group-text">消費税率</div>
 								</div>
 								<select class="custom-select" name="ctaxRate">
-									<option value=""></option>
+									<option value="">${stockTaxRate.ctaxRate}</option>
 									<c:forEach items="${initTaxRate}" var="initTR">
 										<option value="${initTR.ctaxRate}" id="ctaxRate">${initTR.ctaxRate}</option>
 									</c:forEach>
@@ -238,7 +238,7 @@
 								<div class="input-group-prepend">
 									<div class="input-group-text" style = "background-color: pink;">顧客コード</div>
 								</div>
-								<input type="text" value="" class="form-control" id="customerCodeInput" maxlength='15' data-required-error="顧客コードは入力必須項目です" name="customerCode" onchange="customerInfo()" required>
+								<input type="text" value="${stockCustomer.customerCode}" class="form-control" id="customerCodeInput" maxlength='15' data-required-error="顧客コードは入力必須項目です" name="customerCode" onchange="customerInfo()" required>
 								<button type="button" class="btn btn-outline-secondary" data-toggle="modal" data-target="#customerSearch" onclick="customerCodetoModal();">検索</button>
 							</div>
 						</div>
@@ -248,7 +248,7 @@
 								<div class="input-group-prepend">
 									<div class="input-group-text">顧客名</div>
 								</div>
-								<input type="text" value=""  class="form-control" id="customerNameInput" name="customerName" readonly>
+								<input type="text" value="${stockCustomer.customerName}"  class="form-control" id="customerNameInput" name="customerName" readonly>
 							</div>
 						</div>
 						<div class="col-4">
@@ -257,7 +257,7 @@
 								<div class="input-group-prepend">
 									<div class="input-group-text">税転嫁</div>
 								</div>
-								<input type="text" value="" class="form-control" name="taxShiftCategory" id="taxShiftCategory" readonly>
+								<input type="text" value="${stockCustomer.taxShiftCategory}" class="form-control" name="taxShiftCategory" id="taxShiftCategory" readonly>
 							</div>
 						</div>
 					</div>
@@ -268,7 +268,7 @@
 								<div class="input-group-prepend">
 									<div class="input-group-text">支払条件</div>
 								</div>
-								<input type="text" value="" class="form-control" name="cutoffGroup" id="cutoffGroup" readonly>
+								<input type="text" value="${stockCustomer.cutoffGroup}" class="form-control" name="cutoffGroup" id="cutoffGroup" readonly>
 							</div>
 						</div>
 						<div class="col-4">
@@ -277,7 +277,7 @@
 								<div class="input-group-prepend">
 									<div class="input-group-text">取引区分</div>
 								</div>
-								<input type="text" value="" class="form-control" name="salesCmCategory" id="salesCmCategory" readonly>
+								<input type="text" value="${stockCustomer.salesCmCategory}" class="form-control" name="salesCmCategory" id="salesCmCategory" readonly>
 							</div>
 						</div>
 						<div class="col-4">
@@ -286,7 +286,7 @@
 								<div class="input-group-prepend">
 									<div class="input-group-text">備考</div>
 								</div>
-								<input type="text" value="" class="form-control" name="customerRemarks" id="customerRemarks" readonly>
+								<input type="text" value="${stockCustomer.customerRemarks}" class="form-control" name="customerRemarks" id="customerRemarks" readonly>
 							</div>
 						</div>
 					</div>
@@ -297,7 +297,7 @@
 								<div class="input-group-prepend">
 									<div class="input-group-text">コメント</div>
 								</div>
-								<input type="text" value="" class="form-control" name="customerCommentData" id="customerCommentData" readonly>
+								<input type="text" value="${stockCustomer.customerCommentData}" class="form-control" name="customerCommentData" id="customerCommentData" readonly>
 							</div>
 						</div>
 					</div>
@@ -319,10 +319,10 @@
 									<div class="input-group-text">顧客納入先</div>
 								</div>
 								<select class="custom-select" name="deliveryName" id="deliveryName">
-									<option value=""></option>
-<!--									<c:forEach items="">-->
-<!--										<option value=""></option>-->
-<!--									</c:forEach>-->
+									<option value="">${stockDelivery.deliveryName}</option>
+									<c:forEach items="">
+										<option value=""></option>
+									</c:forEach>
 								</select>
 							</div>
 						</div>
@@ -332,7 +332,7 @@
 								<div class="input-group-prepend">
 									<div class="input-group-text">事務所名</div>
 								</div>
-								<input type="text" value="" class="form-control" name="deliveryOfficeName" id="deliveryOfficeName" readonly>
+								<input type="text" value="${stockDelivery.deliveryOfficeName}" class="form-control" name="deliveryOfficeName" id="deliveryOfficeName" readonly>
 							</div>
 						</div>
 						<div class="col-4">
@@ -341,7 +341,7 @@
 								<div class="input-group-prepend">
 									<div class="input-group-text">部署名</div>
 								</div>
-								<input type="text" value="" class="form-control" name="deliveryDeptName" id="deliveryDeptName" readonly>
+								<input type="text" value="${stockDelivery.deliveryDeptName}" class="form-control" name="deliveryDeptName" id="deliveryDeptName" readonly>
 							</div>
 						</div>
 					</div>
@@ -352,7 +352,7 @@
 								<div class="input-group-prepend">
 									<div class="input-group-text">郵便番号</div>
 								</div>
-								<input type="text" value="" class="form-control" name="deliveryZipCode" id="deliveryZipCode"  readonly>
+								<input type="text" value="${stockDelivery.deliveryZipCode}" class="form-control" name="deliveryZipCode" id="deliveryZipCode"  readonly>
 							</div>
 						</div>
 						<div class="col-4">
@@ -361,7 +361,7 @@
 								<div class="input-group-prepend">
 									<div class="input-group-text">住所1</div>
 								</div>
-								<input type="text" value="" class="form-control" name="deliveryAddress1" id="deliveryAddress1" readonly>
+								<input type="text" value="${stockDelivery.deliveryAddress1}" class="form-control" name="deliveryAddress1" id="deliveryAddress1" readonly>
 							</div>
 						</div>
 						<div class="col-4">
@@ -370,7 +370,7 @@
 								<div class="input-group-prepend">
 									<div class="input-group-text">住所2</div>
 								</div>
-								<input type="text" value="" class="form-control" name="deliveryAddress2" id="deliveryAddress2" readonly>
+								<input type="text" value="${stockDelivery.deliveryAddress2}" class="form-control" name="deliveryAddress2" id="deliveryAddress2" readonly>
 							</div>
 						</div>
 					</div>
@@ -381,7 +381,7 @@
 								<div class="input-group-prepend">
 									<div class="input-group-text">担当者</div>
 								</div>
-								<input type="text" value="" class="form-control" name="deliveryPcName" id="deliveryPcName" readonly>
+								<input type="text" value="${stockDelivery.deliveryPcName}" class="form-control" name="deliveryPcName" id="deliveryPcName" readonly>
 							</div>
 						</div>
 						<div class="col-4">
@@ -390,7 +390,7 @@
 								<div class="input-group-prepend">
 									<div class="input-group-text">担当者カナ</div>
 								</div>
-								<input type="text" value="" class="form-control" name="deliveryPcKana" id="deliveryPcKana" readonly>
+								<input type="text" value="${stockDelivery.deliveryPcKana}" class="form-control" name="deliveryPcKana" id="deliveryPcKana" readonly>
 							</div>
 						</div>
 						<div class="col-4">
@@ -399,7 +399,7 @@
 								<div class="input-group-prepend">
 									<div class="input-group-text">敬称</div>
 								</div>
-								<input type="text" value="" class="form-control" name="deliveryPcPre" id="deliveryPcPre" readonly>
+								<input type="text" value="${stockDelivery.deliveryPcPre}" class="form-control" name="deliveryPcPre" id="deliveryPcPre" readonly>
 							</div>
 						</div>
 					</div>
@@ -410,7 +410,7 @@
 								<div class="input-group-prepend">
 									<div class="input-group-text">TEL</div>
 								</div>
-								<input type="text" value="" class="form-control" name="deliveryTel" id="deliveryTel" readonly>
+								<input type="text" value="${stockDelivery.deliveryTel}" class="form-control" name="deliveryTel" id="deliveryTel" readonly>
 							</div>
 						</div>
 						<div class="col-4">
@@ -419,7 +419,7 @@
 								<div class="input-group-prepend">
 									<div class="input-group-text">FAX</div>
 								</div>
-								<input type="text" value="" class="form-control" name="deliveryFax" id="deliveryFax" readonly>
+								<input type="text" value="${stockDelivery.deliveryFax}" class="form-control" name="deliveryFax" id="deliveryFax" readonly>
 							</div>
 						</div>
 						<div class="col-4">
@@ -428,7 +428,7 @@
 								<div class="input-group-prepend">
 									<div class="input-group-text">E-MAIL</div>
 								</div>
-								<input type="text" value="" class="form-control" name="deliveryEmail" id="deliveryEmail" readonly>
+								<input type="text" value="${stockDelivery.deliveryEmail}" class="form-control" name="deliveryEmail" id="deliveryEmail" readonly>
 							</div>
 						</div>
 					</div>
@@ -576,28 +576,11 @@
 				location.reload();
 			}
 
-			/* 伝票呼出の初期化 */
-			function initFormOrder(){
-				if(!confirm("入力内容を初期化してよろしいですか？")){
-					return;
-				}
-				target1 = document.getElementById("inputEstimateSheetId");
-				target1.value = null;
-				target2 = document.getElementById("inputEstimateDate1");
-				target2.value = null;
-				target3 = document.getElementById("inputEstimateDate2");
-				target3.value = null;
-				target4 = document.getElementById("inputSubmitName");
-				target4.value = null;
-				target5 = document.getElementById("inputTitle");
-				target5.value = null;
-			}
-
 			/* 顧客検索の初期化 */
 /*			function initFormCustomer(){
-				if(!confirm("入力内容を初期化してよろしいですか？")){
-					return;
-				}
+				if(!confirm("入力内容を初期化してよろしいですか？")){*/
+				/*	return;*/
+/*				}
 				target1 = document.getElementById("inputCustomerCode");
 				target1.value = null;
 				target2 = document.getElementById("inputCustomerName");
