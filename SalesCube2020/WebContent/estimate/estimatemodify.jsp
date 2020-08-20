@@ -128,7 +128,7 @@
 			<div class="btn-group mr-2 " role="group" aria-label="First group">
 				<button type="button" class="btn btn-secondary" style="font-size: 12px;" onclick="moveEstimateAdd()">F1<br>戻る</button>
 				<button type="button" class="btn btn-secondary" style="font-size: 12px;" onclick="estimateDelete();">F2<br>削除</button>
-				<button type="button" class="btn btn-secondary" style="font-size: 12px;" onclick="modifyForm();">F3<br>更新</button>
+				<button type="button" class="btn btn-secondary" style="font-size: 12px;" onclick="fnModifyButton();">F3<br>更新</button>
 				<button type="button" class="btn btn-secondary" style="font-size: 12px;" onclick="outputPdf();">F4<br>PDF</button>
 				<button type="button" class="btn btn-secondary" style="font-size: 12px;" disabled>F5<br></button>
 				<button type="button" class="btn btn-secondary" style="font-size: 12px;" disabled>F6<br></button>
@@ -147,7 +147,7 @@
 		<div><h5 id="message" style="color:#ff0000;"></h5></div>
 	</div>
 
-	<form action="/SalesCube2020/SalesCube?action=estimateModify" method="post" name="modifyform">
+	<form action="/SalesCube2020/SalesCube?action=estimateModify" method="post" name="modifyform" id="modifyform">
 		<div class="container" style="background-color: white;">
 			<div class="panel panel-default" >
 				<div class="panel-heading row mb-2 col-4">
@@ -320,7 +320,7 @@
 									<div class="input-group-prepend">
 										<div class="input-group-text">顧客コード</div>
 									</div>
-									<input type="text" value="${estimate.customerCode}" class="form-control" name="customerCode" id="customerCode" onchange="inputGetCustomer(this)">
+									<input type="text" value="${estimate.customerCode}" class="form-control" name="customerCode" id="customerCode" onchange="inputGetCustomer(this)"  pattern="^[0-9A-Za-z]+$" title="※半角英数字">
 									<button type="button" class="ModalButton"  data-toggle="modal" data-target="#customerSearch" onclick="initCustomer() ; getCutoffGroup()">
 										<img src="btn_search.png" style="vertical-align: middle; cursor: pointer; width: 32px; height: 32px;">
 									</button>
@@ -423,7 +423,7 @@
 					<c:forEach var="product" items="${estimateProductList}" varStatus="status">
 						<tr id="tr${status.count}">
 							<td rowspan="2">${status.count}</td>
-							<td rowspan="2" class="backpink"><input type="text" name="productCode" id="inputProductCode${status.count}" value="${product.productCode}" style="width: 110px;" onchange="inputGetProduct(this)" required>
+							<td rowspan="2" class="backpink"><input type="text" name="productCode" id="inputProductCode${status.count}" value="${product.productCode}" style="width: 110px;" onchange="inputGetProduct(this)" pattern="^[0-9A-Za-z]+$" title="※半角英数字" required>
 							<button type="button" id="productSearch${status.count}" class="ModalButton"  data-toggle="modal" data-target="#setproductsearch" onclick="productSearchButton(this)" >
 								<img src="btn_search.png" style="vertical-align: middle; cursor: pointer; width: 22px; height: 22px;">
 							</button></td>
@@ -479,7 +479,7 @@
 		</div>
 
 		<div class="container" style="text-align:center">
-			<input type="submit" class="btn btn-primary" value="更新" style="width:200px; height:50px;">
+			<input type="submit" class="btn btn-primary" value="更新" id="mainModifyButton" style="width:200px; height:50px;">
 		</div>
 		<br><br>
 	</form>
@@ -498,6 +498,11 @@
 
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.2/jquery.min.js"></script>
   <script>
+	/* Fn更新ボタン押下時の処理 */
+	function fnModifyButton() {		//Fn更新ボタンを押したときのEventを追加
+		document.getElementById("mainModifyButton").click();
+	}
+	
     /* 戻る */
 	function moveEstimateAdd() {
 		if(!confirm("登録画面に戻りますか？")){

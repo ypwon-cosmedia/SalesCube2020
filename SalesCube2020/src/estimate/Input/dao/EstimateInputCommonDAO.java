@@ -41,8 +41,6 @@ public class EstimateInputCommonDAO extends BaseDAO {
 	 	
 	 	//sql="select TAX_RATE from tax_rate_mst_xxxxx where TAX_TYPE_CATEGORY = ?";
 	 	
-	 	System.out.println(sql);
-	 	
 	 	pstmt = con.prepareStatement(sql);
 	 	
 	 	pstmt.setInt(1, 1);

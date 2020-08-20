@@ -12,3 +12,4 @@ encoding//src/master/product/DAO/ProductSearchDAO.java=UTF-8
 encoding//src/master/product/beans/ProductModifyBean.java=UTF-8
 encoding//src/master/product/controller/ProductDeleteController.java=UTF-8
 encoding//src/master/product/controller/ProductExcelController.java=UTF-8
+encoding//src/sql/estimate/estimateSQL.properties=UTF-8

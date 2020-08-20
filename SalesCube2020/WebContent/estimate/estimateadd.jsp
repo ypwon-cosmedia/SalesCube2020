@@ -128,7 +128,7 @@
       <div class="btn-toolbar float-right" role="toolbar" aria-label="Toolbar with button groups">
         <div class="btn-group mr-2 " role="group" aria-label="First group">
           <button type="button" class="btn btn-secondary" style="font-size: 12px;" onclick="initForm()">F1<br>初期化</button>
-          <button type="button" class="btn btn-secondary" style="font-size: 12px;" id="addButton" onclick="addForm()" disabled>F2<br>登録</button>
+          <button type="button" class="btn btn-secondary" style="font-size: 12px;" id="addButton" onclick="fnAddButton()" disabled>F2<br>登録</button>
           <button type="button" class="btn btn-secondary" style="font-size: 12px;" disabled>F3<br></button>
           <button type="button" class="btn btn-secondary" style="font-size: 12px;" disabled>F4<br></button>
           <button type="button" class="btn btn-secondary" style="font-size: 12px;" disabled>F5<br></button>
@@ -147,7 +147,7 @@
     	<div><h5 id="message" style="color:#ff0000;"></h5></div>
     </div>
 
-    <form action="/SalesCube2020/SalesCube?action=estimateAdd" method="post" name="addform">
+    <form action="/SalesCube2020/SalesCube?action=estimateAdd" method="post" name="addform" id="addform">
       <div class="container" style="background-color: white;">
         <div class="panel panel-default" >
 			    <div class="panel-heading row mb-2 col-4">
@@ -325,7 +325,7 @@
                     <div class="input-group-prepend">
                       <div class="input-group-text">顧客コード</div>
                     </div>
-                      <input type="text" class="form-control" name="customerCode" id="customerCode" onchange="inputGetCustomer(this)">
+                      <input type="text" class="form-control" name="customerCode" id="customerCode" onchange="inputGetCustomer(this)"  pattern="^[0-9A-Za-z]+$" title="※半角英数字">
                       <button type="button" class="ModalButton"  data-toggle="modal" data-target="#customerSearch" onclick="initCustomer() ; getCutoffGroup()">
                         <img src="btn_search.png" style="vertical-align: middle; cursor: pointer; width: 32px; height: 32px;">
                       </button>
@@ -340,7 +340,7 @@
                     <div class="input-group-prepend">
                       <div class="input-group-text">顧客名</div>
                     </div>
-                    <input type="text" class="form-control" name="customerName" id="customerName" readonly>
+                    <input type="text" class="form-control" name="inputCustomerName" id="inputCustomerName" readonly>
                   </div>
                 </div>
               </div>
@@ -428,7 +428,7 @@
         <tbody>
           <tr id="tr1">
             <td rowspan="2">1</td>
-            <td rowspan="2" class="backpink"><input type="text" name="productCode" id="inputProductCode1" style="width: 110px;" onchange="inputGetProduct(this)" required>
+            <td rowspan="2" class="backpink"><input type="text" name="productCode" id="inputProductCode1" style="width: 110px;" onchange="inputGetProduct(this)" pattern="^[0-9A-Za-z]+$" title="※半角英数字" required>
               <button type="button" id="productSearch1" class="ModalButton"  data-toggle="modal" data-target="#setproductsearch" onclick="productSearchButton(this)" >
               	<img src="btn_search.png" style="vertical-align: middle; cursor: pointer; width: 22px; height: 22px;">
               </button></td>
@@ -498,7 +498,12 @@
 
 
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.2/jquery.min.js"></script>
-  <script>
+  <script>	
+	/* Fn登録ボタン押下の時の処理 */
+	function fnAddButton() {		//Fn登録ボタンを押したときのEventを追加
+  		document.getElementById("mainAddButton").click();
+	}
+	
     /* 入力値の初期化 */
 	function initForm() {
 		if(!confirm("入力内容を初期化してよろしいですか？")){
@@ -803,8 +808,8 @@
 						  form.submit();
 					  } else {
 						  alert("登録されていない見積番号です。新規登録可能です。");
-						  document.getElementById('addButton').removeAttribute('disabled')//#addButton(ファンクションボタン)の非活性化を解除
-						  document.getElementById('mainAddButton').removeAttribute('disabled')//#mainAddButton(画面中央下ボタン)の非活性化を解除
+						  document.getElementById('addButton').removeAttribute('disabled'); //#addButton(ファンクションボタン)の非活性化を解除
+						  document.getElementById('mainAddButton').removeAttribute('disabled');//#mainAddButton(画面中央下ボタン)の非活性化を解除
 					  }
        		    }
 			});
@@ -834,7 +839,7 @@
 						alert("該当する顧客情報は存在しません");
 					} else {
 					document.getElementById('submitName').value = data.customerName;
-					document.getElementById('customerName').value = data.customerName;
+					document.getElementById('inputCustomerName').value = data.customerName;
 					document.getElementById('customerRemarks').value = data.customerRemarks;
 					document.getElementById('customerComment').value = data.customerComment;
 					}
@@ -882,19 +887,6 @@
        		    }
 			});
 	  }
-	  
-	  /* 入力欄が変更された時のパターンチェック */
-	  var elem = document.getElementById("addform");	//formをidで取得
-	  elem.addEventListener('change', function() {			//入力したときのEventを追加
-	      elem.reportValidity();								//form(elem)のpatternの確認
-	  });
-	  /* 検索ボタンを押した際の入力チェック */
-	  var searchButton = document.getElementById("unitPriceInquirySearchButton");	//検索ボタンをidで取得
-	  searchButton.addEventListener("submit", function() {		//検索ボタンを押したときのEventを追加
-	  	if( elem.reportValidity() == true ){					//form(elem)のpatternの確認
-	  		searchSupplier();								//入力チェックが通った場合、仕入れ先を検索を行う
-	  	}
-	  },false);
 	  
   </script>
 </html>

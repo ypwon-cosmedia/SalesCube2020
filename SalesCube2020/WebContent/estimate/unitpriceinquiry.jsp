@@ -319,10 +319,8 @@
 	  //検索ボタンを押した際の入力チェック 
 	  var searchButton = document.getElementById("unitPriceInquirySearchButton");	//検索ボタンをidで取得
 	  searchButton.addEventListener("submit", function() {		//検索ボタンを押したときのEventを追加
-	  	if( elem.reportValidity() == true ){					//form(elem)のpatternの確認
-	  		searchSupplier();								//入力チェックが通った場合、仕入れ先を検索を行う
-	  	}
-	  },false);
+		  elem.reportValidity();
+	  });
   
 	  /* 画面読み込み時、リクエストスコープに"status"に"result"が保存されている場合、結果画面を表示する */
 	  window.onload = function () {
