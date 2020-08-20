@@ -109,6 +109,7 @@ public class CreateControllers {
 		map.put( "stocksearch", orderInputObj);
 		map.put( "moveStockToUpdate", stockObj);
 		map.put("deleteOrder", orderInputObj);
+		map.put("billlink", orderInputObj);
 		
 		map.put( "productModalSearch", orderSearchObj);
 		

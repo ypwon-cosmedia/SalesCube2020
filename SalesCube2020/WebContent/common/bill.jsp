@@ -93,7 +93,7 @@
 
 <script>
 	function billSearch() {	
-		alert();
+
 		var formString = $("form[id=bill]").serialize();
 		var tmp = "";
 		
@@ -104,13 +104,15 @@
 			dataType:'json',
 			success:function(data){	
 				$("#billBody > tr").remove();
-				for(var i = 0; i<Object.keys(data).length; i++){
+				var tableNo = ($("#billBody tr").length)+1
+				alert(tableNo);
+				for(var i = 0; i<Object.keys(data.list).length; i++){
 					var headcontents= '';
 					headcontents += '<tr>';
-					headcontents += '<td style="white-space: normal; text-align: left;" onclick="estimateSheettoParent(' + "'" + data[i].estimateSheetId +"','"+data[i].estimateSheetId+"'"+')" data-dismiss="modal"><a href="">'+data[i].estimateSheetId+'</a></td>';
-					headcontents += '<td style="white-space: normal; text-align: left;" onclick="estimateSheettoParent(' + "'" + data[i].estimateDate +"','"+data[i].estimateDate+"'"+')" data-dismiss="modal">'+data[i].estimateDate+'</td>';
-					headcontents += '<td style="white-space: normal; text-align: left;">'+(data[i].submitName==null ? '' : data[i].submitName)+'</td>';   
-					headcontents += '<td style="white-space: normal; text-align: left;">'+(data[i].title==null ? '' : data[i].title)+'</td>';   
+					headcontents += '<td style="white-space: normal; text-align: left;" onclick="billToOrder(this)" id="estimateSheetId' + tableNo +'" data-dismiss="modal"><a href="">'+data.list[i].estimateSheetId+'</a></td>';
+					headcontents += '<td style="white-space: normal; text-align: left;">'+(data.list[i].estimateDate==null ? '' : data.list[i].estimateDate)+'</td>';
+					headcontents += '<td style="white-space: normal; text-align: left;">'+(data.list[i].submitName==null ? '' : data.list[i].submitName)+'</td>';   
+					headcontents += '<td style="white-space: normal; text-align: left;">'+(data.list[i].title==null ? '' : data.list[i].title)+'</td>';   
 					headcontents += '</tr>';
 					$('#billBody').append(headcontents);						
 				}
@@ -118,25 +120,39 @@
 		});
 	}
 	
+	function billToOrder(obj){
+		var tableNo = obj.id.substr(15);
+		alert(tableNo);
+		var estimateSheetId = document.getElementById("estimateSheetId"+tableNo).innerText;
+		var form = document.createElement("form");
+		form.setAttribute("charset", "UTF-8");
+		form.setAttribute("method", "post");
+		form.setAttribute("action", "/SalesCube2020/SalesCube?action=billlink");
+		var input = document.createElement("input");
+		input.setAttribute("type", "hidden");
+		input.setAttribute("name", "estimateSheetId");
+		input.setAttribute("value", estimateSheetId);
+		form.appendChild(input);
+		document.body.appendChild(form);
+		form.submit();
+	}
+	
+	/* 伝票呼出の初期化 */
 	function initFormOrder() {	
 		$("#billBody > tr").remove();
-		$.ajax({
-			url:'/SalesCube2020/SalesCubeAJAX?action=initBill',
-			dataType:'json',
-			type:'post',
-			success:function(data){	
-				for(var i = 0; i<Object.keys(data.list1).length; i++){
-					$("#setTypeCategory").append("<option value = "+data.list1[i].categoryCode+">"+data.list1[i].categoryCodeName+"</option>");	
-				}
-				for(var i = 0; i<Object.keys(data.list2).length; i++){
-					$("#productStandardCategory").append("<option value = "+data.list2[i].categoryCode+">"+data.list2[i].categoryCodeName+"</option>");
-				}
-				for(var i = 0; i<Object.keys(data.list3).length; i++){
-					$("#productStockCategory").append("<option value = "+data.list3[i].categoryCode+">"+data.list3[i].categoryCodeName+"</option>");
-					
-				}
+			if(!confirm("入力内容を初期化してよろしいですか？")){
+				return;
 			}
-		});
+			target1 = document.getElementById("inputEstimateSheetId");
+			target1.value = null;
+			target2 = document.getElementById("inputEstimateDate1");
+			target2.value = null;
+			target3 = document.getElementById("inputEstimateDate2");
+			target3.value = null;
+			target4 = document.getElementById("inputSubmitName");
+			target4.value = null;
+			target5 = document.getElementById("inputTitle");
+			target5.value = null;
 	}
 	
 </script>
