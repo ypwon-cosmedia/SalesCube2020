@@ -137,27 +137,27 @@
     <form action="/SalesCube2020/SalesCube?action=unitPriceInquirySearch" method="post" name="unitpriceinquiryform">
       <div class="container" style="background-color: white;">
         <div class="panel panel-default" >
-			    <div class="panel-heading row mb-2 col-4">
-				     <h5><br>検索条件</h5>
-			    </div>
-			    <hr>
+		    <div class="panel-heading row mb-2 col-4">
+			     <h5><br>検索条件</h5>
+		    </div>
+			<hr>
 		
-			  	<div class="panel-body">
-				    <div class="row">
-					    <div class="col-4">
-						    <label class="sr-only" for="inlineFormInputGroup"></label>
-						    <div class="input-group mb-2">
-						    	<div class="input-group-prepend">
-						    		<div class="input-group-text">商品コード</div>
-						  		</div>
-			                    <input type="text" value="${searchResult.productCode}" class="form-control" id="inputProductCode" name="productCode">
-			                    <button type="button" class="ModalButton"  data-toggle="modal" data-target="#setproductsearch" onclick="initProductModal()">
-			                      <img src="btn_search.png" style="vertical-align: middle; cursor: pointer; width: 32px; height: 32px;">
-			                    </button>
-					  		</div>
-              </div>
-            </div>
-          </div>
+			<div class="panel-body">
+				<div class="row">
+					<div class="col-4">
+				 		<label class="sr-only" for="inlineFormInputGroup"></label>
+				  		<div class="input-group mb-2">
+				  			<div class="input-group-prepend">
+				  				<div class="input-group-text">商品コード</div>
+							</div>
+				           	<input type="text" value="${searchResult.productCode}" class="form-control" id="inputProductCode" name="productCode">
+							<button type="button" class="ModalButton"  data-toggle="modal" data-target="#setproductsearch" onclick="initProductModal()">
+								<img src="btn_search.png" style="vertical-align: middle; cursor: pointer; width: 32px; height: 32px;">
+				            </button>
+						</div>
+					</div>
+				</div>
+			</div>
 
           <div align="right">
             <input type="button" value="初期化" class="btn btn-primary" onclick="initForm();">
