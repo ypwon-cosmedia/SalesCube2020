@@ -116,7 +116,7 @@ public class OrderSQL {
 	
 	/* 見積モーダル */
 	/* 見積検索 */
-	public String billSearch(String estimateSheetId, String estimateDate, String submitName, String title, OrderCommonBillBean bean) {
+	public String billSearch(OrderCommonBillBean bean) {
 		
 		String sql;
 		

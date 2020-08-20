@@ -1,6 +1,7 @@
 package estimate.Input.dao;
 
 import java.sql.Connection;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
@@ -9,6 +10,7 @@ import java.util.List;
 import java.util.MissingResourceException;
 
 import common.dao.BaseDAO;
+import estimate.Input.API.EstimatePropertyUtil;
 import estimate.Input.beans.EstimateAddBean;
 import estimate.Input.beans.EstimateProductAddBean;
 
@@ -19,7 +21,7 @@ public class EstimateAddDAO extends BaseDAO {
 	public int addEstimate(EstimateAddBean bean) throws ClassNotFoundException, MissingResourceException, SQLException {
 		
 		Connection con;
-		Statement stmt = null;
+		PreparedStatement pstmt= null;
 	 	int result = 0;
 	 	String  sql;
 	 	
@@ -48,110 +50,35 @@ public class EstimateAddDAO extends BaseDAO {
 	 	Integer costTotal		  = bean.getCostTotal();
 	 	String creUser			  = bean.getCreUser();
 	 	
-		LocalDateTime ldt           = LocalDateTime.now();
+		LocalDateTime ldt           = LocalDateTime.now(); //現在時刻取得
 		String creDate              = ldt.toString();
 	 	
-	 	//SQL変換
-	 	String estimateSheetIdSQL;
-	 	String estimateDateSQL;
-	 	String deliveryInfoSQL;
-	 	String validDateSQL;
-	 	String userNameSQL;
-	 	String userIdSQL;
-	 	String titleSQL;
-	 	String deliveryNameSQL;
-	 	String estimateConditionSQL;
-	 	String submitNameSQL;
-	 	String submitPreSQL;
-	 	String customerCodeSQL;
-	 	String customerNameSQL;
-	 	String customerRemarksSQL;
-	 	String customerCommentSQL;
-	 	String remarksSQL;
-	 	String memoSQL;
-	 	Integer retailPriceTotalSQL;
-	 	Integer ctaxPriceTotalSQL;
-	 	Integer estimateTotalSQL;
-	 	Integer costTotalSQL;
-	 	String creDateSQL;
-	 	String creUserSQL;
-	 	
-	 	
-	 	//nullの場合の処理
-		if(estimateSheetId==null || estimateSheetId.equals("")) {estimateSheetIdSQL = null;} 
-		else {estimateSheetIdSQL = "'" + estimateSheetId + "'";}
-		
-		if(estimateDate==null || estimateDate.equals("")) {estimateDateSQL = null;} 
-		else {estimateDateSQL = "'" + estimateDate + "'";}
-		
-		if(deliveryInfo==null || deliveryInfo.equals("")) {deliveryInfoSQL = null;} 
-		else {deliveryInfoSQL = "'" + deliveryInfo + "'";}
-		
-		if(validDate==null || validDate.equals("")) {validDateSQL = null;} 
-		else {validDateSQL = "'" + validDate + "'";}
-		
-		if(userName==null || userName.equals("")) {userNameSQL = null;} 
-		else {userNameSQL = "'" + userName + "'";}
-		
-		if(userId==null || userId.equals("")) {userIdSQL = null;} 
-		else {userIdSQL = "'" + userId + "'";}
-		
-		if(title==null || title.equals("")) {titleSQL = null;} 
-		else {titleSQL = "'" + title + "'";}
-		
-		if(deliveryName==null || deliveryName.equals("")) {deliveryNameSQL = null;} 
-		else {deliveryNameSQL = "'" + deliveryName + "'";}
-		
-		if(estimateCondition==null || estimateCondition.equals("")) {estimateConditionSQL = null;} 
-		else {estimateConditionSQL = "'" + estimateCondition + "'";}	
-		
-		if(submitName==null || submitName.equals("")) {submitNameSQL = null;} 
-		else {submitNameSQL = "'" + submitName + "'";}
-		
-		if(submitPre==null || submitPre.equals("")) {submitPreSQL = null;} 
-		else {submitPreSQL = "'" + submitPre + "'";}
-		
-		if(customerCode==null || customerCode.equals("")) {customerCodeSQL = null;} 
-		else {customerCodeSQL = "'" + customerCode + "'";}
-		
-		if(customerName==null || customerName.equals("")) {customerNameSQL = null;} 
-		else {customerNameSQL = "'" + customerName + "'";}
-		
-		if(customerRemarks==null || customerRemarks.equals("")) {customerRemarksSQL = null;} 
-		else {customerRemarksSQL = "'" + customerRemarks + "'";}
-		
-		if(customerComment==null || customerComment.equals("")) {customerCommentSQL = null;} 
-		else {customerCommentSQL = "'" + customerComment + "'";}
-		
-		if(remarks==null || remarks.equals("")) {remarksSQL = null;} 
-		else {remarksSQL = "'" + remarks + "'";}
-		
-		if(memo==null || memo.equals("")) {memoSQL = null;} 
-		else {memoSQL = "'" + memo + "'";}
-		
-		if(retailPriceTotal==null) {retailPriceTotalSQL = null;} 
-		else {retailPriceTotalSQL = retailPriceTotal;}
-		
-		if(ctaxPriceTotal==null) {ctaxPriceTotalSQL = null;} 
-		else {ctaxPriceTotalSQL = ctaxPriceTotal;}
-		
-		if(estimateTotal==null) {estimateTotalSQL = null;} 
-		else {estimateTotalSQL = estimateTotal;}
-		
-		if(costTotal==null) {costTotalSQL = null;} 
-		else {costTotalSQL = costTotal;}
-		
-		if(creDate==null || creDate.equals("")) {creDateSQL = null;} 
-		else {creDateSQL = "'" + creDate + "'";}
-		
-		if(creUser==null || creUser.equals("")) {creUserSQL = null;} 
-		else {creUserSQL = "'" + creUser + "'";}
+	 	//nullまたは空文字が入った場合の処理
+		if(estimateSheetId.equals("")) {estimateSheetId = null;} 
+		if(estimateDate.equals("")) {estimateDate = null;} 
+		if(deliveryInfo.equals("")) {deliveryInfo = null;} 
+		if(validDate.equals("")) {validDate = null;} 
+		if(userName.equals("")) {userName = null;} 
+		if(userId.equals("")) {userId = null;} 
+		if(title.equals("")) {title = null;} 
+		if(deliveryName.equals("")) {deliveryName = null;} 
+		if(estimateCondition.equals("")) {estimateCondition = null;} 
+		if(submitName.equals("")) {submitName = null;} 
+		if(submitPre.equals("")) {submitPre = null;} 
+		if(customerCode.equals("")) {customerCode = null;} 
+		if(customerName.equals("")) {customerName = null;} 
+		if(customerRemarks.equals("")) {customerRemarks = null;} 
+		if(customerComment.equals("")) {customerComment = null;} 
+		if(remarks.equals("")) {remarks = null;} 
+		if(memo.equals("")) {memo = null;} 
+		if(creDate.equals("")) {creDate = null;} 
+		if(creUser.equals("")) {creUser = null;} 
 		
 		con = super.getConnection();
-	 	stmt = con.createStatement();
-	 	
+	 	/*
+		
 	 	//見積登録をするSQL
-	 	sql = "insert into estimate_sheet_trn_xxxxx (" +
+	 	sql = "insert into estimate_sheet_trn_xxxxx(" +
 	 		      "ESTIMATE_SHEET_ID, " + 
 	 		      "ESTIMATE_DATE, " + 
 	 		      "DELIVERY_INFO, " + 
@@ -176,42 +103,47 @@ public class EstimateAddDAO extends BaseDAO {
 	 		      "COST_TOTAL, " + 
 	 		      "CRE_DATETM, " +
 	 		      "CRE_USER) " +
-	 		  "values " +
-	 		      "(" + estimateSheetIdSQL + ", " +
-			 		     estimateDateSQL + ", " +
-			 		     deliveryInfoSQL + ", " +
-			 		     validDateSQL + ", " +
-			 		     userNameSQL + ", " +
-			 		     userIdSQL + ", " +
-			 		     titleSQL + ", " +
-			 		     deliveryNameSQL + ", " +
-			 		     estimateConditionSQL + ", " +
-			 		     ctaxRate + ", " +
-			 		     submitNameSQL + ", " +
-			 		     submitPreSQL + ", " +
-			 		     customerCodeSQL + ", " +
-			 		     customerNameSQL + ", " +
-			 		     customerRemarksSQL + ", " +
-			 		     customerCommentSQL + ", " +
-			 		     remarksSQL + ", " +
-			 		     memoSQL + ", " +
-			 		     retailPriceTotalSQL + ", " +
-			 		     ctaxPriceTotalSQL + ", " +
-			 		     estimateTotalSQL + ", " +
-			 		     costTotalSQL + ", " +
-			 		     creDateSQL + ", " +
-			 		     creUserSQL + ")";
+	 		  "values" +
+	 		      "(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+	 	*/
+	 	sql = EstimatePropertyUtil.getProperty("addEstimate"); //プロパティファイルから読み込み
+	 	
+	 	pstmt = con.prepareStatement(sql);
+	 	
+	 	pstmt.setString(1, estimateSheetId);
+	 	pstmt.setString(2, estimateDate);
+	 	pstmt.setString(3, deliveryInfo);
+	 	pstmt.setString(4, validDate);
+	 	pstmt.setString(5, userName);
+	 	pstmt.setString(6, userId);
+	 	pstmt.setString(7, title);
+	 	pstmt.setString(8, deliveryName);
+	 	pstmt.setString(9, estimateCondition);
+	 	pstmt.setDouble(10, ctaxRate);
+	 	pstmt.setString(11, submitName);
+	 	pstmt.setString(12, submitPre);
+	 	pstmt.setString(13, customerCode);
+	 	pstmt.setString(14, customerName);
+	 	pstmt.setString(15, customerRemarks);
+	 	pstmt.setString(16, customerComment);
+	 	pstmt.setString(17, remarks);
+	 	pstmt.setString(18, memo);
+	 	pstmt.setInt(19, retailPriceTotal);
+	 	pstmt.setInt(20, ctaxPriceTotal);
+	 	pstmt.setInt(21, estimateTotal);
+	 	pstmt.setInt(22, costTotal);
+	 	pstmt.setString(23, creDate);
+	 	pstmt.setString(24, creUser);
 			 	
 		try {
-			result = stmt.executeUpdate(sql);
+			result = pstmt.executeUpdate();
 			con.commit();
 		} catch (SQLException e) {
 			result = 999;
 			e.printStackTrace();
 		} finally {
-			super.releaseDB(con,stmt);
+			super.releaseDB(con,pstmt);
 		}
-		
 		return result;
 	}
 	
@@ -219,7 +151,7 @@ public class EstimateAddDAO extends BaseDAO {
 	public int addEstimateProduct (List<EstimateProductAddBean> list) throws ClassNotFoundException, MissingResourceException, SQLException {
 		
 		Connection con;
-		Statement stmt;
+		PreparedStatement pstmt= null;
 	 	int result = 0;
 	 	String  sql;
 	 	
@@ -236,10 +168,10 @@ public class EstimateAddDAO extends BaseDAO {
 	 	String productRemarks;
 	 	String creUser;
 	 	
-	 	//現在の時間を取得
-		LocalDateTime ldt           = LocalDateTime.now();
+		LocalDateTime ldt           = LocalDateTime.now(); 	 //現在の時間を取得
 		String creDate              = ldt.toString();
 	 	
+		/*
 		//見積商品登録をnullの場合のSQLに合わせて変換した値を格納する変数宣言
 	 	Integer lineNoSQL;
 	 	String estimateSheetIdSQL;
@@ -253,12 +185,14 @@ public class EstimateAddDAO extends BaseDAO {
 	 	String productRemarksSQL;
 	 	String creDateSQL;
 	 	String creUserSQL;
+	 	*/
 	 	
 	 	con = super.getConnection();	
-	 	stmt = con.createStatement();
 	 	
 	 	//最大見積伝票行IDの取得
 	 	Integer estimateLineId = getMaxEstimateLineId();
+	 	
+		sql = EstimatePropertyUtil.getProperty("addEstimateProduct"); //プロパティファイルから読み込み
 	 	
 	 	for(EstimateProductAddBean bean : list) {
 	 		estimateLineId++; //登録を繰り返すごとに最大見積伝票行IDを1ずつ増やしていく
@@ -274,42 +208,14 @@ public class EstimateAddDAO extends BaseDAO {
 			productRemarks = bean.getProductRemarks();
 			creUser = bean.getCreUser();
 	 		
-			if(lineNo==null) {lineNoSQL = null;} 
-			else {lineNoSQL = lineNo;}
+			//空文字の場合の処理
+			if(productCode.equals("")) {productCode = null;}
+			if(productAbstract == null || productAbstract.equals("")) {productAbstract = "";}
+			if(productRemarks == null || productRemarks.equals("")) {productRemarks = "";}
+			if(creDate.equals("")) {creDate = null;}
+			if(creUser.equals("")) {creUser = null;}
 			
-			if(estimateSheetId==null) {estimateSheetIdSQL = null;} 
-			else {estimateSheetIdSQL = estimateSheetId;}
-			
-			if(productCode==null || productCode.equals("")) {productCodeSQL = null;} 
-			else {productCodeSQL = "'" + productCode + "'";}
-			
-			if(productAbstract==null || productAbstract.equals("")) {productAbstractSQL = null;} 
-			else {productAbstractSQL = "'" + productAbstract + "'";}
-			
-			if(quantity==null) {quantitySQL = null;} 
-			else {quantitySQL = quantity;}
-			
-			if(unitCost==null) {unitCostSQL = null;} 
-			else {unitCostSQL = unitCost;}
-			
-			if(cost==null) {costSQL = null;} 
-			else {costSQL = cost;}
-			
-			if(unitRetailPrice==null) {unitRetailPriceSQL = null;} 
-			else {unitRetailPriceSQL = unitRetailPrice;}
-			
-			if(retailPrice==null) {retailPriceSQL = null;} 
-			else {retailPriceSQL = retailPrice;}
-			
-			if(productRemarks==null || productRemarks.equals("")) {productRemarksSQL = "''";} 
-			else {productRemarksSQL = "'" + productRemarks + "'";}
-			
-			if(creDate==null || creDate.equals("")) {creDateSQL = null;} 
-			else {creDateSQL = "'" + creDate + "'";}
-			
-			if(creUser==null || creUser.equals("")) {creUserSQL = null;} 
-			else {creUserSQL = "'" + creUser + "'";}
-	 	
+			/*
 	 		sql = "insert into estimate_line_trn_xxxxx (" +
 	 					"ESTIMATE_LINE_ID, " +
 	 					"LINE_NO, " +
@@ -323,26 +229,30 @@ public class EstimateAddDAO extends BaseDAO {
 	 					"RETAIL_PRICE, " +
 	 					"REMARKS, " +
 	 					"CRE_DATETM, " +
-	 					"CRE_USER)" +
-	 			  "values(" +
-	 					estimateLineId + ", " +
-	 			  		lineNoSQL + ", " +
-	 			  		estimateSheetIdSQL + ", " +
-	 			  		productCodeSQL + ", " +
-	 			  		productAbstractSQL + ", " +
-	 			  		quantitySQL + ", " +
-	 			  		unitCostSQL + ", " +
-	 			  		costSQL + ", " +
-	 			  		unitRetailPriceSQL + ", " +
-	 			  		retailPriceSQL + ", " +
-	 			  		productRemarksSQL + ", " +
-	 			  		creDateSQL + ", " +
-	 			  		creUserSQL + ")";
-	 		result = stmt.executeUpdate(sql);
+	 					"CRE_USER) " +
+	 			  "values (?,?,?,?,?,?,?,?,?,?,?,?,?)";
+	 			  */
+	 		pstmt = con.prepareStatement(sql);
+	 		
+		 	pstmt.setInt(1, estimateLineId);
+		 	pstmt.setInt(2, lineNo);
+		 	pstmt.setString(3, estimateSheetId);
+		 	pstmt.setString(4, productCode);
+		 	pstmt.setString(5, productAbstract);
+		 	pstmt.setInt(6, quantity);
+		 	pstmt.setInt(7, unitCost);
+		 	pstmt.setInt(8, cost);
+		 	pstmt.setInt(9, unitRetailPrice);
+		 	pstmt.setInt(10, retailPrice);
+		 	pstmt.setString(11, productRemarks);
+		 	pstmt.setString(12, creDate);
+		 	pstmt.setString(13, creUser);
+	 		
+	 		result = pstmt.executeUpdate();
 	 		con.commit();
 	 	}
 	 	
-	 	super.releaseDB(con,stmt);
+	 	super.releaseDB(con,pstmt);
 	 	
 	 	return result;
 	 	
@@ -359,9 +269,11 @@ public class EstimateAddDAO extends BaseDAO {
 	 	
 	 	con = super.getConnection();
 	 	stmt = con.createStatement();
-	 	
+	 	/*
 	 	//最大見積伝票行IDを取得するSQL
 	 	sql = "SELECT max(ESTIMATE_LINE_ID) as MAX_ESTIMATE_LINE_ID from estimate_line_trn_xxxxx";
+	 	*/
+	 	sql = EstimatePropertyUtil.getProperty("getMaxEstimateLineId"); //プロパティファイルから読み込み
 	 	
 	 	result = stmt.executeQuery(sql);
 	 	

@@ -64,8 +64,9 @@
 			<div class="btn-toolbar float-right" role="toolbar" aria-label="Toolbar with button groups">  
 				<div class="btn-group mr-2 " role="group" aria-label="First group">
 					<button type="button" class="btn btn-secondary" style="font-size: 12px;" onclick="initForm();" >F1<br>初期化</button>
-					<form>
-						<button type="button" class="btn btn-secondary" style="font-size: 12px;" onclick="deleteForm();">F2<br>削除</button>
+					<form action="/SalesCube2020/SalesCube?action=deleteOrder" method="post">
+						<input type="submit" value="F2削除" class="btn btn-secondary" style="font-size: 12px;" >
+						<input type="hidden" id="roSlipId" name="roSlipId" value="${order.roSlipId}">
 					</form>
 					<button type="button" class="btn btn-secondary" style="font-size: 12px;" onclick="returnForm();">F3<br>戻る</button>
 					<form>
@@ -91,7 +92,7 @@
 				 <span class="action_errors" style="color: red">${updateCmp}</span>
        </div>
 
-		<form action='/SalesCube2020/SalesCube?action=orderupdateCmp' method="post">
+		<form action='/SalesCube2020/SalesCube?action=orderupdateCmp' method="post" name="orderUpdate">
 			<!-- 受注伝票情報 -->
 			<div class="container" style="background-color: white;"><div class="panel panel-default">
 				<div class="panel-heading row mb-2 col-4">
@@ -668,7 +669,8 @@
 					return;
 				}
 				var form = document.deleteform;
-				form.submit();
+				form.orderUpdate.action="";
+				form.orderUpdate.submit();
 			}
 	
 			/* 前行複写 */
@@ -900,12 +902,16 @@
 			}
 
 			/* 商品モーダルから親画面にリンク */
-			function selectProductCode(obj){
+			function selectProductModal(code, name){
 				var tableNo = globalTmp.substr(16);
-				var productCode = document.getElementById("modalProductCode1").innerText;
-				var productName = document.getElementById("modalProductName1").innerText;
-				document.getElementById("productCodeInput" + tableNo).value = productCode;
-				document.getElementById("productName" + tableNo).innerHTML = productName;
+				document.getElementById("customerCodeInput").value = code;
+				document.getElementById("customerNameInput").value = name;
+				document.getElementById("productCodeInput" + tableNo).value = code;
+				document.getElementById("productName" + tableNo).innerHTML = name;
+				
+				var tmp = document.getElementById("productCodeInput" + tableNo);
+				
+				pCode(tmp);
 			}
 
 			/* 親画面から顧客モーダルに顧客コード渡す */

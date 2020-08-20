@@ -14,13 +14,12 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import common.controller.BaseController;
-import common.modal.product.init.ProductModalInit;
 import estimate.Input.API.estimateInputAPI;
 import estimate.Input.beans.EstimateAddBean;
 import estimate.Input.beans.EstimateProductAddBean;
 import estimate.Input.dao.EstimateAddDAO;
 
-/* 見積登録を行うContoller */
+/* 見積登録を行うController */
 public class EstimateAddController extends BaseController {
 
 	public String execService(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {

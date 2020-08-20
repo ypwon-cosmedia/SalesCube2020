@@ -5,11 +5,9 @@
 <!DOCTYPE html>
 <html>
 <head>
-<meta charset="utf-8">
-<title>見積編集</title>
-<!-- Required meta tags -->
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+	<title>見積編集</title>
+	<!-- Required meta tags -->
+   	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
@@ -61,7 +59,7 @@
       }
       .container {
 	   width: 1120px;
-	   max-width: none !important;
+ max-width: none !important;
 	   }
 
      .table_item {
@@ -103,9 +101,10 @@
       background: transparent;
     }
 
-    </style>
+	</style>
 </head>
-  <body style="background-color: gainsboro;">
+
+<body style="background-color: gainsboro;">
     <!-- モーダル -->
   	<%@ include file="/estimate/_shipdate.jsp" %><!-- 納期または出荷日選択モーダル -->
 	<%@ include file="/estimate/_quotationCondition.jsp" %><!-- 見積条件選択モーダル -->
@@ -116,394 +115,386 @@
     <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
-    
+   
     <!-- メニューバー -->
     <%@ include file= "../common/menubar.jsp" %>
 
     <br>
 
     <div class="container" id="main_function">
-      <h3 class="float-left">見積編集</h3>
+		<h3 class="float-left">見積編集</h3>
+
+		<div class="btn-toolbar float-right" role="toolbar" aria-label="Toolbar with button groups">
+			<div class="btn-group mr-2 " role="group" aria-label="First group">
+				<button type="button" class="btn btn-secondary" style="font-size: 12px;" onclick="moveEstimateAdd()">F1<br>戻る</button>
+				<button type="button" class="btn btn-secondary" style="font-size: 12px;" onclick="estimateDelete();">F2<br>削除</button>
+				<button type="button" class="btn btn-secondary" style="font-size: 12px;" onclick="modifyForm();">F3<br>更新</button>
+				<button type="button" class="btn btn-secondary" style="font-size: 12px;" onclick="outputPdf();">F4<br>PDF</button>
+				<button type="button" class="btn btn-secondary" style="font-size: 12px;" disabled>F5<br></button>
+				<button type="button" class="btn btn-secondary" style="font-size: 12px;" disabled>F6<br></button>
+				<button type="button" class="btn btn-secondary" style="font-size: 12px;" disabled>F7<br></button>
+				<button type="button" class="btn btn-secondary" style="font-size: 12px;" disabled>F8<br></button>
+				<button type="button" class="btn btn-secondary" style="font-size: 12px;" disabled>F9<br></button>
+				<button type="button" class="btn btn-secondary" style="font-size: 12px;" disabled>F10<br></button>
+				<button type="button" class="btn btn-secondary" style="font-size: 12px;" disabled>F11<br></button>
+				<button type="button" class="btn btn-secondary" style="font-size: 12px;" disabled>F12<br></button>
+			</div>
+		</div>
+		<br><br><br>
+	</div>
    
-      
-      <div class="btn-toolbar float-right" role="toolbar" aria-label="Toolbar with button groups">
-        <div class="btn-group mr-2 " role="group" aria-label="First group">
-          <button type="button" class="btn btn-secondary" style="font-size: 12px;" onclick="moveEstimateAdd()">F1<br>戻る</button>
-          <button type="button" class="btn btn-secondary" style="font-size: 12px;" onclick="estimateDelete();">F2<br>削除</button>
-          <button type="button" class="btn btn-secondary" style="font-size: 12px;" onclick="modifyForm();">F3<br>更新</button>
-          <button type="button" class="btn btn-secondary" style="font-size: 12px;" onclick="outputPdf();">F4<br>PDF</button>
-          <button type="button" class="btn btn-secondary" style="font-size: 12px;" disabled>F5<br></button>
-          <button type="button" class="btn btn-secondary" style="font-size: 12px;" disabled>F6<br></button>
-          <button type="button" class="btn btn-secondary" style="font-size: 12px;" disabled>F7<br></button>
-          <button type="button" class="btn btn-secondary" style="font-size: 12px;" disabled>F8<br></button>
-          <button type="button" class="btn btn-secondary" style="font-size: 12px;" disabled>F9<br></button>
-          <button type="button" class="btn btn-secondary" style="font-size: 12px;" disabled>F10<br></button>
-          <button type="button" class="btn btn-secondary" style="font-size: 12px;" disabled>F11<br></button>
-          <button type="button" class="btn btn-secondary" style="font-size: 12px;" disabled>F12<br></button>
-        </div>
-      </div>
-      <br><br><br>
-    </div>
-    
-    <div class="container">
-    	<div><h5 id="message" style="color:#ff0000;"></h5></div>
-    </div>
+	<div class="container">
+		<div><h5 id="message" style="color:#ff0000;"></h5></div>
+	</div>
 
-    <form action="/SalesCube2020/SalesCube?action=estimateModify" method="post" name="modifyform">
-      <div class="container" style="background-color: white;">
-        <div class="panel panel-default" >
-			    <div class="panel-heading row mb-2 col-4">
-				     <h5><br>見積伝票情報</h5>
-			    </div>
-			    <hr>
-		
-			  	<div class="panel-body">
-				    <div class="row">
-					    <div class="col-3">
-						    <label class="sr-only" for="inlineFormInputGroup"></label>
-						    <div class="input-group mb-2">
-						    	<div class="input-group-prepend">
-						    		<div class="input-group-text"  style="background-color: pink;">見積番号</div>
-						  		</div>
-						   	  <input type="text" name="estimateSheetId" value="${estimate.estimateSheetId}" class="form-control" id="inlineFormInputGroup" name="estimateSheetId" pattern="^[0-9A-Za-z]+$" readonly>
-					  		</div>
-              </div>
+	<form action="/SalesCube2020/SalesCube?action=estimateModify" method="post" name="modifyform">
+		<div class="container" style="background-color: white;">
+			<div class="panel panel-default" >
+				<div class="panel-heading row mb-2 col-4">
+					<h5><br>見積伝票情報</h5>
+				</div>
+				<hr>
 
-              <div class="col-3">
-						    <label class="sr-only" for="inlineFormInputGroup"></label>
-						    <div class="input-group mb-2">
-						    	<div class="input-group-prepend">
-						    		<div class="input-group-text" style="background-color: pink;">見積日</div>
-						  		</div>
-                  <input type="date" name="estimateDate" value="${estimate.estimateDate}" required>
-					  		</div>
-              </div>
+				<div class="panel-body">
+					<div class="row">
+						<div class="col-3">
+							<label class="sr-only" for="inlineFormInputGroup"></label>
+							<div class="input-group mb-2">
+								<div class="input-group-prepend">
+									<div class="input-group-text"  style="background-color: pink;">見積番号</div>
+								</div>
+								<input type="text" name="estimateSheetId" value="${estimate.estimateSheetId}" class="form-control" id="inlineFormInputGroup" name="estimateSheetId" pattern="^[0-9A-Za-z]+$" readonly>
+							</div>
+						</div>
 
-              <div class="col-6">
-						    <label class="sr-only" for="inlineFormInputGroup"></label>
-						    <div class="input-group mb-2">
-						    	<div class="input-group-prepend">
-						    		<div class="input-group-text">納期または出荷日</div>
-						  		</div>
-                   <input type="text" value="${estimate.deliveryInfo}" class="form-control" id="deliveryInfo" name="deliveryInfo">
-                   <button type="button" class="ModalButton"  data-toggle="modal" data-target="#setShipDate" onclick="deliveryInfoShow()">
-                    <img src="btn_search.png" style="vertical-align: middle; cursor: pointer; width: 32px; height: 32px;">
-                  </button>
-					  		</div>
-				  		</div>
-            </div>
+						<div class="col-3">
+							<label class="sr-only" for="inlineFormInputGroup"></label>
+							<div class="input-group mb-2">
+								<div class="input-group-prepend">
+									<div class="input-group-text" style="background-color: pink;">見積日</div>
+								</div>
+								<input type="date" name="estimateDate" value="${estimate.estimateDate}" required>
+							</div>
+						</div>
 
-            <div class="row">
-					    <div class="col-3">
-						    <label class="sr-only" for="inlineFormInputGroup"></label>
-						    <div class="input-group mb-2">
-						    	<div class="input-group-prepend">
-						    		<div class="input-group-text">有効期限</div>
-						  		</div>
-                  <input type="date" name="validDate" value="${estimate.validDate}">
-					  		</div>
-              </div>
+						<div class="col-6">
+							<label class="sr-only" for="inlineFormInputGroup"></label>
+							<div class="input-group mb-2">
+								<div class="input-group-prepend">
+									<div class="input-group-text">納期または出荷日</div>
+								</div>
+								<input type="text" value="${estimate.deliveryInfo}" class="form-control" id="deliveryInfo" name="deliveryInfo">
+								<button type="button" class="ModalButton"  data-toggle="modal" data-target="#setShipDate" onclick="deliveryInfoShow()">
+									<img src="btn_search.png" style="vertical-align: middle; cursor: pointer; width: 32px; height: 32px;">
+								</button>
+							</div>
+						</div>
+					</div>
 
-              <div class="col-3">
-						    <label class="sr-only" for="inlineFormInputGroup"></label>
-						    <div class="input-group mb-2">
-						    	<div class="input-group-prepend">
-						    		<div class="input-group-text">入力担当者</div>
-						  		</div>
-						   	  <input type="text" value="${estimate.userName}" class="form-control" id="inlineFormInputGroup" name="userName" readonly>
-					  		</div>
-              </div>
+					<div class="row">
+						<div class="col-3">
+							<label class="sr-only" for="inlineFormInputGroup"></label>
+							<div class="input-group mb-2">
+								<div class="input-group-prepend">
+									<div class="input-group-text">有効期限</div>
+								</div>
+								<input type="date" name="validDate" value="${estimate.validDate}">
+							</div>
+						</div>
 
-              <div class="col-5">
-						    <label class="sr-only" for="inlineFormInputGroup"></label>
-						    <div class="input-group mb-2">
-						    	<div class="input-group-prepend">
-						    		<div class="input-group-text">件名</div>
-						  		</div>
-						   	  <input type="text" value="${estimate.title}" class="form-control" id="inlineFormInputGroup" name="title">
-					  		</div>
-				  		</div>
-            </div>
+						<div class="col-3">
+							<label class="sr-only" for="inlineFormInputGroup"></label>
+							<div class="input-group mb-2">
+								<div class="input-group-prepend">
+									<div class="input-group-text">入力担当者</div>
+								</div>
+								<input type="text" value="${estimate.userName}" class="form-control" id="inlineFormInputGroup" name="userName" readonly>
+							</div>
+						</div>
 
-            <div class="row">
-					    <div class="col-10">
-						    <label class="sr-only" for="inlineFormInputGroup"></label>
-						    <div class="input-group mb-2">
-						    	<div class="input-group-prepend">
-						    		<div class="input-group-text">納入先</div>
-						  		</div>
-						   	  <input type="text" value="${estimate.deliveryName}" class="form-control" id="inlineFormInputGroup" name="deliveryName">
-					  		</div>
-              </div>
-            </div>
+						<div class="col-5">
+							<label class="sr-only" for="inlineFormInputGroup"></label>
+							<div class="input-group mb-2">
+								<div class="input-group-prepend">
+									<div class="input-group-text">件名</div>
+								</div>
+								<input type="text" value="${estimate.title}" class="form-control" id="inlineFormInputGroup" name="title">
+							</div>
+						</div>
+					</div>
 
-            <div class="row">
-					    <div class="col-10">
-						    <label class="sr-only" for="inlineFormInputGroup"></label>
-						    <div class="input-group mb-2">
-						    	<div class="input-group-prepend">
-						    		<div class="input-group-text">見積条件</div>
-						  		</div>
-                  <textarea cols="3" style="width: 750px;" id="estimateCondition" name="estimateCondition">${estimate.estimateCondition}</textarea>
-                  <button type="button" class="ModalButton"  data-toggle="modal" data-target="#setQuotationCondition" onclick="conditionShow()">
-                    <img src="btn_search.png" style="vertical-align: middle; cursor: pointer; width: 32px; height: 32px;">
-                  </button>
-					  		</div>
-              </div>
-            </div>
+					<div class="row">
+						<div class="col-10">
+							<label class="sr-only" for="inlineFormInputGroup"></label>
+							<div class="input-group mb-2">
+								<div class="input-group-prepend">
+									<div class="input-group-text">納入先</div>
+								</div>
+								<input type="text" value="${estimate.deliveryName}" class="form-control" id="inlineFormInputGroup" name="deliveryName">
+							</div>
+						</div>
+					</div>
 
-            <div class="row">
-					    <div class="col-3">
-						    <label class="sr-only" for="inlineFormInputGroup"></label>
-						    <div class="input-group mb-2">
-						    	<div class="input-group-prepend">
-						    		<div class="input-group-text">消費税率</div>
-						  		</div>
-                  <select class="custom-select" name="ctaxRate" id="taxRate" onchange="totalCalculation()">
-                    <option value="0">消費税なし</option>
-                    <c:forEach var="taxRateList" items="${taxRateList}">
-						<option value="${taxRateList.taxRate}">${taxRateList.taxRate}</option>
-                    </c:forEach>
-                  </select>
-                  <div style="margin-top: 7px;">%</div>
-					  		</div>
-              </div>
-            </div>
-          </div>
-        </div>
-        <br>
-      </div>
-		  <br>
-      <br>
+					<div class="row">
+						<div class="col-10">
+							<label class="sr-only" for="inlineFormInputGroup"></label>
+							<div class="input-group mb-2">
+								<div class="input-group-prepend">
+									<div class="input-group-text">見積条件</div>
+								</div>
+								<textarea cols="3" style="width: 750px;" id="estimateCondition" name="estimateCondition">${estimate.estimateCondition}</textarea>
+								<button type="button" class="ModalButton"  data-toggle="modal" data-target="#setQuotationCondition" onclick="conditionShow()">
+									<img src="btn_search.png" style="vertical-align: middle; cursor: pointer; width: 32px; height: 32px;">
+								</button>
+							</div>
+						</div>
+					</div>
 
-      <div class="container" style="background-color: white;">
-        <div class="panel panel-default" >
-          <div class="panel-heading row mb-2 col-4">
-             <h5><br>顧客情報</h5>
-          </div>
-          <hr>  
-  
-          <div class="panel-body">
-            <div class="row">
-              <div class="col-7">
-                <label class="sr-only" for="inlineFormInputGroup"></label>
-                <div class="input-group mb-2">
-                  <div class="input-group-prepend">
-                    <div class="input-group-text" style="background-color: pink;">提出先名</div>
-                  </div>
-                  <input type="text" value="${estimate.submitName}" class="form-control" id="submitName" name="submitName" required>&emsp;&emsp;
-                </div>
-              </div>
+					<div class="row">
+						<div class="col-3">
+							<label class="sr-only" for="inlineFormInputGroup"></label>
+							<div class="input-group mb-2">
+								<div class="input-group-prepend">
+									<div class="input-group-text">消費税率</div>
+								</div>
+								<select class="custom-select" name="ctaxRate" id="taxRate" onchange="totalCalculation()">
+									<option value="0">消費税なし</option>
+									<c:forEach var="taxRateList" items="${taxRateList}">
+										<option value="${taxRateList.taxRate}">${taxRateList.taxRate}</option>
+									</c:forEach>
+								</select>
+								<div style="margin-top: 7px;">%</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+			<br>
+		</div>
+		<br><br>
 
-              <div class="col-3">
-                <label class="sr-only" for="inlineFormInputGroup"></label>
-                <div class="input-group mb-2">
-                  <div class="input-group-prepend">
-                    <div class="input-group-text">提出先敬称</div>
-                  </div>
-                  <select class="custom-select" name="submitPre" id="submitPre">
-                    <option></option>
-                    <c:forEach var="submitPre" items="${submitPreList}">
-						<option value="${submitPre.categoryCode}">${submitPre.categoryCodeName}</option>
-                    </c:forEach>
+		<div class="container" style="background-color: white;">
+			<div class="panel panel-default" >
+				<div class="panel-heading row mb-2 col-4">
+					<h5><br>顧客情報</h5>
+				</div>
+				<hr>
 
-                  </select>
-                </div>
-              </div>
+				<div class="panel-body">
+					<div class="row">
+						<div class="col-7">
+							<label class="sr-only" for="inlineFormInputGroup"></label>
+							<div class="input-group mb-2">
+								<div class="input-group-prepend">
+									<div class="input-group-text" style="background-color: pink;">提出先名</div>
+								</div>
+								<input type="text" value="${estimate.submitName}" class="form-control" id="submitName" name="submitName" required>&emsp;&emsp;
+							</div>
+						</div>
 
-            </div><br>
+						<div class="col-3">
+							<label class="sr-only" for="inlineFormInputGroup"></label>
+							<div class="input-group mb-2">
+								<div class="input-group-prepend">
+									<div class="input-group-text">提出先敬称</div>
+								</div>
+								<select class="custom-select" name="submitPre" id="submitPre">
+									<option></option>
+									<c:forEach var="submitPre" items="${submitPreList}">
+										<option value="${submitPre.categoryCode}">${submitPre.categoryCodeName}</option>
+									</c:forEach>
+								</select>
+							</div>
+						</div>
+					</div><br>
 
-            <div class="container" style="width: auto" >
-              <div class="panel-heading row mb-2 col-4" >
-                <h6><br>既存顧客情報</h6>
-              </div><hr width="1015">
-            
+					<div class="container" style="width: auto" >
+						<div class="panel-heading row mb-2 col-4" >
+							<h6><br>既存顧客情報</h6>
+						</div><hr width="1015">
+					
+						<div class="row">
+							<div class="col-4">
+								<label class="sr-only" for="inlineFormInputGroup"></label>
+								<div class="input-group mb-2">&emsp;&emsp;&emsp;&emsp;
+									<div class="input-group-prepend">
+										<div class="input-group-text">顧客コード</div>
+									</div>
+									<input type="text" value="${estimate.customerCode}" class="form-control" name="customerCode" id="customerCode" onchange="inputGetCustomer(this)">
+									<button type="button" class="ModalButton"  data-toggle="modal" data-target="#customerSearch" onclick="initCustomer() ; getCutoffGroup()">
+										<img src="btn_search.png" style="vertical-align: middle; cursor: pointer; width: 32px; height: 32px;">
+									</button>
+								</div>
+							</div>
+						</div>
 
-              <div class="row">
-                <div class="col-4">
-                  <label class="sr-only" for="inlineFormInputGroup"></label>
-                  <div class="input-group mb-2">&emsp;&emsp;&emsp;&emsp;
-                    <div class="input-group-prepend">
-                      <div class="input-group-text">顧客コード</div>
-                    </div>
-                      <input type="text" value="${estimate.customerCode}" class="form-control" name="customerCode" id="customerCode" onchange="inputGetCustomer(this)">
-                      <button type="button" class="ModalButton"  data-toggle="modal" data-target="#customerSearch" onclick="initCustomer() ; getCutoffGroup()">
-                        <img src="btn_search.png" style="vertical-align: middle; cursor: pointer; width: 32px; height: 32px;">
-                      </button>
-                  </div>
-                </div>
-              </div>
+						<div class="row">
+							<div class="col-6">
+								<label class="sr-only" for="inlineFormInputGroup"></label>
+								<div class="input-group mb-2">&emsp;&emsp;&emsp;&emsp;
+									<div class="input-group-prepend">
+										<div class="input-group-text">顧客名</div>
+									</div>
+									<input type="text" value="${estimate.customerName}" class="form-control" name="customerName" id="customerName" readonly>
+								</div>
+							</div>
+						</div>
 
-              <div class="row">
-                <div class="col-6">
-                <label class="sr-only" for="inlineFormInputGroup"></label>
-                  <div class="input-group mb-2">&emsp;&emsp;&emsp;&emsp;
-                    <div class="input-group-prepend">
-                      <div class="input-group-text">顧客名</div>
-                    </div>
-                    <input type="text" value="${estimate.customerName}" class="form-control" name="customerName" id="customerName" readonly>
-                  </div>
-                </div>
-              </div>
+						<div class="row">
+							<div class="col-9">
+								<label class="sr-only" for="inlineFormInputGroup"></label>
+								<div class="input-group mb-2">&emsp;&emsp;&emsp;&emsp;
+									<div class="input-group-prepend">
+										<div class="input-group-text">備考</div>
+									</div>
+									<input type="text" value="${estimate.customerRemarks}" class="form-control" name="customerRemarks"  id="customerRemarks" readonly>
+								</div>
+							</div>
+						</div>
 
-              <div class="row">
-                <div class="col-9">
-                  <label class="sr-only" for="inlineFormInputGroup"></label>
-                  <div class="input-group mb-2">&emsp;&emsp;&emsp;&emsp;
-                    <div class="input-group-prepend">
-                      <div class="input-group-text">備考</div>
-                    </div>
-                      <input type="text" value="${estimate.customerRemarks}" class="form-control" name="customerRemarks"  id="customerRemarks" readonly>
-                  </div>
-                </div>
-              </div>
+						<div class="row">
+							<div class="col-9">
+								<label class="sr-only" for="inlineFormInputGroup"></label>
+								<div class="input-group mb-2">&emsp;&emsp;&emsp;&emsp;
+									<div class="input-group-prepend">
+										<div class="input-group-text">コメント</div>
+									</div>
+									<input type="text" value="${estimate.customerComment}" class="form-control" name="customerComment"  id="customerComment" readonly>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div><p>&nbsp;</p>
+		</div><br>
 
-              <div class="row">
-                <div class="col-9">
-                  <label class="sr-only" for="inlineFormInputGroup"></label>
-                  <div class="input-group mb-2">&emsp;&emsp;&emsp;&emsp;
-                    <div class="input-group-prepend">
-                      <div class="input-group-text">コメント</div>
-                    </div>
-                      <input type="text" value="${estimate.customerComment}" class="form-control" name="customerComment"  id="customerComment" readonly>
-                  </div>
-                </div>
-              </div>
-            </div>
-            
-          </div>
-        </div><p>&nbsp;</p>
-      </div><br>
+		<div class="container" style="background-color: white;">
+			<div class="panel panel-default" >
+				<div class="panel-heading row mb-2 col-4">
+					<h5><br>摘要</h5>
+				</div>
+				<hr>
 
-      <div class="container" style="background-color: white;">
-        <div class="panel panel-default" >
-          <div class="panel-heading row mb-2 col-4">
-            <h5><br>摘要</h5>
-          </div>
-          <hr>
-  
-          <div class="panel-body">
-            <div class="row">
-              <div class="col-9">
-                <label class="sr-only" for="inlineFormInputGroup"></label>
-                <div class="input-group mb-2">
-                  <div class="input-group-prepend">
-                    <div class="input-group-text">摘要</div>
-                  </div>
-                  <textarea name="remarks" cols="100">${estimate.remarks}</textarea>
-                </div>
-              </div>
-            </div>
+				<div class="panel-body">
+					<div class="row">
+						<div class="col-9">
+							<label class="sr-only" for="inlineFormInputGroup"></label>
+							<div class="input-group mb-2">
+								<div class="input-group-prepend">
+									<div class="input-group-text">摘要</div>
+								</div>
+								<textarea name="remarks" cols="100">${estimate.remarks}</textarea>
+							</div>
+						</div>
+					</div>
 
-            <div class="row">
-              <div class="col-9">
-                <label class="sr-only" for="inlineFormInputGroup"></label>
-                <div class="input-group mb-2">
-                  <div class="input-group-prepend">
-                    <div class="input-group-text">メモ</div>
-                  </div>
-                  <textarea name="memo" cols="100">${estimate.memo}</textarea>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div><p>&nbsp;</p>
-      </div><br>
-    
-      <!-- 見積商品一覧のテーブル -->
-      <div class="container" style="background-color: rgb(255, 255, 255);">
-        <table id="estimate" class="table table-bordered" style="font-size:8pt; width: 1120px;  position:relative;right:15px">
-          <thead class="thead-dark">
-            <tr>
-              <th style="height: 30px; width: 5%; ">No</th>
-              <th style="height: 30px; text-align: center; width: 15%;">商品コード※</th>
-              <th style="height: 30px; text-align: center; width: 20%;">商品名・摘要</th>
-              <th style="height: 30px; text-align: center; width: 10%;">数量※</th>
-              <th style="height: 30px; text-align: center; width: 10%;">仕入れ単価<br>仕入れ金額</th>
-              <th style="height: 30px; text-align: center; width: 10%;">売上単価※<br>売価金額※</th>
-              <th style="height: 30px; text-align: center; width: 20%;">備考</th>
-              <th style="height: 30px; text-align: center; width: 10%;">&nbsp;</th>
-            </tr>
-        </thead>
+					<div class="row">
+						<div class="col-9">
+							<label class="sr-only" for="inlineFormInputGroup"></label>
+							<div class="input-group mb-2">
+								<div class="input-group-prepend">
+									<div class="input-group-text">メモ</div>
+								</div>
+								<textarea name="memo" cols="100">${estimate.memo}</textarea>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div><p>&nbsp;</p>
+		</div><br>
+   
+		<!-- 見積商品一覧のテーブル -->
+		<div class="container" style="background-color: rgb(255, 255, 255);">
+			<table id="estimate" class="table table-bordered" style="font-size:8pt; width: 1120px;  position:relative;right:15px">
+				<thead class="thead-dark">
+					<tr>
+						<th style="height: 30px; width: 5%; ">No</th>
+						<th style="height: 30px; text-align: center; width: 15%;">商品コード※</th>
+						<th style="height: 30px; text-align: center; width: 20%;">商品名・摘要</th>
+						<th style="height: 30px; text-align: center; width: 10%;">数量※</th>
+						<th style="height: 30px; text-align: center; width: 10%;">仕入れ単価<br>仕入れ金額</th>
+						<th style="height: 30px; text-align: center; width: 10%;">売上単価※<br>売価金額※</th>
+						<th style="height: 30px; text-align: center; width: 20%;">備考</th>
+						<th style="height: 30px; text-align: center; width: 10%;">&nbsp;</th>
+					</tr>
+				</thead>
 
-        <tbody>
-        	<c:forEach var="product" items="${estimateProductList}" varStatus="status">
-		  		<tr id="tr${status.count}">
-		            <td rowspan="2">${status.count}</td>
-		            <td rowspan="2" class="backpink"><input type="text" name="productCode" id="inputProductCode${status.count}" value="${product.productCode}" style="width: 110px;" onchange="inputGetProduct(this)" required>
-		              <button type="button" id="productSearch${status.count}" class="ModalButton"  data-toggle="modal" data-target="#setproductsearch" onclick="productSearchButton(this)" >
-              			<img src="btn_search.png" style="vertical-align: middle; cursor: pointer; width: 22px; height: 22px;">
-              		  </button></td>
-		            <td rowspan="2"><textarea name="productAbstract" rows="3" style="width: 200px;" id="productAbstract${status.count}">${product.productAbstract}</textarea></td>
-		            <td class="backpink"><input type="number" name="quantity" value="${product.quantity}" id="quantity${status.count}" style="width: 75px;" onchange="quantityChange(this)" required></td>
-		            <td><input type="text" name="unitCost" value="${product.unitCost}" id="unitCost${status.count}" style="background-color:rgb(177, 177, 177); width: 75px;" readonly></td>
-		            <td class="backpink"><input type="number" name="unitRetailPrice" value="${product.unitRetailPrice}" id="unitRetailPrice${status.count}" style="width: 75px;" onchange="unitRetailPriceChange(this)" required></td>
-		            <td rowspan="2"><textarea name="productRemarks" rows="3" style="width: 200px;" id="remarks${status.count}">${product.productRemarks}</textarea></td>
-		            <td><button type="button" class="btn btn-primary table-button"  onclick="deleteLineForm(this)" id="delete${status.count}">削除</button></td>
-		          </tr>
-		
-		          <tr>
-		            <td class="backpink"><button type="button" class="btn btn-primary table-button">在庫</button></td>
-		            <td><input type="text" name="cost" value="${product.cost}" style="background-color:rgb(177, 177, 177); width: 75px;" id="cost${status.count}" readonly></td>
-		            <td class="backpink"><input type="text" name="retailPrice" value="${product.retailPrice}" id="retailPrice${status.count}" style="width: 75px; background-color:rgb(177, 177, 177);" readonly></td>
-		            <td><button type="button" class="btn btn-primary table-button" onclick="previousCopy(this)"  id="previousCopy${status.count}" disabled>前行複写</button></td>
-          		</tr>
-        	</c:forEach>
-        </tbody>
+				<tbody>
+					<c:forEach var="product" items="${estimateProductList}" varStatus="status">
+						<tr id="tr${status.count}">
+							<td rowspan="2">${status.count}</td>
+							<td rowspan="2" class="backpink"><input type="text" name="productCode" id="inputProductCode${status.count}" value="${product.productCode}" style="width: 110px;" onchange="inputGetProduct(this)" required>
+							<button type="button" id="productSearch${status.count}" class="ModalButton"  data-toggle="modal" data-target="#setproductsearch" onclick="productSearchButton(this)" >
+								<img src="btn_search.png" style="vertical-align: middle; cursor: pointer; width: 22px; height: 22px;">
+							</button></td>
+							<td rowspan="2"><textarea name="productAbstract" rows="3" style="width: 200px;" id="productAbstract${status.count}">${product.productAbstract}</textarea></td>
+							<td class="backpink"><input type="number" name="quantity" value="${product.quantity}" id="quantity${status.count}" style="width: 75px;" onchange="quantityChange(this)" required></td>
+							<td><input type="text" name="unitCost" value="${product.unitCost}" id="unitCost${status.count}" style="background-color:rgb(177, 177, 177); width: 75px;" readonly></td>
+							<td class="backpink"><input type="number" name="unitRetailPrice" value="${product.unitRetailPrice}" id="unitRetailPrice${status.count}" style="width: 75px;" onchange="unitRetailPriceChange(this)" required></td>
+							<td rowspan="2"><textarea name="productRemarks" rows="3" style="width: 200px;" id="remarks${status.count}">${product.productRemarks}</textarea></td>
+							<td><button type="button" class="btn btn-primary table-button"  onclick="deleteLineForm(this)" id="delete${status.count}">削除</button></td>
+						</tr>
+						
+						<tr>
+							<td class="backpink"><button type="button" class="btn btn-primary table-button">在庫</button></td>
+							<td><input type="text" name="cost" value="${product.cost}" style="background-color:rgb(177, 177, 177); width: 75px;" id="cost${status.count}" readonly></td>
+							<td class="backpink"><input type="text" name="retailPrice" value="${product.retailPrice}" id="retailPrice${status.count}" style="width: 75px; background-color:rgb(177, 177, 177);" readonly></td>
+							<td><button type="button" class="btn btn-primary table-button" onclick="previousCopy(this)"  id="previousCopy${status.count}" disabled>前行複写</button></td>
+						</tr>
+					</c:forEach>
+				</tbody>
+			</table>
+		</div>
 
-      </table>
-    </div>
-
-    <div align="center">
+		<div align="center">
 			<button type="button" class="btn btn-primary" id="addLine">行追加</button>
 		</div><br>
 
-	<!-- 金額合計等のテーブル -->
-    <div class="container" style="background-color: rgb(255, 255, 255);">
-      <table id="sum" class="table table-bordered" style="font-size:15pt ; width: 1120px;  position:relative;right:15px">
-        <thead class="thead-dark">
-          <tr style="height: 15px;">
-            <th style="height: 30px; text-align: center;">粗利益</th>
-            <th style="height: 30px; text-align: center;">粗利益率</th>
-            <th style="height: 30px; text-align: center;">金額合計</th>
-            <th style="height: 30px; text-align: center;">消費税</th>
-            <th style="height: 30px; text-align: center;">伝票合計</th>
-          </tr>
-        </thead>
-        <tbody>
-        <tr>
-          <td>￥<span id="grossProfit">0</span></td>
-          <td><span id="grossProfitMargin">0.00</span> %</td>
-          <td>￥<span id="retailPriceTotal">0</span></td>
-          	<input type="hidden" value="0" id="inputRetailPriceTotal" name="retailPriceTotal">
-          <td>￥<span id="taxPriceTotal">0</span></td>
-          	<input type="hidden" value="0" id="inputTaxPriceTotal" name="taxPriceTotal">
-          <td>￥<span id="estimateTotal">0</span></td>
-          	<input type="hidden" value="0" id="inputEstimateTotal" name="estimateTotal">
-          	<input type="hidden" value="0" id="inputCostTotal" name="costTotal">
-        </tr>
-        </tbody>
-      </table>
-    </div>
+		<!-- 金額合計等のテーブル -->
+		<div class="container" style="background-color: rgb(255, 255, 255);">
+			<table id="sum" class="table table-bordered" style="font-size:15pt ; width: 1120px;  position:relative;right:15px">
+				<thead class="thead-dark">
+					<tr style="height: 15px;">
+						<th style="height: 30px; text-align: center;">粗利益</th>
+						<th style="height: 30px; text-align: center;">粗利益率</th>
+						<th style="height: 30px; text-align: center;">金額合計</th>
+						<th style="height: 30px; text-align: center;">消費税</th>
+						<th style="height: 30px; text-align: center;">伝票合計</th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr>
+						<td>￥<span id="grossProfit">0</span></td>
+						<td><span id="grossProfitMargin">0.00</span> %</td>
+						<td>￥<span id="retailPriceTotal">0</span></td>
+							<input type="hidden" value="0" id="inputRetailPriceTotal" name="retailPriceTotal">
+						<td>￥<span id="taxPriceTotal">0</span></td>
+							<input type="hidden" value="0" id="inputTaxPriceTotal" name="taxPriceTotal">
+						<td>￥<span id="estimateTotal">0</span></td>
+							<input type="hidden" value="0" id="inputEstimateTotal" name="estimateTotal">
+							<input type="hidden" value="0" id="inputCostTotal" name="costTotal">
+					</tr>
+				</tbody>
+			</table>
+		</div>
 
-    <div class="container" style="text-align:center">
-      <input type="submit" class="btn btn-primary" value="更新" style="width:200px; height:50px;">
-    </div>
-    <br><br>
-  </form>
-  
-  <!-- 削除用form -->
-  <form action="/SalesCube2020/SalesCube?action=estimateDelete" method="post" name="deleteform">
-	<input type="hidden" name="estimateSheetId" value="${estimate.estimateSheetId}">
-  </form>
-  
-    <!-- PDF出力用form -->
-  <form action="/SalesCube2020/SalesCube?action=estimatePdfOutput" method="post" name="pdfform">
-	<input type="hidden" name="estimateSheetId" value="${estimate.estimateSheetId}">
-  </form>
+		<div class="container" style="text-align:center">
+			<input type="submit" class="btn btn-primary" value="更新" style="width:200px; height:50px;">
+		</div>
+		<br><br>
+	</form>
+
+	<!-- 削除用form -->
+	<form action="/SalesCube2020/SalesCube?action=estimateDelete" method="post" name="deleteform">
+		<input type="hidden" name="estimateSheetId" value="${estimate.estimateSheetId}">
+	</form>
+
+	<!-- PDF出力用form -->
+	<form action="/SalesCube2020/SalesCube?action=estimatePdfOutput" method="post" name="pdfform">
+		<input type="hidden" name="estimateSheetId" value="${estimate.estimateSheetId}">
+	</form>
 	
-
-  </body>
+</body>
 
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.2/jquery.min.js"></script>
   <script>
@@ -539,22 +530,22 @@
         $('#estimate > tbody:last').append(
     	  '<tr>' +
             '<td rowspan="2">' + tableNo + '</td>' +
-            '<td rowspan="2" class="backpink"><input type="text" name="productCode" id="inputProductCode' + tableNo + '" value="" style="width: 110px;" onchange="inputGetProduct(this)" required>' +
+            '<td rowspan="2" class="backpink"><input type="text" name="productCode" id="inputProductCode' + tableNo + '" style="width: 110px;" onchange="inputGetProduct(this)" required>' +
               '<button type="button" id="productSearch' + tableNo + '" class="ModalButton"  data-toggle="modal" data-target="#setproductsearch" onclick="productSearchButton(this)">' +
               	'<img src="btn_search.png" style="vertical-align: middle; cursor: pointer; width: 22px; height: 22px;">' +
               '</button></td>' +
             '<td rowspan="2"><textarea name="productAbstract" rows="3" style="width: 200px;" id="productAbstract' + tableNo + '"></textarea></td>' +
-            '<td class="backpink"><input type="number" name="quantity" value="" id="quantity' + tableNo + '" style="width: 75px;" onchange="quantityChange(this)" required></td>' +
-            '<td><input type="text" name="unitCost" value="" id="unitCost' + tableNo + '" style="background-color:rgb(177, 177, 177); width: 75px;" readonly></td>' +
+            '<td class="backpink"><input type="number" name="quantity" id="quantity' + tableNo + '" style="width: 75px;" onchange="quantityChange(this)" required></td>' +
+            '<td><input type="text" name="unitCost" id="unitCost' + tableNo + '" style="background-color:rgb(177, 177, 177); width: 75px;" readonly></td>' +
             '<td class="backpink"><input type="number" name="unitRetailPrice" id="unitRetailPrice' + tableNo + '" style="width: 75px;" onchange="unitRetailPriceChange(this)" required></td>' +
-            '<td rowspan="2"><textarea name="productRemarks" value="" rows="3" style="width: 200px;" id="remarks' + tableNo + '"></textarea></td>' +
+            '<td rowspan="2"><textarea name="productRemarks" rows="3" style="width: 200px;" id="remarks' + tableNo + '"></textarea></td>' +
             '<td><button type="button" class="btn btn-primary table-button"  onclick="deleteLineForm(this)"  id="delete' + tableNo + '">削除</button></td>' +
           '</tr>' +
 
           '<tr>' +
             '<td class="backpink"><button type="button" class="btn btn-primary table-button">在庫</button></td>' +
-            '<td><input type="text" name="cost" value="" style="background-color:rgb(177, 177, 177); width: 75px;" id="cost' + tableNo + '" readonly></td>' +
-            '<td class="backpink"><input type="text" name="retailPrice" value="" id="retailPrice' + tableNo + '" style="width: 75px; background-color:rgb(177, 177, 177);" readonly></td>' +
+            '<td><input type="text" name="cost" style="background-color:rgb(177, 177, 177); width: 75px;" id="cost' + tableNo + '" readonly></td>' +
+            '<td class="backpink"><input type="text" name="retailPrice" id="retailPrice' + tableNo + '" style="width: 75px; background-color:rgb(177, 177, 177);" readonly></td>' +
             '<td><button type="button" class="btn btn-primary table-button" onclick="previousCopy(this)" id="previousCopy' + tableNo + '">前行複写</button></td>' +
           '</tr>' );
 			});

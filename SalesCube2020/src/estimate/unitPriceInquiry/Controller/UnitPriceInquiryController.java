@@ -60,9 +60,9 @@ public class UnitPriceInquiryController extends BaseController {
 		//単価照会情報(数量スライド設定および受注残明細情報を除く)を取得
 		UnitPriceInquirySearchResultBean searchResultBean = dao.unitPriceInquirySearch(productCode);
 		//数量スライド設定を取得
-		List<QuantitySlideSettingBean> quantitySlideSettingList = dao.GetQuantitySetting(productCode);
+		List<QuantitySlideSettingBean> quantitySlideSettingList = dao.getQuantitySetting(productCode);
 		//受注残明細を取得
-		List<OrderStatementBean> orderStatementList = dao.GetOrderStatement(productCode);
+		List<OrderStatementBean> orderStatementList = dao.getOrderStatement(productCode);
 		
 		request.setAttribute("searchResult",searchResultBean);
 		request.setAttribute("quantitySlideSettingList",quantitySlideSettingList);

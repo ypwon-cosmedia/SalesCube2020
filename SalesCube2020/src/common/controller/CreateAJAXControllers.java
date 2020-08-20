@@ -68,8 +68,7 @@ public class CreateAJAXControllers {
 		map.put("pcodetoinfo", orderInput);
 		map.put("cuscodetoinfo", orderInput);
 		map.put("stocksearch", stock);
-		map.put("orderinput", bill);
-		map.put("orderlink", bill);
+		map.put("billsearch", bill);
 		
 		return map;
 	}
