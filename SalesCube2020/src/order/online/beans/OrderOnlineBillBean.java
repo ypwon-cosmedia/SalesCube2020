@@ -17,27 +17,9 @@ public class OrderOnlineBillBean {
 	private String ctaxRate;
 	private String customerCode;
 	private String customerName;
-	private String taxShiftCategory;
-	private String cutoffGroup;
-	private String salesCMCategory;
-	private String customerRemarks;
-	private String customerCommentData;
+	private String DeliveryCode;
 	private String DeliveryName;
-	private String DeliveryOfficeName;
-	private String DeliveryDeptName;
-	private String DeliveryZipCode;
-	private String DeliveryAddress1;
-	private String DeliveryAddress2;
-	private String DeliveryPCName;
-	private String DeliveryPCKana;
-	private String DeliveryPCPre;
-	private String DeliveryTel;
-	private String Deliveryfax;
-	private String DeliveryEMail;
-	private String retailPriceTotal;
-	private String ctaxPriceTotal;
-	private String priceTotal;
-	
+
 	public String getRoDate() {
 		return roDate;
 	}
@@ -104,35 +86,11 @@ public class OrderOnlineBillBean {
 	public void setCustomerName(String customerName) {
 		this.customerName = customerName;
 	}
-	public String getTaxShiftCategory() {
-		return taxShiftCategory;
+	public String getDeliveryCode() {
+		return DeliveryCode;
 	}
-	public void setTaxShiftCategory(String taxShiftCategory) {
-		this.taxShiftCategory = taxShiftCategory;
-	}
-	public String getCutoffGroup() {
-		return cutoffGroup;
-	}
-	public void setCutoffGroup(String cutoffGroup) {
-		this.cutoffGroup = cutoffGroup;
-	}
-	public String getSalesCMCategory() {
-		return salesCMCategory;
-	}
-	public void setSalesCMCategory(String salesCMCategory) {
-		this.salesCMCategory = salesCMCategory;
-	}
-	public String getCustomerRemarks() {
-		return customerRemarks;
-	}
-	public void setCustomerRemarks(String customerRemarks) {
-		this.customerRemarks = customerRemarks;
-	}
-	public String getCustomerCommentData() {
-		return customerCommentData;
-	}
-	public void setCustomerCommentData(String customerCommentData) {
-		this.customerCommentData = customerCommentData;
+	public void setDeliveryCode(String deliveryCode) {
+		DeliveryCode = deliveryCode;
 	}
 	public String getDeliveryName() {
 		return DeliveryName;
@@ -140,90 +98,5 @@ public class OrderOnlineBillBean {
 	public void setDeliveryName(String deliveryName) {
 		DeliveryName = deliveryName;
 	}
-	public String getDeliveryOfficeName() {
-		return DeliveryOfficeName;
-	}
-	public void setDeliveryOfficeName(String deliveryOfficeName) {
-		DeliveryOfficeName = deliveryOfficeName;
-	}
-	public String getDeliveryDeptName() {
-		return DeliveryDeptName;
-	}
-	public void setDeliveryDeptName(String deliveryDeptName) {
-		DeliveryDeptName = deliveryDeptName;
-	}
-	public String getDeliveryZipCode() {
-		return DeliveryZipCode;
-	}
-	public void setDeliveryZipCode(String deliveryZipCode) {
-		DeliveryZipCode = deliveryZipCode;
-	}
-	public String getDeliveryAddress1() {
-		return DeliveryAddress1;
-	}
-	public void setDeliveryAddress1(String deliveryAddress1) {
-		DeliveryAddress1 = deliveryAddress1;
-	}
-	public String getDeliveryAddress2() {
-		return DeliveryAddress2;
-	}
-	public void setDeliveryAddress2(String deliveryAddress2) {
-		DeliveryAddress2 = deliveryAddress2;
-	}
-	public String getDeliveryPCName() {
-		return DeliveryPCName;
-	}
-	public void setDeliveryPCName(String deliveryPCName) {
-		DeliveryPCName = deliveryPCName;
-	}
-	public String getDeliveryPCKana() {
-		return DeliveryPCKana;
-	}
-	public void setDeliveryPCKana(String deliveryPCKana) {
-		DeliveryPCKana = deliveryPCKana;
-	}
-	public String getDeliveryPCPre() {
-		return DeliveryPCPre;
-	}
-	public void setDeliveryPCPre(String deliveryPCPre) {
-		DeliveryPCPre = deliveryPCPre;
-	}
-	public String getDeliveryTel() {
-		return DeliveryTel;
-	}
-	public void setDeliveryTel(String deliveryTel) {
-		DeliveryTel = deliveryTel;
-	}
-	public String getDeliveryfax() {
-		return Deliveryfax;
-	}
-	public void setDeliveryfax(String deliveryfax) {
-		Deliveryfax = deliveryfax;
-	}
-	public String getDeliveryEMail() {
-		return DeliveryEMail;
-	}
-	public void setDeliveryEMail(String deliveryEMail) {
-		DeliveryEMail = deliveryEMail;
-	}
-	public String getRetailPriceTotal() {
-		return retailPriceTotal;
-	}
-	public void setRetailPriceTotal(String retailPriceTotal) {
-		this.retailPriceTotal = retailPriceTotal;
-	}
-	public String getCtaxPriceTotal() {
-		return ctaxPriceTotal;
-	}
-	public void setCtaxPriceTotal(String ctaxPriceTotal) {
-		this.ctaxPriceTotal = ctaxPriceTotal;
-	}
-	public String getPriceTotal() {
-		return priceTotal;
-	}
-	public void setPriceTotal(String priceTotal) {
-		this.priceTotal = priceTotal;
-	}
-	
 	
 }

@@ -2,69 +2,48 @@ package order.online.beans;
 
 public class OrderOnlineDetailBean {
 
+	private int roSlipId;
 	private String productCode;
-	private String productAbstract;
-	private Integer quantity;
-	private Integer unitCost;
-	private Integer cost;
-	private Integer unitRetailCost;
-	private Integer retailCost;
-	private String remarks;
-	private String eadRemarks;
+	private int quantity;
+	private int unitRetailPrice;
+	private int unitCost;
+	private int ctaxRate;
 	
+	public int getRoSlipId() {
+		return roSlipId;
+	}
+	public void setRoSlipId(int roSlipId) {
+		this.roSlipId = roSlipId;
+	}
 	public String getProductCode() {
 		return productCode;
 	}
 	public void setProductCode(String productCode) {
 		this.productCode = productCode;
 	}
-	public String getProductAbstract() {
-		return productAbstract;
-	}
-	public void setProductAbstract(String productAbstract) {
-		this.productAbstract = productAbstract;
-	}
-	public Integer getQuantity() {
+	public int getQuantity() {
 		return quantity;
 	}
-	public void setQuantity(Integer quantity) {
+	public void setQuantity(int quantity) {
 		this.quantity = quantity;
 	}
-	public Integer getUnitCost() {
+	public int getUnitRetailPrice() {
+		return unitRetailPrice;
+	}
+	public void setUnitRetailPrice(int unitRetailPrice) {
+		this.unitRetailPrice = unitRetailPrice;
+	}
+	public int getUnitCost() {
 		return unitCost;
 	}
-	public void setUnitCost(Integer unitCost) {
+	public void setUnitCost(int unitCost) {
 		this.unitCost = unitCost;
 	}
-	public Integer getCost() {
-		return cost;
+	public int getCtaxRate() {
+		return ctaxRate;
 	}
-	public void setCost(Integer cost) {
-		this.cost = cost;
-	}
-	public Integer getUnitRetailCost() {
-		return unitRetailCost;
-	}
-	public void setUnitRetailCost(Integer unitRetailCost) {
-		this.unitRetailCost = unitRetailCost;
-	}
-	public Integer getRetailCost() {
-		return retailCost;
-	}
-	public void setRetailCost(Integer retailCost) {
-		this.retailCost = retailCost;
-	}
-	public String getRemarks() {
-		return remarks;
-	}
-	public void setRemarks(String remarks) {
-		this.remarks = remarks;
-	}
-	public String getEadRemarks() {
-		return eadRemarks;
-	}
-	public void setEadRemarks(String eadRemarks) {
-		this.eadRemarks = eadRemarks;
+	public void setCtaxRate(int ctaxRate) {
+		this.ctaxRate = ctaxRate;
 	}
 	
 }

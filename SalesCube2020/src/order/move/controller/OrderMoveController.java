@@ -15,6 +15,7 @@ import estimate.common.controller.EstimateCategoryModalAJAXController;
 import order.common.init.DAO.OrderInitDAO;
 import order.input.DAO.OrderInputDAO;
 import order.input.beans.OrderInputBean;
+import user.DAO.UserDAO;
 import user.beans.UserInfoBean;
 import user.controller.UserController;
 
@@ -49,6 +50,10 @@ public class OrderMoveController extends BaseController{
 		
 		OrderInputDAO dao = new OrderInputDAO();
 		ProductModalInit init = new ProductModalInit();
+
+		HttpSession session = request.getSession();
+		UserInfoBean user = (UserInfoBean) session.getAttribute("userInfo");
+		session.setAttribute("user", user.getNameKNJ());
 		
 //		EstimateCategoryModalAJAXController est = new EstimateCategoryModalAJAXController();
 
@@ -118,6 +123,13 @@ public class OrderMoveController extends BaseController{
 
 	private String moveOnlineOrder (HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 	
+		HttpSession session = request.getSession(true);
+		
+		if(session.getAttribute("userInfo") == null) {
+			String message = "ログインした後で利用できます。\nログインしてください。";
+			request.setAttribute("loginError", message);
+			return "login.jsp";
+		}
 		return "order\\onlineorderdataimport.jsp";
 	}
 }

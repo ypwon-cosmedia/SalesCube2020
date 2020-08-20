@@ -134,34 +134,34 @@
       <div><h5 id="message" style="color:#ff0000;"></h5></div>
     </div>
 
-    <form action="/SalesCube2020/SalesCube?action=unitPriceInquirySearch" method="post" name="unitpriceinquiryform">
+    <form action="/SalesCube2020/SalesCube?action=unitPriceInquirySearch" method="post" name="unitpriceinquiryform" id="unitpriceinquiryform">
       <div class="container" style="background-color: white;">
         <div class="panel panel-default" >
-			    <div class="panel-heading row mb-2 col-4">
-				     <h5><br>検索条件</h5>
-			    </div>
-			    <hr>
+		    <div class="panel-heading row mb-2 col-4">
+			     <h5><br>検索条件</h5>
+		    </div>
+			<hr>
 		
-			  	<div class="panel-body">
-				    <div class="row">
-					    <div class="col-4">
-						    <label class="sr-only" for="inlineFormInputGroup"></label>
-						    <div class="input-group mb-2">
-						    	<div class="input-group-prepend">
-						    		<div class="input-group-text">商品コード</div>
-						  		</div>
-			                    <input type="text" value="${searchResult.productCode}" class="form-control" id="inputProductCode" name="productCode">
-			                    <button type="button" class="ModalButton"  data-toggle="modal" data-target="#setproductsearch" onclick="initProductModal()">
-			                      <img src="btn_search.png" style="vertical-align: middle; cursor: pointer; width: 32px; height: 32px;">
-			                    </button>
-					  		</div>
-              </div>
-            </div>
-          </div>
+			<div class="panel-body">
+				<div class="row">
+					<div class="col-4">
+				 		<label class="sr-only" for="inlineFormInputGroup"></label>
+				  		<div class="input-group mb-2">
+				  			<div class="input-group-prepend">
+				  				<div class="input-group-text">商品コード</div>
+							</div>
+				           	<input type="text" value="${searchResult.productCode}" class="form-control" id="inputProductCode" name="productCode" pattern="^[0-9A-Za-z]+$" title="※半角英数字">
+							<button type="button" class="ModalButton"  data-toggle="modal" data-target="#setproductsearch" onclick="initProductModal()">
+								<img src="btn_search.png" style="vertical-align: middle; cursor: pointer; width: 32px; height: 32px;">
+				            </button>
+						</div>
+					</div>
+				</div>
+			</div>
 
           <div align="right">
             <input type="button" value="初期化" class="btn btn-primary" onclick="initForm();">
-            <input type="submit" value="検索" class="btn btn-primary">
+            <input type="submit" value="検索" class="btn btn-primary" id="unitPriceInquirySearchButton">
           </div>
         </div>
           <br>
@@ -311,6 +311,19 @@
 
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.2/jquery.min.js"></script>
   <script>
+	  //入力欄が変更された時のパターンチェック
+	  var elem = document.getElementById("unitpriceinquiryform");	//formをidで取得
+	  elem.addEventListener('change', function() {			//入力したときのEventを追加
+	      elem.reportValidity();								//form(elem)のpatternの確認
+	  });
+	  //検索ボタンを押した際の入力チェック 
+	  var searchButton = document.getElementById("unitPriceInquirySearchButton");	//検索ボタンをidで取得
+	  searchButton.addEventListener("submit", function() {		//検索ボタンを押したときのEventを追加
+	  	if( elem.reportValidity() == true ){					//form(elem)のpatternの確認
+	  		searchSupplier();								//入力チェックが通った場合、仕入れ先を検索を行う
+	  	}
+	  },false);
+  
 	  /* 画面読み込み時、リクエストスコープに"status"に"result"が保存されている場合、結果画面を表示する */
 	  window.onload = function () {
 		  if("${status}" == "result"){

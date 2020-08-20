@@ -20,22 +20,38 @@ public class OrderInputDAO extends BaseDAO{
 		Connection con;
 	 	Statement stmt = null;
 	 	int result = 0;
-	 	String sql;
+	 	int result2 = 0;
+	 	int result3 = 0;
+	 	String sql1;
+	 	String sql2;
 
 	 	con = super.getConnection();
 	 	stmt = con.createStatement();
 	 	
 	 	OrderSQL ordersql = new OrderSQL();
-	 	sql = ordersql.deleteOrderInfo(roSlipId);
-	 		
-	 	System.out.println(sql);
+	 	sql1 = ordersql.deleteOrderInfo(roSlipId);
+	 	sql2 = ordersql.deleteOrderDetail(roSlipId);
+	 	
+	 	System.out.println(sql1);
+	 	System.out.println(sql2);
 	 	try {
-	 		result = stmt.executeUpdate(sql);
+	 		result = stmt.executeUpdate(sql1);
 	 		con.commit();
 	 	}catch(SQLException e) {
-	 		result = 1;
+	 		result2 = 1;
 	 	}finally {
 	 		super.releaseDB(con, stmt);	 		
+	 	}
+	 	try {
+	 		result = stmt.executeUpdate(sql2);
+	 		con.commit();
+	 	}catch(SQLException e) {
+	 		result3 = 1;
+	 	}finally {
+	 		super.releaseDB(con, stmt);	 		
+	 	}
+	 	if(result2 == 1 && result3 == 1) {
+	 		result = 0;
 	 	}
 	 	
 		return result;

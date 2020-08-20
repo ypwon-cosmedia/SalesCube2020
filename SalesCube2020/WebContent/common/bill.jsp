@@ -11,7 +11,7 @@
 			</div>
 			<div class="modal-body">			
 				見積伝票検索
-				<form action="/SalesCube2020/SalesCube?action=billsearch" method="post">
+				<form action="" method="post" id="bill">
 					<div class="row">
 						<div class="col-4">
 							<label class="sr-only" for="inlineFormInputGroup">UserId</label>
@@ -65,31 +65,22 @@
 					<div class="float-left" style="position:static; left: 0px;">検索結果件数：0件</div>
 					<div align="right">
 						<button type="button" class="btn btn-outline-secondary" onclick="initFormOrder();">初期化</button>&ensp;
-						<input type="submit" value="検索" class="btn btn-outline-secondary">
+						<button type="button" class="btn btn-outline-secondary" onclick="billSearch()">検索</button>
 					</div>
 				</form>
 				<br>
 				<table id="order_detail_info" class="table table-bordered">
 					<thead class="thead-dark">
 					  <tr>
-						<th scope="col" class="rd_top_left th_back_black" style="cursor: pointer; height: 30px;" onclick="sort('productCode');">見積番号</th>
-						<th scope="col" class="th_back_black" style="cursor: pointer; height: 30px;" onclick="sort('productName');">見積日</th>
-						<th scope="col" class="th_back_black" style="cursor: pointer; height: 30px;" onclick="sort('supplierName');">提出先名</th>
-						<th scope="col" class="th_back_black" style="cursor: pointer; height: 30px;" onclick="sort('supplierName');">件名</th>
+						<th scope="col" class="rd_top_left th_back_black" style="cursor: pointer; height: 30px;">見積番号</th>
+						<th scope="col" class="th_back_black" style="cursor: pointer; height: 30px;">見積日</th>
+						<th scope="col" class="th_back_black" style="cursor: pointer; height: 30px;">提出先名</th>
+						<th scope="col" class="th_back_black" style="cursor: pointer; height: 30px;">件名</th>
 								
 					</tr>
 					</thead>
-					<c:forEach items="${billSearch}" var="bill">
-						<tr>
-							<form action="/SalesCube2020/SalesCube?action=billlink" method="post" id="estimateTable">
-								<td style="white-space: normal; text-align: left;" data-dismiss="modal" id="estimateSheetId"><a href="orderinput.html">${bill.estimateSheetId}</a></td>
-							</form>
-							<td style="white-space: normal; text-align: left;" id="estimateDate">${bill.estimateDate}</td>
-							<td style="white-space: normal; text-align: left;" id="submitName">${bill.submitName}</td>
-							<td style="white-space: normal; text-align: left;" id="title">${bill.title}</td>
-						</tr>
-
-					</c:forEach>
+					<tbody id="billBody">
+					</tbody>
 				</table>
 				<br>
 			</div>
@@ -99,3 +90,53 @@
 		</div>
 	</div>
 </div>
+
+<script>
+	function billSearch() {	
+		alert();
+		var formString = $("form[id=bill]").serialize();
+		var tmp = "";
+		
+		$.ajax({
+			url:'/SalesCube2020/SalesCubeAJAX?action=billsearch',
+			type:'post',
+			data:formString,
+			dataType:'json',
+			success:function(data){	
+				$("#billBody > tr").remove();
+				for(var i = 0; i<Object.keys(data).length; i++){
+					var headcontents= '';
+					headcontents += '<tr>';
+					headcontents += '<td style="white-space: normal; text-align: left;" onclick="estimateSheettoParent(' + "'" + data[i].estimateSheetId +"','"+data[i].estimateSheetId+"'"+')" data-dismiss="modal"><a href="">'+data[i].estimateSheetId+'</a></td>';
+					headcontents += '<td style="white-space: normal; text-align: left;" onclick="estimateSheettoParent(' + "'" + data[i].estimateDate +"','"+data[i].estimateDate+"'"+')" data-dismiss="modal">'+data[i].estimateDate+'</td>';
+					headcontents += '<td style="white-space: normal; text-align: left;">'+(data[i].submitName==null ? '' : data[i].submitName)+'</td>';   
+					headcontents += '<td style="white-space: normal; text-align: left;">'+(data[i].title==null ? '' : data[i].title)+'</td>';   
+					headcontents += '</tr>';
+					$('#billBody').append(headcontents);						
+				}
+			}
+		});
+	}
+	
+	function initFormOrder() {	
+		$("#billBody > tr").remove();
+		$.ajax({
+			url:'/SalesCube2020/SalesCubeAJAX?action=initBill',
+			dataType:'json',
+			type:'post',
+			success:function(data){	
+				for(var i = 0; i<Object.keys(data.list1).length; i++){
+					$("#setTypeCategory").append("<option value = "+data.list1[i].categoryCode+">"+data.list1[i].categoryCodeName+"</option>");	
+				}
+				for(var i = 0; i<Object.keys(data.list2).length; i++){
+					$("#productStandardCategory").append("<option value = "+data.list2[i].categoryCode+">"+data.list2[i].categoryCodeName+"</option>");
+				}
+				for(var i = 0; i<Object.keys(data.list3).length; i++){
+					$("#productStockCategory").append("<option value = "+data.list3[i].categoryCode+">"+data.list3[i].categoryCodeName+"</option>");
+					
+				}
+			}
+		});
+	}
+	
+</script>

@@ -109,12 +109,11 @@
 		<br>	
 		
 		<div class="container">
-            <div class="float-left" style="position:static; left: 0px;">取込件数：0件</div>			
+            <div class="float-left" style="position:static; left: 0px;">取込件数：${fn:length(result)}件</div>			
 		</div>
     </form>
     
 <br>
-
 <br>
 
 <div class="container" style="background-color: rgb(255, 255, 255);" id="setProductList">
@@ -127,11 +126,11 @@
       </tr>
 		</thead>
 		<tbody class="list">
-		  <c:forEach var="doc" items="${doc}">
+		  <c:forEach var="doc" items="${result}" varStatus="status">
 		    <tr>	      
-              <td style="white-space: normal; text-align: left;">${doc.orderNo}</td>
+              <td style="white-space: normal; text-align: left;">${doc.roSlipId}</td>
               <td style="white-space: normal; text-align: left;">${doc.customerName}</td>	
-              <td style="white-space: normal; text-align: left;">${doc.orderDate}</td>
+              <td style="white-space: normal; text-align: left;">${doc.roDate}</td>
 		  	</tr>
 		  </c:forEach>  
 		</tbody>

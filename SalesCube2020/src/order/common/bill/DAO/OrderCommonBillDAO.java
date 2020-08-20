@@ -14,7 +14,7 @@ import sql.order.OrderSQL;
 public class OrderCommonBillDAO extends BaseDAO{
 
 	/* 見積検索 */
-	public List<OrderCommonBillBean> billSearch(String estimateSheetId, String estimateDate, String submitName, String title, OrderCommonBillBean bean)
+	public List<OrderCommonBillBean> billSearch(OrderCommonBillBean bean)
 			throws SQLException, ClassNotFoundException {
 		
 		List<OrderCommonBillBean> list = new ArrayList<OrderCommonBillBean>();
@@ -28,7 +28,7 @@ public class OrderCommonBillDAO extends BaseDAO{
 	 	stmt = con.createStatement();
 	 	
 	 	OrderSQL ordersql = new OrderSQL();
-	 	sql = ordersql.billSearch(estimateSheetId, estimateDate, submitName, title, bean);
+	 	sql = ordersql.billSearch(bean);
 	 	
 	 	result = stmt.executeQuery(sql);
 	 	

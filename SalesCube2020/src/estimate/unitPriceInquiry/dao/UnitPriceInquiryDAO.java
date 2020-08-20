@@ -4,13 +4,14 @@
 package estimate.unitPriceInquiry.dao;
 
 import java.sql.Connection;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 
 import common.dao.BaseDAO;
+import estimate.Input.API.EstimatePropertyUtil;
 import estimate.unitPriceInquiry.beans.OrderStatementBean;
 import estimate.unitPriceInquiry.beans.QuantitySlideSettingBean;
 import estimate.unitPriceInquiry.beans.UnitPriceInquirySearchResultBean;
@@ -22,13 +23,13 @@ public class UnitPriceInquiryDAO extends BaseDAO {
 	public UnitPriceInquirySearchResultBean unitPriceInquirySearch(String productCode) throws SQLException, ClassNotFoundException {
 		
 		Connection con;
-	 	Statement stmt=null;
+		PreparedStatement pstmt= null;
 	 	ResultSet result=null;
 	 	String  sql;
 	 	
 	 	con = super.getConnection();
-	 	stmt = con.createStatement();
 	 	
+	 	/*
 	 	sql="select " + 
 	 			"PRODUCT_NAME,  " + 
 	 			"RETAIL_PRICE,  " + 
@@ -58,9 +59,16 @@ public class UnitPriceInquiryDAO extends BaseDAO {
 	 		"left outer join STOCK_MST_XXXXX using(PRODUCT_CODE) " + 
 	 		"left outer join (select PRODUCT_CODE, sum(QUANTITY) as QUANTITY_TOTAL from RO_LINE_TRN_XXXXX GROUP BY PRODUCT_CODE)as quantityTotal " + 
 	 			"on PRODUCT_MST_XXXXX.PRODUCT_CODE = quantityTotal.PRODUCT_CODE  " + 
-	 		"where PRODUCT_MST_XXXXX.PRODUCT_CODE = '" + productCode + "'";
+	 		"where PRODUCT_MST_XXXXX.PRODUCT_CODE = ?";
+	 	*/
 	 	
-	 	result = stmt.executeQuery(sql);
+	 	sql = EstimatePropertyUtil.getProperty("unitPriceInquirySearch"); //プロパティファイルから読み込み
+	 	
+	 	pstmt = con.prepareStatement(sql);
+	 	
+	 	pstmt.setString(1, productCode);
+	 	
+	 	result = pstmt.executeQuery();
 	 	
 	 	UnitPriceInquirySearchResultBean bean = new UnitPriceInquirySearchResultBean();
 		
@@ -83,34 +91,41 @@ public class UnitPriceInquiryDAO extends BaseDAO {
 	 		bean.setQuantityTotal(result.getString("QUANTITY_TOTAL"));
 	 	}
 	 	
-	 	super.releaseDB(con,stmt,result);
+	 	super.releaseDB(con,pstmt,result);
 	 	
 	 	return bean;
 	}
 	
 	//数量スライド設定 取得
-	public List<QuantitySlideSettingBean> GetQuantitySetting(String productCode) throws SQLException, ClassNotFoundException {
+	public List<QuantitySlideSettingBean> getQuantitySetting(String productCode) throws SQLException, ClassNotFoundException {
 		
 		Connection con;
-	 	Statement stmt=null;
+		PreparedStatement pstmt= null;
 	 	ResultSet result=null;
 	 	String  sql;
 	 	
 	 	List<QuantitySlideSettingBean> list = new ArrayList<> ();
 	 	
 	 	con = super.getConnection();
-	 	stmt = con.createStatement();
 	 	
+	 	/*
 	 	sql="select " +
 	 			"LINE_NO, " +
 	 			"CONCAT( cast(IFNULL(DATA_FROM, '') as signed ), '～' ,  cast( IFNULL(DATA_TO, '') as signed) ) AS QUANTITY_DISCOUNT , " +
 	 			"DISCOUNT_RATE " + 
 	 		"from discount_trn_xxxxx  " + 
 	 		"left outer join  discount_rel_xxxxx using(DISCOUNT_ID) " + 
-	 		"where discount_rel_xxxxx.PRODUCT_CODE = '" + productCode + "'";
+	 		"where discount_rel_xxxxx.PRODUCT_CODE = ?";
+	 	*/
+	 	
+	 	sql = EstimatePropertyUtil.getProperty("getQuantitySetting"); //プロパティファイルから読み込み
 
 	 	
-	 	result = stmt.executeQuery(sql);
+	 	pstmt = con.prepareStatement(sql);
+	 	
+	 	pstmt.setString(1, productCode);
+	 	
+	 	result = pstmt.executeQuery();
 		
 	 	while(result.next()) {
 		 	QuantitySlideSettingBean bean = new QuantitySlideSettingBean();
@@ -120,24 +135,24 @@ public class UnitPriceInquiryDAO extends BaseDAO {
 	 		list.add(bean);
 	 	}
 	 	
-	 	super.releaseDB(con,stmt,result);
+	 	super.releaseDB(con,pstmt,result);
 	 	
 	 	return list;
 	}
 	
 	//受注残明細 取得
-	public List<OrderStatementBean> GetOrderStatement(String productCode) throws SQLException, ClassNotFoundException {
+	public List<OrderStatementBean> getOrderStatement(String productCode) throws SQLException, ClassNotFoundException {
 		
 		Connection con;
-	 	Statement stmt=null;
+		PreparedStatement pstmt= null;
 	 	ResultSet result=null;
 	 	String  sql;
 	 	
 	 	List<OrderStatementBean> list = new ArrayList<> ();
 	 	
 	 	con = super.getConnection();
-	 	stmt = con.createStatement();
 	 	
+	 	/*
 	 	sql="select " + 
 	 			"CONCAT(IFNULL(RO_SLIP_ID, '') , '-' ,  IFNULL(LINE_NO, '') ) as ORDER_NUMBER_LINE , " +
 	 			"SHIP_DATE, " +
@@ -145,10 +160,17 @@ public class UnitPriceInquiryDAO extends BaseDAO {
 	 			"RO_SLIP_ID " +
 	 		"from RO_LINE_TRN_XXXXX " + 
 	 		"left outer join RO_SLIP_TRN_XXXXX using(RO_SLIP_ID) " + 
-	 		"where PRODUCT_CODE = '" + productCode + "'";
-
+	 		"where PRODUCT_CODE = ?";
 	 	
-	 	result = stmt.executeQuery(sql);
+	 	*/
+	 	
+	 	sql = EstimatePropertyUtil.getProperty("getOrderStatement"); //プロパティファイルから読み込み
+
+	 	pstmt = con.prepareStatement(sql);
+	 	
+	 	pstmt.setString(1, productCode);
+	 	
+	 	result = pstmt.executeQuery();
 		
 	 	while(result.next()) {
 	 		OrderStatementBean bean = new OrderStatementBean();
@@ -159,7 +181,7 @@ public class UnitPriceInquiryDAO extends BaseDAO {
 	 		list.add(bean);
 	 	}
 	 	
-	 	super.releaseDB(con,stmt,result);
+	 	super.releaseDB(con,pstmt,result);
 	 	
 	 	return list;
 	}
