@@ -10,6 +10,7 @@ import java.util.List;
 import java.util.MissingResourceException;
 
 import common.dao.BaseDAO;
+import estimate.common.API.EstimateCommonSqlProperty;
 import estimate.common.beans.EstimateConfigurationBean;
 
 
@@ -20,14 +21,14 @@ public class EstimateConfigurationDAO extends BaseDAO{
 		List<EstimateConfigurationBean> list = new ArrayList<> ();
 		
 		Connection con;
-		Statement stmt = null;
+		PreparedStatement pstm = null;
 		ResultSet result = null;
 		
 		con = super.getConnection();
-		stmt = con.createStatement();
 		
 		String sql;
 		
+		/*
 		sql = "SELECT "
 				+ "MST.ITEM_ID, "
 				+ "MST.ITEM_NAME, "
@@ -45,8 +46,12 @@ public class EstimateConfigurationDAO extends BaseDAO{
 				+ "' AND CFG.TARGET='1' "
 				+ "AND CFG.DETAIL_ID='0201' "
 			+ " ORDER BY SEQ;";
+		*/
+		sql = EstimateCommonSqlProperty.getEstimateCommonProperty("estimateConfigShow");
+		pstm = con.prepareStatement(sql);
 		
-		result = stmt.executeQuery(sql);
+		pstm.setString(1, userId);
+		result = pstm.executeQuery();
 		
 		//SQL文の検索結果の出力
 		while( result.next() ) {	//表示項目をリストに登録
@@ -57,9 +62,9 @@ public class EstimateConfigurationDAO extends BaseDAO{
 			
 	 		list.add(show);
 	 	}
-	 	
-	super.releaseDB(con, stmt, result);//DBの開放
- 	return list;//List<EstimateConfigurationBean>型のlistを戻り値として返す
+		pstm.close();
+		super.releaseDB(con, pstm);//DBの開放
+	 	return list;//List<EstimateConfigurationBean>型のlistを戻り値として返す
  	
  	}
 	
@@ -68,14 +73,13 @@ public class EstimateConfigurationDAO extends BaseDAO{
 		List<EstimateConfigurationBean> list = new ArrayList<> ();
 		
 		Connection con;
-		Statement stmt = null;
-		ResultSet result = null;
+		ResultSet result;
+		PreparedStatement pstm = null;
 		
 		con = super.getConnection();
-		stmt = con.createStatement();
 		
 		String sql;
-		
+		/*
 		sql = "SELECT "
 				+ "MST.ITEM_ID, "
 				+ "MST.ITEM_NAME, "
@@ -96,8 +100,12 @@ public class EstimateConfigurationDAO extends BaseDAO{
 						+ "AND CFG.DETAIL_ID='0201' "
 				+ ") "
 			+ "ORDER BY MST.SEQ;";
+		*/
+		sql = EstimateCommonSqlProperty.getEstimateCommonProperty("estimateConfigNotShow");
+		pstm = con.prepareStatement(sql);
 		
-		result = stmt.executeQuery(sql);
+		pstm.setString(1, userId);
+		result = pstm.executeQuery();
 		
 		//SQL文の検索結果の出力
 		while( result.next() ) {	//表示項目をリストに登録
@@ -108,16 +116,16 @@ public class EstimateConfigurationDAO extends BaseDAO{
 			
 	 		list.add(notShow);
 	 	}
+		
+		pstm.close();
+		super.releaseDB(con, pstm);//DBの開放
+	 	return list;//List<EstimateConfigurationBean>型のlistを戻り値として返す
 	 	
-	super.releaseDB(con, stmt, result);//DBの開放
- 	return list;//List<EstimateConfigurationBean>型のlistを戻り値として返す
- 	
 	}
 	
 	public void UpdateConfig(String userId, String[] showItems) throws SQLException, ClassNotFoundException{
 		
 		Connection con;
-		Statement stmt = null;
 		int result = 0;
 		PreparedStatement pstm = null;
 		
@@ -127,21 +135,24 @@ public class EstimateConfigurationDAO extends BaseDAO{
 		try {
 		
 		con = super.getConnection();
-		stmt = con.createStatement();
 		
-		//表示項目の削除用のSQL
+		/*表示項目の削除用のSQL
 		deleteSql = "DELETE "
 					+ "FROM DETAIL_DISP_ITEM_CFG_XXXXX "
 					+ "WHERE "
 						+ "USER_ID='" + userId + "' "
 						+ "AND TARGET = '1' "
 						+ "AND DETAIL_ID='0201';";
+		*/
+		deleteSql = EstimateCommonSqlProperty.getEstimateCommonProperty("estimateConfigDelete");
+		pstm = con.prepareStatement(deleteSql);
 		
-		stmt.executeUpdate(deleteSql);//表示項目をリストから削除
+		pstm.setString(1, userId);
+		result = pstm.executeUpdate();//表示項目をリストから削除
 		
 		System.out.println("-----FINISH delete-----");
 		
-		//表示項目の登録用のSQL
+		/*表示項目の登録用のSQL
 		insertSql = "INSERT "
 				+ "INTO DETAIL_DISP_ITEM_CFG_XXXXX " 
 					+ "(USER_ID, " 		//ログインユーザのID
@@ -160,7 +171,8 @@ public class EstimateConfigurationDAO extends BaseDAO{
 					+ "?, " 
 					+ "? " 
 				+ ");";
-		
+		*/
+		insertSql = EstimateCommonSqlProperty.getEstimateCommonProperty("estimateConfigUpdate");
 		pstm = con.prepareStatement(insertSql);
 		
 		//見積番号を1番目に登録する
@@ -180,14 +192,13 @@ public class EstimateConfigurationDAO extends BaseDAO{
 				pstm.setInt(5, (i+2));
 				result = pstm.executeUpdate();
 				
-				System.out.println(" i+2:"+ (i+2)+" result:"+result+ " ItemId:"+showItems[i]);
 			}
 		}
 		con.commit();	//"pstm"をコミットして登録
 		
 		System.out.println("-----FINISH update-----");
 		pstm.close();
-		super.releaseDB(con, stmt);//DBの開放
+		super.releaseDB(con,pstm);//DBの開放
 		
 		}catch (SQLException e){
 			  e.printStackTrace();
