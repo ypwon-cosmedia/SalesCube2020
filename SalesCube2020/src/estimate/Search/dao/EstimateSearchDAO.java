@@ -37,7 +37,7 @@ public class EstimateSearchDAO extends BaseDAO {
 		 list1 =  estimateConfiguration(user);
 		
 		
-		
+		//見積検索の見出し部の決定
 		String row = "";
 		for(int i = 0; i < list1.size(); i++) {
 			switch(list1.get(i).getItemId()) {
@@ -102,14 +102,12 @@ public class EstimateSearchDAO extends BaseDAO {
 			}
 		}
 		row = row.substring(0, row.length()-2) + " ";
-		
-		
-				
+	
+		//検索結果SQL
 		estimateResult = "select " +
 		
 					row +		
 		
-				//"ESTIMATE_SHEET_ID, ESTIMATE_DATE, VALID_DATE, SUBMIT_NAME , ctx.CATEGORY_CODE_NAME, CUSTOMER_CODE, CUSTOMER_NAME, RETAIL_PRICE_TOTAL, CTAX_PRICE_TOTAL, DELIVERY_INFO, USER_NAME, USER_ID, REMARKS, DELIVERY_NAME, ESTIMATE_CONDITION, ESTIMATE_TOTAL, (RETAIL_PRICE_TOTAL - COST_TOTAL) as GrossProfit, (ROUND((RETAIL_PRICE_TOTAL - COST_TOTAL)/RETAIL_PRICE_TOTAL*100,2)) as GrossProfitMargin, TITLE " +				
 				"from " +
 				"ESTIMATE_SHEET_TRN_XXXXX " +
 				"left outer join " +
@@ -140,6 +138,7 @@ public class EstimateSearchDAO extends BaseDAO {
 				"(CUSTOMER_NAME LIKE '%' OR CUSTOMER_NAME IS NULL) " +
 				"order by " +
 				"ESTIMATE_SHEET_ID ";
+		
 		System.out.println("テスト"+ estimateResult);
 		result = stmt.executeQuery(estimateResult);
 		
@@ -176,6 +175,7 @@ public class EstimateSearchDAO extends BaseDAO {
 		return list;
 			
 	}
+	
 	
 	public List<EstimateConfigurationBean> estimateConfiguration(UserInfoBean user) throws SQLException, ClassNotFoundException{
 		List<EstimateConfigurationBean> list1 =new ArrayList<>();

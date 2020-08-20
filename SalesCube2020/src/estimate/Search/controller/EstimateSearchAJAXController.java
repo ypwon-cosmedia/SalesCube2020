@@ -47,7 +47,7 @@ public class EstimateSearchAJAXController extends BaseAJAXController{
 		
 		 HttpSession session = request.getSession();
 		 user =(UserInfoBean)session.getAttribute("userInfo");	
-		
+		 //見積検索条件
 		bean.setEstimateSheetId(request.getParameter("estimateSheetId"));
 		bean.setEstimateDateStart(request.getParameter("estimateDateStart"));
 		bean.setEstimateDateEnd(request.getParameter("estimateDateEnd"));
@@ -77,6 +77,7 @@ public class EstimateSearchAJAXController extends BaseAJAXController{
 		}
 	}
 	
+	//見積検索（見出し部）
 	public void estimateCreateTable(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		EstimateSearchDAO dao = new EstimateSearchDAO();
 		UserInfoBean user = new UserInfoBean();
