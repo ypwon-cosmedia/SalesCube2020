@@ -2,6 +2,7 @@ package sql.estimate;
 
 import estimate.Search.beans.EstimateSearchBean;
 import estimate.common.beans.UserModalSearchBean;
+import user.beans.UserInfoBean;
 
 public class EstimateSQL {
 	
@@ -44,12 +45,30 @@ public class EstimateSQL {
 		return sql;	
 	}
 	
+	//見積検索テーブル取得
+	public String estimateTableCreate(UserInfoBean bean) {
+		String sql;
+		
+		sql = "SELECT " +
+				"MST.ITEM_ID, MST.ITEM_NAME, MST.SORT_FLAG " +
+				"FROM " +
+				"DETAIL_DISP_ITEM_MST_XXXXX AS MST " +
+				"LEFT OUTER JOIN " +
+				"DETAIL_DISP_ITEM_CFG_XXXXX AS CFG " +
+				"ON CFG.DETAIL_ID=MST.DETAIL_ID AND CFG.TARGET=MST.TARGET AND CFG.ITEM_ID=MST.ITEM_ID " +
+				"WHERE CFG.USER_ID= '"+ bean.getUserID() +"' " +
+				"AND CFG.TARGET='1' AND CFG.DETAIL_ID='0201' " +
+				"ORDER BY CFG.SEQ ";
+		
+		return sql;
+	}
+	
 	//見積検索
-	public String estimateSearch(EstimateSearchBean bean) {
+/*	public String estimateSearch(EstimateSearchBean bean) {
 		String sql;	
 		
-		sql = "select " +
-				"ESTIMATE_SHEET_ID, ESTIMATE_DATE, VALID_DATE, SUBMIT_NAME, ctx.CATEGORY_CODE_NAME, CUSTOMER_CODE, CUSTOMER_NAME, RETAIL_PRICE_TOTAL, CTAX_PRICE_TOTAL, DELIVERY_INFO, USER_NAME, USER_ID, REMARKS, DELIVERY_NAME, ESTIMATE_CONDITION, ESTIMATE_TOTAL, RETAIL_PRICE_TOTAL - COST_TOTAL, ROUND((RETAIL_PRICE_TOTAL - COST_TOTAL)/RETAIL_PRICE_TOTAL*100,2) " +				
+	sql = "select " +
+				"ESTIMATE_SHEET_ID, ESTIMATE_DATE, VALID_DATE, SUBMIT_NAME , ctx.CATEGORY_CODE_NAME, CUSTOMER_CODE, CUSTOMER_NAME, RETAIL_PRICE_TOTAL, CTAX_PRICE_TOTAL, DELIVERY_INFO, USER_NAME, USER_ID, REMARKS, DELIVERY_NAME, ESTIMATE_CONDITION, ESTIMATE_TOTAL, (RETAIL_PRICE_TOTAL - COST_TOTAL) as GrossProfit, (ROUND((RETAIL_PRICE_TOTAL - COST_TOTAL)/RETAIL_PRICE_TOTAL*100,2)) as GrossProfitMargin, TITLE " +				
 				"from " +
 				"ESTIMATE_SHEET_TRN_XXXXX " +
 				"left outer join " +
@@ -57,7 +76,7 @@ public class EstimateSQL {
 				"from " +
 				"CATEGORY_TRN_XXXXX  where CATEGORY_ID='10') " +
 				"as ctx " +
-				"ON ESTIMATE_SHEET_TRN_XXXXX.SUBMIT_PRE = a.CATEGORY_CODE " +
+				"ON SUBMIT_PRE = ctx.CATEGORY_CODE " +
 				"where " +
 				"(ESTIMATE_SHEET_ID LIKE '%' OR ESTIMATE_SHEET_ID IS NULL) " +
 				"AND " +
@@ -82,5 +101,8 @@ public class EstimateSQL {
 				"ESTIMATE_SHEET_ID ";
 		return sql;	
 	}
+	*/
+	
+	
 }
 

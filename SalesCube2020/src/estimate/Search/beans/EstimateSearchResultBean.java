@@ -58,6 +58,8 @@ public class EstimateSearchResultBean {
 	
 	//件名
 	private String title;
+	
+	private String itemId;
 
 	/**
 	 * @return the estimateSheetId
@@ -317,6 +319,20 @@ public class EstimateSearchResultBean {
 
 	public void setTitle(String title) {
 		this.title = title;
+	}
+
+	/**
+	 * @return the itemId
+	 */
+	public String getItemId() {
+		return itemId;
+	}
+
+	/**
+	 * @param itemId the itemId to set
+	 */
+	public void setItemId(String itemId) {
+		this.itemId = itemId;
 	}
 	
 	
