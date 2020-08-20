@@ -878,17 +878,22 @@
 			/* 編集画面に遷移 */
 			function moveUpdate(){
 				var roSlipId = document.getElementById("roSlipId").value;
-				var form = document.createElement("form");
-				form.setAttribute("charset", "UTF-8");
-				form.setAttribute("method", "post");
-				form.setAttribute("action", "/SalesCube2020/SalesCube?action=orderupdate");
-				var input = document.createElement("input");
-				input.setAttribute("type", "hidden");
-				input.setAttribute("name", "roSlipId");
-				input.setAttribute("value", roSlipId);
-				form.appendChild(input);
-				document.body.appendChild(form);
-				form.submit();
+
+					var form = document.createElement("form");
+					form.setAttribute("charset", "UTF-8");
+					form.setAttribute("method", "post");
+					form.setAttribute("action", "/SalesCube2020/SalesCube?action=orderupdate");
+					var input = document.createElement("input");
+					input.setAttribute("type", "hidden");
+					input.setAttribute("name", "roSlipId");
+					input.setAttribute("value", roSlipId);
+					form.appendChild(input);
+					document.body.appendChild(form);
+					form.submit();
+
+					alert("受注番号が存在しません。");
+
+				
 			}
 
 			/* 商品コードから明細表示 ajax */
@@ -959,6 +964,7 @@
 
 			/* 顧客コードから顧客情報 ajax */
 			function customerInfo() {
+				alert(document.getElementById("customerCodeInput").value);
 				var cCode = document.getElementById("customerCodeInput").value;
 			$.ajax({
 				url:'/SalesCube2020/SalesCubeAJAX?action=cuscodetoinfo',
@@ -1065,6 +1071,7 @@
 			globalTmp = obj.id;
 			var tableNo = globalTmp.substr(15);
 			var productCode = document.getElementById("productCodeInput" + tableNo).value;
+			$("#stockbody > tr").remove();
 			$.ajax({
 				url:'/SalesCube2020/SalesCubeAJAX?action=stocksearch',
 				data:{"productCode": productCode },

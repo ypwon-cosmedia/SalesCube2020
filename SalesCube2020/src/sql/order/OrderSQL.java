@@ -123,22 +123,22 @@ public class OrderSQL {
 		if(bean.getEstimateSheetId() == null || bean.getEstimateSheetId().equals("")) {
 			bean.setEstimateSheetId("%' OR ESTIMATE_SHEET_ID IS NULL");
 		}else {
-			bean.setEstimateSheetId(bean.getEstimateSheetId().concat("%"));
+			bean.setEstimateSheetId(bean.getEstimateSheetId().concat("%'"));
 		}
 		if(bean.getEstimateDate() == null || bean.getEstimateDate().equals("")) {
 			bean.setEstimateDate("%' OR ESTIMATE_DATE IS NULL");
 		}else {
-			bean.setEstimateDate(bean.getEstimateDate().concat("%"));
+			bean.setEstimateDate(bean.getEstimateDate().concat("%'"));
 		}
 		if(bean.getSubmitName() == null || bean.getSubmitName().equals("")) {
 			bean.setSubmitName("%' OR SUBMIT_NAME IS NULL");
 		}else {
-			bean.setSubmitName(bean.getSubmitName().concat("%"));
+			bean.setSubmitName(bean.getSubmitName().concat("%'"));
 		}
 		if(bean.getTitle() == null || bean.getTitle().equals("")) {
 			bean.setTitle("%' OR TITLE IS NULL");
 		}else {
-			bean.setTitle(bean.getTitle().concat("%"));
+			bean.setTitle(bean.getTitle().concat("%'"));
 		}
 			
 		sql = "SELECT " +		
@@ -149,13 +149,13 @@ public class OrderSQL {
 			"FROM "	+
 				"estimate_sheet_trn_xxxxx " +
 			"WHERE " + 
-				"(ESTIMATE_SHEET_ID LIKE '" + bean.getEstimateSheetId() + "'" +
+				"(ESTIMATE_SHEET_ID LIKE '" + bean.getEstimateSheetId() +
 			") AND " + 
-				"(ESTIMATE_DATE LIKE '" + bean.getEstimateDate() + "'" +
+				"(ESTIMATE_DATE LIKE '" + bean.getEstimateDate()  +
 			") AND " +
-				"(SUBMIT_NAME LIKE '" + bean.getSubmitName() + "'" +
+				"(SUBMIT_NAME LIKE '" + bean.getSubmitName()  +
 			") AND " +
-				"(TITLE LIKE '" + bean.getTitle() +"'" + 
+				"(TITLE LIKE '" + bean.getTitle() + 
 			") GROUP BY " +
 				"ESTIMATE_SHEET_ID " +
 			"ORDER BY " + 
@@ -540,62 +540,6 @@ public class OrderSQL {
 		
 		return sql;
 		
-	}
-	
-	/* 顧客コード入力 */
-	public String customerCodeInfo(String customerCode) {
-		
-		String sql;
-		
-		sql = "SELECT " + 
-				"cmx.CUSTOMER_CODE, " + 
-				"cmx.CUSTOMER_NAME, " + 
-				"a.CATEGORY_CODE_NAME, " + 
-				"b.CATEGORY_CODE_NAME, " + 
-				"c.CATEGORY_CODE_NAME, " + 
-				"cmx.REMARKS, " + 
-				"cmx.COMMENT_DATA, " + 
-				"dmx.DELIVERY_NAME, " + 
-				"dmx.DELIVERY_OFFICE_NAME, " + 
-				"dmx.DELIVERY_DEPT_NAME, " + 
-				"dmx.DELIVERY_ZIP_CODE, " + 
-				"dmx.DELIVERY_ADDRESS_1, " + 
-				"dmx.DELIVERY_ADDRESS_2, " + 
-				"dmx.DELIVERY_PC_NAME, " + 
-				"dmx.DELIVERY_PC_KANA, " + 
-				"d.CATEGORY_CODE_NAME, " + 
-				"dmx.DELIVERY_TEL, " + 
-				"dmx.DELIVERY_FAX, " + 
-				"dmx.DELIVERY_EMAIL " + 
-			"FROM " + 
-				"customer_mst_xxxxx AS cmx " + 
-				"LEFT OUTER JOIN " + 
-					"(SELECT * FROM category_trn_xxxxx WHERE CATEGORY_ID='29') AS a " + 
-					"ON " + 
-					"cmx.TAX_SHIFT_CATEGORY=a.CATEGORY_CODE " + 
-				"LEFT OUTER JOIN " + 
-					"(SELECT * FROM category_trn_xxxxx WHERE CATEGORY_ID='11') AS b " + 
-					"ON " + 
-					"cmx.CUTOFF_GROUP=b.CATEGORY_CODE " + 
-				"LEFT OUTER JOIN " + 
-					"(SELECT * FROM category_trn_xxxxx WHERE CATEGORY_ID='32') AS c " + 
-					"ON " + 
-					"cmx.SALES_CM_CATEGORY = (c.CATEGORY_CODE + 1) " + 
-				"LEFT OUTER JOIN " + 
-					"(SELECT * FROM customer_rel_xxxxx WHERE CUST_REL_CATEGORY='01') AS crx " + 
-					"USING(CUSTOMER_CODE) " + 
-				"LEFT OUTER JOIN " + 
-					"delivery_mst_xxxxx AS dmx " + 
-					"ON " + 
-					"dmx.DELIVERY_CODE=crx.REL_CODE " + 
-				"LEFT OUTER JOIN " + 
-					"(SELECT * FROM category_trn_xxxxx WHERE CATEGORY_ID='10') AS d " + 
-					"ON " + 
-					"dmx.DELIVERY_PC_PRE_CATEGORY=a.CATEGORY_CODE " + 
-			"WHERE " + 
-				"cmx.CUSTOMER_CODE = '" + customerCode + "'";
-		
-		return sql;
 	}
 	
 	/* 受注明細の新規入力（商品コードをもとに商品情報反映） */
@@ -1386,5 +1330,67 @@ public class OrderSQL {
 		
 		return sql;
 		
+	}
+	
+	/* 顧客コード入力 */
+	public String customerCodeInfo(String customerCode) {
+		
+		String sql;
+		
+		sql = "SELECT " + 
+				"cmx.CUSTOMER_CODE, " + 
+				"cmx.CUSTOMER_NAME, " + 
+				"a.CATEGORY_CODE_NAME, " + 
+				"b.CATEGORY_CODE_NAME, " + 
+				"c.CATEGORY_CODE_NAME, " + 
+				"cmx.REMARKS, " + 
+				"cmx.COMMENT_DATA " + 
+				"FROM " + 
+				"customer_mst_xxxxx cmx " + 
+				"LEFT OUTER JOIN " + 
+				"(SELECT * FROM category_trn_xxxxx WHERE CATEGORY_ID='29') AS a " + 
+				"ON " + 
+				"cmx.TAX_SHIFT_CATEGORY=a.CATEGORY_CODE " + 
+				"LEFT OUTER JOIN " + 
+				"(SELECT * FROM category_trn_xxxxx WHERE CATEGORY_ID='11') AS b " + 
+				"ON " + 
+				"cmx.CUTOFF_GROUP=b.CATEGORY_CODE " + 
+				"LEFT OUTER JOIN " + 
+				"(SELECT * FROM category_trn_xxxxx WHERE CATEGORY_ID='32') AS c " + 
+				"ON " + 
+				"cmx.SALES_CM_CATEGORY = (c.CATEGORY_CODE + 1) " + 
+				"WHERE " + 
+				"cmx.CUSTOMER_CODE='" + customerCode + "'";
+		
+		return sql;
+	}
+	
+	public String customerCodeToDelivery(String customerCode) {
+		
+		String sql;
+		
+		sql = "SELECT DISTINCT " + 
+				"dmx.DELIVERY_NAME, " + 
+				"dmx.DELIVERY_OFFICE_NAME, " + 
+				"dmx.DELIVERY_DEPT_NAME, " + 
+				"dmx.DELIVERY_ZIP_CODE, " + 
+				"dmx.DELIVERY_ADDRESS_1, " + 
+				"dmx.DELIVERY_ADDRESS_2, " + 
+				"dmx.DELIVERY_PC_NAME, " + 
+				"dmx.DELIVERY_PC_KANA, " + 
+				"d.CATEGORY_CODE_NAME, " + 
+				"dmx.DELIVERY_TEL, " + 
+				"dmx.DELIVERY_FAX, " + 
+				"dmx.DELIVERY_EMAIL " + 
+				"FROM delivery_mst_xxxxx AS dmx " + 
+				"LEFT OUTER JOIN customer_rel_xxxxx AS crx " + 
+				"ON dmx.DELIVERY_CODE=crx.REL_CODE" + 
+				"LEFT OUTER JOIN customer_mst_xxxxx AS cmx  " + 
+				"USING(CUSTOMER_CODE) " + 
+				"LEFT OUTER JOIN (SELECT * FROM category_trn_xxxxx WHERE CATEGORY_ID='10') AS d " + 
+				"ON dmx.DELIVERY_PC_PRE_CATEGORY=d.CATEGORY_CODE " + 
+				"WHERE cmx.CUSTOMER_CODE = '" + customerCode +"'";
+		
+		return sql;
 	}
 }

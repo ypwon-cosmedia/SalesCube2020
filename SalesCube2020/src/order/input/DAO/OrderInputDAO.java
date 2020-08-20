@@ -674,7 +674,7 @@ public class OrderInputDAO extends BaseDAO{
 		
 	}
 	
-	/* 顧客コードから顧客情報、納入先情報 */
+	/* 顧客コードから顧客情報*/
 	public OrderInputBean customerCodeInfo(String customerCode) throws SQLException, ClassNotFoundException{
 		
 		OrderInputBean bean = new OrderInputBean();
@@ -690,6 +690,7 @@ public class OrderInputDAO extends BaseDAO{
 	 	OrderSQL ordersql = new OrderSQL();
 	 	sql = ordersql.customerCodeInfo(customerCode);
 	 	
+	 	System.out.println(sql);
 	 	result = stmt.executeQuery(sql);
 	 	
 	 	while (result.next()) {
@@ -700,6 +701,34 @@ public class OrderInputDAO extends BaseDAO{
 	 		bean.setSalesCmCategory(result.getString("c.CATEGORY_CODE_NAME"));
 	 		bean.setCustomerRemarks(result.getString("cmx.REMARKS"));
 	 		bean.setCustomerCommentData(result.getString("cmx.COMMENT_DATA"));
+	 	}
+	 	
+	 	super.releaseDB(con, stmt, result);
+	 	
+	 	return bean;
+	}
+	
+	/* 顧客コードから納入先情報*/
+	public List<OrderInputBean> customerCodeToDelivery(String customerCode) throws SQLException, ClassNotFoundException{
+		
+		OrderInputBean bean = new OrderInputBean();
+		List<OrderInputBean> list = new ArrayList<>();
+		
+		Connection con;
+	 	Statement stmt = null;
+	 	ResultSet result = null;	
+	 	String  sql;
+	 	
+	 	con = super.getConnection();	
+	 	stmt = con.createStatement();
+	 	
+	 	OrderSQL ordersql = new OrderSQL();
+	 	sql = ordersql.customerCodeToDelivery(customerCode);
+	 	
+	 	System.out.println(sql);
+	 	result = stmt.executeQuery(sql);
+	 	
+	 	while (result.next()) {
 	 		bean.setDeliveryName(result.getString("dmx.DELIVERY_NAME"));
 	 		bean.setDeliveryOfficeName(result.getString("dmx.DELIVERY_OFFICE_NAME"));
 	 		bean.setDeliveryDeptName(result.getString("dmx.DELIVERY_DEPT_NAME"));
@@ -712,12 +741,14 @@ public class OrderInputDAO extends BaseDAO{
 	 		bean.setDeliveryTel(result.getString("dmx.DELIVERY_TEL"));
 	 		bean.setDeliveryFax(result.getString("dmx.DELIVERY_FAX"));
 	 		bean.setDeliveryEmail(result.getString("dmx.DELIVERY_EMAIL"));
+	 		list.add(bean);
 	 	}
 	 	
 	 	super.releaseDB(con, stmt, result);
 	 	
-	 	return bean;
+	 	return list;
 	}
+
 
 	/* 取引区分コンボボックス */
 	public List<OrderInputBean> getSalesCmCategory() throws SQLException, ClassNotFoundException{

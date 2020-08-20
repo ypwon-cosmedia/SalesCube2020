@@ -36,8 +36,38 @@ public class ProductToOrder extends BaseAJAXController {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 		}
+		else if(action.equals("cuscodetodelivery"))
+			try {
+				customerCodeToDelivery(request, response);
+			} catch (ClassNotFoundException | ServletException | IOException | SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+		}
 		
 	}	
+	
+	private void customerCodeToDelivery(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException, SQLException, ClassNotFoundException {
+		
+		String customerCode = request.getParameter("customerCode");
+		System.out.println(customerCode);
+		
+		OrderInputDAO dao = new OrderInputDAO();
+		List<OrderInputBean> list = new ArrayList<>();
+
+		Gson gson = new Gson();
+		
+		try {
+			list = dao.customerCodeToDelivery(customerCode);
+			String data = gson.toJson(list);
+						
+			response.setContentType("application/x-json; charset=UTF-8");
+			response.getWriter().print(data);
+			
+		} catch (ClassNotFoundException | SQLException e) {
+			e.printStackTrace();
+		}
+		
+	}
 		
 	private void customerCodeToInfo(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException, SQLException, ClassNotFoundException {
 		

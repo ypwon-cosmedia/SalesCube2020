@@ -317,9 +317,9 @@
 									<div class="input-group-text">顧客納入先</div>
 								</div>
 								<select class="custom-select" name="deliveryName" id="deliveryName">
-<!--									<c:forEach items="">-->
-<!--										<option value=""></option>-->
-<!--									</c:forEach>-->
+									<!--<c:forEach items="">-->
+										<option value="">${order.deliveryName}</option>
+									<!--</c:forEach>-->
 								</select>
 							</div>
 						</div>
@@ -1109,6 +1109,7 @@
 				globalTmp = obj.id;
 				var tableNo = globalTmp.substr(15);
 				var productCode = document.getElementById("productCodeInput" + tableNo).value;
+				$("#stockbody > tr").remove();
 				$.ajax({
 					url:'/SalesCube2020/SalesCubeAJAX?action=stocksearch',
 					data:{"productCode": productCode },

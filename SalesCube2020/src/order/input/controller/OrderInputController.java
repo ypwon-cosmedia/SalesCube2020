@@ -479,6 +479,7 @@ public class OrderInputController extends BaseController {
 	
 	/* 見積番号押下 受注新規登録画面に反映 */
 	private String EstimateToOrderInput(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException, SQLException, ClassNotFoundException {
+		
 		ProductModalInit init = new ProductModalInit();
 		OrderCommonBillDAO dao = new OrderCommonBillDAO();
 		OrderInputDAO dao2 = new OrderInputDAO();
