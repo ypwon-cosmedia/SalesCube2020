@@ -163,7 +163,7 @@
 						    	<div class="input-group-prepend">
 						    		<div class="input-group-text"  style="background-color: pink;">見積番号</div>
 						  		</div>
-						   	  <input type="text" class="form-control" id="inlineFormInputGroup" name="estimateSheetId" pattern="^[0-9A-Za-z]+$" onchange="idConfirm(this)" required>
+						   	  <input type="text" class="form-control" id="inlineFormInputGroup" name="estimateSheetId" pattern="^[0-9A-Za-z]+$" onchange="idConfirm(this)" pattern="^[0-9A-Za-z]+$" title="※半角英数字" required>
 					  		</div>
               </div>
 
@@ -542,7 +542,6 @@
           '</tr>' );
 			});
 
-
       /* 削除 */
       function deleteLineForm(obj){
         var row_num = document.getElementById('estimate').getElementsByTagName('tr').length;    //表の行数を取得
@@ -883,5 +882,19 @@
        		    }
 			});
 	  }
+	  
+	  /* 入力欄が変更された時のパターンチェック */
+	  var elem = document.getElementById("addform");	//formをidで取得
+	  elem.addEventListener('change', function() {			//入力したときのEventを追加
+	      elem.reportValidity();								//form(elem)のpatternの確認
+	  });
+	  /* 検索ボタンを押した際の入力チェック */
+	  var searchButton = document.getElementById("unitPriceInquirySearchButton");	//検索ボタンをidで取得
+	  searchButton.addEventListener("submit", function() {		//検索ボタンを押したときのEventを追加
+	  	if( elem.reportValidity() == true ){					//form(elem)のpatternの確認
+	  		searchSupplier();								//入力チェックが通った場合、仕入れ先を検索を行う
+	  	}
+	  },false);
+	  
   </script>
 </html>
