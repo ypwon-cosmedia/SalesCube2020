@@ -395,6 +395,12 @@
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.2/jquery.min.js"></script>
 <script>	  
 	  //初期化処理
+	  
+	  window.onload = function(){
+		  configGet(); 
+		  initButton();
+	  }
+	  
 	  function initForm(){
 			if(!confirm("入力内容を初期化してよろしいですか？")){
 	           	return;
@@ -429,7 +435,6 @@
 	    function estimateSearch1() {
 	   	 var formString = $("form[id=estimate]").serialize();
 			var tmp = "";
-			alert("success1");
 			$.ajax({
 				
 				url:'/SalesCube2020/SalesCubeAJAX?action=estimateCreateTable',
@@ -437,7 +442,6 @@
 				data:formString,
 				dataType:'json',
 				success:function(data){	
-					alert("success2");
 					document.getElementById("resultEstimate").removeAttribute('hidden'); //テーブルの表示
 					$("#resultHead > tr").remove();
 						var tableAdd = document.getElementById('resultHead');
@@ -478,90 +482,34 @@
 	    		 			document.getElementById("resultEstimate").setAttribute('hidden','hidden');
 	    		 		//検索結果がある場合
 	    		 		}else{
-	    		 			alert("succces3");
 	    		 		//エラーメッセージ
 	    		 			$("#estimateSearchError").empty();//エラーメッセージの削除
 	    		 		//検索結果件数の設定
 	    		 			$("#estimateSearchResultCount").empty();
 	    		 			$('#estimateSearchResultCount').append('検索結果件数：' + Object.keys(data).length + '件');	 //検索結果件数の設定の表示
 	    		 			
+    		 			
 							for(var i = 0; i < Object.keys(data).length; i++) {
 								var headcontents= '';
 								headcontents += '<tr>';
 								
-								for(var j = 0; j < document.getElementById("showSearchResult").options.length; j++) {
+								for(var j = 0; j < document.getElementById("showSearchResult").options.length+1; j++) {
 									headcontents += '<td style="white-space: normal; text-align: left;"> '
 									var tmp = Object.keys(data[i])[j];
-									switch(tmp){
-										case "estimateSheetId" :
-											headcontents += data[i].estimateSheetId;
-											break;
-										case "estimateDate" :
-											headcontents += data[i].estimateDate;
-											break;
-										case "deliveryInfo" :
-											headcontents += data[i].deliveryInfo;
-											break;
-										case "validDate" :
-											headcontents += data[i].validDate;
-											break;
-										case "userId" :
-											headcontents += data[i].userId;
-											break;
-										case "userName" :
-											headcontents += data[i].userName;
-											break;
-										case "title" :
-											headcontents += data[i].title;
-											break;
-										case "remarks" :
-											headcontents += data[i].remarks;
-											break;
-										case "deliveryName" :
-											headcontents += data[i].deliveryName;
-											break;
-										case "estimateCondition" :
-											headcontents += data[i].estimateCondition;
-											break;
-										case "submitName" :
-											headcontents += data[i].submitName;
-											break;
-										case "submitPre" :
-											headcontents += data[i].submitPre;
-											break;
-										case "customerCode" :
-											headcontents += data[i].customerCode;
-											break;
-										case "customerName" :
-											headcontents += data[i].customerName;
-											break;
-										case "grossMargin" :
-											headcontents += data[i].grossProfit;
-											break;
-										case "grossMarginRate" :
-											headcontents += data[i].grossProfitMargin;
-											break;
-										case "retailPriceTotal" :
-											headcontents += data[i].retailPriceTotal;
-											break;
-										case "ctaxPriceTotal" :
-											headcontents += data[i].ctaxPriceTotal;
-											break;
-										case "estimateTotal" :
-											headcontents += data[i].estimateTotal;
-											break;
-									}
-									headcontents += '</td>';
+									headcontents += (data[i][tmp] == null ? "" : data[i][tmp]);
+									headcontents += '</td>';  
 								}
 								headcontents += '</tr>';
-								$('#searchResult').append(headcontents);
-							}
-							
+								$('#searchResult').append(headcontents);				
 											
-					}
+							}
+	    		 	}
+	    		 
 				}
 			});
 	    }
+	   
+	
 			     			     		
 </script>
 	</body>

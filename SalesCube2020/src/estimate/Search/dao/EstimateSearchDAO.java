@@ -17,10 +17,10 @@ import sql.estimate.EstimateSQL;
 import user.beans.UserInfoBean;
 
 public class EstimateSearchDAO extends BaseDAO {
-	public List<EstimateSearchResultBean> estimateSearchResult(EstimateSearchBean bean, UserInfoBean user) throws SQLException, ClassNotFoundException{
+	public List<String[]> estimateSearchResult(EstimateSearchBean bean, UserInfoBean user) throws SQLException, ClassNotFoundException{
 		
 		List<EstimateConfigurationBean> list1 =new ArrayList<>();
-		List<EstimateSearchResultBean> list = new ArrayList<>();
+		List<String[]> list = new ArrayList<>();
 		
 		
 		EstimateSQL sqllist = new EstimateSQL();
@@ -34,7 +34,7 @@ public class EstimateSearchDAO extends BaseDAO {
 		
 		String estimateResult;
 		
-		 list1 =  estimateConfiguration(user);
+		list1 =  estimateConfiguration(user);
 		
 		
 		//見積検索の見出し部の決定
@@ -117,25 +117,25 @@ public class EstimateSearchDAO extends BaseDAO {
 				"as ctx " +
 				"ON SUBMIT_PRE = ctx.CATEGORY_CODE " +
 				"where " +
-				"(ESTIMATE_SHEET_ID LIKE '%' OR ESTIMATE_SHEET_ID IS NULL) " +
+				"(ESTIMATE_SHEET_ID " + stringIsNull(bean.getEstimateSheetId()) +
 				"AND " +
-				"(ESTIMATE_DATE LIKE '%' OR ESTIMATE_DATE IS NULL) " +
+				"(ESTIMATE_DATE " + stringIsNull(bean.getEstimateDateStart(),bean.getEstimateDateEnd()) +
 				"AND " +
-				"(VALID_DATE LIKE '%' OR VALID_DATE IS NULL) " +
+				"(VALID_DATE " + stringIsNull(bean.getValidDateStart(),bean.getValidDateEnd()) +
 				"AND " +
-				"(USER_ID LIKE '%' OR USER_ID IS NULL) " +
+				"(USER_ID " + stringIsNull(bean.getUserId()) +
 				"AND " +
-				"(USER_NAME LIKE '%' OR USER_NAME IS NULL) " +
+				"(USER_NAME " + stringIsNull(bean.getUserName()) +
 				"AND " +
-				"(TITLE LIKE '%' OR TITLE IS NULL) " +
+				"(TITLE " + stringIsNull(bean.getTitle()) +
 				"AND " +
-				"(REMARKS LIKE '%' OR REMARKS IS NULL) " +
+				"(REMARKS " + stringIsNull(bean.getRemarks()) +
 				"AND " +
-				"(SUBMIT_NAME LIKE '%' OR SUBMIT_NAME IS NULL) " +
+				"(SUBMIT_NAME " + stringIsNull(bean.getSubmitName()) +
 				"AND " +
-				"(CUSTOMER_CODE LIKE '%' OR CUSTOMER_CODE IS NULL) " +
+				"(CUSTOMER_CODE " + stringIsNull(bean.getCustomerCode()) +
 				"AND " +
-				"(CUSTOMER_NAME LIKE '%' OR CUSTOMER_NAME IS NULL) " +
+				"(CUSTOMER_NAME " + stringIsNull(bean.getCustomerName()) +
 				"order by " +
 				"ESTIMATE_SHEET_ID ";
 		
@@ -143,31 +143,12 @@ public class EstimateSearchDAO extends BaseDAO {
 		result = stmt.executeQuery(estimateResult);
 		
 		while(result.next()) {
-			EstimateSearchResultBean bean1 = new EstimateSearchResultBean();
-			bean1.setEstimateSheetId(result.getString("ESTIMATE_SHEET_ID"));
-			bean1.setEstimateDate(result.getString("ESTIMATE_DATE"));
-			bean1.setValidDate(result.getString("VALID_DATE"));
-			bean1.setSubmitName(result.getString("SUBMIT_NAME"));
-			bean1.setSubmitPre(result.getString("SUBMIT_PRE"));
-			bean1.setCustomerCode(result.getString("CUSTOMER_CODE"));
-			bean1.setCustomerName(result.getString("CUSTOMER_NAME"));
-			bean1.setGrossProfit(result.getString("GrossProfit"));
-			bean1.setGrossProfitMargin(result.getString("GrossProfitMargin"));
-			bean1.setRetailPriceTotal((result.getBigDecimal("RETAIL_PRICE_TOTAL")).intValue());
-			bean1.setCtaxPriceTotal((result.getBigDecimal("CTAX_PRICE_TOTAL")).intValue());
-			bean1.setDeliveryInfo(result.getString("DELIVERY_INFO"));
-			bean1.setUserId(result.getString("USER_ID"));
-			bean1.setUserName(result.getString("USER_NAME"));
-			bean1.setRemarks(result.getString("REMARKS"));
-			bean1.setDeliveryName(result.getString("DELIVERY_NAME"));
-			bean1.setEstimateCondition(result.getString("ESTIMATE_CONDITION"));
-			bean1.setEstimateTotal((result.getBigDecimal("ESTIMATE_TOTAL")).intValue());
-			bean1.setTitle(result.getString("TITLE"));
-			int i =0;
-			String str = list1.get(i++).getItemId();
-			bean1.setItemId(str);
+			String[] tmp = new String[list1.size()];
+			for(int i = 0; i<tmp.length; i++) {
+				tmp[i] = result.getString(i+1);
+			}
 			
-			list.add(bean1);
+			list.add(tmp);
 		}
 		
 		super.releaseDB(con,stmt,result);
@@ -177,6 +158,24 @@ public class EstimateSearchDAO extends BaseDAO {
 	}
 	
 	
+	private String stringIsNull(String estimateDateStart, String estimateDateEnd) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+
+	private String dateIsNull(String estimateDateStart, String estimateDateEnd) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+
+	private String stringIsNull(String estimateSheetId) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+
 	public List<EstimateConfigurationBean> estimateConfiguration(UserInfoBean user) throws SQLException, ClassNotFoundException{
 		List<EstimateConfigurationBean> list1 =new ArrayList<>();
 		

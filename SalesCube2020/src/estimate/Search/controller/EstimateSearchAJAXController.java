@@ -61,7 +61,7 @@ public class EstimateSearchAJAXController extends BaseAJAXController{
 		bean.setCustomerCode(request.getParameter("customerCode"));
 		bean.setCustomerName(request.getParameter("customerName"));
 		
-		List<EstimateSearchResultBean> list = new ArrayList<>();
+		List<String[]> list = new ArrayList<>();
 		Gson gson = new Gson();
 		
 		try {
