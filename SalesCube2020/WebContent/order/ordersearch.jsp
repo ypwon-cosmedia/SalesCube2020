@@ -259,7 +259,7 @@
                                    <div class="input-group-text">商品コード</div>
                             </div>
                             <input type="text"  class="form-control" id="productCodeInput" name="productCodeInput" maxlength="20">
-                            <button type="button" class="btn btn-outline-secondary" data-toggle="modal" data-target="#setproductsearch" style="background-image: url(btn_search.png); border: 0px; outline: 0px; padding: 15px; margin: 0; height: 16px" onclick="moveProductModal();initProductModal();"></button>
+                            <button type="button" class="btn btn-outline-secondary" data-toggle="modal" data-target="#setproductsearch" style="background-image: url(btn_search.png); border: 0px; outline: 0px; padding: 15px; margin: 0; height: 16px" onclick="initProductModal();moveProductModal();"></button>
 					    </div>
 					</div>
 					<div class="col-2"></div>
@@ -270,7 +270,7 @@
 								<div class="input-group-text">商品名</div>
 							</div>
                             <input type="text"  class="form-control" id="productNameInput" name="productNameInput" maxlength="60">
-                            <button type="button" class="btn btn-outline-secondary" data-toggle="modal" data-target="#setproductsearch" style="background-image: url(btn_search.png); border: 0px; outline: 0px; padding: 15px; margin: 0; height: 16px" onclick="moveProductModal();initProductModal();"></button>
+                            <button type="button" class="btn btn-outline-secondary" data-toggle="modal" data-target="#setproductsearch" style="background-image: url(btn_search.png); border: 0px; outline: 0px; padding: 15px; margin: 0; height: 16px" onclick="initProductModal();moveProductModal();"></button>
 						</div>
 					</div>                  
 				</div>	
@@ -329,7 +329,7 @@
                                    <div class="input-group-text">仕入先コード</div>
                             </div>
                             <input type="text"  class="form-control" id="supplierCodeInput" name="supplierCodeInput" maxlength="10">
-                            <button type="button" class="btn btn-outline-secondary" data-toggle="modal" data-target="#openSearchSupplier" style="background-image: url(btn_search.png); border: 0px; outline: 0px; padding: 15px; margin: 0; height: 16px" onclick="moveDeliveryModal();initSupplier();"></button>
+                            <button type="button" class="btn btn-outline-secondary" data-toggle="modal" data-target="#openSearchSupplier" style="background-image: url(btn_search.png); border: 0px; outline: 0px; padding: 15px; margin: 0; height: 16px" onclick="initSupplier();moveDeliveryModal();"></button>
 					    </div>
 					</div>
 					<div class="col-2"></div>
@@ -340,7 +340,7 @@
 								<div class="input-group-text">仕入先名</div>
 							</div>
                             <input type="text"  class="form-control" id="supplierNameInput" name="supplierNameInput" maxlength="60">
-                            <button type="button" class="btn btn-outline-secondary" data-toggle="modal" data-target="#openSearchSupplier" style="background-image: url(btn_search.png); border: 0px; outline: 0px; padding: 15px; margin: 0; height: 16px" onclick="moveDeliveryModal();initSupplier();"></button>
+                            <button type="button" class="btn btn-outline-secondary" data-toggle="modal" data-target="#openSearchSupplier" style="background-image: url(btn_search.png); border: 0px; outline: 0px; padding: 15px; margin: 0; height: 16px" onclick="initSupplier();moveDeliveryModal();"></button>
 						</div>
 					</div>                
 				</div>	
@@ -1300,17 +1300,17 @@
 	    }
 		
 		function moveCustomerModal(){
-			if(document.getElementById("customerCodeInput").value != null)
+			if(document.getElementById("customerCodeInput").value != "")
 				document.getElementById("customerCode").value = document.getElementById("customerCodeInput").value;
-			if(document.getElementById("customerNameInput").value != null)
+			if(document.getElementById("customerNameInput").value != "")
 				document.getElementById("customerName").value = document.getElementById("customerNameInput").value;
 		}
 		
 		function moveProductModal(){
-			if(document.getElementById("productCodeInput").value != null)
+			if(document.getElementById("productCodeInput").value != "")
 				document.getElementById("productCode").value = document.getElementById("productCodeInput").value;
-			//if(document.getElementById("productNameInput").value != null)
-			//	document.getElementById("productName").value = document.getElementById("productNameInput").value;
+			if(document.getElementById("productNameInput").value != "")
+				document.getElementById("productName").value = document.getElementById("productNameInput").value;
 		}
 		
 		function moveDeliveryModal(){

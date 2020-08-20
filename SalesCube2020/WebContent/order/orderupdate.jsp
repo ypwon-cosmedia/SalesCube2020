@@ -64,8 +64,9 @@
 			<div class="btn-toolbar float-right" role="toolbar" aria-label="Toolbar with button groups">  
 				<div class="btn-group mr-2 " role="group" aria-label="First group">
 					<button type="button" class="btn btn-secondary" style="font-size: 12px;" onclick="initForm();" >F1<br>初期化</button>
-					<form>
-						<button type="button" class="btn btn-secondary" style="font-size: 12px;" onclick="deleteForm();">F2<br>削除</button>
+					<form action="/SalesCube2020/SalesCube?action=deleteOrder" method="post">
+						<input type="submit" value="F2削除" class="btn btn-secondary" style="font-size: 12px;" >
+						<input type="hidden" id="roSlipId" name="roSlipId" value="${order.roSlipId}">
 					</form>
 					<button type="button" class="btn btn-secondary" style="font-size: 12px;" onclick="returnForm();">F3<br>戻る</button>
 					<form>
@@ -91,7 +92,7 @@
 				 <span class="action_errors" style="color: red">${updateCmp}</span>
        </div>
 
-		<form action='/SalesCube2020/SalesCube?action=orderupdateCmp' method="post">
+		<form action='/SalesCube2020/SalesCube?action=orderupdateCmp' method="post" name="orderUpdate">
 			<!-- 受注伝票情報 -->
 			<div class="container" style="background-color: white;"><div class="panel panel-default">
 				<div class="panel-heading row mb-2 col-4">
@@ -235,7 +236,7 @@
 								<div class="input-group-prepend">
 									<div class="input-group-text" style = "background-color: pink;">顧客コード</div>
 								</div>
-								<input type="text" value="${order.customerCode}" class="form-control" id="customerCodeInput" name="customerCodeInput" required>
+								<input type="text" value="${order.customerCode}" class="form-control" id="customerCodeInput" name="customerCodeInput" onchange="customerInfo()" required>
 								<button type="button" class="btn btn-outline-secondary" data-toggle="modal" data-target="#customersearch" onclick="customerCodetoModal();">検索</button>
 							</div>
 						</div>
@@ -254,7 +255,7 @@
 								<div class="input-group-prepend">
 									<div class="input-group-text">税転嫁</div>
 								</div>
-								<input type="text" value="${order.taxShiftCategory}" class="form-control" name="taxShiftCategory" readonly>
+								<input type="text" value="${order.taxShiftCategory}" class="form-control" name="taxShiftCategory" id="taxShiftCategory" readonly>
 							</div>
 						</div>
 					</div>
@@ -265,7 +266,7 @@
 								<div class="input-group-prepend">
 									<div class="input-group-text">支払条件</div>
 								</div>
-								<input type="text" value="${order.cutoffGroup}" class="form-control" name="cutoffGroup" readonly>
+								<input type="text" value="${order.cutoffGroup}" class="form-control" name="cutoffGroup" id="cutoffGroup" readonly>
 							</div>
 						</div>
 						<div class="col-4">
@@ -274,7 +275,7 @@
 								<div class="input-group-prepend">
 									<div class="input-group-text">取引区分</div>
 								</div>
-								<input type="text" value="${order.salesCmCategory}" class="form-control" name="salesCmCategory" readonly>
+								<input type="text" value="${order.salesCmCategory}" class="form-control" name="salesCmCategory" id="salesCmCategory" readonly>
 							</div>
 						</div>
 						<div class="col-4">
@@ -283,7 +284,7 @@
 								<div class="input-group-prepend">
 									<div class="input-group-text">備考</div>
 								</div>
-								<input type="text" value="${order.customerRemarks}" class="form-control" name="customerRemarks" readonly>
+								<input type="text" value="${order.customerRemarks}" class="form-control" name="customerRemarks" id="customerRemarks" readonly>
 							</div>
 						</div>
 					</div>
@@ -294,7 +295,7 @@
 								<div class="input-group-prepend">
 									<div class="input-group-text">コメント</div>
 								</div>
-								<input type="text" value="${order.customerCommentData}" class="form-control" name="customerCommentData" readonly>
+								<input type="text" value="${order.customerCommentData}" class="form-control" name="customerCommentData" id="customerCommentData" readonly>
 							</div>
 						</div>
 					</div>
@@ -315,8 +316,10 @@
 								<div class="input-group-prepend">
 									<div class="input-group-text">顧客納入先</div>
 								</div>
-								<select class="custom-select" name="deliveryName">
-
+								<select class="custom-select" name="deliveryName" id="deliveryName">
+<!--									<c:forEach items="">-->
+<!--										<option value=""></option>-->
+<!--									</c:forEach>-->
 								</select>
 							</div>
 						</div>
@@ -326,7 +329,7 @@
 								<div class="input-group-prepend">
 									<div class="input-group-text">事務所名</div>
 								</div>
-								<input type="text" value="${order.deliveryOfficeName}" class="form-control" name="deliveryOfficeName" readonly>
+								<input type="text" value="${order.deliveryOfficeName}" class="form-control" name="deliveryOfficeName" id="deliveryOfficeName" readonly>
 							</div>
 						</div>
 						<div class="col-4">
@@ -335,7 +338,7 @@
 								<div class="input-group-prepend">
 									<div class="input-group-text">部署名</div>
 								</div>
-								<input type="text" value="${order.deliveryDeptName}" class="form-control" name="deliveryDeptName" readonly>
+								<input type="text" value="${order.deliveryDeptName}" class="form-control" name="deliveryDeptName" id="deliveryDeptName" readonly>
 							</div>
 						</div>
 					</div>
@@ -346,7 +349,7 @@
 								<div class="input-group-prepend">
 									<div class="input-group-text">郵便番号</div>
 								</div>
-								<input type="text" value="${order.deliveryZipCode}" class="form-control" name="deliveryZipCode" readonly>
+								<input type="text" value="${order.deliveryZipCode}" class="form-control" name="deliveryZipCode" id="deliveryZipCode" readonly>
 							</div>
 						</div>
 						<div class="col-4">
@@ -355,7 +358,7 @@
 								<div class="input-group-prepend">
 									<div class="input-group-text">住所1</div>
 								</div>
-								<input type="text" value="${order.deliveryAddress1}" class="form-control" name="deliveryAddress1" readonly>
+								<input type="text" value="${order.deliveryAddress1}" class="form-control" name="deliveryAddress1" id="deliveryAddress1" readonly>
 							</div>
 						</div>
 						<div class="col-4">
@@ -364,7 +367,7 @@
 								<div class="input-group-prepend">
 									<div class="input-group-text">住所2</div>
 								</div>
-								<input type="text" value="${order.deliveryAddress2}" class="form-control" name="deliveryAddress2" readonly>
+								<input type="text" value="${order.deliveryAddress2}" class="form-control" name="deliveryAddress2" id="deliveryAddress2" readonly>
 							</div>
 						</div>
 					</div>
@@ -375,7 +378,7 @@
 								<div class="input-group-prepend">
 									<div class="input-group-text">担当者</div>
 								</div>
-								<input type="text" value="${order.deliveryPcName}" class="form-control" name="deliveryPcName" readonly>
+								<input type="text" value="${order.deliveryPcName}" class="form-control" name="deliveryPcName" id="deliveryPcName" readonly>
 							</div>
 						</div>
 						<div class="col-4">
@@ -384,7 +387,7 @@
 								<div class="input-group-prepend">
 									<div class="input-group-text">担当者カナ</div>
 								</div>
-								<input type="text" value="${order.deliveryPcKana}" class="form-control" name="deliveryPcKana" readonly>
+								<input type="text" value="${order.deliveryPcKana}" class="form-control" name="deliveryPcKana" id="deliveryPcKana" readonly>
 							</div>
 						</div>
 						<div class="col-4">
@@ -393,7 +396,7 @@
 								<div class="input-group-prepend">
 									<div class="input-group-text">敬称</div>
 								</div>
-								<input type="text" value="${order.deliveryPcPre}" class="form-control" name="deliveryPcPre" readonly>
+								<input type="text" value="${order.deliveryPcPre}" class="form-control" name="deliveryPcPre" id="deliveryPcPre" readonly>
 							</div>
 						</div>
 					</div>
@@ -404,7 +407,7 @@
 								<div class="input-group-prepend">
 									<div class="input-group-text">TEL</div>
 								</div>
-								<input type="text" value="${order.deliveryTel}" class="form-control" name="deliveryTel" readonly>
+								<input type="text" value="${order.deliveryTel}" class="form-control" name="deliveryTel" id="deliveryTel" readonly>
 							</div>
 						</div>
 						<div class="col-4">
@@ -413,7 +416,7 @@
 								<div class="input-group-prepend">
 									<div class="input-group-text">FAX</div>
 								</div>
-								<input type="text" value="${order.deliveryFax}" class="form-control" name="deliveryFax" readonly>
+								<input type="text" value="${order.deliveryFax}" class="form-control" name="deliveryFax" id="deliveryFax" readonly>
 							</div>
 						</div>
 						<div class="col-4">
@@ -422,7 +425,7 @@
 								<div class="input-group-prepend">
 									<div class="input-group-text">E-MAIL</div>
 								</div>
-								<input type="text" value="${order.deliveryEmail}" class="form-control" name="deliveryEmail" readonly>
+								<input type="text" value="${order.deliveryEmail}" class="form-control" name="deliveryEmail" id="deliveryEmail" readonly>
 							</div>
 						</div>
 					</div>
@@ -666,7 +669,8 @@
 					return;
 				}
 				var form = document.deleteform;
-				form.submit();
+				form.orderUpdate.action="";
+				form.orderUpdate.submit();
 			}
 	
 			/* 前行複写 */
@@ -898,12 +902,16 @@
 			}
 
 			/* 商品モーダルから親画面にリンク */
-			function selectProductCode(obj){
+			function selectProductModal(code, name){
 				var tableNo = globalTmp.substr(16);
-				var productCode = document.getElementById("modalProductCode1").innerText;
-				var productName = document.getElementById("modalProductName1").innerText;
-				document.getElementById("productCodeInput" + tableNo).value = productCode;
-				document.getElementById("productName" + tableNo).innerHTML = productName;
+				document.getElementById("customerCodeInput").value = code;
+				document.getElementById("customerNameInput").value = name;
+				document.getElementById("productCodeInput" + tableNo).value = code;
+				document.getElementById("productName" + tableNo).innerHTML = name;
+				
+				var tmp = document.getElementById("productCodeInput" + tableNo);
+				
+				pCode(tmp);
 			}
 
 			/* 親画面から顧客モーダルに顧客コード渡す */
@@ -917,13 +925,80 @@
 				globalTmp = obj.id;
 				var tableNo = globalTmp.substr(16);
 				var productCode = document.getElementById("productCodeInput" + tableNo).value;
-				document.getElementById("inputProductCode").value = productCode;
+				document.getElementById("productCode").value = productCode;
 			}
 			
 			function roSlipLinetoParent(){
 				var form = document.stockTable;
 				form.submit();
 			}
+			
+			/* 在庫モーダル開く */
+			function openStock(obj) {
+				var tmp = obj.id;
+				var tableNo = tmp.substr(15);
+				var productCodeInput = document.getElementById("productCodeInput" + tableNo).value;
+				alert(productCodeInput);
+			$.ajax({
+				url:'/SalesCube2020/SalesCubeAJAX?action=stocksearch',
+				type:'post',
+				data:{"productCode": productCodeInput },
+				dataType:'json',
+				success:function(data){
+					alert(productCodeInput);
+					if(data.productCode == null || data.productCode == ""){
+						data.productCode = "";
+					}else {
+						document.getElementById("productCode").value = data.productCode;
+					}
+					if(data.productPCode == null || data.productPCode == ""){
+						data.productPCode = "";
+					}else {
+						document.getElementById("productPCode").value = data.productPCode;
+					}
+					if(data.setTypeCategory == null || data.setTypeCategory == ""){
+						data.setTypeCategory = "";
+					}else {
+						document.getElementById("setTypeCategory").value = data.setTypeCategory;
+					}
+					if(data.productName == null || data.productName == ""){
+						data.productName = "";
+					}else {
+						document.getElementById("productName").value = data.productName;
+					}
+					if(data.warehouseName == null || data.warehouseName == ""){
+						data.warehouseName = "";
+					}else {
+						document.getElementById("warehouseName").value = data.warehouseName;
+					}
+					if(data.rackCode == null || data.rackCode == ""){
+						data.rackCode = "";
+					}else {
+						document.getElementById("rackCode").value = data.rackCode;
+					}
+					if(data.productStatusCategory == null || data.productStatusCategory == ""){
+						data.productStatusCategory = "";
+					}else {
+						document.getElementById("productStatusCategory").value = data.productStatusCategory;
+					}
+					if(data.productStockCategory == null || data.productStockCategory == ""){
+						data.productStockCategory = "";
+					}else {
+						document.getElementById("productStockCategory").value = data.productStockCategory;
+					}
+					if(data.stockQuantity == null || data.stockQuantity == ""){
+						data.stockQuantity = "";
+					}else {
+						document.getElementById("stockQuantity").value = data.stockQuantity;
+					}
+					if(data.quantitySum == null || data.quantitySum == ""){
+						data.quantitySum = "";
+					}else {
+						document.getElementById("quantitySum").value = data.quantitySum;
+					}
+				}
+			});
+		}
 			
 			/* 商品コードから明細表示 ajax */
 			function pCode(obj){
@@ -992,6 +1067,109 @@
 					}
 				});
 			}
+			
+			/* 顧客コードから顧客情報 ajax */
+			function customerInfo() {
+				var cCode = document.getElementById("customerCodeInput").value;
+			$.ajax({
+				url:'/SalesCube2020/SalesCubeAJAX?action=cuscodetoinfo',
+				type:'post',
+				data:{"customerCode": cCode },
+				dataType:'json',
+				success:function(data){
+					if(data.customerName == null || data.customerName == ""){
+						alert("該当する顧客情報は存在しません");
+					} else {
+						document.getElementById('customerNameInput').value = data.customerName;
+					}
+					if(data.taxShiftCategory == null || data.taxShiftCategory == ""){
+						data.taxShiftCategory == "";
+					}else{
+						document.getElementById('taxShiftCategory').value = data.taxShiftCategory;
+					}
+					if(data.cutoffGroup == null || data.cutoffGroup == ""){
+						data.cutoffGroup = "";
+					}else{
+						document.getElementById('cutoffGroup').value = data.cutoffGroup;
+					}
+					if(data.salesCmCategory == null || data.salesCmCategory == ""){
+						data.salesCmCategory = "";
+					}else{
+						document.getElementById('salesCmCategory').value = data.salesCmCategory;
+					}
+					if(data.customerRemarks == null || data.customerRemarks == ""){
+						data.customerRemarks = "";
+					}else{
+						document.getElementById('customerRemarks').value = data.customerRemarks;
+					}
+					if(data.customerCommentData == null || data.customerCommentData == ""){
+						data.customerCommentData = "";
+					}else{
+						document.getElementById('customerCommentData').value = data.customerCommentData;
+					}
+					if(data.deliveryName == null || data.deliveryName == ""){
+						data.deliveryName = "";
+					}else{
+						document.getElementById('deliveryName').value = data.deliveryName;
+					}
+					if(data.deliveryOfficeName == null || data.deliveryOfficeName == ""){
+						data.deliveryOfficeName = "";
+					}else{
+						document.getElementById('deliveryOfficeName').value = data.deliveryOfficeName;
+					}
+					if(data.deliveryDeptName == null || data.deliveryDeptName == ""){
+						data.deliveryDeptName = "";
+					}else{
+						document.getElementById('deliveryDeptName').value = data.deliveryDeptName;
+					}
+					if(data.deliveryZipCode == null || data.deliveryZipCode == ""){
+						data.deliveryZipCode = "";
+					}else{
+						document.getElementById('deliveryZipCode').value = data.deliveryZipCode;
+					}
+					if(data.deliveryAddress1 == null || data.deliveryAddress1 == ""){
+						data.deliveryAddress1 = "";
+					}else{
+						document.getElementById('deliveryAddress1').value = data.deliveryAddress1;
+					}
+					if(data.deliveryAddress2 == null || data.deliveryAddress2 == ""){
+						data.deliveryAddress2 = "";
+					}else{
+						document.getElementById('deliveryAddress2').value = data.deliveryAddress2;
+					}
+					if(data.deliveryPcName == null || data.deliveryPcName == ""){
+						data.deliveryPcName = "";
+					}else{
+						document.getElementById('deliveryPcName').value = data.deliveryPcName;
+					}
+					if(data.deliveryPcKana == null || data.deliveryPcKana == ""){
+						data.deliveryPcKana = "";
+					}else{
+						document.getElementById('deliveryPcKana').value = data.deliveryPcKana;
+					}
+					if(data.deliveryPcPre == null || data.deliveryPcPre == ""){
+						data.deliveryPcPre = "";
+					}else{
+						document.getElementById('deliveryPcPre').value = data.deliveryPcPre;
+					}
+					if(data.deliveryTel == null || data.deliveryTel == ""){
+						data.deliveryTel = "";
+					}else{
+						document.getElementById('deliveryTel').value = data.deliveryTel;
+					}
+					if(data.deliveryFax == null || data.deliveryFax == ""){
+						data.deliveryFax = "";
+					}else{
+						document.getElementById('deliveryFax').value = data.deliveryFax;
+					}
+					if(data.deliveryEmail == null || data.deliveryEmail == ""){
+						data.deliveryEmail = "";
+					}else{
+						document.getElementById('deliveryEmail').value = data.deliveryEmail;
+					}
+				}
+			});
+		}
 			
 		</script>
 	</body>

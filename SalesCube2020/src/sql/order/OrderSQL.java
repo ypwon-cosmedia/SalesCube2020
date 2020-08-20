@@ -5,6 +5,8 @@ import order.search.beans.OrderSearchBean;
 
 import order.common.bill.beans.OrderCommonBillBean;
 import order.input.beans.OrderInputBean;
+import order.online.beans.OrderOnlineBillBean;
+import order.online.beans.OrderOnlineDetailBean;
 import sql.common.CommonSQL;
 
 
@@ -114,7 +116,7 @@ public class OrderSQL {
 	
 	/* 見積モーダル */
 	/* 見積検索 */
-	public String billSearch(String estimateSheetId, String estimateDate, String submitName, String title, OrderCommonBillBean bean) {
+	public String billSearch(OrderCommonBillBean bean) {
 		
 		String sql;
 		
@@ -306,7 +308,11 @@ public class OrderSQL {
 		String sql;
 		
 		sql = "SELECT DISTINCT " + 
-				"CONCAT(rltx.RO_SLIP_ID, '-', rltx.LINE_NO), " + 
+				"CONCAT(" + 
+				"rltx.RO_SLIP_ID, " +
+				"'-', " + 
+				"rltx.LINE_NO" +
+				") as id," + 
 				"rstx.SHIP_DATE, " + 
 				"rltx.QUANTITY " + 
 			"FROM " + 
@@ -1254,5 +1260,96 @@ public class OrderSQL {
 		return sql;
 		
 	}
+	
+	public String onlineInputBill(OrderOnlineBillBean bean) {
+		
+		String sql;
+		
+		sql = "insert into " + 
+				"ro_slip_trn_xxxxx(" + 
+				"ro_slip_id," + 
+				"status," + 
+				"ro_date," + 
+				"ship_date," + 
+				"delivery_date," + 
+				"recept_no," + 
+				"customer_slip_no," + 
+				"remarks," +  
+				"ctax_rate," + 
+				"user_id," + 
+				"user_name," + 
+				"customer_code," + 
+				"customer_name," + 
+				"delivery_code," + 
+				"delivery_name) " + 
+				"values(" + 
+				"(select * from (select ro_slip_id+1 from ro_slip_trn_xxxxx order by ro_slip_id+1 desc limit 1) as tb1)," + 
+				"'2','" + 
+				bean.getRoDate() + "','" + 
+				bean.getShipDate() + "','" + 
+				bean.getDeliveryDate() + "','" + 
+				bean.getReceptNo() + "','" + 
+				bean.getCustomerSilpNo() + "','" + 
+				bean.getRemarks() + "'," + 
+				bean.getCtaxRate() + "," + 
+				"'userID'," +
+				"'userName','" + 
+				bean.getCustomerCode() + "'," + 
+				"(select customer_name from customer_mst_xxxxx where customer_code = '"+ bean.getCustomerCode() +"'),'" + 
+				bean.getDeliveryCode() + "'," + 
+				"(select delivery_name from delivery_mst_xxxxx where delivery_code = '"+ bean.getDeliveryCode() +"')" + 
+				")";
+		
+		return sql;
+	}
+	
+public String onlineInputDetail(OrderOnlineDetailBean bean) {
+		
+		String sql;
+		
+		sql = "insert into " + 
+				"ro_line_trn_xxxxx(" + 
+				"ro_line_id," + 
+				"status," + 
+				"ro_slip_id," + 
+				"line_no," + 
+				"product_code," + 
+				"product_abstract," + 
+				"quantity," + 
+				"unit_retail_price," + 
+				"retail_price," + 
+				"unit_cost," + 
+				"cost," + 
+				"ctax_rate," + 
+				"ctax_price,	" + 
+				"rest_quantity" + 
+				") " + 
+				"values(" + 
+				"(select * from (select ro_line_id+1 from ro_line_trn_xxxxx order by ro_line_id+1 desc limit 1) as tb1)," + 
+				"'2'," + 
+				bean.getRoSlipId() + "," + 
+				"(select IF((select * from (select line_no from ro_line_trn_xxxxx where ro_slip_id = " + bean.getRoSlipId() + " order by line_no desc limit 1) as tb2) IS NULL, 1 , (select * from (select line_no+1 from ro_line_trn_xxxxx where ro_slip_id = " + bean.getRoSlipId() + " order by line_no desc limit 1) as tb2))),'" + 
+				bean.getProductCode() + "'," + 
+				"(select product_name from product_mst_xxxxx where product_code = '" + bean.getProductCode() + "')," + 
+				bean.getQuantity() + "," + 
+				bean.getUnitRetailPrice() + "," + 
+				bean.getQuantity()*bean.getUnitRetailPrice() + "," + 
+				"(select supplier_price_yen from product_mst_xxxxx where product_code = '" + bean.getProductCode() + "')," + 
+				"(select "+bean.getQuantity()+"*(select supplier_price_yen from product_mst_xxxxx where product_code = '" + bean.getProductCode() + "'))," + 
+				"(select ctax_rate from ro_slip_trn_xxxxx where ro_slip_id= " + bean.getRoSlipId() + ")," + 
+				bean.getQuantity()*bean.getUnitRetailPrice()*(bean.getCtaxRate()/100)+ "," + 
+				bean.getQuantity() + 
+				")";
+		
+		return sql;
+	}
 
+	public String endOfRoSlipId() {
+		
+		String sql;
+		
+		sql = "select ro_slip_id from ro_slip_trn_xxxxx order by ro_slip_id desc limit 1";
+		
+		return sql;
+	}
 }

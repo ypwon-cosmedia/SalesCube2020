@@ -34,7 +34,7 @@
                             <div class="input-group-prepend">
                                 <div class="input-group-text">顧客コード</div>
                             </div>
-                            <input type="text"  class="form-control"  name="customerCode">
+                            <input type="text"  class="form-control" name="customerCode" id="customerCode">
                           </div>
                         </div>
                       </div>
@@ -48,7 +48,7 @@
                             <div class="input-group-prepend">
                                 <div class="input-group-text">顧客名</div>
                             </div>
-                            <input type="text"  class="form-control"  name="customerName">
+                            <input type="text"  class="form-control" name="customerName" id="customerName">
                           </div>
                         </div>&emsp;&emsp;&emsp;
                       

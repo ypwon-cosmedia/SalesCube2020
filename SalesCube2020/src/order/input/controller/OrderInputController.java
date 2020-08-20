@@ -11,6 +11,11 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import common.controller.BaseController;
+import master.product.DAO.GetCategoryDAO;
+import master.product.DAO.ProductDeleteDAO;
+import master.product.beans.ProductCategoryAllBean;
+import order.common.bill.DAO.OrderCommonBillDAO;
+import order.common.bill.beans.OrderCommonBillBean;
 import order.input.DAO.OrderInputDAO;
 import order.input.beans.OrderInputBean;
 
@@ -36,6 +41,21 @@ public class OrderInputController extends BaseController {
 					// TODO Auto-generated catch block
 					e.printStackTrace();
 				}
+		}else if(action.equals("deleteOrder")) {
+			try {
+				forwardURL = deleteOrder(request, response);
+			} catch (ClassNotFoundException | ServletException | IOException | SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			
+		}else if(action.equals("billlink")) {
+			try {
+				EstimateToOrderInput(request, response);
+			} catch (ClassNotFoundException | ServletException | IOException | SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 		}
 		
 		return forwardURL;
@@ -431,6 +451,49 @@ public class OrderInputController extends BaseController {
 			str = null;
 		}
 		return str;
+	}
+	
+	/* 受注削除 */
+	private String deleteOrder(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException, SQLException, ClassNotFoundException {
+
+			String forwardURL = "order\\orderinput.jsp";	
+			
+			//Delete
+			String roSlipId = request.getParameter("roSlipId");
+			OrderInputDAO dao = new OrderInputDAO();
+			int check = dao.deleteOrder(roSlipId);
+			
+			//Delete Check
+			if( check == 0 ) {
+				String message = "削除ができませんでした";
+				request.setAttribute("deleteError", message);
+			}else{
+				String message = "削除が完了しました";
+				request.setAttribute("deleteCmp", message);
+			}
+			
+			return forwardURL;
+
+	}
+	
+	/* 見積番号押下 受注新規登録画面に反映 */
+	private void EstimateToOrderInput(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException, SQLException, ClassNotFoundException {
+		
+		OrderCommonBillDAO dao = new OrderCommonBillDAO();
+		OrderCommonBillBean bean1 = new OrderCommonBillBean();
+		OrderCommonBillBean bean2 = new OrderCommonBillBean();
+		OrderCommonBillBean bean3 = new OrderCommonBillBean();
+		
+		String estimateSheetId = request.getParameter("estimateSheetId");
+		
+		bean1 = dao.billToTaxRate(estimateSheetId);
+		bean2 = dao.billToCustomer(estimateSheetId);
+		bean3 = dao.billToDelivery(estimateSheetId);
+		
+		request.setAttribute("stockTaxRate", bean1);
+		request.setAttribute("stockCustomer", bean2);
+		request.setAttribute("stockDelivery", bean3);
+
 	}
 	
 }
