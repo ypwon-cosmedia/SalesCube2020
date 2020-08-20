@@ -118,6 +118,13 @@ public class OrderMoveController extends BaseController{
 
 	private String moveOnlineOrder (HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 	
+		HttpSession session = request.getSession(true);
+		
+		if(session.getAttribute("userInfo") == null) {
+			String message = "ログインした後で利用できます。\nログインしてください。";
+			request.setAttribute("loginError", message);
+			return "login.jsp";
+		}
 		return "order\\onlineorderdataimport.jsp";
 	}
 }

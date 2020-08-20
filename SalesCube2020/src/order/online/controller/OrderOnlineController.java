@@ -101,9 +101,6 @@ public class OrderOnlineController extends BaseController{
 			Collections.sort(infolist);
 						
 			HashMap<String, String> hs = new HashMap<String, String>();
-            hs.put("1","147");
-            hs.put("2","148");
-            hs.put("3","149");
             
 			for(int j = 0; j < infolist.size(); j ++) {
 				String tmp[] = infolist.get(j).split(",");
@@ -147,6 +144,29 @@ public class OrderOnlineController extends BaseController{
 				}					
 			}
 			
+			ArrayList<Integer> mapToList = new ArrayList<Integer>();
+			
+			for(String key : hs.keySet()) {
+				String roSlipId = hs.get(key);
+				try {
+					dao.onlineInputTotal(roSlipId);
+					mapToList.add(Integer.parseInt(roSlipId));
+				} catch (ClassNotFoundException | MissingResourceException | SQLException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+			}
+			
+			Collections.sort(mapToList);
+			
+			String start = mapToList.get(0).toString();
+			
+			try {
+				request.setAttribute("result", dao.onlineInputResult(start));
+			} catch (ClassNotFoundException | MissingResourceException | SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 			
 		} else
 			System.out.println("filePart is null");
