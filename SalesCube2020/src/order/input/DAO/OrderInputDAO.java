@@ -689,7 +689,7 @@ public class OrderInputDAO extends BaseDAO{
 	 	
 	 	OrderSQL ordersql = new OrderSQL();
 	 	sql = ordersql.customerCodeInfo(customerCode);
-	 	
+	 
 	 	System.out.println(sql);
 	 	result = stmt.executeQuery(sql);
 	 	

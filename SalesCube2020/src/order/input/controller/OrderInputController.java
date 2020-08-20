@@ -20,7 +20,7 @@ import order.common.bill.beans.OrderCommonBillBean;
 import order.input.DAO.OrderInputDAO;
 import order.input.beans.OrderInputBean;
 
-
+ 
 public class OrderInputController extends BaseController {
 
 	public String execService(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException{

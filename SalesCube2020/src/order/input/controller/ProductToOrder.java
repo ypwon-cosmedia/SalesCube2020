@@ -44,7 +44,7 @@ public class ProductToOrder extends BaseAJAXController {
 				e.printStackTrace();
 		}
 		
-	}	
+	}
 	
 	private void customerCodeToDelivery(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException, SQLException, ClassNotFoundException {
 		

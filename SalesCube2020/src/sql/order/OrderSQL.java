@@ -1364,7 +1364,7 @@ public class OrderSQL {
 		
 		return sql;
 	}
-	
+
 	public String customerCodeToDelivery(String customerCode) {
 		
 		String sql;

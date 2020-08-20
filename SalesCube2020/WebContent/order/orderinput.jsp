@@ -999,7 +999,7 @@
 					}
 					if(data.customerCommentData == null || data.customerCommentData == ""){
 						data.customerCommentData = "";
-					}else{
+					}else{ 
 						document.getElementById('customerCommentData').value = data.customerCommentData;
 					}
 					if(data.deliveryName == null || data.deliveryName == ""){

@@ -18,7 +18,7 @@ public class StockToOrderController extends BaseController {
 		
 		String forwardURL = "/menu.jsp";
 		String action = request.getParameter("action");
-		
+	
 		if(action.equals("stocklink"))
 			try {
 				moveStockToUpdate(request, response);
