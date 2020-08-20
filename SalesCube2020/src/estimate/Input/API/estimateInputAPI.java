@@ -17,7 +17,7 @@ import estimate.common.dao.CategoryDAO;
 
 public class estimateInputAPI {
 
-	
+	/* 消費税率取得 */
 	public List<TaxRateBean> getTaxRateList()
 			throws ServletException, IOException, ClassNotFoundException, SQLException {
 		
@@ -27,11 +27,12 @@ public class estimateInputAPI {
 		return taxRateList;
 	}
 	
+	/* カテゴリー取得 */
 	public List<CategoryBean> getCategoryList(int categoryId)
 			throws ServletException, IOException, ClassNotFoundException, SQLException {
 		
 		CategoryDAO cdao = new CategoryDAO();
-		List<CategoryBean> submitPreList = cdao.CategoryGet(categoryId); // 提出先敬称取得
+		List<CategoryBean> submitPreList = cdao.CategoryGet(categoryId);
 		
 		return submitPreList;
 	}

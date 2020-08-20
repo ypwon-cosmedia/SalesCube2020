@@ -3,16 +3,13 @@
  */
 package estimate.Input.dao;
 
-import java.io.FileInputStream;
 import java.io.IOException;
-import java.io.InputStream;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Properties;
 
 import common.dao.BaseDAO;
 import estimate.Input.API.EstimatePropertyUtil;
@@ -23,10 +20,7 @@ import estimate.Input.beans.TaxRateBean;
 
 public class EstimateInputCommonDAO extends BaseDAO {
 	
-	//Properties properties = new Properties();
-	//String strpass = "..../sql/estimate/estimateSQL.properties";
-	
-	//消費税を取得するメソッド
+	/* 消費税を取得する */
 	public List<TaxRateBean> getTaxRate() throws SQLException, ClassNotFoundException, IOException {
 		Connection con;
 		PreparedStatement pstmt= null;
@@ -39,8 +33,6 @@ public class EstimateInputCommonDAO extends BaseDAO {
 	 	
 	 	sql = EstimatePropertyUtil.getProperty("getTaxRate"); //プロパティファイルから読み込み
 	 	
-	 	//sql="select TAX_RATE from tax_rate_mst_xxxxx where TAX_TYPE_CATEGORY = ?";
-	 	
 	 	pstmt = con.prepareStatement(sql);
 	 	
 	 	pstmt.setInt(1, 1);
@@ -52,13 +44,12 @@ public class EstimateInputCommonDAO extends BaseDAO {
 	 		bean.setTaxRate(result.getBigDecimal("TAX_RATE"));
 	 		list.add(bean);
 	 	}
-	 	
 	 	super.releaseDB(con,pstmt,result);
 	 	
 	 	return list;
 	}
 	
-	//見積番号が存在するか確認するメソッド
+	/* 見積番号が存在するか確認する */
 	public String confirmEstimateSheetId(String estimateSheetId) throws SQLException, ClassNotFoundException {
 		
 		Connection con;
@@ -68,12 +59,6 @@ public class EstimateInputCommonDAO extends BaseDAO {
 	 	String check = "NG";
 	 	
 	 	con = super.getConnection();
-	 	
-	 	/*
-	 	sql="select ESTIMATE_SHEET_ID " + 
-	 		"from estimate_sheet_trn_xxxxx " + 
-	 		"where ESTIMATE_SHEET_ID = ?";
-	 	*/
 	 	
 	 	sql = EstimatePropertyUtil.getProperty("confirmEstimateSheetId"); //プロパティファイルから読み込み
 	 	
@@ -91,13 +76,12 @@ public class EstimateInputCommonDAO extends BaseDAO {
 		 		check = "NG";
 		 	}
 	 	}
-	 	
 	 	super.releaseDB(con,pstmt,result);
 	 	
 	 	return check;
 	}
 
-	//顧客情報を取得するメソッド
+	/* 顧客情報を取得する */
 	public GetCustomerBean getCustomer(String customerCode) throws SQLException, ClassNotFoundException {
 		
 		Connection con;
@@ -106,13 +90,6 @@ public class EstimateInputCommonDAO extends BaseDAO {
 	 	String  sql;
 	 	
 	 	con = super.getConnection();
-	 	/*
-	 	sql="select CUSTOMER_NAME, " + 
-	 				"REMARKS, " + 
-	 				"COMMENT_DATA " + 
-	 		"from customer_mst_xxxxx " + 
-	 		"where CUSTOMER_CODE = ?";
-	 		*/
 	 	
 	 	sql = EstimatePropertyUtil.getProperty("getCustomer"); //プロパティファイルから読み込み
 	 	
@@ -133,14 +110,13 @@ public class EstimateInputCommonDAO extends BaseDAO {
 	 		if(bean.getCustomerRemarks()== null || bean.getCustomerRemarks().equals("")) {bean.setCustomerRemarks("");};
 	 		if(bean.getCustomerComment()== null || bean.getCustomerComment().equals("")) {bean.setCustomerComment("");};
 	 	}
-	 	
 	 	super.releaseDB(con,pstmt,result);
 	 	
 	 	return bean;
 	}
 	
 	
-	//商品情報を取得するメソッド
+	/* 商品情報を取得するメソッド */
 	public GetProductBean getProduct(String productCode) throws SQLException, ClassNotFoundException {
 		
 		Connection con;
@@ -149,15 +125,7 @@ public class EstimateInputCommonDAO extends BaseDAO {
 	 	String  sql;
 	 	
 	 	con = super.getConnection();
-	 	
-	 	/*
-	 	sql="select PRODUCT_NAME, " + 
-	 				"SUPPLIER_PRICE_YEN, " +
-	 				"RETAIL_PRICE " + 
-	 		"from product_mst_xxxxx " + 
-	 		"where PRODUCT_CODE = ?";
-	 		*/
-	 	
+
 	 	sql = EstimatePropertyUtil.getProperty("getProduct"); //プロパティファイルから読み込み
 	 	
 	 	pstmt = con.prepareStatement(sql);
@@ -174,9 +142,7 @@ public class EstimateInputCommonDAO extends BaseDAO {
 	 		bean.setUnitRetailPrice(result.getInt("RETAIL_PRICE"));
 	 		
 	 		if(bean.getProductAbstract()== null || bean.getProductAbstract().equals("")) {bean.setProductAbstract("");};
-
 	 	}
-	 	
 	 	super.releaseDB(con,pstmt,result);
 	 	
 	 	return bean;

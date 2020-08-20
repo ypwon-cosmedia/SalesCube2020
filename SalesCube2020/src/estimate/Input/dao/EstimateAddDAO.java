@@ -17,9 +17,8 @@ import estimate.Input.beans.EstimateProductAddBean;
 
 public class EstimateAddDAO extends BaseDAO {
 	
-
+	/* (見積商品を除く)見積登録 */
 	public int addEstimate(EstimateAddBean bean) throws ClassNotFoundException, MissingResourceException, SQLException {
-		
 		Connection con;
 		PreparedStatement pstmt= null;
 	 	int result = 0;
@@ -53,7 +52,7 @@ public class EstimateAddDAO extends BaseDAO {
 		LocalDateTime ldt           = LocalDateTime.now(); //現在時刻取得
 		String creDate              = ldt.toString();
 	 	
-	 	//nullまたは空文字が入った場合の処理
+	 	//空文字が入った場合の処理
 		if(estimateSheetId.equals("")) {estimateSheetId = null;} 
 		if(estimateDate.equals("")) {estimateDate = null;} 
 		if(deliveryInfo.equals("")) {deliveryInfo = null;} 
@@ -75,37 +74,7 @@ public class EstimateAddDAO extends BaseDAO {
 		if(creUser.equals("")) {creUser = null;} 
 		
 		con = super.getConnection();
-	 	/*
-		
-	 	//見積登録をするSQL
-	 	sql = "insert into estimate_sheet_trn_xxxxx(" +
-	 		      "ESTIMATE_SHEET_ID, " + 
-	 		      "ESTIMATE_DATE, " + 
-	 		      "DELIVERY_INFO, " + 
-	 		      "VALID_DATE, " + 
-	 		      "USER_NAME, " +
-	 		      "USER_ID, " +
-	 		      "TITLE, " +
-	 		      "DELIVERY_NAME, " + 
-	 		      "ESTIMATE_CONDITION, " + 
-	 		      "CTAX_RATE, " + 
-	 		      "SUBMIT_NAME, " + 
-	 		      "SUBMIT_PRE, " + 
-	 		      "CUSTOMER_CODE, " + 
-	 		      "CUSTOMER_NAME, " + 
-	 		      "CUSTOMER_REMARKS, " + 
-	 		      "CUSTOMER_COMMENT_DATA, " + 
-	 		      "REMARKS, " + 
-	 		      "MEMO, " + 
-	 		      "RETAIL_PRICE_TOTAL, " + 
-	 		      "CTAX_PRICE_TOTAL, " + 
-	 		      "ESTIMATE_TOTAL, " +
-	 		      "COST_TOTAL, " + 
-	 		      "CRE_DATETM, " +
-	 		      "CRE_USER) " +
-	 		  "values" +
-	 		      "(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
-	 	*/
+
 	 	sql = EstimatePropertyUtil.getProperty("addEstimate"); //プロパティファイルから読み込み
 	 	
 	 	pstmt = con.prepareStatement(sql);
@@ -147,7 +116,7 @@ public class EstimateAddDAO extends BaseDAO {
 		return result;
 	}
 	
-	
+	/* 見積商品登録 */
 	public int addEstimateProduct (List<EstimateProductAddBean> list) throws ClassNotFoundException, MissingResourceException, SQLException {
 		
 		Connection con;
@@ -170,22 +139,6 @@ public class EstimateAddDAO extends BaseDAO {
 	 	
 		LocalDateTime ldt           = LocalDateTime.now(); 	 //現在の時間を取得
 		String creDate              = ldt.toString();
-	 	
-		/*
-		//見積商品登録をnullの場合のSQLに合わせて変換した値を格納する変数宣言
-	 	Integer lineNoSQL;
-	 	String estimateSheetIdSQL;
-	 	String productCodeSQL;
-	 	String productAbstractSQL;
-	 	Integer quantitySQL;
-	 	Integer unitCostSQL;
-	 	Integer costSQL;
-	 	Integer unitRetailPriceSQL;
-	 	Integer retailPriceSQL;
-	 	String productRemarksSQL;
-	 	String creDateSQL;
-	 	String creUserSQL;
-	 	*/
 	 	
 	 	con = super.getConnection();	
 	 	
@@ -215,23 +168,6 @@ public class EstimateAddDAO extends BaseDAO {
 			if(creDate.equals("")) {creDate = null;}
 			if(creUser.equals("")) {creUser = null;}
 			
-			/*
-	 		sql = "insert into estimate_line_trn_xxxxx (" +
-	 					"ESTIMATE_LINE_ID, " +
-	 					"LINE_NO, " +
-	 					"ESTIMATE_SHEET_ID, " +
-	 					"PRODUCT_CODE, " +
-	 					"PRODUCT_ABSTRACT, " +
-	 					"QUANTITY, " +
-	 					"UNIT_COST, " +
-	 					"COST, " +
-	 					"UNIT_RETAIL_PRICE, " +
-	 					"RETAIL_PRICE, " +
-	 					"REMARKS, " +
-	 					"CRE_DATETM, " +
-	 					"CRE_USER) " +
-	 			  "values (?,?,?,?,?,?,?,?,?,?,?,?,?)";
-	 			  */
 	 		pstmt = con.prepareStatement(sql);
 	 		
 		 	pstmt.setInt(1, estimateLineId);
@@ -258,7 +194,7 @@ public class EstimateAddDAO extends BaseDAO {
 	 	
 	}
 	
-	
+	/* 見積商品IDの最大値を取得 */
 	public Integer getMaxEstimateLineId () throws ClassNotFoundException, MissingResourceException, SQLException {
 		Connection con;
 		Statement stmt= null;
@@ -269,10 +205,7 @@ public class EstimateAddDAO extends BaseDAO {
 	 	
 	 	con = super.getConnection();
 	 	stmt = con.createStatement();
-	 	/*
-	 	//最大見積伝票行IDを取得するSQL
-	 	sql = "SELECT max(ESTIMATE_LINE_ID) as MAX_ESTIMATE_LINE_ID from estimate_line_trn_xxxxx";
-	 	*/
+
 	 	sql = EstimatePropertyUtil.getProperty("getMaxEstimateLineId"); //プロパティファイルから読み込み
 	 	
 	 	result = stmt.executeQuery(sql);

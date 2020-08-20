@@ -12,7 +12,6 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import common.controller.BaseController;
-import common.modal.product.init.ProductModalInit;
 import estimate.unitPriceInquiry.beans.OrderStatementBean;
 import estimate.unitPriceInquiry.beans.QuantitySlideSettingBean;
 import estimate.unitPriceInquiry.beans.UnitPriceInquirySearchResultBean;

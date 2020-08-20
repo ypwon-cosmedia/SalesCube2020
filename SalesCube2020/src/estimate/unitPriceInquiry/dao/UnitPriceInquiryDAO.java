@@ -29,39 +29,6 @@ public class UnitPriceInquiryDAO extends BaseDAO {
 	 	
 	 	con = super.getConnection();
 	 	
-	 	/*
-	 	sql="select " + 
-	 			"PRODUCT_NAME,  " + 
-	 			"RETAIL_PRICE,  " + 
-	 			"PRODUCT_MST_XXXXX.REMARKS as PRODUCT_REMARKS,  " + 
-	 			"DISCOUNT_ID,  " + 
-	 			"DISCOUNT_NAME,  " + 
-	 			"DISCOUNT_MST_XXXXX.REMARKS as DISCOUNT_REMARKS,  " + 
-	 			"SUPPLIER_PCODE,  " + 
-	 			"setType.CATEGORY_CODE_NAME as SET_TYPE_CATEGORY,  " + 
-	 			"WAREHOUSE_NAME,  " + 
-	 			"RACK_CODE,  " + 
-	 			"status.CATEGORY_CODE_NAME as PRODUCT_STATUS_CATEGORY,  " + 
-	 			"stock.CATEGORY_CODE_NAME as PRODUCT_STOCK_CATEGORY,  " + 
-	 			"STOCK_QUANTITY,  " + 
-	 			"QUANTITY_TOTAL " + 
-	 		"from PRODUCT_MST_XXXXX  " + 
-	 		"left outer join DISCOUNT_REL_XXXXX using(PRODUCT_CODE) " + 
-	 		"left outer join DISCOUNT_MST_XXXXX using(DISCOUNT_ID)  " + 
-	 		"left outer join (select * from CATEGORY_TRN_XXXXX where CATEGORY_ID='2')as setType " + 
-	 			"on PRODUCT_MST_XXXXX.SET_TYPE_CATEGORY = setType.CATEGORY_CODE " + 
-	 		"left outer join RACK_MST_XXXXX using(RACK_CODE) " + 
-	 		"left outer join WAREHOUSE_MST_XXXXX using(WAREHOUSE_CODE) " + 
-	 		"left outer join (select * from CATEGORY_TRN_XXXXX where CATEGORY_ID='16')as status " + 
-	 			"on PRODUCT_MST_XXXXX.PRODUCT_STATUS_CATEGORY = status.CATEGORY_CODE " + 
-	 		"left outer join (select * from CATEGORY_TRN_XXXXX where CATEGORY_ID='17')as stock " + 
-	 			"on PRODUCT_MST_XXXXX.PRODUCT_STOCK_CATEGORY = stock.CATEGORY_CODE " + 
-	 		"left outer join STOCK_MST_XXXXX using(PRODUCT_CODE) " + 
-	 		"left outer join (select PRODUCT_CODE, sum(QUANTITY) as QUANTITY_TOTAL from RO_LINE_TRN_XXXXX GROUP BY PRODUCT_CODE)as quantityTotal " + 
-	 			"on PRODUCT_MST_XXXXX.PRODUCT_CODE = quantityTotal.PRODUCT_CODE  " + 
-	 		"where PRODUCT_MST_XXXXX.PRODUCT_CODE = ?";
-	 	*/
-	 	
 	 	sql = EstimatePropertyUtil.getProperty("unitPriceInquirySearch"); //プロパティファイルから読み込み
 	 	
 	 	pstmt = con.prepareStatement(sql);
@@ -108,18 +75,7 @@ public class UnitPriceInquiryDAO extends BaseDAO {
 	 	
 	 	con = super.getConnection();
 	 	
-	 	/*
-	 	sql="select " +
-	 			"LINE_NO, " +
-	 			"CONCAT( cast(IFNULL(DATA_FROM, '') as signed ), '～' ,  cast( IFNULL(DATA_TO, '') as signed) ) AS QUANTITY_DISCOUNT , " +
-	 			"DISCOUNT_RATE " + 
-	 		"from discount_trn_xxxxx  " + 
-	 		"left outer join  discount_rel_xxxxx using(DISCOUNT_ID) " + 
-	 		"where discount_rel_xxxxx.PRODUCT_CODE = ?";
-	 	*/
-	 	
 	 	sql = EstimatePropertyUtil.getProperty("getQuantitySetting"); //プロパティファイルから読み込み
-
 	 	
 	 	pstmt = con.prepareStatement(sql);
 	 	
@@ -151,18 +107,6 @@ public class UnitPriceInquiryDAO extends BaseDAO {
 	 	List<OrderStatementBean> list = new ArrayList<> ();
 	 	
 	 	con = super.getConnection();
-	 	
-	 	/*
-	 	sql="select " + 
-	 			"CONCAT(IFNULL(RO_SLIP_ID, '') , '-' ,  IFNULL(LINE_NO, '') ) as ORDER_NUMBER_LINE , " +
-	 			"SHIP_DATE, " +
-	 			"QUANTITY, " +
-	 			"RO_SLIP_ID " +
-	 		"from RO_LINE_TRN_XXXXX " + 
-	 		"left outer join RO_SLIP_TRN_XXXXX using(RO_SLIP_ID) " + 
-	 		"where PRODUCT_CODE = ?";
-	 	
-	 	*/
 	 	
 	 	sql = EstimatePropertyUtil.getProperty("getOrderStatement"); //プロパティファイルから読み込み
 

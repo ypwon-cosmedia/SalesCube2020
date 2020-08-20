@@ -356,6 +356,5 @@
 		var form = document.moveOrderUpdateform;
 		form.submit();
     }
-    
   </script>
 </html>

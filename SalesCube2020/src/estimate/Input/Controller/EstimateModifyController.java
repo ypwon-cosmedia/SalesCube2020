@@ -23,7 +23,7 @@ import estimate.Input.beans.InitEstimateProductBean;
 import estimate.Input.dao.EstimateAddDAO;
 import estimate.Input.dao.EstimateModifyDAO;
 
-
+/* 見積編集に関するクラス */
 public class EstimateModifyController extends BaseController {
 
 	public String execService(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {

@@ -29,29 +29,6 @@ public class EstimateModifyDAO extends BaseDAO {
 	 	InitEstimateBean bean = new InitEstimateBean();
 	 	
 	 	con = super.getConnection();
-	 	/*
-	 	//見積情報を取得するSQL
-	 	sql="select " + 
-	 			"ESTIMATE_DATE, " + 
-	 			"DELIVERY_INFO, " + 
-	 			"VALID_DATE, " + 
-	 			"USER_NAME, " +
-	 			"TITLE, " + 
-	 			"DELIVERY_NAME, " + 
-	 			"ESTIMATE_CONDITION, " + 
-	 			"CTAX_RATE, " + 
-	 			"SUBMIT_NAME, " + 
-	 			"SUBMIT_PRE, " + 
-	 			"CUSTOMER_CODE, " + 
-	 			"CUSTOMER_NAME, " + 
-	 			"CUSTOMER_REMARKS, " + 
-	 			"CUSTOMER_COMMENT_DATA, " + 
-	 			"REMARKS, " + 
-	 			"MEMO, " + 
-	 			"ESTIMATE_TOTAL " + 
-	 		"from estimate_sheet_trn_xxxxx " + 
-	 		"where ESTIMATE_SHEET_ID = ?";
-	 		*/
 	 	
 	 	sql = EstimatePropertyUtil.getProperty("getEstimate"); //プロパティファイルから読み込み
 	 	
@@ -100,21 +77,6 @@ public class EstimateModifyDAO extends BaseDAO {
 	 	
 	 	con = super.getConnection();
 	 	
-	 	/*
-	 	sql="select " + 
-	 			"LINE_NO, " + 
-	 			"PRODUCT_CODE, " + 
-	 			"PRODUCT_ABSTRACT, " + 
-	 			"QUANTITY, " + 
-	 			"UNIT_COST, " + 
-	 			"COST, " + 
-	 			"UNIT_RETAIL_PRICE, " + 
-	 			"RETAIL_PRICE, " + 
-	 			"REMARKS " + 
-	 		"from estimate_line_trn_xxxxx " + 
-	 		"where ESTIMATE_SHEET_ID = ?";
-	 		*/
-	 	
 	 	sql = EstimatePropertyUtil.getProperty("getEstimateProduct"); //プロパティファイルから読み込み
 	 	
 	 	pstmt = con.prepareStatement(sql);
@@ -155,7 +117,6 @@ public class EstimateModifyDAO extends BaseDAO {
 	 	String estimateDate		  = bean.getEstimateDate();
 	 	String deliveryInfo		  = bean.getDeliveryInfo();
 	 	String validDate		  = bean.getValidDate();
-	 	//String userName			  = bean.getUserName();
 	 	String title			  = bean.getTitle();
 	 	String deliveryName		  = bean.getDeliveryName();
 	 	String estimateCondition  = bean.getEstimateCondition();
@@ -177,41 +138,11 @@ public class EstimateModifyDAO extends BaseDAO {
 		LocalDateTime ldt           = LocalDateTime.now();
 		String updDate              = ldt.toString();
 	 	
-	 	//SQL変換
-		/*
-	 	String estimateSheetIdSQL;
-	 	String estimateDateSQL;
-	 	String deliveryInfoSQL;
-	 	String validDateSQL;
-	 	//String userNameSQL;
-	 	String titleSQL;
-	 	String deliveryNameSQL;
-	 	String estimateConditionSQL;
-	 	String submitNameSQL;
-	 	String submitPreSQL;
-	 	String customerCodeSQL;
-	 	String customerNameSQL;
-	 	String customerRemarksSQL;
-	 	String customerCommentSQL;
-	 	String remarksSQL;
-	 	String memoSQL;
-	 	Integer retailPriceTotalSQL;
-	 	Integer ctaxPriceTotalSQL;
-	 	Integer estimateTotalSQL;
-	 	String updDateSQL;
-	 	String updUserSQL;
-	 	*/
-	 	
-	 	
 	 	//nullの場合の処理
 		if(estimateSheetId.equals("")) {estimateSheetId = null;}
 		if(estimateDate.equals("")) {estimateDate = null;}
 		if(deliveryInfo.equals("")) {deliveryInfo = null;}
 		if(validDate.equals("")) {validDate = null;}
-		
-		//if(userName==null || userName.equals("")) {userName = null;} 
-		//else {userName = "'" + userName + "'";}
-		
 		if(title.equals("")) {title = null;}
 		if(deliveryName.equals("")) {deliveryName = null;}
 		if(estimateCondition.equals("")) {estimateCondition = null;}
@@ -227,32 +158,6 @@ public class EstimateModifyDAO extends BaseDAO {
 		if(updUser.equals("")) {updUser = null;}
 
 		con = super.getConnection();
-	 	/*
-	 	//見積更新をするSQL
-	 	sql = "update estimate_sheet_trn_xxxxx set " +
-	 		      "ESTIMATE_DATE = ?," +
-	 		      "DELIVERY_INFO = ?," +
-	 		      "VALID_DATE = ?," +
-	 		      //"USER_NAME = ," + userNameSQL + ", ," +
-	 		      "TITLE = ?," +
-	 		      "DELIVERY_NAME = ?," +
-	 		      "ESTIMATE_CONDITION = ?," +
-	 		      "CTAX_RATE = ?," +
-	 		      "SUBMIT_NAME = ?," +
-	 		      "SUBMIT_PRE = ?," +
-	 		      "CUSTOMER_CODE = ?," +
-	 		      "CUSTOMER_NAME = ?," +
-	 		      "CUSTOMER_REMARKS = ?," +
-	 		      "CUSTOMER_COMMENT_DATA = ?," +
-	 		      "REMARKS = ?," +
-	 		      "MEMO = ?," +
-	 		      "RETAIL_PRICE_TOTAL = ?," +
-	 		      "CTAX_PRICE_TOTAL = ?," +
-	 		      "ESTIMATE_TOTAL = ?," +
-	 		      "UPD_DATETM = ?," +
-	 		      "UPD_USER = ? " +
-	 		  "where ESTIMATE_SHEET_ID = ?";
-	 		  */
 	 	
 	 	sql = EstimatePropertyUtil.getProperty("modifyEstimate"); //プロパティファイルから読み込み
 	 	
@@ -296,7 +201,6 @@ public class EstimateModifyDAO extends BaseDAO {
 		return result;
 	}
 	
-	
 	/* 見積削除 */
 	public int deleteEstimate(String estimateSheetId) throws ClassNotFoundException, MissingResourceException, SQLException {
 		Connection con;
@@ -305,10 +209,6 @@ public class EstimateModifyDAO extends BaseDAO {
 	 	String  sql;
 	 	
 	 	con = super.getConnection();
-	 	/*
-	 	//見積を削除するSQL
-	 	sql = "delete from estimate_sheet_trn_xxxxx where ESTIMATE_SHEET_ID = ?";
-	 	*/
 	 	
 	 	sql = EstimatePropertyUtil.getProperty("deleteEstimate"); //プロパティファイルから読み込み
 	 	
@@ -329,8 +229,6 @@ public class EstimateModifyDAO extends BaseDAO {
 	 	return result;
 	}
 	
-	
-	
 	/* 見積商品情報削除 */
 	public int deleteEstimateProduct(String estimateSheetId) throws ClassNotFoundException, MissingResourceException, SQLException {
 		Connection con;
@@ -339,10 +237,6 @@ public class EstimateModifyDAO extends BaseDAO {
 	 	String  sql;
 	 	
 	 	con = super.getConnection();
-	 	/*
-	 	//見積商品を削除するSQL
-	 	sql = "delete from estimate_line_trn_xxxxx where ESTIMATE_SHEET_ID = ?";
-	 	*/
 	 	
 	 	sql = EstimatePropertyUtil.getProperty("deleteEstimateProduct"); //プロパティファイルから読み込み
 	 	

@@ -18,7 +18,7 @@ import estimate.Input.beans.GetCustomerBean;
 import estimate.Input.beans.GetProductBean;
 import estimate.Input.dao.EstimateInputCommonDAO;
 
-
+/* 見積入力共通Controller */
 public class EstimateInputCommonController extends BaseAJAXController  {
 
 	public void execService(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -37,7 +37,7 @@ public class EstimateInputCommonController extends BaseAJAXController  {
 		}
 	}
 
-
+	/* 入力した見積番号が存在するか確認 */
 	private void confirmEstimateSheetId(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException, ClassNotFoundException, SQLException {
 		
@@ -61,7 +61,7 @@ public class EstimateInputCommonController extends BaseAJAXController  {
 		}
 	}
 	
-
+	/* 顧客情報取得 */
 	private void estimateCustomerSearch(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException, ClassNotFoundException, SQLException {
 		
@@ -85,6 +85,7 @@ public class EstimateInputCommonController extends BaseAJAXController  {
 		}
 	}
 	
+	/* 商品情報取得 */
 	private void estimateProductSearch(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException, ClassNotFoundException, SQLException {
 		
