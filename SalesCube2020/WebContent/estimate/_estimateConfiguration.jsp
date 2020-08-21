@@ -31,8 +31,8 @@
                                 <table>
                                 <tr><td>&ensp;</td></tr>
                                 <tr><td>&ensp;</td></tr>
-                                <tr><td><button name="" class="btn btn-primary" style="width: 40px;height: 40px;" id="rightButton" disabled onclick="moveSelected(); moveVertical(1); rightLeft()">→</button></td></tr>
-                                <tr><td><button name="" class="btn btn-primary" style="width: 40px;height: 40px;" id="leftButton" disabled onclick="moveUnselected(); rightLeft()">←</button></td></tr>
+                                <tr><td><button name="" class="btn btn-primary" style="width: 40px;height: 40px;" id="rightButton" disabled onclick="moveSelected();  rightLeft(); updownButtonStyle()">→</button></td></tr>
+                                <tr><td><button name="" class="btn btn-primary" style="width: 40px;height: 40px;" id="leftButton" disabled onclick="moveUnselected(); rightLeft(); updownButtonStyle()">←</button></td></tr>
                                 </table>
                             
                             &emsp;
@@ -142,12 +142,14 @@
     function moveSelected(){
 		$('#notShowSearchResult option:selected').appendTo('#showSearchResult');
 		$('#notShowSearchResult option:selected').remove();
+		
 	}
 
     //左への移動(表示から非表示)
 	function moveUnselected(){
 		$('#showSearchResult option:selected').appendTo('#notShowSearchResult');
 		$('#showSearchResult option:selected').remove();
+		
 	}
 
     //上下ボタンの非活性化(「 Opt 」は、リストボックスで選択されている項目)
@@ -169,7 +171,7 @@
         //左ボタン
 		var showOpt = document.getElementById('showSearchResult');
 		var leftButton = document.getElementById('leftButton');
-        if(showOpt.options.length != 0){
+        if(showOpt.options.length != 0 && showOpt.selectedIndex != -1){
         	leftButton.disabled = false;
         }else{
         	leftButton.disabled = true;
@@ -177,7 +179,7 @@
         //右ボタン
 		var notOpt = document.getElementById('notShowSearchResult');
 		var rightButton = document.getElementById('rightButton');
-        if(notOpt.options.length != 0){
+        if(notOpt.options.length != 0 && notOpt.selectedIndex != -1){
         	rightButton.disabled = false;
         }else{
         	rightButton.disabled = true;
@@ -202,5 +204,25 @@
 		document.getElementById('upButton').disabled 	= true;
 		document.getElementById('downButton').disabled  = true;
 	}
+	
+	//上下ボタンの非活性化()
+    function updownButtonStyle(){
+    	var Opt = document.getElementById('showSearchResult');
+        var UpButton = document.getElementById('upButton');
+        var DownButton = document.getElementById('downButton');
+        for(var i=0;i<Opt.options.length;i++){
+            if(Opt.options[i].selected){
+                //上ボタンの位置の判断
+                if(i!=0) UpButton.disabled = false;
+                else UpButton.disabled = true;
+                //下ボタンの位置の判断
+                if(i!=(Opt.options.length-1)) DownButton.disabled = false;
+                else DownButton.disabled = true;
+            }else{
+            	UpButton.disabled = true;
+            	DownButton.disabled = true;
+            }
+        }
+    }
     
     </script>
