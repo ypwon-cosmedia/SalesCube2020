@@ -110,6 +110,7 @@
 	<%@ include file="/estimate/_quotationCondition.jsp" %><!-- 見積条件選択モーダル -->
 	<%@ include file="../common/_customerSearch.jsp" %><!-- 顧客検索モーダル -->
 	<%@ include file="../common/productSearch.jsp" %><!-- 商品検索モーダル -->
+	<%@ include file="/common/stock.jsp" %><!-- 在庫検索モーダル -->
     <!-- Optional JavaScript -->
     <!-- jQuery first, then Popper.js, then Bootstrap JS -->
     <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
@@ -441,7 +442,7 @@
           </tr>
 
           <tr>
-            <td class="backpink"><button type="button" class="btn btn-primary table-button">在庫</button></td>
+            <td class="backpink"><button type="button" class="btn btn-primary table-button" data-toggle="modal" data-target="#openSearchStock" id="openSearchStock1" onclick="openStock(this);">在庫</button></td>
             <td><input type="text" name="cost" style="background-color:rgb(177, 177, 177); width: 75px;" id="cost1" readonly></td>
             <td class="backpink"><input type="text" name="retailPrice" id="retailPrice1" style="width: 75px; background-color:rgb(177, 177, 177);" readonly></td>
             <td><button type="button" class="btn btn-primary table-button" onclick="previousCopy(this)"  id="previousCopy1" disabled>前行複写</button></td>
@@ -540,7 +541,7 @@
           '</tr>' +
 
           '<tr>' +
-            '<td class="backpink"><button type="button" class="btn btn-primary table-button">在庫</button></td>' +
+            '<td class="backpink"><button type="button" class="btn btn-primary table-button" data-toggle="modal" data-target="#openSearchStock" id="openSearchStock' + tableNo + '" onclick="openStock(this);">在庫</button></td>' +
             '<td><input type="text" name="cost" style="background-color:rgb(177, 177, 177); width: 75px;" id="cost' + tableNo + '" readonly></td>' +
             '<td class="backpink"><input type="text" name="retailPrice" id="retailPrice' + tableNo + '" style="width: 75px; background-color:rgb(177, 177, 177);" readonly></td>' +
             '<td><button type="button" class="btn btn-primary table-button" onclick="previousCopy(this)" id="previousCopy' + tableNo + '">前行複写</button></td>' +
@@ -887,5 +888,100 @@
        		    }
 			});
 	  }
+	  
+		/* 見積入力から商品在庫モーダル開く */
+		function openStock(obj){
+			stockId = obj.id;
+			var tableNo = stockId.substr(15);
+			var productCode = document.getElementById("inputProductCode" + tableNo).value;
+			$("#stockbody > tr").remove();
+			$.ajax({
+				url:'/SalesCube2020/SalesCubeAJAX?action=stocksearch',
+				data:{"productCode": productCode },
+				dataType:'json',
+				type:'post',
+				success:function(data){
+					var tmp = JSON.parse(data.bean);
+					if(tmp['productCode'] == null || tmp['productCode'] == ""){
+						document.getElementById('stockProductCode').innerHTML = "";
+					}else{
+						document.getElementById('stockProductCode').innerHTML = tmp['productCode'];
+					}
+					if(tmp['supplierPCode'] == null || tmp['supplierPCode'] == ""){
+						document.getElementById('stockProductPCode').innerHTML = "";
+					}else{
+						document.getElementById('stockProductPCode').innerHTML = tmp['supplierPCode'];
+					}
+					if(tmp['setTypeCategory'] == null || tmp['setTypeCategory'] == ""){
+						document.getElementById('stockSetTypeCategory').innerHTML = "";
+					}else{
+						document.getElementById('stockSetTypeCategory').innerHTML = tmp['setTypeCategory'];
+					}
+					if(tmp['productName'] == null || tmp['productName'] == ""){
+						document.getElementById('stockProductName').innerHTML = "";
+					}else{
+						document.getElementById('stockProductName').innerHTML = tmp['productName'];
+					}
+					if(tmp['warehouseName'] == null || tmp['warehouseName'] == ""){
+						document.getElementById('stockWarehouseName').innerHTML = "";
+					}else{
+						document.getElementById('stockWarehouseName').innerHTML = tmp['warehouseName'];
+					}
+					if(tmp['rackCode'] == null || tmp['rackCode'] == ""){
+						document.getElementById('stockRackCode').innerHTML = "";
+					}else{
+						document.getElementById('stockRackCode').innerHTML = tmp['rackCode'];
+					}
+					if(tmp['productStatusCategory'] == null || tmp['productStatusCategory'] == ""){
+						document.getElementById('stockProductStatusCategory').innerHTML = "";
+					}else{
+						document.getElementById('stockProductStatusCategory').innerHTML = tmp['productStatusCategory'];
+					}
+					if(tmp['productStockCategory'] == null || tmp['productStockCategory'] == ""){
+						document.getElementById('stockProductStockCategory').innerHTML = "";
+					}else{
+						document.getElementById('stockProductStockCategory').innerHTML = tmp['productStockCategory'];
+					}
+					if(tmp['stockQuantity'] == null || tmp['stockQuantity'] == ""){
+						document.getElementById('stockQuantity').innerHTML = "";
+					}else{
+						document.getElementById('stockQuantity').innerHTML = tmp['stockQuantity'];
+					}
+					if(tmp['quantity'] == null || tmp['quantity'] == ""){
+						document.getElementById('stockQuantitySum').innerHTML = "";
+					}else{
+						document.getElementById('stockQuantitySum').innerHTML = tmp['quantity'];
+					}
+					
+					for(var i = 0; i<Object.keys(data.list).length; i++){
+						if(data.list[i].roSlipId == null || data.list[i].roSlipId == "" ){
+							$("#stockbody").append("<tr>");
+							$("#stockbody").append("<td><a href=''></a></td>");	
+							$("#stockbody").append("<td>"+data.list[i].shipDate+"</td>");
+							$("#stockbody").append("<td>"+data.list[i].quantity+"</td>");
+							$("#stockbody").append("</tr>");
+						}else if(data.list[i].shipDate == null || data.list[i].shipDate == ""){
+							$("#stockbody").append("<tr>");
+							$("#stockbody").append("<td><a href='/SalesCube2020/SalesCube?action=orderupdate&roSlipId="+data.list[i].roSlipId.split('-')[0]+"'>"+data.list[i].roSlipId+"</a></td>");	
+							$("#stockbody").append("<td></td>");
+							$("#stockbody").append("<td>"+data.list[i].quantity+"</td>");
+							$("#stockbody").append("</tr>");
+						}else if(data.list[i].quantity == null || data.list[i].quantity == "" ){
+							$("#stockbody").append("<tr>");
+							$("#stockbody").append("<td><a href='/SalesCube2020/SalesCube?action=orderupdate&roSlipId="+data.list[i].roSlipId.split('-')[0]+"'>"+data.list[i].roSlipId+"</a></td>");	
+							$("#stockbody").append("<td>"+data.list[i].shipDate+"</td>");
+							$("#stockbody").append("<td></td>");
+							$("#stockbody").append("</tr>");
+						}else{
+							$("#stockbody").append("<tr>");
+							$("#stockbody").append("<td><a href='/SalesCube2020/SalesCube?action=orderupdate&roSlipId="+data.list[i].roSlipId.split('-')[0]+"'>"+data.list[i].roSlipId+"</a></td>");	
+							$("#stockbody").append("<td> "+data.list[i].shipDate+"</td>");
+							$("#stockbody").append("<td> "+data.list[i].quantity+"</td>");
+							$("#stockbody").append("</tr>");
+						}
+					}
+				}
+			});
+		}
   </script>
 </html>
