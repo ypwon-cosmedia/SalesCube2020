@@ -37,6 +37,8 @@ public class EstimateSearchDAO extends BaseDAO {
 		list1 =  estimateConfiguration(user);
 		
 		
+		
+		
 		//見積検索の見出し部の決定
 		String row = "";
 		for(int i = 0; i < list1.size(); i++) {
@@ -102,7 +104,9 @@ public class EstimateSearchDAO extends BaseDAO {
 			}
 		}
 		row = row.substring(0, row.length()-2) + " ";
-	
+		
+		
+		
 		//検索結果SQL
 		estimateResult = "select " +
 		
@@ -118,27 +122,28 @@ public class EstimateSearchDAO extends BaseDAO {
 				"ON SUBMIT_PRE = ctx.CATEGORY_CODE " +
 				"where " +
 				"(ESTIMATE_SHEET_ID " + stringIsNull(bean.getEstimateSheetId()) +
-				"AND " +
-				"(ESTIMATE_DATE " + stringIsNull(bean.getEstimateDateStart(),bean.getEstimateDateEnd()) +
-				"AND " +
-				"(VALID_DATE " + stringIsNull(bean.getValidDateStart(),bean.getValidDateEnd()) +
-				"AND " +
+				" AND " +
+				"(ESTIMATE_DATE " + dateIsNull(bean.getEstimateDateStart(), bean.getEstimateDateEnd()) +
+				" AND " +
+				"(VALID_DATE " + dateIsNull(bean.getValidDateStart(), bean.getValidDateEnd()) +
+				" AND " +
 				"(USER_ID " + stringIsNull(bean.getUserId()) +
-				"AND " +
+				" AND " +
 				"(USER_NAME " + stringIsNull(bean.getUserName()) +
-				"AND " +
+				" AND " +
 				"(TITLE " + stringIsNull(bean.getTitle()) +
-				"AND " +
+				" AND " +
 				"(REMARKS " + stringIsNull(bean.getRemarks()) +
-				"AND " +
+				" AND " +
 				"(SUBMIT_NAME " + stringIsNull(bean.getSubmitName()) +
-				"AND " +
+				" AND " +
 				"(CUSTOMER_CODE " + stringIsNull(bean.getCustomerCode()) +
-				"AND " +
+				" AND " +
 				"(CUSTOMER_NAME " + stringIsNull(bean.getCustomerName()) +
-				"order by " +
+				" order by " +
 				"ESTIMATE_SHEET_ID ";
-		
+			
+		System.out.println("テスト"+ bean.getCustomerName());
 		System.out.println("テスト"+ estimateResult);
 		result = stmt.executeQuery(estimateResult);
 		
@@ -157,23 +162,33 @@ public class EstimateSearchDAO extends BaseDAO {
 			
 	}
 	
+	public String stringIsNull(String str) {
+		if(str == null || str.equals(""))
+			return "LIKE '%' OR 1 = 1) ";
+		else
+			return "= '" + str + "')";	
+		
+		
+	}
 	
-	private String stringIsNull(String estimateDateStart, String estimateDateEnd) {
-		// TODO Auto-generated method stub
-		return null;
+
+	
+	
+	public String dateIsNull(String str1, String str2) {
+		
+		if((str1 == null || str1.equals("")) && (str2 == null || str2.equals("")))
+			return "between '1900-01-01' and '9999-12-31' OR 1 = 1) ";
+		else if ((str1 != null) && (str2 == null || str2.equals("")))
+			return "between '" + str1 + "' and '9999-12-31') ";
+		else if ((str1 == null || str1.equals("")) && (str2 != null))
+			return "between '1900-01-01' and '" + str2 + "') ";
+		else
+			return "between '" + str1 + "' and '" + str2 + "') ";
+
 	}
 
 
-	private String dateIsNull(String estimateDateStart, String estimateDateEnd) {
-		// TODO Auto-generated method stub
-		return null;
-	}
 
-
-	private String stringIsNull(String estimateSheetId) {
-		// TODO Auto-generated method stub
-		return null;
-	}
 
 
 	public List<EstimateConfigurationBean> estimateConfiguration(UserInfoBean user) throws SQLException, ClassNotFoundException{

@@ -228,7 +228,7 @@
                   <div class="input-group-prepend">
                     <div class="input-group-text">入力担当者コード</div>
                   </div>
-                <input type="text"  class="form-control" id="UserModalUserId" name="UserModalUserId">
+                <input type="text"  class="form-control" id="UserModalUserId" name="userId">
                <button type="button" style="height: 32px; width: 32px;" class="clear-decoration"><img src="btn_search.png" data-toggle="modal" data-target="#userSearch" onclick="initUser() ; getDeptCategory() ; getRoleCategory()"></button>
                 </div>
               </div>
@@ -239,7 +239,7 @@
                   <div class="input-group-prepend">
                     <div class="input-group-text">入力担当者名</div>
                   </div>
-                <input type="text"  class="form-control" id="UserModalNameKnj" name="UserModalNameKnj">
+                <input type="text"  class="form-control" id="UserModalNameKnj" name="userName">
                 <button type="button" style="height: 32px; width: 32px;" class="clear-decoration"><img src="btn_search.png" data-toggle="modal" data-target="#userSearch" onclick="initUser() ; getDeptCategory() ; getRoleCategory()"></button>
                 </div>
               </div>
@@ -289,7 +289,7 @@
                   <div class="input-group-prepend">
                     <div class="input-group-text">顧客コード</div>
                   </div>
-                <input type="text"  class="form-control" id="CustomerModalCustomerCode" name="CustomerModalCustomerCode">
+                <input type="text"  class="form-control" id="CustomerModalCustomerCode" name="customerCode">
                 <button type="button" style="height: 32px; width: 32px;" class="clear-decoration"><img src="btn_search.png" data-toggle="modal" data-target="#customerSearch" onclick="initCustomer() ; getCutoffGroup()"></button>
                 </div>
               </div>
@@ -300,7 +300,7 @@
                   <div class="input-group-prepend">
                     <div class="input-group-text">顧客名</div>
                   </div>
-                <input type="text"  class="form-control" id="CustomerModalCustomerName" name="CustomerModalCustomerName">
+                <input type="text"  class="form-control" id="CustomerModalCustomerName" name="customerName">
                 <button type="button" style="height: 32px; width: 32px;" class="clear-decoration"><img src="btn_search.png" data-toggle="modal" data-target="#customerSearch" onclick="initCustomer() ; getCutoffGroup()"></button>
                 </div>
               </div>
@@ -449,7 +449,7 @@
 							var headcontents= '';
 							headcontents += '<tr>';
 							for(var i = 0; i<Object.keys(data).length; i++) {
-								headcontents += '<th scope="col" class="th_back_black"> '+data[i].itemName;
+								headcontents += '<th scope="col" class="th_back_black" onclick="sort('') '+data[i].itemName;
 							}
 							headcontents += '</tr>';
 							$('#resultHead').append(headcontents);								
@@ -461,6 +461,7 @@
 	    //見積検索結果
 	    function estimateSearch2() {
 	   	 var formString = $("form[id=estimate]").serialize();
+	   	 
 			var tmp = "";
 			
 			$.ajax({
@@ -480,15 +481,19 @@
 	    		 			$("#estimateSearchError").empty(); //エラーメッセージの削除
 	    		 			$("#estimateSearchError").append(message);	//エラーメッセージの表示
 	    		 			document.getElementById("resultEstimate").setAttribute('hidden','hidden');
+	    		 			document.getElementById("estimateSearchResultCount").setAttribute('hidden','hidden');
+	    		 			
 	    		 		//検索結果がある場合
 	    		 		}else{
 	    		 		//エラーメッセージ
 	    		 			$("#estimateSearchError").empty();//エラーメッセージの削除
 	    		 		//検索結果件数の設定
 	    		 			$("#estimateSearchResultCount").empty();
+	    		 			
 	    		 			$('#estimateSearchResultCount').append('検索結果件数：' + Object.keys(data).length + '件');	 //検索結果件数の設定の表示
 	    		 			
-    		 			
+	    		 			document.getElementById("estimateSearchResultCount").removeAttribute('hidden');//テーブルの表示
+	    		 			
 							for(var i = 0; i < Object.keys(data).length; i++) {
 								var headcontents= '';
 								headcontents += '<tr>';
