@@ -67,6 +67,7 @@ public class CreateAJAXControllers {
 		map.put("uploadcsv", onlineAJAX);
 		
 		map.put("pcodetoinfo", orderInput);
+		map.put("deliverytoinfo", orderInput);
 		map.put("cuscodetoinfo", orderInput);
 		map.put("stocksearch", stock);
 		map.put("billsearch", bill);

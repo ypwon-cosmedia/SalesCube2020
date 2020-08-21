@@ -54,7 +54,7 @@
 										<th bgcolor="black"><font color="white">出荷日</font></th>
 										<th bgcolor="black"><font color="white">受注残数</font></th>
 									</tr>
-									<tbody id= stockbody>
+									<tbody id= "stockbody">
 									</tbody>
 								</table>
 					</div>
@@ -64,4 +64,87 @@
 				</div>
 			</div>
 		</div>
+		
+		<script>
+		
+		/*商品在庫モーダル開く */
+		function openStock(obj){
+			globalTmp = obj.id;
+			var tableNo = globalTmp.substr(15);
+			var productCode = document.getElementById("productCodeInput" + tableNo).value;
+			$("#stockbody > tr").remove();
+			$.ajax({
+				url:'/SalesCube2020/SalesCubeAJAX?action=stocksearch',
+				data:{"productCode": productCode },
+				dataType:'json',
+				type:'post',
+				success:function(data){
+					var tmp = JSON.parse(data.bean);
+					if(tmp['productCode'] == null || tmp['productCode'] == ""){
+						document.getElementById('stockProductCode').innerHTML = "";
+					}else{
+						document.getElementById('stockProductCode').innerHTML = tmp['productCode'];
+					}
+					if(tmp['supplierPCode'] == null || tmp['supplierPCode'] == ""){
+						document.getElementById('stockProductPCode').innerHTML = "";
+					}else{
+						document.getElementById('stockProductPCode').innerHTML = tmp['supplierPCode'];
+					}
+					if(tmp['setTypeCategory'] == null || tmp['setTypeCategory'] == ""){
+						document.getElementById('stockSetTypeCategory').innerHTML = "";
+					}else{
+						document.getElementById('stockSetTypeCategory').innerHTML = tmp['setTypeCategory'];
+					}
+					if(tmp['productName'] == null || tmp['productName'] == ""){
+						document.getElementById('stockProductName').innerHTML = "";
+					}else{
+						document.getElementById('stockProductName').innerHTML = tmp['productName'];
+					}
+					if(tmp['warehouseName'] == null || tmp['warehouseName'] == ""){
+						document.getElementById('stockWarehouseName').innerHTML = "";
+					}else{
+						document.getElementById('stockWarehouseName').innerHTML = tmp['warehouseName'];
+					}
+					if(tmp['rackCode'] == null || tmp['rackCode'] == ""){
+						document.getElementById('stockRackCode').innerHTML = "";
+					}else{
+						document.getElementById('stockRackCode').innerHTML = tmp['rackCode'];
+					}
+					if(tmp['productStatusCategory'] == null || tmp['productStatusCategory'] == ""){
+						document.getElementById('stockProductStatusCategory').innerHTML = "";
+					}else{
+						document.getElementById('stockProductStatusCategory').innerHTML = tmp['productStatusCategory'];
+					}
+					if(tmp['productStockCategory'] == null || tmp['productStockCategory'] == ""){
+						document.getElementById('stockProductStockCategory').innerHTML = "";
+					}else{
+						document.getElementById('stockProductStockCategory').innerHTML = tmp['productStockCategory'];
+					}
+					if(tmp['stockQuantity'] == null || tmp['stockQuantity'] == ""){
+						document.getElementById('stockQuantity').innerHTML = "";
+					}else{
+						document.getElementById('stockQuantity').innerHTML = tmp['stockQuantity'];
+					}
+					if(tmp['quantity'] == null || tmp['quantity'] == ""){
+						document.getElementById('stockQuantitySum').innerHTML = "";
+					}else{
+						document.getElementById('stockQuantitySum').innerHTML = tmp['quantity'];
+					}
+					
+					for(var i = 0; i<Object.keys(data.list).length; i++){
+						if(data.list[i].roSlipId == null || data.list[i].roSlipId == "" ){
+							$("#stockbody").append("<tr><td><a href=''></a></td><td>"+data.list[i].shipDate+"</td><td>"+data.list[i].quantity+"</td></tr>");
+						}else if(data.list[i].shipDate == null || data.list[i].shipDate == ""){
+							$("#stockbody").append("<tr><td><a href='/SalesCube2020/SalesCube?action=orderupdate&roSlipId="+data.list[i].roSlipId.split('-')[0]+"'>"+data.list[i].roSlipId+"</a></td><td></td><td>"+data.list[i].quantity+"</td></tr>");
+						}else if(data.list[i].quantity == null || data.list[i].quantity == "" ){
+							$("#stockbody").append("<tr><td><a href='/SalesCube2020/SalesCube?action=orderupdate&roSlipId="+data.list[i].roSlipId.split('-')[0]+"'>"+data.list[i].roSlipId+"</a></td><td>"+data.list[i].shipDate+"</td><td></td></tr>");
+						}else{
+							$("#stockbody").append("<tr><td><a href='/SalesCube2020/SalesCube?action=orderupdate&roSlipId="+data.list[i].roSlipId.split('-')[0]+"'>"+data.list[i].roSlipId+"</a></td><td> "+data.list[i].shipDate+"</td><td> "+data.list[i].quantity+"</td></tr>");
+						}
+					}
+				}
+			});
+		}
+		
+		</script>
 		

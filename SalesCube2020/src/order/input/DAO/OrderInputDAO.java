@@ -58,6 +58,46 @@ public class OrderInputDAO extends BaseDAO{
 
 	}
 	
+	public List<OrderInputBean> deliveryNameToDeliveryInfo(String deliveryName)throws SQLException, ClassNotFoundException {
+		
+		OrderInputBean bean = new OrderInputBean();
+		List<OrderInputBean> list = new ArrayList<>();
+		
+		Connection con;
+	 	Statement stmt = null;
+	 	ResultSet result = null;	
+	 	String  sql;
+	 	
+	 	con = super.getConnection();	
+	 	stmt = con.createStatement();
+	 	
+	 	OrderSQL ordersql = new OrderSQL();
+	 	sql = ordersql.deliveryNameToDeliveryInfo(deliveryName);
+	 	
+	 	System.out.println(sql);
+	 	result = stmt.executeQuery(sql);
+	 	
+	 	while (result.next()) {
+	 		bean.setDeliveryName(result.getString("dmx.DELIVERY_NAME"));
+	 		bean.setDeliveryOfficeName(result.getString("dmx.DELIVERY_OFFICE_NAME"));
+	 		bean.setDeliveryDeptName(result.getString("dmx.DELIVERY_DEPT_NAME"));
+	 		bean.setDeliveryZipCode(result.getString("dmx.DELIVERY_ZIP_CODE"));
+	 		bean.setDeliveryAddress1(result.getString("dmx.DELIVERY_ADDRESS_1"));
+	 		bean.setDeliveryAddress2(result.getString("dmx.DELIVERY_ADDRESS_2"));
+	 		bean.setDeliveryPcName(result.getString("dmx.DELIVERY_PC_NAME"));
+	 		bean.setDeliveryPcKana(result.getString("dmx.DELIVERY_PC_KANA"));
+	 		bean.setDeliveryPcPre(result.getString("a.CATEGORY_CODE_NAME"));
+	 		bean.setDeliveryTel(result.getString("dmx.DELIVERY_TEL"));
+	 		bean.setDeliveryFax(result.getString("dmx.DELIVERY_FAX"));
+	 		bean.setDeliveryEmail(result.getString("dmx.DELIVERY_EMAIL"));
+	 		list.add(bean);
+	 	}
+	 	
+	 	super.releaseDB(con, stmt, result);
+	 	
+	 	return list;
+	}
+	
 	/* 受注番号最後 */
 	public int roSlipLast() throws SQLException, ClassNotFoundException {
 		
@@ -711,7 +751,6 @@ public class OrderInputDAO extends BaseDAO{
 	/* 顧客コードから納入先情報*/
 	public List<OrderInputBean> customerCodeToDelivery(String customerCode) throws SQLException, ClassNotFoundException{
 		
-		OrderInputBean bean = new OrderInputBean();
 		List<OrderInputBean> list = new ArrayList<>();
 		
 		Connection con;
@@ -729,6 +768,8 @@ public class OrderInputDAO extends BaseDAO{
 	 	result = stmt.executeQuery(sql);
 	 	
 	 	while (result.next()) {
+			OrderInputBean bean = new OrderInputBean();
+	 		bean.setDeliveryCode(result.getString("dmx.DELIVERY_CODE"));
 	 		bean.setDeliveryName(result.getString("dmx.DELIVERY_NAME"));
 	 		bean.setDeliveryOfficeName(result.getString("dmx.DELIVERY_OFFICE_NAME"));
 	 		bean.setDeliveryDeptName(result.getString("dmx.DELIVERY_DEPT_NAME"));

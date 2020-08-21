@@ -19,6 +19,17 @@ public class OrderInputBean {
 	public void setRoSlipLast(Integer roSlipLast) {
 		this.roSlipLast = roSlipLast;
 	}
+	
+	/* 納入先コード */
+	private String deliveryCode;
+
+	public String getDeliveryCode() {
+		return deliveryCode;
+	}
+
+	public void setDeliveryCode(String deliveryCode) {
+		this.deliveryCode = deliveryCode;
+	}
 
 	/* 受注番号 */
 	private Integer roSlipId;

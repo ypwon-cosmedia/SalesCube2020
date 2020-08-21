@@ -10,6 +10,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import com.google.gson.Gson;
+import com.google.gson.JsonArray;
+import com.google.gson.JsonObject;
 
 import common.controller.BaseAJAXController;
 import estimate.Input.beans.GetProductBean;
@@ -36,37 +38,13 @@ public class ProductToOrder extends BaseAJAXController {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 		}
-		else if(action.equals("cuscodetodelivery"))
+		else if(action.equals("deliverytoinfo"))
 			try {
-				customerCodeToDelivery(request, response);
+				deliveryToInfo(request, response);
 			} catch (ClassNotFoundException | ServletException | IOException | SQLException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 		}
-		
-	}
-	
-	private void customerCodeToDelivery(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException, SQLException, ClassNotFoundException {
-		
-		String customerCode = request.getParameter("customerCode");
-		System.out.println(customerCode);
-		
-		OrderInputDAO dao = new OrderInputDAO();
-		List<OrderInputBean> list = new ArrayList<>();
-
-		Gson gson = new Gson();
-		
-		try {
-			list = dao.customerCodeToDelivery(customerCode);
-			String data = gson.toJson(list);
-						
-			response.setContentType("application/x-json; charset=UTF-8");
-			response.getWriter().print(data);
-			
-		} catch (ClassNotFoundException | SQLException e) {
-			e.printStackTrace();
-		}
-		
 	}
 		
 	private void customerCodeToInfo(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException, SQLException, ClassNotFoundException {
@@ -76,15 +54,54 @@ public class ProductToOrder extends BaseAJAXController {
 		
 		OrderInputDAO dao = new OrderInputDAO();
 		OrderInputBean bean = new OrderInputBean();
+		List<OrderInputBean> list = new ArrayList<>();
 
 		Gson gson = new Gson();
 		
 		try {
 			bean = dao.customerCodeInfo(customerCode);
+			list = dao.customerCodeToDelivery(customerCode);
 			String data = gson.toJson(bean);
+			
+			JsonArray jArray = gson.toJsonTree(list).getAsJsonArray();
+			JsonObject jObject = new JsonObject();
+			
+			jObject.add("bean", new Gson().toJsonTree(data));
+			jObject.add("list", jArray);
 						
 			response.setContentType("application/x-json; charset=UTF-8");
-			response.getWriter().print(data);
+			response.getWriter().print(jObject);
+			
+		} catch (ClassNotFoundException | SQLException e) {
+			e.printStackTrace();
+		}
+	}
+	
+	private void deliveryToInfo(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException, SQLException, ClassNotFoundException {
+		
+		String deliveryCode = request.getParameter("deliveryCode");
+		String customerCode = request.getParameter("customerCode");
+		System.out.println(deliveryCode);
+		
+		OrderInputDAO dao = new OrderInputDAO();
+		List<OrderInputBean> list = new ArrayList<>();
+		List<OrderInputBean> list2 = new ArrayList<>();
+
+		Gson gson = new Gson();
+		
+		try {
+			list = dao.deliveryNameToDeliveryInfo(deliveryCode);
+			list2 = dao.customerCodeToDelivery(customerCode);
+			
+			JsonArray jArray = gson.toJsonTree(list).getAsJsonArray();
+			JsonArray jArray2 = gson.toJsonTree(list2).getAsJsonArray();
+			JsonObject jObject = new JsonObject();
+
+			jObject.add("list", jArray);
+			jObject.add("list2", jArray2);
+						
+			response.setContentType("application/x-json; charset=UTF-8");
+			response.getWriter().print(jObject);
 			
 		} catch (ClassNotFoundException | SQLException e) {
 			e.printStackTrace();

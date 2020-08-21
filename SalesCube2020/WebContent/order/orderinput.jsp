@@ -70,7 +70,7 @@
 					</form>
 					<button type="button" class="btn btn-secondary" style="font-size: 12px;" disabled>F4<br></button>
 					<button type="button" class="btn btn-secondary" style="font-size: 12px;" disabled>F5<br></button>
-					<button type="button" class="btn btn-secondary" style="font-size: 12px;" data-toggle="modal" data-target="#openOrder">F6<br>伝票呼出</button>
+					<button type="button" class="btn btn-secondary" style="font-size: 12px;" data-toggle="modal" data-target="#openOrder" onclick="orderForm()">F6<br>伝票呼出</button>
 					<button type="button" class="btn btn-secondary" style="font-size: 12px;" disabled>F7<br></button>
 					<button type="button" class="btn btn-secondary" style="font-size: 12px;" disabled>F8<br></button>
 					<button type="button" class="btn btn-secondary" style="font-size: 12px;" disabled>F9<br></button>
@@ -213,7 +213,7 @@
 									<div class="input-group-text">消費税率</div>
 								</div>
 								<select class="custom-select" name="ctaxRate">
-									<option value="">${stockTaxRate.ctaxRate}</option>
+									<option value=""></option>
 									<c:forEach items="${initTaxRate}" var="initTR">
 										<option value="${initTR.ctaxRate}" id="ctaxRate">${initTR.ctaxRate}</option>
 									</c:forEach>
@@ -318,11 +318,7 @@
 								<div class="input-group-prepend">
 									<div class="input-group-text">顧客納入先</div>
 								</div>
-								<select class="custom-select" name="deliveryName" id="deliveryName">
-									<option value="">${stockDelivery.deliveryName}</option>
-									<c:forEach items="">
-										<option value=""></option>
-									</c:forEach>
+								<select class="custom-select" name="deliveryName" id="deliveryName" onchange="deliverySelect()">
 								</select>
 							</div>
 						</div>
@@ -868,13 +864,6 @@
 				document.getElementById("productCode").value = productCode;
 			}
 
-			/* 見積番号押下ajax */
-			function estimateSheettoParent(){
-				alert();
-				var form = document.estimateTable;
-				form.submit();
-			}
-
 			/* 編集画面に遷移 */
 			function moveUpdate(){
 				var roSlipId = document.getElementById("roSlipId").value;
@@ -893,7 +882,6 @@
 
 					alert("受注番号が存在しません。");
 
-				
 			}
 
 			/* 商品コードから明細表示 ajax */
@@ -962,203 +950,187 @@
 				});
 			}
 
-			/* 顧客コードから顧客情報 ajax */
+			/* 顧客コードから顧客・納入先情報 ajax */
 			function customerInfo() {
-				alert(document.getElementById("customerCodeInput").value);
 				var cCode = document.getElementById("customerCodeInput").value;
+				$("#deliveryName > option").remove();
 			$.ajax({
 				url:'/SalesCube2020/SalesCubeAJAX?action=cuscodetoinfo',
 				type:'post',
 				data:{"customerCode": cCode },
 				dataType:'json',
 				success:function(data){
-					if(data.customerName == null || data.customerName == ""){
+					var tmp = JSON.parse(data.bean);
+					if(tmp['customerName'] == null || tmp['customerName'] == ""){
 						alert("該当する顧客情報は存在しません");
 					} else {
-						document.getElementById('customerNameInput').value = data.customerName;
+						document.getElementById('customerNameInput').value = tmp['customerName'];
 					}
-					if(data.taxShiftCategory == null || data.taxShiftCategory == ""){
-						data.taxShiftCategory == "";
+					if(tmp['taxShiftCategory'] == null || tmp['taxShiftCategory'] == ""){
+						tmp['taxShiftCategory'] == "";
 					}else{
-						document.getElementById('taxShiftCategory').value = data.taxShiftCategory;
+						document.getElementById('taxShiftCategory').value = tmp['taxShiftCategory'];
 					}
-					if(data.cutoffGroup == null || data.cutoffGroup == ""){
-						data.cutoffGroup = "";
+					if(tmp['cutoffGroup'] == null || tmp['cutoffGroup'] == ""){
+						tmp['cutoffGroup'] = "";
 					}else{
-						document.getElementById('cutoffGroup').value = data.cutoffGroup;
+						document.getElementById('cutoffGroup').value = tmp['cutoffGroup'];
 					}
-					if(data.salesCmCategory == null || data.salesCmCategory == ""){
-						data.salesCmCategory = "";
+					if(tmp['salesCmCategory'] == null || tmp['salesCmCategory'] == ""){
+						tmp['salesCmCategory'] = "";
 					}else{
-						document.getElementById('salesCmCategory').value = data.salesCmCategory;
+						document.getElementById('salesCmCategory').value = tmp['salesCmCategory'];
 					}
-					if(data.customerRemarks == null || data.customerRemarks == ""){
-						data.customerRemarks = "";
+					if(tmp['customerRemarks'] == null || tmp['customerRemarks'] == ""){
+						tmp['customerRemarks'] = "";
 					}else{
-						document.getElementById('customerRemarks').value = data.customerRemarks;
+						document.getElementById('customerRemarks').value = tmp['customerRemarks'];
 					}
-					if(data.customerCommentData == null || data.customerCommentData == ""){
-						data.customerCommentData = "";
+					if(tmp['customerCommentData'] == null || tmp['customerCommentData'] == ""){
+						tmp['customerCommentData'] = "";
 					}else{ 
-						document.getElementById('customerCommentData').value = data.customerCommentData;
-					}
-					if(data.deliveryName == null || data.deliveryName == ""){
-						data.deliveryName = "";
-					}else{
-						document.getElementById('deliveryName').value = data.deliveryName;
-					}
-					if(data.deliveryOfficeName == null || data.deliveryOfficeName == ""){
-						data.deliveryOfficeName = "";
-					}else{
-						document.getElementById('deliveryOfficeName').value = data.deliveryOfficeName;
-					}
-					if(data.deliveryDeptName == null || data.deliveryDeptName == ""){
-						data.deliveryDeptName = "";
-					}else{
-						document.getElementById('deliveryDeptName').value = data.deliveryDeptName;
-					}
-					if(data.deliveryZipCode == null || data.deliveryZipCode == ""){
-						data.deliveryZipCode = "";
-					}else{
-						document.getElementById('deliveryZipCode').value = data.deliveryZipCode;
-					}
-					if(data.deliveryAddress1 == null || data.deliveryAddress1 == ""){
-						data.deliveryAddress1 = "";
-					}else{
-						document.getElementById('deliveryAddress1').value = data.deliveryAddress1;
-					}
-					if(data.deliveryAddress2 == null || data.deliveryAddress2 == ""){
-						data.deliveryAddress2 = "";
-					}else{
-						document.getElementById('deliveryAddress2').value = data.deliveryAddress2;
-					}
-					if(data.deliveryPcName == null || data.deliveryPcName == ""){
-						data.deliveryPcName = "";
-					}else{
-						document.getElementById('deliveryPcName').value = data.deliveryPcName;
-					}
-					if(data.deliveryPcKana == null || data.deliveryPcKana == ""){
-						data.deliveryPcKana = "";
-					}else{
-						document.getElementById('deliveryPcKana').value = data.deliveryPcKana;
-					}
-					if(data.deliveryPcPre == null || data.deliveryPcPre == ""){
-						data.deliveryPcPre = "";
-					}else{
-						document.getElementById('deliveryPcPre').value = data.deliveryPcPre;
-					}
-					if(data.deliveryTel == null || data.deliveryTel == ""){
-						data.deliveryTel = "";
-					}else{
-						document.getElementById('deliveryTel').value = data.deliveryTel;
-					}
-					if(data.deliveryFax == null || data.deliveryFax == ""){
-						data.deliveryFax = "";
-					}else{
-						document.getElementById('deliveryFax').value = data.deliveryFax;
-					}
-					if(data.deliveryEmail == null || data.deliveryEmail == ""){
-						data.deliveryEmail = "";
-					}else{
-						document.getElementById('deliveryEmail').value = data.deliveryEmail;
-					}
-				}
-			});
-		}
-		
-		/* 受注入力から商品在庫モーダル開く */
-		function openStock(obj){
-			globalTmp = obj.id;
-			var tableNo = globalTmp.substr(15);
-			var productCode = document.getElementById("productCodeInput" + tableNo).value;
-			$("#stockbody > tr").remove();
-			$.ajax({
-				url:'/SalesCube2020/SalesCubeAJAX?action=stocksearch',
-				data:{"productCode": productCode },
-				dataType:'json',
-				type:'post',
-				success:function(data){
-					var tmp = JSON.parse(data.bean);
-					if(tmp['productCode'] == null || tmp['productCode'] == ""){
-						document.getElementById('stockProductCode').innerHTML = "";
-					}else{
-						document.getElementById('stockProductCode').innerHTML = tmp['productCode'];
-					}
-					if(tmp['supplierPCode'] == null || tmp['supplierPCode'] == ""){
-						document.getElementById('stockProductPCode').innerHTML = "";
-					}else{
-						document.getElementById('stockProductPCode').innerHTML = tmp['supplierPCode'];
-					}
-					if(tmp['setTypeCategory'] == null || tmp['setTypeCategory'] == ""){
-						document.getElementById('stockSetTypeCategory').innerHTML = "";
-					}else{
-						document.getElementById('stockSetTypeCategory').innerHTML = tmp['setTypeCategory'];
-					}
-					if(tmp['productName'] == null || tmp['productName'] == ""){
-						document.getElementById('stockProductName').innerHTML = "";
-					}else{
-						document.getElementById('stockProductName').innerHTML = tmp['productName'];
-					}
-					if(tmp['warehouseName'] == null || tmp['warehouseName'] == ""){
-						document.getElementById('stockWarehouseName').innerHTML = "";
-					}else{
-						document.getElementById('stockWarehouseName').innerHTML = tmp['warehouseName'];
-					}
-					if(tmp['rackCode'] == null || tmp['rackCode'] == ""){
-						document.getElementById('stockRackCode').innerHTML = "";
-					}else{
-						document.getElementById('stockRackCode').innerHTML = tmp['rackCode'];
-					}
-					if(tmp['productStatusCategory'] == null || tmp['productStatusCategory'] == ""){
-						document.getElementById('stockProductStatusCategory').innerHTML = "";
-					}else{
-						document.getElementById('stockProductStatusCategory').innerHTML = tmp['productStatusCategory'];
-					}
-					if(tmp['productStockCategory'] == null || tmp['productStockCategory'] == ""){
-						document.getElementById('stockProductStockCategory').innerHTML = "";
-					}else{
-						document.getElementById('stockProductStockCategory').innerHTML = tmp['productStockCategory'];
-					}
-					if(tmp['stockQuantity'] == null || tmp['stockQuantity'] == ""){
-						document.getElementById('stockQuantity').innerHTML = "";
-					}else{
-						document.getElementById('stockQuantity').innerHTML = tmp['stockQuantity'];
-					}
-					if(tmp['quantity'] == null || tmp['quantity'] == ""){
-						document.getElementById('stockQuantitySum').innerHTML = "";
-					}else{
-						document.getElementById('stockQuantitySum').innerHTML = tmp['quantity'];
+						document.getElementById('customerCommentData').value = tmp['customerCommentData'];
 					}
 					
 					for(var i = 0; i<Object.keys(data.list).length; i++){
-						if(data.list[i].roSlipId == null || data.list[i].roSlipId == "" ){
-							$("#stockbody").append("<tr>");
-							$("#stockbody").append("<td><a href=''></a></td>");	
-							$("#stockbody").append("<td>"+data.list[i].shipDate+"</td>");
-							$("#stockbody").append("<td>"+data.list[i].quantity+"</td>");
-							$("#stockbody").append("</tr>");
-						}else if(data.list[i].shipDate == null || data.list[i].shipDate == ""){
-							$("#stockbody").append("<tr>");
-							$("#stockbody").append("<td><a href='/SalesCube2020/SalesCube?action=orderupdate&roSlipId="+data.list[i].roSlipId.split('-')[0]+"'>"+data.list[i].roSlipId+"</a></td>");	
-							$("#stockbody").append("<td></td>");
-							$("#stockbody").append("<td>"+data.list[i].quantity+"</td>");
-							$("#stockbody").append("</tr>");
-						}else if(data.list[i].quantity == null || data.list[i].quantity == "" ){
-							$("#stockbody").append("<tr>");
-							$("#stockbody").append("<td><a href='/SalesCube2020/SalesCube?action=orderupdate&roSlipId="+data.list[i].roSlipId.split('-')[0]+"'>"+data.list[i].roSlipId+"</a></td>");	
-							$("#stockbody").append("<td>"+data.list[i].shipDate+"</td>");
-							$("#stockbody").append("<td></td>");
-							$("#stockbody").append("</tr>");
-						}else{
-							$("#stockbody").append("<tr>");
-							$("#stockbody").append("<td><a href='/SalesCube2020/SalesCube?action=orderupdate&roSlipId="+data.list[i].roSlipId.split('-')[0]+"'>"+data.list[i].roSlipId+"</a></td>");	
-							$("#stockbody").append("<td> "+data.list[i].shipDate+"</td>");
-							$("#stockbody").append("<td> "+data.list[i].quantity+"</td>");
-							$("#stockbody").append("</tr>");
-						}
+						$("#deliveryName").append("<option value = '" + data.list[i].deliveryCode + "'>"+data.list[i].deliveryName+"</option>");	
 					}
+						if(data.list[0].deliveryOfficeName == null || data.list[0].deliveryOfficeName == ""){
+							data.list[0].deliveryOfficeName = "";
+						}else{
+							document.getElementById('deliveryOfficeName').value = data.list[0].deliveryOfficeName;
+						}
+						if(data.list[0].deliveryDeptName == null || data.list[0].deliveryDeptName == ""){
+							data.list[0].deliveryDeptName = "";
+						}else{
+							document.getElementById('deliveryDeptName').value = data.list[0].deliveryDeptName;
+						}
+						if(data.list[0].deliveryZipCode == null || data.list[0].deliveryZipCode == ""){
+							data.list[0].deliveryZipCode = "";
+						}else{
+							document.getElementById('deliveryZipCode').value = data.list[0].deliveryZipCode;
+						}
+						if(data.list[0].deliveryAddress1 == null || data.list[0].deliveryAddress1 == ""){
+							data.list[0].deliveryAddress1 = "";
+						}else{
+							document.getElementById('deliveryAddress1').value = data.list[0].deliveryAddress1;
+						}
+						if(data.list[0].deliveryAddress2 == null || data.list[0].deliveryAddress2 == ""){
+							data.list[0].deliveryAddress2 = "";
+						}else{
+							document.getElementById('deliveryAddress2').value = data.list[0].deliveryAddress2;
+						}
+						if(data.list[0].deliveryPcName == null || data.list[0].deliveryPcName == ""){
+							data.list[0].deliveryPcName = "";
+						}else{
+							document.getElementById('deliveryPcName').value = data.list[0].deliveryPcName;
+						}
+						if(data.list[0].deliveryPcKana == null || data.list[0].deliveryPcKana == ""){
+							data.list[0].deliveryPcKana = "";
+						}else{
+							document.getElementById('deliveryPcKana').value = data.list[0].deliveryPcKana;
+						}
+						if(data.list[0].deliveryPcPre == null || data.list[0].deliveryPcPre == ""){
+							data.list[0].deliveryPcPre = "";
+						}else{
+							document.getElementById('deliveryPcPre').value = data.list[0].deliveryPcPre;
+						}
+						if(data.list[0].deliveryTel == null || data.list[0].deliveryTel == ""){
+							data.list[0].deliveryTel = "";
+						}else{
+							document.getElementById('deliveryTel').value = data.list[0].deliveryTel;
+						}
+						if(data.list[0].deliveryFax == null || data.list[0].deliveryFax == ""){
+							data.list[0].deliveryFax = "";
+						}else{
+							document.getElementById('deliveryFax').value = data.list[0].deliveryFax;
+						}
+						if(data.list[0].deliveryEmail == null || data.list[0].deliveryEmail == ""){
+							data.list[0].deliveryEmail = "";
+						}else{
+							document.getElementById('deliveryEmail').value = data.list[0].deliveryEmail;
+						}
 				}
 			});
+		}
+			
+		/* 納入先選択 */
+		function deliverySelect(){
+			var deliveryCode = document.getElementById("deliveryName").value;
+			$("#deliveryName > option selected").remove();
+		$.ajax({
+			url:'/SalesCube2020/SalesCubeAJAX?action=deliverytoinfo',
+			type:'post',
+			data:{"deliveryCode": deliveryCode },
+			dataType:'json',
+			success:function(data){
+				for(var i = 0; i<Object.keys(data.list2).length; i++){
+					$("#deliveryName").append("<option value = '" + data.list2[i].deliveryCode + "'>" + data.list2[i].deliveryName + "</option>");
+				}
+					if(data.list[0].deliveryOfficeName == null || data.list[0].deliveryOfficeName == ""){
+						data.list[0].deliveryOfficeName = "";
+					}else{
+						document.getElementById('deliveryOfficeName').value = data.list[0].deliveryOfficeName;
+					}
+					if(data.list[0].deliveryDeptName == null || data.list[0].deliveryDeptName == ""){
+						data.list[0].deliveryDeptName = "";
+					}else{
+						document.getElementById('deliveryDeptName').value = data.list[0].deliveryDeptName;
+					}
+					if(data.list[0].deliveryZipCode == null || data.list[0].deliveryZipCode == ""){
+						data.list[0].deliveryZipCode = "";
+					}else{
+						document.getElementById('deliveryZipCode').value = data.list[0].deliveryZipCode;
+					}
+					if(data.list[0].deliveryAddress1 == null || data.list[0].deliveryAddress1 == ""){
+						data.list[0].deliveryAddress1 = "";
+					}else{
+						document.getElementById('deliveryAddress1').value = data.list[0].deliveryAddress1;
+					}
+					if(data.list[0].deliveryAddress2 == null || data.list[0].deliveryAddress2 == ""){
+						data.list[0].deliveryAddress2 = "";
+					}else{
+						document.getElementById('deliveryAddress2').value = data.list[0].deliveryAddress2;
+					}
+					if(data.list[0].deliveryPcName == null || data.list[0].deliveryPcName == ""){
+						data.list[0].deliveryPcName = "";
+					}else{
+						document.getElementById('deliveryPcName').value = data.list[0].deliveryPcName;
+					}
+					if(data.list[0].deliveryPcKana == null || data.list[0].deliveryPcKana == ""){
+						data.list[0].deliveryPcKana = "";
+					}else{
+						document.getElementById('deliveryPcKana').value = data.list[0].deliveryPcKana;
+					}
+					if(data.list[0].deliveryPcPre == null || data.list[0].deliveryPcPre == ""){
+						data.list[0].deliveryPcPre = "";
+					}else{
+						document.getElementById('deliveryPcPre').value = data.list[0].deliveryPcPre;
+					}
+					if(data.list[0].deliveryTel == null || data.list[0].deliveryTel == ""){
+						data.list[0].deliveryTel = "";
+					}else{
+						document.getElementById('deliveryTel').value = data.list[0].deliveryTel;
+					}
+					if(data.list[0].deliveryFax == null || data.list[0].deliveryFax == ""){
+						data.list[0].deliveryFax = "";
+					}else{
+						document.getElementById('deliveryFax').value = data.list[0].deliveryFax;
+					}
+					if(data.list[0].deliveryEmail == null || data.list[0].deliveryEmail == ""){
+						data.list[0].deliveryEmail = "";
+					}else{
+						document.getElementById('deliveryEmail').value = data.list[0].deliveryEmail;
+					}
+				}
+			
+			});
+		}
+		
+		window.onload=function(){
+			var setTaxRate = "${stockTaxRate.ctaxRate}";
+			
+			
 		}
 			
 		</script>

@@ -127,6 +127,7 @@ public class OrderCommonBillDAO extends BaseDAO{
 	 	OrderCommonBillBean bean = new OrderCommonBillBean();
 	 	
 	 	while(result.next()) {	
+	 		bean
 		 	bean.setDeliveryName(result.getString("dmx.DELIVERY_NAME"));
 		 	bean.setDeliveryOfficeName(result.getString("dmx.DELIVERY_OFFICE_NAME"));
 		 	bean.setDeliveryDeptName(result.getString("dmx.DELIVERY_DEPT_NAME"));

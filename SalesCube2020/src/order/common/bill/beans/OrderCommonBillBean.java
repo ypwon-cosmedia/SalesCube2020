@@ -44,6 +44,17 @@ public class OrderCommonBillBean {
 	/* コメント */
 	private String customerCommentData;
 	
+	/* 顧客コード */
+	private String deliveryCode;
+	
+	public String getDeliveryCode() {
+		return deliveryCode;
+	}
+
+	public void setDeliveryCode(String deliveryCode) {
+		this.deliveryCode = deliveryCode;
+	}
+
 	/* 顧客納入先 */
 	private String deliveryName;
 	

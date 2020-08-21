@@ -565,11 +565,12 @@ public class OrderSQL {
 	}
 	
 	/* 顧客納入先コンボボックス選択（選択結果をもとに納入先情報を反映） */
-	public String deliveryNameToDeliveryInfo(String deliveryName) {
+	public String deliveryNameToDeliveryInfo(String deliveryCode) {
 		
 		String sql;
 		
 		sql = "SELECT DISTINCT " + 
+				"dmx.DELIVERY_CODE, " +
 				"dmx.DELIVERY_NAME, " + 
 				"dmx.DELIVERY_OFFICE_NAME, " + 
 				"dmx.DELIVERY_DEPT_NAME, " + 
@@ -589,7 +590,7 @@ public class OrderSQL {
 				"ON " + 
 					"dmx.DELIVERY_PC_PRE_CATEGORY=a.CATEGORY_CODE " + 
 			"WHERE " + 
-				"DELIVERY_NAME = '" + deliveryName + "'";
+				"DELIVERY_CODE = '" + deliveryCode + "'";
 		
 		return sql;
 		
@@ -1369,7 +1370,8 @@ public class OrderSQL {
 		
 		String sql;
 		
-		sql = "SELECT DISTINCT " + 
+		sql = "SELECT DISTINCT " +
+				"dmx.DELIVERY_CODE, " + 
 				"dmx.DELIVERY_NAME, " + 
 				"dmx.DELIVERY_OFFICE_NAME, " + 
 				"dmx.DELIVERY_DEPT_NAME, " + 
@@ -1384,12 +1386,13 @@ public class OrderSQL {
 				"dmx.DELIVERY_EMAIL " + 
 				"FROM delivery_mst_xxxxx AS dmx " + 
 				"LEFT OUTER JOIN customer_rel_xxxxx AS crx " + 
-				"ON dmx.DELIVERY_CODE=crx.REL_CODE" + 
-				"LEFT OUTER JOIN customer_mst_xxxxx AS cmx  " + 
+				"ON dmx.DELIVERY_CODE=crx.REL_CODE " + 
+				"LEFT OUTER JOIN customer_mst_xxxxx AS cmx " + 
 				"USING(CUSTOMER_CODE) " + 
 				"LEFT OUTER JOIN (SELECT * FROM category_trn_xxxxx WHERE CATEGORY_ID='10') AS d " + 
 				"ON dmx.DELIVERY_PC_PRE_CATEGORY=d.CATEGORY_CODE " + 
-				"WHERE cmx.CUSTOMER_CODE = '" + customerCode +"'";
+				"WHERE cmx.CUSTOMER_CODE = '" + customerCode +"'" + 
+				"ORDER BY dmx.DELIVERY_CODE";
 		
 		return sql;
 	}

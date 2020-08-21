@@ -105,7 +105,6 @@
 			success:function(data){	
 				$("#billBody > tr").remove();
 				var tableNo = ($("#billBody tr").length)+1
-				alert(tableNo);
 				for(var i = 0; i<Object.keys(data.list).length; i++){
 					var headcontents= '';
 					headcontents += '<tr>';
@@ -122,7 +121,6 @@
 	
 	function billToOrder(obj){
 		var tableNo = obj.id.substr(15);
-		alert(tableNo);
 		var estimateSheetId = document.getElementById("estimateSheetId"+tableNo).innerText;
 		var form = document.createElement("form");
 		form.setAttribute("charset", "UTF-8");
