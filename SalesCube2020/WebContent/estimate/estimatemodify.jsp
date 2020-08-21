@@ -424,7 +424,7 @@
 					<c:forEach var="product" items="${estimateProductList}" varStatus="status">
 						<tr id="tr${status.count}">
 							<td rowspan="2">${status.count}</td>
-							<td rowspan="2" class="backpink"><input type="text" name="productCode" id="inputProductCode${status.count}" value="${product.productCode}" style="width: 110px;" onchange="inputGetProduct(this)" pattern="^[0-9A-Za-z]+$" title="※半角英数字" required>
+							<td rowspan="2" class="backpink"><input type="text" name="productCode" id="productCodeInput${status.count}" value="${product.productCode}" style="width: 110px;" onchange="inputGetProduct(this)" pattern="^[0-9A-Za-z]+$" title="※半角英数字" required>
 							<button type="button" id="productSearch${status.count}" class="ModalButton"  data-toggle="modal" data-target="#setproductsearch" onclick="productSearchButton(this)" >
 								<img src="btn_search.png" style="vertical-align: middle; cursor: pointer; width: 22px; height: 22px;">
 							</button></td>
@@ -536,7 +536,7 @@
         $('#estimate > tbody:last').append(
     	  '<tr>' +
             '<td rowspan="2">' + tableNo + '</td>' +
-            '<td rowspan="2" class="backpink"><input type="text" name="productCode" id="inputProductCode' + tableNo + '" style="width: 110px;" onchange="inputGetProduct(this)" required>' +
+            '<td rowspan="2" class="backpink"><input type="text" name="productCode" id="productCodeInput' + tableNo + '" style="width: 110px;" onchange="inputGetProduct(this)" required>' +
               '<button type="button" id="productSearch' + tableNo + '" class="ModalButton"  data-toggle="modal" data-target="#setproductsearch" onclick="productSearchButton(this)">' +
               	'<img src="btn_search.png" style="vertical-align: middle; cursor: pointer; width: 22px; height: 22px;">' +
               '</button></td>' +
@@ -572,8 +572,8 @@
           for(var i = iTableNo; i < lastTableNo; i++)  {
             var nextTableNo = i + 1; //後行のtableNo：対象のtableNo+1
 
-            var productCode_id = document.getElementById('inputProductCode' + i); //対象のinputProductCodeのid
-            var trailingProductCode_id = document.getElementById('inputProductCode' + nextTableNo); //後行のproductCodeのid
+            var productCode_id = document.getElementById('productCodeInput' + i); //対象のproductCodeInputのid
+            var trailingProductCode_id = document.getElementById('productCodeInput' + nextTableNo); //後行のproductCodeのid
             var trailingProductCode = trailingProductCode_id.value; //後行のproductCodeのvalueを取得
             productCode_id.value = trailingProductCode; //後行の商品コードを対象の列に移行
 
@@ -637,8 +637,8 @@
         var acquisitionTableNo = tableNo -1; //前行のtableNo：対象のtableNo-1
 
         // 商品コード複写
-        var productCode_id = document.getElementById('inputProductCode' + tableNo);//対象のinputProductCodeのid
-        var acquisitionProductCode_id = document.getElementById('inputProductCode' + acquisitionTableNo);//前行のinputProductCodeのid
+        var productCode_id = document.getElementById('productCodeInput' + tableNo);//対象のproductCodeInputのid
+        var acquisitionProductCode_id = document.getElementById('productCodeInput' + acquisitionTableNo);//前行のproductCodeInputのid
         var acquisitionProductCode = acquisitionProductCode_id.value; //前行のproductCodeのvalueを取得
         productCode_id.value = acquisitionProductCode; //前行の商品コードを対象の列に移行
 
@@ -876,23 +876,23 @@
 	  
 	  /* 商品検索モーダル画面から取得した商品コードで商品情報取得 */
 	  function selectProductModal(code, name){
-		document.getElementById('inputProductCode' + globalTableNo).value = code;
+		document.getElementById('productCodeInput' + globalTableNo).value = code;
 		getProduct(code, globalTableNo);
 	  }
 	  
 	  /* 見積画面で選択した商品コードで商品情報を取得 */
 	  function inputGetProduct(obj){
-		  var inputProductCode = obj.value; //入力した商品コード
+		  var productCodeInput = obj.value; //入力した商品コード
 		  var tableNo = obj.id.substr(16); //対象のtableNo：商品コードを入力したtableNo取得
-		  getProduct(inputProductCode, tableNo);
+		  getProduct(productCodeInput, tableNo);
 	  }
 	  
 	  /* ajaxで入力した商品コードに対応する商品情報取得 */
-	  function getProduct(inputProductCode, tableNo) {
+	  function getProduct(productCodeInput, tableNo) {
 			$.ajax({
 				url:'/SalesCube2020/SalesCubeAJAX?action=estimateProductSearch',
 				type:'post',
-				data:{"productCode": inputProductCode },
+				data:{"productCode": productCodeInput },
 				dataType:'json',
 				success:function(data){
 					if(data.productAbstract == null || data.productAbstract == ""){
@@ -914,100 +914,5 @@
 			var form = document.pdfform;
 			form.submit();
 	  }
-	  
-		/* 見積入力から商品在庫モーダル開く */
-		function openStock(obj){
-			stockId = obj.id;
-			var tableNo = stockId.substr(15);
-			var productCode = document.getElementById("inputProductCode" + tableNo).value;
-			$("#stockbody > tr").remove();
-			$.ajax({
-				url:'/SalesCube2020/SalesCubeAJAX?action=stocksearch',
-				data:{"productCode": productCode },
-				dataType:'json',
-				type:'post',
-				success:function(data){
-					var tmp = JSON.parse(data.bean);
-					if(tmp['productCode'] == null || tmp['productCode'] == ""){
-						document.getElementById('stockProductCode').innerHTML = "";
-					}else{
-						document.getElementById('stockProductCode').innerHTML = tmp['productCode'];
-					}
-					if(tmp['supplierPCode'] == null || tmp['supplierPCode'] == ""){
-						document.getElementById('stockProductPCode').innerHTML = "";
-					}else{
-						document.getElementById('stockProductPCode').innerHTML = tmp['supplierPCode'];
-					}
-					if(tmp['setTypeCategory'] == null || tmp['setTypeCategory'] == ""){
-						document.getElementById('stockSetTypeCategory').innerHTML = "";
-					}else{
-						document.getElementById('stockSetTypeCategory').innerHTML = tmp['setTypeCategory'];
-					}
-					if(tmp['productName'] == null || tmp['productName'] == ""){
-						document.getElementById('stockProductName').innerHTML = "";
-					}else{
-						document.getElementById('stockProductName').innerHTML = tmp['productName'];
-					}
-					if(tmp['warehouseName'] == null || tmp['warehouseName'] == ""){
-						document.getElementById('stockWarehouseName').innerHTML = "";
-					}else{
-						document.getElementById('stockWarehouseName').innerHTML = tmp['warehouseName'];
-					}
-					if(tmp['rackCode'] == null || tmp['rackCode'] == ""){
-						document.getElementById('stockRackCode').innerHTML = "";
-					}else{
-						document.getElementById('stockRackCode').innerHTML = tmp['rackCode'];
-					}
-					if(tmp['productStatusCategory'] == null || tmp['productStatusCategory'] == ""){
-						document.getElementById('stockProductStatusCategory').innerHTML = "";
-					}else{
-						document.getElementById('stockProductStatusCategory').innerHTML = tmp['productStatusCategory'];
-					}
-					if(tmp['productStockCategory'] == null || tmp['productStockCategory'] == ""){
-						document.getElementById('stockProductStockCategory').innerHTML = "";
-					}else{
-						document.getElementById('stockProductStockCategory').innerHTML = tmp['productStockCategory'];
-					}
-					if(tmp['stockQuantity'] == null || tmp['stockQuantity'] == ""){
-						document.getElementById('stockQuantity').innerHTML = "";
-					}else{
-						document.getElementById('stockQuantity').innerHTML = tmp['stockQuantity'];
-					}
-					if(tmp['quantity'] == null || tmp['quantity'] == ""){
-						document.getElementById('stockQuantitySum').innerHTML = "";
-					}else{
-						document.getElementById('stockQuantitySum').innerHTML = tmp['quantity'];
-					}
-					
-					for(var i = 0; i<Object.keys(data.list).length; i++){
-						if(data.list[i].roSlipId == null || data.list[i].roSlipId == "" ){
-							$("#stockbody").append("<tr>");
-							$("#stockbody").append("<td><a href=''></a></td>");	
-							$("#stockbody").append("<td>"+data.list[i].shipDate+"</td>");
-							$("#stockbody").append("<td>"+data.list[i].quantity+"</td>");
-							$("#stockbody").append("</tr>");
-						}else if(data.list[i].shipDate == null || data.list[i].shipDate == ""){
-							$("#stockbody").append("<tr>");
-							$("#stockbody").append("<td><a href='/SalesCube2020/SalesCube?action=orderupdate&roSlipId="+data.list[i].roSlipId.split('-')[0]+"'>"+data.list[i].roSlipId+"</a></td>");	
-							$("#stockbody").append("<td></td>");
-							$("#stockbody").append("<td>"+data.list[i].quantity+"</td>");
-							$("#stockbody").append("</tr>");
-						}else if(data.list[i].quantity == null || data.list[i].quantity == "" ){
-							$("#stockbody").append("<tr>");
-							$("#stockbody").append("<td><a href='/SalesCube2020/SalesCube?action=orderupdate&roSlipId="+data.list[i].roSlipId.split('-')[0]+"'>"+data.list[i].roSlipId+"</a></td>");	
-							$("#stockbody").append("<td>"+data.list[i].shipDate+"</td>");
-							$("#stockbody").append("<td></td>");
-							$("#stockbody").append("</tr>");
-						}else{
-							$("#stockbody").append("<tr>");
-							$("#stockbody").append("<td><a href='/SalesCube2020/SalesCube?action=orderupdate&roSlipId="+data.list[i].roSlipId.split('-')[0]+"'>"+data.list[i].roSlipId+"</a></td>");	
-							$("#stockbody").append("<td> "+data.list[i].shipDate+"</td>");
-							$("#stockbody").append("<td> "+data.list[i].quantity+"</td>");
-							$("#stockbody").append("</tr>");
-						}
-					}
-				}
-			});
-		}
   </script>
 </html>
