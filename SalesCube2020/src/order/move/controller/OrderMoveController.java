@@ -74,7 +74,7 @@ public class OrderMoveController extends BaseController{
 	private String moveOrderUpdate (HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException, ClassNotFoundException, SQLException {
 		
 		Integer roSlipId = Integer.parseInt(request.getParameter("roSlipId"));
-		
+	
 		OrderInputDAO dao = new OrderInputDAO();
 		ProductModalInit init = new ProductModalInit();
 

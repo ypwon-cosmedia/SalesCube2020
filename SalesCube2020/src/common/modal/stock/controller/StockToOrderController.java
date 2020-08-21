@@ -18,13 +18,14 @@ public class StockToOrderController extends BaseController {
 		
 		String forwardURL = "/menu.jsp";
 		String action = request.getParameter("action");
-		
+	
 		if(action.equals("stocklink"))
 			try {
 				moveStockToUpdate(request, response);
 			} catch (ClassNotFoundException | ServletException | IOException | SQLException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
+				
 			} 
 		
 		return forwardURL;

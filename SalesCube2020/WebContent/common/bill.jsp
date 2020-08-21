@@ -136,7 +136,7 @@
 		document.body.appendChild(form);
 		form.submit();
 	}
-	
+ 	
 	/* 伝票呼出の初期化 */
 	function initFormOrder() {	
 		$("#billBody > tr").remove();
