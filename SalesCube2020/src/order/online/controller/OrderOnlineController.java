@@ -46,131 +46,130 @@ public class OrderOnlineController extends BaseController{
 		Part filePart = request.getPart("uploadcsv");
 		
 		OrderOnlineDAO dao = new OrderOnlineDAO();
-
+		
 		if(filePart != null) {
-			InputStream fileContent = filePart.getInputStream();
-			
-			int i;
-			String inputText = "";
-			while(( i = fileContent.read())!=-1) {	         
-	            char c = (char)i;
-	            inputText += c;
-	         }
-
-			String[] splitText = inputText.split(System.getProperty("line.separator"));
-						
-			List<String> list = new ArrayList<String>();
-			
-			for(String s : splitText) {	
-				String[] splitText2 = s.split(",");
-				for(int j = 0; j < splitText2.length; j++) {
-					String tmptext = splitText[j];
-					list.add(tmptext);
+			try {	
+				InputStream fileContent = filePart.getInputStream();
+				
+				int i;
+				String inputText = "";
+				while(( i = fileContent.read())!=-1) {	         
+		            char c = (char)i;
+		            inputText += c;
+		         }
+				if(inputText == "") {
+					request.setAttribute("checker", "2");
+					return "order\\onlineorderdataimport.jsp";
 				}
-			}
-			
-			for(int j = 0; j < 9; j++) {
-				list.remove(j);
-			}
-
-			List<String> infolist = new ArrayList<String>();
-			List<String> detaillist = new ArrayList<String>();
-			
-			for(String s : splitText) {	
-				String[] tmpsplit = s.split(",");
-				String tmptext ="";
-				String detailtemp = "";
-				for(int j = 0; j < 10; j++) {
-					tmptext += tmpsplit[j] + ",";					
+	
+				String[] splitText = inputText.split(System.getProperty("line.separator"));
+							
+				List<String> list = new ArrayList<String>();
+				
+				for(String s : splitText) {	
+					String[] splitText2 = s.split(",");
+					if(splitText2.length > 14) {
+						throw new IndexOutOfBoundsException();
+					}
+					for(int j = 0; j < splitText2.length; j++) {
+						String tmptext = splitText[j];
+						list.add(tmptext);
+					}
 				}
-				for(int j = 10; j < 14; j ++) {
-					detailtemp += tmpsplit[j] + ",";
+				
+				for(int j = 0; j < 9; j++) {
+					list.remove(j);
 				}
-				tmptext = tmptext.substring(0, tmptext.length()-1);
-				detailtemp = tmpsplit[0] + "," + detailtemp.substring(0, detailtemp.length()-1);
-				infolist.add(tmptext);
-				detaillist.add(detailtemp);
-			}
-			
-			infolist.remove(0);
-			detaillist.remove(0);
-			
-			HashSet<String> distinctData = new HashSet<String>(infolist);
-			infolist = new ArrayList<String>(distinctData);
-			
-			Collections.sort(infolist);
-						
-			HashMap<String, String> hs = new HashMap<String, String>();
-            
-			for(int j = 0; j < infolist.size(); j ++) {
-				String tmp[] = infolist.get(j).split(",");
-				OrderOnlineBillBean bean = new OrderOnlineBillBean();
-				bean.setRoDate(tmp[1]);
-				bean.setShipDate(tmp[2]);
-				bean.setDeliveryDate(tmp[3]);
-				bean.setReceptNo(tmp[4]);
-				bean.setCustomerSilpNo(tmp[5]);
-				bean.setRemarks(tmp[6]);
-				bean.setCtaxRate(tmp[7]);
-				bean.setCustomerCode(tmp[8]);
-				bean.setDeliveryCode(tmp[9]);
-				try {
+	
+				List<String> infolist = new ArrayList<String>();
+				List<String> detaillist = new ArrayList<String>();
+				
+				for(String s : splitText) {	
+					String[] tmpsplit = s.split(",");
+					String tmptext ="";
+					String detailtemp = "";
+					for(int j = 0; j < 10; j++) {
+						tmptext += tmpsplit[j] + ",";					
+					}
+					for(int j = 10; j < 14; j ++) {
+						detailtemp += tmpsplit[j] + ",";
+					}
+					tmptext = tmptext.substring(0, tmptext.length()-1);
+					detailtemp = tmpsplit[0] + "," + detailtemp.substring(0, detailtemp.length()-1);
+					infolist.add(tmptext);
+					detaillist.add(detailtemp);
+				}
+				
+				infolist.remove(0);
+				detaillist.remove(0);
+				
+				HashSet<String> distinctData = new HashSet<String>(infolist);
+				infolist = new ArrayList<String>(distinctData);
+				
+				Collections.sort(infolist);
+							
+				HashMap<String, String> hs = new HashMap<String, String>();
+	            
+				for(int j = 0; j < infolist.size(); j ++) {
+					String tmp[] = infolist.get(j).split(",");
+					OrderOnlineBillBean bean = new OrderOnlineBillBean();
+					bean.setRoDate(tmp[1]);
+					bean.setShipDate(tmp[2]);
+					bean.setDeliveryDate(tmp[3]);
+					bean.setReceptNo(tmp[4]);
+					bean.setCustomerSilpNo(tmp[5]);
+					bean.setRemarks(tmp[6]);
+					bean.setCtaxRate(tmp[7]);
+					bean.setCustomerCode(tmp[8]);
+					bean.setDeliveryCode(tmp[9]);
+					
 					int res = dao.onlineInputBill(bean);
 					hs.put(infolist.get(j).split(",")[0], Integer.toString(res));
-				} catch (ClassNotFoundException | MissingResourceException | SQLException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
+	
 				}
-				//
-			}
-			
-			for(int j = 0; j < detaillist.size(); j ++) {
-				if(hs.containsKey(detaillist.get(j).split(",")[0])) {
-					String tmp = "";
-					tmp += hs.get(detaillist.get(j).split(",")[0]) + "," + detaillist.get(j).substring(detaillist.get(j).indexOf(","));
-					String tmpstr[] = tmp.split(",");
-					System.out.println(tmp);
-					OrderOnlineDetailBean bean = new OrderOnlineDetailBean();
-					bean.setRoSlipId(Integer.parseInt(tmpstr[0]));
-					bean.setProductCode(tmpstr[2]);
-					bean.setQuantity(Integer.parseInt(tmpstr[3]));
-					bean.setUnitRetailPrice(Integer.parseInt(tmpstr[4]));
-					try {
-						dao.onlineInputDetail(bean);
-					} catch (ClassNotFoundException | MissingResourceException | SQLException e) {
-						// TODO Auto-generated catch block
-						e.printStackTrace();
-					}
-				}					
-			}
-			
-			ArrayList<Integer> mapToList = new ArrayList<Integer>();
-			
-			for(String key : hs.keySet()) {
-				String roSlipId = hs.get(key);
-				try {
-					dao.onlineInputTotal(roSlipId);
-					mapToList.add(Integer.parseInt(roSlipId));
-				} catch (ClassNotFoundException | MissingResourceException | SQLException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
+				
+				for(int j = 0; j < detaillist.size(); j ++) {
+					if(hs.containsKey(detaillist.get(j).split(",")[0])) {
+						String tmp = "";
+						tmp += hs.get(detaillist.get(j).split(",")[0]) + "," + detaillist.get(j).substring(detaillist.get(j).indexOf(","));
+						String tmpstr[] = tmp.split(",");
+						System.out.println(tmp);
+						OrderOnlineDetailBean bean = new OrderOnlineDetailBean();
+						bean.setRoSlipId(Integer.parseInt(tmpstr[0]));
+						bean.setProductCode(tmpstr[2]);
+						bean.setQuantity(Integer.parseInt(tmpstr[3]));
+						bean.setUnitRetailPrice(Integer.parseInt(tmpstr[4]));
+						
+						dao.onlineInputDetail(bean);	
+					}					
 				}
-			}
-			
-			Collections.sort(mapToList);
-			
-			String start = mapToList.get(0).toString();
-			
-			try {
+				
+				ArrayList<Integer> mapToList = new ArrayList<Integer>();
+				
+				for(String key : hs.keySet()) {
+					String roSlipId = hs.get(key);
+					
+						dao.onlineInputTotal(roSlipId);
+						mapToList.add(Integer.parseInt(roSlipId));
+				}
+				
+				Collections.sort(mapToList);
+				
+				String start = mapToList.get(0).toString();
+				
+				
 				request.setAttribute("result", dao.onlineInputResult(start));
 			} catch (ClassNotFoundException | MissingResourceException | SQLException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
+			} catch (IndexOutOfBoundsException e) {
+				request.setAttribute("checker", "1");
 			}
 			
-		} else
-			System.out.println("filePart is null");
-
+		} else {
+			
+		}
+			
 		return "order\\onlineorderdataimport.jsp";
 	}
 	

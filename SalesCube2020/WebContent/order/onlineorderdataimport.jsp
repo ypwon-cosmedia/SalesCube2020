@@ -55,6 +55,7 @@
 	<br>
     <div class="container" id="main_function">
       <h3 class="float-left">オンライン受注データ取込</h3>
+      <br><br><span></span>
    
       
       <div class="btn-toolbar float-right" role="toolbar" aria-label="Toolbar with button groups">
@@ -74,7 +75,7 @@
           <button type="button" class="btn btn-secondary" style="font-size: 12px;" disabled>F12<br></button>
         </div>
       </div>
-      <br><br><br>
+      <br><br><br><br>
       </div>
       <form action="/SalesCube2020/SalesCube?action=uploadcsv" method="post" name="mainform" id="mainform" enctype="multipart/form-data">
 		<div class="container" style="background-color: white;"><div class="panel panel-default" >
@@ -90,7 +91,7 @@
 							<div class="input-group-prepend">
 								<div class="input-group-text">受注データ※</div>
 							</div>
-						<input type="file" class="form-control" id="uploadcsv" name="uploadcsv">
+						<input type="file" class="form-control" id="uploadcsv" name="uploadcsv" accept=".csv">
 						</div>
 					</div>
 				</div>	
@@ -135,8 +136,18 @@
 		  </c:forEach>  
 		</tbody>
 	</table>
+	<input type='hidden' id="checker" value="${checker}">
 </div>
 <script>
+
+	window.onload = function(){
+		if(document.getElementById("checker").value == "1"){
+			alert("入力形式に合わないCSVファイルです。\nCSVファイルを確認してください。");
+		} else if(document.getElementById("checker").value == "2"){
+			alert("CSVファイルを登録してください。");
+		}
+	}
+
 	function initPage(){
 		if(!confirm("入力内容を初期化してよろしいですか？")){
 	       	return;

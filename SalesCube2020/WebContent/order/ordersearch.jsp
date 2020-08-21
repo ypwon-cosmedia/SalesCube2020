@@ -1140,6 +1140,8 @@
 
 					if(num == 1 && lastCount > 5){
 						pagingNo = num+5;
+					} else if(num == 2){
+						pagingNo = num+4;
 					} else if(lastCount > (num+3)){
 						pagingNo = num+3;
 					} else {
@@ -1211,7 +1213,7 @@
 		}
 		
 		function csvOutput(){
-			if(!confirm("入力内容を初期化してよろしいですか？")){
+			if(!confirm("検索内容をCSVファイルで出力しますか？")){
 	           	return;
 	    	}
 			var selArr = [];
