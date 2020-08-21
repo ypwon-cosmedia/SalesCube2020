@@ -65,7 +65,7 @@
 				<div class="btn-group mr-2 " role="group" aria-label="First group">
 					<button type="button" class="btn btn-secondary" style="font-size: 12px;" onclick="initForm();" >F1<br>初期化</button>
 					<form action="/SalesCube2020/SalesCube?action=deleteOrder" method="post">
-						<input type="submit" value="F2削除" class="btn btn-secondary" style="font-size: 12px;" >
+						<input type="submit" value="F2削除" class="btn btn-secondary h-100" style="font-size: 12px;" >
 						<input type="hidden" id="roSlipId" name="roSlipId" value="${order.roSlipId}">
 					</form>
 					<button type="button" class="btn btn-secondary" style="font-size: 12px;" onclick="returnForm();">F3<br>戻る</button>
@@ -461,24 +461,25 @@
 					</tr>
 				</thead>
 				<tbody id = "orderbody">
+				<c:forEach items="${orderlist}" var="list">
 					<tr>
 						<td rowspan="6"><span id="tableLineNo1">1</span></td>
 						<td rowspan="6">
-							<input type="text" value="${order.productCode}" class="form-control" size="2" style="width:100%" id="productCodeInput1" name="productCodeInput">
+							<input type="text" value="${list.productCode}" class="form-control" size="2" style="width:100%" id="productCodeInput1" name="productCodeInput">
 							<button type="button" class="btn btn-outline-secondary" data-toggle="modal" data-target="#setproductsearch" onclick="productCodetoModal(this);" id="setproductsearch1">検索</button>
 						</td>
-						<td rowspan="3"><span id="productName1">${order.productName}</span></td>
+						<td rowspan="3"><span id="productName1">${list.productName}</span></td>
 						<td rowspan="2">
-							<input type="text" value="${order.rackCode}" class="form-control" size="2" id="rackCode1" name="rackCode" readonly>
+							<input type="text" value="${list.rackCode}" class="form-control" size="2" id="rackCode1" name="rackCode" readonly>
 						</td>
 						<td rowspan="3">
-							<input type="text" value="${order.unitCost}" class="form-control" size="4" name="unitCost" id="unitCost1" name="unitCost" readonly>
+							<input type="text" value="${list.unitCost}" class="form-control" size="4" name="unitCost" id="unitCost1" name="unitCost" readonly>
 						</td>
 						<td rowspan="3">
-							<input type="text" value="${order.unitRetailPrice}" class="form-control" size="4" name="unitRetailPrice" id="unitRetailPrice1" name="unitRetailPrice" onchange="quantityCalc2(this)">
+							<input type="text" value="${list.unitRetailPrice}" class="form-control" size="4" name="unitRetailPrice" id="unitRetailPrice1" name="unitRetailPrice" onchange="quantityCalc2(this)">
 						</td>
 						<td rowspan="3">
-							<textarea name="productRemarks" class="form-control" cols="10" id="inputProductRemarks1" name="inputProductRemarks">${order.inputProductRemarks}</textarea>
+							<textarea name="productRemarks" class="form-control" cols="10" id="inputProductRemarks1" name="inputProductRemarks">${list.inputProductRemarks}</textarea>
 						</td>
 						<td rowspan="3" class="align: middle">
 							<button type="button" class="btn btn-outline-secondary" onclick="deleteLineForm(this);" id="deleteLineForm1">削除</button>
@@ -487,21 +488,21 @@
 					<tr></tr>
 					<tr>
 						<td rowspan="2">
-							<input type="text" value="${order.quantity}" class="form-control" size="2" name="quantity" id="quantity1" name="quantity" onchange="quantityCalc1(this)">
+							<input type="text" value="${list.quantity}" class="form-control" size="2" name="quantity" id="quantity1" name="quantity" onchange="quantityCalc1(this)">
 						</td>
 					</tr>
 					<tr>
 						<td rowspan="3">
-							<textarea name="productRemarks" class="form-control" cols="10" id="productRemarks1" name="productRemarks" readonly>${order.productRemarks}</textarea>
+							<textarea name="productRemarks" class="form-control" cols="10" id="productRemarks1" name="productRemarks" readonly>${list.productRemarks}</textarea>
 						</td>
 						<td rowspan="3">
-							<input type="text" value="${order.cost}" class="form-control" size="4" name="cost" id="cost1" name="cost" readonly>
+							<input type="text" value="${list.cost}" class="form-control" size="4" name="cost" id="cost1" name="cost" readonly>
 						</td>
 						<td rowspan="3">
-							<input type="text" value="${order.retailPrice}" class="form-control" size="4" name="retailPrice" id="retailPrice1" name="retailPrice" readonly>
+							<input type="text" value="${list.retailPrice}" class="form-control" size="4" name="retailPrice" id="retailPrice1" name="retailPrice" readonly>
 						</td>
 						<td rowspan="3">
-							<textarea name="eadRemarks" class="form-control" cols="10" id="eadRemarks1" name="eadRemarks">${order.eadRemarks}</textarea>
+							<textarea name="eadRemarks" class="form-control" cols="10" id="eadRemarks1" name="eadRemarks">${list.eadRemarks}</textarea>
 						</td>
 						<td rowspan="3">
 							<button type="button" value="" class="btn btn-outline-secondary" id="reprintForm1" disabled>前行複写</button>
@@ -513,7 +514,9 @@
 						</td>
 					</tr>
 					<tr></tr>
+					</c:forEach>
 				</tbody>
+				
 			</table>
 
 			<!-- 行追加 -->

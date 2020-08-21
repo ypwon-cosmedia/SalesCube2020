@@ -42,10 +42,11 @@ public class OrderCommonBillController extends BaseAJAXController {
 		OrderCommonBillDAO dao = new OrderCommonBillDAO();
 		OrderCommonBillBean bean = new OrderCommonBillBean();
 		
-		bean.setEstimateSheetId(request.getParameter("estimateSheetId"));
-		bean.setEstimateDate(request.getParameter("estimateDate"));
-		bean.setSubmitName(request.getParameter("submitName"));
-		bean.setTitle(request.getParameter("title"));
+		bean.setEstimateSheetId(request.getParameter("inputEstimateSheetId"));
+		bean.setEstimateDate1(request.getParameter("inputEstimateDate1"));
+		bean.setEstimateDate2(request.getParameter("inputEstimateDate2"));
+		bean.setSubmitName(request.getParameter("inputSubmitName"));
+		bean.setTitle(request.getParameter("inputTitle"));
 	
 		Gson gson = new Gson();
 		

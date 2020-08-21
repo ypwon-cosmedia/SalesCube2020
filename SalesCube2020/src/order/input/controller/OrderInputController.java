@@ -488,6 +488,7 @@ public class OrderInputController extends BaseController {
 		OrderCommonBillBean bean3 = new OrderCommonBillBean();
 		
 		String estimateSheetId = request.getParameter("estimateSheetId");
+		String customerCode = request.getParameter("customerCode");
 		
 		bean1 = dao.billToTaxRate(estimateSheetId);
 		bean2 = dao.billToCustomer(estimateSheetId);
@@ -496,12 +497,14 @@ public class OrderInputController extends BaseController {
 		List<OrderInputBean> list1 = dao2.getDcName();
 		List<OrderInputBean> list2 = dao2.getDcTimezone();
 		List<OrderInputBean> list3 = dao2.getTaxRate();
+		List<OrderCommonBillBean> list4 = dao.billToDeliveryCode(customerCode);
 		init.initCombobox(request, response);
 
 
 		request.setAttribute("initDcName", list1);
 		request.setAttribute("initDcTimezone", list2);
 		request.setAttribute("initTaxRate", list3);
+		request.setAttribute("deliveryCodeName", list4);
 		
 		request.setAttribute("stockTaxRate", bean1);
 		request.setAttribute("stockCustomer", bean2);

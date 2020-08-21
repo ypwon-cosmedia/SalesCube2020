@@ -612,14 +612,12 @@ public class OrderInputDAO extends BaseDAO{
 	 	Statement stmt = null;
 	 	ResultSet result = null;
 	 	String sql1;
-	 	String sql2;
 	 	
 	 	con = super.getConnection();	
 	 	stmt = con.createStatement();
 	 	
 	 	OrderSQL ordersql = new OrderSQL();
 	 	sql1 = ordersql.moveOrderUpdateInfo(roSlipId);
-	 	sql2 = ordersql.moveOrderUpdateDetail(roSlipId);
 	 	
 	 	result = stmt.executeQuery(sql1);
 
@@ -656,9 +654,29 @@ public class OrderInputDAO extends BaseDAO{
 	 		bean.setDeliveryEmail(result.getString("rstx.DELIVERY_EMAIL"));
 	 	}
 	 	
-	 	result = stmt.executeQuery(sql2);
+	 	return bean;
+	}
+	
+	public List<OrderInputBean> getOrderInfodetail(Integer roSlipId) throws SQLException, ClassNotFoundException {
+		
+		List<OrderInputBean> list = new ArrayList<>();
+
+		Connection con;
+	 	Statement stmt = null;
+	 	ResultSet result = null;
+	 	String sql;
 	 	
-	 	if (result.next()) {
+	 	con = super.getConnection();	
+	 	stmt = con.createStatement();
+	 	
+	 	OrderSQL ordersql = new OrderSQL();
+	 	sql = ordersql.moveOrderUpdateDetail(roSlipId);
+	 	
+	 	System.out.println(sql);
+	 	result = stmt.executeQuery(sql);
+	 	
+	 	while (result.next()) {
+	 		OrderInputBean bean = new OrderInputBean();
 	 		bean.setProductCode(result.getString("rltx.PRODUCT_CODE"));
 	 		bean.setProductName(result.getString("pmx.PRODUCT_NAME"));
 	 		bean.setProductRemarks(result.getString("pmx.REMARKS"));
@@ -670,11 +688,12 @@ public class OrderInputDAO extends BaseDAO{
 	 		bean.setRetailPrice(Integer.parseInt(result.getString("rltx.RETAIL_PRICE").substring(0, result.getString("rltx.RETAIL_PRICE").length() - 4)));
 	 		bean.setInputProductRemarks(result.getString("rltx.REMARKS"));
 	 		bean.setEadRemarks(result.getString("rltx.EAD_REMARKS"));
+	 		list.add(bean);
 	 	}
 
 	 	super.releaseDB(con, stmt, result);
 	 	
-	 	return bean;
+	 	return list;
 	}
 	
 	/* 商品コード押下 明細に反映 */

@@ -125,10 +125,15 @@ public class OrderSQL {
 		}else {
 			bean.setEstimateSheetId(bean.getEstimateSheetId().concat("%'"));
 		}
-		if(bean.getEstimateDate() == null || bean.getEstimateDate().equals("")) {
-			bean.setEstimateDate("%' OR ESTIMATE_DATE IS NULL");
+		if(bean.getEstimateDate1() == null || bean.getEstimateDate1().equals("")) {
+			bean.setEstimateDate1("1900-01-01");
 		}else {
-			bean.setEstimateDate(bean.getEstimateDate().concat("%'"));
+			bean.setEstimateDate1(bean.getEstimateDate1());
+		}
+		if(bean.getEstimateDate2() == null || bean.getEstimateDate2().equals("")) {
+			bean.setEstimateDate2("9999-12-31");
+		}else {
+			bean.setEstimateDate2(bean.getEstimateDate2());
 		}
 		if(bean.getSubmitName() == null || bean.getSubmitName().equals("")) {
 			bean.setSubmitName("%' OR SUBMIT_NAME IS NULL");
@@ -151,7 +156,7 @@ public class OrderSQL {
 			"WHERE " + 
 				"(ESTIMATE_SHEET_ID LIKE '" + bean.getEstimateSheetId() +
 			") AND " + 
-				"(ESTIMATE_DATE LIKE '" + bean.getEstimateDate()  +
+				"(ESTIMATE_DATE BETWEEN '" + bean.getEstimateDate1()  + "' AND '" + bean.getEstimateDate2() + "'" +
 			") AND " +
 				"(SUBMIT_NAME LIKE '" + bean.getSubmitName()  +
 			") AND " +
@@ -249,6 +254,26 @@ public class OrderSQL {
 					"estx.CUSTOMER_NAME=dmx.DELIVERY_NAME " + 
 			"WHERE " + 
 				"ESTIMATE_SHEET_ID = '" + estimateSheetId + "'";
+		
+		return sql;
+		
+	}
+	
+	/* 見積番号押下 納入先情報反映 */
+	public String billToDeliveryCode(String customerCode) {
+	
+		String sql;
+		
+		sql = "SELECT DISTINCT " + 
+				"dmx.DELIVERY_NAME, " + 
+				"dmx.DELIVERY_OFFICE_NAME " + 
+			"FROM " + 
+				"delivery_mst_xxxxx AS dmx " + 
+				"LEFT OUTER JOIN customer_rel_xxxxx AS crx " + 
+				"ON dmx.DELIVERY_CODE=crx.REL_CODE " + 
+			"LEFT OUTER JOIN customer_mst_xxxxx AS cmx   " + 
+				"USING(CUSTOMER_CODE) " + 
+			"WHERE cmx.CUSTOMER_CODE = '" + customerCode + "'";
 		
 		return sql;
 		

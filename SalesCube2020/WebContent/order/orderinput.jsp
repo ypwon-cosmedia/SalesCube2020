@@ -212,10 +212,10 @@
 								<div class="input-group-prepend">
 									<div class="input-group-text">消費税率</div>
 								</div>
-								<select class="custom-select" name="ctaxRate">
+								<select class="custom-select" name="ctaxRate" id="ctaxRate">
 									<option value=""></option>
 									<c:forEach items="${initTaxRate}" var="initTR">
-										<option value="${initTR.ctaxRate}" id="ctaxRate">${initTR.ctaxRate}</option>
+										<option value="${initTR.ctaxRate}">${initTR.ctaxRate}</option>
 									</c:forEach>
 								</select>
 							</div>
@@ -319,6 +319,9 @@
 									<div class="input-group-text">顧客納入先</div>
 								</div>
 								<select class="custom-select" name="deliveryName" id="deliveryName" onchange="deliverySelect()">
+									<c:forEach items="${deliveryCodeName}" var="del">
+										<option value="${del.deliveryCode}">${del.deliveryName}</option>option>
+									</c:forEach>
 								</select>
 							</div>
 						</div>
@@ -793,7 +796,7 @@
 				target = document.getElementById("retailPriceTotal");
 				target.innerHTML = '￥' + (sum2 - sum1);
 
-				/* 粗利益 : 売上金額-仕入金額 */
+				///* 粗利益 : 売価金額-仕入金額 */
 				var hairetsu3 = document.getElementsByName("cost");
 				var hairetsu4 = document.getElementsByName("retailPrice");
 				var sum3 = 0;
@@ -819,14 +822,24 @@
 					target.innerHTML = ((sum4 - sum3) / (sum2 - sum1)) * 100 + '%';
 				}
 
-				/* 消費税 : 売上単価*消費税率 */
-				var ctaxRate = (parseInt(document.getElementById("ctaxRate").value)) /100;
+				/* 消費税 : 金額合計*消費税率 */
 				target = document.getElementById("ctaxPriceTotal");
-				target.innerHTML = '￥' + parseInt(sum4 * ctaxRate);
-
+				alert(document.getElementById("ctaxRate").value);
+				if(document.getElementById("ctaxRate").value == null || document.getElementById("ctaxRate").value == ""){
+					target.innerHTML = '￥0';
+				}else{
+					var ctaxRate = (parseInt(document.getElementById("ctaxRate").value)) /100;
+					target.innerHTML = '￥' + parseInt((sum2 - sum1) * ctaxRate);
+				}
+				
 				/* 伝票合計 : 金額合計+消費税 */
 				target = document.getElementById("priceTotal");
-				target.innerHTML = '￥' + parseInt((sum2 - sum1) + (sum4 * ctaxRate));
+				if(document.getElementById("ctaxRate").value == null || document.getElementById("ctaxRate").value == ""){
+					target.innerHTML = '￥' + parseInt(sum2 - sum1);
+				}else{
+					var ctaxRate = (parseInt(document.getElementById("ctaxRate").value)) /100;
+					target.innerHTML = '￥' + parseInt((sum2 - sum1) * ctaxRate);
+				}
 			}
 
 			/* 顧客モーダルから親画面にリンク */

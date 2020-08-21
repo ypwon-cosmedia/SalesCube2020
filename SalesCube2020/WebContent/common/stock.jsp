@@ -128,18 +128,18 @@
 					if(tmp['quantity'] == null || tmp['quantity'] == ""){
 						document.getElementById('stockQuantitySum').innerHTML = "";
 					}else{
-						document.getElementById('stockQuantitySum').innerHTML = tmp['quantity'];
+						document.getElementById('stockQuantitySum').innerHTML = tmp['quantity'].split('.')[0];
 					}
 					
 					for(var i = 0; i<Object.keys(data.list).length; i++){
 						if(data.list[i].roSlipId == null || data.list[i].roSlipId == "" ){
 							$("#stockbody").append("<tr><td><a href=''></a></td><td>"+data.list[i].shipDate+"</td><td>"+data.list[i].quantity+"</td></tr>");
 						}else if(data.list[i].shipDate == null || data.list[i].shipDate == ""){
-							$("#stockbody").append("<tr><td><a href='/SalesCube2020/SalesCube?action=orderupdate&roSlipId="+data.list[i].roSlipId.split('-')[0]+"'>"+data.list[i].roSlipId+"</a></td><td></td><td>"+data.list[i].quantity+"</td></tr>");
+							$("#stockbody").append("<tr><td><a href='/SalesCube2020/SalesCube?action=orderupdate&roSlipId="+data.list[i].roSlipId.split('-')[0]+"'>"+data.list[i].roSlipId+"</a></td><td></td><td>"+data.list[i].quantity.split('.')[0]+"</td></tr>");
 						}else if(data.list[i].quantity == null || data.list[i].quantity == "" ){
 							$("#stockbody").append("<tr><td><a href='/SalesCube2020/SalesCube?action=orderupdate&roSlipId="+data.list[i].roSlipId.split('-')[0]+"'>"+data.list[i].roSlipId+"</a></td><td>"+data.list[i].shipDate+"</td><td></td></tr>");
 						}else{
-							$("#stockbody").append("<tr><td><a href='/SalesCube2020/SalesCube?action=orderupdate&roSlipId="+data.list[i].roSlipId.split('-')[0]+"'>"+data.list[i].roSlipId+"</a></td><td> "+data.list[i].shipDate+"</td><td> "+data.list[i].quantity+"</td></tr>");
+							$("#stockbody").append("<tr><td><a href='/SalesCube2020/SalesCube?action=orderupdate&roSlipId="+data.list[i].roSlipId.split('-')[0]+"'>"+data.list[i].roSlipId+"</a></td><td> "+data.list[i].shipDate+"</td><td> "+data.list[i].quantity.split('.')[0]+"</td></tr>");
 						}
 					}
 				}

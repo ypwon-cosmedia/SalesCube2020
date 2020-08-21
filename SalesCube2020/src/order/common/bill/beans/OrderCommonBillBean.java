@@ -12,8 +12,25 @@ public class OrderCommonBillBean {
 	public String estimateSheetId;
 	
 	/* 見積日 */
-	public String estimateDate;
+	public String estimateDate1;
+	public String estimateDate2;
 	
+	public String getEstimateDate1() {
+		return estimateDate1;
+	}
+
+	public void setEstimateDate1(String estimateDate1) {
+		this.estimateDate1 = estimateDate1;
+	}
+
+	public String getEstimateDate2() {
+		return estimateDate2;
+	}
+
+	public void setEstimateDate2(String estimateDate2) {
+		this.estimateDate2 = estimateDate2;
+	}
+
 	/* 提出先名 */
 	public String submitName;
 	
@@ -257,14 +274,6 @@ public class OrderCommonBillBean {
 
 	public void setEstimateSheetId(String estimateSheetId) {
 		this.estimateSheetId = estimateSheetId;
-	}
-
-	public String getEstimateDate() {
-		return estimateDate;
-	}
-
-	public void setEstimateDate(String estimateDate) {
-		this.estimateDate = estimateDate;
 	}
 
 	public String getSubmitName() {

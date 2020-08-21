@@ -19,7 +19,7 @@
 								<div class="input-group-prepend">
 									<div class="input-group-text">見積番号</div>
 								</div>
-								<input type="text"  class="form-control" id="inputEstimateSheetId">
+								<input type="text"  class="form-control" id="inputEstimateSheetId" name="inputEstimateSheetId">
 							</div>
 						</div>
 					</div>
@@ -30,7 +30,7 @@
 								<div class="input-group-prepend">
 									<div class="input-group-text">見積日</div>
 								</div>
-							<input type="date"  class="form-control" id="inputEstimateDate1" name="data1">
+							<input type="date"  class="form-control" id="inputEstimateDate1" name="inputEstimateDate1">
 							</div>
 						</div>
 						~
@@ -38,7 +38,7 @@
 							<label class="sr-only" for="inlineFormInputGroup"></label>
 							<div class="input-group mb-2">
 	
-							<input type="date"  class="form-control" id="inputEstimateDate2" name="data1">
+							<input type="date"  class="form-control" id="inputEstimateDate2" name="inputEstimateDate2">
 							</div>
 						</div>
 					</div>
@@ -49,7 +49,7 @@
 								<div class="input-group-prepend">
 									   <div class="input-group-text">提出先名</div>
 								</div>
-								<input type="text" class="form-control" id="inputSubmitName" name="data1">
+								<input type="text" class="form-control" id="inputSubmitName" name="inputSubmitName">
 							</div>
 						</div>
 						<div class="col-4">
@@ -58,11 +58,11 @@
 								<div class="input-group-prepend">
 									<div class="input-group-text">件名</div>
 								</div>
-								<input type="text"  class="form-control" id="inputTitle" name="data1">
+								<input type="text"  class="form-control" id="inputTitle" name="inputTitle">
 							</div>
 						</div>                   
 					</div>
-					<div class="float-left" style="position:static; left: 0px;">検索結果件数：0件</div>
+					<div class="float-left" style="position:static; left: 0px;">検索結果件数：<span id="searchResult">0</span>件</div>
 					<div align="right">
 						<button type="button" class="btn btn-outline-secondary" onclick="initFormOrder();">初期化</button>&ensp;
 						<button type="button" class="btn btn-outline-secondary" onclick="billSearch()">検索</button>
@@ -109,12 +109,13 @@
 					var headcontents= '';
 					headcontents += '<tr>';
 					headcontents += '<td style="white-space: normal; text-align: left;" onclick="billToOrder(this)" id="estimateSheetId' + tableNo +'" data-dismiss="modal"><a href="">'+data.list[i].estimateSheetId+'</a></td>';
-					headcontents += '<td style="white-space: normal; text-align: left;">'+(data.list[i].estimateDate==null ? '' : data.list[i].estimateDate)+'</td>';
+					headcontents += '<td style="white-space: normal; text-align: left;">'+(data.list[i].estimateDate1==null ? '' : data.list[i].estimateDate1)+'</td>';
 					headcontents += '<td style="white-space: normal; text-align: left;">'+(data.list[i].submitName==null ? '' : data.list[i].submitName)+'</td>';   
 					headcontents += '<td style="white-space: normal; text-align: left;">'+(data.list[i].title==null ? '' : data.list[i].title)+'</td>';   
 					headcontents += '</tr>';
 					$('#billBody').append(headcontents);						
 				}
+				document.getElementById("searchResult").innerHTML = Object.keys(data.list).length;
 			}
 		});
 	}

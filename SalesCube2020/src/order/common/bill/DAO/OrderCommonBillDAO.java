@@ -14,8 +14,7 @@ import sql.order.OrderSQL;
 public class OrderCommonBillDAO extends BaseDAO{
 
 	/* 見積検索 */
-	public List<OrderCommonBillBean> billSearch(OrderCommonBillBean bean)
-			throws SQLException, ClassNotFoundException {
+	public List<OrderCommonBillBean> billSearch(OrderCommonBillBean bean) throws SQLException, ClassNotFoundException {
 		
 		List<OrderCommonBillBean> list = new ArrayList<OrderCommonBillBean>();
 		
@@ -36,7 +35,7 @@ public class OrderCommonBillDAO extends BaseDAO{
 	 	while(result.next()) {
 	 		OrderCommonBillBean bean2 = new OrderCommonBillBean();
 	 		bean2.setEstimateSheetId(result.getString("ESTIMATE_SHEET_ID"));
-	 		bean2.setEstimateDate(result.getString("ESTIMATE_DATE"));
+	 		bean2.setEstimateDate1(result.getString("ESTIMATE_DATE"));
 	 		bean2.setSubmitName(result.getString("SUBMIT_NAME"));
 	 		bean2.setTitle(result.getString("TITLE"));
 	 		list.add(bean2);
@@ -126,9 +125,7 @@ public class OrderCommonBillDAO extends BaseDAO{
 	 	result = stmt.executeQuery(sql);
 	 	OrderCommonBillBean bean = new OrderCommonBillBean();
 	 	
-	 	while(result.next()) {	
-	 		bean
-		 	bean.setDeliveryName(result.getString("dmx.DELIVERY_NAME"));
+	 	while(result.next()) {
 		 	bean.setDeliveryOfficeName(result.getString("dmx.DELIVERY_OFFICE_NAME"));
 		 	bean.setDeliveryDeptName(result.getString("dmx.DELIVERY_DEPT_NAME"));
 		 	bean.setDeliveryZipCode(result.getString("dmx.DELIVERY_ZIP_CODE"));
@@ -145,6 +142,37 @@ public class OrderCommonBillDAO extends BaseDAO{
 	 	super.releaseDB(con, stmt, result);
 	 	
 	 	return bean;
+	 	
+	}
+	
+	/* 見積番号押下 納入先コード・名反映 */
+	public List<OrderCommonBillBean> billToDeliveryCode(String customerCode) throws SQLException, ClassNotFoundException {
+		
+		Connection con;
+	 	Statement stmt = null;
+	 	ResultSet result = null;	
+	 	String  sql;
+
+	 	con = super.getConnection();
+	 	stmt = con.createStatement();
+	 	
+	 	OrderSQL ordersql = new OrderSQL();
+	 	sql = ordersql.billToDelivery(customerCode);
+	 	
+	 	result = stmt.executeQuery(sql);
+	 	
+	 	List<OrderCommonBillBean> list = new ArrayList<>();
+	 	
+	 	while(result.next()) {	
+	 		OrderCommonBillBean bean = new OrderCommonBillBean();
+	 		bean.setDeliveryCode(result.getString("dmx.DELIVERY_CODE"));
+		 	bean.setDeliveryName(result.getString("dmx.DELIVERY_NAME"));
+	 		list.add(bean);
+	 	}
+	 	
+	 	super.releaseDB(con, stmt, result);
+	 	
+	 	return list;
 	 	
 	}
 	

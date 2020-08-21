@@ -85,11 +85,13 @@ public class OrderMoveController extends BaseController{
 		
 		OrderInputBean bean = new OrderInputBean();
 		bean = dao.getOrderInfo(roSlipId);
+		List<OrderInputBean> list5 = dao.getOrderInfodetail(roSlipId);
 		
 		request.setAttribute("initDcName", list1);
 		request.setAttribute("initDcTimezone", list2);
 		request.setAttribute("initTaxRate", list3);
 		request.setAttribute("order", bean);
+		request.setAttribute("orderlist", list5);
 
 		return "order\\orderupdate.jsp";
 	}
