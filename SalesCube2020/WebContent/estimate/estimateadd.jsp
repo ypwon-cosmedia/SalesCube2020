@@ -916,10 +916,20 @@
 					if(data.productAbstract == null || data.productAbstract == ""){
 						alert("該当する商品情報は存在しません");
 					} else {
-						document.getElementById('productAbstract' + tableNo).value = data.productAbstract;
-						document.getElementById('unitCost' + tableNo).value = data.unitCost;
-						document.getElementById('unitRetailPrice' + tableNo).value = data.unitRetailPrice;
-						setPrice(tableNo);
+						if(document.getElementById('productAbstract' + tableNo).value == null || document.getElementById('productAbstract' + tableNo).value == ""){
+							document.getElementById('productAbstract' + tableNo).value = data.productAbstract;
+							document.getElementById('unitCost' + tableNo).value = data.unitCost;
+							document.getElementById('unitRetailPrice' + tableNo).value = data.unitRetailPrice;
+							setPrice(tableNo);
+						} else {
+							if(!confirm("明細が入力されています。上書きしますか？")){
+							} else {
+								document.getElementById('productAbstract' + tableNo).value = data.productAbstract;
+								document.getElementById('unitCost' + tableNo).value = data.unitCost;
+								document.getElementById('unitRetailPrice' + tableNo).value = data.unitRetailPrice;
+								setPrice(tableNo);
+							}
+						}
 					}
        		    }
 			});

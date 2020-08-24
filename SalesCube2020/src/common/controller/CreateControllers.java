@@ -123,7 +123,7 @@ public class CreateControllers {
 		
 		map.put( "moveEstimateSearch", estimateSearchObj);
 		map.put( "estimateSearch", estimateSearchObj);
-		map.put( "estimateExcelOutput", estimateSearchObj);
+		//map.put( "estimateExcelOutput", estimateSearchObj);
 		
 		map.put( "moveUnitPriceInquiry", unitPriceInquiryObj);
 		map.put( "unitPriceInquirySearch", unitPriceInquiryObj);
