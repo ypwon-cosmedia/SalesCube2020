@@ -53,25 +53,25 @@ public class EstimateAddDAO extends BaseDAO {
 		String creDate              = ldt.toString();
 	 	
 	 	//空文字が入った場合の処理
-		if(estimateSheetId.equals("")) {estimateSheetId = null;} 
-		if(estimateDate.equals("")) {estimateDate = null;} 
-		if(deliveryInfo.equals("")) {deliveryInfo = null;} 
-		if(validDate.equals("")) {validDate = null;} 
-		if(userName.equals("")) {userName = null;} 
-		if(userId.equals("")) {userId = null;} 
-		if(title.equals("")) {title = null;} 
-		if(deliveryName.equals("")) {deliveryName = null;} 
-		if(estimateCondition.equals("")) {estimateCondition = null;} 
-		if(submitName.equals("")) {submitName = null;} 
-		if(submitPre.equals("")) {submitPre = null;} 
-		if(customerCode.equals("")) {customerCode = null;} 
-		if(customerName.equals("")) {customerName = null;} 
-		if(customerRemarks.equals("")) {customerRemarks = null;} 
-		if(customerComment.equals("")) {customerComment = null;} 
-		if(remarks.equals("")) {remarks = null;} 
-		if(memo.equals("")) {memo = null;} 
-		if(creDate.equals("")) {creDate = null;} 
-		if(creUser.equals("")) {creUser = null;} 
+		if(estimateSheetId == null || estimateSheetId.equals("")) {estimateSheetId = null;} 
+		if(estimateDate == null || estimateDate.equals("")) {estimateDate = null;} 
+		if(deliveryInfo == null || deliveryInfo.equals("")) {deliveryInfo = null;} 
+		if(validDate == null || validDate.equals("")) {validDate = null;} 
+		if(userName == null || userName.equals("")) {userName = null;} 
+		if(userId == null || userId.equals("")) {userId = null;} 
+		if(title == null || title.equals("")) {title = null;} 
+		if(deliveryName == null || deliveryName.equals("")) {deliveryName = null;} 
+		if(estimateCondition == null || estimateCondition.equals("")) {estimateCondition = null;} 
+		if(submitName == null || submitName.equals("")) {submitName = null;} 
+		if(submitPre == null || submitPre.equals("")) {submitPre = null;} 
+		if(customerCode == null || customerCode.equals("")) {customerCode = null;} 
+		if(customerName == null || customerName.equals("")) {customerName = null;} 
+		if(customerRemarks == null || customerRemarks.equals("")) {customerRemarks = null;} 
+		if(customerComment == null || customerComment.equals("")) {customerComment = null;} 
+		if(remarks == null || remarks.equals("")) {remarks = null;} 
+		if(memo == null || memo.equals("")) {memo = null;} 
+		if(creDate == null || creDate.equals("")) {creDate = null;} 
+		if(creUser == null || creUser.equals("")) {creUser = null;} 
 		
 		con = super.getConnection();
 
@@ -162,11 +162,11 @@ public class EstimateAddDAO extends BaseDAO {
 			creUser = bean.getCreUser();
 	 		
 			//空文字の場合の処理
-			if(productCode.equals("")) {productCode = null;}
+			if(productCode == null || productCode.equals("")) {productCode = null;}
 			if(productAbstract == null || productAbstract.equals("")) {productAbstract = "";}
 			if(productRemarks == null || productRemarks.equals("")) {productRemarks = "";}
-			if(creDate.equals("")) {creDate = null;}
-			if(creUser.equals("")) {creUser = null;}
+			if(creDate == null || creDate.equals("")) {creDate = null;}
+			if(creUser == null || creUser.equals("")) {creUser = null;}
 			
 	 		pstmt = con.prepareStatement(sql);
 	 		

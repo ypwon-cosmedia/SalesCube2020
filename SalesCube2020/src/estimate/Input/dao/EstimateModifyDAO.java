@@ -139,23 +139,24 @@ public class EstimateModifyDAO extends BaseDAO {
 		String updDate              = ldt.toString();
 	 	
 	 	//nullの場合の処理
-		if(estimateSheetId.equals("")) {estimateSheetId = null;}
-		if(estimateDate.equals("")) {estimateDate = null;}
-		if(deliveryInfo.equals("")) {deliveryInfo = null;}
-		if(validDate.equals("")) {validDate = null;}
-		if(title.equals("")) {title = null;}
-		if(deliveryName.equals("")) {deliveryName = null;}
-		if(estimateCondition.equals("")) {estimateCondition = null;}
-		if(submitName.equals("")) {submitName = null;}
-		if(submitPre.equals("")) {submitPre = null;}
-		if(customerCode.equals("")) {customerCode = null;}
-		if(customerName.equals("")) {customerName = null;}
-		if(customerRemarks.equals("")) {customerRemarks = null;}
-		if(customerComment.equals("")) {customerComment = null;}
-		if(remarks.equals("")) {remarks = null;}
-		if(memo.equals("")) {memo = null;}
-		if(updDate.equals("")) {updDate = null;}
-		if(updUser.equals("")) {updUser = null;}
+		if(estimateSheetId == null || estimateSheetId.equals("")) {estimateSheetId = null;} 
+		if(estimateDate == null || estimateDate.equals("")) {estimateDate = null;} 
+		if(deliveryInfo == null || deliveryInfo.equals("")) {deliveryInfo = null;} 
+		if(validDate == null || validDate.equals("")) {validDate = null;} 
+		if(title == null || title.equals("")) {title = null;} 
+		if(deliveryName == null || deliveryName.equals("")) {deliveryName = null;} 
+		if(estimateCondition == null || estimateCondition.equals("")) {estimateCondition = null;} 
+		if(submitName == null || submitName.equals("")) {submitName = null;} 
+		if(submitPre == null || submitPre.equals("")) {submitPre = null;} 
+		if(customerCode == null || customerCode.equals("")) {customerCode = null;} 
+		if(customerName == null || customerName.equals("")) {customerName = null;} 
+		if(customerRemarks == null || customerRemarks.equals("")) {customerRemarks = null;} 
+		if(customerComment == null || customerComment.equals("")) {customerComment = null;} 
+		if(remarks == null || remarks.equals("")) {remarks = null;} 
+		if(memo == null || memo.equals("")) {memo = null;} 
+		
+		if(updDate == null || updDate.equals("")) {updDate = null;}
+		if(updUser == null || updUser.equals("")) {updUser = null;}
 
 		con = super.getConnection();
 	 	

@@ -164,7 +164,7 @@
 						    	<div class="input-group-prepend">
 						    		<div class="input-group-text"  style="background-color: pink;">見積番号</div>
 						  		</div>
-						   	  <input type="text" class="form-control" id="inlineFormInputGroup" name="estimateSheetId" pattern="^[0-9A-Za-z]+$" onchange="idConfirm(this)" pattern="^[0-9A-Za-z]+$" title="※半角英数字" required>
+						   	  <input type="text" class="form-control" id="estimateSheetId" name="estimateSheetId" onchange="idCheck(this)" pattern="^[0-9A-Za-z]+$" title="※半角英数字" required>
 					  		</div>
               </div>
 
@@ -326,7 +326,7 @@
                     <div class="input-group-prepend">
                       <div class="input-group-text">顧客コード</div>
                     </div>
-                      <input type="text" class="form-control" name="customerCode" id="customerCode" onchange="inputGetCustomer(this)"  pattern="^[0-9A-Za-z]+$" title="※半角英数字">
+                      <input type="text" class="form-control" name="customerCode" id="inputCustomerCode" onchange="customerCodeCheck(this)"  pattern="^[0-9A-Za-z]+$" title="※半角英数字">
                       <button type="button" class="ModalButton"  data-toggle="modal" data-target="#customerSearch" onclick="initCustomer() ; getCutoffGroup()">
                         <img src="btn_search.png" style="vertical-align: middle; cursor: pointer; width: 32px; height: 32px;">
                       </button>
@@ -341,7 +341,7 @@
                     <div class="input-group-prepend">
                       <div class="input-group-text">顧客名</div>
                     </div>
-                    <input type="text" class="form-control" name="inputCustomerName" id="inputCustomerName" readonly>
+                    <input type="text" class="form-control" name="customerName" id="inputCustomerName" readonly>
                   </div>
                 </div>
               </div>
@@ -429,7 +429,7 @@
         <tbody>
           <tr id="tr1">
             <td rowspan="2">1</td>
-            <td rowspan="2" class="backpink"><input type="text" name="productCode" id="productCodeInput1" style="width: 110px;" onchange="inputGetProduct(this)" pattern="^[0-9A-Za-z]+$" title="※半角英数字" required>
+            <td rowspan="2" class="backpink"><input type="text" name="productCode" id="productCodeInput1" style="width: 110px;" onchange="productCodeCheck(this)" pattern="^[0-9A-Za-z]+$" title="※半角英数字" required>
               <button type="button" id="productSearch1" class="ModalButton"  data-toggle="modal" data-target="#setproductsearch" onclick="productSearchButton(this)" >
               	<img src="btn_search.png" style="vertical-align: middle; cursor: pointer; width: 22px; height: 22px;">
               </button></td>
@@ -499,7 +499,57 @@
 
 
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.2/jquery.min.js"></script>
-  <script>	
+  <script>
+  /* パターンチェック */
+  var hwa = "^[0-9A-Za-z]+$" //半角英数字のパターン 
+	
+	/* 見積番号の入力欄を変更したときのパターンチェック */
+	function idCheck(obj){
+		var inputEstimateSheetId = obj.value; //入力した見積番号取得
+		if(inputEstimateSheetId != ""){
+			if(inputEstimateSheetId.match(hwa)){ //入力した値が半角英数字か確認
+				idConfirm(inputEstimateSheetId); //半角英数字ならば入力した値が見積番号が登録されているか確認
+                return true;
+            }else{
+            	obj.reportValidity();	
+                return false;
+            }
+        }else{
+        }
+	}
+  
+	/* 顧客コードの入力欄を変更したときのパターンチェック */
+	function customerCodeCheck(obj){
+		var inputcustomerCode = obj.value; //入力した見積番号取得
+		if(inputcustomerCode != ""){
+			if(inputcustomerCode.match(hwa)){ //入力した値が半角英数字か確認
+				getCustomer(inputcustomerCode); //半角英数字ならば入力した値を基に顧客情報を取得
+                return true;
+            }else{
+            	obj.reportValidity();	
+                return false;
+            }
+        }else{
+        }
+	}
+	
+	/* 商品コードの入力欄を変更したときのパターンチェック */
+	function productCodeCheck(obj){
+		var inputproductCode = obj.value; //入力した見積番号取得
+		if(inputproductCode != ""){
+			if(inputproductCode.match(hwa)){ //入力した値が半角英数字か確認
+				var tableNo = obj.id.substr(16); //対象のtableNo：商品コードを入力したtableNo取得
+				getProduct(inputproductCode, tableNo); //半角英数字ならば入力した値を基に顧客情報を取得
+				
+                return true;
+            }else{
+            	obj.reportValidity();	
+                return false;
+            }
+        }else{
+        }
+	}
+	
 	/* Fn登録ボタン押下の時の処理 */
 	function fnAddButton() {		//Fn登録ボタンを押したときのEventを追加
   		document.getElementById("mainAddButton").click();
@@ -528,7 +578,7 @@
         $('#estimate > tbody:last').append(
           '<tr>' +
             '<td rowspan="2">' + tableNo + '</td>' +
-            '<td rowspan="2" class="backpink"><input type="text" name="productCode" id="productCodeInput' + tableNo + '" style="width: 110px;" onchange="inputGetProduct(this)" required>' +
+            '<td rowspan="2" class="backpink"><input type="text" name="productCode" id="productCodeInput' + tableNo + '" style="width: 110px;" onchange="productCodeCheck(this)" required>' +
               '<button type="button" id="productSearch' + tableNo + '" class="ModalButton"  data-toggle="modal" data-target="#setproductsearch" onclick="productSearchButton(this)">' +
               	'<img src="btn_search.png" style="vertical-align: middle; cursor: pointer; width: 22px; height: 22px;">' +
               '</button></td>' +
@@ -790,8 +840,7 @@
 	  }; 
 	  
 	  /* ajaxで見積番号に重複がないか確認 */
-	  function idConfirm(obj) {
-		  var inputEstimateSheetId = obj.value;
+	  function idConfirm(inputEstimateSheetId) {
 			$.ajax({
 				url:'/SalesCube2020/SalesCubeAJAX?action=confirmEstimateSheetId',
 				type:'post',
@@ -816,15 +865,9 @@
 			});
 		}
 	  
-	  /* 見積画面で入力した顧客コードで顧客情報を取得 */
-	  function inputGetCustomer(obj){
-		  var inputCustomerCode = obj.value;
-		  getCustomer(inputCustomerCode);
-	  }
-	  
-	  //顧客検索モーダル画面から取得した顧客コードで顧客情報取得
+	  /* 顧客検索モーダル画面から取得した顧客コードで顧客情報取得 */
 	  function selectCustomerCode(code, name){
-		document.getElementById('customerCode').value = code;
+		document.getElementById('inputCustomerCode').value = code;
 	  	getCustomer(code);
 	  }
 	  
@@ -860,13 +903,6 @@
 	  function selectProductModal(code, name){
 		document.getElementById('productCodeInput' + globalTableNo).value = code;
 		getProduct(code, globalTableNo);
-	  }
-	  
-	  /* 見積画面で選択した商品コードで商品情報を取得 */
-	  function inputGetProduct(obj){
-		  var productCodeInput = obj.value; //入力した商品コード
-		  var tableNo = obj.id.substr(16); //対象のtableNo：商品コードを入力したtableNo取得
-		  getProduct(productCodeInput, tableNo);
 	  }
 	  
 	  /* ajaxで入力した商品コードに対応する商品情報取得 */
