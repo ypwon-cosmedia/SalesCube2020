@@ -449,7 +449,7 @@
 							var headcontents= '';
 							headcontents += '<tr>';
 							for(var i = 0; i<Object.keys(data).length; i++) {
-								headcontents += '<th scope="col" class="th_back_black" onclick="sort('') '+data[i].itemName;
+								headcontents += '<th scope="col" class="th_back_black" onclick="estimateSearch2('+data[i].itemId+')"> '+data[i].itemName;
 							}
 							headcontents += '</tr>';
 							$('#resultHead').append(headcontents);								
@@ -459,16 +459,28 @@
 		  
 	   	
 	    //見積検索結果
-	    function estimateSearch2() {
+	    function estimateSearch2(itemId) {
 	   	 var formString = $("form[id=estimate]").serialize();
-	   	 
 			var tmp = "";
 			
 			$.ajax({
 				
 				url:'/SalesCube2020/SalesCubeAJAX?action=estimateSearch',
 				type:'post',
-				data:formString,
+				data:{
+					"estimateSheetId" : $("#estimateSheetId").val(),
+					"estimateDateStart" :$("#estimateDateStart").val(),
+					"estimateDateEnd" :
+					"validDateStart" :
+					"validDateEnd" :
+					"UserModalUserId" :
+					"UserModalNameKnj" :
+					"title" :
+					"remarks" :
+					"submitName" :
+					"CustomerModalCustomerCode" :
+					"CustomerModalCustomerName" :
+					"sorting" : itemId},
 				dataType:'json',
 				success:function(data){	
 					document.getElementById("resultCount").removeAttribute('hidden');//テーブルの表示

@@ -17,7 +17,7 @@ import sql.estimate.EstimateSQL;
 import user.beans.UserInfoBean;
 
 public class EstimateSearchDAO extends BaseDAO {
-	public List<String[]> estimateSearchResult(EstimateSearchBean bean, UserInfoBean user) throws SQLException, ClassNotFoundException{
+	public List<String[]> estimateSearchResult(EstimateSearchBean bean, UserInfoBean user, String sort) throws SQLException, ClassNotFoundException{
 		
 		List<EstimateConfigurationBean> list1 =new ArrayList<>();
 		List<String[]> list = new ArrayList<>();
@@ -33,85 +33,23 @@ public class EstimateSearchDAO extends BaseDAO {
 		stmt = con.createStatement();
 		
 		String estimateResult;
+		String column = "";
 		
 		list1 =  estimateConfiguration(user);
 		
 		
-		
-		
-		//見積検索の見出し部の決定
-		String row = "";
-		for(int i = 0; i < list1.size(); i++) {
-			switch(list1.get(i).getItemId()) {
-				case "estimateSheetId" :
-					row += "ESTIMATE_SHEET_ID, " ; 
-					break;
-				case "estimateDate" :
-					row += "ESTIMATE_DATE, ";
-					break;
-				case "deliveryInfo" :
-					row += "DELIVERY_INFO, ";
-					break;
-				case "validDate" :
-					row += "VALID_DATE, ";
-					break;
-				case "userId" :
-					row += "USER_ID, ";
-					break;
-				case "userName" :
-					row += "USER_NAME, ";
-					break;
-				case "title" :
-					row += "TITLE, ";
-					break;
-				case "remarks" :
-					row += "REMARKS, ";
-					break;
-				case "deliveryName" :
-					row += "DELIVERY_NAME, ";
-					break;
-				case "estimateCondition" :
-					row += "ESTIMATE_CONDITION, ";
-					break;
-				case "submitName" :
-					row += "SUBMIT_NAME , ";
-					break;
-				case "submitPre" :
-					row += "(ctx.CATEGORY_CODE_NAME) as SUBMIT_PRE, ";
-					break;
-				case "customerCode" :
-					row += "CUSTOMER_CODE, ";
-					break;
-				case "customerName" :
-					row += "CUSTOMER_NAME, ";
-					break;
-				case "grossMargin" :
-					row += "(RETAIL_PRICE_TOTAL - COST_TOTAL) as GrossProfit, ";
-					break;
-				case "grossMarginRate" :
-					row += "(ROUND((RETAIL_PRICE_TOTAL - COST_TOTAL)/RETAIL_PRICE_TOTAL*100,2)) as GrossProfitMargin, ";
-					break;
-				case "retailPriceTotal" :
-					row += "RETAIL_PRICE_TOTAL, ";
-					break;
-				case "ctaxPriceTotal" :
-					row += "CTAX_PRICE_TOTAL, ";
-					break;
-				case "estimateTotal" :
-					row += "ESTIMATE_TOTAL, ";
-					break;
-					
-			}
+		for(int i = 0 ; i < list1.size() ; i++) {
+			column += getColumn(list1.get(i).getItemId());
+			column += ",";
+			
 		}
-		row = row.substring(0, row.length()-2) + " ";
+		column = column.substring(0, column.length()-1) + " ";
 		
-		
+	
 		
 		//検索結果SQL
-		estimateResult = "select " +
-		
-					row +		
-		
+		estimateResult = "select " +		
+				column +						
 				"from " +
 				"ESTIMATE_SHEET_TRN_XXXXX " +
 				"left outer join " +
@@ -140,8 +78,9 @@ public class EstimateSearchDAO extends BaseDAO {
 				"(CUSTOMER_CODE " + stringIsNull(bean.getCustomerCode()) +
 				" AND " +
 				"(CUSTOMER_NAME " + stringIsNull(bean.getCustomerName()) +
-				" order by " +
-				"ESTIMATE_SHEET_ID ";
+				"orderby " +
+				sort ;
+				
 			
 		System.out.println("テスト"+ bean.getCustomerName());
 		System.out.println("テスト"+ estimateResult);
@@ -162,6 +101,8 @@ public class EstimateSearchDAO extends BaseDAO {
 			
 	}
 	
+	
+	
 	public String stringIsNull(String str) {
 		if(str == null || str.equals(""))
 			return "LIKE '%' OR 1 = 1) ";
@@ -170,9 +111,6 @@ public class EstimateSearchDAO extends BaseDAO {
 		
 		
 	}
-	
-
-	
 	
 	public String dateIsNull(String str1, String str2) {
 		
@@ -186,10 +124,8 @@ public class EstimateSearchDAO extends BaseDAO {
 			return "between '" + str1 + "' and '" + str2 + "') ";
 
 	}
-
-
-
-
+	
+	
 
 	public List<EstimateConfigurationBean> estimateConfiguration(UserInfoBean user) throws SQLException, ClassNotFoundException{
 		List<EstimateConfigurationBean> list1 =new ArrayList<>();
@@ -221,6 +157,74 @@ public class EstimateSearchDAO extends BaseDAO {
 		super.releaseDB(con,stmt,result);
 		
 		return list1;
+	}
+	
+	
+	public String getColumn(String itemId) throws SQLException, ClassNotFoundException{
+		String row="";
+		
+		switch(itemId) {
+		case "estimateSheetId" :
+			row += "ESTIMATE_SHEET_ID" ; 
+			break;
+		case "estimateDate" :
+			row += "ESTIMATE_DATE";
+			break;
+		case "deliveryInfo" :
+			row += "DELIVERY_INFO";
+			break;
+		case "validDate" :
+			row += "VALID_DATE";
+			break;
+		case "userId" :
+			row += "USER_ID";
+			break;
+		case "userName" :
+			row += "USER_NAME";
+			break;
+		case "title" :
+			row += "TITLE";
+			break;
+		case "remarks" :
+			row += "REMARKS";
+			break;
+		case "deliveryName" :
+			row += "DELIVERY_NAME";
+			break;
+		case "estimateCondition" :
+			row += "ESTIMATE_CONDITION";
+			break;
+		case "submitName" :
+			row += "SUBMIT_NAME ";
+			break;
+		case "submitPre" :
+			row += "(ctx.CATEGORY_CODE_NAME) as SUBMIT_PRE";
+			break;
+		case "customerCode" :
+			row += "CUSTOMER_CODE";
+			break;
+		case "customerName" :
+			row += "CUSTOMER_NAME";
+			break;
+		case "grossMargin" :
+			row += "(RETAIL_PRICE_TOTAL - COST_TOTAL) as GrossProfit";
+			break;
+		case "grossMarginRate" :
+			row += "(ROUND((RETAIL_PRICE_TOTAL - COST_TOTAL)/RETAIL_PRICE_TOTAL*100,2)) as GrossProfitMargin";
+			break;
+		case "retailPriceTotal" :
+			row += "RETAIL_PRICE_TOTAL";
+			break;
+		case "ctaxPriceTotal" :
+			row += "CTAX_PRICE_TOTAL";
+			break;
+		case "estimateTotal" :
+			row += "ESTIMATE_TOTAL";
+			break;
+			
+	}
+		return row;
+		
 	}
 }
 
