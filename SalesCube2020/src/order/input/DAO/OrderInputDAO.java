@@ -14,6 +14,39 @@ import order.input.beans.OrderInputBean;
 import sql.order.OrderSQL;
 
 public class OrderInputDAO extends BaseDAO{
+	
+	public String checkRoSlipId(Integer roSlipId) throws SQLException, ClassNotFoundException{
+		
+		OrderInputBean bean = new OrderInputBean();
+		
+		Connection con;
+	 	PreparedStatement stmt = null;
+	 	ResultSet result = null;	
+	 	String sql;
+	 	String str;
+	 	
+	 	con = super.getConnection();
+
+	 	sql = "SELECT RO_SLIP_ID " +
+	 			"FROM ro_slip_trn_xxxxx " +
+	 			"WHERE RO_SLIP_ID = " + roSlipId;
+	 	
+	 	stmt = con.prepareStatement(sql);
+	 	System.out.println(sql);
+	 	
+	 	result = stmt.executeQuery(sql);
+	 	
+	 	if(result.next()) {
+	 		bean.setRoSlipId(result.getInt("RO_SLIP_ID"));
+	 		str = "exist";
+	 	}else {
+	 		str = "not exist";
+	 	}
+	 		
+	 	System.out.println(str);
+	 	return str;
+	 
+	}
 
 	public int deleteOrder(String roSlipId) throws SQLException, ClassNotFoundException{
 
@@ -674,9 +707,11 @@ public class OrderInputDAO extends BaseDAO{
 	 	
 	 	System.out.println(sql);
 	 	result = stmt.executeQuery(sql);
+	 	System.out.println(sql);
 	 	
 	 	while (result.next()) {
 	 		OrderInputBean bean = new OrderInputBean();
+	 		bean.setLineNo(result.getString("rltx.LINE_NO"));
 	 		bean.setProductCode(result.getString("rltx.PRODUCT_CODE"));
 	 		bean.setProductName(result.getString("pmx.PRODUCT_NAME"));
 	 		bean.setProductRemarks(result.getString("pmx.REMARKS"));
@@ -712,6 +747,7 @@ public class OrderInputDAO extends BaseDAO{
 	 	OrderSQL ordersql = new OrderSQL();
 	 	sql = ordersql.productToDetail(productCode);
 	 	
+	 	System.out.println(sql);
 	 	result = stmt.executeQuery(sql);
 	 	
 	 	if (result.next()) {
@@ -720,6 +756,7 @@ public class OrderInputDAO extends BaseDAO{
 		 	bean.setRemarks(result.getString("pmx.REMARKS"));
 		 	bean.setRackCode(result.getString("pmx.RACK_CODE"));
 		 	bean.setQuantity(result.getInt("rltn.QUANTITY"));
+		 	bean.setUnitCost(result.getInt("rltn.UNIT_COST"));
 		 	bean.setCost(result.getInt("rltn.COST"));
 		 	bean.setUnitRetailPrice(result.getInt("rltn.UNIT_RETAIL_PRICE"));
 		 	bean.setRetailPrice(result.getInt("rltn.RETAIL_PRICE"));

@@ -230,6 +230,7 @@ public class OrderSQL {
 		String sql;
 		
 		sql = "SELECT DISTINCT " + 
+				"dmx.DELIVERY_CODE, " + 
 				"dmx.DELIVERY_NAME, " + 
 				"dmx.DELIVERY_OFFICE_NAME, " + 
 				"dmx.DELIVERY_DEPT_NAME, " + 
@@ -544,6 +545,7 @@ public class OrderSQL {
 		String sql;
 		
 		sql = "SELECT DISTINCT " + 
+				"rltx.LINE_NO, " +
 				"rltx.PRODUCT_CODE, " + 
 				"pmx.PRODUCT_NAME, " + 
 				"pmx.REMARKS, " + 
@@ -1215,6 +1217,7 @@ public class OrderSQL {
 				"pmx.REMARKS, " + 
 				"pmx.RACK_CODE, " + 
 				"rltn.QUANTITY, " + 
+				"rltn.UNIT_COST, " + 
 				"rltn.COST, " + 
 				"rltn.UNIT_RETAIL_PRICE, " + 
 				"rltn.RETAIL_PRICE, " + 
@@ -1416,7 +1419,7 @@ public class OrderSQL {
 				"USING(CUSTOMER_CODE) " + 
 				"LEFT OUTER JOIN (SELECT * FROM category_trn_xxxxx WHERE CATEGORY_ID='10') AS d " + 
 				"ON dmx.DELIVERY_PC_PRE_CATEGORY=d.CATEGORY_CODE " + 
-				"WHERE cmx.CUSTOMER_CODE = '" + customerCode +"'" + 
+				"WHERE cmx.CUSTOMER_CODE = '" + customerCode +"' " + 
 				"ORDER BY dmx.DELIVERY_CODE";
 		
 		return sql;

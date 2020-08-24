@@ -61,7 +61,7 @@ public class OrderCommonBillBean {
 	/* コメント */
 	private String customerCommentData;
 	
-	/* 顧客コード */
+	/* 納入先コード */
 	private String deliveryCode;
 	
 	public String getDeliveryCode() {

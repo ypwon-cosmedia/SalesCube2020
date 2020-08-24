@@ -64,8 +64,8 @@
 			<div class="btn-toolbar float-right" role="toolbar" aria-label="Toolbar with button groups">  
 				<div class="btn-group mr-2 " role="group" aria-label="First group">
 					<button type="button" class="btn btn-secondary" style="font-size: 12px;" onclick="initForm();" >F1<br>初期化</button>
-					<form action="/SalesCube2020/SalesCube?action=deleteOrder" method="post">
-						<input type="submit" value="F2削除" class="btn btn-secondary h-100" style="font-size: 12px;" >
+					<form action="/SalesCube2020/SalesCube?action=deleteOrder" method="post" >
+						<input type="submit" value="F2削除" class="btn btn-secondary h-100" style="font-size: 12px;" onclick="return confirm('このデータを削除しますか？')">
 						<input type="hidden" id="roSlipId" name="roSlipId" value="${order.roSlipId}">
 					</form>
 					<button type="button" class="btn btn-secondary" style="font-size: 12px;" onclick="returnForm();">F3<br>戻る</button>
@@ -463,54 +463,54 @@
 				<tbody id = "orderbody">
 				<c:forEach items="${orderlist}" var="list">
 					<tr>
-						<td rowspan="6"><span id="tableLineNo1">1</span></td>
+						<td rowspan="6"><span id="tableLineNo${list.lineNo}">${list.lineNo}</span></td>
 						<td rowspan="6">
-							<input type="text" value="${list.productCode}" class="form-control" size="2" style="width:100%" id="productCodeInput1" name="productCodeInput">
-							<button type="button" class="btn btn-outline-secondary" data-toggle="modal" data-target="#setproductsearch" onclick="productCodetoModal(this);" id="setproductsearch1">検索</button>
+							<input type="text" value="${list.productCode}" class="form-control" size="2" style="width:100%" id="productCodeInput${list.lineNo}" name="productCodeInput">
+							<button type="button" class="btn btn-outline-secondary" data-toggle="modal" data-target="#setproductsearch" onclick="productCodetoModal(this);" id="setproductsearch${list.lineNo}">検索</button>
 						</td>
-						<td rowspan="3"><span id="productName1">${list.productName}</span></td>
+						<td rowspan="3"><span id="productName${list.lineNo}">${list.productName}</span></td>
 						<td rowspan="2">
-							<input type="text" value="${list.rackCode}" class="form-control" size="2" id="rackCode1" name="rackCode" readonly>
+							<input type="text" value="${list.rackCode}" class="form-control" size="2" id="rackCode${list.lineNo}" name="rackCode" readonly>
 						</td>
 						<td rowspan="3">
-							<input type="text" value="${list.unitCost}" class="form-control" size="4" name="unitCost" id="unitCost1" name="unitCost" readonly>
+							<input type="text" value="${list.unitCost}" class="form-control" size="4" name="unitCost" id="unitCost${list.lineNo}" name="unitCost" readonly>
 						</td>
 						<td rowspan="3">
-							<input type="text" value="${list.unitRetailPrice}" class="form-control" size="4" name="unitRetailPrice" id="unitRetailPrice1" name="unitRetailPrice" onchange="quantityCalc2(this)">
+							<input type="text" value="${list.unitRetailPrice}" class="form-control" size="4" name="unitRetailPrice" id="unitRetailPrice${list.lineNo}" name="unitRetailPrice" onchange="quantityCalc2(this)">
 						</td>
 						<td rowspan="3">
-							<textarea name="productRemarks" class="form-control" cols="10" id="inputProductRemarks1" name="inputProductRemarks">${list.inputProductRemarks}</textarea>
+							<textarea name="productRemarks" class="form-control" cols="10" id="inputProductRemarks${list.lineNo}" name="inputProductRemarks">${list.inputProductRemarks}</textarea>
 						</td>
 						<td rowspan="3" class="align: middle">
-							<button type="button" class="btn btn-outline-secondary" onclick="deleteLineForm(this);" id="deleteLineForm1">削除</button>
+							<button type="button" class="btn btn-outline-secondary" onclick="deleteLineForm(this);" id="deleteLineForm${list.lineNo}">削除</button>
 						</td>
 					</tr>
 					<tr></tr>
 					<tr>
 						<td rowspan="2">
-							<input type="text" value="${list.quantity}" class="form-control" size="2" name="quantity" id="quantity1" name="quantity" onchange="quantityCalc1(this)">
+							<input type="text" value="${list.quantity}" class="form-control" size="2" name="quantity" id="quantity${list.lineNo}" name="quantity" onchange="quantityCalc1(this)">
 						</td>
 					</tr>
 					<tr>
 						<td rowspan="3">
-							<textarea name="productRemarks" class="form-control" cols="10" id="productRemarks1" name="productRemarks" readonly>${list.productRemarks}</textarea>
+							<textarea name="productRemarks" class="form-control" cols="10" id="productRemarks${list.lineNo}" name="productRemarks" readonly>${list.productRemarks}</textarea>
 						</td>
 						<td rowspan="3">
-							<input type="text" value="${list.cost}" class="form-control" size="4" name="cost" id="cost1" name="cost" readonly>
+							<input type="text" value="${list.cost}" class="form-control" size="4" name="cost" id="cost${list.lineNo}" name="cost" readonly>
 						</td>
 						<td rowspan="3">
-							<input type="text" value="${list.retailPrice}" class="form-control" size="4" name="retailPrice" id="retailPrice1" name="retailPrice" readonly>
+							<input type="text" value="${list.retailPrice}" class="form-control" size="4" name="retailPrice" id="retailPrice${list.lineNo}" name="retailPrice" readonly>
 						</td>
 						<td rowspan="3">
-							<textarea name="eadRemarks" class="form-control" cols="10" id="eadRemarks1" name="eadRemarks">${list.eadRemarks}</textarea>
+							<textarea name="eadRemarks" class="form-control" cols="10" id="eadRemarks${list.lineNo}" name="eadRemarks">${list.eadRemarks}</textarea>
 						</td>
 						<td rowspan="3">
-							<button type="button" value="" class="btn btn-outline-secondary" id="reprintForm1" disabled>前行複写</button>
+							<button type="button" value="" class="btn btn-outline-secondary" id="reprintForm${list.lineNo}" ${list.lineNo > 1 ? '' :"disabled"} onclick='reprintForm(this);'>前行複写</button>
 						</td>
 					</tr>
 					<tr>
 						<td rowspan="2">
-							<button type="button" class="btn btn-outline-secondary" data-toggle="modal" data-target="#openSearchStock" id="openSearchStock1" onclick="openStock(this)">在庫</button>
+							<button type="button" class="btn btn-outline-secondary" data-toggle="modal" data-target="#openSearchStock" id="openSearchStock${list.lineNo}" onclick="openStock(this)">在庫</button>
 						</td>
 					</tr>
 					<tr></tr>
@@ -665,16 +665,6 @@
 				if(test == false){
 					return;
 				}
-			}
-	
-			/* データ削除 */
-			function deleteForm() {
-				if(!confirm("このデータを削除しますか？")) {
-					return;
-				}
-				var form = document.deleteform;
-				form.orderUpdate.action="";
-				form.orderUpdate.submit();
 			}
 	
 			/* 前行複写 */
@@ -859,9 +849,9 @@
 					}
 				}
 				target = document.getElementById("retailPriceTotal");
-				target.innerHTML = '￥' + (sum2 - sum1);
+				target.innerHTML = '￥' + sum2;
 
-				/* 粗利益 : 売上金額-仕入金額 */
+				///* 粗利益 : 売価金額-仕入金額 */
 				var hairetsu3 = document.getElementsByName("cost");
 				var hairetsu4 = document.getElementsByName("retailPrice");
 				var sum3 = 0;
@@ -883,26 +873,27 @@
 
 				/* 粗利益率 : (粗利益/金額合計)*100 */
 				target = document.getElementById("grossProfitRatio");
-				if((sum4 - sum3) != null && (sum4 - sum3) !="" && (sum2 - sum1) != null && (sum2 - sum1) != ""){
-					target.innerHTML = ((sum4 - sum3) / (sum2 - sum1)) * 100 + '%';
+				if((sum4 - sum3) != null && (sum4 - sum3) !="" && sum2 != null && sum2 != ""){
+					target.innerHTML = Math.floor(((sum4 - sum3) / sum2) * 100 * 100) / 100 + '%';
 				}
 
-				/* 消費税 : 売上単価*(1+消費税率) */
-				var ctaxRate = (parseInt(document.getElementById("ctaxRate").value)) /100;
+				/* 消費税 : 金額合計*消費税率 */
 				target = document.getElementById("ctaxPriceTotal");
-				target.innerHTML = '￥' + parseInt(sum4 * ctaxRate);
-
+				if(document.getElementById("ctaxRate").value == null || document.getElementById("ctaxRate").value == ""){
+					target.innerHTML = '￥0';
+				}else{
+					var ctaxRate = (parseInt(document.getElementById("ctaxRate").value)) /100;
+					target.innerHTML = '￥' + parseInt((sum2 - sum1) * ctaxRate);
+				}
+				
 				/* 伝票合計 : 金額合計+消費税 */
 				target = document.getElementById("priceTotal");
-				target.innerHTML = '￥' + parseInt((sum2 - sum1) + (sum4 * ctaxRate));
-			}
-
-			/* 顧客モーダルから親画面にリンク */
-			function selectCustomerCode(){
-				var customerCode = document.getElementById("modalCustomerCode").innerText;
-				var customerName = document.getElementById("modalCustomerName").innerText;
-				document.getElementById("customerCodeInput").value = customerCode;
-				document.getElementById("customerNameInput").value = customerName;
+				if(document.getElementById("ctaxRate").value == null || document.getElementById("ctaxRate").value == ""){
+					target.innerHTML = '￥' + parseInt(sum2 - sum1);
+				}else{
+					var ctaxRate = (parseInt(document.getElementById("ctaxRate").value)) /100;
+					target.innerHTML = '￥' + parseInt((sum2 - sum1) * ctaxRate);
+				}
 			}
 
 			/* 商品モーダルから親画面にリンク */
@@ -1017,7 +1008,7 @@
 				success:function(data){
 					var tmp = JSON.parse(data.bean);
 					if(tmp['customerName'] == null || tmp['customerName'] == ""){
-						alert("該当する顧客情報は存在しません");
+						tmp['customerName'] = "";
 					} else {
 						document.getElementById('customerNameInput').value = tmp['customerName'];
 					}
