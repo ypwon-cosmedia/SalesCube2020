@@ -161,8 +161,9 @@ public class OrderSQL {
 				"(SUBMIT_NAME LIKE '" + bean.getSubmitName()  +
 			") AND " +
 				"(TITLE LIKE '" + bean.getTitle() + 
-			") GROUP BY " +
-				"ESTIMATE_SHEET_ID " +
+			") AND CUSTOMER_CODE IS NOT NULL "
+			+ "GROUP BY " +
+				"ESTIMATE_SHEET_ID " +		
 			"ORDER BY " + 
 				"ESTIMATE_SHEET_ID";
 		

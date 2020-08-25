@@ -239,7 +239,7 @@
 									<div class="input-group-text" style = "background-color: pink;">顧客コード</div>
 								</div>
 								<input type="text" value="${stockCustomer.customerCode}" class="form-control" id="customerCodeInput" maxlength='15' data-required-error="顧客コードは入力必須項目です" name="customerCode" onchange="customerInfo()" required>
-								<button type="button" class="btn btn-outline-secondary" data-toggle="modal" data-target="#customerSearch" onclick="customerCodetoModal();">検索</button>
+								<button type="button" class="btn btn-outline-secondary" data-toggle="modal" data-target="#customerSearch" onclick="customerCodetoModal();getCutoffGroup();">検索</button>
 							</div>
 						</div>
 						<div class="col-4">
@@ -842,7 +842,7 @@
 			}
 
 			/* 顧客モーダルから親画面にリンク */
-			function selectcustomerCode(code, name){
+			function selectCustomerCode(code, name){
 				alert();
 				document.getElementById("customerCodeInput").value = code;
 				document.getElementById("customerNameInput").value = name;
@@ -1160,10 +1160,10 @@
 			});
 		}
 		
-		window.onload = function(){
-			var taxRate = ${stockTaxRate.ctaxRate};
-			var ctaxRate =  ${initTR.ctaxRate};
-		}
+//		window.onload = function(){
+//			var taxRate = ${stockTaxRate.ctaxRate};
+//			var ctaxRate =  ${initTR.ctaxRate};
+//		}
 			
 		</script>
 	</body>
