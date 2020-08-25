@@ -608,10 +608,19 @@
 		var exists = false; 
 		$('#showSearchResult option').each(function(){ if (this.value == 'roSlipId') { exists = true; return false; } });
 		
+		var checkID = document.getElementById("showSearchResult");
+		var indexID = checkID[0].value;
+				
 		if(exists == false){
 			initConfig();
 			alert("error");
 			document.getElementById("configModalConfirm").removeAttribute("data-dismiss");
+		}
+		
+		if(indexID != 'roSlipId'){
+			initConfig();
+			alert("error");
+			document.getElementById("configModalConfirm").removeAttribute("data-dismiss");		
 		}
 		
 		var e = document.getElementById("select_view");
@@ -922,7 +931,12 @@
 									tmp = Math.floor(data[i][j]);
 								else
 									tmp = data[i][j];
-								headcontents += '<td>' + tmp + '</td>';
+								
+								if(j == 0){
+									headcontents += '<td><a href="/SalesCube2020/SalesCube?action=orderupdate&roSlipId='+tmp+'">' + tmp + '</a></td>';
+								} else {
+									headcontents += '<td>' + tmp + '</td>';
+								}
 							}
 							
 							headcontents += '</tr>';

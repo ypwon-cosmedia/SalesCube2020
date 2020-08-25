@@ -13,7 +13,6 @@ import estimate.common.controller.EstimateConfigurationModalAJAXController;
 import estimate.common.controller.UserModalAJAXController;
 import order.common.bill.Controller.OrderCommonBillController;
 import order.input.controller.ProductToOrder;
-import order.online.controller.OrderOnlineAJAXController;
 import order.search.controller.OrderSearchAJAXController;
 
 public class CreateAJAXControllers {
@@ -30,7 +29,6 @@ public class CreateAJAXControllers {
 		BaseAJAXController customerAJAX = new CustomerModalAJAXController();
 		BaseAJAXController userAJAX = new UserModalAJAXController();
 		BaseAJAXController estimateInputCommonAJAX = new EstimateInputCommonController();
-		BaseAJAXController onlineAJAX = new OrderOnlineAJAXController();
 		BaseAJAXController estimateSearchAJAX = new EstimateSearchAJAXController();
 		BaseAJAXController stock = new StockController();
 		BaseAJAXController bill = new OrderCommonBillController();
@@ -64,8 +62,6 @@ public class CreateAJAXControllers {
 		map.put("estimateCustomerSearch", estimateInputCommonAJAX);
 		map.put("estimateProductSearch", estimateInputCommonAJAX);
 		map.put("confirmEstimateSheetId", estimateInputCommonAJAX);
-		
-		map.put("uploadcsv", onlineAJAX);
 		
 		map.put("pcodetoinfo", orderInput);
 		map.put("deliverytoinfo", orderInput);

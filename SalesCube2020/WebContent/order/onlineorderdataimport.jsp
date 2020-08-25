@@ -55,8 +55,6 @@
 	<br>
     <div class="container" id="main_function">
       <h3 class="float-left">オンライン受注データ取込</h3>
-      <br><br><span></span>
-   
       
       <div class="btn-toolbar float-right" role="toolbar" aria-label="Toolbar with button groups">
         
