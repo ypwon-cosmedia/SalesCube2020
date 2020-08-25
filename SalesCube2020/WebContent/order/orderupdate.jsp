@@ -9,7 +9,7 @@
 	
 		<%@ include file="/common/productSearch.jsp" %>
 		<%@ include file="/common/bill.jsp" %>
-		<%@ include file="/common/_customerSearch.jsp" %>
+		<%@ include file="../common/_customerSearch.jsp" %>
 		<%@ include file="/common/stock.jsp" %>
 		
 		<!-- Required meta tags -->
@@ -73,7 +73,7 @@
 						<button type="button" class="btn btn-secondary" style="font-size: 12px;" onclick="updateForm();">F4<br>更新</button>
 					</form>
 					<button type="button" class="btn btn-secondary" style="font-size: 12px;" disabled>F5<br></button>
-					<button type="button" class="btn btn-secondary" style="font-size: 12px;" data-toggle="modal" data-target="#openOrder">F6<br>伝票呼出</button>
+					<button type="button" class="btn btn-secondary" style="font-size: 12px;" data-toggle="modal" data-target="#openOrder" onclick="orderForm()" id="billopen">F6<br>伝票呼出</button>
 					<button type="button" class="btn btn-secondary" style="font-size: 12px;" disabled>F7<br></button>
 					<button type="button" class="btn btn-secondary" style="font-size: 12px;" disabled>F8<br></button>
 					<button type="button" class="btn btn-secondary" style="font-size: 12px;" disabled>F9<br></button>
@@ -184,8 +184,9 @@
 									<div class="input-group-text">配送業者</div>
 								</div>
 								<select class="custom-select" name="dcName">
+								<option></option>
 									<c:forEach items="${initDcName}" var="initDN">
-										<option value="${initDN.categoryCode}">${initDN.categoryCodeName}</option>
+										<option value="${initDN.categoryCode}" id="dcName" <c:if test="${order.dcName == initDN.categoryCodeName}">selected</c:if>>${initDN.categoryCodeName}</option>
 									</c:forEach>
 								</select>
 							</div>
@@ -199,8 +200,9 @@
 									<div class="input-group-text">配送時間帯</div>
 								</div>
 								<select class="custom-select" name="dcTimeZone">
+								<option></option>
 									<c:forEach items="${initDcTimezone}" var="initDT">
-										<option value="${initDT.categoryCode}">${initDT.categoryCodeName}</option>
+										<option value="${initDT.categoryCode}" id="dcTimezone" <c:if test="${order.dcTimezone == initDT.categoryCodeName}">selected</c:if>>${initDT.categoryCodeName}</option>
 									</c:forEach>
 								</select>
 							</div>
@@ -212,8 +214,9 @@
 									<div class="input-group-text">消費税率</div>
 								</div>
 								<select class="custom-select" name="ctaxRate">
+										<option></option>
 									<c:forEach items="${initTaxRate}" var="initTR">
-										<option value="${initTR.ctaxRate}" id="ctaxRate">${initTR.ctaxRate}</option>
+										<option value="${initTR.ctaxRate}" id="ctaxRate"<c:if test="${order.ctaxRate == initTR.ctaxRate}">selected</c:if>>${initTR.ctaxRate}</option>
 									</c:forEach>
 								</select>
 							</div>
@@ -237,7 +240,7 @@
 									<div class="input-group-text" style = "background-color: pink;">顧客コード</div>
 								</div>
 								<input type="text" value="${order.customerCode}" class="form-control" id="customerCodeInput" name="customerCodeInput" onchange="customerInfo()" required>
-								<button type="button" class="btn btn-outline-secondary" data-toggle="modal" data-target="#customersearch" onclick="customerCodetoModal();">検索</button>
+								<button type="button" class="btn btn-outline-secondary" data-toggle="modal" data-target="#customerSearch" onclick="customerCodetoModal();getCutoffGroup();">検索</button>
 							</div>
 						</div>
 						<div class="col-4">
@@ -465,8 +468,8 @@
 					<tr>
 						<td rowspan="6"><span id="tableLineNo${list.lineNo}">${list.lineNo}</span></td>
 						<td rowspan="6">
-							<input type="text" value="${list.productCode}" class="form-control" size="2" style="width:100%" id="productCodeInput${list.lineNo}" name="productCodeInput">
-							<button type="button" class="btn btn-outline-secondary" data-toggle="modal" data-target="#setproductsearch" onclick="productCodetoModal(this);" id="setproductsearch${list.lineNo}">検索</button>
+							<input type="text" value="${list.productCode}" class="form-control" size="2" style="width:100%" id="productCodeInput1"  maxlength='20' name="productCode" onchange="pCode(this)">
+							<button type="button" class="btn btn-outline-secondary" data-toggle="modal" data-target="#setproductsearch" onclick="productCodetoModal(this);initProductModal();" id="setproductsearch${list.lineNo}">検索</button>
 						</td>
 						<td rowspan="3"><span id="productName${list.lineNo}">${list.productName}</span></td>
 						<td rowspan="2">
@@ -660,10 +663,13 @@
 	
 			/* 伝票呼出 */
 			function orderForm() {
+				var modal = document.getElementById("billopen");
 				var test = confirm("未登録の入力内容を破棄し伝票呼出してもよろしいですか？");
-				test;
-				if(test == false){
+				if(test == false){					
+					modal.removeAttribute("data-toggle");
 					return;
+				}else{
+					modal.setAttribute("data-toggle","modal");
 				}
 			}
 	
@@ -730,7 +736,7 @@
 					+ '<td rowspan="6"><span id="tableLineNo' + tableNo + '">' + tableNo + '</span></td>'
 					+ '<td rowspan="6">'
 						+ '<input type="text" value="" class="form-control" size="2" style="width:100%" name="productCodeInput" id="productCodeInput' + tableNo + '"  onchange="pCode(this)">'
-						+ '<button type="button" class="btn btn-outline-secondary" data-toggle="modal" data-target="#setproductsearch" onclick="productCodetoModal(this);" id="setproductsearch' + tableNo + '">検索</button>'
+						+ '<button type="button" class="btn btn-outline-secondary" data-toggle="modal" data-target="#setproductsearch" onclick="productCodetoModal(this);initProductModal();" id="setproductsearch' + tableNo + '">検索</button>'
 					+ '</td>'
 					+ '<td rowspan="3"><span name="productName" id="productName' + tableNo + '"></span></td>'
 					+ '<td rowspan="2"><input name="rackCode" type="text" value="" class="form-control" size="2" id="rackCode' + tableNo + '" readonly></td>'
@@ -883,16 +889,16 @@
 					target.innerHTML = '￥0';
 				}else{
 					var ctaxRate = (parseInt(document.getElementById("ctaxRate").value)) /100;
-					target.innerHTML = '￥' + parseInt((sum2 - sum1) * ctaxRate);
+					target.innerHTML = '￥' + parseInt(sum2 * ctaxRate);
 				}
 				
 				/* 伝票合計 : 金額合計+消費税 */
 				target = document.getElementById("priceTotal");
 				if(document.getElementById("ctaxRate").value == null || document.getElementById("ctaxRate").value == ""){
-					target.innerHTML = '￥' + parseInt(sum2 - sum1);
+					target.innerHTML = '￥' + parseInt(sum2);
 				}else{
 					var ctaxRate = (parseInt(document.getElementById("ctaxRate").value)) /100;
-					target.innerHTML = '￥' + parseInt((sum2 - sum1) * ctaxRate);
+					target.innerHTML = '￥' + parseInt(sum2 * (ctaxRate+1));
 				}
 			}
 
@@ -913,6 +919,22 @@
 			function customerCodetoModal(obj){
 				var customerCode = document.getElementById("customerCodeInput").value;
 				document.getElementById("inputCustomerCode").value = customerCode;
+			}
+			/* 顧客モーダルから親画面にリンク */
+			function selectCustomerCode(code, name){
+				document.getElementById("customerCodeInput").value = code;
+				document.getElementById("customerNameInput").value = name;
+				customerInfo(code);
+			}
+			/* 商品モーダルから親画面にリンク */
+			function selectProductModal(code, name){
+				var tableNo = globalTmp.substr(16);
+				document.getElementById("productCodeInput" + tableNo).value = code;
+				document.getElementById("productName" + tableNo).innerHTML = name;
+				
+				var tmp = document.getElementById("productCodeInput" + tableNo);
+				
+				pCode(tmp);
 			}
 
 			/* 親画面から商品モーダルに商品コードを渡す */

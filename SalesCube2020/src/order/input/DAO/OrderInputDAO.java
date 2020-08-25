@@ -651,6 +651,7 @@ public class OrderInputDAO extends BaseDAO{
 	 	
 	 	OrderSQL ordersql = new OrderSQL();
 	 	sql1 = ordersql.moveOrderUpdateInfo(roSlipId);
+	 	System.out.println(sql1);
 	 	
 	 	result = stmt.executeQuery(sql1);
 
@@ -664,7 +665,8 @@ public class OrderInputDAO extends BaseDAO{
 	 		bean.setUserName(result.getString("rstx.USER_NAME"));
 	 		bean.setRemarks(result.getString("rstx.REMARKS"));
 	 		bean.setDcName(result.getString("rstx.DC_NAME"));
-	 		bean.setDcTimezone(result.getString("rstx.DC_TIMEZONE"));
+	 		bean.setDcTimezone(result.getString("d.CATEGORY_CODE_NAME"));
+	 		bean.setDcTimezoneCategory(result.getString("d.CATEGORY_CODE"));
 	 		bean.setCtaxRate(result.getString("rstx.CTAX_RATE"));
 	 		bean.setCustomerCode(result.getString("rstx.CUSTOMER_CODE"));
 	 		bean.setCustomerName(result.getString("rstx.CUSTOMER_NAME"));

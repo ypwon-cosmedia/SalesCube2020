@@ -161,8 +161,8 @@ public class OrderSQL {
 				"(SUBMIT_NAME LIKE '" + bean.getSubmitName()  +
 			") AND " +
 				"(TITLE LIKE '" + bean.getTitle() + 
-			") AND CUSTOMER_CODE IS NOT NULL "
-			+ "GROUP BY " +
+			") AND (CUSTOMER_CODE IS NOT NULL AND CUSTOMER_CODE != '') " +
+			"GROUP BY " +
 				"ESTIMATE_SHEET_ID " +		
 			"ORDER BY " + 
 				"ESTIMATE_SHEET_ID";
@@ -498,7 +498,8 @@ public class OrderSQL {
 				"rstx.USER_NAME, " + 
 				"rstx.REMARKS, " + 
 				"rstx.DC_NAME, " + 
-				"rstx.DC_TIMEZONE, " + 
+				"d.CATEGORY_CODE_NAME, " + 
+				"d.CATEGORY_CODE, " +
 				"rstx.CTAX_RATE, " + 
 				"rstx.CUSTOMER_CODE, " + 
 				"rstx.CUSTOMER_NAME, " + 
@@ -533,6 +534,8 @@ public class OrderSQL {
 					"(SELECT * FROM category_trn_xxxxx WHERE CATEGORY_ID='32') AS c " + 
 				"ON " + 
 				"rstx.SALES_CM_CATEGORY = (c.CATEGORY_CODE + 1) " + 
+				"LEFT OUTER JOIN (SELECT CATEGORY_CODE, CATEGORY_CODE_NAME FROM category_trn_xxxxx WHERE CATEGORY_ID='37') AS d " + 
+				"ON rstx.DC_TIMEZONE_CATEGORY = d.CATEGORY_CODE " +
 			"WHERE " + 
 				"RO_SLIP_ID = '" + roSlipId + "'";
 		

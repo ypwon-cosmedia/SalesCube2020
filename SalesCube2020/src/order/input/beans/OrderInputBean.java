@@ -72,6 +72,16 @@ public class OrderInputBean {
 	/* 配送時間帯 */
 	private String dcTimezone;
 	
+	private String dcTimezoneCategory;
+	
+	public String getDcTimezoneCategory() {
+		return dcTimezoneCategory;
+	}
+
+	public void setDcTimezoneCategory(String dcTimezoneCategory) {
+		this.dcTimezoneCategory = dcTimezoneCategory;
+	}
+
 	/* 消費税率 */
 	private String ctaxRate;
 	

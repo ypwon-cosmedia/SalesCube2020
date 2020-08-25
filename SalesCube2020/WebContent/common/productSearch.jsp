@@ -20,7 +20,7 @@
 						<div class="input-group-prepend">
 							<div class="input-group-text">商品コード</div>
 						</div>
-						<input type="text"  class="form-control" id="productCode" name="productCode">
+						<input type="text" class="form-control" id="productCode" name="productCode">
 
 					  </div>
 					</div>
@@ -110,7 +110,7 @@
 				<br>
 
 				<div class="rounded float-right">
-				  <button type="button" class="btn btn-outline-secondary" onclick="initproductModal();">初期化</button>&ensp;
+				  <button type="button" class="btn btn-outline-secondary" onclick="initProductModal();">初期化</button>&ensp;
 				  <button type="button" class="btn btn-outline-secondary" onclick="productSearch();">検索</button>&ensp;
 				</div>
 			  </form>

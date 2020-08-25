@@ -70,7 +70,7 @@
 					</form>
 					<button type="button" class="btn btn-secondary" style="font-size: 12px;" disabled>F4<br></button>
 					<button type="button" class="btn btn-secondary" style="font-size: 12px;" disabled>F5<br></button>
-					<button type="button" class="btn btn-secondary" style="font-size: 12px;" data-toggle="modal" data-target="#openOrder" id="openBillModal" onclick="orderForm()">F6<br>伝票呼出</button>
+					<button type="button" class="btn btn-secondary" style="font-size: 12px;" data-toggle="modal" data-target="#openOrder" onclick="orderForm()" id="billopen">F6<br>伝票呼出</button>
 					<button type="button" class="btn btn-secondary" style="font-size: 12px;" disabled>F7<br></button>
 					<button type="button" class="btn btn-secondary" style="font-size: 12px;" disabled>F8<br></button>
 					<button type="button" class="btn btn-secondary" style="font-size: 12px;" disabled>F9<br></button>
@@ -212,10 +212,10 @@
 								<div class="input-group-prepend">
 									<div class="input-group-text">消費税率</div>
 								</div>
-								<select class="custom-select" name="ctaxRate" id="ctaxRate">
-									<option value="">${stockTaxRate.ctaxRate}</option>
+								<select class="custom-select" name="ctaxRate" id="ctaxRate" onchange="calc()">
+									<option value=""></option>
 									<c:forEach items="${initTaxRate}" var="initTR">
-										<option value="${initTR.ctaxRate}">${initTR.ctaxRate}</option>
+										<option value="${initTR.ctaxRate}" <c:if test="${stockTaxRate.ctaxRate == initTR.ctaxRate}">selected</c:if>>${initTR.ctaxRate}</option>
 									</c:forEach>
 								</select>
 							</div>
@@ -467,7 +467,7 @@
 						<td rowspan="6"><span id="tableLineNo1">1</span></td>
 						<td rowspan="6">
 							<input type="text" value="" class="form-control" size="2" style="width:100%" id="productCodeInput1"  maxlength='20' name="productCode" onchange="pCode(this)">
-							<button type="button" class="btn btn-outline-secondary" data-toggle="modal" data-target="#setproductsearch" onclick="productCodetoModal(this);" id="setproductsearch1">検索</button>
+							<button type="button" class="btn btn-outline-secondary" data-toggle="modal" data-target="#setproductsearch" onclick="productCodetoModal(this);initProductModal();" id="setproductsearch1">検索</button>
 						</td>
 						<td rowspan="3"><span id="productName1" name="productName"></span></td>
 						<td rowspan="2">
@@ -522,7 +522,7 @@
 			<table align="center">
 				<tr>
 					<td>
-							<button type="button" class="btn btn-outline-secondary" onclick="addLineForm();" id="addLine">行追加</button>
+							<button type="button" class="btn btn-outline-secondary" id="addLine">行追加</button>
 					</td>
 				</tr>
 			</table>
@@ -602,13 +602,17 @@
 				}
 
 			}
+
 	
 			/* 伝票呼出 */
 			function orderForm() {
+				var modal = document.getElementById("billopen");
 				var test = confirm("未登録の入力内容を破棄し伝票呼出してもよろしいですか？");
-				test;
-				if(test == true){
+				if(test == false){					
+					modal.removeAttribute("data-toggle");
 					return;
+				}else{
+					modal.setAttribute("data-toggle","modal");
 				}
 			}
 	
@@ -675,7 +679,7 @@
 					+ '<td rowspan="6"><span id="tableLineNo' + tableNo + '">' + tableNo + '</span></td>'
 					+ '<td rowspan="6">'
 						+ '<input type="text" value="" class="form-control" size="2" style="width:100%" name="productCodeInput" id="productCodeInput' + tableNo + '"  onchange="pCode(this)">'
-						+ '<button type="button" class="btn btn-outline-secondary" data-toggle="modal" data-target="#setproductsearch" onclick="productCodetoModal(this);" id="setproductsearch' + tableNo + '">検索</button>'
+						+ '<button type="button" class="btn btn-outline-secondary" data-toggle="modal" data-target="#setproductsearch" onclick="productCodetoModal(this);initProductModal();" id="setproductsearch' + tableNo + '">検索</button>'
 					+ '</td>'
 					+ '<td rowspan="3"><span name="productName" id="productName' + tableNo + '"></span></td>'
 					+ '<td rowspan="2"><input name="rackCode" type="text" value="" class="form-control" size="2" id="rackCode' + tableNo + '" readonly></td>'
@@ -828,22 +832,21 @@
 					target.innerHTML = '￥0';
 				}else{
 					var ctaxRate = (parseInt(document.getElementById("ctaxRate").value)) /100;
-					target.innerHTML = '￥' + parseInt((sum2 - sum1) * ctaxRate);
+					target.innerHTML = '￥' + parseInt(sum2 * ctaxRate);
 				}
 				
 				/* 伝票合計 : 金額合計+消費税 */
 				target = document.getElementById("priceTotal");
 				if(document.getElementById("ctaxRate").value == null || document.getElementById("ctaxRate").value == ""){
-					target.innerHTML = '￥' + parseInt(sum2 - sum1);
+					target.innerHTML = '￥' + parseInt(sum2);
 				}else{
 					var ctaxRate = (parseInt(document.getElementById("ctaxRate").value)) /100;
-					target.innerHTML = '￥' + parseInt((sum2 - sum1) * ctaxRate);
+					target.innerHTML = '￥' + parseInt(sum2 * (ctaxRate+1));
 				}
 			}
 
 			/* 顧客モーダルから親画面にリンク */
 			function selectCustomerCode(code, name){
-				alert();
 				document.getElementById("customerCodeInput").value = code;
 				document.getElementById("customerNameInput").value = name;
 				customerInfo(code);
@@ -871,13 +874,12 @@
 				globalTmp = obj.id;
 				var tableNo = globalTmp.substr(16);
 				var productCode = document.getElementById("productCodeInput" + tableNo).value;
-				document.getElementById("productCode").value = productCode;
+				document.getElementById("productName").value = productCode;				
 			}
 
 			/* 編集画面に遷移 */
 			function moveUpdate(){
 				var roSlipId = document.getElementById("roSlipId").value;
-				alert(roSlipId);
 				$.ajax({
 					type: "post",
 					url: '/SalesCube2020/SalesCubeAJAX?action=checkRoSlipId',
@@ -908,6 +910,16 @@
 				globalTmp = obj.id;
 				var tableNo = globalTmp.substr(16);
 				var inputProductCode = document.getElementById("productCodeInput" + tableNo).value;	
+				document.getElementById("productName" + tableNo).innerHTML = "";
+				document.getElementById("rackCode" + tableNo).value = "";
+				document.getElementById("unitCost" + tableNo).value = "";
+				document.getElementById("unitRetailPrice" + tableNo).value = "";
+				document.getElementById("inputProductRemarks" + tableNo).innerText = "";
+				document.getElementById("quantity" + tableNo).value = "";
+				document.getElementById("productRemarks" + tableNo).innerText = "";
+				document.getElementById("cost" + tableNo).value = "";
+				document.getElementById("retailPrice" + tableNo).value = "";
+				document.getElementById("eadRemarks" + tableNo).innerText = "";
 				$.ajax({
 					type: "post",
 					url: '/SalesCube2020/SalesCubeAJAX?action=pcodetoinfo',
@@ -925,11 +937,9 @@
 							document.getElementById('rackCode' + tableNo).value = data.rackCode;
 						}
 						if(data.unitCost == null || data.unitCost == ""){
-							alert(data.unitCost);
 							data.unitCost = "";
 							
 						}else {
-							alert(data.unitCost);
 							document.getElementById('unitCost' + tableNo).value = data.unitCost;
 						}
 						if(data.unitRetailPrice == null || data.unitRetailPrice == ""){
@@ -1159,11 +1169,6 @@
 			
 			});
 		}
-		
-//		window.onload = function(){
-//			var taxRate = ${stockTaxRate.ctaxRate};
-//			var ctaxRate =  ${initTR.ctaxRate};
-//		}
 			
 		</script>
 	</body>

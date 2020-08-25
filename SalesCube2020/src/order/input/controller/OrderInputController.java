@@ -443,7 +443,7 @@ public class OrderInputController extends BaseController {
 			request.setAttribute("updateCmp", message2);
 		}
 		
-		return "order\\orderupdate.jsp";
+		return "order\\orderinput.jsp";
 		
 	}
 	

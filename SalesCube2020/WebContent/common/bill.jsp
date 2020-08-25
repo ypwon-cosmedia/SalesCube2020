@@ -108,7 +108,7 @@
 				for(var i = 0; i<Object.keys(data.list).length; i++){
 					var headcontents= '';
 					headcontents += '<tr>';
-					headcontents += '<td style="white-space: normal; text-align: left;" onclick="billToOrder(this)" id="estimateSheetId' + (i+1) + '" data-dismiss="modal"><a href="">'+data.list[i].estimateSheetId+'</a></td>';
+					headcontents += '<td style="white-space: normal; text-align: left;" onclick="billToOrder(this);" id="estimateSheetId' + (i+1) + '" data-dismiss="modal"><a href="">'+data.list[i].estimateSheetId+'</a></td>';
 					headcontents += '<td style="white-space: normal; text-align: left;">'+(data.list[i].estimateDate1==null ? '' : data.list[i].estimateDate1)+'</td>';
 					headcontents += '<td style="white-space: normal; text-align: left;">'+(data.list[i].submitName==null ? '' : data.list[i].submitName)+'</td>';   
 					headcontents += '<td style="white-space: normal; text-align: left;">'+(data.list[i].title==null ? '' : data.list[i].title)+'</td>';   
@@ -122,9 +122,7 @@
 	
 	function billToOrder(obj){
 		var tableNo = obj.id.substr(15);
-		alert(tableNo);
 		var estimateSheetId = document.getElementById("estimateSheetId"+tableNo).innerText;
-		alert(estimateSheetId);
 		var form = document.createElement("form");
 		form.setAttribute("charset", "UTF-8");
 		form.setAttribute("method", "post");
