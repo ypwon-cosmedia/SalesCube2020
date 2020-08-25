@@ -613,13 +613,13 @@
 				
 		if(exists == false){
 			initConfig();
-			alert("error");
+			alert("受注番号は必須項目です。");
 			document.getElementById("configModalConfirm").removeAttribute("data-dismiss");
 		}
 		
 		if(indexID != 'roSlipId'){
 			initConfig();
-			alert("error");
+			alert("受注番号は一番最初の項目にする必要があります。");
 			document.getElementById("configModalConfirm").removeAttribute("data-dismiss");		
 		}
 		
@@ -917,6 +917,7 @@
 				},
 				dataType:'json',
 				success:function(data){	
+					var roSlipId;
 					var count = data[Object.keys(data).length-2]["totalCount"];
 					if(count != "0"){
 						$("#AddOption > tr").remove();
@@ -931,9 +932,18 @@
 									tmp = Math.floor(data[i][j]);
 								else
 									tmp = data[i][j];
+									
+								if($("#select_view option:selected").val() == "明細"){
+									var str = tmp + '';
+									var splittmp = str.split('-');
+									roSlipId = splittmp[0];
+								} else {
+									roSlipId = tmp;
+								}
+									
 								
 								if(j == 0){
-									headcontents += '<td><a href="/SalesCube2020/SalesCube?action=orderupdate&roSlipId='+tmp+'">' + tmp + '</a></td>';
+									headcontents += '<td><a href="/SalesCube2020/SalesCube?action=orderupdate&roSlipId='+roSlipId+'">' + tmp + '</a></td>';
 								} else {
 									headcontents += '<td>' + tmp + '</td>';
 								}
