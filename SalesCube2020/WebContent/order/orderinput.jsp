@@ -65,9 +65,7 @@
 				<div class="btn-group mr-2 " role="group" aria-label="First group">
 					<button type="button" class="btn btn-secondary" style="font-size: 12px;" onclick="initForm();" >F1<br>初期化</button>
 					<button type="button" class="btn btn-secondary" style="font-size: 12px;" disabled>F2<br></button>
-					<form>
-						<button type="button" class="btn btn-secondary" style="font-size: 12px;" onclick="addForm();">F3<br>登録</button>
-					</form>
+					<button type="button" class="btn btn-secondary" style="font-size: 12px;" onclick="addButton();">F3<br>登録</button>
 					<button type="button" class="btn btn-secondary" style="font-size: 12px;" disabled>F4<br></button>
 					<button type="button" class="btn btn-secondary" style="font-size: 12px;" disabled>F5<br></button>
 					<button type="button" class="btn btn-secondary" style="font-size: 12px;" data-toggle="modal" data-target="#openOrder" onclick="orderForm()" id="billopen">F6<br>伝票呼出</button>
@@ -467,7 +465,7 @@
 						<td rowspan="6"><span id="tableLineNo1">1</span></td>
 						<td rowspan="6">
 							<input type="text" value="" class="form-control" size="2" style="width:100%" id="productCodeInput1"  maxlength='20' name="productCode" onchange="pCode(this)">
-							<button type="button" class="btn btn-outline-secondary" data-toggle="modal" data-target="#setproductsearch" onclick="productCodetoModal(this);initProductModal();" id="setproductsearch1">検索</button>
+							<button type="button" class="btn btn-outline-secondary" data-toggle="modal" data-target="#setproductsearch" onclick="initProductModal();productCodetoModal(this);" id="setproductsearch1">検索</button>
 						</td>
 						<td rowspan="3"><span id="productName1" name="productName"></span></td>
 						<td rowspan="2">
@@ -560,7 +558,7 @@
 
 		<!-- 登録ボタン -->
 		<div align="center">
-				<input type="submit" class="btn btn-outline-secondary w-auto" value="登録" onclick="addForm();">
+				<input type="submit" class="btn btn-outline-secondary w-auto" value="登録" id="inputOrderButton" onclick="addForm();">
 		</div><br>
 	</form>
 
@@ -601,6 +599,10 @@
 					return;
 				}
 
+			}
+			
+			function addButton(){
+				document.getElementById("inputOrderButton").click();
 			}
 
 	
@@ -679,7 +681,7 @@
 					+ '<td rowspan="6"><span id="tableLineNo' + tableNo + '">' + tableNo + '</span></td>'
 					+ '<td rowspan="6">'
 						+ '<input type="text" value="" class="form-control" size="2" style="width:100%" name="productCodeInput" id="productCodeInput' + tableNo + '"  onchange="pCode(this)">'
-						+ '<button type="button" class="btn btn-outline-secondary" data-toggle="modal" data-target="#setproductsearch" onclick="productCodetoModal(this);initProductModal();" id="setproductsearch' + tableNo + '">検索</button>'
+						+ '<button type="button" class="btn btn-outline-secondary" data-toggle="modal" data-target="#setproductsearch" onclick="initProductModal();productCodetoModal(this);" id="setproductsearch' + tableNo + '">検索</button>'
 					+ '</td>'
 					+ '<td rowspan="3"><span name="productName" id="productName' + tableNo + '"></span></td>'
 					+ '<td rowspan="2"><input name="rackCode" type="text" value="" class="form-control" size="2" id="rackCode' + tableNo + '" readonly></td>'
@@ -874,7 +876,7 @@
 				globalTmp = obj.id;
 				var tableNo = globalTmp.substr(16);
 				var productCode = document.getElementById("productCodeInput" + tableNo).value;
-				document.getElementById("productName").value = productCode;				
+				document.getElementById("productCode").value = productCode;				
 			}
 
 			/* 編集画面に遷移 */

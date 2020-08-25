@@ -98,7 +98,7 @@ public class OrderInputController extends BaseController {
 		String deliveryFax = nullOrEmpty(request.getParameter("deliveryFax"));
 		String deliveryEmail = nullOrEmpty(request.getParameter("deliveryEmail"));
 		String[] productCode = request.getParameterValues("productCode");
-		String[] productName;
+		String[] productName = request.getParameterValues("productName");
 		String[] productRemarks = request.getParameterValues("productRemarks");
 		String[] rackCode = request.getParameterValues("rackCode");
 		String[] quantity = request.getParameterValues("quantity");
@@ -112,60 +112,63 @@ public class OrderInputController extends BaseController {
 		Integer ctaxPriceTotal = 0;
 		Integer priceTotal = 0;
 
-		if(request.getParameterValues("productCode") == null || request.getParameterValues("productCode")[0].equals("")) {
-			productCode = null ;
-		}else {
-			productCode = request.getParameterValues("productCode");
-		}
-		if(request.getParameterValues("productName") == null || request.getParameterValues("productName").equals("")) {
-			productName = null ;
-		}else {
-			productName = request.getParameterValues("productName");
-		}
-		if(request.getParameterValues("productRemarks") == null || request.getParameterValues("productRemarks").equals("")) {
-			productRemarks = null;
-		}else {
-			productRemarks = request.getParameterValues("productRemarks");
-		}
-		if(request.getParameterValues("rackCode") == null || request.getParameterValues("rackCode").equals("")) {
-			rackCode = null;
-		}else {
-			rackCode = request.getParameterValues("rackCode");
-		}
-		if(request.getParameterValues("quantity") == null || request.getParameterValues("quantity").equals("")) {
-			quantity = null;
-		}else {
-			quantity = request.getParameterValues("quantity");
-		}
-		if(request.getParameterValues("unitCost") == null || request.getParameterValues("unitCost").equals("")) {
-			unitCost = null;
-		}else {
-			unitCost = request.getParameterValues("unitCost");
-		}
-		if(request.getParameterValues("cost") == null || request.getParameterValues("cost").equals("")) {
-			cost = null;
-		}else {
-			cost = request.getParameterValues("cost");
-		}
-		if(request.getParameterValues("unitRetailPrice") == null || request.getParameterValues("unitRetailPrice").equals("")) {
-			unitRetailPrice = null;
-		}else {
-			unitRetailPrice = request.getParameterValues("unitRetailPrice");
-		}
-		if(request.getParameterValues("retailPrice") == null || request.getParameterValues("retailPrice").equals("")) {
-			retailPrice = null;
-		}else {
-			retailPrice = request.getParameterValues("retailPrice");
-		}
-		if(request.getParameterValues("inputProductRemarks") == null || request.getParameterValues("inputProductRemarks").equals("")) {
-			inputProductRemarks = null;
-		}else {
-			inputProductRemarks = request.getParameterValues("inputProductRemarks");
-		}
-		if(request.getParameterValues("eadRemarks") == null || request.getParameterValues("eadRemarks").equals("")) {
-			eadRemarks = null;
-		}else {
-			eadRemarks = request.getParameterValues("eadRemarks");
+		
+		for(int i = 0; i < productCode.length; i++) {
+			if(request.getParameterValues("productCode")[i] == null || request.getParameterValues("productCode")[i].equals("")) {
+				productCode = null ;
+			}else {
+				productCode = request.getParameterValues("productCode");
+			}
+			if(request.getParameterValues("productName") == null || request.getParameterValues("productName")[i].equals("")) {
+				productName = null ;
+			}else {
+				productName = request.getParameterValues("productName");
+			}
+			if(request.getParameterValues("productRemarks") == null || request.getParameterValues("productRemarks")[i].equals("")) {
+				productRemarks = null;
+			}else {
+				productRemarks = request.getParameterValues("productRemarks");
+			}
+			if(request.getParameterValues("rackCode") == null || request.getParameterValues("rackCode")[i].equals("")) {
+				rackCode = null;
+			}else {
+				rackCode = request.getParameterValues("rackCode");
+			}
+			if(request.getParameterValues("quantity") == null || request.getParameterValues("quantity")[i].equals("")) {
+				quantity = null;
+			}else {
+				quantity = request.getParameterValues("quantity");
+			}
+			if(request.getParameterValues("unitCost") == null || request.getParameterValues("unitCost")[i].equals("")) {
+				unitCost = null;
+			}else {
+				unitCost = request.getParameterValues("unitCost");
+			}
+			if(request.getParameterValues("cost") == null || request.getParameterValues("cost")[i].equals("")) {
+				cost = null;
+			}else {
+				cost = request.getParameterValues("cost");
+			}
+			if(request.getParameterValues("unitRetailPrice")[i] == null || request.getParameterValues("unitRetailPrice")[i].equals("")) {
+				unitRetailPrice = null;
+			}else {
+				unitRetailPrice = request.getParameterValues("unitRetailPrice");
+			}
+			if(request.getParameterValues("retailPrice")[i] == null || request.getParameterValues("retailPrice")[i].equals("")) {
+				retailPrice = null;
+			}else {
+				retailPrice = request.getParameterValues("retailPrice");
+			}
+			if(request.getParameterValues("inputProductRemarks")[i] == null || request.getParameterValues("inputProductRemarks")[i].equals("")) {
+				inputProductRemarks = null;
+			}else {
+				inputProductRemarks = request.getParameterValues("inputProductRemarks");
+			}
+			if(request.getParameterValues("eadRemarks")[i] == null || request.getParameterValues("eadRemarks")[i].equals("")) {
+				eadRemarks = null;
+			}else {
+				eadRemarks = request.getParameterValues("eadRemarks");
+			}
 		}
 		
 		
@@ -236,6 +239,10 @@ public class OrderInputController extends BaseController {
 				list.add(bean2);
 			}
 		}
+		
+		List<OrderInputBean> list1 = dao.getDcName();
+		List<OrderInputBean> list2 = dao.getDcTimezone();
+		List<OrderInputBean> list3 = dao.getTaxRate();
 				
 		int result1 = dao.orderInputInfo(bean);
 		int result2 = dao.orderInputDetail(list);
@@ -243,6 +250,9 @@ public class OrderInputController extends BaseController {
 		if(result1 == 0 && result2 == 0) {
 			String message1 = "登録できませんでした。<br>";
 			request.setAttribute("inputErr", message1);
+			request.setAttribute("initDcName", list1);
+			request.setAttribute("initDcTimezone", list2);
+			request.setAttribute("initTaxRate", list3);
 		}else {
 			String message2 = "登録が完了しました。<br>";
 			request.setAttribute("inputCmp", message2);
@@ -435,9 +445,16 @@ public class OrderInputController extends BaseController {
 		int result1 = dao.orderUpdateInfo(bean);
 		int result2 = dao.orderUpdateDetail(list);
 		
+		List<OrderInputBean> list1 = dao.getDcName();
+		List<OrderInputBean> list2 = dao.getDcTimezone();
+		List<OrderInputBean> list3 = dao.getTaxRate();
+		
 		if(result1 == 0 && result2 == 0) {
 			String message1 = "更新できませんでした。<br>";
 			request.setAttribute("updateErr", message1);
+			request.setAttribute("initDcName", list1);
+			request.setAttribute("initDcTimezone", list2);
+			request.setAttribute("initTaxRate", list3);
 		}else {
 			String message2 = "更新が完了しました。<br>";
 			request.setAttribute("updateCmp", message2);

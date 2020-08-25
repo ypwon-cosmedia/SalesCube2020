@@ -955,12 +955,20 @@
 				globalTmp = obj.id;
 				var tableNo = globalTmp.substr(16);
 				var inputProductCode = document.getElementById("productCodeInput" + tableNo).value;	
+				document.getElementById("productName" + tableNo).innerHTML = "";
+				document.getElementById("rackCode" + tableNo).value = "";
+				document.getElementById("unitCost" + tableNo).value = "";
+				document.getElementById("unitRetailPrice" + tableNo).value = "";
+				document.getElementById("inputProductRemarks" + tableNo).innerText = "";
+				document.getElementById("quantity" + tableNo).value = "";
+				document.getElementById("productRemarks" + tableNo).innerText = "";
+				document.getElementById("cost" + tableNo).value = "";
+				document.getElementById("retailPrice" + tableNo).value = "";
+				document.getElementById("eadRemarks" + tableNo).innerText = "";
 				$.ajax({
 					type: "post",
 					url: '/SalesCube2020/SalesCubeAJAX?action=pcodetoinfo',
-					data: {
-						"productCode": inputProductCode,				
-					},
+					data: {"productCode": inputProductCode },
 					dataType: 'json',
 					success: function(data){
 						if(data.productName == null || data.productName == ""){
@@ -975,6 +983,7 @@
 						}
 						if(data.unitCost == null || data.unitCost == ""){
 							data.unitCost = "";
+							
 						}else {
 							document.getElementById('unitCost' + tableNo).value = data.unitCost;
 						}
@@ -1013,11 +1022,11 @@
 						}else {
 							document.getElementById('eadRemarks' + tableNo).innerHTML = data.eadRemarks;
 						}
-						calc(tableNo);
+						calc();
 					}
 				});
 			}
-			
+
 			/* 顧客コードから顧客・納入先情報 ajax */
 			function customerInfo() {
 				var cCode = document.getElementById("customerCodeInput").value;
@@ -1030,7 +1039,7 @@
 				success:function(data){
 					var tmp = JSON.parse(data.bean);
 					if(tmp['customerName'] == null || tmp['customerName'] == ""){
-						tmp['customerName'] = "";
+						alert("該当する顧客情報は存在しません");
 					} else {
 						document.getElementById('customerNameInput').value = tmp['customerName'];
 					}
@@ -1126,6 +1135,17 @@
 		function deliverySelect(){
 			var deliveryCode = document.getElementById("deliveryName").value;
 			$("#deliveryName > option selected").remove();
+			document.getElementById("deliveryOfficeName").value = "";
+			document.getElementById("deliveryDeptName").value = "";
+			document.getElementById("deliveryZipCode").value = "";
+			document.getElementById("deliveryAddress1").value = "";
+			document.getElementById("deliveryAddress2").value = "";
+			document.getElementById("deliveryPcName").value = "";
+			document.getElementById("deliveryPcKana").value = "";
+			document.getElementById("deliveryPcPre").value = "";
+			document.getElementById("deliveryTel").value = "";
+			document.getElementById("deliveryFax").value = "";
+			document.getElementById("deliveryEmail").value = "";
 		$.ajax({
 			url:'/SalesCube2020/SalesCubeAJAX?action=deliverytoinfo',
 			type:'post',
