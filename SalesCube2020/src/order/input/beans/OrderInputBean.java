@@ -9,6 +9,17 @@ package order.input.beans;
 
 public class OrderInputBean {
 	
+	/* 行番号 */
+	private String lineNo;
+	
+	public String getLineNo() {
+		return lineNo;
+	}
+
+	public void setLineNo(String lineNo) {
+		this.lineNo = lineNo;
+	}
+
 	/* 受注番号最後 */
 	private Integer roSlipLast;
 	

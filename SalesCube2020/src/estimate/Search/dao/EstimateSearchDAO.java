@@ -45,7 +45,8 @@ public class EstimateSearchDAO extends BaseDAO {
 		}
 		column = column.substring(0, column.length()-1) + " ";
 		
-	
+		sort = getColumn(sort) +" ";
+		
 		
 		//検索結果SQL
 		estimateResult = "select " +		
@@ -78,8 +79,9 @@ public class EstimateSearchDAO extends BaseDAO {
 				"(CUSTOMER_CODE " + stringIsNull(bean.getCustomerCode()) +
 				" AND " +
 				"(CUSTOMER_NAME " + stringIsNull(bean.getCustomerName()) +
-				"orderby " +
-				sort ;
+				"order by " +
+				sort +
+				;
 				
 			
 		System.out.println("テスト"+ bean.getCustomerName());

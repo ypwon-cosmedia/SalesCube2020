@@ -25,25 +25,55 @@ public class ProductToOrder extends BaseAJAXController {
 		
 		String action = request.getParameter("action");
 		
-		if(action.equals("pcodetoinfo"))
+		if(action.equals("pcodetoinfo")) {
 			try {
 				productCodeToInfo(request, response);
 			} catch (ClassNotFoundException | ServletException | IOException | SQLException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
-		}else if(action.equals("cuscodetoinfo"))
+			}
+		}else if(action.equals("cuscodetoinfo")) {
 			try {
 				customerCodeToInfo(request, response);
 			} catch (ClassNotFoundException | ServletException | IOException | SQLException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
-		}
-		else if(action.equals("deliverytoinfo"))
+			}
+		}else if(action.equals("deliverytoinfo")) {
 			try {
 				deliveryToInfo(request, response);
 			} catch (ClassNotFoundException | ServletException | IOException | SQLException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
+			}
+		}else if(action.contentEquals("checkRoSlipId")) {
+			try {
+				checkRoSlipId(request, response);
+			} catch (ClassNotFoundException | ServletException | IOException | SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
+	}
+	
+	private void checkRoSlipId(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException, SQLException, ClassNotFoundException {
+		
+		Integer roSlipId = Integer.parseInt(request.getParameter("roSlipId"));
+		System.out.println(roSlipId);
+		String str = "not exist";
+		
+		OrderInputDAO dao = new OrderInputDAO();
+		Gson gson = new Gson();
+		
+		try {
+			str = dao.checkRoSlipId(roSlipId);
+			String data = gson.toJson(str);
+						
+			response.setContentType("application/x-json; charset=UTF-8");
+			response.getWriter().print(data);
+			
+		} catch (ClassNotFoundException | SQLException e) {
+			e.printStackTrace();
 		}
 	}
 		

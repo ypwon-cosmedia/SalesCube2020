@@ -2,6 +2,7 @@ package order.move.controller;
 
 import java.io.IOException;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.servlet.ServletException;
@@ -53,7 +54,6 @@ public class OrderMoveController extends BaseController{
 
 		HttpSession session = request.getSession();
 		UserInfoBean user = (UserInfoBean) session.getAttribute("userInfo");
-		session.setAttribute("user", user.getNameKNJ());
 		
 //		EstimateCategoryModalAJAXController est = new EstimateCategoryModalAJAXController();
 
@@ -63,17 +63,24 @@ public class OrderMoveController extends BaseController{
 		init.initCombobox(request, response);
 //		est.categoryGet(request, response);
 
-		request.setAttribute("initDcName", list1);
-		request.setAttribute("initDcTimezone", list2);
-		request.setAttribute("initTaxRate", list3);
-		
+		try {
+			session.setAttribute("user", user.getNameKNJ());
+			request.setAttribute("initDcName", list1);
+			request.setAttribute("initDcTimezone", list2);
+			request.setAttribute("initTaxRate", list3);
+		}catch (NullPointerException e) {
+			String message = "ログインした後で利用できます。\nログインしてください。";
+			request.setAttribute("loginError", message);
+			return "login.jsp";
+		}
+
 		return "order\\orderinput.jsp";
 		
 	}
 	
 	private String moveOrderUpdate (HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException, ClassNotFoundException, SQLException {
 		
-		Integer roSlipId = Integer.parseInt(request.getParameter("roSlipId"));
+		Integer roSlipId;
 	
 		OrderInputDAO dao = new OrderInputDAO();
 		ProductModalInit init = new ProductModalInit();
@@ -81,17 +88,32 @@ public class OrderMoveController extends BaseController{
 		List<OrderInputBean> list1 = dao.getDcName();
 		List<OrderInputBean> list2 = dao.getDcTimezone();
 		List<OrderInputBean> list3 = dao.getTaxRate();
+		List<OrderInputBean> list5 = new ArrayList<>();
 		init.initCombobox(request, response);
 		
 		OrderInputBean bean = new OrderInputBean();
-		bean = dao.getOrderInfo(roSlipId);
-		List<OrderInputBean> list5 = dao.getOrderInfodetail(roSlipId);
 		
-		request.setAttribute("initDcName", list1);
-		request.setAttribute("initDcTimezone", list2);
-		request.setAttribute("initTaxRate", list3);
-		request.setAttribute("order", bean);
-		request.setAttribute("orderlist", list5);
+		try {
+			roSlipId = Integer.parseInt(request.getParameter("roSlipId"));
+			bean = dao.getOrderInfo(roSlipId);
+			list5 = dao.getOrderInfodetail(roSlipId);
+		}catch(NumberFormatException e) {
+			String message = "ログインした後で利用できます。\nログインしてください。";
+			request.setAttribute("loginError", message);
+			return "login.jsp";
+		}
+		
+		try {
+			request.setAttribute("initDcName", list1);
+			request.setAttribute("initDcTimezone", list2);
+			request.setAttribute("initTaxRate", list3);
+			request.setAttribute("order", bean);
+			request.setAttribute("orderlist", list5);
+		} catch (NullPointerException e) {
+			String message = "ログインした後で利用できます。\nログインしてください。";
+			request.setAttribute("loginError", message);
+			return "login.jsp";
+		}
 
 		return "order\\orderupdate.jsp";
 	}

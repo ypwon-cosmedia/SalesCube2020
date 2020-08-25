@@ -29,7 +29,6 @@ public class OrderCommonBillDAO extends BaseDAO{
 	 	OrderSQL ordersql = new OrderSQL();
 	 	sql = ordersql.billSearch(bean);
 	 	
-	 	System.out.println(sql);
 	 	result = stmt.executeQuery(sql);
 	 	
 	 	while(result.next()) {
@@ -108,8 +107,43 @@ public class OrderCommonBillDAO extends BaseDAO{
 	 	
 	}
 	
+	/* 見積番号押下 顧客コード反映 */
+	public int billToCustomerCode(String estimateSheetId) throws SQLException, ClassNotFoundException {
+		
+		Connection con;
+	 	Statement stmt = null;
+	 	ResultSet result = null;	
+	 	String  sql;
+
+	 	con = super.getConnection();
+	 	stmt = con.createStatement();
+
+	 	sql = "SELECT DISTINCT " +
+	 			"estx.CUSTOMER_CODE " +
+	 			"FROM " +
+	 				"estimate_sheet_trn_xxxxx AS estx " +
+	 			"WHERE " +
+	 				"estx.ESTIMATE_SHEET_ID = '" + estimateSheetId + "'";
+	 	
+	 	result = stmt.executeQuery(sql);
+	 	System.out.println(sql);
+	 	
+	 	int num = 0;
+	 	
+	 	if(result.next()) {
+	 		if(result.getString("estx.CUSTOMER_CODE") != null || result.getString("estx.CUSTOMER_CODE") != "") {
+	 			num = Integer.parseInt(result.getString("estx.CUSTOMER_CODE"));
+	 		}
+	 	}
+	 	
+	 	super.releaseDB(con, stmt, result);
+	 	
+	 	return num;
+	 	
+	}
+	
 	/* 見積番号押下 納入先情報反映 */
-	public OrderCommonBillBean billToDelivery(String estimateSheetId) throws SQLException, ClassNotFoundException {
+	public OrderCommonBillBean billToDelivery(String customerCode) throws SQLException, ClassNotFoundException {
 		
 		Connection con;
 	 	Statement stmt = null;
@@ -120,7 +154,7 @@ public class OrderCommonBillDAO extends BaseDAO{
 	 	stmt = con.createStatement();
 	 	
 	 	OrderSQL ordersql = new OrderSQL();
-	 	sql = ordersql.billToDelivery(estimateSheetId);
+	 	sql = ordersql.billToDelivery(customerCode);
 	 	
 	 	result = stmt.executeQuery(sql);
 	 	OrderCommonBillBean bean = new OrderCommonBillBean();

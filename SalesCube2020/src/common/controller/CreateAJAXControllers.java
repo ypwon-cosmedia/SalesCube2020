@@ -72,6 +72,7 @@ public class CreateAJAXControllers {
 		map.put("cuscodetoinfo", orderInput);
 		map.put("stocksearch", stock);
 		map.put("billsearch", bill);
+		map.put("checkRoSlipId", orderInput);
 		
 		return map;
 	}

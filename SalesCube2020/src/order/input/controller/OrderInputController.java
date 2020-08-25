@@ -488,18 +488,17 @@ public class OrderInputController extends BaseController {
 		OrderCommonBillBean bean3 = new OrderCommonBillBean();
 		
 		String estimateSheetId = request.getParameter("estimateSheetId");
-		String customerCode = request.getParameter("customerCode");
+		System.out.println(estimateSheetId);
 		
 		bean1 = dao.billToTaxRate(estimateSheetId);
 		bean2 = dao.billToCustomer(estimateSheetId);
-		bean3 = dao.billToDelivery(estimateSheetId);
+		bean3 = dao.billToDelivery(String.valueOf(dao.billToCustomerCode(estimateSheetId))); 
 		
 		List<OrderInputBean> list1 = dao2.getDcName();
 		List<OrderInputBean> list2 = dao2.getDcTimezone();
 		List<OrderInputBean> list3 = dao2.getTaxRate();
-		List<OrderCommonBillBean> list4 = dao.billToDeliveryCode(customerCode);
+		List<OrderCommonBillBean> list4 = dao.billToDeliveryCode(String.valueOf(dao.billToCustomerCode(estimateSheetId)));
 		init.initCombobox(request, response);
-
 
 		request.setAttribute("initDcName", list1);
 		request.setAttribute("initDcTimezone", list2);

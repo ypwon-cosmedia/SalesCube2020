@@ -8,7 +8,7 @@
 
 	<%@ include file="/common/productSearch.jsp" %>
 	<%@ include file="/common/bill.jsp" %>
-	<%@ include file="/common/_customerSearch.jsp" %>
+	<%@ include file= "../common/_customerSearch.jsp" %>
 	<%@ include file="/common/stock.jsp" %>
 
 	<head>
@@ -70,7 +70,7 @@
 					</form>
 					<button type="button" class="btn btn-secondary" style="font-size: 12px;" disabled>F4<br></button>
 					<button type="button" class="btn btn-secondary" style="font-size: 12px;" disabled>F5<br></button>
-					<button type="button" class="btn btn-secondary" style="font-size: 12px;" data-toggle="modal" data-target="#openOrder" onclick="orderForm()">F6<br>伝票呼出</button>
+					<button type="button" class="btn btn-secondary" style="font-size: 12px;" data-toggle="modal" data-target="#openOrder" id="openBillModal" onclick="orderForm()">F6<br>伝票呼出</button>
 					<button type="button" class="btn btn-secondary" style="font-size: 12px;" disabled>F7<br></button>
 					<button type="button" class="btn btn-secondary" style="font-size: 12px;" disabled>F8<br></button>
 					<button type="button" class="btn btn-secondary" style="font-size: 12px;" disabled>F9<br></button>
@@ -213,7 +213,7 @@
 									<div class="input-group-text">消費税率</div>
 								</div>
 								<select class="custom-select" name="ctaxRate" id="ctaxRate">
-									<option value=""></option>
+									<option value="">${stockTaxRate.ctaxRate}</option>
 									<c:forEach items="${initTaxRate}" var="initTR">
 										<option value="${initTR.ctaxRate}">${initTR.ctaxRate}</option>
 									</c:forEach>
@@ -607,7 +607,7 @@
 			function orderForm() {
 				var test = confirm("未登録の入力内容を破棄し伝票呼出してもよろしいですか？");
 				test;
-				if(test == false){
+				if(test == true){
 					return;
 				}
 			}
@@ -794,7 +794,7 @@
 					}
 				}
 				target = document.getElementById("retailPriceTotal");
-				target.innerHTML = '￥' + (sum2 - sum1);
+				target.innerHTML = '￥' + sum2;
 
 				///* 粗利益 : 売価金額-仕入金額 */
 				var hairetsu3 = document.getElementsByName("cost");
@@ -818,13 +818,12 @@
 
 				/* 粗利益率 : (粗利益/金額合計)*100 */
 				target = document.getElementById("grossProfitRatio");
-				if((sum4 - sum3) != null && (sum4 - sum3) !="" && (sum2 - sum1) != null && (sum2 - sum1) != ""){
-					target.innerHTML = ((sum4 - sum3) / (sum2 - sum1)) * 100 + '%';
+				if((sum4 - sum3) != null && (sum4 - sum3) !="" && sum2 != null && sum2 != ""){
+					target.innerHTML = Math.floor(((sum4 - sum3) / sum2) * 100 * 100) / 100 + '%';
 				}
 
 				/* 消費税 : 金額合計*消費税率 */
 				target = document.getElementById("ctaxPriceTotal");
-				alert(document.getElementById("ctaxRate").value);
 				if(document.getElementById("ctaxRate").value == null || document.getElementById("ctaxRate").value == ""){
 					target.innerHTML = '￥0';
 				}else{
@@ -843,18 +842,16 @@
 			}
 
 			/* 顧客モーダルから親画面にリンク */
-			function selectcustomerCode(){
-				var customerCode = document.getElementById("modalCustomerCode").innerText;
-				var customerName = document.getElementById("modalCustomerName").innerText;
-				document.getElementById("customerCodeInput").value = customerCode;
-				document.getElementById("customerNameInput").value = customerName;
+			function selectcustomerCode(code, name){
+				alert();
+				document.getElementById("customerCodeInput").value = code;
+				document.getElementById("customerNameInput").value = name;
+				customerInfo(code);
 			}
 
 			/* 商品モーダルから親画面にリンク */
 			function selectProductModal(code, name){
 				var tableNo = globalTmp.substr(16);
-				document.getElementById("customerCodeInput").value = code;
-				document.getElementById("customerNameInput").value = name;
 				document.getElementById("productCodeInput" + tableNo).value = code;
 				document.getElementById("productName" + tableNo).innerHTML = name;
 				
@@ -880,21 +877,30 @@
 			/* 編集画面に遷移 */
 			function moveUpdate(){
 				var roSlipId = document.getElementById("roSlipId").value;
-
-					var form = document.createElement("form");
-					form.setAttribute("charset", "UTF-8");
-					form.setAttribute("method", "post");
-					form.setAttribute("action", "/SalesCube2020/SalesCube?action=orderupdate");
-					var input = document.createElement("input");
-					input.setAttribute("type", "hidden");
-					input.setAttribute("name", "roSlipId");
-					input.setAttribute("value", roSlipId);
-					form.appendChild(input);
-					document.body.appendChild(form);
-					form.submit();
-
-					alert("受注番号が存在しません。");
-
+				alert(roSlipId);
+				$.ajax({
+					type: "post",
+					url: '/SalesCube2020/SalesCubeAJAX?action=checkRoSlipId',
+					data: {"roSlipId": roSlipId },
+					dataType: 'json',
+					success: function(data){
+						if(data == "exist"){
+							var form = document.createElement("form");
+							form.setAttribute("charset", "UTF-8");
+							form.setAttribute("method", "post");
+							form.setAttribute("action", "/SalesCube2020/SalesCube?action=orderupdate");
+							var input = document.createElement("input");
+							input.setAttribute("type", "hidden");
+							input.setAttribute("name", "roSlipId");
+							input.setAttribute("value", roSlipId);
+							form.appendChild(input);
+							document.body.appendChild(form);
+							form.submit();
+						}else{
+							alert("受注番号が存在しません。");
+						}
+					}
+				});
 			}
 
 			/* 商品コードから明細表示 ajax */
@@ -919,8 +925,11 @@
 							document.getElementById('rackCode' + tableNo).value = data.rackCode;
 						}
 						if(data.unitCost == null || data.unitCost == ""){
+							alert(data.unitCost);
 							data.unitCost = "";
+							
 						}else {
+							alert(data.unitCost);
 							document.getElementById('unitCost' + tableNo).value = data.unitCost;
 						}
 						if(data.unitRetailPrice == null || data.unitRetailPrice == ""){
@@ -1071,6 +1080,17 @@
 		function deliverySelect(){
 			var deliveryCode = document.getElementById("deliveryName").value;
 			$("#deliveryName > option selected").remove();
+			document.getElementById("deliveryOfficeName").value = "";
+			document.getElementById("deliveryDeptName").value = "";
+			document.getElementById("deliveryZipCode").value = "";
+			document.getElementById("deliveryAddress1").value = "";
+			document.getElementById("deliveryAddress2").value = "";
+			document.getElementById("deliveryPcName").value = "";
+			document.getElementById("deliveryPcKana").value = "";
+			document.getElementById("deliveryPcPre").value = "";
+			document.getElementById("deliveryTel").value = "";
+			document.getElementById("deliveryFax").value = "";
+			document.getElementById("deliveryEmail").value = "";
 		$.ajax({
 			url:'/SalesCube2020/SalesCubeAJAX?action=deliverytoinfo',
 			type:'post',
@@ -1140,10 +1160,9 @@
 			});
 		}
 		
-		window.onload=function(){
-			var setTaxRate = "${stockTaxRate.ctaxRate}";
-			
-			
+		window.onload = function(){
+			var taxRate = ${stockTaxRate.ctaxRate};
+			var ctaxRate =  ${initTR.ctaxRate};
 		}
 			
 		</script>

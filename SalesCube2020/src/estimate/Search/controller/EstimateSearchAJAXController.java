@@ -159,10 +159,9 @@ public class EstimateSearchAJAXController extends BaseAJAXController{
 		bean.setRemarks(request.getParameter("remarks"));
 		bean.setSubmitName(request.getParameter("submitName"));
 		bean.setCustomerCode(request.getParameter("customerCode"));
-		bean.setCustomerName(request.getParameter("customerName"));
-		
-		
+		bean.setCustomerName(request.getParameter("customerName"));		
 		String sort = request.getParameter("sorting");
+		System.out.println(sort);
 		if(sort == null)
 			sort = "";
 			

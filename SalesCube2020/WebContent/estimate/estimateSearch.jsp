@@ -308,7 +308,7 @@
 
             <div class="rounded float-right">
               <button type="button" class="btn btn-primary" onclick="initForm()">初期化</button>
-              <input type="button" value="検索" class="btn btn-primary" onclick="estimateSearch1() ; estimateSearch2()">
+              <input type="button" value="検索" class="btn btn-primary" onclick="estimateSearch1() ; estimateSearch2('estimateSheetId')">
             </div><br>
           <br>
         </div><br>
@@ -394,6 +394,9 @@
       
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.2/jquery.min.js"></script>
 <script>	  
+
+	 var sortOrder = "";
+	
 	  //初期化処理
 	  
 	  window.onload = function(){
@@ -449,7 +452,7 @@
 							var headcontents= '';
 							headcontents += '<tr>';
 							for(var i = 0; i<Object.keys(data).length; i++) {
-								headcontents += '<th scope="col" class="th_back_black" onclick="estimateSearch2('+data[i].itemId+')"> '+data[i].itemName;
+								headcontents += '<th scope="col" class="th_back_black" onclick="estimateSearch2(' + "'"+ data[i].itemId+"'"+')"> '+data[i].itemName;
 							}
 							headcontents += '</tr>';
 							$('#resultHead').append(headcontents);								
@@ -460,8 +463,11 @@
 	   	
 	    //見積検索結果
 	    function estimateSearch2(itemId) {
-	   	 var formString = $("form[id=estimate]").serialize();
-			var tmp = "";
+	   	 	
+	    	var sortOrder;
+	    	if(sort == itemId){
+	    		
+	    	}
 			
 			$.ajax({
 				
@@ -469,17 +475,17 @@
 				type:'post',
 				data:{
 					"estimateSheetId" : $("#estimateSheetId").val(),
-					"estimateDateStart" :$("#estimateDateStart").val(),
-					"estimateDateEnd" :
-					"validDateStart" :
-					"validDateEnd" :
-					"UserModalUserId" :
-					"UserModalNameKnj" :
-					"title" :
-					"remarks" :
-					"submitName" :
-					"CustomerModalCustomerCode" :
-					"CustomerModalCustomerName" :
+					"estimateDateStart" : $("#estimateDateStart").val(),
+					"estimateDateEnd" : $("#estimateDateEnd").val(),
+					"validDateStart" : $("#validDateStart").val(),
+					"validDateEnd" : $("#validDateEnd").val(),
+					"userId" : $("#UserModalUserId").val(),
+					"userName" : $("#UserModalNameKnj").val(),
+					"title" : $("#title").val(),
+					"remarks" : $("#remarks").val(),
+					"submitName" : $("#submitName").val(),
+					"customerCode" : $("#CustomerModalCustomerCode").val(),
+					"customerName" : $("#CustomerModalCustomerName").val(),
 					"sorting" : itemId},
 				dataType:'json',
 				success:function(data){	
