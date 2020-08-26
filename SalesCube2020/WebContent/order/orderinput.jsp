@@ -68,7 +68,7 @@
 					<button type="button" class="btn btn-secondary" style="font-size: 12px;" onclick="addButton();">F3<br>登録</button>
 					<button type="button" class="btn btn-secondary" style="font-size: 12px;" disabled>F4<br></button>
 					<button type="button" class="btn btn-secondary" style="font-size: 12px;" disabled>F5<br></button>
-					<button type="button" class="btn btn-secondary" style="font-size: 12px;" data-toggle="modal" data-target="#openOrder" onclick="orderForm()" id="billopen">F6<br>伝票呼出</button>
+					<button type="button" class="btn btn-secondary" style="font-size: 12px;" data-toggle="modal" data-target="#openOrder" onclick="orderForm();" id="billopen">F6<br>伝票呼出</button>
 					<button type="button" class="btn btn-secondary" style="font-size: 12px;" disabled>F7<br></button>
 					<button type="button" class="btn btn-secondary" style="font-size: 12px;" disabled>F8<br></button>
 					<button type="button" class="btn btn-secondary" style="font-size: 12px;" disabled>F9<br></button>
@@ -256,6 +256,7 @@
 									<div class="input-group-text">税転嫁</div>
 								</div>
 								<input type="text" value="${stockCustomer.taxShiftCategory}" class="form-control" name="taxShiftCategory" id="taxShiftCategory" readonly>
+								
 							</div>
 						</div>
 					</div>
@@ -267,6 +268,7 @@
 									<div class="input-group-text">支払条件</div>
 								</div>
 								<input type="text" value="${stockCustomer.cutoffGroup}" class="form-control" name="cutoffGroup" id="cutoffGroup" readonly>
+								
 							</div>
 						</div>
 						<div class="col-4">
@@ -276,6 +278,7 @@
 									<div class="input-group-text">取引区分</div>
 								</div>
 								<input type="text" value="${stockCustomer.salesCmCategory}" class="form-control" name="salesCmCategory" id="salesCmCategory" readonly>
+								
 							</div>
 						</div>
 						<div class="col-4">
@@ -825,7 +828,7 @@
 				/* 粗利益率 : (粗利益/金額合計)*100 */
 				target = document.getElementById("grossProfitRatio");
 				if((sum4 - sum3) != null && (sum4 - sum3) !="" && sum2 != null && sum2 != ""){
-					target.innerHTML = Math.floor(((sum4 - sum3) / sum2) * 100 * 100) / 100 + '%';
+					target.innerHTML = Math.floor(( (sum4 - sum3) / sum2) * 100 * 100) / 100 + '%';
 				}
 
 				/* 消費税 : 金額合計*消費税率 */

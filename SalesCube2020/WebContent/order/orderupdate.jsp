@@ -69,9 +69,7 @@
 						<input type="hidden" id="roSlipId" name="roSlipId" value="${order.roSlipId}">
 					</form>
 					<button type="button" class="btn btn-secondary" style="font-size: 12px;" onclick="returnForm();">F3<br>戻る</button>
-					<form>
-						<button type="button" class="btn btn-secondary" style="font-size: 12px;" onclick="updateForm();">F4<br>更新</button>
-					</form>
+					<button type="button" class="btn btn-secondary" style="font-size: 12px;" onclick="updateButton();">F4<br>更新</button>
 					<button type="button" class="btn btn-secondary" style="font-size: 12px;" disabled>F5<br></button>
 					<button type="button" class="btn btn-secondary" style="font-size: 12px;" data-toggle="modal" data-target="#openOrder" onclick="orderForm()" id="billopen">F6<br>伝票呼出</button>
 					<button type="button" class="btn btn-secondary" style="font-size: 12px;" disabled>F7<br></button>
@@ -213,10 +211,10 @@
 								<div class="input-group-prepend">
 									<div class="input-group-text">消費税率</div>
 								</div>
-								<select class="custom-select" name="ctaxRate">
+								<select class="custom-select" name="ctaxRate" id="ctaxRate" onchange="calc();">
 										<option></option>
 									<c:forEach items="${initTaxRate}" var="initTR">
-										<option value="${initTR.ctaxRate}" id="ctaxRate"<c:if test="${order.ctaxRate == initTR.ctaxRate}">selected</c:if>>${initTR.ctaxRate}</option>
+										<option value="${initTR.ctaxRate}"<c:if test="${order.ctaxRate == initTR.ctaxRate}">selected</c:if>>${initTR.ctaxRate}</option>
 									</c:forEach>
 								</select>
 							</div>
@@ -468,10 +466,10 @@
 					<tr>
 						<td rowspan="6"><span id="tableLineNo${list.lineNo}">${list.lineNo}</span></td>
 						<td rowspan="6">
-							<input type="text" value="${list.productCode}" class="form-control" size="2" style="width:100%" id="productCodeInput1"  maxlength='20' name="productCode" onchange="pCode(this)">
+							<input type="text" value="${list.productCode}" class="form-control" size="2" style="width:100%" id="productCodeInput${list.lineNo}"  maxlength='20' name="productCode" onchange="pCode(this)">
 							<button type="button" class="btn btn-outline-secondary" data-toggle="modal" data-target="#setproductsearch" onclick="productCodetoModal(this);initProductModal();" id="setproductsearch${list.lineNo}">検索</button>
 						</td>
-						<td rowspan="3"><span id="productName${list.lineNo}">${list.productName}</span></td>
+						<td rowspan="3"><input type="text" id="productName${list.lineNo}" name="productName" value="${list.productName}" readonly></td>
 						<td rowspan="2">
 							<input type="text" value="${list.rackCode}" class="form-control" size="2" id="rackCode${list.lineNo}" name="rackCode" readonly>
 						</td>
@@ -526,7 +524,7 @@
 			<table align="center">
 				<tr>
 					<td>
-							<button type="button" class="btn btn-outline-secondary" onclick="addLineForm();" id="addLine">行追加</button>
+							<button type="button" class="btn btn-outline-secondary" id="addLine">行追加</button>
 					</td>
 				</tr>
 			</table>
@@ -564,7 +562,7 @@
 
 		<!-- 更新ボタン -->
 		<div align="center">
-				<input type="submit" class="btn btn-outline-secondary w-auto" value="更新" onclick="updateForm();">
+				<input type="submit" class="btn btn-outline-secondary w-auto" value="更新" id="updateOrderButton" onclick="updateForm();">
 		</div><br>
 	</form>
 
@@ -650,15 +648,17 @@
 				window.location.href = "/SalesCube2020/SalesCube?action=orderinput";
 			}
 
-			/* 登録 */
+			/* 更新 */
 			function updateForm() {
 				var test = confirm("入力内容を更新します。よろしいですか？");
 				test;
 				if(test == false){
 					return;
-				} /* else
-				window.location.href = '/SalesCube2020/SalesCube?action=orderinput'; */
-				location.reload();
+				}
+			}
+			
+			function updateButton(){
+				document.getElementById("updateOrderButton").click();
 			}
 	
 			/* 伝票呼出 */
@@ -681,13 +681,14 @@
 				var productCodeInput = document.getElementById("productCodeInput" + (tableNo - 1)).value;
 				target = document.getElementById("productCodeInput" + tableNo);
 				target.value = productCodeInput;
+				
 				/* 商品名 */
-				var productName = document.getElementById("productName" + (tableNo - 1)).innerHTML;
+				var productName = document.getElementById("productName" + (tableNo - 1)).value;
 				target = document.getElementById("productName" + tableNo);
 				if(productName != null && productName != ""){
-					target.innerHTML = productName;
+					target.value = productName;
 				}else{
-					target.innerHTML = null;
+					target.value = null;
 				}
 				/* 棚番 */
 				var rackCode = document.getElementById("rackCode" + (tableNo - 1)).value;
@@ -738,7 +739,7 @@
 						+ '<input type="text" value="" class="form-control" size="2" style="width:100%" name="productCodeInput" id="productCodeInput' + tableNo + '"  onchange="pCode(this)">'
 						+ '<button type="button" class="btn btn-outline-secondary" data-toggle="modal" data-target="#setproductsearch" onclick="productCodetoModal(this);initProductModal();" id="setproductsearch' + tableNo + '">検索</button>'
 					+ '</td>'
-					+ '<td rowspan="3"><span name="productName" id="productName' + tableNo + '"></span></td>'
+					+ '<td rowspan="3"><input type="text" id="productName' + tableNo + '" name="productName" value="${list.productName}" readonly></td>'
 					+ '<td rowspan="2"><input name="rackCode" type="text" value="" class="form-control" size="2" id="rackCode' + tableNo + '" readonly></td>'
 					+ '<td rowspan="3"><input name="unitCost" type="text" value="" class="form-control" size="4" name="unitCost" id="unitCost' + tableNo + '" readonly></td>'
 					+ '<td rowspan="3">'
@@ -880,24 +881,26 @@
 				/* 粗利益率 : (粗利益/金額合計)*100 */
 				target = document.getElementById("grossProfitRatio");
 				if((sum4 - sum3) != null && (sum4 - sum3) !="" && sum2 != null && sum2 != ""){
-					target.innerHTML = Math.floor(((sum4 - sum3) / sum2) * 100 * 100) / 100 + '%';
+					target.innerHTML = Math.floor( ((sum4 - sum3) / sum2) * 100 * 100) / 100 + '%';
 				}
 
 				/* 消費税 : 金額合計*消費税率 */
 				target = document.getElementById("ctaxPriceTotal");
-				if(document.getElementById("ctaxRate").value == null || document.getElementById("ctaxRate").value == ""){
+				var num = document.getElementById("ctaxRate");
+				var rate = num.options[num.selectedIndex].value;
+				if(rate == null || rate == ""){
 					target.innerHTML = '￥0';
 				}else{
-					var ctaxRate = (parseInt(document.getElementById("ctaxRate").value)) /100;
+					var ctaxRate = (parseInt(rate)) /100;
 					target.innerHTML = '￥' + parseInt(sum2 * ctaxRate);
 				}
 				
 				/* 伝票合計 : 金額合計+消費税 */
 				target = document.getElementById("priceTotal");
-				if(document.getElementById("ctaxRate").value == null || document.getElementById("ctaxRate").value == ""){
+				if(rate == null || rate == ""){
 					target.innerHTML = '￥' + parseInt(sum2);
 				}else{
-					var ctaxRate = (parseInt(document.getElementById("ctaxRate").value)) /100;
+					var ctaxRate = parseInt(rate) /100;
 					target.innerHTML = '￥' + parseInt(sum2 * (ctaxRate+1));
 				}
 			}
@@ -1039,7 +1042,7 @@
 				success:function(data){
 					var tmp = JSON.parse(data.bean);
 					if(tmp['customerName'] == null || tmp['customerName'] == ""){
-						alert("該当する顧客情報は存在しません");
+						tmp['customerName'] == "";
 					} else {
 						document.getElementById('customerNameInput').value = tmp['customerName'];
 					}

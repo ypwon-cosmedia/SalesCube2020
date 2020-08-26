@@ -49,11 +49,17 @@ public class OrderCommonBillBean {
 	/* 税転嫁 */
 	private String taxShiftCategory;
 	
+	private String taxCategory;
+	
 	/* 支払条件 */
 	private String cutoffGroup;
 	
+	private String cutoffCategory;
+	
 	/* 取引区分 */
 	private String salesCmCategory;
+	
+	private String salesCategory;
 	
 	/* 備考 */
 	private String customerRemarks;
@@ -291,5 +297,31 @@ public class OrderCommonBillBean {
 	public void setTitle(String title) {
 		this.title = title;
 	}
+
+	public String getTaxCategory() {
+		return taxCategory;
+	}
+
+	public void setTaxCategory(String taxCategory) {
+		this.taxCategory = taxCategory;
+	}
+
+	public String getCutoffCategory() {
+		return cutoffCategory;
+	}
+
+	public void setCutoffCategory(String cutoffCategory) {
+		this.cutoffCategory = cutoffCategory;
+	}
+
+	public String getSalesCategory() {
+		return salesCategory;
+	}
+
+	public void setSalesCategory(String salesCategory) {
+		this.salesCategory = salesCategory;
+	}
+	
+	
 	
 }

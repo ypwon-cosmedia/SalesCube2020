@@ -721,7 +721,7 @@ public class OrderSQL {
 				"STATUS, "
 				+ "RO_SLIP_ID) " +
 				"VALUES " + 
-				"(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+				"(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, (SELECT CATEGORY_CODE FROM category_trn_xxxxx WHERE CATEGORY_ID='29' AND CATEGORY_CODE_NAME = ?), (SELECT CATEGORY_CODE FROM category_trn_xxxxx WHERE CATEGORY_ID='11' AND CATEGORY_CODE_NAME = ?), (SELECT CATEGORY_CODE FROM category_trn_xxxxx WHERE CATEGORY_ID='32' AND CATEGORY_CODE_NAME = ?), ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
 		
 		return sql;
 		
@@ -734,19 +734,23 @@ public class OrderSQL {
 		
 		sql = "INSERT INTO " +
 				"ro_line_trn_xxxxx(PRODUCT_CODE, " +
-				"PRODUCT_NAME, " +
+				"PRODUCT_ABSTRACT, " +
 				"PRODUCT_REMARKS, " +
-				"RACK_CODE, " +
+				"RACK_CODE_SRC, " +
 				"QUANTITY, " +
 				"UNIT_COST, " +
 				"COST, " +
 				"UNIT_RETAIL_PRICE, " +
 				"RETAIL_PRICE, " +
 				"REMARKS, " +
-				"EAD_REMARKS, "
-				+ "RO_SLIP_ID) " +
+				"EAD_REMARKS, " + 
+				"RO_SLIP_ID, " + 
+				"STATUS, " + 
+				"LINE_NO, " +
+				"REST_QUANTITY, "
+				+ "RO_LINE_ID) " +
 				"VALUES " +
-				"(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+				"(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
 		
 		return sql;
 		
@@ -799,6 +803,20 @@ public class OrderSQL {
 		
 	}
 	
+	/*受注明細削除*/
+	public String deleteOrderUpdateDetail(Integer roSlipId) {
+		
+		String sql;
+		
+		sql = "DELETE " + 
+				"FROM ro_line_trn_xxxxx " +
+			"WHERE RO_SLIP_ID = " + roSlipId;
+		
+		return sql;
+		
+	}
+	
+	
 	/* 受注更新 明細 */
 	public String orderUpdateDetail() {
 		
@@ -831,7 +849,8 @@ public class OrderSQL {
 		
 		sql = "SELECT DISTINCT " + 
 				"rstx.SALES_CM_CATEGORY, " +
-				"ctx.CATEGORY_CODE_NAME " + 
+				"ctx.CATEGORY_CODE_NAME, " + 
+				"ctx.CATEGORY_CODE " +
 			"FROM " + 
 				"ro_slip_trn_xxxxx AS rstx " + 
 				"LEFT OUTER JOIN " + 
@@ -850,7 +869,8 @@ public class OrderSQL {
 		
 		String sql;
 		
-		sql = "SELECT CATEGORY_CODE_NAME " + 
+		sql = "SELECT CATEGORY_CODE_NAME, " +
+				"CATEGORY_CODE" +
 				"FROM category_trn_xxxxx " + 
 				"WHERE CATEGORY_ID='11'";
 		
@@ -863,7 +883,8 @@ public class OrderSQL {
 		
 		String sql;
 		
-		sql = "SELECT CATEGORY_CODE_NAME " + 
+		sql = "SELECT CATEGORY_CODE_NAME, " + 
+				"CATEGORY_CODE " + 
 				"FROM category_trn_xxxxx " + 
 				"WHERE CATEGORY_ID='29'";
 		
