@@ -164,7 +164,7 @@
 						    	<div class="input-group-prepend">
 						    		<div class="input-group-text"  style="background-color: pink;">見積番号</div>
 						  		</div>
-						   	  <input type="text" class="form-control" id="estimateSheetId" name="estimateSheetId" onchange="idCheck(this)" pattern="^[0-9A-Za-z]+$" title="※半角英数字" required>
+						   	  <input type="text" class="form-control" id="estimateSheetId" name="estimateSheetId" onchange="idCheck(this)" pattern="^[0-9A-Za-z]+$" title="※半角英数字" maxlength='32' required>
 					  		</div>
               </div>
 
@@ -184,7 +184,7 @@
 			    	<div class="input-group-prepend">
 			    		<div class="input-group-text">納期または出荷日</div>
 			  		</div>
-                    <input type="text" class="form-control" id="deliveryInfo" name="deliveryInfo">
+                    <input type="text" class="form-control" id="deliveryInfo" name="deliveryInfo" maxlength='120'>
                     <button type="button" class="ModalButton"  data-toggle="modal" data-target="#setShipDate" onclick="deliveryInfoShow()" >
                     	<img src="btn_search.png" style="vertical-align: middle; cursor: pointer; width: 32px; height: 32px;">
                     </button>
@@ -220,7 +220,7 @@
 				    	<div class="input-group-prepend">
 				    		<div class="input-group-text">件名</div>
 				  		</div>
-				   	  <input type="text" class="form-control" id="inlineFormInputGroup" name="title">
+				   	  <input type="text" class="form-control" id="inlineFormInputGroup" name="title" maxlength='100'>
 			  		</div>
 				</div>
             </div>
@@ -232,7 +232,7 @@
 				 		<div class="input-group-prepend">
 				 			<div class="input-group-text">納入先</div>
 						</div>
-					 <input type="text" value="貴社指定場所" class="form-control" id="inlineFormInputGroup" name="deliveryName">
+					 <input type="text" value="貴社指定場所" class="form-control" id="inlineFormInputGroup" name="deliveryName" maxlength='60'>
 				</div>
               </div>
             </div>
@@ -244,7 +244,7 @@
 				 		<div class="input-group-prepend">
 				 			<div class="input-group-text">見積条件</div>
 						</div>
-				        <textarea cols="3" style="width: 750px;" id="estimateCondition" name="estimateCondition"></textarea>
+				        <textarea cols="3" style="width: 750px;" id="estimateCondition" name="estimateCondition" maxlength='120'></textarea>
 						<button type="button" class="ModalButton"  data-toggle="modal" data-target="#setQuotationCondition" onclick="conditionShow()">
 							<img src="btn_search.png" style="vertical-align: middle; cursor: pointer; width: 32px; height: 32px;">
 				        </button>
@@ -291,7 +291,7 @@
                   <div class="input-group-prepend">
                     <div class="input-group-text" style="background-color: pink;">提出先名</div>
                   </div>
-                  <input type="text" class="form-control" id="submitName" name="submitName" required>&emsp;&emsp;
+                  <input type="text" class="form-control" id="submitName" name="submitName" maxlength='60' required>&emsp;&emsp;
                 </div>
               </div>
 
@@ -326,7 +326,7 @@
                     <div class="input-group-prepend">
                       <div class="input-group-text">顧客コード</div>
                     </div>
-                      <input type="text" class="form-control" name="customerCode" id="inputCustomerCode" onchange="customerCodeCheck(this)"  pattern="^[0-9A-Za-z]+$" title="※半角英数字">
+                      <input type="text" class="form-control" name="customerCode" id="inputCustomerCode" onchange="customerCodeCheck(this)"  pattern="^[0-9A-Za-z]+$" title="※半角英数字" maxlength='15'>
                       <button type="button" class="ModalButton"  data-toggle="modal" data-target="#customerSearch" onclick="initCustomer() ; getCutoffGroup()">
                         <img src="btn_search.png" style="vertical-align: middle; cursor: pointer; width: 32px; height: 32px;">
                       </button>
@@ -390,7 +390,7 @@
                   <div class="input-group-prepend">
                     <div class="input-group-text">摘要</div>
                   </div>
-                  <textarea name="remarks" cols="100"></textarea>
+                  <textarea name="remarks" cols="100" maxlength='120'></textarea>
                 </div>
               </div>
             </div>
@@ -402,7 +402,7 @@
                   <div class="input-group-prepend">
                     <div class="input-group-text">メモ</div>
                   </div>
-                  <textarea name="memo" cols="100"></textarea>
+                  <textarea name="memo" cols="100" maxlength='2000'></textarea>
                 </div>
               </div>
             </div>
@@ -429,15 +429,15 @@
         <tbody>
           <tr id="tr1">
             <td rowspan="2">1</td>
-            <td rowspan="2" class="backpink"><input type="text" name="productCode" id="productCodeInput1" style="width: 110px;" onchange="productCodeCheck(this)" pattern="^[0-9A-Za-z]+$" title="※半角英数字" required>
+            <td rowspan="2" class="backpink"><input type="text" name="productCode" id="productCodeInput1" style="width: 110px;" onchange="productCodeCheck(this)" pattern="^[0-9A-Za-z]+$" title="※半角英数字" maxlength='20' required>
               <button type="button" id="productSearch1" class="ModalButton"  data-toggle="modal" data-target="#setproductsearch" onclick="productSearchButton(this)" >
               	<img src="btn_search.png" style="vertical-align: middle; cursor: pointer; width: 22px; height: 22px;">
               </button></td>
-            <td rowspan="2"><textarea name="productAbstract" rows="3" style="width: 200px;" id="productAbstract1"></textarea></td>
-            <td class="backpink"><input type="number" name="quantity" id="quantity1" style="width: 75px;" onchange="quantityChange(this)" required></td>
+            <td rowspan="2"><textarea name="productAbstract" rows="3" style="width: 200px;" id="productAbstract1" maxlength='60'></textarea></td>
+            <td class="backpink"><input type="number" name="quantity" id="quantity1" style="width: 75px;" onchange="quantityChange(this)" maxlength='12' required></td>
             <td><input type="text" name="unitCost" id="unitCost1" style="background-color:rgb(177, 177, 177); width: 75px;" readonly></td>
-            <td class="backpink"><input type="number" name="unitRetailPrice" id="unitRetailPrice1" style="width: 75px;" onchange="unitRetailPriceChange(this)" required></td>
-            <td rowspan="2"><textarea name="productRemarks" rows="3" style="width: 200px;" id="remarks1"></textarea></td>
+            <td class="backpink"><input type="number" name="unitRetailPrice" id="unitRetailPrice1" style="width: 75px;" onchange="unitRetailPriceChange(this)" maxlength='12' required></td>
+            <td rowspan="2"><textarea name="productRemarks" rows="3" style="width: 200px;" id="remarks1" maxlength='120'></textarea></td>
             <td><button type="button" class="btn btn-primary table-button"  onclick="deleteLineForm(this)" id="delete1">削除</button></td>
           </tr>
 
@@ -578,15 +578,15 @@
         $('#estimate > tbody:last').append(
           '<tr>' +
             '<td rowspan="2">' + tableNo + '</td>' +
-            '<td rowspan="2" class="backpink"><input type="text" name="productCode" id="productCodeInput' + tableNo + '" style="width: 110px;" onchange="productCodeCheck(this)" required>' +
+            '<td rowspan="2" class="backpink"><input type="text" name="productCode" id="productCodeInput' + tableNo + '" style="width: 110px;" onchange="productCodeCheck(this)" pattern="^[0-9A-Za-z]+$" title="※半角英数字" maxlength="20" required>' +
               '<button type="button" id="productSearch' + tableNo + '" class="ModalButton"  data-toggle="modal" data-target="#setproductsearch" onclick="productSearchButton(this)">' +
               	'<img src="btn_search.png" style="vertical-align: middle; cursor: pointer; width: 22px; height: 22px;">' +
               '</button></td>' +
-            '<td rowspan="2"><textarea name="productAbstract" rows="3" style="width: 200px;" id="productAbstract' + tableNo + '"></textarea></td>' +
-            '<td class="backpink"><input type="number" name="quantity" id="quantity' + tableNo + '" style="width: 75px;" onchange="quantityChange(this)" required></td>' +
+            '<td rowspan="2"><textarea name="productAbstract" rows="3" style="width: 200px;" id="productAbstract' + tableNo + '" maxlength="60"></textarea></td>' +
+            '<td class="backpink"><input type="number" name="quantity" id="quantity' + tableNo + '" style="width: 75px;" onchange="quantityChange(this)" maxlength="12" required></td>' +
             '<td><input type="text" name="unitCost" id="unitCost' + tableNo + '" style="background-color:rgb(177, 177, 177); width: 75px;" readonly></td>' +
-            '<td class="backpink"><input type="number" name="unitRetailPrice" id="unitRetailPrice' + tableNo + '" style="width: 75px;" onchange="unitRetailPriceChange(this)" required></td>' +
-            '<td rowspan="2"><textarea name="productRemarks" rows="3" style="width: 200px;" id="remarks' + tableNo + '"></textarea></td>' +
+            '<td class="backpink"><input type="number" name="unitRetailPrice" id="unitRetailPrice' + tableNo + '" style="width: 75px;" onchange="unitRetailPriceChange(this)" maxlength="12" required></td>' +
+            '<td rowspan="2"><textarea name="productRemarks" rows="3" style="width: 200px;" id="remarks' + tableNo + '" maxlength="120"></textarea></td>' +
             '<td><button type="button" class="btn btn-primary table-button"  onclick="deleteLineForm(this)"  id="delete' + tableNo + '">削除</button></td>' +
           '</tr>' +
 
@@ -674,6 +674,12 @@
         var tableNo_id = obj.id;
         var tableNo = tableNo_id.substr(12); //対象のtableNo：ボタンをクリックした列のtableNoを取得
         var acquisitionTableNo = tableNo -1; //前行のtableNo：対象のtableNo-1
+        
+        if(document.getElementById('productCodeInput' + tableNo).value != ""){
+    		if(!confirm("明細が入力されています。上書きしますか？")){
+    			return;
+    		}
+        };
 
         // 商品コード複写
         var productCode_id = document.getElementById('productCodeInput' + tableNo);//対象のproductCodeのid

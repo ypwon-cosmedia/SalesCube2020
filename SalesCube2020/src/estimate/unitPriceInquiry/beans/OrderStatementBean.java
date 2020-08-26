@@ -74,6 +74,5 @@ public class OrderStatementBean {
 	 */
 	public void setRoSlipId(Integer roSlipId) {
 		this.roSlipId = roSlipId;
-	}	
-	
+	}
 }

@@ -150,7 +150,7 @@
 				  			<div class="input-group-prepend">
 				  				<div class="input-group-text">商品コード</div>
 							</div>
-				           	<input type="text" value="${searchResult.productCode}" class="form-control" id="inputProductCode" name="productCode" pattern="^[0-9A-Za-z]+$" title="※半角英数字">
+				           	<input type="text" value="${searchResult.productCode}" class="form-control" id="inputProductCode" name="productCode" pattern="^[0-9A-Za-z]+$" title="※半角英数字" maxlength='20'>
 							<button type="button" class="ModalButton"  data-toggle="modal" data-target="#setproductsearch" onclick="initProductModal()">
 								<img src="btn_search.png" style="vertical-align: middle; cursor: pointer; width: 32px; height: 32px;">
 				            </button>
@@ -339,10 +339,9 @@
       location.href = '/SalesCube2020/SalesCube?action=moveUnitPriceInquiry';
     }
     
-    /* 単価照会(検索) */
+    /* ファンクションキーの単価照会 */
     function unitPriceInquirySearch() {
-		var form = document.unitpriceinquiryform;
-		form.submit();
+    	document.getElementById("unitPriceInquirySearchButton").click();
     }
     
     /* 商品検索モーダル画面から取得した商品コードで商品情報取得 */
