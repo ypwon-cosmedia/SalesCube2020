@@ -412,7 +412,7 @@ public class OrderInputDAO extends BaseDAO{
 	}
 	
 	/* 受注新規登録明細 */
-	public int orderInputDetail(List<OrderInputBean> list) throws SQLException, ClassNotFoundException{
+	public int orderInputDetail(List<OrderInputBean> list, int num) throws SQLException, ClassNotFoundException{
 		
 		Connection con;
 	 	PreparedStatement stmt = null;
@@ -425,7 +425,6 @@ public class OrderInputDAO extends BaseDAO{
 
 	 	stmt = con.prepareStatement(sql);
 	 	int index = 1;
-	 	
 	 	
 	 	try {
 	 		for (OrderInputBean bean : list) {
@@ -440,7 +439,7 @@ public class OrderInputDAO extends BaseDAO{
 			 	stmt.setInt(9, bean.getRetailPrice());
 			 	stmt.setString(10, bean.getInputProductRemarks());
 			 	stmt.setString(11, bean.getEadRemarks());
-			 	stmt.setInt(12, roSlipLast()+1);
+			 	stmt.setInt(12, num);
 			 	stmt.setInt(13, bean.getStatus());
 			 	stmt.setString(14, String.valueOf(index));
 			 	stmt.setInt(15, bean.getRestQuantity());

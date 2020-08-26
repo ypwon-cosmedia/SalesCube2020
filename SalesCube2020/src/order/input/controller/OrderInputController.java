@@ -97,7 +97,7 @@ public class OrderInputController extends BaseController {
 		String deliveryTel = nullOrEmpty(request.getParameter("deliveryTel"));
 		String deliveryFax = nullOrEmpty(request.getParameter("deliveryFax"));
 		String deliveryEmail = nullOrEmpty(request.getParameter("deliveryEmail"));
-		String[] productCode = request.getParameterValues("productCode");
+		String[] productCode = request.getParameterValues("productCodeInput");
 		String[] productName = request.getParameterValues("productName");
 		String[] productRemarks = request.getParameterValues("productRemarks");
 		String[] rackCode = request.getParameterValues("rackCode");
@@ -113,11 +113,11 @@ public class OrderInputController extends BaseController {
 		Integer priceTotal = 0;
 		int arrLength = productCode.length;
 
-		if(request.getParameterValues("productCode") == null) {
+		if(request.getParameterValues("productCodeInput") == null) {
 			productCode = new String[arrLength];
 			productCode = stringArrayIsNull(productCode,arrLength);
 		}else {
-			productCode = request.getParameterValues("productCode");
+			productCode = request.getParameterValues("productCodeInput");
 		}
 		if(request.getParameterValues("productName") == null){
 			productName = new String[arrLength];
@@ -230,9 +230,9 @@ public class OrderInputController extends BaseController {
 		bean.setCtaxPriceTotal(ctaxPriceTotal);
 		bean.setPriceTotal(priceTotal);		
 		
-		OrderInputBean bean2 = new OrderInputBean();
 		if(productCode != null) {
 			for(int i = 0; i < productCode.length; i++) {
+				OrderInputBean bean2 = new OrderInputBean();
 				bean2.setProductCode(productCode[i]);
 				bean2.setProductName(productName[i]);
 				bean2.setProductRemarks(productRemarks[i]);
@@ -253,7 +253,8 @@ public class OrderInputController extends BaseController {
 		List<OrderInputBean> list3 = dao.getTaxRate();
 				
 		int result1 = dao.orderInputInfo(bean);
-		int result2 = dao.orderInputDetail(list);
+		int num = dao.roSlipLast();
+		int result2 = dao.orderInputDetail(list, num);
 		
 		try {
 			if(result1 == 0 && result2 == 0) {
@@ -318,7 +319,7 @@ public class OrderInputController extends BaseController {
 		String deliveryTel = nullOrEmpty(request.getParameter("deliveryTel"));
 		String deliveryFax = nullOrEmpty(request.getParameter("deliveryFax"));
 		String deliveryEmail = nullOrEmpty(request.getParameter("deliveryEmail"));
-		String[] productCode = request.getParameterValues("productCode");
+		String[] productCode = request.getParameterValues("productCodeInput");
 		String[] productName = request.getParameterValues("productName");
 		String[] productRemarks = request.getParameterValues("productRemarks");
 		String[] rackCode = request.getParameterValues("rackCode");
@@ -334,11 +335,11 @@ public class OrderInputController extends BaseController {
 		Integer priceTotal = 0;
 		int arrLength = productCode.length;
 
-		if(request.getParameterValues("productCode") == null) {
+		if(request.getParameterValues("productCodeInput") == null) {
 			productCode = new String[arrLength];
 			productCode = stringArrayIsNull(productCode,arrLength);
 		}else {
-			productCode = request.getParameterValues("productCode");
+			productCode = request.getParameterValues("productCodeInput");
 		}
 		if(request.getParameterValues("productName") == null){
 			productName = new String[arrLength];

@@ -55,6 +55,7 @@
 		<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
 		<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
 		<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+		<script type="text/javascript" src="common/shotcuts.js"></script>
 		<%@ include file= "../common/menubar.jsp" %>
 		<br><br>
 
@@ -64,11 +65,11 @@
 			<div class="btn-toolbar float-right" role="toolbar" aria-label="Toolbar with button groups">  
 				<div class="btn-group mr-2 " role="group" aria-label="First group">
 					<button type="button" class="btn btn-secondary" style="font-size: 12px;" onclick="initForm();" >F1<br>初期化</button>
-					<form action="/SalesCube2020/SalesCube?action=deleteOrder" method="post" >
-						<input type="submit" value="F2削除" class="btn btn-secondary h-100" style="font-size: 12px;" onclick="return confirm('このデータを削除しますか？')">
+					<form action="/SalesCube2020/SalesCube?action=deleteOrder" method="post"  onsubmit="return confirm('このデータを削除しますか？')">
+						<button type="submit" class="btn btn-secondary h-100" style="font-size: 12px;" id="deleteOrder">F2<br>削除</button>
 						<input type="hidden" id="roSlipId" name="roSlipId" value="${order.roSlipId}">
 					</form>
-					<button type="button" class="btn btn-secondary" style="font-size: 12px;" onclick="returnForm();">F3<br>戻る</button>
+					<button type="button" class="btn btn-secondary" style="font-size: 12px;" id="returnForm" onclick="returnForm();">F3<br>戻る</button>
 					<button type="button" class="btn btn-secondary" style="font-size: 12px;" onclick="updateButton();">F4<br>更新</button>
 					<button type="button" class="btn btn-secondary" style="font-size: 12px;" disabled>F5<br></button>
 					<button type="button" class="btn btn-secondary" style="font-size: 12px;" data-toggle="modal" data-target="#openOrder" onclick="orderForm()" id="billopen">F6<br>伝票呼出</button>
@@ -90,7 +91,7 @@
 				 <span class="action_errors" style="color: red">${updateCmp}</span>
        </div>
 
-		<form action='/SalesCube2020/SalesCube?action=orderupdateCmp' method="post" name="orderUpdate">
+		<form action='/SalesCube2020/SalesCube?action=orderupdateCmp' method="post" name="orderUpdate"  onsubmit="return updateForm();">
 			<!-- 受注伝票情報 -->
 			<div class="container" style="background-color: white;"><div class="panel panel-default">
 				<div class="panel-heading row mb-2 col-4">
@@ -466,10 +467,10 @@
 					<tr>
 						<td rowspan="6"><span id="tableLineNo${list.lineNo}">${list.lineNo}</span></td>
 						<td rowspan="6">
-							<input type="text" value="${list.productCode}" class="form-control" size="2" style="width:100%" id="productCodeInput${list.lineNo}"  maxlength='20' name="productCode" onchange="pCode(this)">
+							<input type="text" value="${list.productCode}" class="form-control" size="2" style="width:100%" id="productCodeInput${list.lineNo}"  maxlength='20' name="productCodeInput" onchange="pCode(this)" required>
 							<button type="button" class="btn btn-outline-secondary" data-toggle="modal" data-target="#setproductsearch" onclick="productCodetoModal(this);initProductModal();" id="setproductsearch${list.lineNo}">検索</button>
 						</td>
-						<td rowspan="3"><input type="text" id="productName${list.lineNo}" name="productName" value="${list.productName}" readonly></td>
+						<td rowspan="3"><input type="text" id="productName${list.lineNo}" class="form-control" name="productName" value="${list.productName}" readonly></td>
 						<td rowspan="2">
 							<input type="text" value="${list.rackCode}" class="form-control" size="2" id="rackCode${list.lineNo}" name="rackCode" readonly>
 						</td>
@@ -477,7 +478,7 @@
 							<input type="text" value="${list.unitCost}" class="form-control" size="4" name="unitCost" id="unitCost${list.lineNo}" name="unitCost" readonly>
 						</td>
 						<td rowspan="3">
-							<input type="text" value="${list.unitRetailPrice}" class="form-control" size="4" name="unitRetailPrice" id="unitRetailPrice${list.lineNo}" name="unitRetailPrice" onchange="quantityCalc2(this)">
+							<input type="text" value="${list.unitRetailPrice}" class="form-control" size="4" name="unitRetailPrice" id="unitRetailPrice${list.lineNo}" name="unitRetailPrice" onchange="quantityCalc2(this)" required>
 						</td>
 						<td rowspan="3">
 							<textarea name="productRemarks" class="form-control" cols="10" id="inputProductRemarks${list.lineNo}" name="inputProductRemarks">${list.inputProductRemarks}</textarea>
@@ -489,7 +490,7 @@
 					<tr></tr>
 					<tr>
 						<td rowspan="2">
-							<input type="text" value="${list.quantity}" class="form-control" size="2" name="quantity" id="quantity${list.lineNo}" name="quantity" onchange="quantityCalc1(this)">
+							<input type="text" value="${list.quantity}" class="form-control" size="2" name="quantity" id="quantity${list.lineNo}" name="quantity" onchange="quantityCalc1(this)" required>
 						</td>
 					</tr>
 					<tr>
@@ -562,7 +563,7 @@
 
 		<!-- 更新ボタン -->
 		<div align="center">
-				<input type="submit" class="btn btn-outline-secondary w-auto" value="更新" id="updateOrderButton" onclick="updateForm();">
+				<input type="submit" class="btn btn-outline-secondary w-auto" value="更新" id="updateOrderButton">
 		</div><br>
 	</form>
 
@@ -650,10 +651,8 @@
 
 			/* 更新 */
 			function updateForm() {
-				var test = confirm("入力内容を更新します。よろしいですか？");
-				test;
-				if(test == false){
-					return;
+				if(!confirm("入力内容を登録します。よろしいですか？")){
+			       	return false;
 				}
 			}
 			
@@ -736,21 +735,21 @@
 				$('#order > tbody:last').append('<tr>'
 					+ '<td rowspan="6"><span id="tableLineNo' + tableNo + '">' + tableNo + '</span></td>'
 					+ '<td rowspan="6">'
-						+ '<input type="text" value="" class="form-control" size="2" style="width:100%" name="productCodeInput" id="productCodeInput' + tableNo + '"  onchange="pCode(this)">'
+						+ '<input type="text" value="" class="form-control" size="2" style="width:100%" name="productCodeInput" id="productCodeInput' + tableNo + '"  onchange="pCode(this)" required>'
 						+ '<button type="button" class="btn btn-outline-secondary" data-toggle="modal" data-target="#setproductsearch" onclick="productCodetoModal(this);initProductModal();" id="setproductsearch' + tableNo + '">検索</button>'
 					+ '</td>'
-					+ '<td rowspan="3"><input type="text" id="productName' + tableNo + '" name="productName" value="${list.productName}" readonly></td>'
+					+ '<td rowspan="3"><input type="text" id="productName' + tableNo + '" class="form-control" name="productName" value="${list.productName}" readonly></td>'
 					+ '<td rowspan="2"><input name="rackCode" type="text" value="" class="form-control" size="2" id="rackCode' + tableNo + '" readonly></td>'
 					+ '<td rowspan="3"><input name="unitCost" type="text" value="" class="form-control" size="4" name="unitCost" id="unitCost' + tableNo + '" readonly></td>'
 					+ '<td rowspan="3">'
-						+ '<input type="text" value="" class="form-control" size="4" name="unitRetailPrice" name="unitRetailPrice" id="unitRetailPrice' + tableNo + '" onchange="quantityCalc2(this)"></td>'
+						+ '<input type="text" value="" class="form-control" size="4" name="unitRetailPrice" name="unitRetailPrice" id="unitRetailPrice' + tableNo + '" onchange="quantityCalc2(this)" required></td>'
 					+ '<td rowspan="3"><textarea name="productRemarks" class="form-control" cols="10" name="inputProductRemarks" id="inputProductRemarks' + tableNo + '"></textarea></td>'
 					+ '<td rowspan="3" class="align: middle"><button type="button" class="btn btn-outline-secondary" onclick="deleteLineForm(this);" id="deleteLineForm' + tableNo + '">削除</button></td>'
 					+ '</tr>'
 					+ '<tr></tr>'
 					+ '<tr>'
 					+ '<td rowspan="2">'
-						+ '<input type="text" value="" class="form-control" size="2" name="quantity" id="quantity' + tableNo + '" onchange="quantityCalc1(this)">'
+						+ '<input type="text" value="" class="form-control" size="2" name="quantity" id="quantity' + tableNo + '" onchange="quantityCalc1(this)" required>'
 					+ '</td>'
 					+ '</tr>'
 					+ '<tr>'
@@ -1217,6 +1216,26 @@
 			
 			});
 		}
+		
+		shortcut.add("F1", function(){
+			initForm();
+		});
+		
+		shortcut.add("F2", function(){
+			document.getElementById("deleteOrder").click();
+		});
+		
+		shortcut.add("F3", function(){
+			document.getElementById("returnForm").click();
+		});
+		
+		shortcut.add("F4", function(){
+			document.getElementById("updateOrderButton").click();
+		});
+		
+		shortcut.add("F6", function(){
+			document.getElementById("billopen").click();
+		});
 			
 		</script>
 	</body>

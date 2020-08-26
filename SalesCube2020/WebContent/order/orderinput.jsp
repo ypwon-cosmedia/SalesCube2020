@@ -55,6 +55,7 @@
 		<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
 		<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
 		<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+		<script type="text/javascript" src="common/shotcuts.js"></script>
 		<%@ include file= "../common/menubar.jsp" %>
 		<br><br>
 
@@ -89,7 +90,7 @@
 				 <span class="action_errors" style="color: red">${deleteCmp}</span>
        </div>
 	
-		<form action="/SalesCube2020/SalesCube?action=orderinputCmp" method="post">
+		<form action="/SalesCube2020/SalesCube?action=orderinputCmp" method="post" onsubmit="return addForm();">
 			<!-- 受注伝票情報 -->
 			<div class="container" style="background-color: white;"><div class="panel panel-default">
 				<div class="panel-heading row mb-2 col-4">
@@ -467,7 +468,7 @@
 					<tr>
 						<td rowspan="6"><span id="tableLineNo1">1</span></td>
 						<td rowspan="6">
-							<input type="text" value="" class="form-control" size="2" style="width:100%" id="productCodeInput1"  maxlength='20' name="productCode" onchange="pCode(this)">
+							<input type="text" value="" class="form-control" size="2" style="width:100%" id="productCodeInput1"  maxlength='20' name="productCodeInput" onchange="pCode(this)" required>
 							<button type="button" class="btn btn-outline-secondary" data-toggle="modal" data-target="#setproductsearch" onclick="initProductModal();productCodetoModal(this);" id="setproductsearch1">検索</button>
 						</td>
 						<td rowspan="3"><span id="productName1" name="productName"></span></td>
@@ -478,7 +479,7 @@
 							<input type="text" value="" class="form-control" size="4" name="unitCost" id="unitCost1" name="unitCost" readonly>
 						</td>
 						<td rowspan="3">
-							<input type="text" value="" class="form-control" size="4" name="unitRetailPrice" id="unitRetailPrice1" name="unitRetailPrice" onchange="quantityCalc2(this)" maxlength='15' pattern="^[0-9]+$">
+							<input type="text" value="" class="form-control" size="4" name="unitRetailPrice" id="unitRetailPrice1" name="unitRetailPrice" onchange="quantityCalc2(this)" maxlength='15' pattern="^[0-9]+$" required>
 						</td>
 						<td rowspan="3">
 							<textarea name="productRemarks" class="form-control" cols="10" id="inputProductRemarks1" name="inputProductRemarks" maxlength='120'></textarea>
@@ -490,7 +491,7 @@
 					<tr></tr>
 					<tr>
 						<td rowspan="2">
-							<input type="text" value="" class="form-control" size="2" name="quantity" id="quantity1" name="quantity" maxlength='12' pattern="^[0-9]+$" onchange="quantityCalc1(this)">
+							<input type="text" value="" class="form-control" size="2" name="quantity" id="quantity1" name="quantity" maxlength='12' pattern="^[0-9]+$" onchange="quantityCalc1(this)" required>
 						</td>
 					</tr>
 					<tr>
@@ -561,7 +562,7 @@
 
 		<!-- 登録ボタン -->
 		<div align="center">
-				<input type="submit" class="btn btn-outline-secondary w-auto" value="登録" id="inputOrderButton" onclick="addForm();">
+				<input type="submit" class="btn btn-outline-secondary w-auto" value="登録" id="inputOrderButton">
 		</div><br>
 	</form>
 
@@ -573,7 +574,7 @@
 				if(!confirm("入力内容を初期化してよろしいですか？")){
 					return;
 				}
-				location.reload();
+				location.href = "/SalesCube2020/SalesCube?action=orderinput";
 			}
 
 			/* 顧客検索の初期化 */
@@ -596,11 +597,15 @@
 
 			/* 登録 */
 			function addForm() {
-				var test = confirm("入力内容を登録します。よろしいですか？");
-				test;
-				if(test == false){
-					return;
+				if(!confirm("入力内容を登録します。よろしいですか？")){
+			       	return false;
 				}
+//				var test = confirm("入力内容を登録します。よろしいですか？");
+//				if(test == true){
+//					return true;
+//				}else{
+//					return;
+//				}
 
 			}
 			
@@ -683,21 +688,21 @@
 				$('#order > tbody:last').append('<tr>'
 					+ '<td rowspan="6"><span id="tableLineNo' + tableNo + '">' + tableNo + '</span></td>'
 					+ '<td rowspan="6">'
-						+ '<input type="text" value="" class="form-control" size="2" style="width:100%" name="productCodeInput" id="productCodeInput' + tableNo + '"  onchange="pCode(this)">'
+						+ '<input type="text" value="" class="form-control" size="2" style="width:100%" name="productCodeInput" id="productCodeInput' + tableNo + '"  onchange="pCode(this)" required>'
 						+ '<button type="button" class="btn btn-outline-secondary" data-toggle="modal" data-target="#setproductsearch" onclick="initProductModal();productCodetoModal(this);" id="setproductsearch' + tableNo + '">検索</button>'
 					+ '</td>'
 					+ '<td rowspan="3"><span name="productName" id="productName' + tableNo + '"></span></td>'
 					+ '<td rowspan="2"><input name="rackCode" type="text" value="" class="form-control" size="2" id="rackCode' + tableNo + '" readonly></td>'
 					+ '<td rowspan="3"><input name="unitCost" type="text" value="" class="form-control" size="4" name="unitCost" id="unitCost' + tableNo + '" readonly></td>'
 					+ '<td rowspan="3">'
-						+ '<input type="text" value="" class="form-control" size="4" name="unitRetailPrice" name="unitRetailPrice" id="unitRetailPrice' + tableNo + '" onchange="quantityCalc2(this)"></td>'
+						+ '<input type="text" value="" class="form-control" size="4" name="unitRetailPrice" name="unitRetailPrice" id="unitRetailPrice' + tableNo + '" onchange="quantityCalc2(this)" required></td>'
 					+ '<td rowspan="3"><textarea name="productRemarks" class="form-control" cols="10" name="inputProductRemarks" id="inputProductRemarks' + tableNo + '"></textarea></td>'
 					+ '<td rowspan="3" class="align: middle"><button type="button" class="btn btn-outline-secondary" onclick="deleteLineForm(this);" id="deleteLineForm' + tableNo + '">削除</button></td>'
 					+ '</tr>'
 					+ '<tr></tr>'
 					+ '<tr>'
 					+ '<td rowspan="2">'
-						+ '<input type="text" value="" class="form-control" size="2" name="quantity" id="quantity' + tableNo + '" onchange="quantityCalc1(this)">'
+						+ '<input type="text" value="" class="form-control" size="2" name="quantity" id="quantity' + tableNo + '" onchange="quantityCalc1(this)" required>'
 					+ '</td>'
 					+ '</tr>'
 					+ '<tr>'
@@ -1174,6 +1179,18 @@
 			
 			});
 		}
+		
+		shortcut.add("F1", function(){
+			initForm();
+		});
+		
+		shortcut.add("F3", function(){
+			document.getElementById("inputOrderButton").click();
+		});
+		
+		shortcut.add("F6", function(){
+			document.getElementById("billopen").click();
+		});
 			
 		</script>
 	</body>

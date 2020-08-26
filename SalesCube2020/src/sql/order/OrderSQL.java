@@ -747,8 +747,8 @@ public class OrderSQL {
 				"RO_SLIP_ID, " + 
 				"STATUS, " + 
 				"LINE_NO, " +
-				"REST_QUANTITY, "
-				+ "RO_LINE_ID) " +
+				"REST_QUANTITY, " + 
+				"RO_LINE_ID) " +
 				"VALUES " +
 				"(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
 		
