@@ -996,6 +996,23 @@
 			function customerInfo() {
 				var cCode = document.getElementById("customerCodeInput").value;
 				$("#deliveryName > option").remove();
+				document.getElementById("customerName").value = "";
+				document.getElementById("taxShiftCategory").value = "";
+				document.getElementById("cutoffGroup").value = "";
+				document.getElementById("salesCmCategory").value = "";
+				document.getElementById("customerRemarks").value = "";
+				document.getElementById("customerCommentData").value = "";
+				document.getElementById("deliveryOfficeName").value = "";
+				document.getElementById("deliveryDeptName").value = "";
+				document.getElementById("deliveryZipCode").value = "";
+				document.getElementById("deliveryAddress1").value = "";
+				document.getElementById("deliveryAddress2").value = "";
+				document.getElementById("deliveryPcName").value = "";
+				document.getElementById("deliveryPcKana").value = "";
+				document.getElementById("deliveryPcPre").value = "";
+				document.getElementById("deliveryTel").value = "";
+				document.getElementById("deliveryFax").value = "";
+				document.getElementById("deliveryEmail").value = "";
 			$.ajax({
 				url:'/SalesCube2020/SalesCubeAJAX?action=cuscodetoinfo',
 				type:'post',
@@ -1035,8 +1052,8 @@
 					}
 					
 					for(var i = 0; i<Object.keys(data.list).length; i++){
-						$("#deliveryName").append("<option value = '" + data.list[i].deliveryCode + "'>"+data.list[i].deliveryName+"</option>");	
-					}
+						$("#deliveryName").append("<option value = '" + data.list[i].deliveryCode + "'>"+data.list[i].deliveryName+"</option>");
+					}	
 						if(data.list[0].deliveryOfficeName == null || data.list[0].deliveryOfficeName == ""){
 							data.list[0].deliveryOfficeName = "";
 						}else{
@@ -1092,6 +1109,7 @@
 						}else{
 							document.getElementById('deliveryEmail').value = data.list[0].deliveryEmail;
 						}
+					
 				}
 			});
 		}
