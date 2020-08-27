@@ -17,8 +17,9 @@ import sql.estimate.EstimateSQL;
 import user.beans.UserInfoBean;
 
 public class EstimateSearchDAO extends BaseDAO {
-	public List<String[]> estimateSearchResult(EstimateSearchBean bean, UserInfoBean user, String sort) throws SQLException, ClassNotFoundException{
-		
+	public List<String[]> estimateSearchResult(EstimateSearchBean bean, UserInfoBean user, String sort, String upDown, String rowcount, String pageNum) throws SQLException, ClassNotFoundException{
+		int iPageNum = Integer.parseInt(pageNum);
+		int iRowCount = Integer.parseInt(rowcount);
 		List<EstimateConfigurationBean> list1 =new ArrayList<>();
 		List<String[]> list = new ArrayList<>();
 		
@@ -80,8 +81,12 @@ public class EstimateSearchDAO extends BaseDAO {
 				" AND " +
 				"(CUSTOMER_NAME " + stringIsNull(bean.getCustomerName()) +
 				"order by " +
-				sort +
-				;
+				sort + " " +
+				upDown + " " +
+				"LIMIT " +
+				 rowcount + " " +
+				 "OFFSET " +
+				 (iPageNum-1)*iRowCount;
 				
 			
 		System.out.println("テスト"+ bean.getCustomerName());
