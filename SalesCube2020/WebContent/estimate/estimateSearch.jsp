@@ -416,15 +416,20 @@
 	
 	  //Excel出力
 	  function excelOut(){
-			if(!confirm("検索結果をExcelファイルでダウンロードしますか？")){
-				alert("testetset");
-				var form = document.getElementById("estimate");
+			if(confirm("検索結果をExcelファイルでダウンロードしますか？")){
+	           	
+				var formString = $("form[id=estimate]").serialize();
 				
-				form.action="/SalesCube2020/SalesCube?action=estimateExcelOutput";
-				form.method="post";
-				
-				form.submit();
-	           	return;
+	           	$.ajax({
+					
+					url:"/SalesCube2020/SalesCubeAJAX?action=estimateExcelOutput",
+					type:'post',
+					data:formString,
+					dataType:'json',
+					success:function(data){	
+											
+					}
+				});
 	    	}
 	  }
 		
@@ -507,7 +512,7 @@
 				    	 maxPageNo++;
 				     maxPageNo = Math.floor(maxPageNo);
 				     
-				     alert(maxPageNo);
+				  
 				     
 				     var beforeFlag;
 				     var nextFlag;
