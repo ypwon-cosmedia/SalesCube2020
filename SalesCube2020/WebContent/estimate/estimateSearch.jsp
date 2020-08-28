@@ -54,6 +54,10 @@
  		 	    cursor: pointer;
  		 	    color : blue;
 		    }
+		    
+		.cursor-hand{
+			cursor: hand;
+		}
       
         .clear-decoration {
                 border: none;  /* 枠線を消す */
@@ -114,6 +118,11 @@
 		.sort.asc:after {
 		  content:"▲";
 		}
+		
+		.example li {
+		display:inline;
+		}
+		
 	</style>
 	
   </head>
@@ -141,7 +150,7 @@
         
           <div class="btn-group mr-2 " role="group" aria-label="First group">
             <button type="button" class="btn btn-secondary" style="font-size: 12px;" onclick="initForm()">F1<br>初期化</button>
-            <button type="button" class="btn btn-secondary" style="font-size: 12px;" onclick="estimateSearch1() ; estimateSearch2()">F2<br>検索</button>
+            <button type="button" class="btn btn-secondary" style="font-size: 12px;" onclick="estimateSearch()">F2<br>検索</button>
             <button type="button" class="btn btn-secondary" style="font-size: 12px;" onclick="excelOut()" id="csvDownloadButton">F3<br>Excel出力</button>
             <button type="button" class="btn btn-secondary" style="font-size: 12px;" data-toggle="modal" data-target="#setSlipConfiguration" onclick="configGet() ; initButton()">F4<br>設定</button>
             <button type="button" class="btn btn-secondary" style="font-size: 12px;" disabled>F5<br></button>
@@ -308,14 +317,14 @@
 
             <div class="rounded float-right">
               <button type="button" class="btn btn-primary" onclick="initForm()">初期化</button>
-              <input type="button" value="検索" class="btn btn-primary" onclick="estimateSearch1() ; estimateSearch2('estimateSheetId')">
+              <input type="button" value="検索" class="btn btn-primary" onclick="estimateSearch()">
             </div><br>
           <br>
         </div><br>
       </div><br>
 
 
-      <div id="resultCount" hidden="hidden">
+      <div id="resultCount" >
         <div class="container">
             <div class="float-left" style="position:static; left: 0px;">
             
@@ -324,7 +333,8 @@
             </div>
             
       		<!-- ページング -->
-      		<div class="col-4" id="paging"></div>
+      		<div class="col-4" style="text-align:right;" id="paging">
+			</div>
           </div>
       </div>
 
@@ -355,25 +365,12 @@
               <th scope="col" class="rd_top_left th_back_black" style="cursor: pointer; " onclick="sort('validDate');">有効期限</th>
               <th scope="col" class="th_back_black" style="cursor: pointer; " onclick="sort('estimateDate');">見積日</th>
               <th scope="col" class="th_back_black" style="cursor: pointer; " onclick="sort('estimateTotal');">伝票合計</th>
-              <th scope="col" class="th_back_black" >件名</th>
-              <th scope="col" class="th_back_black" >提出先名</th>
-              <th scope="col" class="th_back_black" >提出先敬称</th>
-              <th scope="col" class="th_back_black" style="cursor: pointer; " onclick="sort('customerCode');">顧客コード</th>
-              <th scope="col" class="th_back_black" style="cursor: pointer; " onclick="sort('customerName');">顧客名</th>
-              <th scope="col" class="th_back_black" style="cursor: pointer; " onclick="sort('product1');">粗利益</th>
-              <th scope="col" class="th_back_black" style="cursor: pointer; " onclick="sort('product1');">粗利益率</th>
-              <th scope="col" class="th_back_black" style="cursor: pointer; " onclick="sort('product1');">金額合計</th>
-              <th scope="col" class="th_back_black" style="cursor: pointer; " onclick="sort('product1');">消費税</th>
-              <th scope="col" class="th_back_black" style="cursor: pointer; ">納期または出荷日</th>
-              <th scope="col" class="th_back_black" style="cursor: pointer; " onclick="sort('userName');">入力担当者名</th>
-              <th scope="col" class="th_back_black" style="cursor: pointer; " onclick="sort('userId');">入力担当者コード</th>
-              <th scope="col" class="th_back_black" style="cursor: pointer; ">摘要</th>
-              <th scope="col" class="th_back_black" style="cursor: pointer; ">納入先</th>
-              <th scope="col" class="th_back_black" style="cursor: pointer; ">見積条件</th>
+       
             </tr>
           </thead>
           
              <tbody class="scroll-table" id="estimateResult">
+             <td style="text-align: left;" class="scrollnum"><a href="estimatemodify.html" class="cursor-pointer">1</a></td>
            </tbody>
             
         </table>
@@ -381,7 +378,7 @@
       -->
       
       
-      <!-- 検索結果表示 -->
+    <!-- 検索結果表示 -->
       <div class="container" style="background-color: rgb(255, 255, 255);" id="resultEstimate" hidden="hidden">
     	<table id="order_detail_info" class="table table_2 table-bordered" style= "table-layout: auto; width: 1120px;  position:relative;right:15px"> 
 			<thead class="thead-dark" id="resultHead">
@@ -396,7 +393,12 @@
 <script>	  
 
 	 var sortOrder = "";
-	
+	 var sort;  
+     var upDown;
+     var rowcount;
+     var itemId = "";
+     
+     
 	  //初期化処理
 	  
 	  window.onload = function(){
@@ -415,6 +417,13 @@
 	  //Excel出力
 	  function excelOut(){
 			if(!confirm("検索結果をExcelファイルでダウンロードしますか？")){
+				alert("testetset");
+				var form = document.getElementById("estimate");
+				
+				form.action="/SalesCube2020/SalesCube?action=estimateExcelOutput";
+				form.method="post";
+				
+				form.submit();
 	           	return;
 	    	}
 	  }
@@ -452,23 +461,18 @@
 							var headcontents= '';
 							headcontents += '<tr>';
 							for(var i = 0; i<Object.keys(data).length; i++) {
-								headcontents += '<th scope="col" class="th_back_black" onclick="estimateSearch2(' + "'"+ data[i].itemId+"'"+')"> '+data[i].itemName;
+								headcontents += '<th scope="col" class="th_back_black"  onclick="header(' + "'"+ data[i].itemId+"'"+')"> '+data[i].itemName;
 							}
 							headcontents += '</tr>';
 							$('#resultHead').append(headcontents);								
 					}
 			});
 	    }
-		  
-	   	
+		
+	    var pageNum;
 	    //見積検索結果
-	    function estimateSearch2(itemId) {
-	   	 	
-	    	var sortOrder;
-	    	if(sort == itemId){
-	    		
-	    	}
-			
+	    function estimateSearch2() {
+	   	 	    	
 			$.ajax({
 				
 				url:'/SalesCube2020/SalesCubeAJAX?action=estimateSearch',
@@ -486,50 +490,172 @@
 					"submitName" : $("#submitName").val(),
 					"customerCode" : $("#CustomerModalCustomerCode").val(),
 					"customerName" : $("#CustomerModalCustomerName").val(),
-					"sorting" : itemId},
+					"sorting" : itemId,
+					"updown" : upDown, 
+					"rowCount" : $("#rowCount").val(),
+					"pageNum" : pageNum
+					},
+					
 				dataType:'json',
-				success:function(data){	
-					document.getElementById("resultCount").removeAttribute('hidden');//テーブルの表示
+				success:function(data){
+					
+					
+				     var MaxShowPage = 10;
+				     var TotalPage;
+				     var maxPageNo = (Math.floor(data.count.count)) / $("#rowCount").val() ;
+				     if((Math.floor(data.count.count)) % $("#rowCount").val() != 0)
+				    	 maxPageNo++;
+				     maxPageNo = Math.floor(maxPageNo);
+				     
+				     alert(maxPageNo);
+				     
+				     var beforeFlag;
+				     var nextFlag;
+				     
+					//ソート処理
+					if(sortOrder == itemId){
+						sortOrder = "";
+					}else{
+						sortOrder = itemId;
+					}
+					
+		    //ページング処理
+							
+					//「次へ」と「前へ」追加フラグ処理
+					if(pageNum == 1) {
+						beforeFlag = 0;
+						nextFlag = 1;
+					} else if(pageNum == TotalPage){
+						beforeFlag = 1;
+						nextFlag = 0;
+					} else{
+						beforeFlag = 1;
+						nextFlag = 1;
+					}
+				
+
+					//最小表示ページNo計算
+					if(pageNum < 6){
+						initPageNo = 1;
+					} else if(pageNum > TotalPage - 6) {
+						initPageNo = TotalPage - 9;
+					} else { 
+						initPageNo = pageNum - 4;
+					}
+
+				
+					var page = [];
+
+					
+					//画面に表示するページ数
+					for(i = 0; i < MaxShowPage; i++){
+						page.push(initPageNo);
+						initPageNo += 1;
+					}
+					
+			
+					$("#paging").empty();
+					//前へ表示フラグ
+					if(pageNum != 1){
+						$('#paging').append('<a href="javascript:void(0);" id="beforePage" onclick="paging(' + (pageNum-1) + ')">前へ</a>');
+					}
+					
+					
+					//ページ番号取得
+					var showNum = pageNum;;
+					
+					
+					if(showNum % MaxShowPage){
+						showNum = Math.floor(showNum / MaxShowPage);
+					}
+					
+					for(var i = 0; i < MaxShowPage; i++){						
+						if(showNum > maxPageNo) break;
+						if(showNum<1){}
+						else{
+							$('#paging').append('<a href="javascript:void(0);" onclick="paging(' + showNum + ')">' + showNum + '</a>');
+						}
+						showNum++;
+					}
+					
+					
+					//次へ表示フラグ
+					if(pageNum != maxPageNo){
+						$('#paging').append('<a href="javascript:void(0);" id="nextPage" onclick="paging(' + (pageNum+1) +')">次へ</a>');
+					}
+				
+					
+					document.getElementById("resultCount").removeAttribute('hidden');//検索件数の表示
 					document.getElementById("resultEstimate").removeAttribute('hidden');//テーブルの表示
 					$("#searchResult > tr").remove();
 						var tableAdd = document.getElementById('searchResult');
 					
-					if(Object.keys(data).length == 0){
+					if(Object.keys(data.result).length == 0){
 						var message = '<p style="color: red;">該当する見積情報は存在しません</p>';
 	    		 			$("#estimateSearchError").empty(); //エラーメッセージの削除
 	    		 			$("#estimateSearchError").append(message);	//エラーメッセージの表示
+	    		 			$("#paging").empty();
 	    		 			document.getElementById("resultEstimate").setAttribute('hidden','hidden');
 	    		 			document.getElementById("estimateSearchResultCount").setAttribute('hidden','hidden');
 	    		 			
 	    		 		//検索結果がある場合
-	    		 		}else{
-	    		 		//エラーメッセージ
-	    		 			$("#estimateSearchError").empty();//エラーメッセージの削除
-	    		 		//検索結果件数の設定
-	    		 			$("#estimateSearchResultCount").empty();
-	    		 			
-	    		 			$('#estimateSearchResultCount').append('検索結果件数：' + Object.keys(data).length + '件');	 //検索結果件数の設定の表示
-	    		 			
-	    		 			document.getElementById("estimateSearchResultCount").removeAttribute('hidden');//テーブルの表示
-	    		 			
-							for(var i = 0; i < Object.keys(data).length; i++) {
-								var headcontents= '';
-								headcontents += '<tr>';
-								
-								for(var j = 0; j < document.getElementById("showSearchResult").options.length+1; j++) {
-									headcontents += '<td style="white-space: normal; text-align: left;"> '
-									var tmp = Object.keys(data[i])[j];
-									headcontents += (data[i][tmp] == null ? "" : data[i][tmp]);
-									headcontents += '</td>';  
-								}
-								headcontents += '</tr>';
-								$('#searchResult').append(headcontents);				
-											
+	   		 		}else{
+	   		 		//エラーメッセージ
+	   		 			$("#estimateSearchError").empty();//エラーメッセージの削除
+	   		 		
+	   		 			$("#estimateSearchResultCount").empty(); //検索結果件数の設定の削除
+	   		 			
+	
+	   		 			$('#estimateSearchResultCount').append('検索結果件数：' + data.count.count + '件');	 //検索結果件数の設定の表示
+	   		 			
+	   		 			document.getElementById("estimateSearchResultCount").removeAttribute('hidden');//検索結果件数の表示
+	   		 			
+						for(var i = 0; i < Object.keys(data.result).length; i++) {
+							var headcontents= '';
+							headcontents += '<tr>';
+							
+							for(var j = 0; j < document.getElementById("showSearchResult").options.length+1; j++) {
+								headcontents += '<td style="white-space: normal; text-align: left;"> '
+								var tmp = Object.keys(data.result[i])[j];
+								headcontents += (data.result[i][tmp] == null ? "" : data.result[i][tmp]);
+								headcontents += '</td>';  
 							}
+							headcontents += '</tr>';
+							$('#searchResult').append(headcontents);				
+										
+						}
 	    		 	}
 	    		 
 				}
 			});
+	    }
+	    
+	    function estimateSearch(){
+	    	itemId = "estimateSheetId";
+	    	upDown = "ASC";
+	    	pageNum = 1;
+	    	
+	    	estimateSearch1();
+	    	estimateSearch2();
+	    }
+	    
+	    function header(item){
+	       	if( sortOrder == item){
+	    		upDown = "DESC";
+	    		itemId = item;
+	    	}else{
+	    		upDown = "ASC";
+	    		itemId = item;
+	    	}	       	
+	    	estimateSearch2();
+	    }
+	    
+	    //ページング
+	    function paging(selectPageNum){
+	    	
+	    	pageNum = selectPageNum;
+			
+	    	estimateSearch2();
 	    }
 	   
 	

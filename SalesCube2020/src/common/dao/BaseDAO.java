@@ -31,24 +31,24 @@ abstract public class BaseDAO {
 
         url = "jdbc:mysql://" + host + "/" + db + "?useUnicode=true&characterEncoding=" + encoding;
 
-        // ƒf[ƒ^ƒx[ƒX‚ÉÚ‘±‚µƒRƒlƒNƒVƒ‡ƒ“‚ğæ“¾‚·‚é
-        Class.forName("com.mysql.jdbc.Driver");					// JDBCƒhƒ‰ƒCƒo‚Ì“o˜^
-        con = DriverManager.getConnection(url, user, pass);		// ƒf[ƒ^ƒx[ƒX‚Ö‚ÌÚ‘±
-        con.setAutoCommit(false);								// ©“®ƒRƒ~ƒbƒg‚Ì‰ğœiƒgƒ‰ƒ“ƒUƒNƒVƒ‡ƒ“ŠÇ—‚·‚éj
+        // ï¿½fï¿½[ï¿½^ï¿½xï¿½[ï¿½Xï¿½ÉÚ‘ï¿½ï¿½ï¿½ï¿½Rï¿½lï¿½Nï¿½Vï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½æ“¾ï¿½ï¿½ï¿½ï¿½
+        Class.forName("com.mysql.jdbc.Driver");					// JDBCï¿½hï¿½ï¿½ï¿½Cï¿½oï¿½Ì“oï¿½^
+        con = DriverManager.getConnection(url, user, pass);		// ï¿½fï¿½[ï¿½^ï¿½xï¿½[ï¿½Xï¿½Ö‚ÌÚ‘ï¿½
+        con.setAutoCommit(false);								// ï¿½ï¿½ï¿½ï¿½ï¿½Rï¿½~ï¿½bï¿½gï¿½Ì‰ï¿½ï¿½ï¿½ï¿½iï¿½gï¿½ï¿½ï¿½ï¿½ï¿½Uï¿½Nï¿½Vï¿½ï¿½ï¿½ï¿½ï¿½Ç—ï¿½ï¿½ï¿½ï¿½ï¿½j
 
         return con;
     }
 
     protected void startTransaction(Connection con)  throws SQLException {
-        // StatementƒIƒuƒWƒFƒNƒg‚Ìæ“¾
+        // Statementï¿½Iï¿½uï¿½Wï¿½Fï¿½Nï¿½gï¿½Ìæ“¾
         Statement stmt = con.createStatement();
-        // ƒgƒ‰ƒ“ƒUƒNƒVƒ‡ƒ“‚ÌŠJn
+        // ï¿½gï¿½ï¿½ï¿½ï¿½ï¿½Uï¿½Nï¿½Vï¿½ï¿½ï¿½ï¿½ï¿½ÌŠJï¿½n
         stmt.execute("START TRANSACTION");
     }
 
     protected void releaseDB(Connection con) {
         try {
-            // Ú‘±‚ÌŠJ•ú
+            // ï¿½Ú‘ï¿½ï¿½ÌŠJï¿½ï¿½
             if  (con != null)  {
                 con.close();
             }
@@ -58,11 +58,11 @@ abstract public class BaseDAO {
 
     protected void releaseDB(Connection con, Statement stmt) {
         try {
-            // ƒŠƒ\[ƒX‚ÌŠJ•ú
+            // ï¿½ï¿½ï¿½\ï¿½[ï¿½Xï¿½ÌŠJï¿½ï¿½
             if  (stmt != null)  {
                 stmt.close();
             }
-            // Ú‘±‚ÌŠJ•ú
+            // ï¿½Ú‘ï¿½ï¿½ÌŠJï¿½ï¿½
             if  (con != null)  {
                 con.close();
             }
@@ -72,11 +72,11 @@ abstract public class BaseDAO {
 
     protected void releaseDB(Connection con, PreparedStatement stmt) {
         try {
-            // ƒŠƒ\[ƒX‚ÌŠJ•ú
+            // ï¿½ï¿½ï¿½\ï¿½[ï¿½Xï¿½ÌŠJï¿½ï¿½
             if  (stmt != null)  {
                 stmt.close();
             }
-            // Ú‘±‚ÌŠJ•ú
+            // ï¿½Ú‘ï¿½ï¿½ÌŠJï¿½ï¿½
             if  (con != null)  {
                 con.close();
             }
@@ -86,14 +86,14 @@ abstract public class BaseDAO {
 
     protected void releaseDB(Connection con, Statement stmt, ResultSet result) {
         try {
-            // ƒŠƒ\[ƒX‚ÌŠJ•ú
+            // ï¿½ï¿½ï¿½\ï¿½[ï¿½Xï¿½ÌŠJï¿½ï¿½
             if  (result != null)  {
                 result.close();
             }
             if  (stmt != null)  {
                 stmt.close();
             }
-            // Ú‘±‚ÌŠJ•ú
+            // ï¿½Ú‘ï¿½ï¿½ÌŠJï¿½ï¿½
             if  (con != null)  {
                 con.close();
             }
@@ -103,14 +103,14 @@ abstract public class BaseDAO {
 
     protected void releaseDB(Connection con, PreparedStatement stmt, ResultSet result) {
         try {
-            // ƒŠƒ\[ƒX‚ÌŠJ•ú
+            // ï¿½ï¿½ï¿½\ï¿½[ï¿½Xï¿½ÌŠJï¿½ï¿½
             if  (result != null)  {
                 result.close();
             }
             if  (stmt != null)  {
                 stmt.close();
             }
-            // Ú‘±‚ÌŠJ•ú
+            // ï¿½Ú‘ï¿½ï¿½ÌŠJï¿½ï¿½
             if  (con != null)  {
                 con.close();
             }

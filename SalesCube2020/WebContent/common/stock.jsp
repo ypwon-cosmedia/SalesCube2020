@@ -123,7 +123,7 @@
 					if(tmp['stockQuantity'] == null || tmp['stockQuantity'] == ""){
 						document.getElementById('stockQuantity').innerHTML = "";
 					}else{
-						document.getElementById('stockQuantity').innerHTML = tmp['stockQuantity'];
+						document.getElementById('stockQuantity').innerHTML = tmp['stockQuantity'].split('.')[0];
 					}
 					if(tmp['quantity'] == null || tmp['quantity'] == ""){
 						document.getElementById('stockQuantitySum').innerHTML = "";

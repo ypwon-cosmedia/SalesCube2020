@@ -76,7 +76,7 @@ public class EstimateConfigurationModalAJAXController extends BaseAJAXController
 		
 		UserInfoBean userInfo = (UserInfoBean) session.getAttribute("userInfo");
 		String userId = userInfo.getUserID();
-		
+		System.out.println(userId);
 		Gson gson = new Gson();
 		
 		try {
