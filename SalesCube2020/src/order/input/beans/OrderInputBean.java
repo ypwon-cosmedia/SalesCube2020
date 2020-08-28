@@ -12,47 +12,14 @@ public class OrderInputBean {
 	/* 行番号 */
 	private String lineNo;
 	
-	public String getLineNo() {
-		return lineNo;
-	}
-
-	public void setLineNo(String lineNo) {
-		this.lineNo = lineNo;
-	}
-	
 	/* 受注行番号最後 */
 	private Integer roLineLast;
-	
-	public Integer getRoLineLast() {
-		return roLineLast;
-	}
-
-	public void setRoLineLast(Integer roLineLast) {
-		this.roLineLast = roLineLast;
-	}
-	
 
 	/* 受注番号最後 */
 	private Integer roSlipLast;
 	
-	public Integer getRoSlipLast() {
-		return roSlipLast;
-	}
-
-	public void setRoSlipLast(Integer roSlipLast) {
-		this.roSlipLast = roSlipLast;
-	}
-	
 	/* 納入先コード */
 	private String deliveryCode;
-
-	public String getDeliveryCode() {
-		return deliveryCode;
-	}
-
-	public void setDeliveryCode(String deliveryCode) {
-		this.deliveryCode = deliveryCode;
-	}
 
 	/* 受注番号 */
 	private Integer roSlipId;
@@ -85,14 +52,6 @@ public class OrderInputBean {
 	private String dcTimezone;
 	
 	private String dcTimezoneCategory;
-	
-	public String getDcTimezoneCategory() {
-		return dcTimezoneCategory;
-	}
-
-	public void setDcTimezoneCategory(String dcTimezoneCategory) {
-		this.dcTimezoneCategory = dcTimezoneCategory;
-	}
 
 	/* 消費税率 */
 	private String ctaxRate;
@@ -106,15 +65,18 @@ public class OrderInputBean {
 	/* 税転嫁 */
 	private String taxShiftCategory;
 	
+	
 	private String taxCategory;
 	
 	/* 支払条件 */
 	private String cutoffGroup;
 	
+	
 	private String cutoffCategory;
 	
 	/* 取引区分 */
 	private String salesCmCategory;
+	
 	
 	private String salesCategory;
 	
@@ -644,6 +606,44 @@ public class OrderInputBean {
 		this.salesCategory = salesCategory;
 	}
 	
+	public String getLineNo() {
+		return lineNo;
+	}
+
+	public void setLineNo(String lineNo) {
+		this.lineNo = lineNo;
+	}
 	
+	public Integer getRoLineLast() {
+		return roLineLast;
+	}
+
+	public void setRoLineLast(Integer roLineLast) {
+		this.roLineLast = roLineLast;
+	}
+
+	public Integer getRoSlipLast() {
+		return roSlipLast;
+	}
+
+	public void setRoSlipLast(Integer roSlipLast) {
+		this.roSlipLast = roSlipLast;
+	}
+
+	public String getDeliveryCode() {
+		return deliveryCode;
+	}
+
+	public void setDeliveryCode(String deliveryCode) {
+		this.deliveryCode = deliveryCode;
+	}
+
+	public String getDcTimezoneCategory() {
+		return dcTimezoneCategory;
+	}
+
+	public void setDcTimezoneCategory(String dcTimezoneCategory) {
+		this.dcTimezoneCategory = dcTimezoneCategory;
+	}
 
 }
