@@ -192,7 +192,7 @@
                                    <div class="input-group-text">顧客コード</div>
                             </div>
                             <input type="text" class="form-control" id="customerCodeInput" name="customerCodeInput" maxlength="15">
-                            <button type="button" class="btn btn-outline-secondary" data-toggle="modal" data-target="#customerSearch" style="background-image: url(btn_search.png); border: 0px; outline: 0px; padding: 15px; margin: 0; height: 16px" onclick="moveCustomerModal();">
+                            <button type="button" class="btn btn-outline-secondary" data-toggle="modal" data-target="#customerSearch" style="background-image: url(btn_search.png); border: 0px; outline: 0px; padding: 15px; margin: 0; height: 16px" onclick="moveCustomerModal();getCutoffGroup()">
 							</button>
 					    </div>
 					</div>
@@ -203,7 +203,7 @@
 								<div class="input-group-text">顧客名</div>
 							</div>
                             <input type="text"  class="form-control" id="customerNameInput" name="customerNameInput" maxlength="60">
-                            <button type="button" class="btn btn-outline-secondary" data-toggle="modal" data-target="#customerSearch" style="background-image: url(btn_search.png); border: 0px; outline: 0px; padding: 15px; margin: 0; height: 16px" onclick="moveCustomerModal();">
+                            <button type="button" class="btn btn-outline-secondary" data-toggle="modal" data-target="#customerSearch" style="background-image: url(btn_search.png); border: 0px; outline: 0px; padding: 15px; margin: 0; height: 16px" onclick="moveCustomerModal();getCutoffGroup()">
 							</button>
 						</div>
 					</div>                  
@@ -446,7 +446,7 @@
 		</div>
 	</div>
 </div>
-
+</body>
 <script>
 	var unselectedArr = [];
 	var selectedArr = [];
@@ -1346,5 +1346,4 @@
 				document.getElementById("supplierName").value = document.getElementById("supplierNameInput").value;
 		}
 </script>
-</body>
 </html>
