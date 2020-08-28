@@ -50,18 +50,13 @@ public class OrderMoveController extends BaseController{
 	private String moveOrderInput (HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException, ClassNotFoundException, SQLException {
 		
 		OrderInputDAO dao = new OrderInputDAO();
-		ProductModalInit init = new ProductModalInit();
 
 		HttpSession session = request.getSession();
 		UserInfoBean user = (UserInfoBean) session.getAttribute("userInfo");
-		
-//		EstimateCategoryModalAJAXController est = new EstimateCategoryModalAJAXController();
 
 		List<OrderInputBean> list1 = dao.getDcName();
 		List<OrderInputBean> list2 = dao.getDcTimezone();
 		List<OrderInputBean> list3 = dao.getTaxRate();
-		init.initCombobox(request, response);
-//		est.categoryGet(request, response);
 
 		try {
 			session.setAttribute("user", user.getNameKNJ());

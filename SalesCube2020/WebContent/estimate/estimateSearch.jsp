@@ -54,6 +54,10 @@
  		 	    cursor: pointer;
  		 	    color : blue;
 		    }
+		    
+		.cursor-hand{
+			cursor: hand;
+		}
       
         .clear-decoration {
                 border: none;  /* 枠線を消す */
@@ -329,15 +333,7 @@
             </div>
             
       		<!-- ページング -->
-      		<div class="col-4" style="align:center" id="paging" onclick="paging()">
-      		
-		<!--  	<a id="beforePage" onclick="paging(pageNum-1)">前へ</a>
-			<a  onclick="paging(pageNum)">1</a>
-			<a  onclick="paging(pageNum)">2</a>
-			<a  onclick="paging(pageNum)">3</a>
-			<a id="nextPage" onclick="paging(pageNum+1)">次へ</a>
-		-->
-		
+      		<div class="col-4" style="text-align:right;" id="paging">
 			</div>
           </div>
       </div>
@@ -421,6 +417,7 @@
 	  //Excel出力
 	  function excelOut(){
 			if(!confirm("検索結果をExcelファイルでダウンロードしますか？")){
+				alert("testetset");
 				var form = document.getElementById("estimate");
 				
 				form.action="/SalesCube2020/SalesCube?action=estimateExcelOutput";
@@ -464,7 +461,7 @@
 							var headcontents= '';
 							headcontents += '<tr>';
 							for(var i = 0; i<Object.keys(data).length; i++) {
-								headcontents += '<th scope="col" class="th_back_black" onclick="header(' + "'"+ data[i].itemId+"'"+')"> '+data[i].itemName;
+								headcontents += '<th scope="col" class="th_back_black"  onclick="header(' + "'"+ data[i].itemId+"'"+')"> '+data[i].itemName;
 							}
 							headcontents += '</tr>';
 							$('#resultHead').append(headcontents);								
@@ -472,7 +469,7 @@
 			});
 	    }
 		
-
+	    var pageNum;
 	    //見積検索結果
 	    function estimateSearch2() {
 	   	 	    	
@@ -502,13 +499,17 @@
 				dataType:'json',
 				success:function(data){
 					
-					 var pageNum = 4;
+					
 				     var MaxShowPage = 10;
-				     var TotalPage = 8;
-				     var initPageNo = 1;
+				     var TotalPage;
+				     var maxPageNo = (Math.floor(data.count.count)) / $("#rowCount").val() ;
+				     if((Math.floor(data.count.count)) % $("#rowCount").val() != 0)
+				    	 maxPageNo++;
+				     maxPageNo = Math.floor(maxPageNo);
+				     
+				     alert(maxPageNo);
 				     
 				     var beforeFlag;
-				     var pageNoFlag;
 				     var nextFlag;
 				     
 					//ソート処理
@@ -519,18 +520,7 @@
 					}
 					
 		    //ページング処理
-					//TotalPageが１の場合、ページ表示フラグをOFFにする
-					if(TotalPage == 1){
-						
-					} else{
-						//document.getElementById("paging").removeAttribute('hidden');
-					}
-					
-					//合計ページ数が10以下の場合の最大表示ページ数の処理
-					if(TotalPage <MaxShowPage){
-						MaxShowPage = TotalPage;
-					}
-				
+							
 					//「次へ」と「前へ」追加フラグ処理
 					if(pageNum == 1) {
 						beforeFlag = 0;
@@ -555,7 +545,8 @@
 
 				
 					var page = [];
-					alert(MaxShowPage);
+
+					
 					//画面に表示するページ数
 					for(i = 0; i < MaxShowPage; i++){
 						page.push(initPageNo);
@@ -563,67 +554,76 @@
 					}
 					
 			
+					$("#paging").empty();
+					//前へ表示フラグ
+					if(pageNum != 1){
+						$('#paging').append('<a href="javascript:void(0);" id="beforePage" onclick="paging(' + (pageNum-1) + ')">前へ</a>');
+					}
+					
+					
+					//ページ番号取得
+					var showNum = pageNum;;
+					
+					
+					if(showNum % MaxShowPage){
+						showNum = Math.floor(showNum / MaxShowPage);
+					}
+					
+					for(var i = 0; i < MaxShowPage; i++){						
+						if(showNum > maxPageNo) break;
+						if(showNum<1){}
+						else{
+							$('#paging').append('<a href="javascript:void(0);" onclick="paging(' + showNum + ')">' + showNum + '</a>');
+						}
+						showNum++;
+					}
+					
+					
+					//次へ表示フラグ
+					if(pageNum != maxPageNo){
+						$('#paging').append('<a href="javascript:void(0);" id="nextPage" onclick="paging(' + (pageNum+1) +')">次へ</a>');
+					}
 				
-				//前へ表示フラグ
-				if(beforeFlag == 0){
-				}else if(beforeFlag == 1){
-					$('paging').append('<a id="beforePage" onclick="paging(' + (pageNum-1) + ')">前へ</a>');
-				}
-				alert(pageNum);
-				alert(page[0]);
-				alert("TotalPage" + TotalPage);
-				
-				//ページ番号取得
-				for(var i = 0; i < 10; i++){
-					$('paging').append('<a  onclick="paging(' + pageNum + ')">' + pageNum + '</a>');
-					pageNum++;
-				}
-				
-				
-				//次へ表示フラグ
-				if(nextFlag == 0){
-				}else if(nextFlag == 1){
-					$('paging').append('<a id="nextPage" onclick="paging(' + (pageNum+1) +')">次へ</a>');
-				}
-			
 					
 					document.getElementById("resultCount").removeAttribute('hidden');//検索件数の表示
 					document.getElementById("resultEstimate").removeAttribute('hidden');//テーブルの表示
 					$("#searchResult > tr").remove();
 						var tableAdd = document.getElementById('searchResult');
 					
-					if(Object.keys(data).length == 0){
+					if(Object.keys(data.result).length == 0){
 						var message = '<p style="color: red;">該当する見積情報は存在しません</p>';
 	    		 			$("#estimateSearchError").empty(); //エラーメッセージの削除
 	    		 			$("#estimateSearchError").append(message);	//エラーメッセージの表示
+	    		 			$("#paging").empty();
 	    		 			document.getElementById("resultEstimate").setAttribute('hidden','hidden');
 	    		 			document.getElementById("estimateSearchResultCount").setAttribute('hidden','hidden');
 	    		 			
 	    		 		//検索結果がある場合
-	    		 		}else{
-	    		 		//エラーメッセージ
-	    		 			$("#estimateSearchError").empty();//エラーメッセージの削除
-	    		 		
-	    		 			$("#estimateSearchResultCount").empty(); //検索結果件数の設定の削除
-	    		 			
-	    		 			$('#estimateSearchResultCount').append('検索結果件数：' + Object.keys(data).length + '件');	 //検索結果件数の設定の表示
-	    		 			
-	    		 			document.getElementById("estimateSearchResultCount").removeAttribute('hidden');//検索結果件数の表示
-	    		 			
-							for(var i = 0; i < Object.keys(data).length; i++) {
-								var headcontents= '';
-								headcontents += '<tr>';
-								
-								for(var j = 0; j < document.getElementById("showSearchResult").options.length+1; j++) {
-									headcontents += '<td style="white-space: normal; text-align: left;"> '
-									var tmp = Object.keys(data[i])[j];
-									headcontents += (data[i][tmp] == null ? "" : data[i][tmp]);
-									headcontents += '</td>';  
-								}
-								headcontents += '</tr>';
-								$('#searchResult').append(headcontents);				
-											
+	   		 		}else{
+	   		 		//エラーメッセージ
+	   		 			$("#estimateSearchError").empty();//エラーメッセージの削除
+	   		 		
+	   		 			$("#estimateSearchResultCount").empty(); //検索結果件数の設定の削除
+	   		 			
+	
+	   		 			$('#estimateSearchResultCount').append('検索結果件数：' + data.count.count + '件');	 //検索結果件数の設定の表示
+	   		 			
+	   		 			document.getElementById("estimateSearchResultCount").removeAttribute('hidden');//検索結果件数の表示
+	   		 			
+						for(var i = 0; i < Object.keys(data.result).length; i++) {
+							var headcontents= '';
+							headcontents += '<tr>';
+							
+							for(var j = 0; j < document.getElementById("showSearchResult").options.length+1; j++) {
+								headcontents += '<td style="white-space: normal; text-align: left;"> '
+								var tmp = Object.keys(data.result[i])[j];
+								headcontents += (data.result[i][tmp] == null ? "" : data.result[i][tmp]);
+								headcontents += '</td>';  
 							}
+							headcontents += '</tr>';
+							$('#searchResult').append(headcontents);				
+										
+						}
 	    		 	}
 	    		 
 				}
@@ -652,8 +652,9 @@
 	    
 	    //ページング
 	    function paging(selectPageNum){
+	    	
 	    	pageNum = selectPageNum;
-
+			
 	    	estimateSearch2();
 	    }
 	   

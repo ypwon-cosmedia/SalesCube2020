@@ -24,8 +24,6 @@ public class EstimateSearchDAO extends BaseDAO {
 		List<String[]> list = new ArrayList<>();
 		
 		
-		EstimateSQL sqllist = new EstimateSQL();
-		
 		Connection con;
 		Statement stmt = null;
 		ResultSet result = null;
@@ -51,7 +49,7 @@ public class EstimateSearchDAO extends BaseDAO {
 		
 		//検索結果SQL
 		estimateResult = "select " +		
-				column +						
+				column + 
 				"from " +
 				"ESTIMATE_SHEET_TRN_XXXXX " +
 				"left outer join " +
@@ -82,11 +80,13 @@ public class EstimateSearchDAO extends BaseDAO {
 				"(CUSTOMER_NAME " + stringIsNull(bean.getCustomerName()) +
 				"order by " +
 				sort + " " +
-				upDown + " " +
-				"LIMIT " +
-				 rowcount + " " +
-				 "OFFSET " +
-				 (iPageNum-1)*iRowCount;
+				upDown + " ";
+				if(rowcount != "NO") {
+					estimateResult += "LIMIT " +
+										rowcount + " " +
+										"OFFSET " +
+										(iPageNum-1)*iRowCount;
+				}
 				
 			
 		System.out.println("テスト"+ bean.getCustomerName());
@@ -107,6 +107,88 @@ public class EstimateSearchDAO extends BaseDAO {
 		return list;
 			
 	}
+	
+	
+	
+	public String  estimateSearchCount(EstimateSearchBean bean, UserInfoBean user, String sort, String upDown, String rowcount, String pageNum) throws SQLException, ClassNotFoundException{
+		List<EstimateConfigurationBean> list1 =new ArrayList<>();
+		
+		Connection con;
+		Statement stmt = null;
+		ResultSet result = null;
+		
+		con = super.getConnection();
+		stmt = con.createStatement();
+		
+		String estimateResult;
+		String column = "";
+		
+		list1 =  estimateConfiguration(user);
+		
+		
+		for(int i = 0 ; i < list1.size() ; i++) {
+			column += getColumn(list1.get(i).getItemId());
+			column += ",";
+			
+		}
+		column = column.substring(0, column.length()-1) + " ";
+		
+		sort = getColumn(sort) +" ";
+		
+		
+		//検索結果SQL
+		estimateResult = "select " +		
+				"COUNT(*) " + 
+				"from " +
+				"ESTIMATE_SHEET_TRN_XXXXX " +
+				"left outer join " +
+				"(select CATEGORY_ID, CATEGORY_CODE, CATEGORY_CODE_NAME " +
+				"from " +
+				"CATEGORY_TRN_XXXXX  where CATEGORY_ID='10') " +
+				"as ctx " +
+				"ON SUBMIT_PRE = ctx.CATEGORY_CODE " +
+				"where " +
+				"(ESTIMATE_SHEET_ID " + stringIsNull(bean.getEstimateSheetId()) +
+				" AND " +
+				"(ESTIMATE_DATE " + dateIsNull(bean.getEstimateDateStart(), bean.getEstimateDateEnd()) +
+				" AND " +
+				"(VALID_DATE " + dateIsNull(bean.getValidDateStart(), bean.getValidDateEnd()) +
+				" AND " +
+				"(USER_ID " + stringIsNull(bean.getUserId()) +
+				" AND " +
+				"(USER_NAME " + stringIsNull(bean.getUserName()) +
+				" AND " +
+				"(TITLE " + stringIsNull(bean.getTitle()) +
+				" AND " +
+				"(REMARKS " + stringIsNull(bean.getRemarks()) +
+				" AND " +
+				"(SUBMIT_NAME " + stringIsNull(bean.getSubmitName()) +
+				" AND " +
+				"(CUSTOMER_CODE " + stringIsNull(bean.getCustomerCode()) +
+				" AND " +
+				"(CUSTOMER_NAME " + stringIsNull(bean.getCustomerName()) +
+				"order by " +
+				sort + " " +
+				upDown + " ";
+				
+			
+		System.out.println("テスト"+ bean.getCustomerName());
+		System.out.println("テスト"+ estimateResult);
+		result = stmt.executeQuery(estimateResult);
+		
+		String count = null;
+		
+		while(result.next()) {
+			count = result.getString("COUNT(*)");
+		}
+			
+		
+		super.releaseDB(con,stmt,result);
+		
+		return count;
+			
+	}
+	
 	
 	
 	

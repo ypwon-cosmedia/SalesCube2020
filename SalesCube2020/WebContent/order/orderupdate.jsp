@@ -9,7 +9,7 @@
 	
 		<%@ include file="/common/productSearch.jsp" %>
 		<%@ include file="/common/bill.jsp" %>
-		<%@ include file="/common/_customerSearch.jsp" %>
+		<%@ include file="../common/_customerSearch.jsp" %>
 		<%@ include file="/common/stock.jsp" %>
 		
 		<!-- Required meta tags -->
@@ -55,6 +55,7 @@
 		<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
 		<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
 		<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+		<script type="text/javascript" src="common/shotcuts.js"></script>
 		<%@ include file= "../common/menubar.jsp" %>
 		<br><br>
 
@@ -64,16 +65,14 @@
 			<div class="btn-toolbar float-right" role="toolbar" aria-label="Toolbar with button groups">  
 				<div class="btn-group mr-2 " role="group" aria-label="First group">
 					<button type="button" class="btn btn-secondary" style="font-size: 12px;" onclick="initForm();" >F1<br>初期化</button>
-					<form action="/SalesCube2020/SalesCube?action=deleteOrder" method="post" >
-						<input type="submit" value="F2削除" class="btn btn-secondary h-100" style="font-size: 12px;" onclick="return confirm('このデータを削除しますか？')">
+					<form action="/SalesCube2020/SalesCube?action=deleteOrder" method="post"  onsubmit="return confirm('このデータを削除しますか？')">
+						<button type="submit" class="btn btn-secondary h-100" style="font-size: 12px;" id="deleteOrder">F2<br>削除</button>
 						<input type="hidden" id="roSlipId" name="roSlipId" value="${order.roSlipId}">
 					</form>
-					<button type="button" class="btn btn-secondary" style="font-size: 12px;" onclick="returnForm();">F3<br>戻る</button>
-					<form>
-						<button type="button" class="btn btn-secondary" style="font-size: 12px;" onclick="updateForm();">F4<br>更新</button>
-					</form>
+					<button type="button" class="btn btn-secondary" style="font-size: 12px;" id="returnForm" onclick="returnForm();">F3<br>戻る</button>
+					<button type="button" class="btn btn-secondary" style="font-size: 12px;" onclick="updateButton();">F4<br>更新</button>
 					<button type="button" class="btn btn-secondary" style="font-size: 12px;" disabled>F5<br></button>
-					<button type="button" class="btn btn-secondary" style="font-size: 12px;" data-toggle="modal" data-target="#openOrder">F6<br>伝票呼出</button>
+					<button type="button" class="btn btn-secondary" style="font-size: 12px;" data-toggle="modal" data-target="#openOrder" onclick="orderForm()" id="billopen">F6<br>伝票呼出</button>
 					<button type="button" class="btn btn-secondary" style="font-size: 12px;" disabled>F7<br></button>
 					<button type="button" class="btn btn-secondary" style="font-size: 12px;" disabled>F8<br></button>
 					<button type="button" class="btn btn-secondary" style="font-size: 12px;" disabled>F9<br></button>
@@ -92,7 +91,7 @@
 				 <span class="action_errors" style="color: red">${updateCmp}</span>
        </div>
 
-		<form action='/SalesCube2020/SalesCube?action=orderupdateCmp' method="post" name="orderUpdate">
+		<form action='/SalesCube2020/SalesCube?action=orderupdateCmp' method="post" name="orderUpdate"  onsubmit="return updateForm();">
 			<!-- 受注伝票情報 -->
 			<div class="container" style="background-color: white;"><div class="panel panel-default">
 				<div class="panel-heading row mb-2 col-4">
@@ -184,8 +183,9 @@
 									<div class="input-group-text">配送業者</div>
 								</div>
 								<select class="custom-select" name="dcName">
+								<option></option>
 									<c:forEach items="${initDcName}" var="initDN">
-										<option value="${initDN.categoryCode}">${initDN.categoryCodeName}</option>
+										<option value="${initDN.categoryCode}" id="dcName" <c:if test="${order.dcName == initDN.categoryCodeName}">selected</c:if>>${initDN.categoryCodeName}</option>
 									</c:forEach>
 								</select>
 							</div>
@@ -199,8 +199,9 @@
 									<div class="input-group-text">配送時間帯</div>
 								</div>
 								<select class="custom-select" name="dcTimeZone">
+								<option></option>
 									<c:forEach items="${initDcTimezone}" var="initDT">
-										<option value="${initDT.categoryCode}">${initDT.categoryCodeName}</option>
+										<option value="${initDT.categoryCode}" id="dcTimezone" <c:if test="${order.dcTimezone == initDT.categoryCodeName}">selected</c:if>>${initDT.categoryCodeName}</option>
 									</c:forEach>
 								</select>
 							</div>
@@ -211,9 +212,10 @@
 								<div class="input-group-prepend">
 									<div class="input-group-text">消費税率</div>
 								</div>
-								<select class="custom-select" name="ctaxRate">
+								<select class="custom-select" name="ctaxRate" id="ctaxRate" onchange="calc();">
+										<option></option>
 									<c:forEach items="${initTaxRate}" var="initTR">
-										<option value="${initTR.ctaxRate}" id="ctaxRate">${initTR.ctaxRate}</option>
+										<option value="${initTR.ctaxRate}"<c:if test="${order.ctaxRate == initTR.ctaxRate}">selected</c:if>>${initTR.ctaxRate}</option>
 									</c:forEach>
 								</select>
 							</div>
@@ -237,7 +239,7 @@
 									<div class="input-group-text" style = "background-color: pink;">顧客コード</div>
 								</div>
 								<input type="text" value="${order.customerCode}" class="form-control" id="customerCodeInput" name="customerCodeInput" onchange="customerInfo()" required>
-								<button type="button" class="btn btn-outline-secondary" data-toggle="modal" data-target="#customersearch" onclick="customerCodetoModal();">検索</button>
+								<button type="button" class="btn btn-outline-secondary" data-toggle="modal" data-target="#customerSearch" onclick="customerCodetoModal();getCutoffGroup();">検索</button>
 							</div>
 						</div>
 						<div class="col-4">
@@ -465,10 +467,10 @@
 					<tr>
 						<td rowspan="6"><span id="tableLineNo${list.lineNo}">${list.lineNo}</span></td>
 						<td rowspan="6">
-							<input type="text" value="${list.productCode}" class="form-control" size="2" style="width:100%" id="productCodeInput${list.lineNo}" name="productCodeInput">
-							<button type="button" class="btn btn-outline-secondary" data-toggle="modal" data-target="#setproductsearch" onclick="productCodetoModal(this);" id="setproductsearch${list.lineNo}">検索</button>
+							<input type="text" value="${list.productCode}" class="form-control" size="2" style="width:100%" id="productCodeInput${list.lineNo}"  maxlength='20' name="productCodeInput" onchange="pCode(this)" required>
+							<button type="button" class="btn btn-outline-secondary" data-toggle="modal" data-target="#setproductsearch" onclick="productCodetoModal(this);initProductModal();" id="setproductsearch${list.lineNo}">検索</button>
 						</td>
-						<td rowspan="3"><span id="productName${list.lineNo}">${list.productName}</span></td>
+						<td rowspan="3"><input type="text" id="productName${list.lineNo}" class="form-control" name="productName" value="${list.productName}" readonly></td>
 						<td rowspan="2">
 							<input type="text" value="${list.rackCode}" class="form-control" size="2" id="rackCode${list.lineNo}" name="rackCode" readonly>
 						</td>
@@ -476,7 +478,7 @@
 							<input type="text" value="${list.unitCost}" class="form-control" size="4" name="unitCost" id="unitCost${list.lineNo}" name="unitCost" readonly>
 						</td>
 						<td rowspan="3">
-							<input type="text" value="${list.unitRetailPrice}" class="form-control" size="4" name="unitRetailPrice" id="unitRetailPrice${list.lineNo}" name="unitRetailPrice" onchange="quantityCalc2(this)">
+							<input type="text" value="${list.unitRetailPrice}" class="form-control" size="4" name="unitRetailPrice" id="unitRetailPrice${list.lineNo}" name="unitRetailPrice" onchange="quantityCalc2(this)" required>
 						</td>
 						<td rowspan="3">
 							<textarea name="productRemarks" class="form-control" cols="10" id="inputProductRemarks${list.lineNo}" name="inputProductRemarks">${list.inputProductRemarks}</textarea>
@@ -488,7 +490,7 @@
 					<tr></tr>
 					<tr>
 						<td rowspan="2">
-							<input type="text" value="${list.quantity}" class="form-control" size="2" name="quantity" id="quantity${list.lineNo}" name="quantity" onchange="quantityCalc1(this)">
+							<input type="text" value="${list.quantity}" class="form-control" size="2" name="quantity" id="quantity${list.lineNo}" name="quantity" onchange="quantityCalc1(this)" required>
 						</td>
 					</tr>
 					<tr>
@@ -523,7 +525,7 @@
 			<table align="center">
 				<tr>
 					<td>
-							<button type="button" class="btn btn-outline-secondary" onclick="addLineForm();" id="addLine">行追加</button>
+							<button type="button" class="btn btn-outline-secondary" id="addLine">行追加</button>
 					</td>
 				</tr>
 			</table>
@@ -561,7 +563,7 @@
 
 		<!-- 更新ボタン -->
 		<div align="center">
-				<input type="submit" class="btn btn-outline-secondary w-auto" value="更新" onclick="updateForm();">
+				<input type="submit" class="btn btn-outline-secondary w-auto" value="更新" id="updateOrderButton">
 		</div><br>
 	</form>
 
@@ -647,23 +649,26 @@
 				window.location.href = "/SalesCube2020/SalesCube?action=orderinput";
 			}
 
-			/* 登録 */
+			/* 更新 */
 			function updateForm() {
-				var test = confirm("入力内容を更新します。よろしいですか？");
-				test;
-				if(test == false){
-					return;
-				} /* else
-				window.location.href = '/SalesCube2020/SalesCube?action=orderinput'; */
-				location.reload();
+				if(!confirm("入力内容を登録します。よろしいですか？")){
+			       	return false;
+				}
+			}
+			
+			function updateButton(){
+				document.getElementById("updateOrderButton").click();
 			}
 	
 			/* 伝票呼出 */
 			function orderForm() {
+				var modal = document.getElementById("billopen");
 				var test = confirm("未登録の入力内容を破棄し伝票呼出してもよろしいですか？");
-				test;
-				if(test == false){
+				if(test == false){					
+					modal.removeAttribute("data-toggle");
 					return;
+				}else{
+					modal.setAttribute("data-toggle","modal");
 				}
 			}
 	
@@ -675,13 +680,14 @@
 				var productCodeInput = document.getElementById("productCodeInput" + (tableNo - 1)).value;
 				target = document.getElementById("productCodeInput" + tableNo);
 				target.value = productCodeInput;
+				
 				/* 商品名 */
-				var productName = document.getElementById("productName" + (tableNo - 1)).innerHTML;
+				var productName = document.getElementById("productName" + (tableNo - 1)).value;
 				target = document.getElementById("productName" + tableNo);
 				if(productName != null && productName != ""){
-					target.innerHTML = productName;
+					target.value = productName;
 				}else{
-					target.innerHTML = null;
+					target.value = null;
 				}
 				/* 棚番 */
 				var rackCode = document.getElementById("rackCode" + (tableNo - 1)).value;
@@ -729,21 +735,21 @@
 				$('#order > tbody:last').append('<tr>'
 					+ '<td rowspan="6"><span id="tableLineNo' + tableNo + '">' + tableNo + '</span></td>'
 					+ '<td rowspan="6">'
-						+ '<input type="text" value="" class="form-control" size="2" style="width:100%" name="productCodeInput" id="productCodeInput' + tableNo + '"  onchange="pCode(this)">'
-						+ '<button type="button" class="btn btn-outline-secondary" data-toggle="modal" data-target="#setproductsearch" onclick="productCodetoModal(this);" id="setproductsearch' + tableNo + '">検索</button>'
+						+ '<input type="text" value="" class="form-control" size="2" style="width:100%" name="productCodeInput" id="productCodeInput' + tableNo + '"  onchange="pCode(this)" required>'
+						+ '<button type="button" class="btn btn-outline-secondary" data-toggle="modal" data-target="#setproductsearch" onclick="productCodetoModal(this);initProductModal();" id="setproductsearch' + tableNo + '">検索</button>'
 					+ '</td>'
-					+ '<td rowspan="3"><span name="productName" id="productName' + tableNo + '"></span></td>'
+					+ '<td rowspan="3"><input type="text" id="productName' + tableNo + '" class="form-control" name="productName" value="${list.productName}" readonly></td>'
 					+ '<td rowspan="2"><input name="rackCode" type="text" value="" class="form-control" size="2" id="rackCode' + tableNo + '" readonly></td>'
 					+ '<td rowspan="3"><input name="unitCost" type="text" value="" class="form-control" size="4" name="unitCost" id="unitCost' + tableNo + '" readonly></td>'
 					+ '<td rowspan="3">'
-						+ '<input type="text" value="" class="form-control" size="4" name="unitRetailPrice" name="unitRetailPrice" id="unitRetailPrice' + tableNo + '" onchange="quantityCalc2(this)"></td>'
+						+ '<input type="text" value="" class="form-control" size="4" name="unitRetailPrice" name="unitRetailPrice" id="unitRetailPrice' + tableNo + '" onchange="quantityCalc2(this)" required></td>'
 					+ '<td rowspan="3"><textarea name="productRemarks" class="form-control" cols="10" name="inputProductRemarks" id="inputProductRemarks' + tableNo + '"></textarea></td>'
 					+ '<td rowspan="3" class="align: middle"><button type="button" class="btn btn-outline-secondary" onclick="deleteLineForm(this);" id="deleteLineForm' + tableNo + '">削除</button></td>'
 					+ '</tr>'
 					+ '<tr></tr>'
 					+ '<tr>'
 					+ '<td rowspan="2">'
-						+ '<input type="text" value="" class="form-control" size="2" name="quantity" id="quantity' + tableNo + '" onchange="quantityCalc1(this)">'
+						+ '<input type="text" value="" class="form-control" size="2" name="quantity" id="quantity' + tableNo + '" onchange="quantityCalc1(this)" required>'
 					+ '</td>'
 					+ '</tr>'
 					+ '<tr>'
@@ -874,25 +880,27 @@
 				/* 粗利益率 : (粗利益/金額合計)*100 */
 				target = document.getElementById("grossProfitRatio");
 				if((sum4 - sum3) != null && (sum4 - sum3) !="" && sum2 != null && sum2 != ""){
-					target.innerHTML = Math.floor(((sum4 - sum3) / sum2) * 100 * 100) / 100 + '%';
+					target.innerHTML = Math.floor( ((sum4 - sum3) / sum2) * 100 * 100) / 100 + '%';
 				}
 
 				/* 消費税 : 金額合計*消費税率 */
 				target = document.getElementById("ctaxPriceTotal");
-				if(document.getElementById("ctaxRate").value == null || document.getElementById("ctaxRate").value == ""){
+				var num = document.getElementById("ctaxRate");
+				var rate = num.options[num.selectedIndex].value;
+				if(rate == null || rate == ""){
 					target.innerHTML = '￥0';
 				}else{
-					var ctaxRate = (parseInt(document.getElementById("ctaxRate").value)) /100;
-					target.innerHTML = '￥' + parseInt((sum2 - sum1) * ctaxRate);
+					var ctaxRate = (parseInt(rate)) /100;
+					target.innerHTML = '￥' + parseInt(sum2 * ctaxRate);
 				}
 				
 				/* 伝票合計 : 金額合計+消費税 */
 				target = document.getElementById("priceTotal");
-				if(document.getElementById("ctaxRate").value == null || document.getElementById("ctaxRate").value == ""){
-					target.innerHTML = '￥' + parseInt(sum2 - sum1);
+				if(rate == null || rate == ""){
+					target.innerHTML = '￥' + parseInt(sum2);
 				}else{
-					var ctaxRate = (parseInt(document.getElementById("ctaxRate").value)) /100;
-					target.innerHTML = '￥' + parseInt((sum2 - sum1) * ctaxRate);
+					var ctaxRate = parseInt(rate) /100;
+					target.innerHTML = '￥' + parseInt(sum2 * (ctaxRate+1));
 				}
 			}
 
@@ -914,6 +922,22 @@
 				var customerCode = document.getElementById("customerCodeInput").value;
 				document.getElementById("inputCustomerCode").value = customerCode;
 			}
+			/* 顧客モーダルから親画面にリンク */
+			function selectCustomerCode(code, name){
+				document.getElementById("customerCodeInput").value = code;
+				document.getElementById("customerNameInput").value = name;
+				customerInfo(code);
+			}
+			/* 商品モーダルから親画面にリンク */
+			function selectProductModal(code, name){
+				var tableNo = globalTmp.substr(16);
+				document.getElementById("productCodeInput" + tableNo).value = code;
+				document.getElementById("productName" + tableNo).innerHTML = name;
+				
+				var tmp = document.getElementById("productCodeInput" + tableNo);
+				
+				pCode(tmp);
+			}
 
 			/* 親画面から商品モーダルに商品コードを渡す */
 			function productCodetoModal(obj){
@@ -933,12 +957,20 @@
 				globalTmp = obj.id;
 				var tableNo = globalTmp.substr(16);
 				var inputProductCode = document.getElementById("productCodeInput" + tableNo).value;	
+				document.getElementById("productName" + tableNo).innerHTML = "";
+				document.getElementById("rackCode" + tableNo).value = "";
+				document.getElementById("unitCost" + tableNo).value = "";
+				document.getElementById("unitRetailPrice" + tableNo).value = "";
+				document.getElementById("inputProductRemarks" + tableNo).innerText = "";
+				document.getElementById("quantity" + tableNo).value = "";
+				document.getElementById("productRemarks" + tableNo).innerText = "";
+				document.getElementById("cost" + tableNo).value = "";
+				document.getElementById("retailPrice" + tableNo).value = "";
+				document.getElementById("eadRemarks" + tableNo).innerText = "";
 				$.ajax({
 					type: "post",
 					url: '/SalesCube2020/SalesCubeAJAX?action=pcodetoinfo',
-					data: {
-						"productCode": inputProductCode,				
-					},
+					data: {"productCode": inputProductCode },
 					dataType: 'json',
 					success: function(data){
 						if(data.productName == null || data.productName == ""){
@@ -953,6 +985,7 @@
 						}
 						if(data.unitCost == null || data.unitCost == ""){
 							data.unitCost = "";
+							
 						}else {
 							document.getElementById('unitCost' + tableNo).value = data.unitCost;
 						}
@@ -991,11 +1024,11 @@
 						}else {
 							document.getElementById('eadRemarks' + tableNo).innerHTML = data.eadRemarks;
 						}
-						calc(tableNo);
+						calc();
 					}
 				});
 			}
-			
+
 			/* 顧客コードから顧客・納入先情報 ajax */
 			function customerInfo() {
 				var cCode = document.getElementById("customerCodeInput").value;
@@ -1008,7 +1041,7 @@
 				success:function(data){
 					var tmp = JSON.parse(data.bean);
 					if(tmp['customerName'] == null || tmp['customerName'] == ""){
-						tmp['customerName'] = "";
+						tmp['customerName'] == "";
 					} else {
 						document.getElementById('customerNameInput').value = tmp['customerName'];
 					}
@@ -1104,6 +1137,17 @@
 		function deliverySelect(){
 			var deliveryCode = document.getElementById("deliveryName").value;
 			$("#deliveryName > option selected").remove();
+			document.getElementById("deliveryOfficeName").value = "";
+			document.getElementById("deliveryDeptName").value = "";
+			document.getElementById("deliveryZipCode").value = "";
+			document.getElementById("deliveryAddress1").value = "";
+			document.getElementById("deliveryAddress2").value = "";
+			document.getElementById("deliveryPcName").value = "";
+			document.getElementById("deliveryPcKana").value = "";
+			document.getElementById("deliveryPcPre").value = "";
+			document.getElementById("deliveryTel").value = "";
+			document.getElementById("deliveryFax").value = "";
+			document.getElementById("deliveryEmail").value = "";
 		$.ajax({
 			url:'/SalesCube2020/SalesCubeAJAX?action=deliverytoinfo',
 			type:'post',
@@ -1172,6 +1216,26 @@
 			
 			});
 		}
+		
+		shortcut.add("F1", function(){
+			initForm();
+		});
+		
+		shortcut.add("F2", function(){
+			document.getElementById("deleteOrder").click();
+		});
+		
+		shortcut.add("F3", function(){
+			document.getElementById("returnForm").click();
+		});
+		
+		shortcut.add("F4", function(){
+			document.getElementById("updateOrderButton").click();
+		});
+		
+		shortcut.add("F6", function(){
+			document.getElementById("billopen").click();
+		});
 			
 		</script>
 	</body>

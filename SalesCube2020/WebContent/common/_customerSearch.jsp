@@ -212,7 +212,7 @@
 						for(var i = 0; i<Object.keys(data).length; i++){
 							var headcontents= '';
 							headcontents += '<tr>';
-							headcontents += '<td style="white-space: normal; text-align: left;" onclick="selectCustomerCode('+data[i].customerCode+",'"+data[i].customerName+"'"+')" data-dismiss="modal" ><a href="">'+data[i].customerCode+'</a></td>';
+							headcontents += '<td style="white-space: normal; text-align: left;" onclick="selectCustomerCode('+data[i].customerCode+",'"+data[i].customerName+"'"+');" data-dismiss="modal" ><a href="">'+data[i].customerCode+'</a></td>';
 							headcontents += '<td style="white-space: normal; text-align: left;">'+data[i].customerName+'</td>';
 							headcontents += '<td style="white-space: normal; text-align: left;">'+data[i].customerTEL+'</td>';  
 							headcontents += '<td style="white-space: normal; text-align: left;">'+data[i].customerPCName+'</td>';

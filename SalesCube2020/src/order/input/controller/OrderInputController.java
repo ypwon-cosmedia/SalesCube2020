@@ -97,8 +97,8 @@ public class OrderInputController extends BaseController {
 		String deliveryTel = nullOrEmpty(request.getParameter("deliveryTel"));
 		String deliveryFax = nullOrEmpty(request.getParameter("deliveryFax"));
 		String deliveryEmail = nullOrEmpty(request.getParameter("deliveryEmail"));
-		String[] productCode = request.getParameterValues("productCode");
-		String[] productName;
+		String[] productCode = request.getParameterValues("productCodeInput");
+		String[] productName = request.getParameterValues("productName");
 		String[] productRemarks = request.getParameterValues("productRemarks");
 		String[] rackCode = request.getParameterValues("rackCode");
 		String[] quantity = request.getParameterValues("quantity");
@@ -111,64 +111,75 @@ public class OrderInputController extends BaseController {
 		Integer retailPriceTotal = 0;
 		Integer ctaxPriceTotal = 0;
 		Integer priceTotal = 0;
+		int arrLength = productCode.length;
 
-		if(request.getParameterValues("productCode") == null || request.getParameterValues("productCode")[0].equals("")) {
-			productCode = null ;
+		if(request.getParameterValues("productCodeInput") == null) {
+			productCode = new String[arrLength];
+			productCode = stringArrayIsNull(productCode,arrLength);
 		}else {
-			productCode = request.getParameterValues("productCode");
+			productCode = request.getParameterValues("productCodeInput");
 		}
-		if(request.getParameterValues("productName") == null || request.getParameterValues("productName").equals("")) {
-			productName = null ;
+		if(request.getParameterValues("productName") == null){
+			productName = new String[arrLength];
+			productName = stringArrayIsNull(productName,arrLength);
 		}else {
 			productName = request.getParameterValues("productName");
 		}
-		if(request.getParameterValues("productRemarks") == null || request.getParameterValues("productRemarks").equals("")) {
-			productRemarks = null;
+		if(request.getParameterValues("productRemarks") == null) {
+			productRemarks = new String[arrLength];
+			productRemarks = stringArrayIsNull(productRemarks,arrLength);
 		}else {
 			productRemarks = request.getParameterValues("productRemarks");
 		}
-		if(request.getParameterValues("rackCode") == null || request.getParameterValues("rackCode").equals("")) {
-			rackCode = null;
+		if(request.getParameterValues("rackCode") == null) {
+			rackCode = new String[arrLength];
+			rackCode = stringArrayIsNull(rackCode,arrLength);
 		}else {
 			rackCode = request.getParameterValues("rackCode");
 		}
-		if(request.getParameterValues("quantity") == null || request.getParameterValues("quantity").equals("")) {
-			quantity = null;
+		if(request.getParameterValues("quantity") == null) {
+			quantity = new String[arrLength];
+			quantity = stringArrayIsNull(quantity,arrLength);
 		}else {
 			quantity = request.getParameterValues("quantity");
 		}
-		if(request.getParameterValues("unitCost") == null || request.getParameterValues("unitCost").equals("")) {
-			unitCost = null;
+		if(request.getParameterValues("unitCost") == null) {
+			unitCost = new String[arrLength];
+			unitCost = stringArrayIsNull(unitCost,arrLength);
 		}else {
 			unitCost = request.getParameterValues("unitCost");
 		}
-		if(request.getParameterValues("cost") == null || request.getParameterValues("cost").equals("")) {
-			cost = null;
+		if(request.getParameterValues("cost") == null) {
+			cost = new String[arrLength];
+			cost = stringArrayIsNull(cost,arrLength);
 		}else {
 			cost = request.getParameterValues("cost");
 		}
-		if(request.getParameterValues("unitRetailPrice") == null || request.getParameterValues("unitRetailPrice").equals("")) {
-			unitRetailPrice = null;
+		if(request.getParameterValues("unitRetailPrice") == null) {
+			unitRetailPrice = new String[arrLength];
+			unitRetailPrice = stringArrayIsNull(unitRetailPrice,arrLength);
 		}else {
 			unitRetailPrice = request.getParameterValues("unitRetailPrice");
 		}
-		if(request.getParameterValues("retailPrice") == null || request.getParameterValues("retailPrice").equals("")) {
-			retailPrice = null;
+		if(request.getParameterValues("retailPrice") == null) {
+			retailPrice = new String[arrLength];
+			retailPrice = stringArrayIsNull(retailPrice,arrLength);
 		}else {
 			retailPrice = request.getParameterValues("retailPrice");
 		}
-		if(request.getParameterValues("inputProductRemarks") == null || request.getParameterValues("inputProductRemarks").equals("")) {
-			inputProductRemarks = null;
+		if(request.getParameterValues("inputProductRemarks") == null) {
+			inputProductRemarks = new String[arrLength];
+			inputProductRemarks = stringArrayIsNull(inputProductRemarks,arrLength);
 		}else {
 			inputProductRemarks = request.getParameterValues("inputProductRemarks");
 		}
-		if(request.getParameterValues("eadRemarks") == null || request.getParameterValues("eadRemarks").equals("")) {
-			eadRemarks = null;
+		if(request.getParameterValues("eadRemarks") == null ) {
+			eadRemarks = new String[arrLength];
+			eadRemarks = stringArrayIsNull(eadRemarks,arrLength);
 		}else {
 			eadRemarks = request.getParameterValues("eadRemarks");
 		}
-		
-		
+
 		if(request.getParameter("retailPriceTotal") == null || request.getParameter("retailPriceTotal").equals("")) {
 			retailPriceTotal = 0;
 		}else {
@@ -219,9 +230,9 @@ public class OrderInputController extends BaseController {
 		bean.setCtaxPriceTotal(ctaxPriceTotal);
 		bean.setPriceTotal(priceTotal);		
 		
-		OrderInputBean bean2 = new OrderInputBean();
 		if(productCode != null) {
 			for(int i = 0; i < productCode.length; i++) {
+				OrderInputBean bean2 = new OrderInputBean();
 				bean2.setProductCode(productCode[i]);
 				bean2.setProductName(productName[i]);
 				bean2.setProductRemarks(productRemarks[i]);
@@ -236,17 +247,32 @@ public class OrderInputController extends BaseController {
 				list.add(bean2);
 			}
 		}
+		
+		List<OrderInputBean> list1 = dao.getDcName();
+		List<OrderInputBean> list2 = dao.getDcTimezone();
+		List<OrderInputBean> list3 = dao.getTaxRate();
 				
 		int result1 = dao.orderInputInfo(bean);
-		int result2 = dao.orderInputDetail(list);
+		int num = dao.roSlipLast();
+		int result2 = dao.orderInputDetail(list, num);
 		
-		if(result1 == 0 && result2 == 0) {
-			String message1 = "登録できませんでした。<br>";
-			request.setAttribute("inputErr", message1);
-		}else {
-			String message2 = "登録が完了しました。<br>";
-			request.setAttribute("inputCmp", message2);
+		try {
+			if(result1 == 0 && result2 == 0) {
+				String message1 = "登録できませんでした。<br>";
+				request.setAttribute("inputErr", message1);
+				request.setAttribute("initDcName", list1);
+				request.setAttribute("initDcTimezone", list2);
+				request.setAttribute("initTaxRate", list3);
+			}else {
+				String message2 = "登録が完了しました。<br>";
+				request.setAttribute("inputCmp", message2);
+			}
+		}catch (NullPointerException e) {
+			String message = "ログインした後で利用できます。\nログインしてください。";
+			request.setAttribute("loginError", message);
+			return "login.jsp";
 		}
+		
 		
 		return "order\\orderinput.jsp";
 		
@@ -260,6 +286,9 @@ public class OrderInputController extends BaseController {
 		List<OrderInputBean> list = new ArrayList<>();
 		
 		Integer roSlipId = Integer.parseInt(request.getParameter("roSlipId"));
+		
+		//Delete
+		dao.deleteOrderUpdateDetail(roSlipId);
 
 		String roDate = nullOrEmpty(request.getParameter("roDate"));
 		String shipDate = nullOrEmpty(request.getParameter("shipDate"));
@@ -290,8 +319,8 @@ public class OrderInputController extends BaseController {
 		String deliveryTel = nullOrEmpty(request.getParameter("deliveryTel"));
 		String deliveryFax = nullOrEmpty(request.getParameter("deliveryFax"));
 		String deliveryEmail = nullOrEmpty(request.getParameter("deliveryEmail"));
-		String[] productCode = request.getParameterValues("productCode");
-		String[] productName;
+		String[] productCode = request.getParameterValues("productCodeInput");
+		String[] productName = request.getParameterValues("productName");
 		String[] productRemarks = request.getParameterValues("productRemarks");
 		String[] rackCode = request.getParameterValues("rackCode");
 		String[] quantity = request.getParameterValues("quantity");
@@ -304,59 +333,71 @@ public class OrderInputController extends BaseController {
 		Integer retailPriceTotal = 0;
 		Integer ctaxPriceTotal = 0;
 		Integer priceTotal = 0;
-		
-		if(request.getParameterValues("productCode") == null || request.getParameterValues("productCode")[0].equals("")) {
-			productCode = null ;
+		int arrLength = productCode.length;
+
+		if(request.getParameterValues("productCodeInput") == null) {
+			productCode = new String[arrLength];
+			productCode = stringArrayIsNull(productCode,arrLength);
 		}else {
-			productCode = request.getParameterValues("productCode");
+			productCode = request.getParameterValues("productCodeInput");
 		}
-		if(request.getParameterValues("productName") == null || request.getParameterValues("productName").equals("")) {
-			productName = null ;
+		if(request.getParameterValues("productName") == null){
+			productName = new String[arrLength];
+			productName = stringArrayIsNull(productName,arrLength);
 		}else {
 			productName = request.getParameterValues("productName");
 		}
-		if(request.getParameterValues("productRemarks") == null || request.getParameterValues("productRemarks").equals("")) {
-			productRemarks = null;
+		if(request.getParameterValues("productRemarks") == null) {
+			productRemarks = new String[arrLength];
+			productRemarks = stringArrayIsNull(productRemarks,arrLength);
 		}else {
 			productRemarks = request.getParameterValues("productRemarks");
 		}
-		if(request.getParameterValues("rackCode") == null || request.getParameterValues("rackCode").equals("")) {
-			rackCode = null;
+		if(request.getParameterValues("rackCode") == null) {
+			rackCode = new String[arrLength];
+			rackCode = stringArrayIsNull(rackCode,arrLength);
 		}else {
 			rackCode = request.getParameterValues("rackCode");
 		}
-		if(request.getParameterValues("quantity") == null || request.getParameterValues("quantity").equals("")) {
-			quantity = null;
+		if(request.getParameterValues("quantity") == null) {
+			quantity = new String[arrLength];
+			quantity = stringArrayIsNull(quantity,arrLength);
 		}else {
 			quantity = request.getParameterValues("quantity");
 		}
-		if(request.getParameterValues("unitCost") == null || request.getParameterValues("unitCost").equals("")) {
-			unitCost = null;
+		if(request.getParameterValues("unitCost") == null) {
+			unitCost = new String[arrLength];
+			unitCost = stringArrayIsNull(unitCost,arrLength);
 		}else {
 			unitCost = request.getParameterValues("unitCost");
 		}
-		if(request.getParameterValues("cost") == null || request.getParameterValues("cost").equals("")) {
-			cost = null;
+		if(request.getParameterValues("cost") == null) {
+			cost = new String[arrLength];
+			cost = stringArrayIsNull(cost,arrLength);
 		}else {
 			cost = request.getParameterValues("cost");
 		}
-		if(request.getParameterValues("unitRetailPrice") == null || request.getParameterValues("unitRetailPrice").equals("")) {
-			unitRetailPrice = null;
+		if(request.getParameterValues("unitRetailPrice") == null) {
+			unitRetailPrice = new String[arrLength];
+			unitRetailPrice = stringArrayIsNull(unitRetailPrice,arrLength);
 		}else {
 			unitRetailPrice = request.getParameterValues("unitRetailPrice");
 		}
-		if(request.getParameterValues("retailPrice") == null || request.getParameterValues("retailPrice").equals("")) {
-			retailPrice = null;
+		if(request.getParameterValues("retailPrice") == null) {
+			retailPrice = new String[arrLength];
+			retailPrice = stringArrayIsNull(retailPrice,arrLength);
 		}else {
 			retailPrice = request.getParameterValues("retailPrice");
 		}
-		if(request.getParameterValues("inputProductRemarks") == null || request.getParameterValues("inputProductRemarks").equals("")) {
-			inputProductRemarks = null;
+		if(request.getParameterValues("inputProductRemarks") == null) {
+			inputProductRemarks = new String[arrLength];
+			inputProductRemarks = stringArrayIsNull(inputProductRemarks,arrLength);
 		}else {
 			inputProductRemarks = request.getParameterValues("inputProductRemarks");
 		}
-		if(request.getParameterValues("eadRemarks") == null || request.getParameterValues("eadRemarks").equals("")) {
-			eadRemarks = null;
+		if(request.getParameterValues("eadRemarks") == null ) {
+			eadRemarks = new String[arrLength];
+			eadRemarks = stringArrayIsNull(eadRemarks,arrLength);
 		}else {
 			eadRemarks = request.getParameterValues("eadRemarks");
 		}
@@ -413,10 +454,9 @@ public class OrderInputController extends BaseController {
 		bean.setPriceTotal(priceTotal);	
 		bean.setRoSlipId(roSlipId);
 		
-		OrderInputBean bean2 = new OrderInputBean();
-		
 		if(productCode != null) {
 			for(int i = 0; i < productCode.length; i++) {
+				OrderInputBean bean2 = new OrderInputBean();
 				bean2.setProductCode(productCode[i]);
 				bean2.setProductName(productName[i]);
 				bean2.setProductRemarks(productRemarks[i]);
@@ -428,6 +468,7 @@ public class OrderInputController extends BaseController {
 				bean2.setRetailPrice(Integer.parseInt(retailPrice[i]));
 				bean2.setInputProductRemarks(inputProductRemarks[i]);
 				bean2.setEadRemarks(eadRemarks[i]);
+				bean2.setRoSlipId(roSlipId);
 				list.add(bean2);
 			}
 		}
@@ -435,15 +476,29 @@ public class OrderInputController extends BaseController {
 		int result1 = dao.orderUpdateInfo(bean);
 		int result2 = dao.orderUpdateDetail(list);
 		
-		if(result1 == 0 && result2 == 0) {
-			String message1 = "更新できませんでした。<br>";
-			request.setAttribute("updateErr", message1);
-		}else {
-			String message2 = "更新が完了しました。<br>";
-			request.setAttribute("updateCmp", message2);
+		List<OrderInputBean> list1 = dao.getDcName();
+		List<OrderInputBean> list2 = dao.getDcTimezone();
+		List<OrderInputBean> list3 = dao.getTaxRate();
+		
+		try {
+			if(result1 == 0 && result2 == 0) {
+				String message1 = "更新できませんでした。<br>";
+				request.setAttribute("updateErr", message1);
+				request.setAttribute("initDcName", list1);
+				request.setAttribute("initDcTimezone", list2);
+				request.setAttribute("initTaxRate", list3);
+			}else {
+				String message2 = "更新が完了しました。<br>";
+				request.setAttribute("updateCmp", message2);
+			}
+		}catch (NullPointerException e) {
+			String message = "ログインした後で利用できます。\nログインしてください。";
+			request.setAttribute("loginError", message);
+			return "login.jsp";
 		}
 		
-		return "order\\orderupdate.jsp";
+		
+		return "order\\orderinput.jsp";
 		
 	}
 	
@@ -464,13 +519,19 @@ public class OrderInputController extends BaseController {
 			OrderInputDAO dao = new OrderInputDAO();
 			int check = dao.deleteOrder(roSlipId);
 			
+			try {
 			//Delete Check
-			if( check == 0 ) {
-				String message = "削除ができませんでした";
-				request.setAttribute("deleteError", message);
-			}else{
-				String message = "削除が完了しました";
-				request.setAttribute("deleteCmp", message);
+				if( check == 0 ) {
+					String message = "削除ができませんでした";
+					request.setAttribute("deleteError", message);
+				}else{
+					String message = "削除が完了しました";
+					request.setAttribute("deleteCmp", message);
+				}
+			}catch (NullPointerException e) {
+				String message = "ログインした後で利用できます。\nログインしてください。";
+				request.setAttribute("loginError", message);
+				return "login.jsp";
 			}
 			
 			return forwardURL;
@@ -500,17 +561,30 @@ public class OrderInputController extends BaseController {
 		List<OrderCommonBillBean> list4 = dao.billToDeliveryCode(String.valueOf(dao.billToCustomerCode(estimateSheetId)));
 		init.initCombobox(request, response);
 
-		request.setAttribute("initDcName", list1);
-		request.setAttribute("initDcTimezone", list2);
-		request.setAttribute("initTaxRate", list3);
-		request.setAttribute("deliveryCodeName", list4);
-		
-		request.setAttribute("stockTaxRate", bean1);
-		request.setAttribute("stockCustomer", bean2);
-		request.setAttribute("stockDelivery", bean3);
+		try {
+			request.setAttribute("initDcName", list1);
+			request.setAttribute("initDcTimezone", list2);
+			request.setAttribute("initTaxRate", list3);
+			request.setAttribute("deliveryCodeName", list4);
+			
+			request.setAttribute("stockTaxRate", bean1);
+			request.setAttribute("stockCustomer", bean2);
+			request.setAttribute("stockDelivery", bean3);
+		}catch (NullPointerException e) {
+			String message = "ログインした後で利用できます。\nログインしてください。";
+			request.setAttribute("loginError", message);
+			return "login.jsp";
+		}
 		
 		return "order\\orderinput.jsp";
 
+	}
+	
+	public String[] stringArrayIsNull(String[] str, int num) {
+		for(int i = 0; i<num; i++) {
+			str[i] = "";
+		}
+		return str;
 	}
 	
 }

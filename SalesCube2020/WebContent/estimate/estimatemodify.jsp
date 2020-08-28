@@ -164,7 +164,7 @@
 								<div class="input-group-prepend">
 									<div class="input-group-text"  style="background-color: pink;">見積番号</div>
 								</div>
-								<input type="text" name="estimateSheetId" value="${estimate.estimateSheetId}" class="form-control" id="inlineFormInputGroup" name="estimateSheetId" pattern="^[0-9A-Za-z]+$" readonly>
+								<input type="text" name="estimateSheetId" value="${estimate.estimateSheetId}" class="form-control" id="inlineFormInputGroup" name="estimateSheetId" pattern="^[0-9A-Za-z]+$" maxlength="32" readonly>
 							</div>
 						</div>
 
@@ -184,7 +184,7 @@
 								<div class="input-group-prepend">
 									<div class="input-group-text">納期または出荷日</div>
 								</div>
-								<input type="text" value="${estimate.deliveryInfo}" class="form-control" id="deliveryInfo" name="deliveryInfo">
+								<input type="text" value="${estimate.deliveryInfo}" class="form-control" id="deliveryInfo" name="deliveryInfo" maxlength="120">
 								<button type="button" class="ModalButton"  data-toggle="modal" data-target="#setShipDate" onclick="deliveryInfoShow()">
 									<img src="btn_search.png" style="vertical-align: middle; cursor: pointer; width: 32px; height: 32px;">
 								</button>
@@ -219,7 +219,7 @@
 								<div class="input-group-prepend">
 									<div class="input-group-text">件名</div>
 								</div>
-								<input type="text" value="${estimate.title}" class="form-control" id="inlineFormInputGroup" name="title">
+								<input type="text" value="${estimate.title}" class="form-control" id="inlineFormInputGroup" name="title" maxlength="100">
 							</div>
 						</div>
 					</div>
@@ -231,7 +231,7 @@
 								<div class="input-group-prepend">
 									<div class="input-group-text">納入先</div>
 								</div>
-								<input type="text" value="${estimate.deliveryName}" class="form-control" id="inlineFormInputGroup" name="deliveryName">
+								<input type="text" value="${estimate.deliveryName}" class="form-control" id="inlineFormInputGroup" name="deliveryName" maxlength="60">
 							</div>
 						</div>
 					</div>
@@ -243,7 +243,7 @@
 								<div class="input-group-prepend">
 									<div class="input-group-text">見積条件</div>
 								</div>
-								<textarea cols="3" style="width: 750px;" id="estimateCondition" name="estimateCondition">${estimate.estimateCondition}</textarea>
+								<textarea cols="3" style="width: 750px;" id="estimateCondition" name="estimateCondition" maxlength="120">${estimate.estimateCondition}</textarea>
 								<button type="button" class="ModalButton"  data-toggle="modal" data-target="#setQuotationCondition" onclick="conditionShow()">
 									<img src="btn_search.png" style="vertical-align: middle; cursor: pointer; width: 32px; height: 32px;">
 								</button>
@@ -289,7 +289,7 @@
 								<div class="input-group-prepend">
 									<div class="input-group-text" style="background-color: pink;">提出先名</div>
 								</div>
-								<input type="text" value="${estimate.submitName}" class="form-control" id="submitName" name="submitName" required>&emsp;&emsp;
+								<input type="text" value="${estimate.submitName}" class="form-control" id="submitName" name="submitName" maxlength="60" required>&emsp;&emsp;
 							</div>
 						</div>
 
@@ -321,7 +321,7 @@
 									<div class="input-group-prepend">
 										<div class="input-group-text">顧客コード</div>
 									</div>
-									<input type="text" value="${estimate.customerCode}" class="form-control" name="customerCode" id="inputCustomerCode" onchange="customerCodeCheck(this)"  pattern="^[0-9A-Za-z]+$" title="※半角英数字">
+									<input type="text" value="${estimate.customerCode}" class="form-control" name="customerCode" id="inputCustomerCode" onchange="customerCodeCheck(this)"  pattern="^[0-9A-Za-z]+$" title="※半角英数字" maxlength="15">
 									<button type="button" class="ModalButton"  data-toggle="modal" data-target="#customerSearch" onclick="initCustomer() ; getCutoffGroup()">
 										<img src="btn_search.png" style="vertical-align: middle; cursor: pointer; width: 32px; height: 32px;">
 									</button>
@@ -384,7 +384,7 @@
 								<div class="input-group-prepend">
 									<div class="input-group-text">摘要</div>
 								</div>
-								<textarea name="remarks" cols="100">${estimate.remarks}</textarea>
+								<textarea name="remarks" cols="100" maxlength="120">${estimate.remarks}</textarea>
 							</div>
 						</div>
 					</div>
@@ -396,7 +396,7 @@
 								<div class="input-group-prepend">
 									<div class="input-group-text">メモ</div>
 								</div>
-								<textarea name="memo" cols="100">${estimate.memo}</textarea>
+								<textarea name="memo" cols="100" maxlength="2000">${estimate.memo}</textarea>
 							</div>
 						</div>
 					</div>
@@ -424,15 +424,15 @@
 					<c:forEach var="product" items="${estimateProductList}" varStatus="status">
 						<tr id="tr${status.count}">
 							<td rowspan="2">${status.count}</td>
-							<td rowspan="2" class="backpink"><input type="text" name="productCode" id="productCodeInput${status.count}" value="${product.productCode}" style="width: 110px;" onchange="productCodeCheck(this)" pattern="^[0-9A-Za-z]+$" title="※半角英数字" required>
+							<td rowspan="2" class="backpink"><input type="text" name="productCode" id="productCodeInput${status.count}" value="${product.productCode}" style="width: 110px;" onchange="productCodeCheck(this)" pattern="^[0-9A-Za-z]+$" title="※半角英数字" maxlength="20" required>
 							<button type="button" id="productSearch${status.count}" class="ModalButton"  data-toggle="modal" data-target="#setproductsearch" onclick="productSearchButton(this)" >
 								<img src="btn_search.png" style="vertical-align: middle; cursor: pointer; width: 22px; height: 22px;">
 							</button></td>
-							<td rowspan="2"><textarea name="productAbstract" rows="3" style="width: 200px;" id="productAbstract${status.count}">${product.productAbstract}</textarea></td>
-							<td class="backpink"><input type="number" name="quantity" value="${product.quantity}" id="quantity${status.count}" style="width: 75px;" onchange="quantityChange(this)" required></td>
+							<td rowspan="2"><textarea name="productAbstract" rows="3" style="width: 200px;" id="productAbstract${status.count}" maxlength="60">${product.productAbstract}</textarea></td>
+							<td class="backpink"><input type="number" name="quantity" value="${product.quantity}" id="quantity${status.count}" style="width: 75px;" onchange="quantityChange(this)" maxlength="12" required></td>
 							<td><input type="text" name="unitCost" value="${product.unitCost}" id="unitCost${status.count}" style="background-color:rgb(177, 177, 177); width: 75px;" readonly></td>
-							<td class="backpink"><input type="number" name="unitRetailPrice" value="${product.unitRetailPrice}" id="unitRetailPrice${status.count}" style="width: 75px;" onchange="unitRetailPriceChange(this)" required></td>
-							<td rowspan="2"><textarea name="productRemarks" rows="3" style="width: 200px;" id="remarks${status.count}">${product.productRemarks}</textarea></td>
+							<td class="backpink"><input type="number" name="unitRetailPrice" value="${product.unitRetailPrice}" id="unitRetailPrice${status.count}" style="width: 75px;" onchange="unitRetailPriceChange(this)" maxlength="12" required></td>
+							<td rowspan="2"><textarea name="productRemarks" rows="3" style="width: 200px;" id="remarks${status.count}" maxlength="120">${product.productRemarks}</textarea></td>
 							<td><button type="button" class="btn btn-primary table-button"  onclick="deleteLineForm(this)" id="delete${status.count}">削除</button></td>
 						</tr>
 						
@@ -440,7 +440,7 @@
 							<td class="backpink"><button type="button" class="btn btn-primary table-button" data-toggle="modal" data-target="#openSearchStock" id="openSearchStock${status.count}" onclick="openStock(this);">在庫</button></td>
 							<td><input type="text" name="cost" value="${product.cost}" style="background-color:rgb(177, 177, 177); width: 75px;" id="cost${status.count}" readonly></td>
 							<td class="backpink"><input type="text" name="retailPrice" value="${product.retailPrice}" id="retailPrice${status.count}" style="width: 75px; background-color:rgb(177, 177, 177);" readonly></td>
-							<td><button type="button" class="btn btn-primary table-button" onclick="previousCopy(this)"  id="previousCopy${status.count}" disabled>前行複写</button></td>
+							<td><button type="button" class="btn btn-primary table-button" onclick="previousCopy(this)"  id="previousCopy${status.count}">前行複写</button></td>
 						</tr>
 					</c:forEach>
 				</tbody>
@@ -568,15 +568,15 @@
         $('#estimate > tbody:last').append(
     	  '<tr>' +
             '<td rowspan="2">' + tableNo + '</td>' +
-            '<td rowspan="2" class="backpink"><input type="text" name="productCode" id="productCodeInput' + tableNo + '" style="width: 110px;" onchange="productCodeCheck(this)" required>' +
+            '<td rowspan="2" class="backpink"><input type="text" name="productCode" id="productCodeInput' + tableNo + '" style="width: 110px;" onchange="productCodeCheck(this)" pattern="^[0-9A-Za-z]+$" title="※半角英数字" maxlength="20" required>' +
               '<button type="button" id="productSearch' + tableNo + '" class="ModalButton"  data-toggle="modal" data-target="#setproductsearch" onclick="productSearchButton(this)">' +
               	'<img src="btn_search.png" style="vertical-align: middle; cursor: pointer; width: 22px; height: 22px;">' +
               '</button></td>' +
-            '<td rowspan="2"><textarea name="productAbstract" rows="3" style="width: 200px;" id="productAbstract' + tableNo + '"></textarea></td>' +
-            '<td class="backpink"><input type="number" name="quantity" id="quantity' + tableNo + '" style="width: 75px;" onchange="quantityChange(this)" required></td>' +
+            '<td rowspan="2"><textarea name="productAbstract" rows="3" style="width: 200px;" id="productAbstract' + tableNo + '" maxlength="60"></textarea></td>' +
+            '<td class="backpink"><input type="number" name="quantity" id="quantity' + tableNo + '" style="width: 75px;" onchange="quantityChange(this)" maxlength="12" required></td>' +
             '<td><input type="text" name="unitCost" id="unitCost' + tableNo + '" style="background-color:rgb(177, 177, 177); width: 75px;" readonly></td>' +
-            '<td class="backpink"><input type="number" name="unitRetailPrice" id="unitRetailPrice' + tableNo + '" style="width: 75px;" onchange="unitRetailPriceChange(this)" required></td>' +
-            '<td rowspan="2"><textarea name="productRemarks" rows="3" style="width: 200px;" id="remarks' + tableNo + '"></textarea></td>' +
+            '<td class="backpink"><input type="number" name="unitRetailPrice" id="unitRetailPrice' + tableNo + '" style="width: 75px;" onchange="unitRetailPriceChange(this)" maxlength="12" required></td>' +
+            '<td rowspan="2"><textarea name="productRemarks" rows="3" style="width: 200px;" id="remarks' + tableNo + '" maxlength="120"></textarea></td>' +
             '<td><button type="button" class="btn btn-primary table-button"  onclick="deleteLineForm(this)"  id="delete' + tableNo + '">削除</button></td>' +
           '</tr>' +
 
@@ -667,6 +667,12 @@
         var tableNo_id = obj.id;
         var tableNo = tableNo_id.substr(12); //対象のtableNo：ボタンをクリックした列のtableNoを取得
         var acquisitionTableNo = tableNo -1; //前行のtableNo：対象のtableNo-1
+        
+        if(document.getElementById('productCodeInput' + tableNo).value != ""){
+    		if(!confirm("明細が入力されています。上書きしますか？")){
+    			return;
+    		}
+        };
 
         // 商品コード複写
         var productCode_id = document.getElementById('productCodeInput' + tableNo);//対象のproductCodeInputのid
@@ -862,6 +868,10 @@
 					break ;
 				}
 		  }
+		  
+		  //画面読み込み時、商品一覧1行目の前行複写ボタンを非活性化
+		  document.getElementById("previousCopy1").disabled = true;
+		 
 		  totalCalculation();
 	  };
 	  

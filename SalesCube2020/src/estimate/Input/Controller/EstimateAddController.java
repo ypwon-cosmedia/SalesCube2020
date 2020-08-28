@@ -141,7 +141,6 @@ public class EstimateAddController extends BaseController {
 		
 	}
 	
-	
 	public static int parseInt(String value, int defaultValue) {
 		 
 	    try {

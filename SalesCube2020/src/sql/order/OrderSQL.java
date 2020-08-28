@@ -161,8 +161,9 @@ public class OrderSQL {
 				"(SUBMIT_NAME LIKE '" + bean.getSubmitName()  +
 			") AND " +
 				"(TITLE LIKE '" + bean.getTitle() + 
-			") GROUP BY " +
-				"ESTIMATE_SHEET_ID " +
+			") AND (CUSTOMER_CODE IS NOT NULL AND CUSTOMER_CODE != '') " +
+			"GROUP BY " +
+				"ESTIMATE_SHEET_ID " +		
 			"ORDER BY " + 
 				"ESTIMATE_SHEET_ID";
 		
@@ -497,7 +498,8 @@ public class OrderSQL {
 				"rstx.USER_NAME, " + 
 				"rstx.REMARKS, " + 
 				"rstx.DC_NAME, " + 
-				"rstx.DC_TIMEZONE, " + 
+				"d.CATEGORY_CODE_NAME, " + 
+				"d.CATEGORY_CODE, " +
 				"rstx.CTAX_RATE, " + 
 				"rstx.CUSTOMER_CODE, " + 
 				"rstx.CUSTOMER_NAME, " + 
@@ -532,6 +534,8 @@ public class OrderSQL {
 					"(SELECT * FROM category_trn_xxxxx WHERE CATEGORY_ID='32') AS c " + 
 				"ON " + 
 				"rstx.SALES_CM_CATEGORY = (c.CATEGORY_CODE + 1) " + 
+				"LEFT OUTER JOIN (SELECT CATEGORY_CODE, CATEGORY_CODE_NAME FROM category_trn_xxxxx WHERE CATEGORY_ID='37') AS d " + 
+				"ON rstx.DC_TIMEZONE_CATEGORY = d.CATEGORY_CODE " +
 			"WHERE " + 
 				"RO_SLIP_ID = '" + roSlipId + "'";
 		
@@ -717,7 +721,7 @@ public class OrderSQL {
 				"STATUS, "
 				+ "RO_SLIP_ID) " +
 				"VALUES " + 
-				"(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+				"(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, (SELECT CATEGORY_CODE FROM category_trn_xxxxx WHERE CATEGORY_ID='29' AND CATEGORY_CODE_NAME = ?), (SELECT CATEGORY_CODE FROM category_trn_xxxxx WHERE CATEGORY_ID='11' AND CATEGORY_CODE_NAME = ?), (SELECT CATEGORY_CODE FROM category_trn_xxxxx WHERE CATEGORY_ID='32' AND CATEGORY_CODE_NAME = ?), ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
 		
 		return sql;
 		
@@ -730,19 +734,23 @@ public class OrderSQL {
 		
 		sql = "INSERT INTO " +
 				"ro_line_trn_xxxxx(PRODUCT_CODE, " +
-				"PRODUCT_NAME, " +
+				"PRODUCT_ABSTRACT, " +
 				"PRODUCT_REMARKS, " +
-				"RACK_CODE, " +
+				"RACK_CODE_SRC, " +
 				"QUANTITY, " +
 				"UNIT_COST, " +
 				"COST, " +
 				"UNIT_RETAIL_PRICE, " +
 				"RETAIL_PRICE, " +
 				"REMARKS, " +
-				"EAD_REMARKS, "
-				+ "RO_SLIP_ID) " +
+				"EAD_REMARKS, " + 
+				"RO_SLIP_ID, " + 
+				"STATUS, " + 
+				"LINE_NO, " +
+				"REST_QUANTITY, " + 
+				"RO_LINE_ID) " +
 				"VALUES " +
-				"(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+				"(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
 		
 		return sql;
 		
@@ -795,6 +803,20 @@ public class OrderSQL {
 		
 	}
 	
+	/*受注明細削除*/
+	public String deleteOrderUpdateDetail(Integer roSlipId) {
+		
+		String sql;
+		
+		sql = "DELETE " + 
+				"FROM ro_line_trn_xxxxx " +
+			"WHERE RO_SLIP_ID = " + roSlipId;
+		
+		return sql;
+		
+	}
+	
+	
 	/* 受注更新 明細 */
 	public String orderUpdateDetail() {
 		
@@ -827,7 +849,8 @@ public class OrderSQL {
 		
 		sql = "SELECT DISTINCT " + 
 				"rstx.SALES_CM_CATEGORY, " +
-				"ctx.CATEGORY_CODE_NAME " + 
+				"ctx.CATEGORY_CODE_NAME, " + 
+				"ctx.CATEGORY_CODE " +
 			"FROM " + 
 				"ro_slip_trn_xxxxx AS rstx " + 
 				"LEFT OUTER JOIN " + 
@@ -846,7 +869,8 @@ public class OrderSQL {
 		
 		String sql;
 		
-		sql = "SELECT CATEGORY_CODE_NAME " + 
+		sql = "SELECT CATEGORY_CODE_NAME, " +
+				"CATEGORY_CODE" +
 				"FROM category_trn_xxxxx " + 
 				"WHERE CATEGORY_ID='11'";
 		
@@ -859,7 +883,8 @@ public class OrderSQL {
 		
 		String sql;
 		
-		sql = "SELECT CATEGORY_CODE_NAME " + 
+		sql = "SELECT CATEGORY_CODE_NAME, " + 
+				"CATEGORY_CODE " + 
 				"FROM category_trn_xxxxx " + 
 				"WHERE CATEGORY_ID='29'";
 		

@@ -55,6 +55,7 @@
 		<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
 		<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
 		<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+		<script type="text/javascript" src="common/shotcuts.js"></script>
 		<%@ include file= "../common/menubar.jsp" %>
 		<br><br>
 
@@ -65,12 +66,10 @@
 				<div class="btn-group mr-2 " role="group" aria-label="First group">
 					<button type="button" class="btn btn-secondary" style="font-size: 12px;" onclick="initForm();" >F1<br>初期化</button>
 					<button type="button" class="btn btn-secondary" style="font-size: 12px;" disabled>F2<br></button>
-					<form>
-						<button type="button" class="btn btn-secondary" style="font-size: 12px;" onclick="addForm();">F3<br>登録</button>
-					</form>
+					<button type="button" class="btn btn-secondary" style="font-size: 12px;" onclick="addButton();">F3<br>登録</button>
 					<button type="button" class="btn btn-secondary" style="font-size: 12px;" disabled>F4<br></button>
 					<button type="button" class="btn btn-secondary" style="font-size: 12px;" disabled>F5<br></button>
-					<button type="button" class="btn btn-secondary" style="font-size: 12px;" data-toggle="modal" data-target="#openOrder" id="openBillModal" onclick="orderForm()">F6<br>伝票呼出</button>
+					<button type="button" class="btn btn-secondary" style="font-size: 12px;" data-toggle="modal" data-target="#openOrder" onclick="orderForm();" id="billopen">F6<br>伝票呼出</button>
 					<button type="button" class="btn btn-secondary" style="font-size: 12px;" disabled>F7<br></button>
 					<button type="button" class="btn btn-secondary" style="font-size: 12px;" disabled>F8<br></button>
 					<button type="button" class="btn btn-secondary" style="font-size: 12px;" disabled>F9<br></button>
@@ -91,7 +90,7 @@
 				 <span class="action_errors" style="color: red">${deleteCmp}</span>
        </div>
 	
-		<form action="/SalesCube2020/SalesCube?action=orderinputCmp" method="post">
+		<form action="/SalesCube2020/SalesCube?action=orderinputCmp" method="post" onsubmit="return addForm();">
 			<!-- 受注伝票情報 -->
 			<div class="container" style="background-color: white;"><div class="panel panel-default">
 				<div class="panel-heading row mb-2 col-4">
@@ -212,10 +211,10 @@
 								<div class="input-group-prepend">
 									<div class="input-group-text">消費税率</div>
 								</div>
-								<select class="custom-select" name="ctaxRate" id="ctaxRate">
-									<option value="">${stockTaxRate.ctaxRate}</option>
+								<select class="custom-select" name="ctaxRate" id="ctaxRate" onchange="calc()">
+									<option value=""></option>
 									<c:forEach items="${initTaxRate}" var="initTR">
-										<option value="${initTR.ctaxRate}">${initTR.ctaxRate}</option>
+										<option value="${initTR.ctaxRate}" <c:if test="${stockTaxRate.ctaxRate == initTR.ctaxRate}">selected</c:if>>${initTR.ctaxRate}</option>
 									</c:forEach>
 								</select>
 							</div>
@@ -239,7 +238,7 @@
 									<div class="input-group-text" style = "background-color: pink;">顧客コード</div>
 								</div>
 								<input type="text" value="${stockCustomer.customerCode}" class="form-control" id="customerCodeInput" maxlength='15' data-required-error="顧客コードは入力必須項目です" name="customerCode" onchange="customerInfo()" required>
-								<button type="button" class="btn btn-outline-secondary" data-toggle="modal" data-target="#customerSearch" onclick="customerCodetoModal();">検索</button>
+								<button type="button" class="btn btn-outline-secondary" data-toggle="modal" data-target="#customerSearch" onclick="customerCodetoModal();getCutoffGroup();">検索</button>
 							</div>
 						</div>
 						<div class="col-4">
@@ -258,6 +257,7 @@
 									<div class="input-group-text">税転嫁</div>
 								</div>
 								<input type="text" value="${stockCustomer.taxShiftCategory}" class="form-control" name="taxShiftCategory" id="taxShiftCategory" readonly>
+								
 							</div>
 						</div>
 					</div>
@@ -269,6 +269,7 @@
 									<div class="input-group-text">支払条件</div>
 								</div>
 								<input type="text" value="${stockCustomer.cutoffGroup}" class="form-control" name="cutoffGroup" id="cutoffGroup" readonly>
+								
 							</div>
 						</div>
 						<div class="col-4">
@@ -278,6 +279,7 @@
 									<div class="input-group-text">取引区分</div>
 								</div>
 								<input type="text" value="${stockCustomer.salesCmCategory}" class="form-control" name="salesCmCategory" id="salesCmCategory" readonly>
+								
 							</div>
 						</div>
 						<div class="col-4">
@@ -466,8 +468,8 @@
 					<tr>
 						<td rowspan="6"><span id="tableLineNo1">1</span></td>
 						<td rowspan="6">
-							<input type="text" value="" class="form-control" size="2" style="width:100%" id="productCodeInput1"  maxlength='20' name="productCode" onchange="pCode(this)">
-							<button type="button" class="btn btn-outline-secondary" data-toggle="modal" data-target="#setproductsearch" onclick="productCodetoModal(this);" id="setproductsearch1">検索</button>
+							<input type="text" value="" class="form-control" size="2" style="width:100%" id="productCodeInput1"  maxlength='20' name="productCodeInput" onchange="pCode(this)" required>
+							<button type="button" class="btn btn-outline-secondary" data-toggle="modal" data-target="#setproductsearch" onclick="initProductModal();productCodetoModal(this);" id="setproductsearch1">検索</button>
 						</td>
 						<td rowspan="3"><span id="productName1" name="productName"></span></td>
 						<td rowspan="2">
@@ -477,7 +479,7 @@
 							<input type="text" value="" class="form-control" size="4" name="unitCost" id="unitCost1" name="unitCost" readonly>
 						</td>
 						<td rowspan="3">
-							<input type="text" value="" class="form-control" size="4" name="unitRetailPrice" id="unitRetailPrice1" name="unitRetailPrice" onchange="quantityCalc2(this)" maxlength='15' pattern="^[0-9]+$">
+							<input type="text" value="" class="form-control" size="4" name="unitRetailPrice" id="unitRetailPrice1" name="unitRetailPrice" onchange="quantityCalc2(this)" maxlength='15' pattern="^[0-9]+$" required>
 						</td>
 						<td rowspan="3">
 							<textarea name="productRemarks" class="form-control" cols="10" id="inputProductRemarks1" name="inputProductRemarks" maxlength='120'></textarea>
@@ -489,7 +491,7 @@
 					<tr></tr>
 					<tr>
 						<td rowspan="2">
-							<input type="text" value="" class="form-control" size="2" name="quantity" id="quantity1" name="quantity" maxlength='12' pattern="^[0-9]+$" onchange="quantityCalc1(this)">
+							<input type="text" value="" class="form-control" size="2" name="quantity" id="quantity1" name="quantity" maxlength='12' pattern="^[0-9]+$" onchange="quantityCalc1(this)" required>
 						</td>
 					</tr>
 					<tr>
@@ -522,7 +524,7 @@
 			<table align="center">
 				<tr>
 					<td>
-							<button type="button" class="btn btn-outline-secondary" onclick="addLineForm();" id="addLine">行追加</button>
+							<button type="button" class="btn btn-outline-secondary" id="addLine">行追加</button>
 					</td>
 				</tr>
 			</table>
@@ -560,7 +562,7 @@
 
 		<!-- 登録ボタン -->
 		<div align="center">
-				<input type="submit" class="btn btn-outline-secondary w-auto" value="登録" onclick="addForm();">
+				<input type="submit" class="btn btn-outline-secondary w-auto" value="登録" id="inputOrderButton">
 		</div><br>
 	</form>
 
@@ -572,7 +574,7 @@
 				if(!confirm("入力内容を初期化してよろしいですか？")){
 					return;
 				}
-				location.reload();
+				location.href = "/SalesCube2020/SalesCube?action=orderinput";
 			}
 
 			/* 顧客検索の初期化 */
@@ -595,20 +597,32 @@
 
 			/* 登録 */
 			function addForm() {
-				var test = confirm("入力内容を登録します。よろしいですか？");
-				test;
-				if(test == false){
-					return;
+				if(!confirm("入力内容を登録します。よろしいですか？")){
+			       	return false;
 				}
+//				var test = confirm("入力内容を登録します。よろしいですか？");
+//				if(test == true){
+//					return true;
+//				}else{
+//					return;
+//				}
 
 			}
+			
+			function addButton(){
+				document.getElementById("inputOrderButton").click();
+			}
+
 	
 			/* 伝票呼出 */
 			function orderForm() {
+				var modal = document.getElementById("billopen");
 				var test = confirm("未登録の入力内容を破棄し伝票呼出してもよろしいですか？");
-				test;
-				if(test == true){
+				if(test == false){					
+					modal.removeAttribute("data-toggle");
 					return;
+				}else{
+					modal.setAttribute("data-toggle","modal");
 				}
 			}
 	
@@ -674,21 +688,21 @@
 				$('#order > tbody:last').append('<tr>'
 					+ '<td rowspan="6"><span id="tableLineNo' + tableNo + '">' + tableNo + '</span></td>'
 					+ '<td rowspan="6">'
-						+ '<input type="text" value="" class="form-control" size="2" style="width:100%" name="productCodeInput" id="productCodeInput' + tableNo + '"  onchange="pCode(this)">'
-						+ '<button type="button" class="btn btn-outline-secondary" data-toggle="modal" data-target="#setproductsearch" onclick="productCodetoModal(this);" id="setproductsearch' + tableNo + '">検索</button>'
+						+ '<input type="text" value="" class="form-control" size="2" style="width:100%" name="productCodeInput" id="productCodeInput' + tableNo + '"  onchange="pCode(this)" required>'
+						+ '<button type="button" class="btn btn-outline-secondary" data-toggle="modal" data-target="#setproductsearch" onclick="initProductModal();productCodetoModal(this);" id="setproductsearch' + tableNo + '">検索</button>'
 					+ '</td>'
 					+ '<td rowspan="3"><span name="productName" id="productName' + tableNo + '"></span></td>'
 					+ '<td rowspan="2"><input name="rackCode" type="text" value="" class="form-control" size="2" id="rackCode' + tableNo + '" readonly></td>'
 					+ '<td rowspan="3"><input name="unitCost" type="text" value="" class="form-control" size="4" name="unitCost" id="unitCost' + tableNo + '" readonly></td>'
 					+ '<td rowspan="3">'
-						+ '<input type="text" value="" class="form-control" size="4" name="unitRetailPrice" name="unitRetailPrice" id="unitRetailPrice' + tableNo + '" onchange="quantityCalc2(this)"></td>'
+						+ '<input type="text" value="" class="form-control" size="4" name="unitRetailPrice" name="unitRetailPrice" id="unitRetailPrice' + tableNo + '" onchange="quantityCalc2(this)" required></td>'
 					+ '<td rowspan="3"><textarea name="productRemarks" class="form-control" cols="10" name="inputProductRemarks" id="inputProductRemarks' + tableNo + '"></textarea></td>'
 					+ '<td rowspan="3" class="align: middle"><button type="button" class="btn btn-outline-secondary" onclick="deleteLineForm(this);" id="deleteLineForm' + tableNo + '">削除</button></td>'
 					+ '</tr>'
 					+ '<tr></tr>'
 					+ '<tr>'
 					+ '<td rowspan="2">'
-						+ '<input type="text" value="" class="form-control" size="2" name="quantity" id="quantity' + tableNo + '" onchange="quantityCalc1(this)">'
+						+ '<input type="text" value="" class="form-control" size="2" name="quantity" id="quantity' + tableNo + '" onchange="quantityCalc1(this)" required>'
 					+ '</td>'
 					+ '</tr>'
 					+ '<tr>'
@@ -819,7 +833,7 @@
 				/* 粗利益率 : (粗利益/金額合計)*100 */
 				target = document.getElementById("grossProfitRatio");
 				if((sum4 - sum3) != null && (sum4 - sum3) !="" && sum2 != null && sum2 != ""){
-					target.innerHTML = Math.floor(((sum4 - sum3) / sum2) * 100 * 100) / 100 + '%';
+					target.innerHTML = Math.floor(( (sum4 - sum3) / sum2) * 100 * 100) / 100 + '%';
 				}
 
 				/* 消費税 : 金額合計*消費税率 */
@@ -828,22 +842,21 @@
 					target.innerHTML = '￥0';
 				}else{
 					var ctaxRate = (parseInt(document.getElementById("ctaxRate").value)) /100;
-					target.innerHTML = '￥' + parseInt((sum2 - sum1) * ctaxRate);
+					target.innerHTML = '￥' + parseInt(sum2 * ctaxRate);
 				}
 				
 				/* 伝票合計 : 金額合計+消費税 */
 				target = document.getElementById("priceTotal");
 				if(document.getElementById("ctaxRate").value == null || document.getElementById("ctaxRate").value == ""){
-					target.innerHTML = '￥' + parseInt(sum2 - sum1);
+					target.innerHTML = '￥' + parseInt(sum2);
 				}else{
 					var ctaxRate = (parseInt(document.getElementById("ctaxRate").value)) /100;
-					target.innerHTML = '￥' + parseInt((sum2 - sum1) * ctaxRate);
+					target.innerHTML = '￥' + parseInt(sum2 * (ctaxRate+1));
 				}
 			}
 
 			/* 顧客モーダルから親画面にリンク */
-			function selectcustomerCode(code, name){
-				alert();
+			function selectCustomerCode(code, name){
 				document.getElementById("customerCodeInput").value = code;
 				document.getElementById("customerNameInput").value = name;
 				customerInfo(code);
@@ -871,13 +884,12 @@
 				globalTmp = obj.id;
 				var tableNo = globalTmp.substr(16);
 				var productCode = document.getElementById("productCodeInput" + tableNo).value;
-				document.getElementById("productCode").value = productCode;
+				document.getElementById("productCode").value = productCode;				
 			}
 
 			/* 編集画面に遷移 */
 			function moveUpdate(){
 				var roSlipId = document.getElementById("roSlipId").value;
-				alert(roSlipId);
 				$.ajax({
 					type: "post",
 					url: '/SalesCube2020/SalesCubeAJAX?action=checkRoSlipId',
@@ -908,6 +920,16 @@
 				globalTmp = obj.id;
 				var tableNo = globalTmp.substr(16);
 				var inputProductCode = document.getElementById("productCodeInput" + tableNo).value;	
+				document.getElementById("productName" + tableNo).innerHTML = "";
+				document.getElementById("rackCode" + tableNo).value = "";
+				document.getElementById("unitCost" + tableNo).value = "";
+				document.getElementById("unitRetailPrice" + tableNo).value = "";
+				document.getElementById("inputProductRemarks" + tableNo).innerText = "";
+				document.getElementById("quantity" + tableNo).value = "";
+				document.getElementById("productRemarks" + tableNo).innerText = "";
+				document.getElementById("cost" + tableNo).value = "";
+				document.getElementById("retailPrice" + tableNo).value = "";
+				document.getElementById("eadRemarks" + tableNo).innerText = "";
 				$.ajax({
 					type: "post",
 					url: '/SalesCube2020/SalesCubeAJAX?action=pcodetoinfo',
@@ -925,11 +947,9 @@
 							document.getElementById('rackCode' + tableNo).value = data.rackCode;
 						}
 						if(data.unitCost == null || data.unitCost == ""){
-							alert(data.unitCost);
 							data.unitCost = "";
 							
 						}else {
-							alert(data.unitCost);
 							document.getElementById('unitCost' + tableNo).value = data.unitCost;
 						}
 						if(data.unitRetailPrice == null || data.unitRetailPrice == ""){
@@ -1160,10 +1180,17 @@
 			});
 		}
 		
-		window.onload = function(){
-			var taxRate = ${stockTaxRate.ctaxRate};
-			var ctaxRate =  ${initTR.ctaxRate};
-		}
+		shortcut.add("F1", function(){
+			initForm();
+		});
+		
+		shortcut.add("F3", function(){
+			document.getElementById("inputOrderButton").click();
+		});
+		
+		shortcut.add("F6", function(){
+			document.getElementById("billopen").click();
+		});
 			
 		</script>
 	</body>

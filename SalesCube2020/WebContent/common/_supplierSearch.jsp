@@ -92,7 +92,7 @@
                                             <div class="input-group-prepend">
                                                 <div class="input-group-text">仕入れ先コード</div>
                                             </div>
-                                        <input type="text" name="inputSupplierCode" class="form-control" id="supplierCode" pattern="[0-9A-Za-z]{1,10}" title="半角英数字で入力してください(10字以内)">
+                                        <input type="text" name="inputSupplierCode" class="form-control" id="supplierCode" pattern="^[0-9A-Za-z]+$" title="半角英数字で入力してください" maxlength="15">
                                         </div>
                                     </div>
                                 </div>
@@ -103,7 +103,7 @@
                                             <div class="input-group-prepend">
                                                 <div class="input-group-text">仕入れ先名</div>
                                             </div>
-                                        <input type="text" name="inputSupplierName" class="form-control" id="supplierName">
+                                        <input type="text" name="inputSupplierName" class="form-control" id="supplierName" maxlength="60">
                                         </div>
                                     </div>
                                     <div class="col-6">
@@ -111,7 +111,7 @@
                                             <div class="input-group-prepend">
                                                 <div class="input-group-text">仕入れ先カナ</div>
                                             </div>
-                                        <input type="text" name="inputSupplierKana" class="form-control" id="" pattern="[\u30A1-\u30F6]*" title="全角カナで入力してください">
+                                        <input type="text" name="inputSupplierKana" class="form-control" id="" pattern="[\u30A1-\u30F6]*" title="全角カナで入力してください" maxlength="60">
                                         </div>
                                     </div>
                                 </div>

@@ -19,6 +19,18 @@ public class OrderInputBean {
 	public void setLineNo(String lineNo) {
 		this.lineNo = lineNo;
 	}
+	
+	/* 受注行番号最後 */
+	private Integer roLineLast;
+	
+	public Integer getRoLineLast() {
+		return roLineLast;
+	}
+
+	public void setRoLineLast(Integer roLineLast) {
+		this.roLineLast = roLineLast;
+	}
+	
 
 	/* 受注番号最後 */
 	private Integer roSlipLast;
@@ -72,6 +84,16 @@ public class OrderInputBean {
 	/* 配送時間帯 */
 	private String dcTimezone;
 	
+	private String dcTimezoneCategory;
+	
+	public String getDcTimezoneCategory() {
+		return dcTimezoneCategory;
+	}
+
+	public void setDcTimezoneCategory(String dcTimezoneCategory) {
+		this.dcTimezoneCategory = dcTimezoneCategory;
+	}
+
 	/* 消費税率 */
 	private String ctaxRate;
 	
@@ -84,11 +106,17 @@ public class OrderInputBean {
 	/* 税転嫁 */
 	private String taxShiftCategory;
 	
+	private String taxCategory;
+	
 	/* 支払条件 */
 	private String cutoffGroup;
 	
+	private String cutoffCategory;
+	
 	/* 取引区分 */
 	private String salesCmCategory;
+	
+	private String salesCategory;
 	
 	/* 備考 */
 	private String customerRemarks;
@@ -188,6 +216,17 @@ public class OrderInputBean {
 	
 	/* STATUS */
 	private Integer status = 0;
+	
+	/* REST_QUANTITY */
+	private Integer restQuantity = 0;
+
+	public Integer getRestQuantity() {
+		return restQuantity;
+	}
+
+	public void setRestQuantity(Integer restQuantity) {
+		this.restQuantity = restQuantity;
+	}
 
 	public Integer getStatus() {
 		return status;
@@ -580,6 +619,31 @@ public class OrderInputBean {
 	public void setCtaxPriceTotal(Integer ctaxPriceTotal) {
 		this.ctaxPriceTotal = ctaxPriceTotal;
 	}
+
+	public String getTaxCategory() {
+		return taxCategory;
+	}
+
+	public void setTaxCategory(String taxCategory) {
+		this.taxCategory = taxCategory;
+	}
+
+	public String getCutoffCategory() {
+		return cutoffCategory;
+	}
+
+	public void setCutoffCategory(String cutoffCategory) {
+		this.cutoffCategory = cutoffCategory;
+	}
+
+	public String getSalesCategory() {
+		return salesCategory;
+	}
+
+	public void setSalesCategory(String salesCategory) {
+		this.salesCategory = salesCategory;
+	}
+	
 	
 
 }

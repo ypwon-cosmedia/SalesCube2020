@@ -30,6 +30,7 @@ public class OrderCommonBillDAO extends BaseDAO{
 	 	sql = ordersql.billSearch(bean);
 	 	
 	 	result = stmt.executeQuery(sql);
+	 	System.out.println(sql);
 	 	
 	 	while(result.next()) {
 	 		OrderCommonBillBean bean2 = new OrderCommonBillBean();

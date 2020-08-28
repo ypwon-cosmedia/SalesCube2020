@@ -47,7 +47,36 @@ public class OrderInputDAO extends BaseDAO{
 	 	return str;
 	 
 	}
+	 
+	public int deleteOrderUpdateDetail(Integer roSlipId) throws SQLException, ClassNotFoundException{
+		
+		Connection con;
+	 	Statement stmt = null;
+	 	int result = 0;
+	 	String sql;
 
+	 	con = super.getConnection();
+	 	stmt = con.createStatement();
+	 	
+	 	OrderSQL ordersql = new OrderSQL();
+	 	sql = ordersql.deleteOrderUpdateDetail(roSlipId);
+	 	System.out.println(sql);
+	 	
+	 	try {
+	 		result = stmt.executeUpdate(sql);
+	 		con.commit();
+	 		System.out.println("削除完了");
+	 	}catch(SQLException e) {
+	 		result = 1;
+	 		System.out.println("削除未完");
+	 	}finally {
+	 		super.releaseDB(con, stmt);	 		
+	 	}
+
+	 	return result;
+	 	
+	}
+	
 	public int deleteOrder(String roSlipId) throws SQLException, ClassNotFoundException{
 
 		Connection con;
@@ -154,6 +183,36 @@ public class OrderInputDAO extends BaseDAO{
 	 	
 	 	while(result.next()) {
 	 		num = result.getInt("RO_SLIP_ID");
+	 	}
+	 	super.releaseDB(con, stmt, result);
+	 	
+	 	return num;	 	
+		
+	}
+	
+	/* 受注番号最後 */
+	public int roLineLast() throws SQLException, ClassNotFoundException {
+		
+		Connection con;
+	 	Statement stmt = null;
+	 	ResultSet result = null;	
+	 	String sql;
+	 	con = super.getConnection();
+	 	stmt = con.createStatement();
+
+	 	sql = "select " + 
+				"ro_line_id " + 
+				"from " + 
+				"ro_line_trn_xxxxx " + 
+				"order by ro_line_id desc " + 
+				"limit 1 offset 0";
+	 	
+	 	result = stmt.executeQuery(sql);
+	 	
+	 	int num = 0;
+	 	
+	 	while(result.next()) {
+	 		num = result.getInt("RO_LINE_ID");
 	 	}
 	 	super.releaseDB(con, stmt, result);
 	 	
@@ -353,7 +412,7 @@ public class OrderInputDAO extends BaseDAO{
 	}
 	
 	/* 受注新規登録明細 */
-	public int orderInputDetail(List<OrderInputBean> list) throws SQLException, ClassNotFoundException{
+	public int orderInputDetail(List<OrderInputBean> list, int num) throws SQLException, ClassNotFoundException{
 		
 		Connection con;
 	 	PreparedStatement stmt = null;
@@ -365,26 +424,31 @@ public class OrderInputDAO extends BaseDAO{
 	 	sql = ordersql.orderInputDetail();
 
 	 	stmt = con.prepareStatement(sql);
-	 	
-	 	for (OrderInputBean bean : list) {
-		 	stmt.setString(1, bean.getProductCode());
-		 	stmt.setString(2, bean.getProductName());
-		 	stmt.setString(3, bean.getProductRemarks());
-		 	stmt.setString(4, bean.getRackCode());
-		 	stmt.setInt(5, bean.getQuantity());
-		 	stmt.setInt(6, bean.getUnitCost());
-		 	stmt.setInt(7, bean.getCost());
-		 	stmt.setInt(8, bean.getUnitRetailPrice());
-		 	stmt.setInt(9, bean.getRetailPrice());
-		 	stmt.setString(10, bean.getInputProductRemarks());
-		 	stmt.setString(11, bean.getEadRemarks());
-		 	stmt.setInt(12, roSlipLast()+1);
-		 	result = stmt.executeUpdate();
-	 	}
+	 	int index = 1;
 	 	
 	 	try {
+	 		for (OrderInputBean bean : list) {
+			 	stmt.setString(1, bean.getProductCode());
+			 	stmt.setString(2, bean.getProductName());
+			 	stmt.setString(3, bean.getProductRemarks());
+			 	stmt.setString(4, bean.getRackCode());
+			 	stmt.setInt(5, bean.getQuantity());
+			 	stmt.setInt(6, bean.getUnitCost());
+			 	stmt.setInt(7, bean.getCost());
+			 	stmt.setInt(8, bean.getUnitRetailPrice());
+			 	stmt.setInt(9, bean.getRetailPrice());
+			 	stmt.setString(10, bean.getInputProductRemarks());
+			 	stmt.setString(11, bean.getEadRemarks());
+			 	stmt.setInt(12, num);
+			 	stmt.setInt(13, bean.getStatus());
+			 	stmt.setString(14, String.valueOf(index));
+			 	stmt.setInt(15, bean.getRestQuantity());
+			 	stmt.setInt(16, roLineLast()+1);
+			 	result = stmt.executeUpdate();
+			 	index++;
+			 	con.commit();
+	 		}
 	 		System.out.println("3登録完了");
-	 		con.commit();
 	 	}catch(SQLException e){
 	 		e.printStackTrace();
 	 		System.out.println("4登録できませんでした");
@@ -600,38 +664,43 @@ public class OrderInputDAO extends BaseDAO{
 	 	con = super.getConnection();	
 
 	 	OrderSQL ordersql = new OrderSQL();
-	 	sql = ordersql.orderUpdateDetail();
+	 	sql = ordersql.orderInputDetail();
 
 	 	stmt = con.prepareStatement(sql);
+	 	int index = 1;
 	 	
-	 	for (OrderInputBean bean : list) {
-		 	stmt.setString(1, bean.getProductCode());
-		 	stmt.setString(2, bean.getProductName());
-		 	stmt.setString(3, bean.getProductRemarks());
-		 	stmt.setString(4, bean.getRackCode());
-		 	stmt.setInt(5, bean.getQuantity());
-		 	stmt.setInt(6, bean.getUnitCost());
-		 	stmt.setInt(7, bean.getCost());
-		 	stmt.setInt(8, bean.getUnitRetailPrice());
-		 	stmt.setInt(9, bean.getRetailPrice());
-		 	stmt.setString(10, bean.getInputProductRemarks());
-		 	stmt.setString(11, bean.getEadRemarks());
-		 	stmt.setInt(12, bean.getRoSlipId());
-	 		result = stmt.executeUpdate();
-	 	}
 	 	
 	 	try {
-	 		System.out.println(sql);
-	 		System.out.println("3明細更新完了");
-	 		con.commit();
+	 		for (OrderInputBean bean : list) {
+			 	stmt.setString(1, bean.getProductCode());
+			 	stmt.setString(2, bean.getProductName());
+			 	stmt.setString(3, bean.getProductRemarks());
+			 	stmt.setString(4, bean.getRackCode());
+			 	stmt.setInt(5, bean.getQuantity());
+			 	stmt.setInt(6, bean.getUnitCost());
+			 	stmt.setInt(7, bean.getCost());
+			 	stmt.setInt(8, bean.getUnitRetailPrice());
+			 	stmt.setInt(9, bean.getRetailPrice());
+			 	stmt.setString(10, bean.getInputProductRemarks());
+			 	stmt.setString(11, bean.getEadRemarks());
+			 	stmt.setInt(12, bean.getRoSlipId());
+			 	stmt.setInt(13, bean.getStatus());
+			 	stmt.setString(14, String.valueOf(index));
+			 	stmt.setInt(15, bean.getRestQuantity());
+			 	stmt.setInt(16, roLineLast()+1);
+			 	result = stmt.executeUpdate();
+			 	index++;
+			 	con.commit();
+	 		}
+	 		System.out.println("3更新完了");
 	 	}catch(SQLException e){
-	 		System.out.println("4明細更新できませんでした");
 	 		e.printStackTrace();
+	 		System.out.println("4更新できませんでした");
 	 		result = 0;
 	 	}finally {
 	 		super.releaseDB(con,stmt);
 	 	}
-	 	
+	 
 		return result;
 	 
 	}
@@ -651,6 +720,7 @@ public class OrderInputDAO extends BaseDAO{
 	 	
 	 	OrderSQL ordersql = new OrderSQL();
 	 	sql1 = ordersql.moveOrderUpdateInfo(roSlipId);
+	 	System.out.println(sql1);
 	 	
 	 	result = stmt.executeQuery(sql1);
 
@@ -664,7 +734,8 @@ public class OrderInputDAO extends BaseDAO{
 	 		bean.setUserName(result.getString("rstx.USER_NAME"));
 	 		bean.setRemarks(result.getString("rstx.REMARKS"));
 	 		bean.setDcName(result.getString("rstx.DC_NAME"));
-	 		bean.setDcTimezone(result.getString("rstx.DC_TIMEZONE"));
+	 		bean.setDcTimezone(result.getString("d.CATEGORY_CODE_NAME"));
+	 		bean.setDcTimezoneCategory(result.getString("d.CATEGORY_CODE"));
 	 		bean.setCtaxRate(result.getString("rstx.CTAX_RATE"));
 	 		bean.setCustomerCode(result.getString("rstx.CUSTOMER_CODE"));
 	 		bean.setCustomerName(result.getString("rstx.CUSTOMER_NAME"));
