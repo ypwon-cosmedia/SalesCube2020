@@ -41,7 +41,7 @@
                             <div class="input-group-prepend">
                                 <div class="input-group-text">担当者コード</div>
                             </div>
-                            <input type="text"  class="form-control" id="userId" name="userId" value="USERID">
+                            <input type="text"  class="form-control" id="userId" name="userId" value="USERID" pattern="^[0-9A-Za-z]+$" title="半角英数字で入力してください" maxlength="15">
                           </div>
                         </div>
                       </div>
@@ -55,7 +55,7 @@
                             <div class="input-group-prepend">
                                 <div class="input-group-text">担当者名</div>
                             </div>
-                            <input type="text"  class="form-control" id="nameKnj" name="nameKnj">
+                            <input type="text"  class="form-control" id="nameKnj" name="nameKnj" maxlength="60">
                           </div>
                         </div>
                       
@@ -66,7 +66,7 @@
                             <div class="input-group-prepend">
                                 <div class="input-group-text">担当者カナ</div>
                             </div>
-                            <input type="text"  class="form-control" id="nameKana" name="nameKana">
+                            <input type="text"  class="form-control" id="nameKana" name="nameKana" pattern="[\u30A1-\u30F6]*" title="全角カナで入力してください" maxlength="60">
                           </div>
                         </div>
                       </div>
@@ -103,7 +103,7 @@
 
                     <div class="rounded float-right">
                       <button type="button" class="btn btn-primary" onclick="initUser()">初期化</button>&ensp;
-                      <input type="button" value="検索" class="btn btn-primary" onclick="userSearch1()">&ensp;
+                      <input type="button" value="検索" class="btn btn-primary" id="modalUserSearchButton" onclick="userSearch1()">&ensp;
                     </div>
                     <br>
                     <br>
@@ -147,6 +147,23 @@
       
       <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.2/jquery.min.js"></script>
       <script>
+      
+    //入力欄が変更された時のパターンチェック
+      var elem = document.getElementById("user");	//formをidで取得
+      elem.addEventListener('change', function() {			//入力したときのEventを追加
+          elem.reportValidity();								//form(elem)のpatternの確認
+      });
+      //検索ボタンを押した際の入力チェック 
+      var searchButton = document.getElementById("modalUserSearchButton");	//検索ボタンをidで取得
+      //target.addEventListener(type, listener, wantsUntrusted);
+      searchButton.addEventListener("click", function() {		//検索ボタンを押したときのEventを追加
+      	if( elem.reportValidity() == true ){					//form(elem)のpatternの確認
+      		searchSupplier();								//入力チェックが通った場合、仕入れ先を検索を行う
+      	}
+      },false);
+      
+      
+      
       
       //初期化処理
       	function initUser(){

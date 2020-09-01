@@ -185,7 +185,7 @@
                   <div class="input-group-prepend">
                       <div class="input-group-text">見積番号</div>
                   </div>
-                  <input type="text"  class="form-control" id="estimateSheetId" name="estimateSheetId">
+                  <input type="text"  class="form-control" id="estimateSheetId" name="estimateSheetId" pattern="^[0-9A-Za-z]+$" title="※半角英数字" maxlength='32' required>
                 </div>
               </div>
               

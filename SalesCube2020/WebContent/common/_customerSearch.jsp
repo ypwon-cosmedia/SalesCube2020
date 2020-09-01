@@ -34,7 +34,7 @@
                             <div class="input-group-prepend">
                                 <div class="input-group-text">顧客コード</div>
                             </div>
-                            <input type="text"  class="form-control" name="customerCode" id="customerCode">
+                            <input type="text"  class="form-control" name="customerCode" id="customerCode" pattern="^[0-9A-Za-z]+$" title="半角英数字で入力してください" maxlength="15">
                           </div>
                         </div>
                       </div>
@@ -48,7 +48,7 @@
                             <div class="input-group-prepend">
                                 <div class="input-group-text">顧客名</div>
                             </div>
-                            <input type="text"  class="form-control" name="customerName" id="customerName">
+                            <input type="text"  class="form-control" name="customerName" id="customerName" maxlength="60">
                           </div>
                         </div>&emsp;&emsp;&emsp;
                       
@@ -59,7 +59,7 @@
                             <div class="input-group-prepend">
                                 <div class="input-group-text">顧客名カナ</div>
                             </div>
-                            <input type="text"  class="form-control"  name="customerKana"> 
+                            <input type="text"  class="form-control"  name="customerKana" pattern="[\u30A1-\u30F6]*" title="全角カナで入力してください" maxlength="60"> 
                           </div>
                         </div>
                       </div>
@@ -84,7 +84,7 @@
               
                     <div class="rounded float-right">
                       <button type="button" class="btn btn-primary" onclick="initCustomer()">初期化</button>&ensp;
-                      <input type="button" value="検索" class="btn btn-primary" onclick="customerSearch1()">&ensp;&ensp;
+                      <input type="button" value="検索" class="btn btn-primary" id="modalCustomerSearchButton" onclick="customerSearch1()">&ensp;&ensp;
                     </div>
                     <br>
                     <br>
@@ -139,6 +139,21 @@
     //	  $('#resultCustomer').removeAttr('hidden');
     //	}
       	
+     	//入力欄が変更された時のパターンチェック
+            var elem = document.getElementById("customer");	//formをidで取得
+            elem.addEventListener('change', function() {			//入力したときのEventを追加
+                elem.reportValidity();								//form(elem)のpatternの確認
+            });
+            //検索ボタンを押した際の入力チェック 
+            var searchButton = document.getElementById("modalCustomerSearchButton");	//検索ボタンをidで取得
+            //target.addEventListener(type, listener, wantsUntrusted);
+            searchButton.addEventListener("click", function() {		//検索ボタンを押したときのEventを追加
+            	if( elem.reportValidity() == true ){					//form(elem)のpatternの確認
+            		searchSupplier();								//入力チェックが通った場合、仕入れ先を検索を行う
+            	}
+            },false);
+     	
+     	
      	//初期化処理
       	function initCustomer(){
             $("[name='customerCode']").val("");
