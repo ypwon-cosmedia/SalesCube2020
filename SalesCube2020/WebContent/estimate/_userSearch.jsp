@@ -41,7 +41,7 @@
                             <div class="input-group-prepend">
                                 <div class="input-group-text">担当者コード</div>
                             </div>
-                            <input type="text"  class="form-control" id="userId" name="userId" value="USERID" pattern="^[0-9A-Za-z]+$" title="半角英数字で入力してください" maxlength="15">
+                            <input type="text"  class="form-control" id="userId" name="userId" value="USERID" pattern="^[0-9A-Za-z]+$" title="半角英数字で入力してください" maxlength="30">
                           </div>
                         </div>
                       </div>
@@ -158,7 +158,7 @@
       //target.addEventListener(type, listener, wantsUntrusted);
       searchButton.addEventListener("click", function() {		//検索ボタンを押したときのEventを追加
       	if( elem.reportValidity() == true ){					//form(elem)のpatternの確認
-      		searchSupplier();								//入力チェックが通った場合、仕入れ先を検索を行う
+      		userSearch1();								//入力チェックが通った場合、担当者を検索を行う
       	}
       },false);
       
