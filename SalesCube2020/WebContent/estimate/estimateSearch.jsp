@@ -185,7 +185,7 @@
                   <div class="input-group-prepend">
                       <div class="input-group-text">見積番号</div>
                   </div>
-                  <input type="text"  class="form-control" id="estimateSheetId" name="estimateSheetId">
+                  <input type="text"  class="form-control" id="estimateSheetId" name="estimateSheetId" pattern="^[0-9A-Za-z]+$" title="※半角英数字" maxlength='32' required>
                 </div>
               </div>
               
@@ -416,15 +416,20 @@
 	
 	  //Excel出力
 	  function excelOut(){
-			if(!confirm("検索結果をExcelファイルでダウンロードしますか？")){
-				alert("testetset");
-				var form = document.getElementById("estimate");
+			if(confirm("検索結果をExcelファイルでダウンロードしますか？")){
+	           	
+				var formString = $("form[id=estimate]").serialize();
 				
-				form.action="/SalesCube2020/SalesCube?action=estimateExcelOutput";
-				form.method="post";
-				
-				form.submit();
-	           	return;
+	           	$.ajax({
+					
+					url:"/SalesCube2020/SalesCubeAJAX?action=estimateExcelOutput",
+					type:'post',
+					data:formString,
+					dataType:'json',
+					success:function(data){	
+											
+					}
+				});
 	    	}
 	  }
 		
@@ -507,7 +512,7 @@
 				    	 maxPageNo++;
 				     maxPageNo = Math.floor(maxPageNo);
 				     
-				     alert(maxPageNo);
+				  
 				     
 				     var beforeFlag;
 				     var nextFlag;

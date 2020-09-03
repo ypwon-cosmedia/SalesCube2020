@@ -51,7 +51,6 @@ public class EstimateSearchAJAXController extends BaseAJAXController{
 		EstimateSearchBean bean = new EstimateSearchBean();
 		UserInfoBean user = new UserInfoBean();
 		
-		System.out.println("test0828");
 		
 		List<String[]> list = new ArrayList<>();
 		
@@ -76,12 +75,11 @@ public class EstimateSearchAJAXController extends BaseAJAXController{
 			String sort = request.getParameter("sorting");
 			String upDown = request.getParameter("updown");
 			
-			
 			System.out.println(sort);
 			if(sort == null)
-				sort = "";
+				sort = "estimateSheetId";
 			
-			String rowcount ="NO";
+			String rowcount =null;
 			String pageNum = null;
 			
 			try {
@@ -103,6 +101,7 @@ public class EstimateSearchAJAXController extends BaseAJAXController{
 
 			
 	        List<EstimateConfigurationBean> list2 = dao.estimateConfiguration(user); //ヘッダ部の並びを取得
+	       
 	        
 			//ヘッダ部
 	        for(EstimateConfigurationBean config : list2) {
@@ -111,17 +110,18 @@ public class EstimateSearchAJAXController extends BaseAJAXController{
 	        }
 	
 			p.println();//改行
-	
+		
 			//ボディ部
 			for(int i = 0; i < list.size(); i++) {
-				String[] raw = list.get(i);;
+				String[] raw = list.get(i);
 				
 				for(int j = 0; j < raw.length; j++) {
 					p.print(raw[j]);
 					p.print(",");
 				}
+				p.println();//改行
 			}
-			
+
 			p.close();
 			
 		
@@ -166,9 +166,9 @@ public class EstimateSearchAJAXController extends BaseAJAXController{
 		String rowcount = request.getParameter("rowCount");
 		String pageNum = request.getParameter("pageNum");
 		
-		System.out.println(sort);
+		
 		if(sort == null)
-			sort = "";
+			sort = "estimateSheetId";
 		
 		String count;
 			

@@ -17,9 +17,24 @@ import sql.estimate.EstimateSQL;
 import user.beans.UserInfoBean;
 
 public class EstimateSearchDAO extends BaseDAO {
+
+
+
 	public List<String[]> estimateSearchResult(EstimateSearchBean bean, UserInfoBean user, String sort, String upDown, String rowcount, String pageNum) throws SQLException, ClassNotFoundException{
-		int iPageNum = Integer.parseInt(pageNum);
-		int iRowCount = Integer.parseInt(rowcount);
+		
+		int iPageNum = 0;
+		int iRowCount = 0;
+		if (upDown == null) {
+			upDown = "ASC";
+		}
+		
+		if(pageNum != null) {
+			iPageNum = Integer.parseInt(pageNum);
+		}
+		if(rowcount != null) {
+			 iRowCount = Integer.parseInt(rowcount);
+		}
+		
 		List<EstimateConfigurationBean> list1 =new ArrayList<>();
 		List<String[]> list = new ArrayList<>();
 		
@@ -81,16 +96,15 @@ public class EstimateSearchDAO extends BaseDAO {
 				"order by " +
 				sort + " " +
 				upDown + " ";
-				if(rowcount != "NO") {
+				if(rowcount != null ) {
 					estimateResult += "LIMIT " +
 										rowcount + " " +
 										"OFFSET " +
 										(iPageNum-1)*iRowCount;
 				}
 				
+				
 			
-		System.out.println("テスト"+ bean.getCustomerName());
-		System.out.println("テスト"+ estimateResult);
 		result = stmt.executeQuery(estimateResult);
 		
 		while(result.next()) {
@@ -172,8 +186,6 @@ public class EstimateSearchDAO extends BaseDAO {
 				upDown + " ";
 				
 			
-		System.out.println("テスト"+ bean.getCustomerName());
-		System.out.println("テスト"+ estimateResult);
 		result = stmt.executeQuery(estimateResult);
 		
 		String count = null;
@@ -312,6 +324,7 @@ public class EstimateSearchDAO extends BaseDAO {
 			break;
 			
 	}
+		
 		return row;
 		
 	}
