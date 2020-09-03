@@ -947,7 +947,7 @@
 	  }
 	  
 	  function outputPdf() {
-			if(!confirm("見積書をPDF形式で出力します。よろしいですか？\n※更新していない場合は入力内容が破棄されます。")){
+			if(!confirm("見積書をPDF形式で出力します。よろしいですか？\n※更新していない場合は入力内容が反映されません。")){
 				return;
 			}
 			var form = document.pdfform;
