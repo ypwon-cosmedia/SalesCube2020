@@ -182,13 +182,14 @@ public class ProductModifyController extends BaseController{
 			
 			ProductModifyDAO dao = new ProductModifyDAO();
 			int result = dao.modifyProduct(bean);
+			int result2 = dao.modifyProductDiscount(productCode, discountId);
 
 			
-			if( result == 0 ) {
-				String message = "•ÏX‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½";
+			if( result == 0 || result2 == 0) {
+				String message = "ï¿½ÏXï¿½Å‚ï¿½ï¿½Ü‚ï¿½ï¿½ï¿½Å‚ï¿½ï¿½ï¿½";
 				request.setAttribute("addmodifyError", message);
 			}else{
-				String message = "•ÏX‚ªŠ®—¹‚µ‚Ü‚µ‚½";
+				String message = "ï¿½ÏXï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ü‚ï¿½ï¿½ï¿½";
 				request.setAttribute("addmodifysuccess", message);
 			}
 		}catch(NumberFormatException e) {

@@ -367,7 +367,7 @@
 								<div class="input-group-prepend">
 									<div class="input-group-text">数量割引</div>
 								</div>
-							<input type="text"  class="form-control" id="quantityDiscount" name=" discountId" value="${product. discountId}">
+							<input type="text"  class="form-control" id="quantityDiscount" name="discountId" value="${product. discountId}">
 
 							<input type="button" name="" src="btn_search.png" tabindex="101" onclick='discountForm("/SalesCube2020/quantitydiscount.jsp")' style="vertical-align: middle; cursor: pointer; width: 32px;">
 
