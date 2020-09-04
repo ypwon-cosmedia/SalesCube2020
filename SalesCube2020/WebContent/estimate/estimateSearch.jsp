@@ -475,6 +475,7 @@
 	    }
 		
 	    var pageNum;
+	    
 	    //見積検索結果
 	    function estimateSearch2() {
 	   	 	    	

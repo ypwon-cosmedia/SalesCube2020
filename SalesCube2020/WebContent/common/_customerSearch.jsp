@@ -122,12 +122,13 @@
                     	</table>
                     	<br>
                   	</div>
-                  	
-	                <div class="modal-footer">
+                  </div>
+                  
+	              <div class="modal-footer">
 	                    <button type="button" class="btn btn-primary" data-dismiss="modal">閉じる</button>
-	                </div>
+	              </div>
 	                
-            	</div>
+            	
           	</div>
         </div>
       </div> 
@@ -140,14 +141,14 @@
     //	}
       	
      	//入力欄が変更された時のパターンチェック
-            var elem = document.getElementById("customer");	//formをidで取得
-            elem.addEventListener('change', function() {			//入力したときのEventを追加
-                elem.reportValidity();								//form(elem)のpatternの確認
+            var elemCheck = document.getElementById("customer");	//formをidで取得
+            elemCheck.addEventListener('change', function() {			//入力したときのEventを追加
+            	elemCheck.reportValidity();								//form(elem)のpatternの確認
             });
             //検索ボタンを押した際の入力チェック 
-            var searchButton = document.getElementById("modalCustomerSearchButton");	//検索ボタンをidで取得
+            var searchButtonCheck = document.getElementById("modalCustomerSearchButton");	//検索ボタンをidで取得
             //target.addEventListener(type, listener, wantsUntrusted);
-            searchButton.addEventListener("click", function() {		//検索ボタンを押したときのEventを追加
+            searchButtonCheck.addEventListener("click", function() {		//検索ボタンを押したときのEventを追加
             	if( elem.reportValidity() == true ){					//form(elem)のpatternの確認
             		customerSearch1();								//入力チェックが通った場合、顧客を検索を行う
             	}
