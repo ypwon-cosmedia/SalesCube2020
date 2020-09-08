@@ -53,16 +53,23 @@ public class OrderOnlineController extends BaseController{
 				
 				int i;
 				String inputText = "";
+				
 				while(( i = fileContent.read())!=-1) {	         
 		            char c = (char)i;
 		            inputText += c;
-		         }
+		        }
+				
+				String[] splitText = inputText.split(System.getProperty("line.separator"));
+
 				if(inputText == "") {
 					request.setAttribute("checker", "2");
 					return "order\\onlineorderdataimport.jsp";
 				}
-	
-				String[] splitText = inputText.split(System.getProperty("line.separator"));
+				
+				if(!splitText[0].equals("óÔ,óú,o×ú,[úwèú,ótÔ,qæ`[Ô,ñv,ÁïÅ¦,ÚqR[h,[üæR[h,¤iR[h,Ê,ãP¿,¤iõl")) {
+					request.setAttribute("checker", "1");
+					return "order\\onlineorderdataimport.jsp";
+				}
 							
 				List<String> list = new ArrayList<String>();
 				
@@ -159,6 +166,7 @@ public class OrderOnlineController extends BaseController{
 				
 				
 				request.setAttribute("result", dao.onlineInputResult(start));
+				request.setAttribute("checker", "0");
 			} catch (ClassNotFoundException | MissingResourceException | SQLException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();

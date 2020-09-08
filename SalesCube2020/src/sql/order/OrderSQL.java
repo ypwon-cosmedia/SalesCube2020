@@ -998,6 +998,7 @@ public class OrderSQL {
 				"ORDER BY (" + sort + ") " + orderBy + " " +
 			 	"LIMIT " + rowCount + " OFFSET " + Integer.parseInt(rowCount)*(currentPage-1);
 				
+		
 		return sql;
 	}
 	
@@ -1220,10 +1221,11 @@ public class OrderSQL {
 			tmp += "LIKE '%' OR 1 = 1) ";
 		}
 		else { 
-			tmp += "IN( '";
+			tmp += "IN( ";
 			for(int i = 0; i <str.length; i++) {
-				tmp += str[i] + "',";
+				tmp += "'" + str[i] + "',";
 			}
+			
 			tmp = tmp.substring(0, tmp.length()-1) + ")) ";
 		}
 		
@@ -1290,8 +1292,8 @@ public class OrderSQL {
 				bean.getCustomerSilpNo() + "','" + 
 				bean.getRemarks() + "'," + 
 				bean.getCtaxRate() + "," + 
-				"'userID'," +
-				"'userName','" + 
+				"'OnlineInput'," +
+				"'OnlineInput','" + 
 				bean.getCustomerCode() + "'," + 
 				"(select customer_name from customer_mst_xxxxx where customer_code = '"+ bean.getCustomerCode() +"'),'" + 
 				bean.getDeliveryCode() + "'," + 

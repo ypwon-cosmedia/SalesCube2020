@@ -101,6 +101,7 @@ public class OrderSearchDAO extends BaseDAO{
 		stmt = con.createStatement();
 		
 		sql = sqllist.getOrderBillCount(bean);
+		System.out.println(sql);
 		result = stmt.executeQuery(sql);
 		while(result.next()) {
 			tmp++;

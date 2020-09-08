@@ -143,6 +143,8 @@
 			alert("入力形式に合わないCSVファイルです。\nCSVファイルを確認してください。");
 		} else if(document.getElementById("checker").value == "2"){
 			alert("CSVファイルを登録してください。");
+		} else if(document.getElementById("checker").value == "0"){
+			alert("${fn:length(result)}件登録されました");
 		}
 	}
 
@@ -151,6 +153,12 @@
 	       	return;
 		}
 		location.href="/SalesCube2020/SalesCube?action=onlineorder";
+	}
+	
+	function importData(){
+		var form = document.getElementById("mainform");
+		
+		form.submit();
 	}
 	
 	shortcut.add("F1", function() {

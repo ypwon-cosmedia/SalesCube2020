@@ -106,7 +106,7 @@
 							<div class="input-group-prepend">
 								<div class="input-group-text">受注番号</div>
 							</div>
-						<input type="number" class="form-control" id="orderNumber" name="orderNo" pattern="[]{0,10}"maxlength="10">
+						<input type="text" class="form-control" id="orderNumber" name="orderNo" onKeyup="this.value=this.value.replace(/[^0-9]/g,'');" maxlength=10>
 						</div>
 					</div>
 					<div class="col-4">
@@ -346,7 +346,7 @@
 				</div>	
 			</div><br>
 			<div align="right">
-				<input type="button" value="初期化" class="btn btn-outline-secondary" onclick="initForm();">
+				<input type="button" value="初期化" class="btn btn-outline-secondary" onclick="initPage();">
 				<input type="button" value="検索" class="btn btn-outline-secondary" onclick="search();">
 			</div>
 			<br>
@@ -607,10 +607,17 @@
 		document.getElementById("configModalConfirm").setAttribute("data-dismiss","modal");
 		var exists = false; 
 		$('#showSearchResult option').each(function(){ if (this.value == 'roSlipId') { exists = true; return false; } });
-		
+
 		var checkID = document.getElementById("showSearchResult");
+		var isemplty = checkID.length;
+		if(isemplty == 0){
+			initConfig();
+			alert("表示リストには必ず1項目以上必要です。");
+			document.getElementById("configModalConfirm").removeAttribute("data-dismiss");
+		}
+		
 		var indexID = checkID[0].value;
-				
+		
 		if(exists == false){
 			initConfig();
 			alert("受注番号は必須項目です。");
@@ -622,7 +629,7 @@
 			alert("受注番号は一番最初の項目にする必要があります。");
 			document.getElementById("configModalConfirm").removeAttribute("data-dismiss");		
 		}
-		
+			
 		var e = document.getElementById("select_view");
 		var sel_view = e.options[e.selectedIndex].value;
 
@@ -903,6 +910,8 @@
 					"shipDayEnd": $("#shipDayStart").val(),
 					"deliveryDayStart": $("#shipDayStart").val(),
 					"deliveryDayEnd": $("#shipDayStart").val(),
+					"customerCode": $("#customerCodeInput").val(),
+					"customerName": $("#customerNameInput").val(),
 					"withdrawl": checkedData,
 					"productCode": $("#productCodeInput").val(),
 					"productName": $("#productNameInput").val(),
@@ -1016,6 +1025,8 @@
 					"shipDayEnd": $("#shipDayStart").val(),
 					"deliveryDayStart": $("#shipDayStart").val(),
 					"deliveryDayEnd": $("#shipDayStart").val(),
+					"customerCode": $("#customerCodeInput").val(),
+					"customerName": $("#customerNameInput").val(),
 					"withdrawl": checkedData,
 					"productCodeInput": $("#productCodeInput").val(),
 					"productNameInput": $("#productNameInput").val(),
@@ -1037,15 +1048,29 @@
 						var headcontents= '';
 						headcontents += '<tr>';
 						for(var j = 0; j < selArr.length; j++){
-							var tmp;
-							if(data[i][j] == null)
-								tmp = "";
-							else if(isNaN(data[i][j]) == false)
-								tmp = Math.floor(data[i][j]);
-							else
-								tmp = data[i][j];
-							headcontents += '<td>' + tmp + '</td>';
-						}
+								var tmp;
+								if(data[i][j] == null)
+									tmp = "";
+								else if(isNaN(data[i][j]) == false)
+									tmp = Math.floor(data[i][j]);
+								else
+									tmp = data[i][j];
+									
+								if($("#select_view option:selected").val() == "明細"){
+									var str = tmp + '';
+									var splittmp = str.split('-');
+									roSlipId = splittmp[0];
+								} else {
+									roSlipId = tmp;
+								}
+									
+								
+								if(j == 0){
+									headcontents += '<td><a href="/SalesCube2020/SalesCube?action=orderupdate&roSlipId='+roSlipId+'">' + tmp + '</a></td>';
+								} else {
+									headcontents += '<td>' + tmp + '</td>';
+								}
+							}
 						headcontents += '</tr>';
 						$('#AddOption').append(headcontents);						
 					}
@@ -1122,6 +1147,8 @@
 					"shipDayEnd": $("#shipDayStart").val(),
 					"deliveryDayStart": $("#shipDayStart").val(),
 					"deliveryDayEnd": $("#shipDayStart").val(),
+					"customerCode": $("#customerCodeInput").val(),
+					"customerName": $("#customerNameInput").val(),
 					"withdrawl": checkedData,
 					"productCodeInput": $("#productCodeInput").val(),
 					"productNameInput": $("#productNameInput").val(),
@@ -1143,15 +1170,29 @@
 						var headcontents= '';
 						headcontents += '<tr>';
 						for(var j = 0; j < selArr.length; j++){
-							var tmp;
-							if(data[i][j] == null)
-								tmp = "";
-							else if(isNaN(data[i][j]) == false)
-								tmp = Math.floor(data[i][j]);
-							else
-								tmp = data[i][j];
-							headcontents += '<td>' + tmp + '</td>';
-						}
+								var tmp;
+								if(data[i][j] == null)
+									tmp = "";
+								else if(isNaN(data[i][j]) == false)
+									tmp = Math.floor(data[i][j]);
+								else
+									tmp = data[i][j];
+									
+								if($("#select_view option:selected").val() == "明細"){
+									var str = tmp + '';
+									var splittmp = str.split('-');
+									roSlipId = splittmp[0];
+								} else {
+									roSlipId = tmp;
+								}
+									
+								
+								if(j == 0){
+									headcontents += '<td><a href="/SalesCube2020/SalesCube?action=orderupdate&roSlipId='+roSlipId+'">' + tmp + '</a></td>';
+								} else {
+									headcontents += '<td>' + tmp + '</td>';
+								}
+							}
 						headcontents += '</tr>';
 						$('#AddOption').append(headcontents);						
 					}
