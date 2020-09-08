@@ -9,7 +9,7 @@ import master.product.beans.ProductAddBean;
 
 public class ProductAddDAO extends BaseDAO {
 
-	/* ¤•i’Ç‰Áî•ñ‚Ìæ“¾@*/
+	/* ï¿½ï¿½ï¿½iï¿½Ç‰ï¿½ï¿½ï¿½ï¿½Ìæ“¾ï¿½@*/
 	 public int addProduct(ProductAddBean bean) throws SQLException, ClassNotFoundException {
 		 	Connection con;
 		 	PreparedStatement stmt=null;
@@ -365,7 +365,7 @@ public class ProductAddDAO extends BaseDAO {
 		 	
 		 	try{
 		 		result = stmt.executeUpdate();
-		 		System.out.println("’Ç‰ÁŠ®—¹");
+		 		System.out.println("ï¿½Ç‰ï¿½ï¿½ï¿½ï¿½ï¿½");
 		 		con.commit();
 		 	}catch (SQLException e) {
 		 		e.printStackTrace();
@@ -376,4 +376,30 @@ public class ProductAddDAO extends BaseDAO {
 		 	
 		 	return result;
 		 }
+	 
+	 public int addProductDiscount(String productCode, String discountId) throws SQLException, ClassNotFoundException {
+		 	Connection con;
+		 	PreparedStatement stmt=null;
+		 	int result = 0;	
+		 	String  sql;
+		 	
+		 	con = super.getConnection();
+		 	sql = "insert into discount_rel_xxxxx (PRODUCT_CODE, DISCOUNT_ID) values (?,?)";
+		 	stmt = con.prepareStatement(sql);
+		 	
+		 	stmt.setString(1, productCode);
+		 	stmt.setString(2, discountId);
+		 	
+		 	try{
+		 		result = stmt.executeUpdate();
+		 		con.commit();
+		 	}catch (SQLException e) {
+		 		e.printStackTrace();
+		 		result = 0;
+		 	}finally {
+		 		super.releaseDB(con,stmt);
+		 	}
+		 	
+		 	return result;
+	 }
 }

@@ -451,4 +451,30 @@ public class ProductModifyDAO extends BaseDAO {
 		 	
 		 	return result;
 		 }
+	 
+	 public int modifyProductDiscount(String productCode, String discountId) throws SQLException, ClassNotFoundException {
+		 	Connection con;
+		 	PreparedStatement stmt=null;
+		 	int result = 0;	
+		 	String  sql;
+		 	
+		 	con = super.getConnection();
+		 	sql = "update discount_rel_xxxxx set DISCOUNT_ID = ? where PRODUCT_CODE = ?";
+		 	stmt = con.prepareStatement(sql);
+		 	
+		 	stmt.setString(1, discountId);
+		 	stmt.setString(2, productCode);
+		 	
+		 	try{
+		 		result = stmt.executeUpdate();
+		 		con.commit();
+		 	}catch (SQLException e) {
+		 		e.printStackTrace();
+		 		result = 0;
+		 	}finally {
+		 		super.releaseDB(con,stmt);
+		 	}
+		 	
+		 	return result;
+	 }
 }
