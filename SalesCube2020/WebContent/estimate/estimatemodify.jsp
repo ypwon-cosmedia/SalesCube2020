@@ -148,7 +148,7 @@
 		<div><h5 id="message" style="color:#ff0000;"></h5></div>
 	</div>
 
-	<form action="/SalesCube2020/SalesCube?action=estimateModify" method="post" name="modifyform" id="modifyform">
+	<form action="/SalesCube2020/SalesCube?action=estimateModify" method="post" name="modifyform" id="modifyform" onSubmit="return modifyForm()">
 		<div class="container" style="background-color: white;">
 			<div class="panel panel-default" >
 				<div class="panel-heading row mb-2 col-4">
@@ -429,15 +429,15 @@
 								<img src="btn_search.png" style="vertical-align: middle; cursor: pointer; width: 22px; height: 22px;">
 							</button></td>
 							<td rowspan="2"><textarea name="productAbstract" rows="3" style="width: 200px;" id="productAbstract${status.count}" maxlength="60">${product.productAbstract}</textarea></td>
-							<td class="backpink"><input type="number" name="quantity" value="${product.quantity}" id="quantity${status.count}" style="width: 75px;" onchange="quantityChange(this)" maxlength="12" required></td>
+							<td class="backpink"><input type="number" name="quantity" value="${product.quantity}" id="quantity${status.count}" style="width: 75px;" onchange="quantityChange(this)" oninput="sliceMaxLength(this, 8)" required></td>
 							<td><input type="text" name="unitCost" value="${product.unitCost}" id="unitCost${status.count}" style="background-color:rgb(177, 177, 177); width: 75px;" readonly></td>
-							<td class="backpink"><input type="number" name="unitRetailPrice" value="${product.unitRetailPrice}" id="unitRetailPrice${status.count}" style="width: 75px;" onchange="unitRetailPriceChange(this)" maxlength="12" required></td>
+							<td class="backpink"><input type="number" name="unitRetailPrice" value="${product.unitRetailPrice}" id="unitRetailPrice${status.count}" style="width: 75px;" onchange="unitRetailPriceChange(this)" oninput="sliceMaxLength(this, 8)" required></td>
 							<td rowspan="2"><textarea name="productRemarks" rows="3" style="width: 200px;" id="remarks${status.count}" maxlength="120">${product.productRemarks}</textarea></td>
 							<td><button type="button" class="btn btn-primary table-button"  onclick="deleteLineForm(this)" id="delete${status.count}">削除</button></td>
 						</tr>
 						
 						<tr>
-							<td class="backpink"><button type="button" class="btn btn-primary table-button" data-toggle="modal" data-target="#openSearchStock" id="openSearchStock${status.count}" onclick="openStock(this);">在庫</button></td>
+							<td class="backpink"><button type="button" class="btn btn-primary table-button" data-toggle="modal" data-target="#openSearchStock" id="openSearchStock${status.count}" onclick="openStock(this);" disabled="disabled">在庫</button></td>
 							<td><input type="text" name="cost" value="${product.cost}" style="background-color:rgb(177, 177, 177); width: 75px;" id="cost${status.count}" readonly></td>
 							<td class="backpink"><input type="text" name="retailPrice" value="${product.retailPrice}" id="retailPrice${status.count}" style="width: 75px; background-color:rgb(177, 177, 177);" readonly></td>
 							<td><button type="button" class="btn btn-primary table-button" onclick="previousCopy(this)"  id="previousCopy${status.count}">前行複写</button></td>
@@ -509,7 +509,7 @@
 				getCustomer(inputcustomerCode); //半角英数字ならば入力した値を基に顧客情報を取得
               return true;
           }else{
-          	obj.reportValidity();	
+          	obj.reportValidity();
               return false;
           }
       }
@@ -518,17 +518,23 @@
 	/* 商品コードの入力欄を変更したときのパターンチェック */
 	function productCodeCheck(obj){
 		var inputproductCode = obj.value; //入力した見積番号取得
+		var tableNo = obj.id.substr(16); //対象のtableNo：商品コードを入力したtableNo取得
 		if(inputproductCode != ""){
 			if(inputproductCode.match(hwa)){ //入力した値が半角英数字か確認
-				var tableNo = obj.id.substr(16); //対象のtableNo：商品コードを入力したtableNo取得
 				getProduct(inputproductCode, tableNo); //半角英数字ならば入力した値を基に顧客情報を取得
-				
-              return true;
-          }else{
-          	obj.reportValidity();	
-              return false;
-          }
-      }
+            	return true;
+			}else{
+	          	obj.reportValidity();	
+	            return false;
+			}
+        }else{
+        	document.getElementById("openSearchStock" + tableNo).setAttribute("disabled", "disabled");
+        }
+	}
+	
+	/* 数字の入力制限 */
+	function sliceMaxLength(elem, maxLength) {  
+	    elem.value = elem.value.slice(0, maxLength);  
 	}
   
 	/* Fn更新ボタン押下時の処理 */
@@ -547,10 +553,9 @@
 	/* 更新 */
 	function modifyForm() {
 		if(!confirm("入力内容で更新します。よろしいですか？")){
-			return;
+			return false;
 		}
-		var form = document.modifyform;
-		form.submit();
+		return true;
 	}
 	
 	/* 見積削除 */
@@ -573,15 +578,15 @@
               	'<img src="btn_search.png" style="vertical-align: middle; cursor: pointer; width: 22px; height: 22px;">' +
               '</button></td>' +
             '<td rowspan="2"><textarea name="productAbstract" rows="3" style="width: 200px;" id="productAbstract' + tableNo + '" maxlength="60"></textarea></td>' +
-            '<td class="backpink"><input type="number" name="quantity" id="quantity' + tableNo + '" style="width: 75px;" onchange="quantityChange(this)" maxlength="12" required></td>' +
+            '<td class="backpink"><input type="number" name="quantity" id="quantity' + tableNo + '" style="width: 75px;" onchange="quantityChange(this)" oninput="sliceMaxLength(this, 8)" required></td>' +
             '<td><input type="text" name="unitCost" id="unitCost' + tableNo + '" style="background-color:rgb(177, 177, 177); width: 75px;" readonly></td>' +
-            '<td class="backpink"><input type="number" name="unitRetailPrice" id="unitRetailPrice' + tableNo + '" style="width: 75px;" onchange="unitRetailPriceChange(this)" maxlength="12" required></td>' +
+            '<td class="backpink"><input type="number" name="unitRetailPrice" id="unitRetailPrice' + tableNo + '" style="width: 75px;" onchange="unitRetailPriceChange(this)" oninput="sliceMaxLength(this, 8)" required></td>' +
             '<td rowspan="2"><textarea name="productRemarks" rows="3" style="width: 200px;" id="remarks' + tableNo + '" maxlength="120"></textarea></td>' +
             '<td><button type="button" class="btn btn-primary table-button"  onclick="deleteLineForm(this)"  id="delete' + tableNo + '">削除</button></td>' +
           '</tr>' +
 
           '<tr>' +
-            '<td class="backpink"><button type="button" class="btn btn-primary table-button" data-toggle="modal" data-target="#openSearchStock" id="openSearchStock' + tableNo + '" onclick="openStock(this);">在庫</button></td>' +
+            '<td class="backpink"><button type="button" class="btn btn-primary table-button" data-toggle="modal" data-target="#openSearchStock" id="openSearchStock' + tableNo + '" onclick="openStock(this);" disabled="disabled">在庫</button></td>' +
             '<td><input type="text" name="cost" style="background-color:rgb(177, 177, 177); width: 75px;" id="cost' + tableNo + '" readonly></td>' +
             '<td class="backpink"><input type="text" name="retailPrice" id="retailPrice' + tableNo + '" style="width: 75px; background-color:rgb(177, 177, 177);" readonly></td>' +
             '<td><button type="button" class="btn btn-primary table-button" onclick="previousCopy(this)" id="previousCopy' + tableNo + '">前行複写</button></td>' +
@@ -926,18 +931,22 @@
 				success:function(data){
 					if(data.productAbstract == null || data.productAbstract == ""){
 						alert("該当する商品情報は存在しません");
+						document.getElementById("openSearchStock" + tableNo).setAttribute("disabled", "disabled");
 					} else {
 						if(document.getElementById('productAbstract' + tableNo).value == null || document.getElementById('productAbstract' + tableNo).value == ""){
 							document.getElementById('productAbstract' + tableNo).value = data.productAbstract;
 							document.getElementById('unitCost' + tableNo).value = data.unitCost;
 							document.getElementById('unitRetailPrice' + tableNo).value = data.unitRetailPrice;
+							document.getElementById("openSearchStock" + tableNo).removeAttribute("disabled");
 							setPrice(tableNo);
 						} else {
 							if(!confirm("明細が入力されています。上書きしますか？")){
+								document.getElementById("openSearchStock" + tableNo).setAttribute("disabled", "disabled");
 							} else {
 								document.getElementById('productAbstract' + tableNo).value = data.productAbstract;
 								document.getElementById('unitCost' + tableNo).value = data.unitCost;
 								document.getElementById('unitRetailPrice' + tableNo).value = data.unitRetailPrice;
+								document.getElementById("openSearchStock" + tableNo).removeAttribute("disabled");
 								setPrice(tableNo);
 							}
 						}
