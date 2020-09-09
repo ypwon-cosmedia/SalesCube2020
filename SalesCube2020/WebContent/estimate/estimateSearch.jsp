@@ -150,7 +150,7 @@
         
           <div class="btn-group mr-2 " role="group" aria-label="First group">
             <button type="button" class="btn btn-secondary" style="font-size: 12px;" onclick="initForm()">F1<br>初期化</button>
-            <button type="button" class="btn btn-secondary" style="font-size: 12px;" onclick="estimateSearch()">F2<br>検索</button>
+            <button type="button" class="btn btn-secondary" style="font-size: 12px;" id="estimateButton" onclick="estimateSearch()">F2<br>検索</button>
             <button type="button" class="btn btn-secondary" style="font-size: 12px;" onclick="excelOut()" id="csvDownloadButton">F3<br>Excel出力</button>
             <button type="button" class="btn btn-secondary" style="font-size: 12px;" data-toggle="modal" data-target="#setSlipConfiguration" onclick="configGet() ; initButton()">F4<br>設定</button>
             <button type="button" class="btn btn-secondary" style="font-size: 12px;" disabled>F5<br></button>
@@ -185,7 +185,7 @@
                   <div class="input-group-prepend">
                       <div class="input-group-text">見積番号</div>
                   </div>
-                  <input type="text"  class="form-control" id="estimateSheetId" name="estimateSheetId" pattern="^[0-9A-Za-z]+$" title="※半角英数字" maxlength='32' required>
+                  <input type="text"  class="form-control" id="estimateSheetId" name="estimateSheetId" pattern="^[0-9A-Za-z]+$" title="半角英数字で入力してください" maxlength="32">
                 </div>
               </div>
               
@@ -237,7 +237,7 @@
                   <div class="input-group-prepend">
                     <div class="input-group-text">入力担当者コード</div>
                   </div>
-                <input type="text"  class="form-control" id="UserModalUserId" name="userId">
+                <input type="text"  class="form-control" id="UserModalUserId" name="userId" pattern="^[0-9A-Za-z]+$" title="半角英数字で入力してください" maxlength="30">
                <button type="button" style="height: 32px; width: 32px;" class="clear-decoration"><img src="btn_search.png" data-toggle="modal" data-target="#userSearch" onclick="initUser() ; getDeptCategory() ; getRoleCategory()"></button>
                 </div>
               </div>
@@ -248,7 +248,7 @@
                   <div class="input-group-prepend">
                     <div class="input-group-text">入力担当者名</div>
                   </div>
-                <input type="text"  class="form-control" id="UserModalNameKnj" name="userName">
+                <input type="text"  class="form-control" id="UserModalNameKnj" name="userName" maxlength="60">
                 <button type="button" style="height: 32px; width: 32px;" class="clear-decoration"><img src="btn_search.png" data-toggle="modal" data-target="#userSearch" onclick="initUser() ; getDeptCategory() ; getRoleCategory()"></button>
                 </div>
               </div>
@@ -262,7 +262,7 @@
                   <div class="input-group-prepend">
                     <div class="input-group-text">件名</div>
                   </div>
-                <input type="text"  class="form-control" id="title" name="title">
+                <input type="text"  class="form-control" id="title" name="title" maxlength="100">
                 </div>
               </div>
 
@@ -272,7 +272,7 @@
                   <div class="input-group-prepend">
                     <div class="input-group-text">摘要</div>
                   </div>
-                <input type="text"  class="form-control" id="remarks" name="remarks">
+                <input type="text"  class="form-control" id="remarks" name="remarks" maxlength="120">
                 </div>
               </div>
             </div>
@@ -285,7 +285,7 @@
                   <div class="input-group-prepend">
                     <div class="input-group-text">提出先名</div>
                   </div>
-                <input type="text"  class="form-control" id="submitName" name="submitName">
+                <input type="text"  class="form-control" id="submitName" name="submitName" maxlength="60">
                 </div>
               </div>
             </div>
@@ -298,7 +298,7 @@
                   <div class="input-group-prepend">
                     <div class="input-group-text">顧客コード</div>
                   </div>
-                <input type="text"  class="form-control" id="CustomerModalCustomerCode" name="customerCode">
+                <input type="text"  class="form-control" id="CustomerModalCustomerCode" name="customerCode" pattern="^[0-9A-Za-z]+$" title="半角英数字で入力してください" maxlength="15">
                 <button type="button" style="height: 32px; width: 32px;" class="clear-decoration"><img src="btn_search.png" data-toggle="modal" data-target="#customerSearch" onclick="initCustomer() ; getCutoffGroup()"></button>
                 </div>
               </div>
@@ -309,7 +309,7 @@
                   <div class="input-group-prepend">
                     <div class="input-group-text">顧客名</div>
                   </div>
-                <input type="text"  class="form-control" id="CustomerModalCustomerName" name="customerName">
+                <input type="text"  class="form-control" id="CustomerModalCustomerName" name="customerName" maxlength="60">
                 <button type="button" style="height: 32px; width: 32px;" class="clear-decoration"><img src="btn_search.png" data-toggle="modal" data-target="#customerSearch" onclick="initCustomer() ; getCutoffGroup()"></button>
                 </div>
               </div>
@@ -317,7 +317,7 @@
 
             <div class="rounded float-right">
               <button type="button" class="btn btn-primary" onclick="initForm()">初期化</button>
-              <input type="button" value="検索" class="btn btn-primary" onclick="estimateSearch()">
+              <input type="button" value="検索" class="btn btn-primary" id="estimateButton" onclick="estimateSearch()">
             </div><br>
           <br>
         </div><br>
@@ -397,6 +397,21 @@
      var upDown;
      var rowcount;
      var itemId = "";
+     
+     
+   //入力欄が変更された時のパターンチェック
+     var estimateElem = document.getElementById("estimate");	//formをidで取得
+     estimateElem.addEventListener('change', function() {			//入力したときのEventを追加
+    	 estimateElem.reportValidity();								//form(elem)のpatternの確認
+     });
+     //検索ボタンを押した際の入力チェック 
+     var estimateSearchButton = document.getElementById("estimateButton");	//検索ボタンをidで取得
+     //target.addEventListener(type, listener, wantsUntrusted);
+     estimateSearchButton.addEventListener("click", function() {		//検索ボタンを押したときのEventを追加
+     	if( estimateElem.reportValidity() == true ){					//form(elem)のpatternの確認
+     		estimateSearch2();								//入力チェックが通った場合、見積を検索を行う
+     	}
+     },false);
      
      
 	  //初期化処理
