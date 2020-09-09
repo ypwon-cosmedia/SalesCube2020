@@ -67,10 +67,12 @@
 							for ( var checkedShipdate="", i=radio.length; i--; ) {	//radioボタンの回数分繰り返す
 								if ( radio[i].checked ) {							//選択されていたら
 									var checkedShipdate = radio[i].value ;			//radioボタンのvalueを取得
+									
+									document.getElementById('estimateCondition').value = checkedShipdate	//親画面に選択した値を遷移
+									
 									break ;
 								}
 							}
-            			 document.getElementById('estimateCondition').value = checkedShipdate
             		 }
             		 
             		 function conditionShow() {
