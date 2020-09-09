@@ -300,8 +300,8 @@ public class OrderInputController extends BaseController {
 		String dcName = nullOrEmpty(request.getParameter("dcName"));
 		String dcTimezone = nullOrEmpty(request.getParameter("dcTimezone"));
 		String ctaxRate = nullOrEmpty(request.getParameter("ctaxRate"));
-		String customerCode = request.getParameter("customerCode");
-		String customerName = nullOrEmpty(request.getParameter("customerName"));
+		String customerCode = request.getParameter("customerCodeInput");
+		String customerName = nullOrEmpty(request.getParameter("customerNameInput"));
 		String taxShiftCategory = nullOrEmpty(request.getParameter("taxShiftCategory"));
 		String cutoffGroup = nullOrEmpty(request.getParameter("cutoffGroup"));
 		String salesCmCategory = nullOrEmpty(request.getParameter("salesCmCategory"));
