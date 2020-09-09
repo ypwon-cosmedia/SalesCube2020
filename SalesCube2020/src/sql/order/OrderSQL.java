@@ -1236,6 +1236,10 @@ public class OrderSQL {
 	/* 商品コード→明細 */
 	public String productToDetail(String productCode) {
 		
+		if(productCode.equals("") || productCode == null) {
+			productCode = "''";
+		}
+		
 		String sql;
 		
 		sql = "SELECT " + 

@@ -19,7 +19,7 @@
 								<div class="input-group-prepend">
 									<div class="input-group-text">見積番号</div>
 								</div>
-								<input type="text"  class="form-control" id="inputEstimateSheetId" name="inputEstimateSheetId">
+								<input type="text"  class="form-control" id="inputEstimateSheetId" name="inputEstimateSheetId" onKeyup="this.value=this.value.replace(/[^0-9]/g,'');" maxlength=32>
 							</div>
 						</div>
 					</div>
@@ -30,7 +30,7 @@
 								<div class="input-group-prepend">
 									<div class="input-group-text">見積日</div>
 								</div>
-							<input type="date"  class="form-control" id="inputEstimateDate1" name="inputEstimateDate1">
+							<input type="date"  class="form-control" id="inputEstimateDate1" name="inputEstimateDate1" max='9999-12-31'>
 							</div>
 						</div>
 						~
@@ -38,7 +38,7 @@
 							<label class="sr-only" for="inlineFormInputGroup"></label>
 							<div class="input-group mb-2">
 	
-							<input type="date"  class="form-control" id="inputEstimateDate2" name="inputEstimateDate2">
+							<input type="date"  class="form-control" id="inputEstimateDate2" name="inputEstimateDate2" max='9999-12-31'>
 							</div>
 						</div>
 					</div>
@@ -49,7 +49,7 @@
 								<div class="input-group-prepend">
 									   <div class="input-group-text">提出先名</div>
 								</div>
-								<input type="text" class="form-control" id="inputSubmitName" name="inputSubmitName">
+								<input type="text" class="form-control" id="inputSubmitName" name="inputSubmitName" maxlength=60>
 							</div>
 						</div>
 						<div class="col-4">
@@ -58,7 +58,7 @@
 								<div class="input-group-prepend">
 									<div class="input-group-text">件名</div>
 								</div>
-								<input type="text"  class="form-control" id="inputTitle" name="inputTitle">
+								<input type="text"  class="form-control" id="inputTitle" name="inputTitle" maxlength=100>
 							</div>
 						</div>                   
 					</div>
@@ -152,6 +152,8 @@
 			target4.value = null;
 			target5 = document.getElementById("inputTitle");
 			target5.value = null;
+			
+			document.getElementById("searchResult").innerHTML = 0;
 	}
 	
 </script>

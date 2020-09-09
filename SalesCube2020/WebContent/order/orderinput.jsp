@@ -838,7 +838,10 @@
 				/* 粗利益率 : (粗利益/金額合計)*100 */
 				target = document.getElementById("grossProfitRatio");
 				if((sum4 - sum3) != null && (sum4 - sum3) !="" && sum2 != null && sum2 != ""){
-					target.innerHTML = Math.floor(( (sum4 - sum3) / sum2) * 100 * 100) / 100 + '%';
+					target.innerHTML = Math.floor(( (sum4 - sum3) / sum2) * 100 * 100) / 100 + '%';					
+				}
+				if(sum2 == 0 || sum2 == '0'){
+					target.innerHTML = '0%';
 				}
 
 				/* 消費税 : 金額合計*消費税率 */
@@ -925,76 +928,78 @@
 				globalTmp = obj.id;
 				var tableNo = globalTmp.substr(16);
 				var inputProductCode = document.getElementById("productCodeInput" + tableNo).value;
-				document.getElementById("productName" + tableNo).innerHTML = "";
-				document.getElementById("rackCode" + tableNo).value = "";
-				document.getElementById("unitCost" + tableNo).value = "";
-				document.getElementById("unitRetailPrice" + tableNo).value = "";
-				document.getElementById("inputProductRemarks" + tableNo).innerText = "";
-				document.getElementById("quantity" + tableNo).value = "";
-				document.getElementById("productRemarks" + tableNo).innerText = "";
-				document.getElementById("cost" + tableNo).value = "";
-				document.getElementById("retailPrice" + tableNo).value = "";
-				document.getElementById("eadRemarks" + tableNo).innerText = "";
-				$.ajax({
-					type: "post",
-					url: '/SalesCube2020/SalesCubeAJAX?action=pcodetoinfo',
-					data: {"productCode": inputProductCode },
-					dataType: 'json',
-					success: function(data){
-						if(data.productName == null || data.productName == ""){
-							alert("該当する商品情報は存在しません");
-						} else {
-						document.getElementById('productName' + tableNo).innerHTML = data.productName;
+					document.getElementById("productName" + tableNo).innerHTML = "";
+					document.getElementById("rackCode" + tableNo).value = "";
+					document.getElementById("unitCost" + tableNo).value = "";
+					document.getElementById("unitRetailPrice" + tableNo).value = "";
+					document.getElementById("inputProductRemarks" + tableNo).innerText = "";
+					document.getElementById("quantity" + tableNo).value = "";
+					document.getElementById("productRemarks" + tableNo).innerText = "";
+					document.getElementById("cost" + tableNo).value = "";
+					document.getElementById("retailPrice" + tableNo).value = "";
+					document.getElementById("eadRemarks" + tableNo).innerText = "";
+					$.ajax({
+						type: "post",
+						url: '/SalesCube2020/SalesCubeAJAX?action=pcodetoinfo',
+						data: {"productCode": inputProductCode },
+						dataType: 'json',
+						success: function(data){
+							if(data.productName == null || data.productName == ""){
+								if(inputProductCode != "")
+									alert("該当する商品情報は存在しません");
+							} else {
+							document.getElementById('productName' + tableNo).innerHTML = data.productName;
+							}
+							if(data.rackCode == null || data.rackCode == ""){
+								data.rackCode = "";
+							}else {
+								document.getElementById('rackCode' + tableNo).value = data.rackCode;
+							}
+							if(data.unitCost == null || data.unitCost == ""){
+								data.unitCost = "";
+								
+							}else {
+								document.getElementById('unitCost' + tableNo).value = data.unitCost;
+							}
+							if(data.unitRetailPrice == null || data.unitRetailPrice == ""){
+								data.unitRetailPrice = "";
+							}else {
+								document.getElementById('unitRetailPrice' + tableNo).value = data.unitRetailPrice;
+							}
+							if(data.inputProductRemarks == null || data.inputProductRemarks == ""){
+								data.inputProductRemarks = "";
+							}else {
+								document.getElementById('inputProductRemarks' + tableNo).innerHTML = data.inputProductRemarks;
+							}
+							if(data.quantity == null || data.quantity == ""){
+								data.quantity = "";
+							}else {
+								document.getElementById('quantity' + tableNo).value = data.quantity;
+							}
+							if(data.productRemarks == null || data.productRemarks == ""){
+								data.productRemarks = "";
+							}else {
+								document.getElementById('productRemarks' + tableNo).innerHTML = data.productRemarks;
+							}
+							if(data.cost == null || data.cost == ""){
+								data.cost = "";
+							}else {
+								document.getElementById('cost' + tableNo).value = data.cost;
+							}
+							if(data.retailPrice == null || data.retailPrice == ""){
+								data.retailPrice = "";
+							}else {
+								document.getElementById('retailPrice' + tableNo).value = data.retailPrice;
+							}
+							if(data.eadRemarks == null || data.eadRemarks == ""){
+								data.eadRemarks = "";
+							}else {
+								document.getElementById('eadRemarks' + tableNo).innerHTML = data.eadRemarks;
+							}
+							calc();
 						}
-						if(data.rackCode == null || data.rackCode == ""){
-							data.rackCode = "";
-						}else {
-							document.getElementById('rackCode' + tableNo).value = data.rackCode;
-						}
-						if(data.unitCost == null || data.unitCost == ""){
-							data.unitCost = "";
-							
-						}else {
-							document.getElementById('unitCost' + tableNo).value = data.unitCost;
-						}
-						if(data.unitRetailPrice == null || data.unitRetailPrice == ""){
-							data.unitRetailPrice = "";
-						}else {
-							document.getElementById('unitRetailPrice' + tableNo).value = data.unitRetailPrice;
-						}
-						if(data.inputProductRemarks == null || data.inputProductRemarks == ""){
-							data.inputProductRemarks = "";
-						}else {
-							document.getElementById('inputProductRemarks' + tableNo).innerHTML = data.inputProductRemarks;
-						}
-						if(data.quantity == null || data.quantity == ""){
-							data.quantity = "";
-						}else {
-							document.getElementById('quantity' + tableNo).value = data.quantity;
-						}
-						if(data.productRemarks == null || data.productRemarks == ""){
-							data.productRemarks = "";
-						}else {
-							document.getElementById('productRemarks' + tableNo).innerHTML = data.productRemarks;
-						}
-						if(data.cost == null || data.cost == ""){
-							data.cost = "";
-						}else {
-							document.getElementById('cost' + tableNo).value = data.cost;
-						}
-						if(data.retailPrice == null || data.retailPrice == ""){
-							data.retailPrice = "";
-						}else {
-							document.getElementById('retailPrice' + tableNo).value = data.retailPrice;
-						}
-						if(data.eadRemarks == null || data.eadRemarks == ""){
-							data.eadRemarks = "";
-						}else {
-							document.getElementById('eadRemarks' + tableNo).innerHTML = data.eadRemarks;
-						}
-						calc();
-					}
-				});
+					});
+				
 			}
 
 			/* 顧客コードから顧客・納入先情報 ajax */
