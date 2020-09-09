@@ -18,6 +18,7 @@ import javax.servlet.ServletException;
 import javax.servlet.annotation.MultipartConfig;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 import javax.servlet.http.Part;
 
 import common.controller.BaseController;
@@ -43,6 +44,15 @@ public class OrderOnlineController extends BaseController{
 		
 		int maxNum = 0;
 		int minNum = 100;
+		
+		HttpSession session = request.getSession(true);
+		
+		if(session.getAttribute("userInfo") == null) {
+			String message = "ログインした後で利用できます。\nログインしてください。";
+			request.setAttribute("loginError", message);
+			return "login.jsp";
+		}
+		
 		Part filePart = request.getPart("uploadcsv");
 		
 		OrderOnlineDAO dao = new OrderOnlineDAO();

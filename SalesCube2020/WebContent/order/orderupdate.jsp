@@ -967,7 +967,7 @@
 				document.getElementById("unitRetailPrice" + tableNo).value = "";
 				document.getElementById("inputProductRemarks" + tableNo).innerText = "";
 				document.getElementById("quantity" + tableNo).value = "";
-				document.getElementById("productRemarks" + tableNo).innerText = "";
+				document.getElementById("productRemarks" + tableNo).value = "";
 				document.getElementById("cost" + tableNo).value = "";
 				document.getElementById("retailPrice" + tableNo).value = "";
 				document.getElementById("eadRemarks" + tableNo).innerText = "";

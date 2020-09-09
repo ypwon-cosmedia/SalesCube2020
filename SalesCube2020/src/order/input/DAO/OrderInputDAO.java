@@ -778,9 +778,7 @@ public class OrderInputDAO extends BaseDAO{
 	 	OrderSQL ordersql = new OrderSQL();
 	 	sql = ordersql.moveOrderUpdateDetail(roSlipId);
 	 	
-	 	System.out.println(sql);
 	 	result = stmt.executeQuery(sql);
-	 	System.out.println(sql);
 	 	
 	 	while (result.next()) {
 	 		OrderInputBean bean = new OrderInputBean();
