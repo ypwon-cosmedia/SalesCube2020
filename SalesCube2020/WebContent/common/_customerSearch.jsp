@@ -149,7 +149,7 @@
             var searchButtonCheck = document.getElementById("modalCustomerSearchButton");	//検索ボタンをidで取得
             //target.addEventListener(type, listener, wantsUntrusted);
             searchButtonCheck.addEventListener("click", function() {		//検索ボタンを押したときのEventを追加
-            	if( elem.reportValidity() == true ){					//form(elem)のpatternの確認
+            	if( elemCheck.reportValidity() == true ){					//form(elem)のpatternの確認
             		customerSearch1();								//入力チェックが通った場合、顧客を検索を行う
             	}
             },false);
