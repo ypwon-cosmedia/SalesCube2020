@@ -976,10 +976,10 @@
 							}else {
 								document.getElementById('quantity' + tableNo).value = data.quantity;
 							}
-							if(data.productRemarks == null || data.productRemarks == ""){
-								data.productRemarks = "";
+							if(data.remarks == null || data.remarks == ""){
+								data.remarks = "";
 							}else {
-								document.getElementById('productRemarks' + tableNo).innerHTML = data.productRemarks;
+								document.getElementById('productRemarks' + tableNo).value = data.remarks;
 							}
 							if(data.cost == null || data.cost == ""){
 								data.cost = "";

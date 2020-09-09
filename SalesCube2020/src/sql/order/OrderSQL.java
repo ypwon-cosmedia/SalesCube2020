@@ -567,7 +567,8 @@ public class OrderSQL {
 					"product_mst_xxxxx AS pmx " + 
 				"USING(PRODUCT_CODE) " + 
 			"WHERE " + 
-				"rltx.RO_SLIP_ID ='" + roSlipId + "'";
+				"rltx.RO_SLIP_ID ='" + roSlipId + "' " +
+			"ORDER BY LINE_NO";
 		
 		return sql;
 		

@@ -115,7 +115,7 @@
 								<div class="input-group-prepend">
 									<div class="input-group-text" style = "background-color: pink;">受注日※</div>
 								</div>
-								<input type="date" value="${order.roDate}"  class="form-control" name="roDate" required>
+								<input type="date" value="${order.roDate}"  class="form-control" name="roDate" max="9999-12-31" required>
 							</div>
 						</div>
 						<div class="col-4">
@@ -124,7 +124,7 @@
 								<div class="input-group-prepend">
 									<div class="input-group-text">出荷日</div>
 								</div>
-								<input type="date" value="${order.shipDate}" name="shipDate" class="form-control">
+								<input type="date" value="${order.shipDate}" name="shipDate" class="form-control" max="9999-12-31">
 							</div>
 						</div>
 					</div>
@@ -135,7 +135,7 @@
 								<div class="input-group-prepend">
 									<div class="input-group-text">納期指定日</div>
 								</div>
-								<input type="date" value="${order.deliveryDate}" name="deliveryDate" class="form-control">
+								<input type="date" value="${order.deliveryDate}" name="deliveryDate" class="form-control" max="9999-12-31">
 							</div>
 						</div>
 						<div class="col-4">
@@ -144,7 +144,7 @@
 								<div class="input-group-prepend">
 									<div class="input-group-text">受付番号</div>
 								</div>
-								<input type="text" value="${order.receptNo}" name="receptNo" class="form-control">
+								<input type="text" value="${order.receptNo}" name="receptNo" class="form-control" maxlength=30>
 							</div>
 						</div>
 						<div class="col-4">
@@ -153,7 +153,7 @@
 								<div class="input-group-prepend">
 									<div class="input-group-text">客先伝票番号</div>
 								</div>
-								<input type="text" value="${order.customerSlipNo}" name="customerSlipNo" class="form-control">
+								<input type="text" value="${order.customerSlipNo}" name="customerSlipNo" class="form-control" maxlength=30>
 							</div>
 						</div>
 					</div>
@@ -173,7 +173,7 @@
 								<div class="input-group-prepend">
 									<div class="input-group-text">摘要</div>
 								</div>
-								<input type="text" value="${order.remarks}" name="remarks" class="form-control">
+								<input type="text" value="${order.remarks}" name="remarks" class="form-control" maxlength=120>
 							</div>
 						</div>
 						<div class="col-4">
@@ -238,7 +238,7 @@
 								<div class="input-group-prepend">
 									<div class="input-group-text" style = "background-color: pink;">顧客コード</div>
 								</div>
-								<input type="text" value="${order.customerCode}" class="form-control" id="customerCodeInput" name="customerCodeInput" onchange="customerInfo()" required>
+								<input type="text" value="${order.customerCode}" class="form-control" id="customerCodeInput" name="customerCodeInput" onchange="customerInfo()" maxlength=15 required>
 								<button type="button" class="btn btn-outline-secondary" data-toggle="modal" data-target="#customerSearch" onclick="customerCodetoModal();getCutoffGroup();">検索</button>
 							</div>
 						</div>
@@ -467,8 +467,8 @@
 					<tr>
 						<td rowspan="6"><span id="tableLineNo${list.lineNo}">${list.lineNo}</span></td>
 						<td rowspan="6">
-							<input type="text" value="${list.productCode}" class="form-control" size="2" style="width:100%" id="productCodeInput${list.lineNo}"  maxlength='20' name="productCodeInput" onchange="pCode(this)" required>
-							<button type="button" class="btn btn-outline-secondary" data-toggle="modal" data-target="#setproductsearch" onclick="productCodetoModal(this);initProductModal();" id="setproductsearch${list.lineNo}">検索</button>
+							<input type="text" value="${list.productCode}" class="form-control" size="2" style="width:100%" id="productCodeInput${list.lineNo}"  maxlength=20 name="productCodeInput" onchange="confirmOverwrite(this);pCode(this);" onfocus="productCodeMemory(this);" required>
+							<button type="button" class="btn btn-outline-secondary" data-toggle="modal" data-target="#setproductsearch" onclick="initProductModal();productCodetoModal(this);" id="setproductsearch${list.lineNo}">検索</button>
 						</td>
 						<td rowspan="3"><input type="text" id="productName${list.lineNo}" class="form-control" name="productName" value="${list.productName}" readonly></td>
 						<td rowspan="2">
@@ -478,10 +478,10 @@
 							<input type="text" value="${list.unitCost}" class="form-control" size="4" name="unitCost" id="unitCost${list.lineNo}" name="unitCost" readonly>
 						</td>
 						<td rowspan="3">
-							<input type="text" value="${list.unitRetailPrice}" class="form-control" size="4" name="unitRetailPrice" id="unitRetailPrice${list.lineNo}" name="unitRetailPrice" onchange="quantityCalc2(this)" required>
+							<input type="text" value="${list.unitRetailPrice}" class="form-control" size="4" name="unitRetailPrice" id="unitRetailPrice${list.lineNo}" name="unitRetailPrice" onchange="quantityCalc2(this)" maxlength=15 onKeyup="this.value=this.value.replace(/[^0-9]/g,'');" required>
 						</td>
 						<td rowspan="3">
-							<textarea name="productRemarks" class="form-control" cols="10" id="inputProductRemarks${list.lineNo}" name="inputProductRemarks">${list.inputProductRemarks}</textarea>
+							<textarea name="productRemarks" class="form-control" cols="10" id="inputProductRemarks${list.lineNo}" name="inputProductRemarks" maxlength=120>${list.inputProductRemarks}</textarea>
 						</td>
 						<td rowspan="3" class="align: middle">
 							<button type="button" class="btn btn-outline-secondary" onclick="deleteLineForm(this);" id="deleteLineForm${list.lineNo}">削除</button>
@@ -490,7 +490,7 @@
 					<tr></tr>
 					<tr>
 						<td rowspan="2">
-							<input type="text" value="${list.quantity}" class="form-control" size="2" name="quantity" id="quantity${list.lineNo}" name="quantity" onchange="quantityCalc1(this)" required>
+							<input type="text" value="${list.quantity}" class="form-control" size="2" name="quantity" id="quantity${list.lineNo}" name="quantity" onchange="quantityCalc1(this)" maxlength=12 onKeyup="this.value=this.value.replace(/[^0-9]/g,'');" required>
 						</td>
 					</tr>
 					<tr>
@@ -504,7 +504,7 @@
 							<input type="text" value="${list.retailPrice}" class="form-control" size="4" name="retailPrice" id="retailPrice${list.lineNo}" name="retailPrice" readonly>
 						</td>
 						<td rowspan="3">
-							<textarea name="eadRemarks" class="form-control" cols="10" id="eadRemarks${list.lineNo}" name="eadRemarks">${list.eadRemarks}</textarea>
+							<textarea name="eadRemarks" class="form-control" cols="10" id="eadRemarks${list.lineNo}" name="eadRemarks" readonly>${list.eadRemarks}</textarea>
 						</td>
 						<td rowspan="3">
 							<button type="button" value="" class="btn btn-outline-secondary" id="reprintForm${list.lineNo}" ${list.lineNo > 1 ? '' :"disabled"} onclick='reprintForm(this);'>前行複写</button>
@@ -567,14 +567,15 @@
 		</div><br>
 	</form>
 
-		<script>
-		
-			window.onload = function() {
+		<script>	
+			var globalTmp;
+			var unchangedProductCode = "";
+			
+			window.onload = function(){
+				disableDelete();
 				calc();
 				customerInfo();
-			};
-			
-			var globalTmp;
+			}
 
 			/* 受注編集の初期化 */
 			function initForm() {
@@ -651,7 +652,7 @@
 
 			/* 更新 */
 			function updateForm() {
-				if(!confirm("入力内容を登録します。よろしいですか？")){
+				if(!confirm("入力内容を更新します。よろしいですか？")){
 			       	return false;
 				}
 			}
@@ -735,21 +736,21 @@
 				$('#order > tbody:last').append('<tr>'
 					+ '<td rowspan="6"><span id="tableLineNo' + tableNo + '">' + tableNo + '</span></td>'
 					+ '<td rowspan="6">'
-						+ '<input type="text" value="" class="form-control" size="2" style="width:100%" name="productCodeInput" id="productCodeInput' + tableNo + '"  onchange="pCode(this)" required>'
-						+ '<button type="button" class="btn btn-outline-secondary" data-toggle="modal" data-target="#setproductsearch" onclick="productCodetoModal(this);initProductModal();" id="setproductsearch' + tableNo + '">検索</button>'
+						+ '<input type="text" value="" class="form-control" size="2" style="width:100%" name="productCodeInput" id="productCodeInput' + tableNo + '"  onchange="confirmOverwrite(this);pCode(this);" onfocus="productCodeMemory(this);" maxlength=20 required>'
+						+ '<button type="button" class="btn btn-outline-secondary" data-toggle="modal" data-target="#setproductsearch" onclick="initProductModal();productCodetoModal(this);" id="setproductsearch' + tableNo + '">検索</button>'
 					+ '</td>'
 					+ '<td rowspan="3"><input type="text" id="productName' + tableNo + '" class="form-control" name="productName" value="${list.productName}" readonly></td>'
 					+ '<td rowspan="2"><input name="rackCode" type="text" value="" class="form-control" size="2" id="rackCode' + tableNo + '" readonly></td>'
 					+ '<td rowspan="3"><input name="unitCost" type="text" value="" class="form-control" size="4" name="unitCost" id="unitCost' + tableNo + '" readonly></td>'
 					+ '<td rowspan="3">'
-						+ '<input type="text" value="" class="form-control" size="4" name="unitRetailPrice" name="unitRetailPrice" id="unitRetailPrice' + tableNo + '" onchange="quantityCalc2(this)" required></td>'
-					+ '<td rowspan="3"><textarea name="productRemarks" class="form-control" cols="10" name="inputProductRemarks" id="inputProductRemarks' + tableNo + '"></textarea></td>'
+						+ '<input type="text" value="" class="form-control" size="4" name="unitRetailPrice" name="unitRetailPrice" id="unitRetailPrice' + tableNo + '" onchange="quantityCalc2(this)" maxlength=15 onKeyup="this.value=this.value.replace(/[^0-9]/g,\'\');" required></td>'
+					+ '<td rowspan="3"><textarea name="productRemarks" class="form-control" cols="10" name="inputProductRemarks" id="inputProductRemarks' + tableNo + '" maxlength=120 ></textarea></td>'
 					+ '<td rowspan="3" class="align: middle"><button type="button" class="btn btn-outline-secondary" onclick="deleteLineForm(this);" id="deleteLineForm' + tableNo + '">削除</button></td>'
 					+ '</tr>'
 					+ '<tr></tr>'
 					+ '<tr>'
 					+ '<td rowspan="2">'
-						+ '<input type="text" value="" class="form-control" size="2" name="quantity" id="quantity' + tableNo + '" onchange="quantityCalc1(this)" required>'
+						+ '<input type="text" value="" class="form-control" size="2" name="quantity" id="quantity' + tableNo + '" onchange="quantityCalc1(this)" maxlength=12 onKeyup="this.value=this.value.replace(/[^0-9]/g,\'\');" required>'
 					+ '</td>'
 					+ '</tr>'
 					+ '<tr>'
@@ -880,7 +881,10 @@
 				/* 粗利益率 : (粗利益/金額合計)*100 */
 				target = document.getElementById("grossProfitRatio");
 				if((sum4 - sum3) != null && (sum4 - sum3) !="" && sum2 != null && sum2 != ""){
-					target.innerHTML = Math.floor( ((sum4 - sum3) / sum2) * 100 * 100) / 100 + '%';
+					target.innerHTML = Math.floor(( (sum4 - sum3) / sum2) * 100 * 100) / 100 + '%';					
+				}
+				if(sum2 == 0 || sum2 == '0'){
+					target.innerHTML = '0%';
 				}
 
 				/* 消費税 : 金額合計*消費税率 */
@@ -918,9 +922,9 @@
 			}
 
 			/* 親画面から顧客モーダルに顧客コード渡す */
-			function customerCodetoModal(obj){
+			function customerCodetoModal(){
 				var customerCode = document.getElementById("customerCodeInput").value;
-				document.getElementById("inputCustomerCode").value = customerCode;
+				document.getElementById("customerCode").value = customerCode;
 			}
 			/* 顧客モーダルから親画面にリンク */
 			function selectCustomerCode(code, name){
@@ -944,7 +948,7 @@
 				globalTmp = obj.id;
 				var tableNo = globalTmp.substr(16);
 				var productCode = document.getElementById("productCodeInput" + tableNo).value;
-				document.getElementById("productCode").value = productCode;
+				document.getElementById("productCode").value = productCode;				
 			}
 			
 			function roSlipLinetoParent(){
@@ -957,7 +961,7 @@
 				globalTmp = obj.id;
 				var tableNo = globalTmp.substr(16);
 				var inputProductCode = document.getElementById("productCodeInput" + tableNo).value;	
-				document.getElementById("productName" + tableNo).innerHTML = "";
+				document.getElementById("productName" + tableNo).value = "";
 				document.getElementById("rackCode" + tableNo).value = "";
 				document.getElementById("unitCost" + tableNo).value = "";
 				document.getElementById("unitRetailPrice" + tableNo).value = "";
@@ -974,9 +978,10 @@
 					dataType: 'json',
 					success: function(data){
 						if(data.productName == null || data.productName == ""){
-							alert("該当する商品情報は存在しません");
+							if(inputProductCode != "")
+								alert("該当する商品情報は存在しません");
 						} else {
-						document.getElementById('productName' + tableNo).innerHTML = data.productName;
+							document.getElementById('productName' + tableNo).value = data.productName;
 						}
 						if(data.rackCode == null || data.rackCode == ""){
 							data.rackCode = "";
@@ -1004,10 +1009,10 @@
 						}else {
 							document.getElementById('quantity' + tableNo).value = data.quantity;
 						}
-						if(data.productRemarks == null || data.productRemarks == ""){
-							data.productRemarks = "";
+						if(data.remarks == null || data.remarks == ""){
+							data.remarks = "";
 						}else {
-							document.getElementById('productRemarks' + tableNo).innerHTML = data.productRemarks;
+							document.getElementById('productRemarks' + tableNo).value = data.remarks;
 						}
 						if(data.cost == null || data.cost == ""){
 							data.cost = "";
@@ -1033,7 +1038,7 @@
 			function customerInfo() {
 				var cCode = document.getElementById("customerCodeInput").value;
 				$("#deliveryName > option").remove();
-				document.getElementById("customerName").value = "";
+				document.getElementById("customerNameInput").value = "";
 				document.getElementById("taxShiftCategory").value = "";
 				document.getElementById("cutoffGroup").value = "";
 				document.getElementById("salesCmCategory").value = "";
@@ -1253,7 +1258,29 @@
 		shortcut.add("F6", function(){
 			document.getElementById("billopen").click();
 		});
-			
+		
+		function disableDelete(){
+			document.getElementById("deleteLineForm1").setAttribute("disabled", "disabled");
+		}
+		
+		function productCodeMemory(obj){
+			globalTmp = obj.id;
+			var tableNo = globalTmp.substr(16);
+			unchangedProductCode = document.getElementById("productCodeInput" + tableNo).value;
+		}
+		
+		function confirmOverwrite(obj){
+			globalTmp = obj.id;
+			var tableNo = globalTmp.substr(16);
+			if(unchangedProductCode == ''){
+
+			}else {
+				if(!confirm("明細が入力されています。上書きしますか？")) {
+					document.getElementById("productCodeInput" + tableNo).value = unchangedProductCode;
+					return;
+				}
+			}	
+		}
 		</script>
 	</body>
 </html>

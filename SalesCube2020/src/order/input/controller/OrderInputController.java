@@ -293,7 +293,7 @@ public class OrderInputController extends BaseController {
 		String roDate = nullOrEmpty(request.getParameter("roDate"));
 		String shipDate = nullOrEmpty(request.getParameter("shipDate"));
 		String deliveryDate = nullOrEmpty(request.getParameter("deliveryDate"));
-		String ReceptNo = nullOrEmpty(request.getParameter("ReceptNo"));
+		String ReceptNo = nullOrEmpty(request.getParameter("receptNo"));
 		String customerSlipNo = nullOrEmpty(request.getParameter("customerSlipNo"));
 		String userName = nullOrEmpty(request.getParameter("userName"));
 		String remarks = nullOrEmpty(request.getParameter("remarks"));

@@ -99,6 +99,8 @@ public class OrderInputDAO extends BaseDAO{
 	 	try {
 	 		result = stmt.executeUpdate(sql1);
 	 		con.commit();
+	 		result = stmt.executeUpdate(sql2);
+	 		con.commit();
 	 	}catch(SQLException e) {
 	 		result2 = 1;
 	 	}finally {
