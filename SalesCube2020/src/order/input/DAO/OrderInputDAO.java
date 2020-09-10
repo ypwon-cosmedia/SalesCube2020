@@ -99,6 +99,8 @@ public class OrderInputDAO extends BaseDAO{
 	 	try {
 	 		result = stmt.executeUpdate(sql1);
 	 		con.commit();
+	 		result = stmt.executeUpdate(sql2);
+	 		con.commit();
 	 	}catch(SQLException e) {
 	 		result2 = 1;
 	 	}finally {
@@ -776,9 +778,7 @@ public class OrderInputDAO extends BaseDAO{
 	 	OrderSQL ordersql = new OrderSQL();
 	 	sql = ordersql.moveOrderUpdateDetail(roSlipId);
 	 	
-	 	System.out.println(sql);
 	 	result = stmt.executeQuery(sql);
-	 	System.out.println(sql);
 	 	
 	 	while (result.next()) {
 	 		OrderInputBean bean = new OrderInputBean();
