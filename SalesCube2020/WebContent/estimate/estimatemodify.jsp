@@ -437,7 +437,7 @@
 						</tr>
 						
 						<tr>
-							<td class="backpink"><button type="button" class="btn btn-primary table-button" data-toggle="modal" data-target="#openSearchStock" id="openSearchStock${status.count}" onclick="openStock(this);" disabled="disabled">在庫</button></td>
+							<td class="backpink"><button type="button" class="btn btn-primary table-button" data-toggle="modal" data-target="#openSearchStock" id="openSearchStock${status.count}" onclick="openStock(this);">在庫</button></td>
 							<td><input type="text" name="cost" value="${product.cost}" style="background-color:rgb(177, 177, 177); width: 75px;" id="cost${status.count}" readonly></td>
 							<td class="backpink"><input type="text" name="retailPrice" value="${product.retailPrice}" id="retailPrice${status.count}" style="width: 75px; background-color:rgb(177, 177, 177);" readonly></td>
 							<td><button type="button" class="btn btn-primary table-button" onclick="previousCopy(this)"  id="previousCopy${status.count}">前行複写</button></td>
