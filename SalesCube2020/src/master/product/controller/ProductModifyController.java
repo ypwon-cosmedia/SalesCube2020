@@ -182,10 +182,12 @@ public class ProductModifyController extends BaseController{
 			
 			ProductModifyDAO dao = new ProductModifyDAO();
 			int result = dao.modifyProduct(bean);
-			int result2 = dao.modifyProductDiscount(productCode, discountId);
+			if(discountId != null) {
+				dao.modifyProductDiscount(productCode, discountId);
+			}
 
 			
-			if( result == 0 || result2 == 0) {
+			if( result == 0) {
 				String message = "�ύX�ł��܂���ł���";
 				request.setAttribute("addmodifyError", message);
 			}else{
