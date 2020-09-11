@@ -1,7 +1,9 @@
 package estimate.Search.controller;
 
+import java.io.BufferedOutputStream;
 import java.io.BufferedWriter;
 import java.io.File;
+import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.OutputStreamWriter;
@@ -75,8 +77,7 @@ public class EstimateSearchAJAXController extends BaseAJAXController{
 			String sort = request.getParameter("sorting");
 			String upDown = request.getParameter("updown");
 			
-			System.out.println(sort);
-			if(sort == null)
+			
 				sort = "estimateSheetId";
 			
 			String rowcount =null;
@@ -95,8 +96,8 @@ public class EstimateSearchAJAXController extends BaseAJAXController{
 	        while( file.exists() ){
 	        	file = new File("C:/Users/cosmedia/Desktop/estiamteSearchResult("+ k +").csv");
 	        		k++;
-	        }
-	        
+	        }	        
+
 	        PrintWriter p = new PrintWriter( new BufferedWriter( new OutputStreamWriter( new FileOutputStream(file, false),"SJIS")));
 
 			
@@ -123,8 +124,33 @@ public class EstimateSearchAJAXController extends BaseAJAXController{
 			}
 
 			p.close();
-			
 		
+			
+			 //Excelをクライアント側でダウンロード 
+	        FileInputStream fis = null;
+	        BufferedOutputStream bos = null;
+	        
+	        //クライアント側に送信するExcelを取得
+            response.setContentType(file.getAbsolutePath());
+            
+            //Excel名をヘッダーに加える
+            response.addHeader("Content-Disposition", "attachment; filename="+file.getName()+".csv");
+            
+            //バイト数計算
+            fis = new FileInputStream(file);
+            int size = fis.available(); 
+            byte[] buf = new byte[size]; 
+            int readCount = fis.read(buf);
+
+            response.flushBuffer();
+            bos = new BufferedOutputStream(response.getOutputStream());
+            bos.write(buf, 0, readCount);
+            bos.flush();
+            
+            if (fis != null) fis.close(); 
+			if (bos != null) bos.close();
+			
+			
 		} catch (IOException e) {
 			e.printStackTrace();
 			System.out.println("IOException");
