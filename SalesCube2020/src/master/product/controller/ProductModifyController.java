@@ -188,10 +188,10 @@ public class ProductModifyController extends BaseController{
 
 			
 			if( result == 0) {
-				String message = "�ύX�ł��܂���ł���";
+				String message = "編集できませんでした。<br>";
 				request.setAttribute("addmodifyError", message);
 			}else{
-				String message = "�ύX���������܂���";
+				String message = "編集が完了しました。<br>";
 				request.setAttribute("addmodifysuccess", message);
 			}
 		}catch(NumberFormatException e) {
