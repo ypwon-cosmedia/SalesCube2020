@@ -149,7 +149,7 @@ public class EstimateSearchAJAXController extends BaseAJAXController{
             
             if (fis != null) fis.close(); 
 			if (bos != null) bos.close();
-			
+			System.out.println("成功");
 			
 		} catch (IOException e) {
 			e.printStackTrace();
