@@ -91,7 +91,6 @@ public class ProductAddController extends BaseController {
 		String roMaxNum = nullOrEmpty(request.getParameter("roMaxNum"));
 		String retailPrice = nullOrEmpty(request.getParameter("retailPrice"));
 		String discountId = nullOrEmpty(request.getParameter("discountId"));
-		System.out.println(discountId);
 		String productStatusCategory = nullOrEmpty(request.getParameter("productStatusCategory"));
 		String productStockCategory = nullOrEmpty(request.getParameter("productStockCategory"));
 		String productPurvayCategory = nullOrEmpty(request.getParameter("productPurvayCategory"));
@@ -350,9 +349,11 @@ public class ProductAddController extends BaseController {
 		
 			ProductAddDAO dao = new ProductAddDAO();
 			int result = dao.addProduct(bean);
-			int result2 = dao.addProductDiscount(productCode, discountId);
+			if(discountId != null) {
+				dao.addProductDiscount(productCode, discountId);
+			}
 		
-			if(result==0 || result2==0){
+			if(result==0){
 				String message = "登録できませんでした。<br>";
 				request.setAttribute("addmodifyError", message);
 			}else{

@@ -150,8 +150,8 @@
         
           <div class="btn-group mr-2 " role="group" aria-label="First group">
             <button type="button" class="btn btn-secondary" style="font-size: 12px;" onclick="initForm()">F1<br>初期化</button>
-            <button type="button" class="btn btn-secondary" style="font-size: 12px;" id="estimateButton" onclick="estimateSearch()">F2<br>検索</button>
-            <button type="button" class="btn btn-secondary" style="font-size: 12px;" onclick="excelOut()" id="csvDownloadButton">F3<br>Excel出力</button>
+            <button type="button" class="btn btn-secondary" style="font-size: 12px;" id="estimateFuncButton" >F2<br>検索</button>
+            <button type="button" class="btn btn-secondary" style="font-size: 12px;" id="excelButton" onclick="excelOut()" disabled>F3<br>Excel出力</button>
             <button type="button" class="btn btn-secondary" style="font-size: 12px;" data-toggle="modal" data-target="#setSlipConfiguration" onclick="configGet() ; initButton()">F4<br>設定</button>
             <button type="button" class="btn btn-secondary" style="font-size: 12px;" disabled>F5<br></button>
             <button type="button" class="btn btn-secondary" style="font-size: 12px;" disabled>F6<br></button>
@@ -164,12 +164,13 @@
           </div>
         </div>
         <br><br><br>
-      </div>
+      
       
        <!-- 検索部エラーメッセージ表示 -->
        <div id="estimateSearchError"></div>
 
-      <br><br>
+      	<br>
+      </div>
       
     <form action="" method="post" id="estimate">
       <div class="container panel panel-default" style="background-color: white;">
@@ -317,7 +318,7 @@
 
             <div class="rounded float-right">
               <button type="button" class="btn btn-primary" onclick="initForm()">初期化</button>
-              <input type="button" value="検索" class="btn btn-primary" id="estimateButton" onclick="estimateSearch()">
+              <input type="button" value="検索" class="btn btn-primary" id="estimateButton"">
             </div><br>
           <br>
         </div><br>
@@ -387,11 +388,15 @@
 			</tbody>
 		</table>
 	</div>
+	
+	<form name="moveEstimateModify" action="/SalesCube2020/SalesCube?action=moveEstimateModify" method="post">
+		<input type="hidden" name="estimateSheetId" id="moveEstMod">
+	</form>
       
       
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.2/jquery.min.js"></script>
 <script>	  
-
+	
 	 var sortOrder = "";
 	 var sort;  
      var upDown;
@@ -405,17 +410,26 @@
     	 estimateElem.reportValidity();								//form(elem)のpatternの確認
      });
      //検索ボタンを押した際の入力チェック 
-     var estimateSearchButton = document.getElementById("estimateButton");	//検索ボタンをidで取得
+     var estimateFuncSearchButton = document.getElementById("estimateFuncButton");	//検索ボタンをidで取得
+     var estimateSearchButton = document.getElementById("estimateButton");
+     
      //target.addEventListener(type, listener, wantsUntrusted);
+     //F3 検索ボタン
      estimateSearchButton.addEventListener("click", function() {		//検索ボタンを押したときのEventを追加
      	if( estimateElem.reportValidity() == true ){					//form(elem)のpatternの確認
-     		estimateSearch2();								//入力チェックが通った場合、見積を検索を行う
+     		 estimateSearch();								//入力チェックが通った場合、見積を検索を行う
      	}
      },false);
      
+     //検索ボタン
+     estimateFuncSearchButton.addEventListener("click", function() {		//検索ボタンを押したときのEventを追加
+      	if( estimateElem.reportValidity() == true ){					//form(elem)のpatternの確認
+      		 estimateSearch();								//入力チェックが通った場合、見積を検索を行う
+      	}
+      },false);
+     
      
 	  //初期化処理
-	  
 	  window.onload = function(){
 		  configGet(); 
 		  initButton();
@@ -442,7 +456,7 @@
 					data:formString,
 					dataType:'json',
 					success:function(data){	
-											
+					
 					}
 				});
 	    	}
@@ -461,8 +475,8 @@
      		document.getElementById('UserModalUserId').value = id;
      		document.getElementById('UserModalNameKnj').value = name;
      	}
-		      
-		      
+	     
+
 	   	//見積検索結果（見出し部）
 	    function estimateSearch1() {
 	   	 var formString = $("form[id=estimate]").serialize();
@@ -527,11 +541,7 @@
 				     if((Math.floor(data.count.count)) % $("#rowCount").val() != 0)
 				    	 maxPageNo++;
 				     maxPageNo = Math.floor(maxPageNo);
-				     
-				  
-				     
-				     var beforeFlag;
-				     var nextFlag;
+
 				     
 					//ソート処理
 					if(sortOrder == itemId){
@@ -542,18 +552,6 @@
 					
 		    //ページング処理
 							
-					//「次へ」と「前へ」追加フラグ処理
-					if(pageNum == 1) {
-						beforeFlag = 0;
-						nextFlag = 1;
-					} else if(pageNum == TotalPage){
-						beforeFlag = 1;
-						nextFlag = 0;
-					} else{
-						beforeFlag = 1;
-						nextFlag = 1;
-					}
-				
 
 					//最小表示ページNo計算
 					if(pageNum < 6){
@@ -578,12 +576,12 @@
 					$("#paging").empty();
 					//前へ表示フラグ
 					if(pageNum != 1){
-						$('#paging').append('<a href="javascript:void(0);" id="beforePage" onclick="paging(' + (pageNum-1) + ')">前へ</a>');
+						$('#paging').append('<a href="javascript:void(0);" onclick="paging(' + (pageNum-1) + ')">前へ</a>');
 					}
 					
 					
 					//ページ番号取得
-					var showNum = pageNum;;
+					var showNum = pageNum;
 					
 					
 					if(showNum % MaxShowPage){
@@ -594,7 +592,11 @@
 						if(showNum > maxPageNo) break;
 						if(showNum<1){}
 						else{
+							if(showNum == pageNum){
+								$('#paging').append('<a style="color:#DC143C">' + showNum + '</a>');
+							}else{
 							$('#paging').append('<a href="javascript:void(0);" onclick="paging(' + showNum + ')">' + showNum + '</a>');
+							}
 						}
 						showNum++;
 					}
@@ -602,9 +604,11 @@
 					
 					//次へ表示フラグ
 					if(pageNum != maxPageNo){
-						$('#paging').append('<a href="javascript:void(0);" id="nextPage" onclick="paging(' + (pageNum+1) +')">次へ</a>');
+						$('#paging').append('<a href="javascript:void(0);"  onclick="paging(' + (pageNum+1) +')">次へ</a>');
 					}
-				
+					
+					
+					
 					
 					document.getElementById("resultCount").removeAttribute('hidden');//検索件数の表示
 					document.getElementById("resultEstimate").removeAttribute('hidden');//テーブルの表示
@@ -631,11 +635,17 @@
 	   		 			
 	   		 			document.getElementById("estimateSearchResultCount").removeAttribute('hidden');//検索結果件数の表示
 	   		 			
+	   		 			document.getElementById("excelButton").disabled = false;	//Excelボタンの表示
+	   		 
 						for(var i = 0; i < Object.keys(data.result).length; i++) {
 							var headcontents= '';
 							headcontents += '<tr>';
 							
-							for(var j = 0; j < document.getElementById("showSearchResult").options.length+1; j++) {
+							var estId = Object.keys(data.result[i])[0];
+		
+							headcontents += '<td style="white-space: normal; text-align: left;" ><a href="javascript:void(0)" onclick="selectEstimateSheetId('+data.result[i][estId]+')">'+data.result[i][estId]+'</a></td>';
+							
+							for(var j = 1; j < document.getElementById("showSearchResult").options.length+1; j++) {
 								headcontents += '<td style="white-space: normal; text-align: left;"> '
 								var tmp = Object.keys(data.result[i])[j];
 								headcontents += (data.result[i][tmp] == null ? "" : data.result[i][tmp]);
@@ -677,6 +687,14 @@
 	    	pageNum = selectPageNum;
 			
 	    	estimateSearch2();
+	    }
+	    
+	    
+	    //見積編集画面遷移
+	    function selectEstimateSheetId(estId) {
+			document.getElementById('moveEstMod').value = estId;
+			
+			document.moveEstimateModify.submit();
 	    }
 	   
 	

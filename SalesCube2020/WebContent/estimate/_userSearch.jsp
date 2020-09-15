@@ -20,7 +20,7 @@
                             <span aria-hidden="true">&times;</span>
                         </button>
                 </div>
-                
+           <div class="modal-body">     
                 <!-- 検索部エラーメッセージ表示 -->
                 <div id="userSearchError"></div>
                 
@@ -33,7 +33,7 @@
                </form>
                 
                 <form action="" method="post" id="user">
-                    <div class="modal-body">
+                    
                       <div class="row">
                         <div class="col-4">
                           <label class="sr-only" for="inlineFormInputGroup">userId</label>
@@ -98,17 +98,17 @@
                             </div>
                         </div>
                       </div>
-                    </div>
                   
 
                     <div class="rounded float-right">
                       <button type="button" class="btn btn-primary" onclick="initUser()">初期化</button>&ensp;
-                      <input type="button" value="検索" class="btn btn-primary" id="modalUserSearchButton" onclick="userSearch1()">&ensp;
+                      <input type="button" value="検索" class="btn btn-primary" id="modalUserSearchButton" onclick="">&ensp;
                     </div>
                     <br>
                     <br>
                 </form>
-
+			  </div>
+                  
 
                 <div id="resultUser" hidden="hidden">
                     <div class="modal-body">
@@ -239,6 +239,7 @@
 				type:'post',
 				data:formString,
 				dataType:'json',
+				
 				success:function(data){	
 					document.getElementById("resultUser").removeAttribute('hidden');//テーブルの表示
 					$("#userResult > tr").remove();

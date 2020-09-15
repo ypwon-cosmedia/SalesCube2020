@@ -18,6 +18,8 @@
                             <span aria-hidden="true">&times;</span>
                         </button>
                 </div>
+                
+           <div class="modal-body">     
                 <!-- 検索部エラーメッセージ表示 -->
                 <div id="customerSearchError"></div>
                 
@@ -26,7 +28,6 @@
                </form>
                
                 <form action="" method="post" id="customer" >
-                    <div class="modal-body">
                       <div class="row">
                         <div class="col-4">
                           <label class="sr-only" for="inlineFormInputGroup">customerCode</label>
@@ -79,16 +80,17 @@
                             </div>
                         </div>
                       </div>
-                    </div>
+                   
                     
               
                     <div class="rounded float-right">
                       <button type="button" class="btn btn-primary" onclick="initCustomer()">初期化</button>&ensp;
-                      <input type="button" value="検索" class="btn btn-primary" id="modalCustomerSearchButton" onclick="customerSearch1()">&ensp;&ensp;
+                      <input type="button" value="検索" class="btn btn-primary" id="modalCustomerSearchButton" onclick="">&ensp;&ensp;
                     </div>
                     <br>
                     <br>
                 </form>
+               </div>
 
                   <div id="resultCustomer" hidden="hidden">
                     <div class="modal-body">
