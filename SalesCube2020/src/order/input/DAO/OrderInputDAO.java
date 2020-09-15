@@ -6,11 +6,14 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.MissingResourceException;
 import java.sql.PreparedStatement;
 
 
 import common.dao.BaseDAO;
+import estimate.Input.beans.InitEstimateProductBean;
 import order.input.beans.OrderInputBean;
+import order.input.beans.OrderInputProductBean;
 import sql.order.OrderSQL;
 
 public class OrderInputDAO extends BaseDAO{
@@ -1164,4 +1167,60 @@ public class OrderInputDAO extends BaseDAO{
 	 	return list;
 	}
 
+	public List<InitEstimateProductBean> getEstimateProduct(String estimateID) {
+		
+		List<InitEstimateProductBean> list = new ArrayList<InitEstimateProductBean>();
+		
+		Connection con;
+	 	Statement stmt = null;
+	 	ResultSet result = null;
+	 	
+		String sql = "select " + 
+				"eltx.LINE_NO, " + 
+				"eltx.PRODUCT_CODE, " + 
+				"eltx.PRODUCT_ABSTRACT, " + 
+				"eltx.QUANTITY, " + 
+				"eltx.UNIT_COST, " + 
+				"eltx.COST, " + 
+				"eltx.UNIT_RETAIL_PRICE, " + 
+				"eltx.RETAIL_PRICE, " + 
+				"pmx.REMARKS, " + 
+				"pmx.EAD_REMARKS " +
+				"from " + 
+				"estimate_line_trn_xxxxx as eltx " +
+				"left outer join " +
+				"product_mst_xxxxx as pmx " +
+				"using(product_code)" +
+				"where " + 
+				"ESTIMATE_SHEET_ID = '" + estimateID + "'";
+		
+		try {
+			con = super.getConnection();
+			stmt = con.createStatement();
+		 	
+		 	result = stmt.executeQuery(sql);
+		 	
+		 	while (result.next()) {
+		 		OrderInputProductBean bean = new OrderInputProductBean();
+		 		bean.setLineNo(Integer.parseInt(result.getString("eltx.LINE_NO")));
+		 		bean.setProductCode(result.getString("eltx.PRODUCT_CODE"));
+		 		bean.setProductAbstract(result.getString("eltx.PRODUCT_ABSTRACT"));
+		 		bean.setQuantity(result.getInt("eltx.QUANTITY"));
+		 		bean.setUnitCost(result.getInt("eltx.UNIT_COST"));
+		 		bean.setCost(result.getInt("eltx.COST"));
+		 		bean.setUnitRetailPrice(result.getInt("eltx.UNIT_RETAIL_PRICE"));
+		 		bean.setRetailPrice(result.getInt("eltx.RETAIL_PRICE"));
+		 		bean.setProductRemarks(result.getString("pmx.REMARKS"));
+		 		bean.setEadRemarks(result.getString("pmx.EAD_REMARKS"));	 		
+		 		list.add(bean);
+		 	}
+		} catch (ClassNotFoundException | MissingResourceException | SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}	
+	 	
+	 	return list;
+		
+	}
+	
 }

@@ -465,6 +465,7 @@
 					</tr>
 				</thead>
 				<tbody id = "orderbody">
+				<c:if test ="${productInfo eq null}">
 					<tr>
 						<td rowspan="6"><span id="tableLineNo1">1</span></td>
 						<td rowspan="6">
@@ -517,6 +518,63 @@
 						</td>
 					</tr>
 					<tr></tr>
+				</c:if>
+				<c:if test ="${productInfo ne null}">
+				<c:forEach items="${productInfo}" var="pinfo">
+					<tr>
+						<td rowspan="6"><span id="tableLineNo${pinfo.lineNo}">${pinfo.lineNo}</span></td>
+						<td rowspan="6">
+							<input type="text" value="${pinfo.productCode }" class="form-control" size="2" style="width:100%" id="productCodeInput${pinfo.lineNo}"  maxlength='20' name="productCodeInput" onchange="confirmOverwrite(this);pCode(this);" onfocus="productCodeMemory(this);" required>
+							<button type="button" class="btn btn-outline-secondary" data-toggle="modal" data-target="#setproductsearch" onclick="initProductModal();productCodetoModal(this);" id="setproductsearch1">検索</button>
+						</td>
+						<td rowspan="3"><span id="productName${pinfo.lineNo}" name="productName">${pinfo.productAbstract }</span></td>
+						<td rowspan="2">
+							<input type="text" value="" class="form-control" size="2" id="rackCode${pinfo.lineNo}" name="rackCode" readonly>
+						</td>
+						<td rowspan="3">
+							<input type="text" value="${pinfo.unitCost }" class="form-control" size="4" name="unitCost" id="unitCost${pinfo.lineNo}" name="unitCost" readonly>
+						</td>
+						<td rowspan="3">
+							<input type="text" value="${pinfo.unitRetailPrice }" class="form-control" size="4" name="unitRetailPrice" id="unitRetailPrice${pinfo.lineNo}" name="unitRetailPrice" onchange="quantityCalc2(this)" maxlength='15' onKeyup="this.value=this.value.replace(/[^0-9]/g,'');" required>
+						</td>
+						<td rowspan="3">
+							<textarea name="productRemarks" class="form-control" cols="10" id="inputProductRemarks${pinfo.lineNo}" name="inputProductRemarks" maxlength='120'></textarea>
+						</td>
+						<td rowspan="3" class="align: middle">
+							<button type="button" class="btn btn-outline-secondary" onclick="deleteLineForm(this);" id="deleteLineForm${pinfo.lineNo}">削除</button>
+						</td>
+					</tr>
+					<tr></tr>
+					<tr>
+						<td rowspan="2">
+							<input type="text" value="${pinfo.quantity }" class="form-control" size="2" name="quantity" id="quantity${pinfo.lineNo}" name="quantity" maxlength='12' onKeyup="this.value=this.value.replace(/[^0-9]/g,'');" onchange="quantityCalc1(this)" required>
+						</td>
+					</tr>
+					<tr>
+						<td rowspan="3">
+							<textarea name="productRemarks" class="form-control" cols="10" id="productRemarks${pinfo.lineNo}" name="productRemarks" readonly>${pinfo.productRemarks }</textarea>
+						</td>
+						<td rowspan="3">
+							<input type="text" value="${pinfo.cost }" class="form-control" size="4" name="cost" id="cost${pinfo.lineNo}" name="cost" readonly>
+						</td>
+						<td rowspan="3">
+							<input type="text" value="${pinfo.retailPrice }" class="form-control" size="4" name="retailPrice" id="retailPrice${pinfo.lineNo}" name="retailPrice" readonly>
+						</td>
+						<td rowspan="3">
+							<textarea name="eadRemarks" class="form-control" cols="10" id="eadRemarks${pinfo.lineNo}" name="eadRemarks" readonly>${pinfo.eadRemarks }</textarea>
+						</td>
+						<td rowspan="3">
+							<button type="button" value="" class="btn btn-outline-secondary">前行複写</button>
+						</td>
+					</tr>
+					<tr>
+						<td rowspan="2">
+							<button type="button" class="btn btn-outline-secondary" data-toggle="modal" data-target="#openSearchStock" id="openSearchStock1" onclick="openStock(this);">在庫</button>
+						</td>
+					</tr>
+					<tr></tr>
+				</c:forEach>
+				</c:if>
 				</tbody>
 			</table>
 
@@ -572,6 +630,7 @@
 			
 			window.onload = function(){
 				disableDelete();
+				calc();
 			}
 			/* 受注新規登録の初期化 */
 			function initForm() {

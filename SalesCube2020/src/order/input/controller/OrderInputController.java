@@ -13,6 +13,7 @@ import javax.servlet.http.HttpSession;
 
 import common.controller.BaseController;
 import common.modal.product.init.ProductModalInit;
+import estimate.Input.beans.InitEstimateProductBean;
 import master.product.DAO.GetCategoryDAO;
 import master.product.DAO.ProductDeleteDAO;
 import master.product.beans.ProductCategoryAllBean;
@@ -593,6 +594,9 @@ public class OrderInputController extends BaseController {
 		List<OrderInputBean> list2 = dao2.getDcTimezone();
 		List<OrderInputBean> list3 = dao2.getTaxRate();
 		List<OrderCommonBillBean> list4 = dao.billToDeliveryCode(String.valueOf(dao.billToCustomerCode(estimateSheetId)));
+		
+		List<InitEstimateProductBean> list5 = dao2.getEstimateProduct(estimateSheetId);
+		
 		init.initCombobox(request, response);
 
 		try {
@@ -600,6 +604,7 @@ public class OrderInputController extends BaseController {
 			request.setAttribute("initDcTimezone", list2);
 			request.setAttribute("initTaxRate", list3);
 			request.setAttribute("deliveryCodeName", list4);
+			request.setAttribute("productInfo", list5);
 			
 			request.setAttribute("stockTaxRate", bean1);
 			request.setAttribute("stockCustomer", bean2);
