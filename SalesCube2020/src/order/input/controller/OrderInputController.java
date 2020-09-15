@@ -9,6 +9,7 @@ import java.util.List;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import common.controller.BaseController;
 import common.modal.product.init.ProductModalInit;
@@ -27,7 +28,8 @@ public class OrderInputController extends BaseController {
 		
 		String forwardURL = "/menu.jsp";
 		String action = request.getParameter("action");
-				
+		
+		
 		if(action.equals("orderinputCmp")) {
 			try {
 				forwardURL = orderInput(request, response);
@@ -64,6 +66,14 @@ public class OrderInputController extends BaseController {
 	
 	/* 受注新規登録 */
 	private String orderInput(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException, SQLException, ClassNotFoundException {
+		
+		HttpSession session = request.getSession(true);
+		
+		if(session.getAttribute("userInfo") == null) {
+			String msg = "ログインした後で利用できます。\nログインしてください。";
+			request.setAttribute("loginError", msg);
+			return "login.jsp";
+		}
 		
 		OrderInputDAO dao = new OrderInputDAO();
 		List<OrderInputBean> list = new ArrayList<>();
@@ -281,6 +291,14 @@ public class OrderInputController extends BaseController {
 
 	/* 受注更新 */
 	private String orderUpdate(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException, SQLException, ClassNotFoundException {
+		
+		HttpSession session = request.getSession(true);
+		
+		if(session.getAttribute("userInfo") == null) {
+			String msg = "ログインした後で利用できます。\nログインしてください。";
+			request.setAttribute("loginError", msg);
+			return "login.jsp";
+		}
 		
 		OrderInputDAO dao = new OrderInputDAO();
 		List<OrderInputBean> list = new ArrayList<>();
@@ -512,6 +530,14 @@ public class OrderInputController extends BaseController {
 	/* 受注削除 */
 	private String deleteOrder(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException, SQLException, ClassNotFoundException {
 
+		HttpSession session = request.getSession(true);
+		
+		if(session.getAttribute("userInfo") == null) {
+			String message = "ログインした後で利用できます。\nログインしてください。";
+			request.setAttribute("loginError", message);
+			return "login.jsp";
+		}
+		
 			String forwardURL = "order\\orderinput.jsp";	
 			
 			//Delete
@@ -540,6 +566,14 @@ public class OrderInputController extends BaseController {
 	
 	/* 見積番号押下 受注新規登録画面に反映 */
 	private String EstimateToOrderInput(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException, SQLException, ClassNotFoundException {
+
+		HttpSession session = request.getSession(true);
+		
+		if(session.getAttribute("userInfo") == null) {
+			String message = "ログインした後で利用できます。\nログインしてください。";
+			request.setAttribute("loginError", message);
+			return "login.jsp";
+		}
 		
 		ProductModalInit init = new ProductModalInit();
 		OrderCommonBillDAO dao = new OrderCommonBillDAO();
