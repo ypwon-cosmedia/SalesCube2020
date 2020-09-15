@@ -694,8 +694,8 @@ public class OrderSQL {
 				"CUSTOMER_SLIP_NO, " +
 				"USER_NAME, " + 
 				"REMARKS, " + 
-				"DC_NAME, " +
-				"DC_TIMEZONE, " +
+				"DC_CATEGORY, " +
+				"DC_TIMEZONE_CATEGORY, " +
 				"CTAX_RATE, " + 
 				"CUSTOMER_CODE, " +
 				"CUSTOMER_NAME, " + 
@@ -719,10 +719,12 @@ public class OrderSQL {
 				"RETAIL_PRICE_TOTAL, " +
 				"CTAX_PRICE_TOTAL, " +
 				"PRICE_TOTAL, " + 
-				"STATUS, "
-				+ "RO_SLIP_ID) " +
+				"STATUS, " + 
+				"RO_SLIP_ID, "
+				+ "DC_NAME) " +
 				"VALUES " + 
-				"(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, (SELECT CATEGORY_CODE FROM category_trn_xxxxx WHERE CATEGORY_ID='29' AND CATEGORY_CODE_NAME = ?), (SELECT CATEGORY_CODE FROM category_trn_xxxxx WHERE CATEGORY_ID='11' AND CATEGORY_CODE_NAME = ?), (SELECT CATEGORY_CODE FROM category_trn_xxxxx WHERE CATEGORY_ID='32' AND CATEGORY_CODE_NAME = ?), ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+				"(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, (SELECT CATEGORY_CODE FROM category_trn_xxxxx WHERE CATEGORY_ID='29' AND CATEGORY_CODE_NAME = ?), (SELECT CATEGORY_CODE FROM category_trn_xxxxx WHERE CATEGORY_ID='11' AND CATEGORY_CODE_NAME = ?), (SELECT CATEGORY_CODE FROM category_trn_xxxxx WHERE CATEGORY_ID='32' AND CATEGORY_CODE_NAME = ?), ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, (SELECT CATEGORY_CODE_NAME FROM category_trn_xxxxx WHERE CATEGORY_ID = '36' AND CATEGORY_CODE = ?))";
+		
 		
 		return sql;
 		
@@ -1249,7 +1251,7 @@ public class OrderSQL {
 				"pmx.REMARKS, " + 
 				"pmx.RACK_CODE, " + 
 				"rltn.QUANTITY, " + 
-				"rltn.UNIT_COST, " + 
+				"pmx.SUPPLIER_PRICE_YEN, " + 
 				"rltn.COST, " + 
 				"rltn.UNIT_RETAIL_PRICE, " + 
 				"rltn.RETAIL_PRICE, " + 

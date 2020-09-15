@@ -123,7 +123,7 @@
 								<div class="input-group-prepend">
 									<div class="input-group-text">出荷日</div>
 								</div>
-								<input type="date" value=""  class="form-control" name="shipDate" max="9999-12-31">
+								<input type="date" class="form-control" name="shipDate" max="9999-12-31">
 							</div>
 						</div>
 					</div>
@@ -134,7 +134,7 @@
 								<div class="input-group-prepend">
 									<div class="input-group-text">納期指定日</div>
 								</div>
-								<input type="date" value=""  class="form-control" name="deliveryDate" max="9999-12-31">
+								<input type="date" class="form-control" name="deliveryDate" max="9999-12-31">
 							</div>
 						</div>
 						<div class="col-4">
@@ -143,7 +143,7 @@
 								<div class="input-group-prepend">
 									<div class="input-group-text">受付番号</div>
 								</div>
-								<input type="text" value="" class="form-control"  maxlength='30' name="receptNo">
+								<input type="text" class="form-control"  maxlength='30' name="receptNo">
 							</div>
 						</div>
 						<div class="col-4">
@@ -197,7 +197,7 @@
 								<div class="input-group-prepend">
 									<div class="input-group-text">配送時間帯</div>
 								</div>
-								<select class="custom-select" name="dcTimeZone">
+								<select class="custom-select" name="dcTimezone">
 									<option value=""></option>
 									<c:forEach items="${initDcTimezone}" var="initDT">
 										<option value="${initDT.categoryCode}">${initDT.categoryCodeName}</option>

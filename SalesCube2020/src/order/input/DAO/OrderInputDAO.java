@@ -395,6 +395,11 @@ public class OrderInputDAO extends BaseDAO{
 	 	}
 	 	stmt.setInt(33, bean.getStatus());
 	 	stmt.setInt(34, roSlipLast()+1);
+	 	if(bean.getDcName() == null) {
+	 		stmt.setNull(35,  java.sql.Types.NULL);
+	 	}else {
+	 		stmt.setString(35, bean.getDcName());
+	 	}
 
 	 	try {
 	 		System.out.println(sql);
@@ -827,7 +832,7 @@ public class OrderInputDAO extends BaseDAO{
 		 	bean.setRemarks(result.getString("pmx.REMARKS"));
 		 	bean.setRackCode(result.getString("pmx.RACK_CODE"));
 		 	bean.setQuantity(result.getInt("rltn.QUANTITY"));
-		 	bean.setUnitCost(result.getInt("rltn.UNIT_COST"));
+		 	bean.setUnitCost(result.getInt("pmx.SUPPLIER_PRICE_YEN"));
 		 	bean.setCost(result.getInt("rltn.COST"));
 		 	bean.setUnitRetailPrice(result.getInt("rltn.UNIT_RETAIL_PRICE"));
 		 	bean.setRetailPrice(result.getInt("rltn.RETAIL_PRICE"));

@@ -185,8 +185,8 @@
 								<select class="custom-select" name="dcName">
 								<option></option>
 									<c:forEach items="${initDcName}" var="initDN">
-										<option value="${initDN.categoryCode}" id="dcName" <c:if test="${order.dcName == initDN.categoryCodeName}">selected</c:if>>${initDN.categoryCodeName}</option>
-									</c:forEach>
+										<option value="${initDN.categoryCode}" id="dcName" <c:if test="${order.dcName eq initDN.categoryCodeName}">selected</c:if>>${initDN.categoryCodeName}</option>
+									</c:forEach>				
 								</select>
 							</div>
 						</div>
@@ -201,7 +201,7 @@
 								<select class="custom-select" name="dcTimeZone">
 								<option></option>
 									<c:forEach items="${initDcTimezone}" var="initDT">
-										<option value="${initDT.categoryCode}" id="dcTimezone" <c:if test="${order.dcTimezone == initDT.categoryCodeName}">selected</c:if>>${initDT.categoryCodeName}</option>
+										<option value="${initDT.categoryCode}" id="dcTimezone" <c:if test="${order.dcTimezone eq initDT.categoryCodeName}">selected</c:if>>${initDT.categoryCodeName}</option>
 									</c:forEach>
 								</select>
 							</div>
