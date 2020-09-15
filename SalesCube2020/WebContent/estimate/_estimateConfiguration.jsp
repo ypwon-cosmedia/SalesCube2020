@@ -91,11 +91,13 @@
         		//見積番号以外の表示項目を挿入
         		var showResult = document.getElementById('showSearchResult');   //optionタグを入れる箇所の指定
         		
-        		for( var i = 1; i < Object.keys(data).length ; i++ ){			//0番目は、「見積番号」
-            		var option = document.createElement('option');              //optionタグの生成
-            		option.setAttribute('value', data[i].itemId );              //value値の挿入
-            		option.innerHTML = data[i].itemName;                        //HTMLで表示する項目名
-            		showResult.appendChild(option);                             //selectにoptionタグを挿入
+        		for( var i = 0; i < Object.keys(data).length ; i++ ){			//0番目は、「見積番号」
+        			if( data[i].itemId != "estimateSheetId" ){
+	            		var option = document.createElement('option');          //optionタグの生成
+	            		option.setAttribute('value', data[i].itemId );          //value値の挿入
+	            		option.innerHTML = data[i].itemName;                    //HTMLで表示する項目名
+	            		showResult.appendChild(option);                         //selectにoptionタグを挿入
+        			}
         		}
 			}
 		});
@@ -113,10 +115,12 @@
 
         		var notShowResult = document.getElementById('notShowSearchResult');		//optionタグを入れる箇所の指定
         		for( var i = 0; i < Object.keys(data).length ; i++ ){
-            		var option = document.createElement('option');              		//optionタグの生成
-            		option.setAttribute('value', data[i].itemId );              		//value値の挿入
-            		option.innerHTML = data[i].itemName;                        		//HTMLで表示する項目名
-            		notShowResult.appendChild(option);                             		//selectにoptionタグを挿入
+        			if( data[i].itemId != "estimateSheetId" ){
+	            		var option = document.createElement('option');              	//optionタグの生成
+	            		option.setAttribute('value', data[i].itemId );              	//value値の挿入
+	            		option.innerHTML = data[i].itemName;                        	//HTMLで表示する項目名
+	            		notShowResult.appendChild(option);                             	//selectにoptionタグを挿入
+        			}
         		}
 			}
 		});
