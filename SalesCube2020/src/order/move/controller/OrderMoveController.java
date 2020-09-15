@@ -27,6 +27,14 @@ public class OrderMoveController extends BaseController{
 		String forwardURL = "/menu.jsp";
 		String action = request.getParameter("action");
 		
+		HttpSession session = request.getSession(true);
+		
+		if(session.getAttribute("userInfo") == null) {
+			String message = "ログインした後で利用できます。\nログインしてください。";
+			request.setAttribute("loginError", message);
+			return "login.jsp";
+		}
+		
 		if(action.equals("orderinput"))
 			try {
 				forwardURL = moveOrderInput(request, response);

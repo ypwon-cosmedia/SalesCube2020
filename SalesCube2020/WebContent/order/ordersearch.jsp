@@ -1205,7 +1205,7 @@
 
 					if(num == 1 && lastCount > 5){
 						pagingNo = num+5;
-					} else if(num == 2){
+					} else if(num == 2 && lastCount > 5){
 						pagingNo = num+4;
 					} else if(lastCount > (num+3)){
 						pagingNo = num+3;
