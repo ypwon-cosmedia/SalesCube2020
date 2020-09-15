@@ -414,16 +414,22 @@
      var estimateSearchButton = document.getElementById("estimateButton");
      
      //target.addEventListener(type, listener, wantsUntrusted);
-     //F3 検索ボタン
+     //検索ボタン
      estimateSearchButton.addEventListener("click", function() {		//検索ボタンを押したときのEventを追加
      	if( estimateElem.reportValidity() == true ){					//form(elem)のpatternの確認
+     		 configGet()
+     		 updateShowItem();
+     		 configGet()
      		 estimateSearch();								//入力チェックが通った場合、見積を検索を行う
      	}
      },false);
      
-     //検索ボタン
+     //F3 検索ボタン
      estimateFuncSearchButton.addEventListener("click", function() {		//検索ボタンを押したときのEventを追加
       	if( estimateElem.reportValidity() == true ){					//form(elem)のpatternの確認
+    		 configGet()
+     		 updateShowItem();
+     		 configGet()
       		 estimateSearch();								//入力チェックが通った場合、見積を検索を行う
       	}
       },false);
