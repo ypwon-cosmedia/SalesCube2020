@@ -727,7 +727,10 @@
         var acquisitionRetailPrice = acquisitionRetailPrice_id.value; //前行のretailPriceのvalueを取得
         retailPrice_id.value = acquisitionRetailPrice; //前行の売上金額を対象の列に移行
 
-        totalCalculation()
+        totalCalculation();
+        if(document.getElementById('productCodeInput' + tableNo).value != ""){
+        	document.getElementById("openSearchStock" + tableNo).removeAttribute("disabled");
+        }
       }
   
       // 数量変化
